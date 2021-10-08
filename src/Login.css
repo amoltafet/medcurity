@@ -1,0 +1,27 @@
+.Login {
+    text-align: center;
+  }
+  
+  
+  .Login {
+    background-color: #127ebf;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  }
+  
+  .Login-link {
+    color: #61dafb;
+  }
+  
+  @keyframes MenuBar-logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
