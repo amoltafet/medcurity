@@ -8,7 +8,7 @@ const Leaderboard = () => {
         <>
         <Card className="LeaderboardCard uvs-right uvs-left">
             <Card.Body>
-               <Card.Title>Leaderboard</Card.Title>
+               <Card.Link className="font" href="/leaderboard" >Leaderboard</Card.Link>
             </Card.Body> 
         </Card>
         </>

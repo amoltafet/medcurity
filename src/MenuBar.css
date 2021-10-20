@@ -1,8 +1,11 @@
-.nav.nav-pills .nav-link.active {
+.navPills{
     background-color: #127ebf;
-    color: white;
     margin-right: .5rem;
     margin-top: .5rem;
+}
+
+.font{
+    color: white;
 }
 
 .MedcurityLogo {
@@ -15,4 +18,14 @@
 
 .pills {
     border: white;
+}
+
+.uvs-left {
+    border-radius: 10px 10px 10px 10px;
+}
+    
+    
+.uvs-right {
+    border-radius: 10px 10px 10px 10px;
+    
 }

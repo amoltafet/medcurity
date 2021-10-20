@@ -11,6 +11,26 @@
       "src": "Medcurity_Logo.png",
       "sizes": "392x1440",
       "type": "image/png"
+    },
+    {
+      "src": "usersettings.jpg",
+      "sizes": "8500×11000",
+      "type": "image/jpg"
+    },
+    {
+      "src": "login.jpg",
+      "sizes": "8779×8389",
+      "type": "image/jpg"
+    },
+    {
+      "src": "leaderboard.jpg",
+      "sizes": "8500×11000",
+      "type": "image/jpg"
+    },
+    {
+      "src": "quiz.jpg",
+      "sizes": "8500×11000",
+      "type": "image/jpg"
     }
   ],
   "start_url": ".",

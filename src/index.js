@@ -1,12 +1,23 @@
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import SettingsImage from './SettingsImage';
+import LoginImage from './LoginImage';
+import QuizImage from './QuizImage';
+import LeaderboardImage from './LeaderboardImage';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter as Router} from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 ReactDOM.render(
   <Router>
-    <App />
+    <Switch>
+      <Route exact path="/" component={LoginImage}/>
+      <Route exact path="/dashboard" component={App} />
+      <Route exact path="/settings" component={SettingsImage}/>
+      <Route exact path="/quiz" component={QuizImage}/>
+      <Route exact path="/leaderboard" component={LeaderboardImage}/>
+
+    </Switch>
   </Router>,
   document.getElementById('root')
 );

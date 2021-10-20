@@ -1,0 +1,11 @@
+.leaderboardContainer {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+.leaderboardImage{
+    width: 50rem;
+    margin-left: 15rem;
+}

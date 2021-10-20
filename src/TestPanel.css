@@ -1,5 +1,5 @@
 .TestPanelCard {
-    font-size: 5rem;
+    font-size: 2rem;
     text-align: center;
     color: white;
     margin-top: .5rem;
@@ -10,6 +10,9 @@
     height: 20rem;
 }
 
+.font{
+    color: white;
+}
 .uvs-left {
     border-radius: 10px 10px 10px 10px;
 }
