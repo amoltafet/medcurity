@@ -1,0 +1,22 @@
+.LeaderboardCard {
+    font-size: 1rem;
+    text-align: center;
+    color: white;
+    margin-top: .5rem;
+    margin-left: .5rem;
+    margin-right: .5rem;
+    background-color: #93c2ec !important;
+    width: 13rem;
+    height: 15rem;
+}
+
+.uvs-left {
+    border-radius: 10px 10px 10px 10px;
+    
+}
+    
+    
+.uvs-right {
+    border-radius: 10px 10px 10px 10px;
+    
+}

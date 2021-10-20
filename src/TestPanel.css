@@ -1,0 +1,25 @@
+.TestPanelCard {
+    font-size: 5rem;
+    text-align: center;
+    color: white;
+    margin-top: .5rem;
+    margin-left: .5rem;
+    margin-right: .5rem;
+    background-color: #1e5b88 !important;
+    width: 20rem;
+    height: 20rem;
+}
+
+.uvs-left {
+    border-radius: 10px 10px 10px 10px;
+}
+    
+    
+.uvs-right {
+    border-radius: 10px 10px 10px 10px;
+    
+}
+
+  
+  
+  

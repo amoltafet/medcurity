@@ -1,30 +1,18 @@
-.MenuBar {
-    text-align: center;
-  }
-  
-  
-  .MenuBar {
+.nav.nav-pills .nav-link.active {
     background-color: #127ebf;
-    font-size: calc(10px + 2vmin);
     color: white;
-    margin-right: 50px;
-    margin-left: 50px;
-    padding: 500px;
-    
-  }
+    margin-right: .5rem;
+    margin-top: .5rem;
+}
 
+.MedcurityLogo {
+    width: 15rem;
+}
 
-  
-  .MenuBar-link {
-    color: #61dafb;
-  }
-  
-  @keyframes MenuBar-logo-spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-  
+.logo {
+    border: white;
+}
+
+.pills {
+    border: white;
+}

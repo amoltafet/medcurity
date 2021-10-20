@@ -1,0 +1,34 @@
+.WelcomePanelCard {
+    font-size: 5rem;
+    text-align: left;
+    color: white;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+    margin-left: 3.5rem;
+    margin-right: 1.5rem;
+    background-color: #cc3333 !important;
+    width: 60rem;
+    height: 15rem;
+}
+
+.WelcomePanelImage{
+    margin-left: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    width: 10rem;
+    height: 10rem;
+}
+
+.uvs-left {
+    border-radius: 10px 10px 10px 10px;
+}
+    
+    
+.uvs-right {
+    border-radius: 10px 10px 10px 10px;
+}
+
+
+  
+  
+  
