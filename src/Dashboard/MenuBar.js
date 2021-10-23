@@ -1,8 +1,7 @@
 import React from 'react';
 import './MenuBar.css';
-//import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import {Nav, CardImg, Card, Row, Container, CardGroup} from 'react-bootstrap'
+import {Nav, CardImg, Card, CardGroup} from 'react-bootstrap'
 
 const MenuBar = () => {
   return (

@@ -1,16 +1,19 @@
-import {Row, Col, CardDeck, Container, CardGroup} from 'react-bootstrap'
+import React from 'react';
+import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import {CardDeck, Container} from 'react-bootstrap'
 import MenuBar from './MenuBar';
 import WelcomePanel from './WelcomePanel';
 import TestPanel from './TestPanel';
 import Leaderboard from './Leaderboard';
-import 'bootstrap/dist/css/bootstrap.min.css'
-import './App.css';
 
 
-function Dashboard() {
+
+
+function App() {
   return (
     <>
-    <MenuBar></MenuBar> 
+      <MenuBar></MenuBar> 
       <Container className="dashboard">
         <CardDeck style={{display: 'flex', flexDirection: 'row'}}>
           <WelcomePanel></WelcomePanel> 
@@ -27,15 +30,8 @@ function Dashboard() {
          
         </CardDeck>
     </Container>
-
-        
-        
-        
-  
-            
-       
     </>
   );
 }
 
-export default Dashboard;
+export default App;
