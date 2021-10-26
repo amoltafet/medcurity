@@ -16,7 +16,7 @@ const LoginPage = () => {
             </Card.Text>
         </Card>
         <Form className="emailAndPass">
-          <Form.Text>Login to Medcurity Learn Security</Form.Text>
+          <Form.Text className="loginHeader">Login to Medcurity Learn Security</Form.Text>
             <Form.Group className="email" controlId="formEmail">
               <Form.Control type="email" placeholder="Email"/>
                
