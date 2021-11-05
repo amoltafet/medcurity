@@ -7,7 +7,7 @@ const SettingsImage = () => {
   return (
     <>
     <Container className="settingsContainer">
-        <Button href="/dashboard">X</Button>
+        <Button href="/dash">X</Button>
     <Image className="settingsImage" variant="top" src="/usersettings.jpg" alt=""  ></Image>
     </Container>
     </>

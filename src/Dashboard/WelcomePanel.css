@@ -1,34 +1,44 @@
 .WelcomePanelCard {
-    font-size: 5rem;
-    text-align: left;
+    font-family: Lato,sans-serif;
     color: white;
+    background-color: #cc3333 !important;
     margin-top: .5rem;
     margin-bottom: .5rem;
-    margin-left: 3.5rem;
+    margin-left: 3rem;
     margin-right: 1.5rem;
-    background-color: #cc3333 !important;
-    width: 60rem;
-    height: 15rem;
+
 }
 
 .WelcomePanelImage{
-    margin-left: 1rem;
-    margin-top: 1rem;
+    margin-left: 3rem;
+    margin-right: 1rem;
+    margin-top: 1.55rem;
     margin-bottom: 1rem;
-    width: 10rem;
-    height: 10rem;
+    width: 12rem;
+    height: 12rem; 
+    box-shadow:  0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
 }
 
 .uvs-left {
     border-radius: 10px 10px 10px 10px;
+    border: white;
+    border-radius: .13rem;
+    box-shadow:  0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
     
     
 .uvs-right {
     border-radius: 10px 10px 10px 10px;
+   
 }
 
-
+.titleFont {
+    font-size: 2rem;
+}
   
+.cardSize {
+    width: 90rem;
+    height: 15rem;
+}
   
   

@@ -6,11 +6,9 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 const Leaderboard = () => {
     return (
         <>
-        <Card className="LeaderboardCard uvs-right uvs-left">
-            <Card.Body>
+            <Card.Body className="LeaderboardCard uvs-right uvs-left">
                <Card.Link className="font" href="/leaderboard" >Leaderboard</Card.Link>
             </Card.Body> 
-        </Card>
         </>
     );
 }

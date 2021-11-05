@@ -1,0 +1,86 @@
+.profileImage {
+    width: 5rem;
+    height: 5rem;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    width: 8rem;
+    border-radius: 5px;
+    background-color: #cc3333;
+    text-align: center;
+    box-shadow:  0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.nav-link  {
+    color: #1e5b88;
+    text-align: center;
+    background-color: #1e5b88;
+    border: #1e5b88;
+    width: 8rem;
+    border-radius: 5px;  
+}
+
+.settingsMenuContainer {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    height: 20rem
+}
+
+.usernameText { 
+    font-family: Lato,sans-serif;
+    font-size: 1.4rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.emailText {
+    font-family: Lato,sans-serif;
+    font-size: 1.4rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+
+.emailInput {
+    font-family: Lato,sans-serif;
+    font-size: 1.4rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    width: 45rem;
+}
+
+.usernameInput {
+    font-family: Lato,sans-serif;
+    font-size: 1.4rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    width: 45rem;
+}
+
+.dropShadow {
+    border-radius: 10px 10px 10px 10px;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    width: 55rem;
+    box-shadow:  0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.shadowTab {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    width: 10rem;
+    height: 11rem;
+    border-radius: 10px 10px 10px 10px;
+    box-shadow:  0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+ 
+}
+
+.marginTop {
+    margin-top: 1rem;
+}

@@ -1,8 +1,8 @@
-import React from 'react';
-import './App.css';
+import React, { Component } from 'react';
+import './DashboardPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import {CardDeck, Container} from 'react-bootstrap'
-import MenuBar from './MenuBar';
+import MenuBarDashboard from './MenuBarDashboard';
 import WelcomePanel from './WelcomePanel';
 import TestPanel from './TestPanel';
 import Leaderboard from './Leaderboard';
@@ -10,17 +10,17 @@ import Leaderboard from './Leaderboard';
 
 
 
-function App() {
+const DashboardPage = () => {
   return (
     <>
-      <MenuBar></MenuBar> 
-      <Container className="dashboard">
-        <CardDeck style={{display: 'flex', flexDirection: 'row'}}>
+      <MenuBarDashboard ></MenuBarDashboard> 
+      <Container>
+      <CardDeck style={{display: 'flex', flexDirection: 'row'}}>
           <WelcomePanel></WelcomePanel> 
           <Leaderboard></Leaderboard>
         </CardDeck>
-          
-        <CardDeck style={{display: 'flex', flexDirection: 'row'}}>
+        </Container>
+        <CardDeck className="dashboard" style={{display: 'flex', flexDirection: 'row'}}>
          
             <TestPanel></TestPanel>
             <TestPanel></TestPanel>
@@ -29,9 +29,8 @@ function App() {
             <TestPanel></TestPanel>
          
         </CardDeck>
-    </Container>
     </>
   );
 }
 
-export default App;
+export default DashboardPage;

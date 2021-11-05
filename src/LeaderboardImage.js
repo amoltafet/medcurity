@@ -9,7 +9,7 @@ const LeaderboardImage = () => {
     <>
     <Container className="leaderboardContainer">
         <Image className="leaderboardImage" variant="top" src="/leaderboard.jpg" alt=""></Image>
-        <Button href="/dashboard">X</Button>
+        <Button href="/dash">X</Button>
     </Container>
     </>
   );

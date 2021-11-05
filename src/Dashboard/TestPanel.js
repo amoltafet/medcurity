@@ -9,7 +9,6 @@ const TestPanel = () => {
         <Card className="TestPanelCard uvs-right uvs-left">
             <Card.Body>
                <Card.Link className="font" href="/quiz" >Test</Card.Link>
-               
             </Card.Body> 
         </Card>
         </>

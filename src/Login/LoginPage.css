@@ -4,22 +4,21 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    margin-right: 0;
-
 }
 
 .emailAndPass {
     margin-top: 10rem;
     margin-bottom: 10rem;
-    margin-left: 30rem;
-    margin-right: 30rem;
-    width: auto;
+    margin-left: 10rem;
+    margin-right: 10rem;
+    width: 90rem;
+    height: 30rem;
 }
 
 .header {
     font-family: Lato,sans-serif;
     font-size: 2rem;
-    margin-top:2rem;
+    margin-top: 2rem;
     margin-bottom: 0;
     margin-left: 5rem;
     margin-right: 30rem;
@@ -35,34 +34,46 @@
     color: #1e5b88;
 }
 
-.card {
+.loginCard {
     border: white;
     background-color: transparent;
+    width: 70rem;
 }
 
 .loginButton {
     color: white;
     background-color: #c33333;
-    margin-right: 8rem;
-    margin-left: 8rem;
+    margin-right: 25rem;
+    margin-left: 27rem;
     margin-top: 1rem;
     font-family: Lato,sans-serif;
     font-size: 1rem;
-    width: auto;
+    text-align: center;
+    width: 15rem;
 }
 
 .loginHeader {
-    color: white;
-    font-size: 1.4rem;
     font-family: Lato,sans-serif;
-    margin-left: 5rem;
-    margin-right: 1rem;
-    margin-bottom: 1rem;
-    width: auto;
+    font-size: 1.4rem;
+    margin-top: 2rem;
+    margin-bottom: 0;
+    margin-left: 25rem;
+    margin-right: 30rem;
+    color: white;
+
 }
 
 .email {
     margin-bottom: 1rem;
     margin-top: 1rem;
+    margin-left: 15rem;
+    width: 40rem;
+}
+
+.pass {
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    margin-left: 15rem;
+    width: 40rem;
 }
 

@@ -8,7 +8,7 @@ const QuizImage = () => {
   return (
     <>
     <Container className="quizContainer">
-        <Button href="/dashboard">X</Button>
+        <Button href="/dash">X</Button>
         <Image className="quizImage" variant="top" src="/quiz.jpg" alt=""  ></Image>
     </Container>
     </>
