@@ -8,7 +8,9 @@ const MenuBarDashboard = () =>  {
     <>
     <CardGroup>
     <Card className="logo">
-      <CardImg className="MedcurityLogo" variant="top" src="/Medcurity_Logo.png" alt="" />
+    <a href="/dash">
+      <CardImg className="MedcurityLogo" variant="top" href="/dash" src="/Medcurity_Logo.png" alt="" />
+      </a>
       </Card>
     <Card className="pills">
       <Nav className="justify-content-end" variant="pills" defaultActiveKey="/dash">

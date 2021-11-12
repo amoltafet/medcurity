@@ -3,6 +3,11 @@
     height: 5rem;
 }
 
+
+.row {
+    width: 80rem;
+}
+
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
     width: 8rem;
     border-radius: 5px;

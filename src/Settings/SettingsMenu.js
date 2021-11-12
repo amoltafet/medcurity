@@ -7,8 +7,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 const SettingsMenu = () => {
     return (
         <>
-            <Tab.Container id="left-tabs-example" defaultActiveKey="first">
-                <Row>
+            <Tab.Container id="left-tabs-example" defaultActiveKey="first" style={{display: 'flex'}}>
+                <Row className="row">
                     <Col className="shadowTab" sm={2}>
                    
                         <Nav variant="pills" className="flex-column marginTop">

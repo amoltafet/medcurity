@@ -9,13 +9,12 @@ const QuizMenubar = () =>  {
     <>
     <CardGroup>
         <Card className="logo">
+            <a href="/dash">
             <CardImg className="MedcurityLogo" variant="top" src="/Medcurity_Logo.png" alt="" />
+            </a>
         </Card>
         <Card className="pills">
             <Nav className="justify-content-end" variant="pills" defaultActiveKey="/dashboard">
-                <Nav.Item className="navPills uvs-left uvs-right">
-                    <Nav.Link className="font" href="/dash">Dashboard</Nav.Link>
-                </Nav.Item>
                 <Nav.Item className="navPills uvs-left uvs-right">
                     <Nav.Link className="font" href="/settings">Settings</Nav.Link>
                 </Nav.Item>
