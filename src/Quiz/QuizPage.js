@@ -11,7 +11,7 @@ const QuizPage = () => {
         <QuizMenubar></QuizMenubar>
         <Container className="quizPageContainer">
             <Questions>
-                
+                answers=["42", "100", "13"]
             </Questions>
         </Container>
         </>
