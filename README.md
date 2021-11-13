@@ -71,4 +71,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 ## Comment Guide
 
-We will generally follow google style guide commenting guidelines for commenting.[Google style guide](https://google.github.io/styleguide/jsguide.html#jsdoc-method-and-function-comments)
+We will generally follow google style guide commenting guidelines for commenting: [Google style guide](https://google.github.io/styleguide/jsguide.html#jsdoc-method-and-function-comments)
