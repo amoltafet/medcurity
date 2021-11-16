@@ -24,8 +24,6 @@ import './Questions.css';
  */
 function Questions(props) {
 
-    //const answers = props.answers.map(answer => ) ;
-    const newanswers = ["42", "100", "13"];
     function convert_to_list_of_obj(answers) {
         const list_of_obj = []
         for (let i = 0; i < answers.length; i++) {
@@ -34,18 +32,12 @@ function Questions(props) {
         }
         return list_of_obj;
     }
-    const myanswers = convert_to_list_of_obj(newanswers);
+    const myanswers = convert_to_list_of_obj(props.answers);
 
-
-    // const myanswers = [
-    //     { name: '43', value: '1' },
-    //     { name: '200', value: '2' },
-    //     { name: '13', value: '3' },
-    // ];
-
-    
     return(
         <>
+            <h2> Question {props.number}: </h2> 
+            <div> {props.question} </div>
             <ToggleButtonGroup vertical name="Q1">
                 {myanswers.map((radio, idx) => (
                 <ToggleButton
