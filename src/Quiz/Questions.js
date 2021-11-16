@@ -25,12 +25,23 @@ import './Questions.css';
 function Questions(props) {
 
     //const answers = props.answers.map(answer => ) ;
-    //const myanswers = ["42", "100", "13"];
-    const myanswers = [
-        { name: '43', value: '1' },
-        { name: '200', value: '2' },
-        { name: '13', value: '3' },
-    ];
+    const newanswers = ["42", "100", "13"];
+    function convert_to_list_of_obj(answers) {
+        const list_of_obj = []
+        for (let i = 0; i < answers.length; i++) {
+            const obj = {name: answers[i], value: i + 1};
+            list_of_obj.push(obj);
+        }
+        return list_of_obj;
+    }
+    const myanswers = convert_to_list_of_obj(newanswers);
+
+
+    // const myanswers = [
+    //     { name: '43', value: '1' },
+    //     { name: '200', value: '2' },
+    //     { name: '13', value: '3' },
+    // ];
 
     
     return(
