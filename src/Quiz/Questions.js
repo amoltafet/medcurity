@@ -2,28 +2,19 @@ import React from 'react';
 import {ToggleButtonGroup, ToggleButton} from 'react-bootstrap';
 import './Questions.css';
 
-// function construct_questions(props) {
-//     const buttonGroup = [];
-//     for(let answer in props.answers) {
-//         const button = React.createElement(ToggleButton, {
-//             id: "tbj-check-1",
-//             value: 1,
-//             variant: "light"
-//         }, "This is my button........................................");
-//         // button.classList.add('btn')
-//         // button.addEventListener('click', selectAnswer)
-//         //answerButtonsElement.appendChild(button)
-//         buttonGroup.push(button);
-//     };
-//     return buttonGroup;
-// }
-
 /**
  * 
- * @param {answers} props 
+ * @param {Array<str>} answers for the question
+ * @param {str} question The question string
+ * @param {int} number The question number
  */
 function Questions(props) {
 
+    /**
+     * 
+     * @param {!Array{str}} answers 
+     * @returns {!Array{obj{answers, values}}}
+     */
     function convert_to_list_of_obj(answers) {
         const list_of_obj = []
         for (let i = 0; i < answers.length; i++) {
@@ -36,7 +27,7 @@ function Questions(props) {
 
     return(
         <>
-            <h2> Question {props.number}: </h2> 
+            <h3> Question {props.number}: </h3> 
             <div> {props.question} </div>
             <ToggleButtonGroup vertical name="Q1">
                 {myanswers.map((radio, idx) => (
@@ -54,31 +45,6 @@ function Questions(props) {
                     {radio.name}
                 </ToggleButton>
                 ))}
-            </ToggleButtonGroup>
-        </>
-    );
-}
-
-function __Questions(props) {
-    const answers = props.answers;
-    
-    return (
-        
-        <>
-            <dir> "Hello" </dir>
-            <script>for (answer in answers) {
-                <ToggleButton id = "tbj-check-1" value={1} variant="light">
-                This is my button........................................
-                </ToggleButton>
-            }
-            </script>
-            <ToggleButtonGroup vertical name="Q1">
-                <ToggleButton id = "tbj-check-1" value={1} variant="light">
-                    This is my button........................................
-                </ToggleButton>
-                <ToggleButton id = "tbj-check-2" value={2} variant="light">
-                    This is my second button
-                </ToggleButton>
             </ToggleButtonGroup>
         </>
     );
