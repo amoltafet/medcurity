@@ -1,0 +1,28 @@
+.LeaderboardCard {
+    font-size: 1.2vmax;
+    text-align: center;
+    color: white;
+    margin-top: .5vmax;
+    margin-left: .5vmax;
+    margin-right: .5vmax;
+    background-color: #93c2ec !important;
+    width: 15vmax;
+    height: 15vmax;
+}
+
+.font {
+    color: white;
+    font-family: Lato,sans-serif;
+}
+
+.uvs-left {
+    border-radius: 10px 10px 10px 10px;
+    box-shadow:  0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    
+}
+    
+    
+.uvs-right {
+    border-radius: 10px 10px 10px 10px;
+    
+}

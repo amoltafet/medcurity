@@ -1,4 +1,4 @@
-import {Row, Image, Card} from 'react-bootstrap'
+import {Image, Card} from 'react-bootstrap'
 import React from 'react';
 import './WelcomePanel.css';
 import 'bootstrap/dist/css/bootstrap.min.css'

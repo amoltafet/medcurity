@@ -31,11 +31,6 @@
       "src": "quiz.jpg",
       "sizes": "8500×11000",
       "type": "image/jpg"
-    },
-    {
-      "src": "loginbg.png",
-      "sizes": "2880×1520",
-      "type": "image/png"
     }
   ],
   "props":[
