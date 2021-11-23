@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './DashboardPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import {CardDeck, Container} from 'react-bootstrap'
 import MenuBarDashboard from './MenuBarDashboard';
 import WelcomePanel from './WelcomePanel';
 import TestPanel from './TestPanel';
-import Leaderboard from './Leaderboard';
+import Leaderboard from './DashLeaderboard';
 
 
 

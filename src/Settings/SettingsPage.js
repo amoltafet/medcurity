@@ -1,4 +1,4 @@
-import {Button, Image, Row, Form, Container, Card} from 'react-bootstrap'
+import {Container} from 'react-bootstrap'
 import React from 'react';
 import './SettingsPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css'

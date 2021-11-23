@@ -1,4 +1,4 @@
-import {Button, Image, Row, Form, Container, Card} from 'react-bootstrap'
+import {Button, Image, Form, Card} from 'react-bootstrap'
 import React from 'react';
 import './LoginPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -7,7 +7,7 @@ const LoginPage = () => {
     return (
         <>
         <Form className="loginbg img-fluid">
-          <Image className="MedcurityLogo" variant="top" src="/Medcurity_Logo.png" alt="" />
+          <Image className="MedcurityLogo justify-content-bottom" variant="top" src="/Medcurity_Logo.png" alt="" />
             <Card className="loginCard">
               <Card.Text className="header">Medcurity Learn Security</Card.Text>
               <Card.Text className="body">

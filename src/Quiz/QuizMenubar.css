@@ -1,7 +1,7 @@
 .navPills{
     background-color: #127ebf;
-    margin-right: .5rem;
-    margin-top: .5rem;
+    margin-right: .5vmax;
+    margin-top: .5vmax;
     
 }
 
@@ -11,7 +11,7 @@
 }
 
 .MedcurityLogo {
-    width: 15rem;
+    width: 15vmax;
 }
 
 .logo {

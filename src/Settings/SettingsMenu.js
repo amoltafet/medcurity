@@ -1,6 +1,5 @@
-import { Nav, Image, Row, Form, Tab, Col, TabContainer, Container } from 'react-bootstrap'
+import { Nav, Image, Row, Form, Tab, Col, Container } from 'react-bootstrap'
 import React from 'react';
-import Sonnet from 'react';
 import './SettingsMenu.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 

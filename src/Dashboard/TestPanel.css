@@ -1,13 +1,13 @@
 .TestPanelCard {
-    font-size: 1.8rem;
+    font-size: 1.8vmax;
     text-align: center;
     color: white;
-    margin-top: .5rem;
-    margin-left: .5rem;
-    margin-right: 1.5rem;
+    margin-top: .5vmax;
+    margin-left: .5vmax;
+    margin-right: 1.5vmax;
     background-color: #1e5b88 !important;
-    width: 20rem;
-    height: 20rem;
+    width: 20vmax;
+    height: 20vmax;
     box-shadow:  0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 

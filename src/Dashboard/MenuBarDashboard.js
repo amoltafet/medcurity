@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import './MenuBarDashboard.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import {Nav, CardImg, Card, CardGroup} from 'react-bootstrap'
