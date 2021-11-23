@@ -3,7 +3,7 @@ import './index.css';
 import DashboardPage from './Dashboard/DashboardPage';
 import SettingsPage from './Settings/SettingsPage';
 import LoginPage from './Login/LoginPage';
-import LeaderboardImage from './LeaderboardImage';
+import Leaderboard from './Leaderboard/LeaderboardPage';
 import reportWebVitals from './reportWebVitals';
 import QuizPage from './Quiz/QuizPage';
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
@@ -16,7 +16,7 @@ ReactDOM.render(
       <Route exact path="/dash" component={DashboardPage} />
       <Route exact path="/settings" component={SettingsPage}/>
       <Route exact path="/quiz" component={QuizPage}/>
-      <Route exact path="/leaderboard" component={LeaderboardImage}/>
+      <Route exact path="/leaderboard" component={Leaderboard}/>
      
     </Switch>
   </Router>,
