@@ -3,6 +3,7 @@ import React from 'react';
 import './LearningPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import LearningMenubar from './LearningMenubar';
+import LearningContent from './LearningContent.js';
 
 
 const LearningPage = () => {
@@ -14,8 +15,13 @@ const LearningPage = () => {
         <>
         <LearningMenubar></LearningMenubar>
         <Container className="learningPageContainer">
-            <dir>"Hello World"</dir> 
+            <LearningContent title="Privacy" paragraph = "This is some text." />
         </Container>
+        <div className="d-grid gap-2">
+            <Button variant="primary" href="/quiz">
+                "Go to Quiz"
+            </Button>
+        </div>
         </>
     );
 }

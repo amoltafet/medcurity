@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './LearningMenubar.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import {Nav, CardImg, Card, CardGroup} from 'react-bootstrap'
+import LearningContent from './LearningContent';
 
 const LearningMenubar = () =>  {
  
