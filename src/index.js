@@ -6,6 +6,7 @@ import LoginPage from './Login/LoginPage';
 import LeaderboardImage from './LeaderboardImage';
 import reportWebVitals from './reportWebVitals';
 import QuizPage from './Quiz/QuizPage';
+import LearningModule from './LearningModule/LearningPage'
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 
@@ -17,7 +18,8 @@ ReactDOM.render(
       <Route exact path="/settings" component={SettingsPage}/>
       <Route exact path="/quiz" component={QuizPage}/>
       <Route exact path="/leaderboard" component={LeaderboardImage}/>
-     
+      <Route exact path="/learning-module" component={LearningModule}/>
+
     </Switch>
   </Router>,
   document.getElementById('root')
