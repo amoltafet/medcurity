@@ -27,7 +27,6 @@ function Questions(props) {
 
     return(
         <>
-            <h3> Question {props.number}: </h3> 
             <div> {props.question} </div>
             <ToggleButtonGroup vertical name="Q1">
                 {myanswers.map((radio, idx) => (
