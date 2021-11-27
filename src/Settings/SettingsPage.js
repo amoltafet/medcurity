@@ -2,14 +2,14 @@ import {Container} from 'react-bootstrap'
 import React from 'react';
 import './SettingsPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import SettingsMenubar from './SettingsMenubar';
+import MenuBar from '../MenuBar';
 import SettingsMenu from './SettingsMenu';
 
 const SettingsPage = () => {
     return (
         <>
     
-        <SettingsMenubar></SettingsMenubar>
+        <MenuBar></MenuBar>
         <Container fluid="md" className="settingsMenuContainer">
         <SettingsMenu></SettingsMenu>
         </Container> 
