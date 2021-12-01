@@ -6,13 +6,14 @@
     margin-bottom: .5vmax;
     margin-left: 3vmax;
     margin-right: 1.5vmax;
-
+    width: 55vmax;
+    height: 23vmax;
 }
 
 .WelcomePanelImage{
     margin-left: 3vmax;
     margin-right: 1vmax;
-    margin-top: 1.55vmax;
+    margin-top: 3.5vmax;
     margin-bottom: 1vmax;
     width: 12vmax;
     height: 12vmax; 
@@ -33,7 +34,13 @@
 }
 
 .titleFont {
-    font-size: 2vmax;
+    font-size: 3.5vmax;
+    margin-left: 1vmax;
+    margin-right: 1vmax;
+    margin-top: 2vmax;
+    margin-bottom: 1vmax;
+    font-family: Lato,sans-serif;
+
 }
   
 .cardSize {

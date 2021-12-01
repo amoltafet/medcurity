@@ -1,0 +1,38 @@
+.userPanel {
+    margin-left: .5vmax;
+    margin-right: .5vmax;
+    margin-bottom: 1.3vmax;
+    border-radius: 10px 10px 10px 10px;
+    background-color: #c33333;
+    width: 77vmax;
+    box-shadow:  0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+.userProfile {
+    width: 8vmax;
+    height: 8vmax;
+    margin-top: 2.5vmax;
+    margin-bottom: 1vmax;
+    margin-left: 2vmax;
+    margin-right: 2vmax;
+}
+
+.category {
+    font-size: 1.8vmax;
+    text-align: center;
+    color: white;
+}
+
+.progressBar {
+    width: 10vmax;
+    height: 6vmax;
+    margin-left: 1.5vmax;
+    margin-right: 1vmax;
+    margin-bottom: 2vmax;
+    align-items: center;
+    display: flex;
+    flex: column;
+    justify-content: center;
+    font-size: 1.4vmax;
+}

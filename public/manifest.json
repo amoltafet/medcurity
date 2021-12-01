@@ -18,14 +18,9 @@
       "type": "image/jpg"
     },
     {
-      "src": "leaderboard.jpg",
-      "sizes": "8500×11000",
-      "type": "image/jpg"
-    },
-    {
-      "src": "quiz.jpg",
-      "sizes": "8500×11000",
-      "type": "image/jpg"
+      "src": "upArrow.png",
+      "sizes": "512×512",
+      "type": "image/png"
     }
   ],
   "props":[
