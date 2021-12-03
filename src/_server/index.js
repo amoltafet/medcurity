@@ -2,6 +2,7 @@ const express = require('express');
 const db = require('./config')
 const cors = require('cors')
 const app = express();
+const fs = require('fs')
 
 const PORT = 3002;
 app.use(cors());
@@ -19,23 +20,42 @@ app.use(express.json())
 app.get("/api/getCategoryQuestions", (req,res)=>{
     db.query(`SELECT * FROM Questions WHERE category = '${req.query.filter}'`, (err,result) =>
     {
-        if(err) console.log(err)
-        res.send(result)
+        if(err)
+        {
+            console.log(err)
+            console.log('FAIL: /api/getCategoryQuestions')
+        }
+        else
+        {
+            res.send(result)
+            console.log('SUCCESS: /api/getCategoryQuestions')
+        }
     }
-        );   
+        );
 });
 
 // Route to get number of questions in category
 app.get("/api/getCategoryLength", (req,res)=>{
     db.query(`SELECT COUNT(*) AS catalength FROM Questions WHERE category = '${req.query.filter}'`, (err,result) =>
     {
-        if(err) console.log(err)
-        res.send(result)
+        if(err)
+        {
+            console.log(err)
+            console.log('FAIL: /api/getCategoryQuestions')
+        }
+        else
+        {
+            res.send(result)
+            console.log('SUCCESS: /api/getCategoryLength')
+        }
     }
         );   
 });
 
 // Listen for GET/POST requests on port 3002
-app.listen(PORT, ()=>{
+app.listen(PORT, (err)=>{
+    
+    if (err) console.log('ERROR: ', err)
+
     console.log(`Server is running on ${PORT}`)
 })
