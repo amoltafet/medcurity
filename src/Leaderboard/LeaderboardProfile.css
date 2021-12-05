@@ -10,9 +10,8 @@
 }
 
 .userProfile {
-    width: 8vmax;
-    height: 8vmax;
-    margin-top: 2.5vmax;
+    width: 7vmax;
+    height: 7vmax;
     margin-bottom: 1vmax;
     margin-left: 2vmax;
     margin-right: 2vmax;
@@ -20,6 +19,13 @@
 
 .category {
     font-size: 1.8vmax;
+    text-align: center;
+    color: white;
+}
+
+.userNameTitle {
+    font-size: 1.9vmax;
+    font-weight: bold;
     text-align: center;
     color: white;
 }
@@ -35,4 +41,31 @@
     flex: column;
     justify-content: center;
     font-size: 1.4vmax;
+}
+
+.accordian {
+    border-color: transparent;
+    background-color: transparent;
+}
+
+.accordianToggel {
+    border-color: transparent;
+    background-color: transparent;
+}
+
+.cardHeaderAccordian {
+    border-radius: 10px 10px 10px 10px;
+    background-color: transparent;
+    border-color: transparent;
+    width: 77vmax;
+}
+
+.cardAccordianCollapse {
+    margin-left: .5vmax;
+    margin-right: .5vmax;
+    margin-bottom: 1.3vmax;
+    border-radius: 10px 10px 10px 10px;
+    background-color: #c33333;
+    width: 77vmax;
+    box-shadow:  0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }

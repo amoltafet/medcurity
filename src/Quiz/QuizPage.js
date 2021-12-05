@@ -1,9 +1,8 @@
-import {Button, Image, Row, Form, Container, Card} from 'react-bootstrap'
+import {Container} from 'react-bootstrap'
 import React,{useState,useEffect} from 'react';
-import Axios from 'axios';
 import './QuizPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import QuizMenubar from './QuizMenubar';
+import MenuBar from '../MenuBar'
 import Questions from './Questions'
 import axios from 'axios';
 
@@ -50,7 +49,7 @@ const QuizPage = () => {
 
     return (
         <>
-        <QuizMenubar></QuizMenubar>
+        <MenuBar></MenuBar>
         <Container className="quizPageContainer">
             <>
               <h3> Question {'1'}: </h3> 

@@ -3,6 +3,10 @@ import React from 'react';
 import './LoginPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
+/**
+* Creates and displays the main login page. 
+* @return {LoginPage}
+*/
 const LoginPage = () => {
     return (
         <>

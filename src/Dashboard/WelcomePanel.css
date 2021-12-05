@@ -10,7 +10,7 @@
     height: 23vmax;
 }
 
-.WelcomePanelImage{
+.WelcomePanelImage {
     margin-left: 3vmax;
     margin-right: 1vmax;
     margin-top: 3.5vmax;
@@ -30,7 +30,6 @@
     
 .uvs-right {
     border-radius: 10px 10px 10px 10px;
-   
 }
 
 .titleFont {
@@ -40,7 +39,6 @@
     margin-top: 2vmax;
     margin-bottom: 1vmax;
     font-family: Lato,sans-serif;
-
 }
   
 .cardSize {

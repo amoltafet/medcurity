@@ -8,8 +8,10 @@ import Leaderboard from './DashLeaderboard';
 import MenuBar from '../MenuBar';
 
 
-
-
+/**
+* Creates and holds all of the componets for the Dashboard. 
+* @return {DashboardPage}
+*/
 const DashboardPage = () => {
   return (
     <>
@@ -21,13 +23,11 @@ const DashboardPage = () => {
         </CardDeck>
         </Container>
         <CardDeck className="dashboard" style={{display: 'flex', flexDirection: 'row'}}>
-         
             <TestPanel></TestPanel>
             <TestPanel></TestPanel>
             <TestPanel></TestPanel>
             <TestPanel></TestPanel>
             <TestPanel></TestPanel>
-         
         </CardDeck>
     </>
   );

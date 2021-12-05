@@ -2,9 +2,18 @@ import React from 'react';
 import './MenuBar.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Nav, CardImg, Card, CardGroup } from 'react-bootstrap'
-import {  useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
+/**
+ * Creates the MenuBar and selects what buttons to show depending on the page. 
+ * @return {Menubar}
+ */
 const Menubar = () => {
+
+    /**
+    * Sets the buttons in each MenuBar based on which page the user is on. 
+    * @return {GetPage} 
+    */
     const GetPage = () => {
         let location = useLocation();
         switch (location.pathname) {
@@ -30,7 +39,7 @@ const Menubar = () => {
                     </Nav.Item>]
                 )
             case '/leaderboard':
-                return(
+                return (
                     [<Nav.Item className="navPills uvs-left uvs-right">
                         <Nav.Link className="font" href="/settings">Settings</Nav.Link>
                     </Nav.Item>,
@@ -38,6 +47,14 @@ const Menubar = () => {
                         <Nav.Link className="font" href="/">Logout</Nav.Link>
                     </Nav.Item>]
                 )
+            case '/learning-module':
+                return (
+                    [<Nav.Item className="navPills uvs-left uvs-right">
+                        <Nav.Link className="font" href="/settings">Settings</Nav.Link>
+                    </Nav.Item>,
+                    <Nav.Item className="navPills uvs-left uvs-right">
+                        <Nav.Link className="font" href="/">Logout</Nav.Link>
+                    </Nav.Item>])
             default:
                 return null;
         }

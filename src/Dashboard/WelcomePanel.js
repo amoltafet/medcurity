@@ -3,6 +3,10 @@ import React from 'react';
 import './WelcomePanel.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
+/**
+* Creates and displays the main welcome panel for the user. 
+* @return {WelcomePanel}
+*/
 const WelcomePanel = () => {
     return (
         <>
