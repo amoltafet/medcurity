@@ -5,15 +5,19 @@ import { Container, Row } from 'react-bootstrap';
 import './Leaderboard.css'
 
 
+/**
+* Creates the main container for the leaderboard. 
+* @return {LeaderboardPage}
+*/
 const LeaderboardPage = () => {
-    const className = [
+    var className = [
         "userPanel", 
         "userProfile", 
         "category", 
         "progressBar", 
     ];
 
-    const user = {
+    var user = {
         userName: "Bobby Boy",
         overallPoints: 20,
         category1TotalPoints: 11,
@@ -25,6 +29,10 @@ const LeaderboardPage = () => {
     
     var profileArray = [];
     
+    /**
+    * Creates all of the user profiles for the leaderboard page. 
+    * @return {profileArray}
+    */
     const CreateUsers = () => {
         for (var i = 0; i < 8; i++) {
             profileArray.push(<LeaderboardProfile 

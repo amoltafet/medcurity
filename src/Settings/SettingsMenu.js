@@ -3,6 +3,10 @@ import React from 'react';
 import './SettingsMenu.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
+/**
+* Creates and displays the Settings menu allows the user to toggle between diffrent settings. 
+* @return {GetPage}
+*/
 const SettingsMenu = () => {
     return (
         <>

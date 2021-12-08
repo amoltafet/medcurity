@@ -4,6 +4,10 @@ import DashLeaderboardProfiles from './DashLeaderboardProfiles';
 import './DashLeaderboard.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
+/**
+* Creates and displays the leaderboard on the main dashboard. 
+* @return {Leaderboard}
+*/
 const Leaderboard = () => {
     const user = {
         userName: "Bobby Boy",
@@ -17,6 +21,10 @@ const Leaderboard = () => {
     
     var profileArray = [];
     
+    /**
+    * Adds the top 3 users in the db to the dashboard leaderboard.
+    * @return {CreateDashUsers}
+    */
     const CreateDashUsers = () => {
         for (var i = 0; i < 3; i++) {
             profileArray.push(<DashLeaderboardProfiles user={user}/>)
