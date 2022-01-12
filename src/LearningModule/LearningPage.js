@@ -4,6 +4,8 @@ import './LearningPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import MenuBar from '../MenuBar';
 import LearningContent from './LearningContent.js';
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 
 /**
@@ -11,19 +13,21 @@ import LearningContent from './LearningContent.js';
 * @return {LearningPage}
 */
 const LearningPage = () => {
-    const myanswers = ["42", "Life is the meaning of life", "13"];
-    const question = "What is the meaning of life?";
-    const number = 1;
+    const slug = useParams();
+
+    useEffect(() => {
+      // Fetch post using the postSlug
+    }, [slug.slug]);
 
     return (
         <>
         <MenuBar></MenuBar>
         <Container className="learningPageContainer">
-            <LearningContent title="Privacy" paragraph = "This is some text." />
+            <LearningContent title={slug.slug} paragraph = "This is some text." />
         </Container>
         <div className="d-grid gap-2">
             <Button variant="primary" href="/quiz">
-                "Go to Quiz"
+                Go to Quiz
             </Button>
         </div>
         </>

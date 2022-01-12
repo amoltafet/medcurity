@@ -1,3 +1,4 @@
+import React from "react";
 import ReactDOM from 'react-dom';
 import './index.css';
 import DashboardPage from './Dashboard/DashboardPage';
@@ -7,6 +8,7 @@ import Leaderboard from './Leaderboard/LeaderboardPage';
 import reportWebVitals from './reportWebVitals';
 import QuizPage from './Quiz/QuizPage';
 import LearningModule from './LearningModule/LearningPage'
+import LearningModules from './LearningModule/LearningModules'
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 
@@ -17,7 +19,10 @@ ReactDOM.render(
       <Route exact path="/dash" component={DashboardPage} />
       <Route exact path="/settings" component={SettingsPage}/>
       <Route exact path="/quiz" component={QuizPage}/>
-      <Route exact path="/learning-module" component={LearningModule}/>
+      <Route path="/learning-module" component={LearningModules}>
+        <Route path="" component={LearningModules} />
+        <Route path=":slug" component={LearningModule} />
+      </Route>
       <Route exact path="/leaderboard" component={Leaderboard}/>
      
     </Switch>
