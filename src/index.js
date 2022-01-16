@@ -7,25 +7,25 @@ import LoginPage from './Login/LoginPage';
 import Leaderboard from './Leaderboard/LeaderboardPage';
 import reportWebVitals from './reportWebVitals';
 import QuizPage from './Quiz/QuizPage';
-import LearningModule from './LearningModule/LearningPage'
-import LearningModules from './LearningModule/LearningModules'
-import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import LearningPage from './LearningModule/LearningPage';
+import LearningModules from './LearningModule/LearningModules';
+import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 
 ReactDOM.render(
   <Router>
-    <Switch>
-      <Route exact path="/" component={LoginPage}/>
-      <Route exact path="/dash" component={DashboardPage} />
-      <Route exact path="/settings" component={SettingsPage}/>
-      <Route exact path="/quiz" component={QuizPage}/>
-      <Route path="/learning-module" component={LearningModules}>
-        <Route path="" component={LearningModules} />
-        <Route path=":slug" component={LearningModule} />
+    <Routes>
+      <Route path="/" element={<LoginPage />}/>
+      <Route path="/dash" element={<DashboardPage />} />
+      <Route path="/settings" element={<SettingsPage />}/>
+      <Route path="/quiz" element={<QuizPage />}/>
+      <Route path="/learning-module" element={<LearningModules />}>
+        <Route path="" element={<LearningModules />} />
+        <Route path=":slug" element={<LearningPage />} />
       </Route>
-      <Route exact path="/leaderboard" component={Leaderboard}/>
+      <Route path="/leaderboard" element={<Leaderboard />}/>
      
-    </Switch>
+    </Routes>
   </Router>,
   document.getElementById('root')
 );

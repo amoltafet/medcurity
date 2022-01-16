@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Outlet } from "react-router-dom";
 
 /**
  * Returns a essentially blank page. Serves to handle the postSlug.
