@@ -18,6 +18,8 @@ const  LearningModule = () => {
       // Fetch post using the postSlug
     }, [slug]);
 
+    
+
     return (
         <>
         
@@ -25,7 +27,7 @@ const  LearningModule = () => {
             <LearningContent title={slug} paragraph = "This is some text." />
         </Container>
         <div className="d-grid gap-2">
-            <Button variant="primary" href="/quiz">
+            <Button variant="primary" href={'/quiz/' + slug}>
                 Go to Quiz
             </Button>
         </div>
