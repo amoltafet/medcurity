@@ -8,6 +8,7 @@ import Leaderboard from './Leaderboard/LeaderboardPage';
 import reportWebVitals from './reportWebVitals';
 import QuizPage from './Quiz/QuizPage';
 import LearningPage from './LearningModule/LearningPage';
+import LearningModule from './LearningModule/LearningModule';
 import LearningModules from './LearningModule/LearningModules';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
@@ -19,9 +20,9 @@ ReactDOM.render(
       <Route path="/dash" element={<DashboardPage />} />
       <Route path="/settings" element={<SettingsPage />}/>
       <Route path="/quiz" element={<QuizPage />}/>
-      <Route path="/learning-module" element={<LearningModules />}>
+      <Route path="/learning-module" element={<LearningPage />}>
         <Route path="" element={<LearningModules />} />
-        <Route path=":slug" element={<LearningPage />} />
+        <Route path=":slug" element={<LearningModule />} />
       </Route>
       <Route path="/leaderboard" element={<Leaderboard />}/>
      
