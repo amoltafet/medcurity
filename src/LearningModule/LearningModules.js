@@ -12,10 +12,8 @@ function LearningModules() {
   const string = 'LearningModules'
 
   useEffect(() => {
-    // const data = posts.map(post => ({name: 'post.firstname', dateregistered: 'post.date', department: 'post.department'})) 
     axios.get('http://localhost:3002/api/getData', { params: { table: string } }).then((response) => {
-          console.log('hii')
-          setContent(response.data)
+          setContent(Object.values(response.data))
       });
   }, [])
 
@@ -23,9 +21,11 @@ function LearningModules() {
     <div className="home">
       <div class="container">
         <h1 className="text-center mt-5">Custom Learning Module page???</h1>
-        <h1 className="text-center mt-5"> {content.length} </h1>
-        <h1 className="text-center mt-5"> {content[0]} </h1>
-
+        {content.map((val) => {
+          return (<h2>
+            Description: {val.Description}
+          </h2>);
+        })}
       </div>
     </div>
   );
