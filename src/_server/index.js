@@ -18,17 +18,19 @@ app.use(express.json())
 
 // Returns a response object from the passed in query.
 app.get("/api/getData", (req,res)=>{
-    //const query = "SELECT * FROM ?";
-    //db.query(query, [req.query.table], (err, result) => {
-    db.query(`SELECT * FROM ${req.query.table}`, (err,result) => {
+    db.query(`SELECT * FROM LearningModules WHERE ID = ${req.query.id}`, (err,result) => {
+        console.log(req.query.id)
         if (err) console.log(err)
-        console.log(`LISTEN SERVER: GOT DATA FROM "${req.query.table}" TABLE`)
-        console.table(result)
+        console.log(`LISTEN SERVER: GOT DATA FROM "${req.query.id}" TABLE`)
+        console.log(result)
         res.send(result)
     })
 });
 
 // EVERYTHING BELOW WILL BE DEFUNCT
+// EVERYTHING BELOW WILL BE DEFUNCT
+// EVERYTHING BELOW WILL BE DEFUNCT
+
 app.get("/api/getCategoryQuestions", (req,res)=>{
     db.query(`SELECT * FROM Questions WHERE category = '${req.query.filter}'`, (err,result) =>
     {
