@@ -1,46 +1,50 @@
 .userPanel {
-    margin-left: .5vmax;
-    margin-right: .5vmax;
-    margin-bottom: 1.3vmax;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-top: 2%;
     border-radius: 10px 10px 10px 10px;
     background-color: #c33333;
-    width: 77vmax;
+    width: 95.5%;
     box-shadow:  0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
 }
 
 .userProfile {
-    width: 7vmax;
-    height: 7vmax;
-    margin-bottom: 1vmax;
-    margin-left: 2vmax;
-    margin-right: 2vmax;
+    width: 7.5vmax;
+    height: 6vmax;
+    margin-top: -3%;
+    margin-left: 40%;
+
 }
 
 .category {
-    font-size: 1.8vmax;
+    font-size: 1.6vmax;
     text-align: center;
     color: white;
+    margin-top: -5%;
+    margin-left: 30%;
 }
 
 .userNameTitle {
-    font-size: 1.9vmax;
+    font-size: 1.6vmax;
     font-weight: bold;
     text-align: center;
     color: white;
+    margin-left: 20%;
+    margin-top: -5%;
 }
 
 .progressBar {
-    width: 10vmax;
-    height: 6vmax;
-    margin-left: 1.5vmax;
-    margin-right: 1vmax;
-    margin-bottom: 2vmax;
+    width: 60%;
+    height: 60%;
+    margin-left: 50%;
+    margin-right: 20%;
+    margin-bottom: 2%;
     align-items: center;
     display: flex;
     flex: column;
     justify-content: center;
-    font-size: 1.4vmax;
+    font-size: 100%;
 }
 
 .accordian {
@@ -51,21 +55,22 @@
 .accordianToggel {
     border-color: transparent;
     background-color: transparent;
+    
 }
 
 .cardHeaderAccordian {
     border-radius: 10px 10px 10px 10px;
     background-color: transparent;
     border-color: transparent;
-    width: 77vmax;
+    width: 12%;
+    height: 10.2vmax;
 }
 
 .cardAccordianCollapse {
-    margin-left: .5vmax;
-    margin-right: .5vmax;
-    margin-bottom: 1.3vmax;
+    margin-left: .5%;
+    margin-right: .5%;
     border-radius: 10px 10px 10px 10px;
     background-color: #c33333;
-    width: 77vmax;
+    width: 77%;
     box-shadow:  0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }

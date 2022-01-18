@@ -2,22 +2,22 @@
     font-size: 1.6vmax;
     text-align: center;
     color: white;
-    margin-top: .5vmax;
-    margin-left: .5vmax;
-    margin-right: .5vmax;
+    margin-top: .5%;
+    margin-left: .5%;
+    margin-right: 7%;
     background-color: #93c2ec !important;
-    width: 10vmax;
-    height: 23vmax;
+    width: 10%;
+    height: 20vmax;
     overflow-y: hidden;
     overflow-x: hidden;
 }
 
 .userProfilesDash { 
-    margin-left: 1vmax;
-    margin-right: 1vmax;
-    margin-bottom: 1vmax;
-    width: .1vmax;
-    height: .1vmax;
+    margin-left: 1%;
+    margin-right: 1%;
+    margin-bottom: 1%;
+    width: .1%;
+    height: .1%;
 }
 
 .font {
@@ -38,12 +38,12 @@
 }
 
 .userProfileDash {
-    width: 4vmax;
-    height: 4vmax;
-    margin-top: 2.5vmax;
-    margin-bottom: 1vmax;
-    margin-left: 2vmax;
-    margin-right: 2vmax;
+    width: 4%;
+    height: 4%;
+    margin-top: 2.5%;
+    margin-bottom: 1%;
+    margin-left: 2%;
+    margin-right: 2%;
 }
 
 .categoryDash {
@@ -53,11 +53,11 @@
 }
 
 .progressBarDash {
-    width: 4vmax;
-    height: 4vmax;
-    margin-left: 1vmax;
-    margin-right: 1vmax;
-    margin-bottom: 2vmax;
+    width: 4%;
+    height: 4%;
+    margin-left: 1%;
+    margin-right: 1%;
+    margin-bottom: 2%;
     align-items: center;
     display: flex;
     flex: column;
