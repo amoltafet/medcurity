@@ -4,6 +4,8 @@
     margin-right: 1vmax;
     margin-left: 0vmax;
     margin-top: .5vmax;
+    margin-bottom: .5vmax;
+    font-size: 1vmax;
     
 }
 
@@ -18,7 +20,7 @@
 
 .logo {
     border: white;
-    margin-left: 1vmax;
+    margin-left: 1%;
 }
 
 .pills {

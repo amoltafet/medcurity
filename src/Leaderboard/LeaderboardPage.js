@@ -1,7 +1,7 @@
 import React from 'react';
 import Menubar from '../MenuBar';
 import LeaderboardProfile from './LeaderboardProfile';
-import { Container, Row } from 'react-bootstrap';
+import { Card, Row } from 'react-bootstrap';
 import './Leaderboard.css'
 
 
@@ -45,10 +45,9 @@ const LeaderboardPage = () => {
     return (
         <>
             <Menubar></Menubar>
-            <Container className="leaderboardContainer">
-                <Row className="space"></Row>
+            <Card className="leaderboardContainer">
                 <CreateUsers></CreateUsers>
-            </Container>
+            </Card>
         </>
     );
 }

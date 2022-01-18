@@ -15,13 +15,11 @@ import MenuBar from '../MenuBar';
 const DashboardPage = () => {
   return (
     <>
-      <MenuBar></MenuBar> 
-      <Container className ="dashContainer">
+      <MenuBar></MenuBar>
       <CardDeck className="dashTopPanel" style={{display: 'flex', flexDirection: 'row'}}>
           <WelcomePanel></WelcomePanel> 
           <Leaderboard></Leaderboard>
         </CardDeck>
-        </Container>
         <CardDeck className="dashboard" style={{display: 'flex', flexDirection: 'row'}}>
             <TestPanel></TestPanel>
             <TestPanel></TestPanel>
