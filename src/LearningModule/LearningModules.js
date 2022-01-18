@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from 'axios';
-const assets = require.context('../assets/', true);
+
 
 /**
  * Returns a essentially blank page. Serves to handle the postSlug.
@@ -18,20 +18,22 @@ function LearningModules() {
 
   // https://flaviocopes.com/jsx-return-multiple-elements/
   const LearningModuleContent = content.map((module) => {
-    
-    return ([
-      <h1 className="text-center mt-5">
+  
+  // banners should have default size of height 200
+  // https://stackoverflow.com/questions/62192049/how-do-i-dynamically-import-images-in-react
+  return ([
+      <h1 className="text-center mt-3">
         {module.Title}
       </h1>,
-      <h6 className="text-center">
+      <div class="d-flex justify-content-center">
+        <img src={require(`../assets/${module.Banner}`).default} class="img-fluid rounded mx-auto d-block" alt={module.Title} />
+      </div>,
+      <h6 className="text-center  mt-2">
         {module.Subtitle}
       </h6>,
       <h4 className="text-left mt-3">
         {module.Description}
-      </h4>,
-      <div>
-        <img src={assets(`./${module.Banner}`)} />
-      </div>
+      </h4>
     ]);
   })
 
