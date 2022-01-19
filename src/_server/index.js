@@ -95,3 +95,21 @@ app.listen(PORT, (err)=>{
 
     console.log(`Server is running on ${PORT}`)
 })
+
+// Route to get a specific learning module 
+app.get("/api/getLearningModule", (req,res)=>{
+    db.query(`SELECT * FROM LearningModules WHERE id = '${req.query.filter}'`, (err,result) =>
+    {
+        if(err)
+        {
+            console.log(err)
+            console.log('FAIL: /api/getLearningModule')
+        }
+        else
+        {
+            res.send(result)
+            console.log('SUCCESS: /api/getLearningModule')
+        }
+    }
+        );
+});

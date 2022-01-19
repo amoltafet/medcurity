@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import axios from 'axios';
 
-
 /**
 * Creates and displays the learning page for each test category. 
 * @return { LearningModule}
