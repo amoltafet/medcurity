@@ -23,9 +23,9 @@ const DashboardPage = () => {
         </CardDeck>
         </Container>
         <CardDeck className="dashboard" style={{display: 'flex', flexDirection: 'row'}}>
-            <TestPanel></TestPanel>
-            <TestPanel></TestPanel>
-            <TestPanel></TestPanel>
+            <TestPanel title="HIPPA" link="3"/>
+            <TestPanel title="Privacy" link="1"/>
+            <TestPanel title="Security" link="2"/>
             <TestPanel></TestPanel>
             <TestPanel></TestPanel>
         </CardDeck>
