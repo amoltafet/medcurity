@@ -25,6 +25,8 @@ function Questions(props) {
     }
     const myanswers = convert_to_list_of_obj(props.answers);
 
+    const groupID = "q-group" + props.i;
+
     return(
         <>
             <div> {props.question} </div>
@@ -39,7 +41,7 @@ function Questions(props) {
                     value={radio.name}
                     variant = "light"
                     //checked={radioValue === radio.value}
-                    //onChange={(e) => setRadioValue(e.currentTarget.value)}
+                    onChange={(e) => props.action(props.i, radio.name)}
                 >
                     {radio.name}
                 </ToggleButton>

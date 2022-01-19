@@ -5,13 +5,16 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import MenuBar from '../MenuBar'
 import Questions from './Questions'
 import axios from 'axios';
+import { SubmitButton } from './SubmitButton';
+import { useParams } from "react-router";
 
 /**
  * 
  * @param {str} category Question category to get questions from
  * @param {int} index Index of question in the returned query
+ * @param {func} changeState Function to pass into question object to monitor its state
  */
-function GetQuestionByIndex(category, index)
+function GetQuestionByIndex(category, index, changeState)
 {
   // The route for axios.get() to use to query the db
   const url = 'http://localhost:3002/api/getCategoryQuestions'
@@ -37,15 +40,47 @@ function GetQuestionByIndex(category, index)
   // Return the question component with question info from the query
   // into the components props.
   return (
-    <Questions 
+    <Questions
+    i = {index} 
     question={question.question}
-    answers={[question.solution, question.a2, question.a3, question.a4]} 
+    answers={[question.solution, question.a2, question.a3, question.a4]}
+    action={changeState} 
     />
   )
 }
 
 const QuizPage = () => {
-    console.log('displaying quiz page')
+    console.log('displaying quiz page');
+
+    let { slug } = useParams();
+    useEffect(() => {
+      // Fetch post using the postSlug
+    }, [slug]);
+
+    console.log('slug is ' + slug);
+
+    // data array that holds question information using state
+    const [data,setData]=useState([
+      {answer:"", correct: false},
+      {answer:"", correct: false},
+      {answer:"", correct: false},
+    ]);
+
+
+    /** 
+     * 
+     * @param {int} index Index of question that is clicked on by user
+     * @param {str} answer String value of answer that was clicked on 
+     * Function is used as an onChange function for the question toggle buttons to change state data
+    */
+    function adjustStateData(index, answer) {
+      let newData=data[index];
+      newData["answer"]=answer;
+      data[index]=newData;
+      setData([...data]);
+      console.log("" + answer);
+    }
+
 
     return (
         <>
@@ -53,12 +88,13 @@ const QuizPage = () => {
         <Container className="quizPageContainer">
             <>
               <h3> Question {'1'}: </h3> 
-              {GetQuestionByIndex('privacy', 0)}
+              {GetQuestionByIndex('privacy', 0, adjustStateData)}
               <h3> Question {'2'}: </h3> 
-              {GetQuestionByIndex('privacy', 1)}
+              {GetQuestionByIndex('privacy', 1, adjustStateData)}
               <h3> Question {'3'}: </h3> 
-              {GetQuestionByIndex('hipaa', 2)}
+              {GetQuestionByIndex('hipaa', 2, adjustStateData)}
             </>
+            <SubmitButton value="Submit" questionData={data}></SubmitButton>
         </Container>
         </>
     );
