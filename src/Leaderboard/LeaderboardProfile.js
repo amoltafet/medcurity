@@ -15,20 +15,17 @@ import './LeaderboardProfile.css'
 function LeaderboardProfile(props) {
     return (
         <>
-        <Card className={props.className[0]} style={{ flexDirection: 'row' }}>
+        <Card.Body className={props.className[0]} style={{ flexDirection: 'row' }}>
             <Accordion defaultActiveKey="0">
                 <Accordion.Toggle eventKey="1" className="accordianToggel">
                 <Card className="cardHeaderAccordian" style={{ flexDirection: 'row' }}>
                     <Row>
-                        <Card.Body>
                         <Card.Text className="userNameTitle">{props.user.userName}</Card.Text>
                         <Image className={props.className[1]} src="/user.png" alt="" roundedCircle />
-                        </Card.Body>
                     </Row>    
                     <Row>
-                        <Card.Body>
                             <Card.Text className={props.className[2]}>Category 1</Card.Text>
-                        </Card.Body>
+                        
                         <CircularProgressbar
                             className={props.className[3]}
                             value={props.user.category1TotalPoints}
@@ -47,9 +44,8 @@ function LeaderboardProfile(props) {
                             }} />
                     </Row>
                     <Row>
-                        <Card.Body>
                             <Card.Text className={props.className[2]}>Category 2</Card.Text>
-                        </Card.Body>
+                 
                         <CircularProgressbar
                             className={props.className[3]}
                             value={props.user.category2TotalPoints}
@@ -68,9 +64,8 @@ function LeaderboardProfile(props) {
                             }} />
                     </Row>
                     <Row>
-                        <Card.Body>
                             <Card.Text className={props.className[2]}>Category 3</Card.Text>
-                        </Card.Body>
+       
                         <CircularProgressbar
                             className={props.className[3]}
                             value={props.user.category3TotalPoints}
@@ -89,9 +84,8 @@ function LeaderboardProfile(props) {
                             }} />
                     </Row>
                     <Row>
-                        <Card.Body>
                             <Card.Text className={props.className[2]}>Category 4</Card.Text>
-                        </Card.Body>
+                   
                         <CircularProgressbar
                             className={props.className[3]}
                             value={props.user.category4TotalPoints}
@@ -110,9 +104,9 @@ function LeaderboardProfile(props) {
                             }} />
                     </Row>
                     <Row>
-                        <Card.Body>
+                        
                             <Card.Text className={props.className[2]}>Category 5</Card.Text>
-                        </Card.Body>
+                       
                         <CircularProgressbar
                             className={props.className[3]}
                             value={props.user.category5TotalPoints}
@@ -142,7 +136,7 @@ function LeaderboardProfile(props) {
                    </Card.Body>
                 </Accordion.Collapse>
             </Accordion>
-             </Card>
+             </Card.Body>
         </>
     );
 }

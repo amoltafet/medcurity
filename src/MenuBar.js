@@ -25,9 +25,12 @@ const Menubar = () => {
                 )
             case '/dash':
                 return (
-                    <Nav.Item className="navPills uvs-left uvs-right">
+                    [<Nav.Item className="navPills uvs-left uvs-right">
                         <Nav.Link className="font" href="/settings">Settings</Nav.Link>
-                    </Nav.Item>
+                    </Nav.Item>,
+                    <Nav.Item className="navPills uvs-left uvs-right">
+                        <Nav.Link className="font" href="/">Logout</Nav.Link>
+                    </Nav.Item>]
                 )
             case '/quiz':
                 return (

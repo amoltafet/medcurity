@@ -24,4 +24,3 @@ function DashLeaderboardProfiles(props) {
 }
 
 export default DashLeaderboardProfiles;
-
