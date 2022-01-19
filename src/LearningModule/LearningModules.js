@@ -1,5 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom"
+import { useState, useEffect } from "react";
+import axios from 'axios';
+
 
 /**
  * Returns a essentially blank page. Serves to handle the postSlug.
@@ -10,7 +12,6 @@ function LearningModules() {
     <div className="home">
       <div class="container">
         <h1 className="text-center mt-5">Custom Learning Module page?</h1>
-
       </div>
     </div>
   );
