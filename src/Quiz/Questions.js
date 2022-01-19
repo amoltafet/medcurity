@@ -30,7 +30,7 @@ function Questions(props) {
     return(
         <>
             <div> {props.question} </div>
-            <ToggleButtonGroup vertical name="Q1">
+            <ToggleButtonGroup vertical name={groupID}>
                 {myanswers.map((radio, idx) => (
                 <ToggleButton
                     key={idx}
