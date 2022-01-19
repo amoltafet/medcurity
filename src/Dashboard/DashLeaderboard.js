@@ -28,7 +28,9 @@ const Leaderboard = () => {
     const CreateDashUsers = () => {
         for (var i = 0; i < 3; i++) {
             profileArray.push(<DashLeaderboardProfiles user={user}/>)
+            
         }
+        console.log(profileArray)
         return(profileArray)
     }
     return (

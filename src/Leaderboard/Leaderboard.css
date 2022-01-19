@@ -1,20 +1,16 @@
 .leaderboardContainer{
-    margin-left: 10vmax;
-    margin-right: 10vmax;
-    margin-top: 2vmax;
-    margin-bottom: 3vmax;
-    height: 44vmax;
-    width: 80vmax;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 1%;
+    margin-bottom: 3%;
+    height: 85.09vmin;
+    width: 80%;
     background-color: #d8dae3;
     border-radius: 10px 10px 10px 10px;
-    overflow-y: auto;
+    overflow-y: scroll;
     overflow-x: hidden;
     scrollbar-color:  #1e5b88 rgba(255, 0, 0, 0);
     box-shadow:  0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
-}
-
-.space {
-    height: 1vmax;
 }
 
