@@ -1,6 +1,23 @@
-.font{
-    color: white;
+.answerQuizSelection {
+    margin-bottom: 5%;
+    margin-top: 3%;
+    margin-left: 10%;
+    margin-right: 10%;
+    
 }
+
+
+.questionDesciption {
+    color: #d8dae3;
+    
+}
+
+.individualQuestions {
+    text-align: start;
+}
+
+
+
 .uvs-left {
     border-radius: 10px 10px 10px 10px;
 }

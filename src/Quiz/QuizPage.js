@@ -1,4 +1,4 @@
-import {Container} from 'react-bootstrap'
+import {Button, Card, Image, Row} from 'react-bootstrap'
 import React,{useState,useEffect} from 'react';
 import './QuizPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -37,30 +37,51 @@ function GetQuestionByIndex(category, index)
   // Return the question component with question info from the query
   // into the components props.
   return (
-    <Questions 
+    <Questions
     question={question.question}
     answers={[question.solution, question.a2, question.a3, question.a4]} 
     />
   )
 }
 
-const QuizPage = () => {
-    console.log('displaying quiz page')
 
-    return (
-        <>
-        <MenuBar></MenuBar>
-        <Container className="quizPageContainer">
-            <>
-              <h3> Question {'1'}: </h3> 
-              {GetQuestionByIndex('privacy', 0)}
-              <h3> Question {'2'}: </h3> 
-              {GetQuestionByIndex('privacy', 1)}
-              <h3> Question {'3'}: </h3> 
-              {GetQuestionByIndex('hipaa', 2)}
-            </>
-        </Container>
-        </>
-    );
+const QuizPage = () => {
+  console.log('displaying quiz page')
+  var questionNumber = 0;
+  var questionNameCategorgy = 'privacy';
+
+  function DisplayOneQuestionAtATime (direction, position) {
+    if (direction === "add" && position !== 0) {
+       
+    }
+    else if (direction === "minus") {
+
+    }   
+  }
+
+  var direction="add";
+  return (
+    <>  
+      <MenuBar></MenuBar>
+      <Card className="quizPageContainer uvs-left uvs-right">
+        <h3 className="questionNumbers text-center"> Question {questionNumber + 1}: </h3> 
+        {GetQuestionByIndex('privacy', questionNumber)}
+        <Row>
+          <Button 
+            type="submit" 
+            className="toggleQuestionLeft" 
+            onClick={DisplayOneQuestionAtATime("add", questionNumber)}> 
+              <Image className="leftArrow" src="/left.png"></Image> 
+          </Button> 
+          <Button 
+            type="submit" 
+            className="toggleQuestionRight" 
+            onClick={DisplayOneQuestionAtATime("minus", questionNumber)}> 
+              <Image className="rightArrow" src="/right.png"></Image> 
+          </Button>
+        </Row>
+      </Card>
+    </>
+  );
 }
 export default QuizPage;

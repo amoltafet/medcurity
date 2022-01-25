@@ -9,10 +9,15 @@
     
 }
 
-.font {
+.menubarFont {
     color: white;
     font-family: Lato,sans-serif;
 }
+
+.menubarFont:hover {
+    color: #d8dae3;
+}
+
 
 .MedcurityLogo {
     width: 15vmax;
@@ -23,7 +28,7 @@
     margin-left: 1%;
 }
 
-.pills {
+.pillz {
     border: white;
 }
 

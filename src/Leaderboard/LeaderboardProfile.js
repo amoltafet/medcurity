@@ -15,8 +15,8 @@ import './LeaderboardProfile.css'
 function LeaderboardProfile(props) {
     return (
         <>
-        <Card.Body className={props.className[0]} style={{ flexDirection: 'row' }}>
-            <Accordion defaultActiveKey="0">
+       
+            <Accordion className="userPanel" defaultActiveKey="0">
                 <Accordion.Toggle eventKey="1" className="accordianToggel">
                 <Card className="cardHeaderAccordian" style={{ flexDirection: 'row' }}>
                     <Row>
@@ -136,7 +136,7 @@ function LeaderboardProfile(props) {
                    </Card.Body>
                 </Accordion.Collapse>
             </Accordion>
-             </Card.Body>
+     
         </>
     );
 }

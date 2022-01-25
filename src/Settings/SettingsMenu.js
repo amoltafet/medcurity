@@ -14,11 +14,11 @@ const SettingsMenu = () => {
                 <Row className="row">
                     <Col className="shadowTab" sm={2}>
                    
-                        <Nav variant="pills" className="flex-column marginTop">
-                            <Nav.Item>
-                                <Nav.Link eventKey="first"><Image className="profileImage" variant="top" src="/user.png" alt="" roundedCircle></Image></Nav.Link>
+                        <Nav variant="pills" className="flex-column marginTop ">
+                            <Nav.Item className="selectedSetting">
+                                <Nav.Link eventKey="first"><Image className="profileImage " variant="top" src="/user.png" alt="" roundedCircle></Image></Nav.Link>
                             </Nav.Item>
-                            <Nav.Item>
+                            <Nav.Item className="unselectedSetting">
                                 <Nav.Link eventKey="second">Tab 2</Nav.Link>
                             </Nav.Item>
                         </Nav>
@@ -27,7 +27,6 @@ const SettingsMenu = () => {
                     <Col className="dropShadow" sm={8}>
                     <Container className="settingsMenuContainer">
                         <Tab.Content>
-
                             <Tab.Pane eventKey="first">
                                
                                     <Form >

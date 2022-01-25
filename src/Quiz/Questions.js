@@ -27,20 +27,18 @@ function Questions(props) {
 
     return(
         <>
-            <div> {props.question} </div>
-            <ToggleButtonGroup vertical name="Q1">
+            <div className="questionDesciption text-center"> {props.question} </div>
+            <ToggleButtonGroup className="answerQuizSelection uvs-left uvs-right" vertical name="Q1">
                 {myanswers.map((radio, idx) => (
-                <ToggleButton
+                <ToggleButton 
                     key={idx}
                     id={`radio-${idx}`}
                     type="radio"
                     variant="secondary"
-                    name="radio"
+                    name="radio "
                     value={radio.name}
                     variant = "light"
-                    //checked={radioValue === radio.value}
-                    //onChange={(e) => setRadioValue(e.currentTarget.value)}
-                >
+                    className="individualQuestions">
                     {radio.name}
                 </ToggleButton>
                 ))}

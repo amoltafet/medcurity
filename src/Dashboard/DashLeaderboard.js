@@ -26,9 +26,9 @@ const Leaderboard = () => {
     * @return {CreateDashUsers}
     */
     const CreateDashUsers = () => {
+        profileArray = []
         for (var i = 0; i < 3; i++) {
             profileArray.push(<DashLeaderboardProfiles user={user}/>)
-            
         }
         console.log(profileArray)
         return(profileArray)
@@ -36,7 +36,7 @@ const Leaderboard = () => {
     return (
         <>
             <Card.Body className="LeaderboardCard uvs-right uvs-left">
-               <Card.Link className="font" href="/leaderboard" >Leaderboard</Card.Link>
+               <Card.Link className="dashLeaderboardFont" href="/leaderboard" >Leaderboard</Card.Link>
                <CreateDashUsers></CreateDashUsers>
             </Card.Body> 
         </>

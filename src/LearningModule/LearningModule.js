@@ -26,16 +26,16 @@ const  LearningModule = () => {
 
     const LearningModuleContent = content.map((module) => {
         return ([
-            <h1 className="text-center mt-3">
-              {module.Title} Module
+            <h1 className="text-center moduleName">
+              Learning Modules: {module.Title} Module
             </h1>,
             <div class="d-flex justify-content-center">
-              <img src={require(`../assets/${module.Banner}`).default} class="img-fluid rounded mx-auto d-block" alt={module.Title} />
+              <img src={require(`../assets/${module.Banner}`).default} class="img-fluid rounded mx-auto d-block moduleImage" alt={module.Title} />
             </div>,
-            <h6 className="text-center  mt-2">
+            <h6 className="text-center mt-2 moduleSubtitle">
               {module.Subtitle}
             </h6>,
-            <h4 className="text-left mt-3">
+            <h4 className="text-left mt-3 moduleDescription">
               {module.Description}
             </h4>
         ]);
@@ -43,13 +43,12 @@ const  LearningModule = () => {
 
     return (
         <>
-        <Container className=" LearningModuleContainer">
-            {LearningModuleContent}
-        </Container>
+         <div className="learningModuleBg img-fluid">
+        {LearningModuleContent}
         <div className="d-grid gap-2">
-            <Button variant="primary" className="mt-5" href={'/quiz/' + slug}>
+            <Button variant="primary" className="goToQuizBttn uvs-left uvs-right" href={'/quiz/' + slug}>
                 Go to Quiz
-            </Button>
+            </Button></div>
         </div>
         </>
     );

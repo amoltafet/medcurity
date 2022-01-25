@@ -34,11 +34,13 @@ const LeaderboardPage = () => {
     * @return {profileArray}
     */
     const CreateUsers = () => {
+        profileArray = []
         for (var i = 0; i < 8; i++) {
             profileArray.push(<LeaderboardProfile 
                 name={user.userName} 
                 user={user} 
                 className={className}/>)
+                console.log("one")
         }
         return(profileArray)
     }

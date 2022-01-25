@@ -1,13 +1,14 @@
-import React from "react";
+import { React } from "react";
+import { Container } from "react-bootstrap";
 import { Outlet } from "react-router-dom";
 import MenuBar from '../MenuBar';
+import './LearningPage.css';
 
 function  LearningPage() {
   return (
     <>
     <MenuBar></MenuBar>
-    <div className="home">
-        <h1 className="text-center mt-5"> Learning Modules</h1>
+    <div>
         <Outlet />
     </div>
     </>
