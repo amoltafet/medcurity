@@ -62,10 +62,7 @@ app.get("/api/getModuleDirectoryInfo", (req,res)=>{
 
 // Returns info on learning modules associated with a given module directory id
 app.get("/api/getDirectoryModulesInfo", (req,res)=>{
-    db.query(`SELECT * 
-    FROM LearningModules AS Mods JOIN LearningModuleDirectoryLinks AS Links
-        ON Mods.id = Links.ModId
-    WHERE Links.DirId = ${req.query.id}`, (err,result) => {
+    db.query(`SELECT * FROM LearningModules WHERE DirId = ${req.query.id}`, (err,result) => {
         console.log(req.query.id)
         if (err) console.log(err)
         console.log(`LISTEN SERVER: GOT QUESTIONS FROM "${req.query.id}" MODULE`)
