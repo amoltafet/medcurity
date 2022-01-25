@@ -28,7 +28,7 @@ const  LearningDirectoryPage = () => {
 
     // Query for getting info on learning modules associated with the directory
     useEffect(() => {
-      axios.get('http://localhost:3002/api/getModulesInfo', { params: { id: slug } }).then((response) => {
+      axios.get('http://localhost:3002/api/getDirectoryModulesInfo', { params: { id: slug } }).then((response) => {
             setContent(Object.values(response.data))
         });
   }, [])
