@@ -48,11 +48,39 @@ import { useParams } from "react-router";
 //   )
 // }
 
+
+
 const QuizPage = () => {
     console.log('displaying quiz page');
     const [content, setContent] = useState([])
+    const [numQuestions, setNumQuestions] = useState("")
+     // data array that holds question information using state
+    const [data,setData]=useState([
+      { answer:"", correct: false},
+      { answer:"", correct: false},
+      { answer:"", correct: false},
+      { answer:"", correct: false},
+      { answer:"", correct: false},
+      { answer:"", correct: false},
+      { answer:"", correct: false},
+      { answer:"", correct: false},
+      { answer:"", correct: false},
+      { answer:"", correct: false},
+      { answer:"", correct: false},
+      { answer:"", correct: false},
+      { answer:"", correct: false},
+      { answer:"", correct: false},
+      { answer:"", correct: false},
+      { answer:"", correct: false},
+      { answer:"", correct: false},
+      { answer:"", correct: false},
+      { answer:"", correct: false},
+      { answer:"", correct: false},
+      { answer:"", correct: false},
+    ]);
 
     let { slug } = useParams();
+
     useEffect(() => {
       // Fetch post using the postSlug
     }, [slug]);
@@ -63,36 +91,30 @@ const QuizPage = () => {
         });
     }, [])
 
-    console.log('slug is ' + slug);
-
-    console.log(content);
+    useEffect(() => {
+      axios.get('http://localhost:3002/api/getQuery', { params: { the_query: "SELECT COUNT(*) AS NumberOfQuestions FROM Questions WHERE module = " + slug  } }).then((response) => {
+            setNumQuestions(Object.values(response.data[0]))
+        });
+    }, [])
 
     var index = 0;
 
-    var quizTitle = ""
-
     const QuestionContent = content.map((question) => {
       index++;
-      quizTitle = question.category.charAt(0).toUpperCase() + question.category.slice(1);
+      //const newData = data.concat({answer: "", correct: false});
+      //setData(newData);
       return ([
         <h3 className="question-title">
           Question {index}
         </h3>,
         <Questions
-            i = {index} 
+            i = {index - 1} 
             question={question.question}
             answers={[question.solution, question.a2, question.a3, question.a4]}
             action={adjustStateData} 
           />
       ]);
     })
-
-    // data array that holds question information using state
-    const [data,setData]=useState([
-      {answer:"", correct: false},
-      {answer:"", correct: false},
-      {answer:"", correct: false},
-    ]);
 
 
     /** 
@@ -102,6 +124,7 @@ const QuizPage = () => {
      * Function is used as an onChange function for the question toggle buttons to change state data
     */
     function adjustStateData(index, answer) {
+      console.log(numQuestions[0].NumberOfQuestions);
       let newData=data[index];
       newData["answer"]=answer;
       data[index]=newData;
@@ -109,13 +132,12 @@ const QuizPage = () => {
       console.log("" + answer);
     }
 
-
     return (
         <>
         <MenuBar></MenuBar>
         <Container className="quizPageContainer">
           <h1>
-            {quizTitle} Quiz
+             Quiz
           </h1>
             <>
              {QuestionContent}
