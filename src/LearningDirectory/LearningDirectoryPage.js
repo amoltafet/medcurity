@@ -1,4 +1,4 @@
-import {Button,  Container} from 'react-bootstrap'
+import {Button, CardDeck,  Container} from 'react-bootstrap'
 import React from 'react';
 import './LearningDirectoryPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -13,7 +13,8 @@ import LearningModulePanel from './LearningModulePanel';
 */
 const  LearningDirectoryPage = () => {
     let { slug } = useParams();
-    const [content, setContent] = useState([])
+    const [directory, setDirectory] = useState([])
+    const [modules, setModules] = useState([])
 
     useEffect(() => {
       // Fetch post using the postSlug
@@ -22,16 +23,16 @@ const  LearningDirectoryPage = () => {
     // Query for getting LearningModules Directory info
     useEffect(() => {
         axios.get('http://localhost:3002/api/getModuleDirectoryInfo', { params: { id: slug } }).then((response) => {
-              setContent(Object.values(response.data))
-          });
+              setDirectory(Object.values(response.data))
+        });
     }, [])
 
     // Query for getting info on learning modules associated with the directory
     useEffect(() => {
-      axios.get('http://localhost:3002/api/getDirectoryModulesInfo', { params: { id: slug } }).then((response) => {
-            setContent(Object.values(response.data))
+        axios.get('http://localhost:3002/api/getDirectoryModulesInfo', { params: { id: slug } }).then((response) => {
+            setModules(Object.values(response.data))
         });
-  }, [])
+    }, [])
 
     /**
      * Create directory cards
@@ -44,10 +45,15 @@ const  LearningDirectoryPage = () => {
         return objs;
     }
 
-    const LearningDirectoryPageContent = content.map((modules) => {
+    const fake_data = [
+      {title:'Title1', id: 'id1'},
+      {title:'Title2', id: 'id2'},
+    ]
+
+    const LearningDirectoryPageContent = modules.map((modules) => {
         return ([
             <h1 className="text-center mt-3">
-              {modules.Title} Module Directory
+              {slug} Module Directory
             </h1>,
             <h6 className="text-center  mt-2">
               {modules.Subtitle}
@@ -55,7 +61,7 @@ const  LearningDirectoryPage = () => {
             <h4 className="text-left mt-3">
               {modules.Description}
             </h4>,
-            createDirectoryCards(modules),
+            createDirectoryCards(fake_data),
         ]);
     })
 
@@ -64,6 +70,9 @@ const  LearningDirectoryPage = () => {
         <Container className=" LearningDirectoryPageContainer">
             {LearningDirectoryPageContent}
         </Container>
+        <CardDeck className="dashboard" style={{display: 'flex', flexDirection: 'row'}}>
+            {createDirectoryCards(fake_data)}
+        </CardDeck>
         <div className="d-grid gap-2">
         </div>
         </>
