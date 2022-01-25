@@ -6,6 +6,7 @@ import WelcomePanel from './WelcomePanel';
 import TestPanel from './TestPanel';
 import Leaderboard from './DashLeaderboard';
 import MenuBar from '../MenuBar';
+import LearningModulesDirectories from './LearningModuleDirectories';
 
 
 /**
@@ -27,6 +28,7 @@ const DashboardPage = () => {
             <TestPanel></TestPanel>
             <TestPanel></TestPanel>
         </CardDeck>
+        <LearningModulesDirectories/>
     </>
   );
 }
