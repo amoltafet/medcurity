@@ -1,0 +1,21 @@
+.uvs-left {
+    border-radius: 10px 10px 10px 10px;
+}
+       
+.uvs-right {
+    border-radius: 10px 10px 10px 10px;
+}
+
+#submit-btn {
+    padding-top: 10px;
+}
+
+.quizSubmitBttn {
+    color: white;
+    background-color: #127ebf;
+    border: 0;
+    width: 12%;
+    height: 60%;
+    margin-left: 75%;
+    margin-bottom: 3%;
+}

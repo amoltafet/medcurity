@@ -73,7 +73,7 @@ const Menubar = () => {
                     }
                 }
                 else if (location.pathname.includes("/quiz/")) {
-                    for (var j = 0; i < 5; j++) {
+                    for (var j = 0; j < 5; j++) {
                         if (location.pathname.includes(j)) {
                             return (
                                 [<Nav.Item className="navPills uvs-left uvs-right">

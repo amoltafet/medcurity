@@ -1,21 +1,21 @@
 .answerQuizSelection {
     margin-bottom: 5%;
     margin-top: 3%;
-    margin-left: 10%;
-    margin-right: 10%;
+    margin-left: 5%;
+    margin-right: 5%;
     
 }
 
 
 .questionDesciption {
-    color: #d8dae3;
+    color: #d8dae3; 
+    font-size: 90%;
     
 }
 
 .individualQuestions {
     text-align: start;
 }
-
 
 
 .uvs-left {

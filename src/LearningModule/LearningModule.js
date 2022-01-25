@@ -8,7 +8,7 @@ import axios from 'axios';
 
 /**
 * Creates and displays the learning page for each test category. 
-* @return { LearningModule}
+* @return { LearningModule }
 */
 const  LearningModule = () => {
     let { slug } = useParams();
@@ -29,8 +29,8 @@ const  LearningModule = () => {
             <h1 className="text-center moduleName">
               Learning Modules: {module.Title} Module
             </h1>,
-            <div class="d-flex justify-content-center">
-              <img src={require(`../assets/${module.Banner}`).default} class="img-fluid rounded mx-auto d-block moduleImage" alt={module.Title} />
+            <div className="d-flex justify-content-center">
+              <img src={require(`../assets/${module.Banner}`).default} className="img-fluid rounded mx-auto d-block" alt={module.Title} />
             </div>,
             <h6 className="text-center mt-2 moduleSubtitle">
               {module.Subtitle}

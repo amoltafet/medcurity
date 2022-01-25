@@ -9,7 +9,7 @@ const TestPanel = (props) => {
         <Card className="TestPanelCard uvs-right uvs-left">
             <Card.Body>
                <Card.Link className="testPanelFont" href={"/learning-module/" + props.link} >{props.title}</Card.Link>
-            </Card.Body> 
+            </Card.Body>
         </Card>
         </>
     );
