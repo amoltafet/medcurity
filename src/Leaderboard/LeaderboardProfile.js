@@ -20,7 +20,7 @@ function LeaderboardProfile(props) {
                 <Accordion.Toggle eventKey="1" className="accordianToggel">
                 <Card className="cardHeaderAccordian" style={{ flexDirection: 'row' }}>
                     <Row>
-                        <Card.Text className="userNameTitle">{props.user.userName}</Card.Text>
+                        <Card.Text className="userNameTitle">{props.name}</Card.Text>
                         <Image className={props.className[1]} src="/user.png" alt="" roundedCircle />
                     </Row>    
                     <Row>

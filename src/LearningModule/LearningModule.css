@@ -11,12 +11,14 @@
 
 .moduleName {
     color: #1e5b88;
-    margin-top: -2%;
     font-family: Lato,sans-serif;
     font-size: 250%;
 }
 
-
+.moduleImage {
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
 
 .moduleSubtitle {
     color: #127ebf;
@@ -30,6 +32,7 @@
     margin-right: 6%;
     font-family: Lato,sans-serif;
     font-size: 100%;
+    margin-top: 2%;
 }
 
 .goToQuizBttn {
@@ -39,6 +42,16 @@
     margin-top: 2%;
     background-color: #127ebf;
     font-family: Lato,sans-serif;
+}
+
+.goToQuizBttn:hover {
+    color: #d8dae3;
+    background-color: #127ebf;
+}
+
+.goToQuizBttn:focus {
+    border: 0;
+    background-color: #127ebf;
 }
 
 .uvs-left {

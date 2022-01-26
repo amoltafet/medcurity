@@ -2,19 +2,20 @@
     margin-bottom: 5%;
     margin-top: 3%;
     margin-left: 5%;
-    margin-right: 5%;
-    
+    margin-right: 5%;   
 }
 
 
 .questionDesciption {
     color: #d8dae3; 
-    font-size: 90%;
-    
+    font-size: 94%;
+    font-family: Lato,sans-serif;
 }
 
 .individualQuestions {
     text-align: start;
+    font-size: 85%;
+
 }
 
 

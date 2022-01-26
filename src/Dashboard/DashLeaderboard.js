@@ -1,6 +1,8 @@
 import {Card} from 'react-bootstrap'
 import React from 'react';
 import DashLeaderboardProfiles from './DashLeaderboardProfiles';
+import { useEffect, useState } from "react";
+import axios from 'axios';
 import './DashLeaderboard.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
@@ -9,35 +11,54 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 * @return {Leaderboard}
 */
 const Leaderboard = () => {
-    const user = {
+    const [users, setUsers] = useState([])
+
+    // Fetch User Data
+    useEffect(() => {
+      axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 'SELECT * FROM Users' } }).then((response) => {
+        setUsers(Object.values(response.data))
+        });
+    }, [])
+
+    // for stylizing the panels
+    var className = [
+        "userPanel", 
+        "userProfile", 
+        "category", 
+        "progressBar", 
+    ];
+
+    // temp data 
+    var user = {
         userName: "Bobby Boy",
-        overallPoints: 50,
-        category1TotalPoints: 0,
-        category2TotalPoints: 0,
-        category3TotalPoints: 0,
-        category4TotalPoints: 0,
-        category5TotalPoints: 0
+        overallPoints: 20,
+        category1TotalPoints: 11,
+        category2TotalPoints: 22,
+        category3TotalPoints: 33,
+        category4TotalPoints: 44,
+        category5TotalPoints: 55
     };
     
-    var profileArray = [];
-    
-    /**
-    * Adds the top 3 users in the db to the dashboard leaderboard.
-    * @return {CreateDashUsers}
-    */
-    const CreateDashUsers = () => {
-        profileArray = []
-        for (var i = 0; i < 3; i++) {
-            profileArray.push(<DashLeaderboardProfiles user={user}/>)
-        }
-        console.log(profileArray)
-        return(profileArray)
-    }
+
+
+    var index = 0;
+    console.log("profileArray", users)
+    const ProfileArray = users.map((userProfile) => {
+      index++;
+      //const newData = data.concat({answer: "", correct: false});
+      //setData(newData);
+      return (
+            <DashLeaderboardProfiles
+                name={userProfile.username} 
+                user={user} 
+                className={className}/>
+        );
+    })
     return (
         <>
             <Card.Body className="LeaderboardCard uvs-right uvs-left">
                <Card.Link className="dashLeaderboardFont" href="/leaderboard" >Leaderboard</Card.Link>
-               <CreateDashUsers></CreateDashUsers>
+               {ProfileArray}
             </Card.Body> 
         </>
     );

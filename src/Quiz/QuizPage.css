@@ -1,7 +1,7 @@
 .quizPageContainer {
     margin-left: 10%;
     margin-right: 10%;
-    margin-bottom: 10%;
+    margin-bottom: 5%;
     margin-top: 1%;
     height: 40%;
     width: 80%;
@@ -9,14 +9,25 @@
 }
 
 .questionNumbers {
-    margin-top: 5%;
+    margin-top: 3%;
     font-size: 150%;
+    font-family: Lato,sans-serif;
     color: white;
 }
 
 .toggleQuestionRight {
     width: 10%;
     margin-left: 2%;
+    border: 0;
+    background: transparent;
+}
+
+.toggleQuestionRight:hover {
+    border: 0;
+    background: transparent;
+}
+
+.toggleQuestionRight:disabled {
     border: 0;
     background: transparent;
 }
@@ -28,7 +39,7 @@
     background: transparent;
 }
 
-.toggleQuestionRight:hover {
+.toggleQuestionLeft:disabled {
     border: 0;
     background: transparent;
 }
@@ -38,12 +49,10 @@
     background: transparent;
 }
 
-
 .rightArrow {
     width: 60%;
     height: 100.5%;
 }
-
 
 .leftArrow {
     width: 60%;

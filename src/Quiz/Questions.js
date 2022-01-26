@@ -21,7 +21,6 @@ function Questions(props) {
                 const obj = {name: answers[i], value: i + 1};
                 list_of_obj.push(obj);
             }
-            console.log("Yo", list_of_obj)
             return list_of_obj;
         }
         const myanswers = convert_to_list_of_obj(props.answers);
