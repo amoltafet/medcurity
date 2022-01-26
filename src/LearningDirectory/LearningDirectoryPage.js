@@ -22,56 +22,44 @@ const  LearningDirectoryPage = () => {
 
     // Query for getting LearningModules Directory info
     useEffect(() => {
-        axios.get('http://localhost:3002/api/getModuleDirectoryInfo', { params: { id: slug } }).then((response) => {
+        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: "SELECT * FROM LearningModulesDirectory WHERE ID = " + slug } }).then((response) => {
               setDirectory(Object.values(response.data))
         });
     }, [])
 
     // Query for getting info on learning modules associated with the directory
     useEffect(() => {
-        axios.get('http://localhost:3002/api/getDirectoryModulesInfo', { params: { id: slug } }).then((response) => {
+        axios.get('http://localhost:3002/api/getQuery', { params: { the_query:"SELECT * FROM LearningModules WHERE DirID = " + slug} }).then((response) => {
             setModules(Object.values(response.data))
         });
     }, [])
 
     /**
-     * Create directory cards
+     * Create directory cards from modules
      */
     function createDirectoryCards(modules) {
         const objs = []
-        for (module in modules) {
-            objs.push(<LearningModulePanel title={module.Title} link={module.id} />)
+        for (let index in modules) {
+            module = modules[index]
+            objs.push(<LearningModulePanel title={module.Title} link={module.ID} />)
         }
         return objs;
     }
 
-    const fake_data = [
-      {title:'Title1', id: 'id1'},
-      {title:'Title2', id: 'id2'},
-    ]
-
-    const LearningDirectoryPageContent = modules.map((modules) => {
-        return ([
-            <h1 className="text-center mt-3">
-              {slug} Module Directory
-            </h1>,
-            <h6 className="text-center  mt-2">
-              {modules.Subtitle}
-            </h6>,
-            <h4 className="text-left mt-3">
-              {modules.Description}
-            </h4>,
-            createDirectoryCards(fake_data),
-        ]);
+    const directoryTitle = directory.map((directory) => {
+        
+        return directory.Title
     })
 
     return (
         <>
         <Container className=" LearningDirectoryPageContainer">
-            {LearningDirectoryPageContent}
+            {console.log(typeof(directory))}
+            
+            <h1>{directoryTitle} Learning Modules Directory</h1>
         </Container>
         <CardDeck className="dashboard" style={{display: 'flex', flexDirection: 'row'}}>
-            {createDirectoryCards(fake_data)}
+            {createDirectoryCards(modules)}
         </CardDeck>
         <div className="d-grid gap-2">
         </div>
