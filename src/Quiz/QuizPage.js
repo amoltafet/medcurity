@@ -141,9 +141,11 @@ const QuizPage = () => {
         if (oldId !== newId) {
           console.log("reached!!" + document.getElementById(oldId));
           document.getElementById(oldId).remove();
-          console.log("newId x ", newId);
+          console.log("newId ", newId);
           return (
-            <MenuBar></MenuBar>
+            <>
+            {DisplayNewQuestion(newId, position)}
+            </>
           );
         }
         return (
