@@ -135,7 +135,7 @@ const QuizPage = () => {
         }
           // selects which question
         if (direction === "right") {
-          // console.log("radio: ", document.getElementById("radio-0"));
+          console.log("radio: ", document.getElementById("radio-0"));
           // document.getElementById("radio-0").textContent = quizInfo.solution;
           // console.log("radio1: ", document.getElementById("radio-1"));
           // document.getElementById("radio-1").textContent = quizInfo.a2;
@@ -159,7 +159,7 @@ const QuizPage = () => {
         } 
         else if (direction === "left") {
           console.log("left", currentPosition)
-          // console.log("radio: ", document.getElementById("radio-0").textContent);
+          console.log("radio: ", document.getElementById("radio-0").textContent);
           // document.getElementById("radio-0").textContent = quizInfo.solution;
           // document.getElementById("radio-1").textContent = quizInfo.a2;
           // document.getElementById("radio-2").textContent = quizInfo.a3;
