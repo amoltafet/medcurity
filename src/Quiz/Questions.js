@@ -29,11 +29,11 @@ function Questions(props) {
 
     return(
         <>
-            <div className="text-center"> 
+            <div id={props.id} className="text-center"> 
              <Container className="questionDesciption">
                 {props.question} 
             </Container>
-            </div>
+            
             <ToggleButtonGroup className="answerQuizSelection uvs-left uvs-right" vertical name={groupID}>
                 {myanswers.map((radio, idx) => (
                 <ToggleButton 
@@ -50,6 +50,7 @@ function Questions(props) {
                 </ToggleButton>
                 ))}
             </ToggleButtonGroup>
+            </div>
         </>
     );
 }
