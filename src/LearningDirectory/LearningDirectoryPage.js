@@ -1,4 +1,4 @@
-import {Button,  Container} from 'react-bootstrap'
+import {Button, CardDeck,  Container} from 'react-bootstrap'
 import React from 'react';
 import './LearningDirectoryPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -13,7 +13,8 @@ import LearningModulePanel from './LearningModulePanel';
 */
 const  LearningDirectoryPage = () => {
     let { slug } = useParams();
-    const [content, setContent] = useState([])
+    const [directory, setDirectory] = useState([])
+    const [modules, setModules] = useState([])
 
     useEffect(() => {
       // Fetch post using the postSlug
@@ -21,49 +22,45 @@ const  LearningDirectoryPage = () => {
 
     // Query for getting LearningModules Directory info
     useEffect(() => {
-        axios.get('http://localhost:3002/api/getModuleDirectoryInfo', { params: { id: slug } }).then((response) => {
-              setContent(Object.values(response.data))
-          });
+        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: "SELECT * FROM LearningModulesDirectory WHERE ID = " + slug } }).then((response) => {
+              setDirectory(Object.values(response.data))
+        });
     }, [])
 
     // Query for getting info on learning modules associated with the directory
     useEffect(() => {
-      axios.get('http://localhost:3002/api/getModulesInfo', { params: { id: slug } }).then((response) => {
-            setContent(Object.values(response.data))
+        axios.get('http://localhost:3002/api/getQuery', { params: { the_query:"SELECT * FROM LearningModules WHERE DirID = " + slug} }).then((response) => {
+            setModules(Object.values(response.data))
         });
-  }, [])
+    }, [])
 
     /**
-     * Create directory cards
+     * Create directory cards from modules
      */
     function createDirectoryCards(modules) {
         const objs = []
-        for (module in modules) {
-            objs.push(<LearningModulePanel title={module.Title} link={module.id} />)
+        for (let index in modules) {
+            module = modules[index]
+            objs.push(<LearningModulePanel title={module.Title} link={module.ID} />)
         }
         return objs;
     }
 
-    const LearningDirectoryPageContent = content.map((modules) => {
-        return ([
-            <h1 className="text-center mt-3">
-              {modules.Title} Module Directory
-            </h1>,
-            <h6 className="text-center  mt-2">
-              {modules.Subtitle}
-            </h6>,
-            <h4 className="text-left mt-3">
-              {modules.Description}
-            </h4>,
-            createDirectoryCards(modules),
-        ]);
+    const directoryTitle = directory.map((directory) => {
+        
+        return directory.Title
     })
 
     return (
         <>
         <Container className=" LearningDirectoryPageContainer">
-            {LearningDirectoryPageContent}
+            {console.log(typeof(directory))}
+            
+            <h1>{directoryTitle} Learning Modules Directory</h1>
         </Container>
+        <CardDeck className="dashboard" style={{display: 'flex', flexDirection: 'row'}}>
+            {createDirectoryCards(modules)}
+        </CardDeck>
         <div className="d-grid gap-2">
         </div>
         </>

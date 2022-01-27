@@ -49,6 +49,28 @@ app.get("/api/getModuleQuestions", (req,res)=>{
     })
 });
 
+// Returns learning module directory info given an ID 
+app.get("/api/getModuleDirectoryInfo", (req,res)=>{
+    db.query(`SELECT * FROM LearningModulesDirectory WHERE module = ${req.query.id}`, (err,result) => {
+        console.log(req.query.id)
+        if (err) console.log(err)
+        console.log(`LISTEN SERVER: GOT QUESTIONS FROM "${req.query.id}" MODULE`)
+        console.log(result)
+        res.send(result)
+    })
+});
+
+// Returns info on learning modules associated with a given module directory id
+app.get("/api/getDirectoryModulesInfo", (req,res)=>{
+    db.query(`SELECT * FROM LearningModules WHERE DirId = ${req.query.id}`, (err,result) => {
+        console.log(req.query.id)
+        if (err) console.log(err)
+        console.log(`LISTEN SERVER: GOT QUESTIONS FROM "${req.query.id}" MODULE`)
+        console.log(result)
+        res.send(result)
+    })
+});
+
 // EVERYTHING BELOW WILL BE DEFUNCT
 // EVERYTHING BELOW WILL BE DEFUNCT
 // EVERYTHING BELOW WILL BE DEFUNCT

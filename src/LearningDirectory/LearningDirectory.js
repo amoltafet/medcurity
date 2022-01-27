@@ -7,7 +7,7 @@ function  LearningDirectoryPage() {
     <>
     <MenuBar></MenuBar>
     <div className="home">
-        <h1 className="text-center mt-5"> Learning Modules Directory</h1>
+        <h1 className="text-center mt-5"> </h1>
         <Outlet />
     </div>
     </>
