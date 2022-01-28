@@ -1,13 +1,12 @@
 .answerQuizSelection {
-    margin-bottom:1%;
+    margin-bottom: 2%;
     margin-top: 3%;
     margin-left: 5%;
     margin-right: 5%;   
 }
 
-
 .questionDesciption {
-    color: #d8dae3; 
+    color: #127ebf; 
     font-size: 90%;
     font-family: Lato,sans-serif;
 }
@@ -15,16 +14,13 @@
 .individualQuestions {
     text-align: start;
     font-size: 80%;
-
+    margin-top: -1%;
 }
-
 
 .uvs-left {
     border-radius: 10px 10px 10px 10px;
 }
     
-    
 .uvs-right {
     border-radius: 10px 10px 10px 10px;
-    
 }

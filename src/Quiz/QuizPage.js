@@ -102,6 +102,7 @@ const QuizPage = () => {
       if (quizInfo !== undefined && content !== undefined) {
         var id = position;
       
+        document.getElementById("questionPosOutOfTotal").textContent = `${position + 1} / ${content.length}`
         // returns one quiz question based on index
         return (
           [<h3 id="qNumber" className="questionNumbers text-center"> Question {position + 1} </h3>,
@@ -120,6 +121,8 @@ const QuizPage = () => {
       var quizInfo = content[position];
       if (content !== undefined && quizInfo !== undefined) {
         console.log("position", position)
+
+        // enables disables the buttons 
         if (position === 0) {
           document.getElementById("leftQuestionBttn").disabled = true;
           document.getElementById("rightQuestionBttn").disabled = false;
@@ -135,58 +138,56 @@ const QuizPage = () => {
         }
           // selects which question
         if (direction === "right") {
-          console.log("radio: ", document.getElementById("radio-0"));
-          // document.getElementById("radio-0").textContent = quizInfo.solution;
-          // console.log("radio1: ", document.getElementById("radio-1"));
-          // document.getElementById("radio-1").textContent = quizInfo.a2;
-          // console.log("radio2: ", document.getElementById("radio-2"));
-          // document.getElementById("radio-2").textContent = quizInfo.a3;
+          document.getElementById("radio-0").textContent = quizInfo.solution;
+          document.getElementById("radio-1").textContent = quizInfo.a2;
+          document.getElementById("radio-2").textContent = quizInfo.a3;
+          document.getElementById("radio-3").textContent = quizInfo.a4;
 
-          // console.log("radio3: ", document.getElementById("radio-3"));
-          // document.getElementById("radio-3").textContent = quizInfo.a4;
+          document.getElementById("radio-0").type = "radio";
+          document.getElementById("radio-1").type = "radio";
+          document.getElementById("radio-2").type = "radio";
+          document.getElementById("radio-3").type = "radio";
 
-          var previousQuestion = document.getElementById(0);
+          // displays the new quiz question
+          var previousQuestion = document.getElementById("questionDesciption");
           previousQuestion.textContent = quizInfo.question;
-          previousQuestion.style.color = "#d8dae3";
+          previousQuestion.style.color = "#127ebf";
 
           var indexPos = currentPosition + 1;
          
           document.getElementById("qNumber").textContent = `Question ${indexPos}`;
-          document.getElementById("qNumber").style.color = "white";
+          document.getElementById("qNumber").style.color = "#1e5b88";
 
-         
+          document.getElementById("questionPosOutOfTotal").textContent = `${indexPos} / ${content.length}`
          
         } 
         else if (direction === "left") {
           console.log("left", currentPosition)
           console.log("radio: ", document.getElementById("radio-0").textContent);
-          // document.getElementById("radio-0").textContent = quizInfo.solution;
-          // document.getElementById("radio-1").textContent = quizInfo.a2;
-          // document.getElementById("radio-2").textContent = quizInfo.a3;
-          // document.getElementById("radio-3").textContent = quizInfo.a4;
+          document.getElementById("radio-0").textContent = quizInfo.solution;
+          document.getElementById("radio-1").textContent = quizInfo.a2;
+          document.getElementById("radio-2").textContent = quizInfo.a3;
+          document.getElementById("radio-3").textContent = quizInfo.a4;
 
-          var previousQuestion = document.getElementById(0);
-          
-          
+          var previousQuestion = document.getElementById("questionDesciption");
           previousQuestion.textContent = quizInfo.question;
-          previousQuestion.style.color = "#d8dae3";
+          previousQuestion.style.color = "#127ebf";
          
           var indexPos = currentPosition + 1;
           document.getElementById("qNumber").textContent = `Question ${indexPos}`;
-          document.getElementById("qNumber").style.color = "white";
+          document.getElementById("qNumber").style.color = "#1e5b88";
+
+          document.getElementById("questionPosOutOfTotal").textContent = `${indexPos} / ${content.length}`
 
           
         }   
       }
     }
 
-    function ChangeTextOnQuestion() {
-
-    }
   return (
     <> 
       <MenuBar></MenuBar>
-      <Card id="quizPageContainer" className="quizPageContainer uvs-left uvs-right">
+      <div id="quizPageContainer" className="quizBg img-fluid ">
         {DisplayOneQuestion(0)}
         <Row>
           <Button 
@@ -203,9 +204,13 @@ const QuizPage = () => {
             onClick={() => MoveQuestion("right", currentPosition = currentPosition + 1)}> 
               <Image className="rightArrow" src="/right.png"></Image> 
           </Button>
+          
+        </Row>
+        <Row>
+          <div className="questionPosOutOfTotal" id="questionPosOutOfTotal"> 1/0</div>
           <SubmitButton value="Submit" questionData={data}></SubmitButton>
         </Row>
-      </Card>
+      </div>
     </>
   );
 }
