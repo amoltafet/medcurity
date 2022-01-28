@@ -54,7 +54,6 @@ const  LearningDirectoryPage = () => {
     return (
         <>
         <Container className=" LearningDirectoryPageContainer">
-            {console.log(typeof(directory))}
             
             <h1>{directoryTitle} Learning Modules Directory</h1>
         </Container>
