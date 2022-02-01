@@ -2,7 +2,9 @@ const express = require('express');
 const db = require('./config')
 const cors = require('cors')
 const app = express();
-const fs = require('fs')
+
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 
 const PORT = 3002;
 app.use(cors());
@@ -25,6 +27,22 @@ app.get("/api/getQuery", (req,res)=>{
         console.log(result)
         res.send(result)
     })
+});
+
+app.post("/api/register", (req,res)=>{
+    const email = req.body.email
+    const password = req.body.password
+    const username = email.substring(0, email.indexOf("@"));
+    console.log('REGISTERED WITH CREDENTIALS:', req.body.email, req.body.password, username)
+
+    /*bcrypt.hash(password, saltRounds, (err, hash) => {
+        if (err) console.log(err);
+        db.query("INSERT INTO Users (username, email, password) VALUES (?,?,?)", [username, email, hash], (err, result) => {
+            console.log(err);
+            res.send(result)
+        }
+        );
+    });*/
 });
 
 // Returns learning module content info given an ID (ex. Privacy module has an ID of 1)
@@ -71,11 +89,19 @@ app.get("/api/getDirectoryModulesInfo", (req,res)=>{
     })
 });
 
+// Listen for GET/POST requests on port 3002
+app.listen(PORT, (err)=>{
+    
+    if (err) console.log('ERROR: ', err)
+
+    console.log(`Server is running on ${PORT}`)
+})
+
 // EVERYTHING BELOW WILL BE DEFUNCT
 // EVERYTHING BELOW WILL BE DEFUNCT
 // EVERYTHING BELOW WILL BE DEFUNCT
 
-app.get("/api/getCategoryQuestions", (req,res)=>{
+/*app.get("/api/getCategoryQuestions", (req,res)=>{
     db.query(`SELECT * FROM Questions WHERE category = '${req.query.filter}'`, (err,result) =>
     {
         if(err)
@@ -108,18 +134,10 @@ app.get("/api/getCategoryLength", (req,res)=>{
         }
     }
         );   
-});
-
-// Listen for GET/POST requests on port 3002
-app.listen(PORT, (err)=>{
-    
-    if (err) console.log('ERROR: ', err)
-
-    console.log(`Server is running on ${PORT}`)
-})
+});*/
 
 // Route to get a specific learning module 
-app.get("/api/getLearningModule", (req,res)=>{
+/*app.get("/api/getLearningModule", (req,res)=>{
     db.query(`SELECT * FROM LearningModules WHERE id = '${req.query.filter}'`, (err,result) =>
     {
         if(err)
@@ -134,4 +152,4 @@ app.get("/api/getLearningModule", (req,res)=>{
         }
     }
         );
-});
+});*/
