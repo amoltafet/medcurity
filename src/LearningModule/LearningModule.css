@@ -1,6 +1,67 @@
-.learningPageContainer {
-    margin-left: 2rem;
-    margin-right: 2rem;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
+.learningModuleBg {
+    background-image: url("learningModuleBg.png");
+    height: 90vh;
+    width: 100%;
+    margin-top: 1%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: fixed;
 }
+
+.moduleName {
+    color: #1e5b88;
+    font-family: Lato,sans-serif;
+    font-size: 250%;
+}
+
+.moduleImage {
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+
+.moduleSubtitle {
+    color: #127ebf;
+    font-family: Lato,sans-serif;
+    font-size: 150%;
+}
+
+.moduleDescription {
+    color: black;
+    margin-left: 7%;
+    margin-right: 6%;
+    font-family: Lato,sans-serif;
+    font-size: 100%;
+    margin-top: 2%;
+}
+
+.goToQuizBttn {
+    margin-right: 40%;
+    margin-left: 40%;
+    width: 20%;
+    margin-top: 2%;
+    background-color: #127ebf;
+    font-family: Lato,sans-serif;
+}
+
+.goToQuizBttn:hover {
+    color: #d8dae3;
+    background-color: #127ebf;
+}
+
+.goToQuizBttn:focus {
+    border: 0;
+    background-color: #127ebf;
+}
+
+.uvs-left {
+    border-radius: 10px 10px 10px 10px;
+    box-shadow:  0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+    
+    
+.uvs-right {
+    border-radius: 10px 10px 10px 10px;
+    
+}
+

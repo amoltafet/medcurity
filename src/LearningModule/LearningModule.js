@@ -1,4 +1,4 @@
-import {Button,  Container} from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
 import React from 'react';
 import './LearningModule.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -8,7 +8,7 @@ import axios from 'axios';
 
 /**
 * Creates and displays the learning page for each test category. 
-* @return { LearningModule}
+* @return { LearningModule }
 */
 const  LearningModule = () => {
     let { slug } = useParams();
@@ -24,18 +24,19 @@ const  LearningModule = () => {
           });
     }, [])
 
+
     const LearningModuleContent = content.map((module) => {
         return ([
-            <h1 className="text-center mt-3">
-              {module.Title} Module
+            <h1 className="text-center moduleName">
+              Learning Modules: {module.Title} Module
             </h1>,
-            <div class="d-flex justify-content-center">
-              <img src={require(`../assets/${module.Banner}`).default} class="img-fluid rounded mx-auto d-block" alt={module.Title} />
+            <div className="d-flex justify-content-center">
+              <img src={require(`../assets/` + module.Banner)} className="img-fluid rounded mx-auto d-block moduleImage uvs-left uvs-right" alt={module.Title} />
             </div>,
-            <h6 className="text-center  mt-2">
+            <h6 className="text-center mt-2 moduleSubtitle">
               {module.Subtitle}
             </h6>,
-            <h4 className="text-left mt-3">
+            <h4 className="text-center mt-3 moduleDescription">
               {module.Description}
             </h4>
         ]);
@@ -43,13 +44,13 @@ const  LearningModule = () => {
 
     return (
         <>
-        <Container className=" LearningModuleContainer">
-            {LearningModuleContent}
-        </Container>
-        <div className="d-grid gap-2">
-            <Button variant="primary" className="mt-5" href={'/quiz/' + slug}>
+         <div className="learningModuleBg img-fluid ">
+        {LearningModuleContent}
+        <div className="d-grid gap-2 ">
+            <Button variant="primary" className="goToQuizBttn uvs-left uvs-right" href={'/quiz/' + slug}>
                 Go to Quiz
             </Button>
+          </div>
         </div>
         </>
     );
