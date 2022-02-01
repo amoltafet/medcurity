@@ -6,6 +6,7 @@ import WelcomePanel from './WelcomePanel';
 import TestPanel from './TestPanel';
 import Leaderboard from './DashLeaderboard';
 import MenuBar from '../MenuBar';
+import LearningModulesCards from './LearningModulesCards';
 import LearningModulesDirectories from './LearningModuleDirectories';
 
 
@@ -21,13 +22,7 @@ const DashboardPage = () => {
           <WelcomePanel></WelcomePanel> 
           <Leaderboard></Leaderboard>
         </CardDeck>
-        <CardDeck className="dashboard" style={{display: 'flex', flexDirection: 'row'}}>
-            <TestPanel title="HIPPA" link="3"/>
-            <TestPanel title="Privacy" link="1"/>
-            <TestPanel title="Security" link="2"/>
-            <TestPanel></TestPanel>
-            <TestPanel></TestPanel>
-        </CardDeck>
+        <LearningModulesCards/>
         <LearningModulesDirectories/>
     </>
   );
