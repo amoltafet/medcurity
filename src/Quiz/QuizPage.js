@@ -13,7 +13,6 @@ import axios from 'axios';
 
 
 const QuizPage = () => {
-    console.log('displaying quiz page');
     const [content, setContent] = useState([])
     const [numQuestions, setNumQuestions] = useState("")
      // data array that holds question information using state
@@ -58,27 +57,6 @@ const QuizPage = () => {
             setNumQuestions(Object.values(response.data[0]))
         });
     }, [])
-
-    var index = 0;
-
-    const QuestionContent = content.map((question) => {
-      index++;
-      //const newData = data.concat({answer: "", correct: false});
-      //setData(newData);
-      return ([
-        <h3 className="questionNumbers text-center">
-          Question {index}
-        </h3>,
-        <Questions
-            i = {index - 1} 
-            question={question.question}
-            answers={[question.solution, question.a2, question.a3, question.a4]}
-            action={adjustStateData} 
-          />
-      ]);
-    })
-
-
     /** 
      * 
      * @param {int} index Index of question that is clicked on by user
@@ -98,7 +76,6 @@ const QuizPage = () => {
     function DisplayOneQuestion (position) {
       currentPosition = position;
       var quizInfo = content[position];
-      console.log("quizInfo: ", quizInfo);
 
       // checks if content is not null
       if (quizInfo !== undefined && content !== undefined) {
@@ -122,7 +99,6 @@ const QuizPage = () => {
     function MoveQuestion (direction, position) {
       var quizInfo = content[position];
       if (content !== undefined && quizInfo !== undefined) {
-        console.log("position", position)
 
         // enables disables the buttons 
         if (position === 0) {
@@ -134,21 +110,17 @@ const QuizPage = () => {
           document.getElementById("leftQuestionBttn").disabled = false;
         }
         else { 
-          console.log("yuh", document.getElementById("leftQuestionBttn"))
           document.getElementById('rightQuestionBttn').disabled = false;
           document.getElementById('leftQuestionBttn').disabled = false;
         }
           // selects which question
         if (direction === "right") {
-          document.getElementById("radio-0").textContent = quizInfo.solution;
-          document.getElementById("radio-1").textContent = quizInfo.a2;
-          document.getElementById("radio-2").textContent = quizInfo.a3;
-          document.getElementById("radio-3").textContent = quizInfo.a4;
-
-          document.getElementById("radio-0").type = "radio";
-          document.getElementById("radio-1").type = "radio";
-          document.getElementById("radio-2").type = "radio";
-          document.getElementById("radio-3").type = "radio";
+         
+          document.getElementById("radio-0").childNodes[1].textContent = ` ${quizInfo.solution}`;
+          document.getElementById("radio-1").childNodes[1].textContent = ` ${quizInfo.a2}`;
+          document.getElementById("radio-2").childNodes[1].textContent = ` ${quizInfo.a3}`;
+          document.getElementById("radio-3").childNodes[1].textContent = ` ${quizInfo.a4}`;
+  
 
           // displays the new quiz question
           var previousQuestion = document.getElementById("questionDesciption");
@@ -156,20 +128,16 @@ const QuizPage = () => {
           previousQuestion.style.color = "#127ebf";
 
           var indexPos = currentPosition + 1;
-         
           document.getElementById("qNumber").textContent = `Question ${indexPos}`;
           document.getElementById("qNumber").style.color = "#1e5b88";
-
           document.getElementById("questionPosOutOfTotal").textContent = `${indexPos} / ${content.length}`
-         
         } 
         else if (direction === "left") {
-          console.log("left", currentPosition)
-          console.log("radio: ", document.getElementById("radio-0").textContent);
-          document.getElementById("radio-0").textContent = quizInfo.solution;
-          document.getElementById("radio-1").textContent = quizInfo.a2;
-          document.getElementById("radio-2").textContent = quizInfo.a3;
-          document.getElementById("radio-3").textContent = quizInfo.a4;
+
+          document.getElementById("radio-0").childNodes[1].textContent = ` ${quizInfo.solution}`;
+          document.getElementById("radio-1").childNodes[1].textContent = ` ${quizInfo.a2}`;
+          document.getElementById("radio-2").childNodes[1].textContent = ` ${quizInfo.a3}`;
+          document.getElementById("radio-3").childNodes[1].textContent = ` ${quizInfo.a4}`;
 
           var previousQuestion = document.getElementById("questionDesciption");
           previousQuestion.textContent = quizInfo.question;
@@ -178,9 +146,7 @@ const QuizPage = () => {
           var indexPos = currentPosition + 1;
           document.getElementById("qNumber").textContent = `Question ${indexPos}`;
           document.getElementById("qNumber").style.color = "#1e5b88";
-
           document.getElementById("questionPosOutOfTotal").textContent = `${indexPos} / ${content.length}`
-
           
         }   
       }
@@ -198,7 +164,8 @@ const QuizPage = () => {
             className="toggleQuestionLeft"
             onClick={() => MoveQuestion("left", currentPosition = currentPosition - 1)}> 
               <Image className="leftArrow" src="/left.png"></Image> 
-          </Button> 
+          </Button>  
+          <div className="questionPosOutOfTotal" id="questionPosOutOfTotal"> 1/0</div>
           <Button 
             id="rightQuestionBttn"
             type="submit" 
@@ -208,10 +175,8 @@ const QuizPage = () => {
           </Button>
           
         </Row>
-        <Row>
-          <div className="questionPosOutOfTotal" id="questionPosOutOfTotal"> 1/0</div>
-          <SubmitButton value="Submit" questionData={data}></SubmitButton>
-        </Row>
+        <SubmitButton value="Submit" questionData={data}></SubmitButton>
+
       </div>
     </>
   );

@@ -11,7 +11,7 @@ const SettingsMenu = () => {
     return (
         <>
             <Tab.Container id="left-tabs-example" defaultActiveKey="first" style={{display: 'flex'}}>
-                <Row className="row">
+                <Row className="settingsRow">
                     <Col className="shadowTab" sm={2}>
                    
                         <Nav variant="pills" className="flex-column marginTop ">

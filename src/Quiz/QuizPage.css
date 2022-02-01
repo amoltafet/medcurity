@@ -15,29 +15,18 @@
     font-family: Lato,sans-serif;
     font-weight: bold;
     color: #1e5b88;
-
 }
 
-.toggleQuestionRight {
-    width: 10%;
-    margin-left: 2%;
-    border: 0;
-    background: transparent;
-}
-
-.toggleQuestionRight:hover {
-    border: 0;
-    background: transparent;
-}
-
-.toggleQuestionRight:disabled {
-    border: 0;
-    background: transparent;
+.buttonQuestionNumberRow{
+    width: 80%;
+    height: 10%;
 }
 
 .toggleQuestionLeft {
     width: 10%;
-    margin-left: 45.5%;
+    height: 10%;
+    margin-left: 38%;
+    margin-top: -1%;
     border: 0;
     background: transparent;
 }
@@ -52,11 +41,6 @@
     background: transparent;
 }
 
-.rightArrow {
-    width: 60%;
-    height: 100.5%;
-}
-
 .leftArrow {
     width: 60%;
     height: 100.5%;
@@ -65,5 +49,32 @@
 .questionPosOutOfTotal {
     color: #93c2ec;
     font-family: Lato,sans-serif;
-    margin-left: 54.5%;
+    margin-top: 1%;
+    margin-left: .2%;
+    width: 6%;
+}
+
+
+.toggleQuestionRight {
+    width: 10%;
+    height: 10%;
+    margin-left: -1.5%;
+    margin-top: -1%;
+    border: 0;
+    background: transparent;
+}
+
+.toggleQuestionRight:hover {
+    border: 0;
+    background: transparent;
+}
+
+.toggleQuestionRight:disabled {
+    border: 0;
+    background: transparent;
+}
+
+.rightArrow {
+    width: 60%;
+    height: 100.5%;
 }
