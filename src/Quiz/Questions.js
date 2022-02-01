@@ -29,21 +29,15 @@ function Questions(props) {
     
         const groupID = "q-group" + props.i;
 
-    const groupID = "q-group" + props.i;
 
     return(
         <>
-<<<<<<< HEAD
             <div id={props.id} className="text-center"> 
              <Container id="questionDesciption" className="questionDesciption">
                 {props.question} 
             </Container>
             
             <ToggleButtonGroup id ="answerQuizSelection" className="answerQuizSelection" vertical name={groupID}>
-=======
-            <div> {props.question} </div>
-            <ToggleButtonGroup vertical name={groupID}>
->>>>>>> main
                 {myanswers.map((radio, idx) => (
                 <ToggleButton 
                     key={idx}
@@ -52,16 +46,9 @@ function Questions(props) {
                     variant="secondary"
                     name="radio "
                     value={radio.name}
-<<<<<<< HEAD
                     variant="light"
                     className="individualQuestions"
                     onChange={(e) => props.action(props.i, radio.name)}>
-=======
-                    variant = "light"
-                    //checked={radioValue === radio.value}
-                    onChange={(e) => props.action(props.i, radio.name)}
-                >
->>>>>>> main
                     {radio.name}
                 </ToggleButton>
                 ))}
