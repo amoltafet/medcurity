@@ -10,6 +10,11 @@ import QuizPage from './Quiz/QuizPage';
 import LearningPage from './LearningModule/LearningPage';
 import LearningModule from './LearningModule/LearningModule';
 import LearningModules from './LearningModule/LearningModules';
+<<<<<<< HEAD
+=======
+import LearningDirectory from './LearningDirectory/LearningDirectory';
+import LearningDirectoryPage from './LearningDirectory/LearningDirectoryPage';
+>>>>>>> main
 import QuizModules from './Quiz/QuizModules';
 import QuizBackground from './Quiz/QuizBackground';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
@@ -28,6 +33,10 @@ ReactDOM.render(
       <Route path="/learning-module" element={<LearningPage />}>
         <Route path="" element={<LearningModules />} />
         <Route path=":slug" element={<LearningModule />} />
+      </Route>
+      <Route path="/learning-directory" element={<LearningDirectory />}>
+        <Route path="" />
+        <Route path=":slug" element={<LearningDirectoryPage />} />
       </Route>
       <Route path="/leaderboard" element={<Leaderboard />}/>
      
