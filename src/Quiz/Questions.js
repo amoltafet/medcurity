@@ -37,7 +37,7 @@ function Questions(props) {
                 {props.question} 
             </Container>
             
-            <ToggleButtonGroup id ="answerQuizSelection" className="answerQuizSelection" vertical name={groupID}>
+            <ToggleButtonGroup id ="answerQuizSelection" className="answerQuizSelection" vertical name={"q-group" + props.i}>
                 {myanswers.map((radio, idx) => (
                 <ToggleButton 
                     key={idx}
@@ -49,7 +49,7 @@ function Questions(props) {
                     variant="light"
                     className="individualQuestions"
                     onChange={(e) => props.action(props.i, radio.name)}>
-                    {radio.name}
+                    {` ${radio.name}`}
                 </ToggleButton>
                 ))}
             </ToggleButtonGroup>
