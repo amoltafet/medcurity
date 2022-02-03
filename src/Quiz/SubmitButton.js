@@ -9,7 +9,7 @@ export const SubmitButton = (props) => {
     function displayQuestionData() {
         for(var i= 0; i < 3; i++) {
             var newData = props.questionData[i];
-            console.log("" + newData["answer"]);
+            console.log("selected answer" + newData["answer"]);
         }
     }
     return (

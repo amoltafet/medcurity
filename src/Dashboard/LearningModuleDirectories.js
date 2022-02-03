@@ -31,7 +31,7 @@ const LearningModulesDirectories = () => {
             <>
             <Card className="LearningModuleDirectoriesCard uvs-right uvs-left">
                 <Card.Body>
-                   <Card.Link className="font" href={"/learning-directory/" + props.link} >{props.title}</Card.Link>
+                   <Card.Link className="LearningModuleDirectoriesCardFont" href={"/learning-directory/" + props.link} >{props.title}</Card.Link>
                 </Card.Body> 
             </Card>
             </>
@@ -52,10 +52,9 @@ const LearningModulesDirectories = () => {
 
     return (
         <>
-        <Container className=" LearningModulesDirectories">
+        <Container className="LearningModulesDirectories">
             {console.log(typeof(directories))}
-            
-            <h2>Learning Module Directories</h2>
+            <h2 className="LearningModulesDirectoriesHeader text-center" >Learning Module Directories</h2>
         </Container>
         <CardDeck className="dashboard" style={{display: 'flex', flexDirection: 'row'}}>
             {createDirectoriesCards(directories)}

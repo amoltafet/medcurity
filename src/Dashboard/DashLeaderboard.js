@@ -43,15 +43,18 @@ const Leaderboard = () => {
 
     var index = 0;
     const ProfileArray = users.map((userProfile) => {
-      index++;
+      if (index !== 3){
+       index++;
       //const newData = data.concat({answer: "", correct: false});
       //setData(newData);
       return (
             <DashLeaderboardProfiles
                 name={userProfile.username} 
                 user={user} 
+                index={index}
                 className={className}/>
         );
+       }
     })
     return (
         <>
