@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react';
 
 const GetStateData = () => {
-    const [data,setData]=useState([
+    var [data,setData]=useState([
       { answer:"", correct: false},
       { answer:"", correct: false},
       { answer:"", correct: false},
