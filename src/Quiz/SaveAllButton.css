@@ -6,11 +6,12 @@
     border-radius: 10px 10px 10px 10px;
 }
 
-.quizSubmitBttn {
+.saveAllBttn {
     color: white;
     background-color: #127ebf;
     font-family: Lato,sans-serif;
     border: 0;
     width: 20%;
-    margin-left: 40%;
+    margin-left: 50%;
+
 }

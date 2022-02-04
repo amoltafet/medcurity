@@ -15,6 +15,8 @@ import LearningDirectoryPage from './LearningDirectory/LearningDirectoryPage';
 import QuizModules from './Quiz/QuizModules';
 import QuizBackground from './Quiz/QuizBackground';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import GetData from "./Quiz/GetData";
+import GetStateData from "./Quiz/GetStateData";
 
 
 ReactDOM.render(
@@ -25,7 +27,7 @@ ReactDOM.render(
       <Route path="/settings" element={<SettingsPage />}/>
       <Route path="/quiz" element={<QuizBackground />}>
         <Route path="" element={<QuizModules />} />
-        <Route path=":slug" element={<QuizPage />} />
+        <Route path=":slug" element={<QuizPage /> } />
       </Route>
       <Route path="/learning-module" element={<LearningPage />}>
         <Route path="" element={<LearningModules />} />

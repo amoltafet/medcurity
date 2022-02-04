@@ -13,20 +13,20 @@ function DashLeaderboardProfiles(props) {
     return (
         <>
             <Card className="cardBackgroundDash" style={{ flexDirection: 'row' }}>
-                <Col>
-                    <Card.Text className="text-center dashLeaderNumberPosition">{props.index}.</Card.Text>
+                <Col sm>
+                    <div className="dashLeaderNumberPosition">{props.index}.</div>
                 </Col>
-                <Col>
+                <Col sm>
                     <Image className="profileImageDash" src="/user.png" alt="" roundedCircle />
                 </Col>
-                <Col>
-                    <Card.Text className="text-center userTextDash">{props.name}</Card.Text>
+                <Col sm>
+                    <div className="userTextDash">{props.name}</div>
                 </Col>
-                <Col>
-                 <Card.Title className="text-center scoreTextDash">Score</Card.Title>
+                <Col sm>
+                 <div className="scoreTextDash">Score</ div>
                 </Col>
-                <Col>
-                    <Card.Title body className="text-center pointsDash">{props.user.overallPoints}</Card.Title> 
+                <Col sm>
+                    <div body className="pointsDash">{props.user.overallPoints}</div> 
                 </Col>   
             </Card>
         </>
