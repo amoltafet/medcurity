@@ -66,16 +66,17 @@ const LearningModulesCards = () => {
      */
     function createModuleCardHeader(modules) {
         const objs = [];
-        objs.push(<h2>Required Learning Modules</h2>);
-        console.log(modules.length + ' remaining required modules')
+        //objs.push(<h2>Required Learning Modules</h2>);
 
         objs.push(
-            <Button
-                id="select-more-modules"
-                variant="outline-primary"
-                href='learning-directory'>
-                {modules.length} remaining required modules
-            </Button>
+            <h2>Required Learning Modules: &nbsp;  
+                <Button
+                    id="select-more-modules"
+                    variant="outline-primary"
+                    href='learning-directory'>
+                    {modules.length} remaining required modules
+                </Button>
+            </h2>
             
         );
         return objs;

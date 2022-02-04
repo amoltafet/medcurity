@@ -3,7 +3,6 @@ import './DashboardPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import {CardDeck, Container} from 'react-bootstrap'
 import WelcomePanel from './WelcomePanel';
-import TestPanel from './TestPanel';
 import Leaderboard from './DashLeaderboard';
 import MenuBar from '../MenuBar';
 import LearningModulesCards from './LearningModulesCards';
