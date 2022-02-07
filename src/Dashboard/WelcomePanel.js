@@ -1,6 +1,7 @@
 import {Image, Card} from 'react-bootstrap'
 import React from 'react';
 import './WelcomePanel.css';
+import './../Layout.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 /**

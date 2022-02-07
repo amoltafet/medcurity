@@ -5,7 +5,8 @@
     margin-bottom: 5.5%;
     width: 90%;
     height: 22%;
-    box-shadow:  0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 20px;
+    box-shadow:  1000000px 1000000px 0px rgba(0, 0, 4, 1), 1000000px 1000000px 0px rgba(0, 0, .9, 1);
 
 }
 
@@ -53,13 +54,4 @@
     margin-left: 6%;
     margin-bottom: 1%;
     margin-top: 1.5%;
-}
-
-.uvs-left {
-    border-radius: 10px 10px 10px 10px;
-} 
-    
-.uvs-right {
-    border-radius: 10px 10px 10px 10px;
-    
 }

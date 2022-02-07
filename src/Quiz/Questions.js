@@ -1,6 +1,5 @@
 import React from 'react';
 import {ToggleButtonGroup, ToggleButton} from 'react-bootstrap';
-import './Questions.css';
 
 /**
  * 
