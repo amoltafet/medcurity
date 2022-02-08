@@ -1,7 +1,8 @@
 // <div>Icons made by <a href="https://www.flaticon.com/authors/kliwir-art" title="kliwir art">kliwir art</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { Card, Image } from 'react-bootstrap';
+import { Card, Image,  Col } from 'react-bootstrap';
+
 import './DashLeaderboardProfiles.css'
 
  /**
@@ -13,12 +14,21 @@ function DashLeaderboardProfiles(props) {
     return (
         <>
             <Card className="cardBackgroundDash" style={{ flexDirection: 'row' }}>
-                <Image className="profileImageDash" src="/user.png" alt="" roundedCircle />
-                <Card.Text className="userTextDash">{props.name}</Card.Text>
-                <Card.Title className="scoreTextDash">Score</Card.Title>
-                <Card.Title body className="pointsDash">{props.user.overallPoints}</Card.Title>
-                <Image className="statusImageDash justify-content-end" src="/upArrow.png" alt="" />
-               
+                <Col sm>
+                    <div className="dashLeaderNumberPosition">{props.index}.</div>
+                </Col>
+                <Col sm>
+                    <Image className="profileImageDash" src="/user.png" alt="" roundedCircle />
+                </Col>
+                <Col sm>
+                    <div className="userTextDash">{props.name}</div>
+                </Col>
+                <Col sm>
+                 <div className="scoreTextDash">Score</ div>
+                </Col>
+                <Col sm>
+                    <div body className="pointsDash">{props.user.overallPoints}</div> 
+                </Col>   
             </Card>
         </>
     );

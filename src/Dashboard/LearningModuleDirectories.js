@@ -30,7 +30,7 @@ const LearningModulesDirectories = () => {
             <>
             <Card className="LearningModuleDirectoriesCard uvs-right uvs-left">
                 <Card.Body>
-                   <Card.Link className="font" href={"/learning-directory/" + props.link} >{props.title}</Card.Link>
+                   <Card.Link className="LearningModuleDirectoriesCardFont" href={"/learning-directory/" + props.link} >{props.title}</Card.Link>
                 </Card.Body> 
             </Card>
             </>

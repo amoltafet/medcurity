@@ -40,35 +40,21 @@ const LeaderboardPage = () => {
     };
     
 
+    
 
     var index = 0;
     const ProfileArray = users.map((userProfile) => {
+        console.log("user Prof", userProfile)
       index++;
-      //const newData = data.concat({answer: "", correct: false});
-      //setData(newData);
       return (
             <LeaderboardProfile
                 name={userProfile.username} 
+                index={index}
                 user={user} 
                 className={className}/>
         );
     })
     
-    // /**
-    // * Creates all of the user profiles for the leaderboard page. 
-    // * @return {profileArray}
-    // */
-    // const CreateUsers = () => {
-    //     profileArray = []
-    //     for (var i = 0; i < 8; i++) {
-    //         profileArray.push(<LeaderboardProfile 
-    //             name={user.userName} 
-    //             user={user} 
-    //             className={className}/>)
-    //             console.log("one")
-    //     }
-    //     return(profileArray)
-    // }
     return (
         <>
             <Menubar></Menubar>

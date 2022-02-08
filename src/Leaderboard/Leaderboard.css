@@ -1,10 +1,9 @@
 .leaderboardContainer{
-    margin-left: 10%;
+    margin-left: 20%;
     margin-right: 10%;
-    margin-top: 1%;
     margin-bottom: 3%;
-    height: 86vmin;
-    width: 80%;
+    height: 88.5vmin;
+    width: 40%;
     background-color: #d8dae3;
     border-radius: 10px 10px 10px 10px;
     overflow-y: scroll;
