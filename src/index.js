@@ -14,21 +14,22 @@ import LearningDirectory from './LearningDirectory/LearningDirectory';
 import LearningDirectoryPage from './LearningDirectory/LearningDirectoryPage';
 import QuizModules from './Quiz/QuizModules';
 import QuizBackground from './Quiz/QuizBackground';
-import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
-import GetData from "./Quiz/GetData";
-import GetStateData from "./Quiz/GetStateData";
-
+import Store from './Store';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Provider } from "react-redux";
 
 ReactDOM.render(
+ <Provider store={Store}>
   <Router>
     <Routes>
-      <Route path="/" element={<LoginPage />}/>
+      <Route path="/" element={<LoginPage />} />
       <Route path="/dash" element={<DashboardPage />} />
-      <Route path="/settings" element={<SettingsPage />}/>
-      <Route path="/quiz" element={<QuizBackground />}>
-        <Route path="" element={<QuizModules />} />
-        <Route path=":slug" element={<QuizPage /> } />
-      </Route>
+      <Route path="/settings" element={<SettingsPage />} />,
+        <Route path="/quiz" element={<QuizBackground />}>
+          <Route path="" element={<QuizModules />} />
+          <Route path=":slug" element={<QuizPage />} />
+        </Route>
+        
       <Route path="/learning-module" element={<LearningPage />}>
         <Route path="" element={<LearningModules />} />
         <Route path=":slug" element={<LearningModule />} />
@@ -37,10 +38,10 @@ ReactDOM.render(
         <Route path="" />
         <Route path=":slug" element={<LearningDirectoryPage />} />
       </Route>
-      <Route path="/leaderboard" element={<Leaderboard />}/>
-     
+      <Route path="/leaderboard" element={<Leaderboard />} />
     </Routes>
-  </Router>,
+  </Router>
+   </Provider>, 
   document.getElementById('root')
 );
 

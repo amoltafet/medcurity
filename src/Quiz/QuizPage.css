@@ -9,14 +9,6 @@
     position: fixed;
 }
 
-.questionNumbers {
-    margin-top: 3%;
-    font-size: 120%;
-    font-family: Lato,sans-serif;
-    font-weight: bold;
-    color: #1e5b88;
-}
-
 .buttonQuestionNumberRow{
     width: 80%;
     height: 10%;
