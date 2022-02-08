@@ -51,15 +51,9 @@ const LearningModulesDirectories = () => {
 
     return (
         <>
-<<<<<<< HEAD
-        <Container className="LearningModulesDirectories">
-            {console.log(typeof(directories))}
-            <h2 className="LearningModulesDirectoriesHeader text-center" >Learning Module Directories</h2>
-=======
         <Container className=" LearningModulesDirectories">
             
             <h2>Learning Module Directories</h2>
->>>>>>> origin
         </Container>
         <CardDeck className="dashboard" style={{display: 'flex', flexDirection: 'row'}}>
             {createDirectoriesCards(directories)}
