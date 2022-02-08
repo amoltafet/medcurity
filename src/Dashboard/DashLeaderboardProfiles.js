@@ -1,7 +1,7 @@
 // <div>Icons made by <a href="https://www.flaticon.com/authors/kliwir-art" title="kliwir art">kliwir art</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { Card, Image,  Row } from 'react-bootstrap';
+import { Card, Image } from 'react-bootstrap';
 import './DashLeaderboardProfiles.css'
 
  /**

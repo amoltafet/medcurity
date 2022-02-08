@@ -41,9 +41,7 @@ const Leaderboard = () => {
     
 
 
-    var index = 0;
     const ProfileArray = users.map((userProfile) => {
-      index++;
       //const newData = data.concat({answer: "", correct: false});
       //setData(newData);
       return (
