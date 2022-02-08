@@ -20,6 +20,16 @@
     height: .1%;
 }
 
+.dashLeaderboardFont {
+    color: white;
+    font-family: Lato,sans-serif;
+    text-decoration: none;
+}
+
+.dashLeaderboardFont:hover {
+     color: #d8dae3;
+}
+
 .userProfileDash {
     width: 4%;
     height: 4%;
@@ -32,7 +42,7 @@
 .categoryDash {
     font-size: .1vmax;
     text-align: center;
-    color: #1eb5f1;
+    color: #127ebf;
 }
 
 .progressBarDash {

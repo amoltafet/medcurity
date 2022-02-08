@@ -1,9 +1,8 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './LearningModuleDirectoriesCard.css'
-import { Card, Image, Button, Container, CardDeck } from 'react-bootstrap';
+import { Card, Container, CardDeck } from 'react-bootstrap';
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
 import axios from 'axios';
 
 /**

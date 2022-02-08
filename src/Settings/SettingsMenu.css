@@ -3,25 +3,28 @@
     height: 5vmax;
 }
 
-.row {
+.settingsRow {
     width: 90vmax;
 }
 
-.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+.nav-link.active {
     width: 8vmax;
     border-radius: 5px;
-    background-color: #cc3333;
+    background-color: #cc3333 !important;
     text-align: center;
     box-shadow:  0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.nav-link  {
+.unselectedSetting {
     color: #1e5b88;
     text-align: center;
-    background-color: #1e5b88;
     border: #1e5b88;
     width: 8vmax;
     border-radius: 5px;  
+}
+
+.unselectedSetting:hover {
+    color: #d8dae3;
 }
 
 .settingsMenuContainer {
@@ -78,8 +81,8 @@
     margin-bottom: 2vmax;
     margin-left: 2vmax;
     margin-right: 2vmax;
-    width: 10vmax;
-    height: 11vmax;
+    width: 11vmax;
+    height: 13vmax;
     border-radius: 10px 10px 10px 10px;
     box-shadow:  0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
  

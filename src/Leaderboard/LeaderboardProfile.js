@@ -15,114 +15,39 @@ import './LeaderboardProfile.css'
 function LeaderboardProfile(props) {
     return (
         <>
-        <Card.Body className={props.className[0]} style={{ flexDirection: 'row' }}>
-            <Accordion defaultActiveKey="0">
+       
+            <Accordion className="userPanel" defaultActiveKey="0">
                 <Accordion.Toggle eventKey="1" className="accordianToggel">
                 <Card className="cardHeaderAccordian" style={{ flexDirection: 'row' }}>
+                    <div></div>
                     <Row>
-                        <Card.Text className="userNameTitle">{props.user.userName}</Card.Text>
+                        <Card.Text className="userNameTitle">{props.name}</Card.Text>
                         <Image className={props.className[1]} src="/user.png" alt="" roundedCircle />
                     </Row>    
                     <Row>
                             <Card.Text className={props.className[2]}>Category 1</Card.Text>
                         
-                        <CircularProgressbar
-                            className={props.className[3]}
-                            value={props.user.category1TotalPoints}
-                            text={`${props.user.category1TotalPoints}%`}
-                            styles={{
-                                path: {
-                                    stroke: "#1e5b88",
-                                },
-                                trail: {
-                                    stroke: "#d8dae3",
-                                },
-                                text: {
-                                    fill: "white",
-                                    textAnchor: "middle",
-                                }
-                            }} />
                     </Row>
                     <Row>
                             <Card.Text className={props.className[2]}>Category 2</Card.Text>
                  
-                        <CircularProgressbar
-                            className={props.className[3]}
-                            value={props.user.category2TotalPoints}
-                            text={`${props.user.category2TotalPoints}%`}
-                            styles={{
-                                path: {
-                                    stroke: "#1e5b88",
-                                },
-                                trail: {
-                                    stroke: "#d8dae3",
-                                },
-                                text: {
-                                    fill: "white",
-                                    textAnchor: "middle",
-                                }
-                            }} />
+                    
                     </Row>
                     <Row>
                             <Card.Text className={props.className[2]}>Category 3</Card.Text>
        
-                        <CircularProgressbar
-                            className={props.className[3]}
-                            value={props.user.category3TotalPoints}
-                            text={`${props.user.category3TotalPoints}%`}
-                            styles={{
-                                path: {
-                                    stroke: "#1e5b88",
-                                },
-                                trail: {
-                                    stroke: "#d8dae3",
-                                },
-                                text: {
-                                    fill: "white",
-                                    textAnchor: "middle",
-                                }
-                            }} />
+                       
                     </Row>
                     <Row>
                             <Card.Text className={props.className[2]}>Category 4</Card.Text>
                    
-                        <CircularProgressbar
-                            className={props.className[3]}
-                            value={props.user.category4TotalPoints}
-                            text={`${props.user.category4TotalPoints}%`}
-                            styles={{
-                                path: {
-                                    stroke: "#1e5b88",
-                                },
-                                trail: {
-                                    stroke: "#d8dae3",
-                                },
-                                text: {
-                                    fill: "white",
-                                    textAnchor: "middle",
-                                }
-                            }} />
+                       
                     </Row>
                     <Row>
                         
                             <Card.Text className={props.className[2]}>Category 5</Card.Text>
                        
-                        <CircularProgressbar
-                            className={props.className[3]}
-                            value={props.user.category5TotalPoints}
-                            text={`${props.user.category5TotalPoints}%`}
-                            styles={{
-                                path: {
-                                    stroke: "#1e5b88",
-                                },
-                                trail: {
-                                    stroke: "#d8dae3",
-                                },
-                                text: {
-                                    fill: "white",
-                                    textAnchor: "middle",
-                                }
-                            }} />
+                       
                     </Row>
 
                 </Card>
@@ -136,7 +61,7 @@ function LeaderboardProfile(props) {
                    </Card.Body>
                 </Accordion.Collapse>
             </Accordion>
-             </Card.Body>
+     
         </>
     );
 }

@@ -1,6 +1,80 @@
-.quizPageContainer {
-    margin-left: 2vmax;
-    margin-right: 2vmax;
-    margin-top: 2vmax;
-    margin-bottom: 2vmax;
+.quizBg {
+    background-image: url("quizBg.png");
+    height: 100%;
+    width: 100%;
+    margin-top: 1%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: fixed;
+}
+
+.questionNumbers {
+    margin-top: 3%;
+    font-size: 120%;
+    font-family: Lato,sans-serif;
+    font-weight: bold;
+    color: #1e5b88;
+}
+
+.buttonQuestionNumberRow{
+    width: 80%;
+    height: 10%;
+}
+
+.toggleQuestionLeft {
+    width: 10%;
+    height: 10%;
+    margin-left: 38%;
+    margin-top: -1%;
+    border: 0;
+    background: transparent;
+}
+
+.toggleQuestionLeft:disabled {
+    border: 0;
+    background: transparent;
+}
+
+.toggleQuestionLeft:hover {
+    border: 0;
+    background: transparent;
+}
+
+.leftArrow {
+    width: 60%;
+    height: 100.5%;
+}
+
+.questionPosOutOfTotal {
+    color: #93c2ec;
+    font-family: Lato,sans-serif;
+    margin-top: 1%;
+    margin-left: .2%;
+    width: 6%;
+}
+
+
+.toggleQuestionRight {
+    width: 10%;
+    height: 10%;
+    margin-left: -1.5%;
+    margin-top: -1%;
+    border: 0;
+    background: transparent;
+}
+
+.toggleQuestionRight:hover {
+    border: 0;
+    background: transparent;
+}
+
+.toggleQuestionRight:disabled {
+    border: 0;
+    background: transparent;
+}
+
+.rightArrow {
+    width: 60%;
+    height: 100.5%;
 }
