@@ -6,7 +6,7 @@
     margin-bottom: .5%;
     margin-left: 5%;
     margin-right: 1.5%;
-    width: 55%;
+    width: 53%;
     height: 20vmax;
 }
 
@@ -17,19 +17,7 @@
     margin-bottom: 1%;
     width: 10vmax;
     height: 10vmax; 
-    box-shadow:  0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
-}
-
-.uvs-left {
-    border-radius: 10px 10px 10px 10px;
-    border: white;
-    border-radius: .13%;
     box-shadow:  0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-    
-    
-.uvs-right {
-    border-radius: 10px 10px 10px 10px;
 }
 
 .titleFont {

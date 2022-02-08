@@ -14,7 +14,8 @@ export const SubmitButton = (props) => {
     }
     return (
         <div id="submit-btn">
-            <input type="button" value={props.value} onClick={displayQuestionData}></input>
+            <input type="button" className="quizSubmitBttn uvs-left uvs-right" value={props.value} onClick={displayQuestionData}></input>
+
         </div>
     )
 }

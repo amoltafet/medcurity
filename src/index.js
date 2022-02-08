@@ -4,6 +4,7 @@ import './index.css';
 import DashboardPage from './Dashboard/DashboardPage';
 import SettingsPage from './Settings/SettingsPage';
 import LoginPage from './Login/LoginPage';
+import RegisterPage from './Register/RegisterPage';
 import Leaderboard from './Leaderboard/LeaderboardPage';
 import reportWebVitals from './reportWebVitals';
 import QuizPage from './Quiz/QuizPage';
@@ -22,6 +23,7 @@ ReactDOM.render(
   <Router>
     <Routes>
       <Route path="/" element={<LoginPage />}/>
+      <Route path="/register" element={<RegisterPage />}/>
       <Route path="/dash" element={<DashboardPage />} />
       <Route path="/settings" element={<SettingsPage />}/>
       <Route path="/quiz" element={<QuizBackground />}>

@@ -14,10 +14,11 @@ function DashLeaderboardProfiles(props) {
         <>
             <Card className="cardBackgroundDash" style={{ flexDirection: 'row' }}>
                 <Image className="profileImageDash" src="/user.png" alt="" roundedCircle />
-                <Card.Text className="userTextDash">{props.user.userName}</Card.Text>
+                <Card.Text className="userTextDash">{props.name}</Card.Text>
                 <Card.Title className="scoreTextDash">Score</Card.Title>
                 <Card.Title body className="pointsDash">{props.user.overallPoints}</Card.Title>
-                <Image className="statusImageDash" src="/upArrow.png" alt="" />
+                <Image className="statusImageDash justify-content-end" src="/upArrow.png" alt="" />
+               
             </Card>
         </>
     );

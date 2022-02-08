@@ -1,5 +1,5 @@
-.loginbg {
-    background-image: url("loginbg.png");
+.registerbg {
+    background-image: url("registerbg.png");
     height: 100vh;
     width: 100%;
     background-position: center;
@@ -39,50 +39,40 @@
     color: #1e5b88;
 }
 
-.loginCard {
+.registerCard {
     border: white;
     background-color: transparent;
     width: 70%;
 }
 
-.loginButton {
+.createButton {
     color: white;
     background-color: #c33333;
     margin-top: 5%;
     font-family: Lato,sans-serif;
     font-size: 1.1vmax;
     text-align: center;
-    width: 50%;
+    width: 100%;
 }
 
-.registerButton {
-    color: white;
-    background-color: #c33333;
-    margin-top: 5%;
-    font-family: Lato,sans-serif;
-    font-size: 1.1vmax;
-    text-align: center;
-    width: 50%;
-}
-
-.loginHeader {
+.registerHeader {
     font-family: Lato,sans-serif;
     font-size: 2vmax;
     margin-top: 2%;
     margin-bottom: 0;
-    margin-left: 20%;
-    margin-right: 23%;
+    margin-left: 12%;
+    margin-right: 0%;
     color: white;
 
 }
 
-.loginMessage {
+.registerMessage {
     font-family: Lato,sans-serif;
-    font-size: 2vmax;
+    font-size: 1vmax;
     margin-top: 2%;
     margin-bottom: 0;
-    margin-left: 18%;
-    margin-right: 23%;
+    margin-left: 12.5%;
+    margin-right: 0%;
     color: white;
 
 }

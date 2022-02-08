@@ -21,6 +21,16 @@
       "src": "upArrow.png",
       "sizes": "512×512",
       "type": "image/png"
+    },
+    {
+      "src": "right.png",
+      "sizes": "512×512",
+      "type": "image/png"
+    },
+    {
+      "src": "left.png",
+      "sizes": "512×512",
+      "type": "image/png"
     }
   ],
   "props":[

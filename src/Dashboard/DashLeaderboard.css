@@ -20,21 +20,14 @@
     height: .1%;
 }
 
-.font {
+.dashLeaderboardFont {
     color: white;
     font-family: Lato,sans-serif;
     text-decoration: none;
 }
 
-.uvs-left {
-    border-radius: 10px 10px 10px 10px;
-    box-shadow:  0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-    
-    
-.uvs-right {
-    border-radius: 10px 10px 10px 10px;
-    
+.dashLeaderboardFont:hover {
+     color: #d8dae3;
 }
 
 .userProfileDash {
@@ -49,7 +42,7 @@
 .categoryDash {
     font-size: .1vmax;
     text-align: center;
-    color: #1eb5f1;
+    color: #127ebf;
 }
 
 .progressBarDash {

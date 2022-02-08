@@ -9,8 +9,8 @@ import axios from 'axios';
  */
 function LearningModules() {
   return (
-    <div className="home">
-      <div class="container">
+    <div >
+      <div >
         <h1 className="text-center mt-5">Custom Learning Module page?</h1>
       </div>
     </div>
