@@ -53,7 +53,6 @@ const LearningModulesDirectories = () => {
     return (
         <>
         <Container className=" LearningModulesDirectories">
-            {console.log(typeof(directories))}
             
             <h2>Learning Module Directories</h2>
         </Container>
