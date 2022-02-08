@@ -2,16 +2,16 @@ import {Button, Image, Form, Card} from 'react-bootstrap'
 import React from 'react';
 import { useEffect, useState } from "react";
 import Axios from "axios"
-import './LoginPage.css';
+import './RegisterPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useNavigate } from 'react-router-dom';
 
 /**
 * Creates and displays the main login page. 
-* @return {LoginPage}
+* @return {RegisterPage}
 */
 
-export default function LoginPage()
+export default function RegisterPage()
 {
   //Axios.defaults.withCredentials = true;
 
@@ -20,57 +20,42 @@ export default function LoginPage()
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const login = () => {
-    console.log('LOGGING IN', email, password)
-    let credential_requirements = " "
-    
-    if (email <= 0 || password <= 0)
-    {
-      if (email <= 0) credential_requirements += "Email required. "
-      if (password <= 0) credential_requirements += "Password required. "
-      console.log(credential_requirements)
-      setMessage(credential_requirements)
-    }
-    else
-    {
-      setMessage(credential_requirements)
-      Axios.post("http://localhost:3002/api/login",
-      { 
-        email: email,
-        password: password
-      }).then((response) => 
-      {
-        console.log("response.data =", response.data)
-        if (response.data.success == true)
-        {
-          setMessage(response.data.message)
-          navigate('/dash');
-        }
-        else if (response.data.success == false)
-        {
-          setMessage(response.data.message)
-        }
-      });
-      }
-
-  };
-
   const register = () => {
-    navigate('/register');
+    console.log('REGISTERING', email, password)
+    Axios.post("http://localhost:3002/api/register",
+    { 
+      email: email,
+      password: password
+    }).then((response) => 
+    {
+      console.log("response.data =", response.data)
+      if (response.data == true)
+      {
+        console.log("A new user!")
+        navigate('/dash');
+      }
+      else if (response.data == false)
+      {
+        console.log("Already has account!")
+        setMessage('This email is already in use! Please go back to the login page by clicking the Medcurity logo.')
+      }
+    });
   };
   
       return (
           <>
-          <Form className="loginbg img-fluid">
+          <Form className="registerbg img-fluid">
+            <a href="/">
             <Image className="MedcurityLogo justify-content-bottom" variant="top" src="/Medcurity_Logo.png" alt="" />
-              <Card className="loginCard">
+            </a>
+              <Card className="registerCard">
                 <Card.Text className="header">Medcurity Learn Security</Card.Text>
                 <Card.Text className="body">
-                  To access your Medcurity Learn Security Dashboard please enter your login credentials.
+                  After creating your account, you'll be able to access the various HIPAA learning content.
                 </Card.Text>
               </Card>
             <Form className="emailAndPass">
-              <Form.Text className="loginHeader">Login to Medcurity Learn Security</Form.Text>
+              <Form.Text className="registerHeader">Create an account for Medcurity Learn Security</Form.Text>
                 <Form.Group className="email" controlId="formEmail">
                   <Form.Control 
                     type="email" 
@@ -88,10 +73,9 @@ export default function LoginPage()
                     {
                       setPassword(e.target.value);
                     }}/>
-                  <Button className="loginButton" variant="secondary" type="button" onClick={login}>Login</Button>
-                  <Button className="registerButton" variant="secondary" type="button" onClick={register}>Register</Button>
+                  <Button className="createButton" variant="secondary" type="button" onClick={register}>Register</Button>
                 </Form.Group>
-                <Form.Text className="loginMessage">{message}</Form.Text>
+                <Form.Text className="registerMessage">{message}</Form.Text>
             </Form>
           </Form>
           </>
