@@ -10,7 +10,7 @@ export const QuestionSlice = createSlice({
             a1: "",
             a2: "", 
             a3: "",
-            selectedAnswer: ""
+            selectedAnswer: "" 
         },
         allQuestions: [],
     },

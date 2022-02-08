@@ -2,6 +2,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Card, Image,  Col } from 'react-bootstrap';
+
 import './DashLeaderboardProfiles.css'
 
  /**

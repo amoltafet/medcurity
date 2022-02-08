@@ -4,6 +4,7 @@ import './index.css';
 import DashboardPage from './Dashboard/DashboardPage';
 import SettingsPage from './Settings/SettingsPage';
 import LoginPage from './Login/LoginPage';
+import RegisterPage from './Register/RegisterPage';
 import Leaderboard from './Leaderboard/LeaderboardPage';
 import reportWebVitals from './reportWebVitals';
 import QuizPage from './Quiz/QuizPage';
@@ -12,6 +13,7 @@ import LearningModule from './LearningModule/LearningModule';
 import LearningModules from './LearningModule/LearningModules';
 import LearningDirectory from './LearningDirectory/LearningDirectory';
 import LearningDirectoryPage from './LearningDirectory/LearningDirectoryPage';
+import LearningDirectoryRequiredPage from './LearningDirectory/LearningDirectoryRequiredPage';
 import QuizModules from './Quiz/QuizModules';
 import QuizBackground from './Quiz/QuizBackground';
 import Store from './Store';
@@ -22,7 +24,9 @@ ReactDOM.render(
  <Provider store={Store}>
   <Router>
     <Routes>
-      <Route path="/" element={<LoginPage />} />
+
+      <Route path="/" element={<LoginPage />}/>
+      <Route path="/register" element={<RegisterPage />}/>
       <Route path="/dash" element={<DashboardPage />} />
       <Route path="/settings" element={<SettingsPage />} />,
         <Route path="/quiz" element={<QuizBackground />}>
@@ -35,7 +39,7 @@ ReactDOM.render(
         <Route path=":slug" element={<LearningModule />} />
       </Route>
       <Route path="/learning-directory" element={<LearningDirectory />}>
-        <Route path="" />
+        <Route path="" element={<LearningDirectoryRequiredPage />}/>
         <Route path=":slug" element={<LearningDirectoryPage />} />
       </Route>
       <Route path="/leaderboard" element={<Leaderboard />} />

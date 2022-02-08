@@ -41,10 +41,12 @@ const Leaderboard = () => {
     
 
 
-    var index = 0;
     const ProfileArray = users.map((userProfile) => {
+<<<<<<< HEAD
       if (index !== 3){
        index++;
+=======
+>>>>>>> origin
       //const newData = data.concat({answer: "", correct: false});
       //setData(newData);
       return (

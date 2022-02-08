@@ -7,8 +7,44 @@ import { useParams } from "react-router";
 import axios from 'axios';
 import LearningModulePanel from './LearningModulePanel';
 
+
 /**
-* Creates and displays the learning page for each test category. 
+ * Constructs the content for the Learning Directory Page
+ * @param {DirectoryTitle}: props
+ * @param {modules}: props
+ * @returns Page content of the directory page
+ */
+const LearningDirectoryPageContent = (props) => {
+
+    /**
+     * Create directory cards from modules
+     */
+         function createDirectoryCards(modules) {
+            const objs = []
+            for (let index in modules) {
+                module = modules[index]
+                objs.push(<LearningModulePanel title={module.Title} link={module.ID} />)
+            }
+            return objs;
+        }
+
+    return (
+        <>
+        <Container className=" LearningDirectoryPageContainer">
+            
+            <h1>{props.directoryTitle}</h1>
+        </Container>
+        <CardDeck className="dashboard" style={{display: 'flex', flexDirection: 'row'}}>
+            {createDirectoryCards(props.modules)}
+        </CardDeck>
+        <div className="d-grid gap-2">
+        </div>
+        </>
+    );
+}
+
+/**
+* Creates and displays the learning directory for each category. 
 * @return { LearningDirectoryPage}
 */
 const  LearningDirectoryPage = () => {
@@ -34,35 +70,17 @@ const  LearningDirectoryPage = () => {
         });
     }, [])
 
-    /**
-     * Create directory cards from modules
-     */
-    function createDirectoryCards(modules) {
-        const objs = []
-        for (let index in modules) {
-            module = modules[index]
-            objs.push(<LearningModulePanel title={module.Title} link={module.ID} />)
-        }
-        return objs;
-    }
-
     const directoryTitle = directory.map((directory) => {
         
         return directory.Title
     })
 
-    return (
-        <>
-        <Container className=" LearningDirectoryPageContainer">
-            
-            <h1>{directoryTitle} Learning Modules Directory</h1>
-        </Container>
-        <CardDeck className="dashboard" style={{display: 'flex', flexDirection: 'row'}}>
-            {createDirectoryCards(modules)}
-        </CardDeck>
-        <div className="d-grid gap-2">
-        </div>
-        </>
+    return(
+        <LearningDirectoryPageContent directoryTitle={directoryTitle +  'Learning Modules Directory'} modules={modules} />
     );
+
+
 }
+
+export { LearningDirectoryPageContent }
 export default  LearningDirectoryPage;

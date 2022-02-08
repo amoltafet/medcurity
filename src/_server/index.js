@@ -2,7 +2,9 @@ const express = require('express');
 const db = require('./config')
 const cors = require('cors')
 const app = express();
-const fs = require('fs')
+
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 
 const PORT = 3002;
 app.use(cors());
@@ -24,6 +26,66 @@ app.get("/api/getQuery", (req,res)=>{
         console.log(`LISTEN SERVER: GOT RESULTS FROM "${req.query.the_query}" QUERY`)
         console.log(result)
         res.send(result)
+    })
+});
+
+app.post("/api/register", (req,res)=>{
+    const email = req.body.email
+    const password = req.body.password
+    const username = email.substring(0, email.indexOf("@"));
+    console.log('REGISTERED WITH CREDENTIALS:', req.body.email, req.body.password, username)
+
+    db.query(`SELECT EXISTS(SELECT * FROM Users WHERE email = '${email}') AS doesExist`, (err,result) => {
+        if (result[0].doesExist == 0)
+        {
+            bcrypt.hash(password, saltRounds, (err, hash) => {
+                if (err) console.log(err);
+                db.query("INSERT INTO Users (username, email, password) VALUES (?,?,?)", [username, email, hash], (err, result) => {
+                    console.log(err);
+                    console.log("User doesn exist, creating a new account!")
+                    res.send(true)
+                }
+                );
+            });
+        }
+        else
+        {
+            console.log("User already exists, returning false!")
+            res.send(false)
+        }
+    })
+});
+
+app.post("/api/login", (req,res)=>{
+    const email = req.body.email
+    const password = req.body.password
+    console.log('LOGGED IN WITH CREDENTIALS:', req.body.email, req.body.password)
+
+    db.query(`SELECT EXISTS(SELECT * FROM Users WHERE email = '${email}') AS doesExist`, (err,result) => {
+        console.log('EXISTS', result)
+        if (result[0].doesExist == 1)
+        {
+            db.query(`SELECT password FROM Users WHERE email = '${email}'`, (err,result) => {
+                console.log('PASSWORD', result, err)
+                bcrypt.compare(password, result[0].password, (error, response) => {
+                    if (response) 
+                    {
+                        /*req.session.user = result;
+                        console.log(req.session.user);*/
+                        res.send({ result: result, success: true, message: "Logging in!" });
+                    } 
+                    else 
+                    {
+                        res.send({ success: false, message: "Wrong username/password combination!" });
+                    }
+                });
+            })
+        }
+        else
+        {
+            console.log("User already exists, returning false!")
+            res.send({ success: false, message: "Sorry, we can't find an account with this email address. Please try again." })
+        }
     })
 });
 
@@ -71,11 +133,19 @@ app.get("/api/getDirectoryModulesInfo", (req,res)=>{
     })
 });
 
+// Listen for GET/POST requests on port 3002
+app.listen(PORT, (err)=>{
+    
+    if (err) console.log('ERROR: ', err)
+
+    console.log(`Server is running on ${PORT}`)
+})
+
 // EVERYTHING BELOW WILL BE DEFUNCT
 // EVERYTHING BELOW WILL BE DEFUNCT
 // EVERYTHING BELOW WILL BE DEFUNCT
 
-app.get("/api/getCategoryQuestions", (req,res)=>{
+/*app.get("/api/getCategoryQuestions", (req,res)=>{
     db.query(`SELECT * FROM Questions WHERE category = '${req.query.filter}'`, (err,result) =>
     {
         if(err)
@@ -108,18 +178,10 @@ app.get("/api/getCategoryLength", (req,res)=>{
         }
     }
         );   
-});
-
-// Listen for GET/POST requests on port 3002
-app.listen(PORT, (err)=>{
-    
-    if (err) console.log('ERROR: ', err)
-
-    console.log(`Server is running on ${PORT}`)
-})
+});*/
 
 // Route to get a specific learning module 
-app.get("/api/getLearningModule", (req,res)=>{
+/*app.get("/api/getLearningModule", (req,res)=>{
     db.query(`SELECT * FROM LearningModules WHERE id = '${req.query.filter}'`, (err,result) =>
     {
         if(err)
@@ -134,4 +196,4 @@ app.get("/api/getLearningModule", (req,res)=>{
         }
     }
         );
-});
+});*/
