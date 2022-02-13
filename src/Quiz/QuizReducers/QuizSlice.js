@@ -26,9 +26,10 @@ const QuizSlice = createSlice({
     name: 'quiz',
     initialState,
     reducers: {
-        incrementQuestion: (state, action, length) => {
-            if (action.payload !== length) {
+        incrementQuestion: (state, action) => {
+            if (action.payload !== (state.quiz.length - 1)) {
                 state.question.number += 1;
+                state.question.description = state.quiz[action.payload]
             }
         },
         decrementQuestion: (state, action) => {
@@ -64,3 +65,4 @@ export default QuizSlice.reducer;
 
 export const selectQuiz = (state) => state.quiz.quiz;
 export const selectQuestion = (state) => state.quiz.question;
+export const { incrementQuestion, decrementQuestion } = QuizSlice.actions;

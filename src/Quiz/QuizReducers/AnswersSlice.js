@@ -18,15 +18,15 @@ const AnswerSlice = createSlice({
                         state.answers.push(action.payload);
                     }
                 }
-                for (var i = 0; i < state.answers.length; i++) {
-                    if (action.payload[1] === state.answers[i][1]) {
-                        state.answers[i][0] = action.payload[0];
+                for (var j = 0; j < state.answers.length; j++) {
+                    if (action.payload[1] === state.answers[j][1]) {
+                        state.answers[j][0] = action.payload[0];
                     }
                 }
             }
             else {
                 console.log("u should wokre")
-                state.answers.push(action.payload);
+                state.answers.push([action.payload[0],action.payload[1]]);
                 console.log(state.answers)
             }
 

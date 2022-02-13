@@ -8,7 +8,7 @@ import Questions from './Questions'
 import { SubmitButton } from './SubmitButton';
 import { useParams } from "react-router";
 import axios from 'axios';
-import { fetchQuiz, selectQuestion, selectQuiz } from './QuizReducers/QuizSlice';
+import { fetchQuiz, selectQuestion, selectQuiz, decrementQuestion, incrementQuestion } from './QuizReducers/QuizSlice';
 /**
  * 
  * @param {str} category Question category to get questions from
@@ -189,7 +189,13 @@ const QuizPage = () => {
   //  * @param {str} answer String value of answer that was clicked on 
   //  * Function is used as an onChange function for the question toggle buttons to change state data
   // */
-  function NextQuestion () {
+  function NextQuestion (direction) {
+    if (direction === "left") {
+      dispatch(decrementQuestion());
+    }
+    else if (direction === "right") {
+      dispatch(incrementQuestion());
+    }
 
   }
 
@@ -204,7 +210,7 @@ const QuizPage = () => {
             id="leftQuestionBttn"
             type="submit"
             className="toggleQuestionLeft"
-            onClick={NextQuestion("left")}>
+            onClick="">
             <Image className="leftArrow" src="/left.png"></Image>
           </Button>
           <div className="questionPosOutOfTotal text-center " id="questionPosOutOfTotal"> 1/0 </div>
@@ -212,7 +218,7 @@ const QuizPage = () => {
             id="rightQuestionBttn"
             type="submit"
             className="toggleQuestionRight"
-            onClick={NextQuestion("right")}>
+            onClick="">
             <Image className="rightArrow" src="/right.png"></Image>
           </Button>
         </Row>
