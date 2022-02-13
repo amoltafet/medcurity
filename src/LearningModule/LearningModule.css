@@ -52,5 +52,6 @@
 .goToQuizBttn:focus {
     border: 0;
     background-color: #127ebf;
+    box-shadow: none !important;
 }
 

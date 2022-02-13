@@ -1,5 +1,7 @@
 import React from 'react';
-import {ToggleButtonGroup, ToggleButton, Container} from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { ToggleButtonGroup, ToggleButton, Container } from 'react-bootstrap';
+import { addAnswer } from './QuizReducers/AnswersSlice';
 import './Questions.css';
 
 /**
@@ -10,6 +12,7 @@ import './Questions.css';
  */
 function Questions(props) {
 
+  const dispatch = useDispatch()
     
 
        /**
@@ -49,7 +52,7 @@ function Questions(props) {
                     value={radio.name}
                     variant="light"
                     className="individualQuestions"
-                    onChange={(e) => props.action(props.i, radio.name)}>
+                    onChange={(e) => dispatch(addAnswer([props.i, radio.name]))}>
                     {` ${radio.name}`}
                 </ToggleButton>
                 ))}

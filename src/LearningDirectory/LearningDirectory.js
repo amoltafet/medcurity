@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import MenuBar from '../MenuBar';
+import MenuBar from '../MenuBar/MenuBar';
 
 function  LearningDirectoryPage() {
   return (

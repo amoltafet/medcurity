@@ -25,7 +25,11 @@
 
 .toggleQuestionLeft:disabled {
     border: 0;
-    background: transparent;
+    background: none !important;
+}
+
+.toggleQuestionLeft:focus {
+    background: none;
 }
 
 .toggleQuestionLeft:hover {
@@ -70,4 +74,24 @@
 .rightArrow {
     width: 60%;
     height: 100.5%;
+}
+
+.answerQuizSelection {
+    margin-bottom: 2%;
+    margin-top: 3%;
+    margin-left: 5%;
+    margin-right: 5%;   
+}
+
+.questionDesciption {
+    color: #127ebf; 
+    font-size: 90%;
+    font-family: Lato,sans-serif;
+}
+
+.individualQuestions {
+    text-align: start;
+    font-size: 80%;
+    margin-top: -1%;
+
 }

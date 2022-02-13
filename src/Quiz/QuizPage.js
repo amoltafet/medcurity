@@ -1,13 +1,14 @@
-import {Button, Card, Image, Row} from 'react-bootstrap'
-import React,{useState,useEffect} from 'react';
+import { Button, Container, Image, Row, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import './QuizPage.css';
-import 'bootstrap/dist/css/bootstrap.min.css'
-import MenuBar from '../MenuBar'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import MenuBar from '../MenuBar/MenuBar';
 import Questions from './Questions'
-import { SubmitButton }  from './SubmitButton';
+import { SubmitButton } from './SubmitButton';
 import { useParams } from "react-router";
 import axios from 'axios';
-
+import { fetchQuiz, selectQuestion, selectQuiz } from './QuizReducers/QuizSlice';
 /**
  * 
  * @param {str} category Question category to get questions from
@@ -51,112 +52,174 @@ import axios from 'axios';
 
 
 const QuizPage = () => {
-  console.log('displaying quiz page');
-  const [content, setContent] = useState([])
-  const [numQuestions, setNumQuestions] = useState("")
-   // data array that holds question information using state
-  const [data,setData]=useState([
-    { answer:"", correct: false},
-    { answer:"", correct: false},
-    { answer:"", correct: false},
-    { answer:"", correct: false},
-    { answer:"", correct: false},
-    { answer:"", correct: false},
-    { answer:"", correct: false},
-    { answer:"", correct: false},
-    { answer:"", correct: false},
-    { answer:"", correct: false},
-    { answer:"", correct: false},
-    { answer:"", correct: false},
-    { answer:"", correct: false},
-    { answer:"", correct: false},
-    { answer:"", correct: false},
-    { answer:"", correct: false},
-    { answer:"", correct: false},
-    { answer:"", correct: false},
-    { answer:"", correct: false},
-    { answer:"", correct: false},
-    { answer:"", correct: false},
-  ]);
-
   let { slug } = useParams();
 
   useEffect(() => {
     // Fetch post using the postSlug
   }, [slug]);
 
-  useEffect(() => {
-    axios.get('http://localhost:3002/api/getModuleQuestions', { params: { id: slug } }).then((response) => {
-          setContent(Object.values(response.data))
-      });
-  }, [])
+  const dispatch = useDispatch()
+  const quiz = useSelector(selectQuiz)
+  const question = useSelector(selectQuestion)
+
+  const quizStatus = useSelector((state) => state.quiz.status)
+  const error = useSelector((state) => state.quiz.error)
 
   useEffect(() => {
-    axios.get('http://localhost:3002/api/getQuery', { params: { the_query: "SELECT COUNT(*) AS NumberOfQuestions FROM Questions WHERE module = " + slug  } }).then((response) => {
-          setNumQuestions(Object.values(response.data[0]))
-      });
-  }, [])
+    if (quizStatus === 'idle') {
+      dispatch(fetchQuiz(slug))
+    }
+  }, [quizStatus, dispatch])
 
-  var index = 0;
 
-  const QuestionContent = content.map((question) => {
-    index++;
-    //const newData = data.concat({answer: "", correct: false});
 
-    console.log("yuh",question)
-    //setData(newData);
-    return ([
-      <Questions
-          i = {index - 1} 
-          question={question.question}
-          answers={[question.solution, question.a2, question.a3, question.a4]}
-          action={adjustStateData} 
+
+
+
+
+
+  // console.log('displaying quiz page');
+  // const [content, setContent] = useState([])
+  // const [numQuestions, setNumQuestions] = useState("")
+  // var dispatch = useDispatch();
+  //  // data array that holds question information using state
+  // const [data,setData]=useState([
+  //   { answer:"", correct: false},
+  //   { answer:"", correct: false},
+  //   { answer:"", correct: false},
+  //   { answer:"", correct: false},
+  //   { answer:"", correct: false},
+  //   { answer:"", correct: false},
+  //   { answer:"", correct: false},
+  //   { answer:"", correct: false},
+  //   { answer:"", correct: false},
+  //   { answer:"", correct: false},
+  //   { answer:"", correct: false},
+  //   { answer:"", correct: false},
+  //   { answer:"", correct: false},
+  //   { answer:"", correct: false},
+  //   { answer:"", correct: false},
+  //   { answer:"", correct: false},
+  //   { answer:"", correct: false},
+  //   { answer:"", correct: false},
+  //   { answer:"", correct: false},
+  //   { answer:"", correct: false},
+  //   { answer:"", correct: false},
+  // ]);
+
+  // useEffect(() => {
+  //   axios.get('http://localhost:3002/api/getModuleQuestions', { params: { id: slug } }).then((response) => {
+  //         setContent(Object.values(response.data))
+  //     });
+  // }, [])
+
+  // useEffect(() => {
+  //   axios.get('http://localhost:3002/api/getQuery', { params: { the_query: "SELECT COUNT(*) AS NumberOfQuestions FROM Questions WHERE module = " + slug  } }).then((response) => {
+  //         setNumQuestions(Object.values(response.data[0]))
+  //     });
+  // }, [])
+
+  // const { quiz } = useSelector(selectQuiz);
+  // const quizStatus = useSelector(state => state.quiz.status);
+
+  // useEffect(() => {
+  //   if (quizStatus === 'idle') {
+  //     dispatch(getDatabase(slug));
+  //   }
+  // }, [quizStatus, dispatch])
+
+  // var index = 0;
+
+  // console.log("yuh yuh", quiz)
+
+
+
+  function QuestionContent() {
+    let content;
+
+    if (quizStatus === 'succeeded') {
+      content = quiz;
+      console.log("yessir", question.answers);
+
+      document.getElementById("leftQuestionBttn").disabled = true;
+      document.getElementById("questionPosOutOfTotal").textContent = `${question.number + 1} / ${content.length}`
+  
+      return ([
+        <Questions
+          i={question.number}
+          question={question.description}
+          answers={[question.answers.solution, question.answers.a1, question.answers.a2, question.answers.a3]} 
         />
-    ]);
-  })
+      ])
+    } 
+    else if (quizStatus === 'failed') {
+      console.log("eeeee", error);
+    }
 
 
-  /** 
-   * 
-   * @param {int} index Index of question that is clicked on by user
-   * @param {str} answer String value of answer that was clicked on 
-   * Function is used as an onChange function for the question toggle buttons to change state data
-  */
-  function adjustStateData(index, answer) {
-    console.log(numQuestions[0].NumberOfQuestions);
-    let newData=data[index];
-    newData["answer"]=answer;
-    data[index]=newData;
-    setData([...data]);
-    console.log("" + answer);
+    var index = 0;
+    //console.log("e", quiz[index].question)
+    // dispatch(setQuestion(index, quiz[index].description, quiz[index].solution, quiz[index].a1, quiz[index].a2, quiz[index].a3))
+
   }
 
 
-return (
-  <> 
-    <MenuBar></MenuBar>
-    <div id="quizPageContainer" className="">
-     {QuestionContent}
-     <Row>
-        <Button 
-          id="leftQuestionBttn"
-          type="submit" 
-          className="toggleQuestionLeft"
-          onClick=""> 
-            <Image className="leftArrow" src="/left.png"></Image> 
-        </Button>  
-        <div className="questionPosOutOfTotal text-center " id="questionPosOutOfTotal"> 1/0 </div>
-        <Button 
-          id="rightQuestionBttn"
-          type="submit" 
-          className="toggleQuestionRight"
-          onClick=""> 
-            <Image className="rightArrow" src="/right.png"></Image> 
-        </Button> 
-      </Row>
-      <SubmitButton value="Submit" questionData={data}></SubmitButton>
-    </div>
-  </>
-);
+
+  // const QuestionContent = content.map((question) => {
+
+  //   index++;
+  //   console.log("yuh yuh", quiz)
+  //   //const newData = data.concat({answer: "", correct: false});
+
+  //   //setData(newData);
+  //   return ([
+  //     <Questions
+  //         i = {index - 1} 
+  //         question={question.question}
+  //         answers={[question.solution, question.a2, question.a3, question.a4]}
+  //         action={adjustStateData} 
+  //       />
+  //   ]);
+  // })
+
+
+  // /** 
+  //  * 
+  //  * @param {int} index Index of question that is clicked on by user
+  //  * @param {str} answer String value of answer that was clicked on 
+  //  * Function is used as an onChange function for the question toggle buttons to change state data
+  // */
+  function NextQuestion () {
+
+  }
+
+
+  return (
+    <>
+      <MenuBar></MenuBar>
+      <div id="quizPageContainer " className="img-fluid quizBg">
+        {QuestionContent()}
+        <Row>
+          <Button
+            id="leftQuestionBttn"
+            type="submit"
+            className="toggleQuestionLeft"
+            onClick={NextQuestion("left")}>
+            <Image className="leftArrow" src="/left.png"></Image>
+          </Button>
+          <div className="questionPosOutOfTotal text-center " id="questionPosOutOfTotal"> 1/0 </div>
+          <Button
+            id="rightQuestionBttn"
+            type="submit"
+            className="toggleQuestionRight"
+            onClick={NextQuestion("right")}>
+            <Image className="rightArrow" src="/right.png"></Image>
+          </Button>
+        </Row>
+        {console.log("finished rendering")}
+        {/* <SubmitButton value="Submit" questionData={data}></SubmitButton> */}
+      </div>
+    </>
+  );
 }
 export default QuizPage;

@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import './LearningModuleDirectoriesCard.css'
+import './LearningModuleDirectories.css'
 import { Card, Container, CardDeck } from 'react-bootstrap';
 import { useEffect, useState } from "react";
 import axios from 'axios';
@@ -26,6 +26,7 @@ const LearningModulesDirectories = () => {
      * @returns 
      */
     const DirectoryPanel = (props) => {
+        console.log("e", props.title)
         return (
             <>
             <Card className="LearningModuleDirectoriesCard uvs-right uvs-left">
@@ -42,8 +43,8 @@ const LearningModulesDirectories = () => {
      */
     function createDirectoriesCards(modules) {
         const objs = []
-        for (let index in modules) {
-            module = modules[index]
+        for (let index in modules) { 
+            var module = modules[index]
             objs.push(<DirectoryPanel title={module.Title} link={module.ID} />)
         }
         return objs;
@@ -53,7 +54,7 @@ const LearningModulesDirectories = () => {
         <>
         <Container className=" LearningModulesDirectories">
             
-            <h2>Learning Module Directories</h2>
+            <h2 className="text-center LearningModulesDirectoriesFont">Learning Module Directories</h2>
         </Container>
         <CardDeck className="dashboard" style={{display: 'flex', flexDirection: 'row'}}>
             {createDirectoriesCards(directories)}

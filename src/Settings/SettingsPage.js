@@ -2,7 +2,7 @@ import {Container} from 'react-bootstrap'
 import React from 'react';
 import './SettingsPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import MenuBar from '../MenuBar';
+import MenuBar from '../MenuBar/MenuBar';
 import SettingsMenu from './SettingsMenu';
 
 /**
