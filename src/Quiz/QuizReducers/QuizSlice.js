@@ -19,7 +19,7 @@ const initialState = {
 
 export const fetchQuiz = createAsyncThunk('quiz/fetchQuiz', async (slug) => {
     const response = await axios.get('http://localhost:3002/api/getModuleQuestions', { params: { id: slug } });
-    return response.data
+    return response.data;
 })
 
 const QuizSlice = createSlice({
