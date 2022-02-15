@@ -9,7 +9,6 @@ import './Questions.css';
  * @param {int} number The question number
  */
 function Questions(props) {
-
     
 
        /**
@@ -44,7 +43,7 @@ function Questions(props) {
                     key={idx}
                     id={`radio-${idx}`}
                     type="radio"
-                    variant="secondary light"
+                    variant="light secondary"
                     name="radio "
                     value={radio.name}
                     className="individualQuestions"
