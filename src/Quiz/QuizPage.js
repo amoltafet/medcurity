@@ -91,11 +91,11 @@ const QuizPage = () => {
       });
   }, [])
 
-  useEffect(() => {
-    axios.get('http://localhost:3002/api/getQuery', { params: { the_query: "SELECT COUNT(*) AS NumberOfQuestions FROM Questions WHERE module = " + slug  } }).then((response) => {
-          setNumQuestions(Object.values(response.data[0]))
-      });
-  }, [])
+  // useEffect(() => {
+  //   axios.get('http://localhost:3002/api/getQuery', { params: { the_query: "SELECT COUNT(*) AS NumberOfQuestions FROM Questions WHERE module = " + slug  } }).then((response) => {
+  //         setNumQuestions(Object.values(response.data[0]))
+  //     });
+  // }, [])
 
   var index = 0;
 
@@ -123,7 +123,6 @@ const QuizPage = () => {
    * Function is used as an onChange function for the question toggle buttons to change state data
   */
   function adjustStateData(index, answer) {
-    console.log(numQuestions[0].NumberOfQuestions);
     let newData=data[index];
     newData["answer"]=answer;
     data[index]=newData;

@@ -7,9 +7,9 @@ export const SubmitButton = (props) => {
 
     // function to display in the console the question data stored in the data state variable in Quizpage.js
     function displayQuestionData() {
-        for(var i= 0; i < 3; i++) {
+        for(var i= 0; i < 10; i++) {
             var newData = props.questionData[i];
-            console.log("selected answer" + newData["answer"]);
+            console.log("selected answer: " + newData["answer"]);
         }
     }
     return (
