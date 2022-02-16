@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {ToggleButtonGroup, ToggleButton, Container} from 'react-bootstrap';
 import './Questions.css';
 
@@ -8,7 +8,10 @@ import './Questions.css';
  * @param {str} question The question string
  * @param {int} number The question number
  */
-function Questions(props) {
+function Questions (props) {
+
+  const [quizToggleId, setQuizToggleId] = useState("");
+
     
 
        /**
@@ -28,6 +31,10 @@ function Questions(props) {
     
         const groupID = "q-group" + props.i;
 
+        useEffect(() => {
+            setQuizToggleId(groupID)
+        }, [])
+
 
     return(
         <>
@@ -37,7 +44,7 @@ function Questions(props) {
                 {props.question} 
             </Container>
             
-            <ToggleButtonGroup id ="answerQuizSelection" className="answerQuizSelection" vertical name={groupID}>
+            <ToggleButtonGroup id={quizToggleId} className="answerQuizSelection" vertical name={groupID}>
                 {myanswers.map((radio, idx) => (
                 <ToggleButton 
                     key={idx}
