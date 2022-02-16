@@ -13,7 +13,6 @@ import axios from 'axios';
  */
 const LearningModulesCards = () => {
     const userId = 100
-    let navigate = useNavigate();
     const [learningModules, setLearningModules] = useState([])
 
     // Query for getting user's required learning modules
@@ -84,14 +83,14 @@ const LearningModulesCards = () => {
 
     return (
         <>
-        <Container className=" LearningModulesCards">                
-            {createModuleCardHeader(learningModules)}
-        </Container>
-        <CardDeck className="dashboard" style={{display: 'flex', flexDirection: 'row'}}>
-            {createModuleCards(learningModules, 5)}
-        </CardDeck>
-        <div className="d-grid gap-2">
-        </div>
+            <Container className="LearningModulesCards">                
+                {createModuleCardHeader(learningModules)}
+            </Container>
+            <CardDeck className="dashboard" style={{display: 'flex', flexDirection: 'row'}}>
+                {createModuleCards(learningModules, 5)}
+            </CardDeck>
+            <div className="d-grid gap-2">
+            </div>
         </>
     );
 }
