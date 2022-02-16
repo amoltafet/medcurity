@@ -58,38 +58,14 @@ const QuizPage = () => {
     }
   })
 
-  //   useEffect(() => {
-  //     if (content !== null) {
-  //       setQuestion(content[0])
-  //     }
-  //   })
-  console.log("death", content)
-
-  // const QuestionContent = content.map((question) => {
-  //     index++;
-  //     //const newData = data.concat({answer: "", correct: false});
-
-  //     console.log("yuh", question)
-  //     //setData(newData);
-  //     return ([
-  //       <Questions
-  //         i={index - 1}
-  //         question={question.question}
-  //         answers={[question.solution, question.a2, question.a3, question.a4]}
-  //         action={adjustStateData}
-  //       />
-  //     ]);
-  //   })
-
-
-
   function DisplayOneQuestion() {
     if (!isLoading) {
       console.log("elp", currentQuestion);
+      const groupID = "q-group" + index;
       // returns one quiz question based on index
       return (
         [<Questions
-          id={index}
+          id={groupID}
           i={index}
           question={currentQuestion.question}
           answers={[currentQuestion.solution, currentQuestion.a2, currentQuestion.a3, currentQuestion.a4]}
@@ -100,28 +76,43 @@ const QuizPage = () => {
     }
   }
 
-  function previousQuestion(question) {
+  function previousQuestion() {
+    var newIndex = index - 1;
     if (index !== 0) {
-
-
+      console.log(index)
+      var nextq = content[newIndex];
+      setQuestion(nextq);
+      setQuestionIndex(newIndex);
+      console.log("yuh", nextq)
+      
+      if (index === 0) {
+        document.getElementById("leftQuestionBttn").disabled = true;
+      }
     }
+
   }
 
   function nextQuestion() {
-    if (index !== content.length) {
-      console.log(index)
-      var nextq = content[index + 1];
+
+    if (index === 0) {
+      document.getElementById("leftQuestionBttn").disabled = false;
+    }
+    var newIndex = index + 1;
+    if (newIndex !== content.length) {
+      var nextq = content[newIndex];
       setQuestion(nextq);
-      var newIndex = index + 1; 
       setQuestionIndex(newIndex);
+      console.log("index: ", newIndex)
 
+      if (newIndex === content.length) {
+        document.getElementById("rightQuestionBttn").disabled = true;
+      }
       //const newData = data.concat({answer: "", correct: false});
-
       console.log("yuh", nextq)
 
     }
-  }
 
+  }
 
   /** 
    * 
@@ -147,13 +138,13 @@ const QuizPage = () => {
   return (
     <>
       <MenuBar></MenuBar>
-      <div id="quizPageContainer" className="">
+      <div id="quizPageContainer" className="quizBg img-fluid">
         {DisplayOneQuestion()}
         <Row>
           <Button
             id="leftQuestionBttn"
             type="submit"
-            className="toggleQuestionLeft disabled"
+            className="toggleQuestionLeft"
             onClick={() => previousQuestion()}
           >
             <Image className="leftArrow" src="/left.png"></Image>
