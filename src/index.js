@@ -16,12 +16,9 @@ import LearningDirectoryPage from './LearningDirectory/LearningDirectoryPage';
 import LearningDirectoryRequiredPage from './LearningDirectory/LearningDirectoryRequiredPage';
 import QuizModules from './Quiz/QuizModules';
 import QuizBackground from './Quiz/QuizBackground';
-import Store from './Store';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Provider } from "react-redux";
 
 ReactDOM.render(
-<Provider store={Store}>
   <Router>
     <Routes>
       <Route path="/" element={<LoginPage />}/>
@@ -42,8 +39,7 @@ ReactDOM.render(
       </Route>
       <Route path="/leaderboard" element={<Leaderboard />} />
     </Routes>
-  </Router>
-  </Provider>,
+  </Router>,
   document.getElementById('root')
 );
 

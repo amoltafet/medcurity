@@ -12,8 +12,6 @@ function Questions (props) {
 
   const [quizToggleId, setQuizToggleId] = useState("group");
 
-    
-
        /**
      * 
      * @param {!Array{str}} answers 
@@ -31,8 +29,8 @@ function Questions (props) {
     
 
         useEffect(() => {
-            setQuizToggleId(props.id)
-        }, )
+          setQuizToggleId(props.id)
+      },[props.id])
 
 
     return(

@@ -1,5 +1,5 @@
 import { Button, Image, Row } from 'react-bootstrap';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SubmitButton } from './SubmitButton';
 import { useParams } from "react-router";
 import './QuizPage.css';
@@ -10,6 +10,10 @@ import axios from 'axios';
 
 
 
+/**
+* Handles main logic for quiz page. 
+* @return {QuizPage}
+*/
 const QuizPage = () => {
   const [isLoading, setLoading] = useState(true);
   const [content, setContent] = useState([]);
@@ -43,6 +47,7 @@ const QuizPage = () => {
 
   let { slug } = useParams();
 
+  // grabs content and sets loading to false 
   useEffect(() => {
     setQuestionIndex(0);
     axios.get('http://localhost:3002/api/getModuleQuestions', { params: { id: slug } }).then((response) => {
@@ -50,15 +55,22 @@ const QuizPage = () => {
       setLoading(false);
     })
 
-  }, [])
+  }, [slug])
 
+
+  // once content is loaded set question
   useEffect(() => {
     if (!isLoading) {
       setQuestion(content[index])
     }
-  })
+  }, [isLoading, content, index])
 
-  function DisplayOneQuestion() {
+
+/**
+ * Displays the current question
+ * @returns the Questions
+ */
+  function DisplayOneQuestion () {
     if (!isLoading) {
       console.log("elp", currentQuestion);
       const groupID = "q-group" + index;
@@ -76,15 +88,16 @@ const QuizPage = () => {
     }
   }
 
+/**
+ * Decrements the question
+ */
   function previousQuestion() {
     var newIndex = index - 1;
     if (index !== 0) {
-      console.log(index)
       var nextq = content[newIndex];
       setQuestion(nextq);
       setQuestionIndex(newIndex);
-      console.log("yuh", nextq)
-      
+
       if (index === 0) {
         document.getElementById("leftQuestionBttn").disabled = true;
       }
@@ -92,8 +105,10 @@ const QuizPage = () => {
 
   }
 
+  /**
+ * Increments the question
+ */
   function nextQuestion() {
-
     if (index === 0) {
       document.getElementById("leftQuestionBttn").disabled = false;
     }
@@ -107,11 +122,7 @@ const QuizPage = () => {
       if (newIndex === content.length) {
         document.getElementById("rightQuestionBttn").disabled = true;
       }
-      //const newData = data.concat({answer: "", correct: false});
-      console.log("yuh", nextq)
-
     }
-
   }
 
   /** 
@@ -121,19 +132,17 @@ const QuizPage = () => {
    * Function is used as an onChange function for the question toggle buttons to change state data
   */
   function adjustStateData(index, answer) {
-    // console.log(numQuestions[0].NumberOfQuestions);
-    // let newData=data[index];
-    // newData["answer"]=answer;
-    // data[index]=newData;
-    // setData([...data]);
-    // console.log("" + answer);
+    let newData=data[index];
+    newData["answer"]=answer;
+    data[index]=newData;
+    setData([...data]);
+    console.log("" + answer);
   }
 
+  // catch for rerendering 
   if (isLoading) {
     return (<div></div>)
   }
-
-
 
   return (
     <>
@@ -149,7 +158,7 @@ const QuizPage = () => {
           >
             <Image className="leftArrow" src="/left.png"></Image>
           </Button>
-          <div className="questionPosOutOfTotal text-center " id="questionPosOutOfTotal"> {index + 1} / {content.length} </div>
+          <div className="questionPosOutOfTotal text-center" id="questionPosOutOfTotal"> {index + 1} / {content.length} </div>
           <Button
             id="rightQuestionBttn"
             type="submit"
