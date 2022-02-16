@@ -16,7 +16,7 @@ const QuizPage = () => {
   var [content, setContent] = useState([])
   const [numQuestions, setNumQuestions] = useState("")
   const [question, setQuestion] = useState([])
-  var [index, setQuestionIndex] = useState([])
+  var [questionIndex, setQuestionIndex] = useState([])
    // data array that holds question information using state
   const [data,setData]=useState([
     { answer:"", correct: false},
@@ -61,53 +61,81 @@ const QuizPage = () => {
   })
  
   
+  var index = 0;
+  // const QuestionContent = content.map((question) => {
+  //   index++;   
+  //   document.getElementById('leftQuestionBttn').disabled = true;
+  //   document.getElementById('questionPosOutOfTotal').textContent = `${questionIndex + 1} / ${content.length}`;
+  //   //setData(newData);
+  //   if (index === 1) {
+  //   return ([
+  //     <Questions
+  //       i={index - 1}
+  //       question={question.question}
+  //       answers={[question.solution, question.a2, question.a3, question.a4]}
+  //       action={adjustStateData}
+  //     />
+  //   ]);
+  // }
 
-  const QuestionContent = content.map((question) => {
-    index++;   
-    //document.getElementById('toggleQuestionLeft').disabled = true;
-    //setData(newData);
-    if (index === 1) {
-    return ([
-      <Questions
-        i={index - 1}
-        question={question.question}
-        answers={[question.solution, question.a2, question.a3, question.a4]}
-        action={adjustStateData}
-      />
-    ]);
+  // })
+
+  function DisplayOneQuestion () {
+    var quizInfo = content[questionIndex];
+    console.log("quizInfo: ", quizInfo);
+
+    // checks if content is not null
+    if (quizInfo !== undefined && content !== undefined) {
+      console.log("reached")
+    
+        setQuestion(quizInfo)
+
+    
+      // returns one quiz question based on index
+      return (
+        [<h3 id="qNumber" className="questionNumbers text-center"> Question {questionIndex + 1} </h3>,
+        <Questions 
+        id={questionIndex}
+        i = {questionIndex} 
+        question={quizInfo.question}
+        answers={[quizInfo.solution, quizInfo.a2, quizInfo.a3, quizInfo.a4]}
+        action={adjustStateData} 
+        />]
+      );
+    }
   }
 
-  })
 
-  function previousQuestion (question) {
-    if (index !== 0) {
-      index -= index;
+  // function SetIndex () {
+  //   if (content !== null ) {
+  //     setQuestion(content[questionIndex]);
+  //     console.log(question)
+  //   }
+  // }
+
+  function previousQuestion () {
+    if (questionIndex !== 0) {
+      
+      questionIndex -= questionIndex;
     //const newData = data.concat({answer: "", correct: false});
-    console.log("yuh", question)
+    console.log("yuh", questionIndex)
     //setData(newData);
-    if (index === 1) {
-    return ([
-      <Questions
-        i={index - 1}
-        question={question.question}
-        answers={[question.solution, question.a2, question.a3, question.a4]}
-        action={adjustStateData}
-      />
-    ]);
-  }
-  }
+    
+    }
   }
 
   function nextQuestion () {
-    if (index !== 0) {
-      console.log(index)
-    var nextq = data[index + 1];
+    if (content !== null) {
+    if (questionIndex !== content.length) {
+      console.log("e", content[questionIndex + 1])
+    var nextq = content[(questionIndex + 1)];
     setQuestion(nextq);
   
     //const newData = data.concat({answer: "", correct: false});
 
     console.log("yuh", nextq)
     
+    }
   }
   }
 
@@ -132,7 +160,8 @@ const QuizPage = () => {
     <>
       <MenuBar></MenuBar>
       <div id="quizPageContainer" className="">
-        {QuestionContent} 
+        {/* {QuestionContent}  */}
+        {DisplayOneQuestion()}
         <Row>
           <Button
             id="leftQuestionBttn"
