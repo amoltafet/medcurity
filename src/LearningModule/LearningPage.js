@@ -1,7 +1,6 @@
 import { React } from "react";
 import { Outlet } from "react-router-dom";
-import MenuBar from '../MenuBar';
-import './LearningPage.css';
+import MenuBar from '../MenuBar/MenuBar';
 
 function  LearningPage() {
   return (

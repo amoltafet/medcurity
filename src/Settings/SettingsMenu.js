@@ -12,7 +12,7 @@ const SettingsMenu = () => {
         <>
             <Tab.Container id="left-tabs-example" defaultActiveKey="first" style={{display: 'flex'}}>
                 <Row className="settingsRow">
-                    <Col className="shadowTab" sm={2}>
+                    <Col className="shadowTab uvs-left uvs-right" sm={2}>
                    
                         <Nav variant="pills" className="flex-column marginTop ">
                             <Nav.Item className="selectedSetting">
@@ -24,7 +24,7 @@ const SettingsMenu = () => {
                         </Nav>
                     </Col>
                     
-                    <Col className="dropShadow" sm={8}>
+                    <Col className="dropShadow uvs-left uvs-right" sm={8}>
                     <Container className="settingsMenuContainer">
                         <Tab.Content>
                             <Tab.Pane eventKey="first">

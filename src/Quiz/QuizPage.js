@@ -2,58 +2,19 @@ import {Button, Card, Image, Row} from 'react-bootstrap'
 import React,{useState,useEffect} from 'react';
 import './QuizPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import MenuBar from '../MenuBar'
+import MenuBar from '../MenuBar/MenuBar'
 import Questions from './Questions'
 import { SubmitButton }  from './SubmitButton';
 import { useParams } from "react-router";
 import axios from 'axios';
 
-/**
- * 
- * @param {str} category Question category to get questions from
- * @param {int} index Index of question in the returned query
- * @param {func} changeState Function to pass into question object to monitor its state
- */
-// function GetQuestionByIndex(slug, index, changeState)
-// {
-//   // The route for axios.get() to use to query the db
-//   const url = 'http://localhost:3002/api/getCategoryQuestions'
-
-//   // I am unsure why useState() and useEffect() makes this work,
-//   // but plenty of online examples I viewed used this pattern.
-//   const [question, getQuestions] = useState([]);
-
-//   useEffect(() => {
-//     getQuestionsIncategory();
-//   }, [])
-
-//   // Create a GET HTTP request that uses the getCategoryQuestions route to 
-//   // query the db for questions in the specified category.
-//   // Then choose a question from the query result using the index param.
-//   useEffect(() => {
-//     axios.get('http://localhost:3002/api/getModuleQuestions', { params: { id: slug } }).then((response) => {
-//           setContent(Object.values(response.data))
-//       });
-//   }, [])
-
-//   // Return the question component with question info from the query
-//   // into the components props.
-//   return (
-//     <Questions
-//     i = {index} 
-//     question={question.question}
-//     answers={[question.solution, question.a2, question.a3, question.a4]}
-//     action={changeState} 
-//     />
-//   )
-// }
-
-
 
 const QuizPage = () => {
-  console.log('displaying quiz page');
   const [content, setContent] = useState([])
   const [numQuestions, setNumQuestions] = useState("")
+  var currentPosition;
+  var hiddenQuestions;
+  var index;
    // data array that holds question information using state
   const [data,setData]=useState([
     { answer:"", correct: false},
@@ -97,22 +58,23 @@ const QuizPage = () => {
       });
   }, [])
 
+
   var index = 0;
 
   const QuestionContent = content.map((question) => {
     index++;
     //const newData = data.concat({answer: "", correct: false});
-
-    console.log("yuh",question)
     //setData(newData);
-    return ([
+    var questionId = ` questionId${index-1}`
+    return (
       <Questions
-          i = {index - 1} 
+          i={index - 1}
+          id={questionId}
           question={question.question}
           answers={[question.solution, question.a2, question.a3, question.a4]}
           action={adjustStateData} 
         />
-    ]);
+    );
   })
 
 
@@ -122,7 +84,7 @@ const QuizPage = () => {
    * @param {str} answer String value of answer that was clicked on 
    * Function is used as an onChange function for the question toggle buttons to change state data
   */
-  function adjustStateData(index, answer) {
+  function adjustStateData (index, answer) {
     console.log(numQuestions[0].NumberOfQuestions);
     let newData=data[index];
     newData["answer"]=answer;
@@ -132,12 +94,13 @@ const QuizPage = () => {
   }
 
 
+
 return (
   <> 
     <MenuBar></MenuBar>
     <div id="quizPageContainer" className="">
      {QuestionContent}
-     <Row>
+     {/* <Row>
         <Button 
           id="leftQuestionBttn"
           type="submit" 
@@ -153,7 +116,7 @@ return (
           onClick=""> 
             <Image className="rightArrow" src="/right.png"></Image> 
         </Button> 
-      </Row>
+      </Row> */}
       <SubmitButton value="Submit" questionData={data}></SubmitButton>
     </div>
   </>

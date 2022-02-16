@@ -5,11 +5,9 @@
     height: 88.5vmin;
     width: 40%;
     background-color: #d8dae3;
-    border-radius: 10px 10px 10px 10px;
     overflow-y: scroll;
     overflow-x: hidden;
     scrollbar-color:  #1e5b88 rgba(255, 0, 0, 0);
-    box-shadow:  0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
 }
 

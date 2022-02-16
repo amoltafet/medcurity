@@ -1,6 +1,6 @@
 import React from 'react';
 import './MenuBar.css';
-import './Layout.css'
+import '../Layout.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Nav, CardImg, Card, CardGroup } from 'react-bootstrap'
 import { useLocation } from 'react-router-dom';
@@ -59,6 +59,14 @@ const Menubar = () => {
                     <Nav.Item className="navPills uvs-left uvs-right">
                         <Nav.Link className="menubarFont" href="/">Logout</Nav.Link>
                     </Nav.Item>])
+            case '/learning-directory':
+                return (
+                    [<Nav.Item className="navPills uvs-left uvs-right">
+                        <Nav.Link className="menubarFont" href="/settings">Settings</Nav.Link>
+                    </Nav.Item>,
+                    <Nav.Item className="navPills uvs-left uvs-right">
+                        <Nav.Link className="menubarFont" href="/">Logout</Nav.Link>
+                    </Nav.Item>])
             default:
                 if (location.pathname.includes("/learning-module/")) {
                     for (var i = 0; i < 5; i++) {
@@ -74,6 +82,19 @@ const Menubar = () => {
                     }
                 }
                 else if (location.pathname.includes("/quiz/")) {
+                    for (var j = 0; j < 5; j++) {
+                        if (location.pathname.includes(j)) {
+                            return (
+                                [<Nav.Item className="navPills uvs-left uvs-right">
+                                    <Nav.Link className="menubarFont" href="/settings">Settings</Nav.Link>
+                                </Nav.Item>,
+                                <Nav.Item className="navPills uvs-left uvs-right">
+                                    <Nav.Link className="menubarFont" href="/">Logout</Nav.Link>
+                                </Nav.Item>])  
+                        }
+                    }
+                }
+                else if (location.pathname.includes("/learning-directory/")) {
                     for (var j = 0; j < 5; j++) {
                         if (location.pathname.includes(j)) {
                             return (

@@ -14,22 +14,22 @@
     },
     {
       "src": "login.jpg",
-      "sizes": "8779×8389",
+      "sizes": "8779x8389",
       "type": "image/jpg"
     },
     {
       "src": "upArrow.png",
-      "sizes": "512×512",
+      "sizes": "512x512",
       "type": "image/png"
     },
     {
       "src": "right.png",
-      "sizes": "512×512",
+      "sizes": "512x512",
       "type": "image/png"
     },
     {
       "src": "left.png",
-      "sizes": "512×512",
+      "sizes": "512x512",
       "type": "image/png"
     }
   ],

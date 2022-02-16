@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import {CardDeck} from 'react-bootstrap'
 import WelcomePanel from './WelcomePanel';
 import Leaderboard from './DashLeaderboard';
-import MenuBar from '../MenuBar';
+import MenuBar from '../MenuBar/MenuBar';
 import LearningModulesCards from './LearningModulesCards';
 import LearningModulesDirectories from './LearningModuleDirectories';
 

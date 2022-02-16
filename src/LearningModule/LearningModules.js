@@ -1,7 +1,4 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import axios from 'axios';
-
 
 /**
  * Returns a essentially blank page. Serves to handle the postSlug.
