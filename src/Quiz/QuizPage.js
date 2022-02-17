@@ -167,7 +167,7 @@ const QuizPage = () => {
             <Image className="rightArrow" src="/right.png"></Image>
           </Button>
         </Row>
-        <SubmitButton value="Submit"></SubmitButton>
+        <SubmitButton value="Submit" questionData={data} content={content.length}></SubmitButton>
         {console.log("finished rendering")}
       </div>
     </>
