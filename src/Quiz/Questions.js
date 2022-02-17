@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {ToggleButtonGroup, ToggleButton, Container} from 'react-bootstrap';
 import './Questions.css';
 
@@ -8,8 +8,9 @@ import './Questions.css';
  * @param {str} question The question string
  * @param {int} number The question number
  */
-function Questions(props) {
-    
+function Questions (props) {
+
+  const [quizToggleId, setQuizToggleId] = useState("group");
 
        /**
      * 
@@ -26,18 +27,21 @@ function Questions(props) {
         }
         const myanswers = convert_to_list_of_obj(props.answers);
     
-        const groupID = "q-group" + props.i;
+
+        useEffect(() => {
+          setQuizToggleId(props.id)
+      },[props.id])
 
 
     return(
         <>
             <h3 id="qNumber" className="questionNumbers text-center"> Question {props.i + 1} </h3>
-            <div id={props.id} className="text-center"> 
+            <div id={props.i} className="text-center"> 
              <Container id="questionDesciption" className="questionDesciption">
                 {props.question} 
             </Container>
             
-            <ToggleButtonGroup id ="answerQuizSelection" className="answerQuizSelection" vertical name={groupID}>
+            <ToggleButtonGroup id={quizToggleId} className="answerQuizSelection" vertical name={quizToggleId}>
                 {myanswers.map((radio, idx) => (
                 <ToggleButton 
                     key={idx}
