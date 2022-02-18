@@ -22,7 +22,7 @@ export default function RegisterPage()
 
   const register = () => {
     console.log('REGISTERING', email, password)
-    Axios.post("http://localhost:3002/api/register",
+    Axios.post("http://localhost:3002/users/register",
     { 
       email: email,
       password: password
