@@ -1,14 +1,13 @@
 // Returns query based on input
 const db = require('../db_config')
+const logger = require('../logger').log
 
 const getQuery = (req,res) => 
 {
     console.log('queryController: getQuery')
     db.query(`${req.query.the_query}`, (err,result) => {
-        console.log(req.body.id)
         if (err) console.log(err)
-        console.log(`LISTEN SERVER: GOT RESULTS FROM "${req.body.the_query}" QUERY`)
-        console.log(result)
+        logger.log('info', `Custom Query: "${req.query.the_query}" Fields: ${Object.keys(result[0])}`, { service: 'query-service' })
         res.send(result)
     })
 }
@@ -16,10 +15,8 @@ const getQuery = (req,res) =>
 // Returns learning module content info given an ID (ex. Privacy module has an ID of 1)
 const queryModuleInfo = (req,res)=>{
     db.query(`SELECT * FROM LearningModules WHERE ID = ${req.query.id}`, (err,result) => {
-        console.log(req.query.id)
         if (err) console.log(err)
-        console.log(`LISTEN SERVER: GOT INFO FROM "${req.query.id}" MODULE`)
-        console.log(result)
+        logger.log('info', `Queried LearningModuleID with ID: "${req.query.id}" Fields: ${result}`, { service: 'query-service' })
         res.send(result)
     })
 }
@@ -27,10 +24,8 @@ const queryModuleInfo = (req,res)=>{
 // Returns learning module questions info given an ID 
 const queryModuleQuestions = (req,res)=>{
     db.query(`SELECT * FROM Questions WHERE module = ${req.query.id}`, (err,result) => {
-        console.log(req.query.id)
         if (err) console.log(err)
-        console.log(`LISTEN SERVER: GOT QUESTIONS FROM "${req.query.id}" MODULE`)
-        console.log(result)
+        logger.log('info', `Queried Questions with ModuleID: "${req.query.id}" Fields: ${result}`, { service: 'query-service' })
         res.send(result)
     })
 }
@@ -38,10 +33,8 @@ const queryModuleQuestions = (req,res)=>{
 // Returns learning module directory info given an ID 
 const queryModuleDirectoryInfo = (req,res)=>{
     db.query(`SELECT * FROM LearningModulesDirectory WHERE module = ${req.query.id}`, (err,result) => {
-        console.log(req.query.id)
         if (err) console.log(err)
-        console.log(`LISTEN SERVER: GOT QUESTIONS FROM "${req.query.id}" MODULE`)
-        console.log(result)
+        logger.log('info', `Queried LearningModulesDirectories with ModuleID: "${req.query.id}" Fields: ${result}`, { service: 'query-service' })
         res.send(result)
     })
 }
@@ -49,10 +42,8 @@ const queryModuleDirectoryInfo = (req,res)=>{
 // Returns info on learning modules associated with a given module directory id
 const queryDirectoryModulesInfo = (req,res)=>{
     db.query(`SELECT * FROM LearningModules WHERE DirId = ${req.query.id}`, (err,result) => {
-        console.log(req.query.id)
         if (err) console.log(err)
-        console.log(`LISTEN SERVER: GOT QUESTIONS FROM "${req.query.id}" MODULE`)
-        console.log(result)
+        logger.log('info', `Queried LearningModules with DirID: "${req.query.id}" Fields: ${result}`, { service: 'query-service' })
         res.send(result)
     })
 }

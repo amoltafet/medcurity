@@ -2,13 +2,13 @@ const bcrypt = require("bcrypt");
 const api_config = require('../api_config.json')
 const saltRounds = api_config.SALT_ROUNDS;
 const db = require('../db_config')
+const logger = require('../logger').log
 
 const userRegister = (req,res) => 
 {
     const email = req.body.email
     const password = req.body.password
     const username = email.substring(0, email.indexOf("@"));
-    console.log('REGISTERED WITH CREDENTIALS:', req.body.email, req.body.password, username)
 
     db.query(`SELECT EXISTS(SELECT * FROM Users WHERE email = '${email}') AS doesExist`, (err,result) => {
         if (result[0].doesExist == 0)
@@ -18,6 +18,7 @@ const userRegister = (req,res) =>
                 db.query("INSERT INTO Users (username, email, password) VALUES (?,?,?)", [username, email, hash], (err, result) => {
                     db.query(`SELECT * FROM Users WHERE email = '${email}'`, (err,result) => {
                         req.session.userSession = result;
+                        logger.log('info', `New user "${email}" registered.`, { service: 'user-service' })
                         res.send(true)
                     })
                 });
@@ -35,10 +36,8 @@ const userLogin = (req,res) =>
 {
     const email = req.body.email
     const password = req.body.password
-    console.log('LOGGED IN WITH CREDENTIALS:', req.body.email, req.body.password)
 
     db.query(`SELECT EXISTS(SELECT * FROM Users WHERE email = '${email}') AS doesExist`, (err,result) => {
-        console.log('EXISTS', result)
         if (result[0].doesExist == 1)
         {
             db.query(`SELECT * FROM Users WHERE email = '${email}'`, (err,result) => {
@@ -46,7 +45,7 @@ const userLogin = (req,res) =>
                     if (response) 
                     {
                         req.session.userSession = result;
-                        console.log('userLogin -> req.session', req.session);
+                        logger.log('info', `Existing user "${email}" logged in.`, { service: 'user-service' })
                         res.send({ result: result, success: true, message: "Logging in!" });
                     } 
                     else 
@@ -66,10 +65,9 @@ const userLogin = (req,res) =>
 
 const userLoginSession = (req, res) =>
 {
-    console.log('userLoginSession -> req.session', req.session)
     if (req.session.userSession)
     {
-        console.log('SESSION CREATED:', req.session.userSession)
+        logger.log('info', `Created user session for "${req.session.userSession[0].username}"`, { service: 'user-service' })
         res.send({ loggedIn: true, user: req.session.userSession });
     } 
     else 
@@ -80,7 +78,8 @@ const userLoginSession = (req, res) =>
 
 const userLogout = (req, res) =>
 {
-    console.log('userLoginSession -> req.session', req.session)
+    console.log('2896')
+    logger.log('info', `Logging out user "${req.session.userSession[0].username}"`, { service: 'user-service' })
     if (req.session.userSession)
     {
         res.session.destroy()

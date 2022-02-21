@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function RegisterPage()
 {
-  //Axios.defaults.withCredentials = true;
+  Axios.defaults.withCredentials = true;
 
   const [message, setMessage] = useState("")
   const [email, setEmail] = useState("");

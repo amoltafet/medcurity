@@ -6,10 +6,12 @@
 // (for example, from QuizPage.js via axios), then accept the request and run the query.
 // When the query completes, respond to the GET request by sending back the query result.
 
+const logger = require('./logger').log;
 const express = require('express');
 const cors = require('cors')
 const API_CONFIG = require('./api_config.json')
 const app = express();
+const path = require('path')
 //app.use(cors());
 
 const bodyParser = require("body-parser");
@@ -47,10 +49,17 @@ app.use('/users', the_session, usersRouter);
 app.use('/api', the_session, queryRouter);
 //app.use('/admin', adminRouter)
 
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, '/client/build')));
+
+const LISTEN_PORT = API_CONFIG.API_PORT
+
 // Listen for API requests
-app.listen(API_CONFIG.API_PORT, (err)=>{
+app.listen(LISTEN_PORT, (err)=>{
     
     if (err) console.log('ERROR: ', err)
 
-    console.log(`Server is running on ${API_CONFIG.API_PORT}`)
+    console.log(`Server is running on ${LISTEN_PORT}`)
+    logger.log('info', `Server is running on "PORT: ${LISTEN_PORT}"`, { service: 'api-service' })
+
 })
