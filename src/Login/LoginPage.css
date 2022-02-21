@@ -55,6 +55,16 @@
     width: 50%;
 }
 
+.loginButton:hover {
+    background-color: #c33333;
+    border: none;
+}
+
+.loginButton:focus {
+    background-color: #c33333;
+    border: none;
+}
+
 .registerButton {
     color: white;
     background-color: #c33333;
@@ -63,6 +73,16 @@
     font-size: 1.1vmax;
     text-align: center;
     width: 50%;
+}
+
+.registerButton:hover {
+    background-color: #c33333;
+    border: none;
+}
+
+.registerButton:focus {
+    background-color: #c33333;
+    border: none;
 }
 
 .loginHeader {

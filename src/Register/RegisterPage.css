@@ -52,7 +52,37 @@
     font-family: Lato,sans-serif;
     font-size: 1.1vmax;
     text-align: center;
-    width: 100%;
+    width: 50%;
+}
+
+.createButton:focus {
+    background-color: #c33333;
+    border: none;
+}
+
+.createButton:hover {
+    background-color: #c33333;
+    border: none;
+}
+
+.loginRegisterBtn {
+    color: white;
+    background-color: #c33333;
+    margin-top: 5%;
+    font-family: Lato,sans-serif;
+    font-size: 1.1vmax;
+    text-align: center;
+    width: 50%;
+}
+
+.loginRegisterBtn:focus {
+    background-color: #c33333;
+    border: none;
+}
+
+.loginRegisterBtn:hover {
+    background-color: #c33333;
+    border: none;
 }
 
 .registerHeader {

@@ -62,6 +62,7 @@ const QuizPage = () => {
   useEffect(() => {
     if (!isLoading) {
       setQuestion(content[index])
+      console.log("runnn")
     }
   }, [isLoading, content, index])
 
