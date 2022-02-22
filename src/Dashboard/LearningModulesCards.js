@@ -1,9 +1,8 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import './LearningModuleCard.css'
-import { Card, Image, Button, Container, CardDeck } from 'react-bootstrap';
-import { useEffect, useState, Link} from "react";
-import { useParams } from "react-router";
+import './LearningModulesCards.css'
+import { Card,  Button, Container, CardDeck } from 'react-bootstrap';
+import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -52,7 +51,7 @@ const LearningModulesCards = () => {
         const objs = [];
         let size = 0
         for (let index in modules) {
-            if (size == maxLength) { break; }
+            if (size === maxLength) { break; }
             module = modules[index]
             objs.push(<ModulePanel title={module.Title} link={module.ID} />)
             size += 1;
@@ -69,11 +68,11 @@ const LearningModulesCards = () => {
         //objs.push(<h2>Required Learning Modules</h2>);
 
         objs.push(
-            <h2>Required Learning Modules: &nbsp;  
+            <h2 className="text-center requiredModulesRow"> Required Learning Modules: &nbsp;  
                 <Button
                     id="select-more-modules"
-                    variant="outline-primary"
-                    href='learning-directory'>
+                    href='learning-directory'
+                    className="moduleCardHeaderButton font uvs-left">
                     {modules.length} remaining required modules
                 </Button>
             </h2>

@@ -16,4 +16,4 @@ function LearningContent(props) {
     );
 }
 
-export default LearningContent
+export default LearningContent;

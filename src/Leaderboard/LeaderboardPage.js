@@ -1,7 +1,7 @@
 import React from 'react';
-import Menubar from '../MenuBar';
+import Menubar from '../MenuBar/MenuBar';
 import LeaderboardProfile from './LeaderboardProfile';
-import { Card, Row } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import './Leaderboard.css'
@@ -58,7 +58,7 @@ const LeaderboardPage = () => {
     return (
         <>
             <Menubar></Menubar>
-            <Card className="leaderboardContainer">
+            <Card className="leaderboardContainer uvs-left uvs-right">
                 {ProfileArray}
             </Card>
         </>

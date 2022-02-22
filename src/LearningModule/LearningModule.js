@@ -27,18 +27,20 @@ const  LearningModule = () => {
 
     const LearningModuleContent = content.map((module) => {
         return ([
+          <>
             <h1 className="text-center moduleName">
               Learning Modules: {module.Title} Module
-            </h1>,
+            </h1>
             <div className="d-flex justify-content-center">
               <img src={require(`../assets/` + module.Banner)} className="img-fluid rounded mx-auto d-block moduleImage uvs-left uvs-right" alt={module.Title} />
-            </div>,
+            </div>
             <h6 className="text-center mt-2 moduleSubtitle">
               {module.Subtitle}
-            </h6>,
+            </h6>
             <h4 className="text-center mt-3 moduleDescription">
               {module.Description}
             </h4>
+            </>
         ]);
     })
 

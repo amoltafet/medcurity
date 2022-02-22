@@ -1,9 +1,7 @@
-import {Button, CardDeck,  Container} from 'react-bootstrap'
 import React from 'react';
 import './LearningDirectoryPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
 import axios from 'axios';
 import { LearningDirectoryPageContent } from './LearningDirectoryPage';
 
@@ -27,4 +25,4 @@ const LearningDirectoryRequiredPage = () => {
 
 }
 
-export default LearningDirectoryRequiredPage
+export default LearningDirectoryRequiredPage;

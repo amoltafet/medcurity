@@ -12,7 +12,6 @@
     border-radius: 5px;
     background-color: #cc3333 !important;
     text-align: center;
-    box-shadow:  0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .unselectedSetting {
@@ -67,13 +66,11 @@
 }
 
 .dropShadow {
-    border-radius: 10px 10px 10px 10px;
     margin-top: 2vmax;
     margin-bottom: 2vmax;
     margin-left: 2vmax;
     margin-right: 2vmax;
     width: 70vmax;
-    box-shadow:  0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .shadowTab {
@@ -83,8 +80,6 @@
     margin-right: 2vmax;
     width: 11vmax;
     height: 13vmax;
-    border-radius: 10px 10px 10px 10px;
-    box-shadow:  0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
  
 }
 

@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function LoginPage()
 {
-  //Axios.defaults.withCredentials = true;
+  Axios.defaults.withCredentials = true;
 
   const [message, setMessage] = useState("")
   const [email, setEmail] = useState("");
@@ -34,7 +34,7 @@ export default function LoginPage()
     else
     {
       setMessage(credential_requirements)
-      Axios.post("http://localhost:3002/api/login",
+      Axios.post("http://localhost:3002/users/login",
       { 
         email: email,
         password: password
@@ -58,43 +58,43 @@ export default function LoginPage()
   const register = () => {
     navigate('/register');
   };
-  
-      return (
-          <>
-          <Form className="loginbg img-fluid">
-            <Image className="MedcurityLogo justify-content-bottom" variant="top" src="/Medcurity_Logo.png" alt="" />
-              <Card className="loginCard">
-                <Card.Text className="header">Medcurity Learn Security</Card.Text>
-                <Card.Text className="body">
-                  To access your Medcurity Learn Security Dashboard please enter your login credentials.
-                </Card.Text>
-              </Card>
-            <Form className="emailAndPass">
-              <Form.Text className="loginHeader">Login to Medcurity Learn Security</Form.Text>
-                <Form.Group className="email" controlId="formEmail">
-                  <Form.Control 
-                    type="email" 
-                    placeholder="Email" 
-                    onChange={ (e) => 
-                    {
-                      setEmail(e.target.value);
-                    }}/>
-                </Form.Group>
-                <Form.Group className="pass" controlId="formPassword">
-                  <Form.Control 
-                    type="password" 
-                    placeholder="Password"
-                    onChange={ (e) => 
-                    {
-                      setPassword(e.target.value);
-                    }}/>
-                  <Button className="loginButton" variant="secondary" type="button" onClick={login}>Login</Button>
-                  <Button className="registerButton" variant="secondary" type="button" onClick={register}>Register</Button>
-                </Form.Group>
-                <Form.Text className="loginMessage">{message}</Form.Text>
-            </Form>
-          </Form>
-          </>
-      );
+
+  return (
+      <>
+      <Form className="loginbg img-fluid">
+        <Image className="MedcurityLogo justify-content-bottom" variant="top" src="/Medcurity_Logo.png" alt="" />
+          <Card className="loginCard">
+            <Card.Text className="header">Medcurity Learn Security</Card.Text>
+            <Card.Text className="body">
+              To access your Medcurity Learn Security Dashboard please enter your login credentials.
+            </Card.Text>
+          </Card>
+        <Form className="emailAndPass">
+          <Form.Text className="loginHeader">Login to Medcurity Learn Security</Form.Text>
+            <Form.Group className="email" controlId="formEmail">
+              <Form.Control 
+                type="email" 
+                placeholder="Email" 
+                onChange={ (e) => 
+                {
+                  setEmail(e.target.value);
+                }}/>
+            </Form.Group>
+            <Form.Group className="pass" controlId="formPassword">
+              <Form.Control 
+                type="password" 
+                placeholder="Password"
+                onChange={ (e) => 
+                {
+                  setPassword(e.target.value);
+                }}/>
+              <Button className="loginButton" variant="secondary" type="button" onClick={login}>Login</Button>
+              <Button className="registerButton" variant="secondary" type="button" onClick={register}>Register</Button>
+            </Form.Group>
+            <Form.Text className="loginMessage">{message}</Form.Text>
+        </Form>
+      </Form>
+      </>
+  );
 }
 
