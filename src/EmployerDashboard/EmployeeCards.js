@@ -5,6 +5,7 @@ import { Card, Image, Button, Container, CardDeck } from 'react-bootstrap';
 import { useEffect, useState, Link} from "react";
 import { useParams } from "react-router";
 import axios from 'axios';
+import EmployeeCard from './EmployeeCard'
 
 /**
  * Returns Panels of the Employees Cards 
@@ -29,13 +30,13 @@ const EmployeesCards = () => {
      * @param {modules} to create cards for
      * @param {max_length} to limit max card number created
      */
-    function createEmployeeCards(modules, maxLength=5) {
+    function createEmployeeCards(modules, maxLength=-1) {
         const objs = [];
         let size = 0
         for (let index in modules) {
             if (size == maxLength) { break; }
             module = modules[index]
-            objs.push(<ModulePanel title={module.Title} link={module.ID} />)
+            objs.push(<EmployeeCard email={module.Email} name={module.Name} score={module.Score} />)
             size += 1;
         }
         return objs;
@@ -44,10 +45,10 @@ const EmployeesCards = () => {
     return (
         <>
         <Container className=" EmployeesCards">                
-            {createModuleCardHeader(Employees)}
+            {createEmployeeDisplayHeader(employees)}
         </Container>
         <CardDeck className="dashboard" style={{display: 'flex', flexDirection: 'row'}}>
-            {createModuleCards(Employees, 5)}
+            {createEmployeeCards(employees)}
         </CardDeck>
         <div className="d-grid gap-2">
         </div>
