@@ -739,3 +739,4 @@
 {"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory WHERE ID = 2\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-02-22T07:06:19.435Z"}
 {"level":"info","message":"Queried LearningModuleID with ID: \"2\" Fields: [object Object]","service":"query-service","timestamp":"2022-02-22T07:06:20.669Z"}
 {"level":"info","message":"Queried Questions with ModuleID: \"2\" Fields: [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]","service":"query-service","timestamp":"2022-02-22T07:06:23.077Z"}
+{"level":"info","message":"Queried Questions with ModuleID: \"2\" Fields: [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]","service":"query-service","timestamp":"2022-02-22T07:15:02.561Z"}
