@@ -199,9 +199,12 @@ const QuizPage = () => {
       ]);
     });
     return (
-      <div>
-        {QuestionContent}
-      </div>
+      <>
+        <MenuBar></MenuBar>
+        <div id="resultsPageContainer">
+          {QuestionContent}     
+        </div>
+      </>
     );
   }
 }
