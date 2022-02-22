@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function RegisterPage()
 {
-  //Axios.defaults.withCredentials = true;
+  Axios.defaults.withCredentials = true;
 
   const [message, setMessage] = useState("")
   const [email, setEmail] = useState("");
@@ -22,19 +22,19 @@ export default function RegisterPage()
 
   const register = () => {
     console.log('REGISTERING', email, password)
-    Axios.post("http://localhost:3002/api/register",
+    Axios.post("http://localhost:3002/users/register",
     { 
       email: email,
       password: password
     }).then((response) => 
     {
       console.log("response.data =", response.data)
-      if (response.data == true)
+      if (response.data === true)
       {
         console.log("A new user!")
         navigate('/dash');
       }
-      else if (response.data == false)
+      else if (response.data === false)
       {
         console.log("Already has account!")
         setMessage('This email is already in use! Please go back to the login page by clicking the Medcurity logo.')

@@ -1,15 +1,16 @@
-.uvs-left {
+.uvs-left, .uvs-right {
     border-radius: 10px 10px 10px 10px;
     border: white;
-    box-shadow:  0 4px 8px 0 rgba(0, 0, 0.2, .4), 0 4px 8px 0 rgba(0, 0, 0.2, 0.4);
+    box-shadow:  0 4px 8px 0 rgba(0, 0, 0.2, .4), 0 4px 8px 0 rgba(0, 0, 0.2, 0.4)!important; 
 }
-    
-    
-.uvs-right {
 
-}
 
 .font {
     color: white;
     font-family: Lato,sans-serif;
+    text-decoration: none;
+}
+
+.font:hover{
+    color: #d8dae3;
 }

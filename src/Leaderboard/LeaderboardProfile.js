@@ -16,7 +16,7 @@ function LeaderboardProfile(props) {
     if (props.name === "jsmith") {
     return (
         <>
-        <Card className={props.className[0]} style={{ flexDirection: 'row' }}>
+        <Card className={`uvs-left uvs-right ${props.className[0]}`} style={{ flexDirection: 'row' }}>
             <Accordion className="displayLeaderboardInfo" defaultActiveKey="0">
                 <Accordion.Toggle eventKey="1" className="accordianToggel">
                 <Card className="cardHeaderAccordian" style={{ flexDirection: 'row' }}>
@@ -154,7 +154,7 @@ function LeaderboardProfile(props) {
     else {
         return (
             <>
-            <Card className={props.className[0]} style={{ flexDirection: 'row' }}>
+            <Card className={`uvs-left uvs-right ${props.className[0]}`} style={{ flexDirection: 'row' }}>
                 <Accordion className="displayLeaderboardInfo" defaultActiveKey="0">
                     <Accordion.Toggle eventKey="1" className="accordianToggel">
                     <Card className="cardHeaderAccordian" style={{ flexDirection: 'row' }}>

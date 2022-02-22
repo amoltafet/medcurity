@@ -1,15 +1,32 @@
 import React from 'react';
 import './MenuBar.css';
-import './Layout.css'
+import '../Layout.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Nav, CardImg, Card, CardGroup } from 'react-bootstrap'
 import { useLocation } from 'react-router-dom';
+import Axios from 'axios'
+import { useNavigate } from 'react-router-dom';
 
 /**
  * Creates the MenuBar and selects what buttons to show depending on the page. 
  * @return {Menubar}
  */
 const Menubar = () => {
+    
+    const navigate = useNavigate();
+    const logout = () => {
+        Axios.post("http://localhost:3002/users/logout").then((response) => 
+        {
+          if (response.data.success == true)
+          {
+            navigate('/');
+          }
+          else if (response.data.success == false)
+          {
+            console.log(response.data.message)
+          }
+        });
+    };
 
     /**
     * Sets the buttons in each MenuBar based on which page the user is on. 
