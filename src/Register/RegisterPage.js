@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function RegisterPage()
 {
-  //Axios.defaults.withCredentials = true;
+  Axios.defaults.withCredentials = true;
 
   const [message, setMessage] = useState("")
   const [email, setEmail] = useState("");
@@ -22,7 +22,7 @@ export default function RegisterPage()
 
   const register = () => {
     console.log('REGISTERING', email, password)
-    Axios.post("http://localhost:3002/api/register",
+    Axios.post("http://localhost:3002/users/register",
     { 
       email: email,
       password: password

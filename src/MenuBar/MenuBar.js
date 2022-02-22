@@ -4,112 +4,34 @@ import '../Layout.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Nav, CardImg, Card, CardGroup } from 'react-bootstrap'
 import { useLocation } from 'react-router-dom';
+import Axios from 'axios'
+import { useNavigate } from 'react-router-dom';
 
 /**
  * Creates the MenuBar and selects what buttons to show depending on the page. 
  * @return {Menubar}
  */
 const Menubar = () => {
+    
+    const navigate = useNavigate();
+    const logout = () => {
+        Axios.post("http://localhost:3002/users/logout").then((response) => 
+        {
+          if (response.data.success == true)
+          {
+            navigate('/');
+          }
+          else if (response.data.success == false)
+          {
+            console.log(response.data.message)
+          }
+        });
+    };
 
     /**
     * Sets the buttons in each MenuBar based on which page the user is on. 
     * @return {GetPage} 
     */
-    const GetPage = () => {
-        let location = useLocation();
-        switch (location.pathname) {
-            case '/settings':
-                return (
-                    <Nav.Item className="navPills uvs-left uvs-right">
-                        <Nav.Link className="menubarFont" href="/">Logout</Nav.Link>
-                    </Nav.Item>
-                )
-            case '/dash':
-                return (
-                    [<Nav.Item className="navPills uvs-left uvs-right">
-                        <Nav.Link className="menubarFont" href="/settings">Settings</Nav.Link>
-                    </Nav.Item>,
-                    <Nav.Item className="navPills uvs-left uvs-right">
-                        <Nav.Link className="menubarFont" href="/">Logout</Nav.Link>
-                    </Nav.Item>]
-                )
-            case '/quiz/':
-                return (
-                    [<Nav.Item className="navPills uvs-left uvs-right">
-                        <Nav.Link className="menubarFont" href="/settings">Settings</Nav.Link>
-                    </Nav.Item>,
-                    <Nav.Item className="navPills uvs-left uvs-right">
-                        <Nav.Link className="menubarFont" href="/">Logout</Nav.Link>
-                    </Nav.Item>]
-                )
-            case '/leaderboard':
-                return (
-                    [<Nav.Item className="navPills uvs-left uvs-right">
-                        <Nav.Link className="menubarFont" href="/settings">Settings</Nav.Link>
-                    </Nav.Item>,
-                    <Nav.Item className="navPills uvs-left uvs-right">
-                        <Nav.Link className="menubarFont" href="/">Logout</Nav.Link>
-                    </Nav.Item>]
-                )
-            case '/learning-module/':
-                return (
-                    [<Nav.Item className="navPills uvs-left uvs-right">
-                        <Nav.Link className="menubarFont" href="/settings">Settings</Nav.Link>
-                    </Nav.Item>,
-                    <Nav.Item className="navPills uvs-left uvs-right">
-                        <Nav.Link className="menubarFont" href="/">Logout</Nav.Link>
-                    </Nav.Item>])
-            case '/learning-directory':
-                return (
-                    [<Nav.Item className="navPills uvs-left uvs-right">
-                        <Nav.Link className="menubarFont" href="/settings">Settings</Nav.Link>
-                    </Nav.Item>,
-                    <Nav.Item className="navPills uvs-left uvs-right">
-                        <Nav.Link className="menubarFont" href="/">Logout</Nav.Link>
-                    </Nav.Item>])
-            default:
-                if (location.pathname.includes("/learning-module/")) {
-                    for (var i = 0; i < 5; i++) {
-                        if (location.pathname.includes(i)) {
-                            return (
-                                [<Nav.Item className="navPills uvs-left uvs-right">
-                                    <Nav.Link className="menubarFont" href="/settings">Settings</Nav.Link>
-                                </Nav.Item>,
-                                <Nav.Item className="navPills uvs-left uvs-right">
-                                    <Nav.Link className="menubarFont" href="/">Logout</Nav.Link>
-                                </Nav.Item>])  
-                        }
-                    }
-                }
-                else if (location.pathname.includes("/quiz/")) {
-                    for (var j = 0; j < 5; j++) {
-                        if (location.pathname.includes(j)) {
-                            return (
-                                [<Nav.Item className="navPills uvs-left uvs-right">
-                                    <Nav.Link className="menubarFont" href="/settings">Settings</Nav.Link>
-                                </Nav.Item>,
-                                <Nav.Item className="navPills uvs-left uvs-right">
-                                    <Nav.Link className="menubarFont" href="/">Logout</Nav.Link>
-                                </Nav.Item>])  
-                        }
-                    }
-                }
-                else if (location.pathname.includes("/learning-directory/")) {
-                    for (var j = 0; j < 5; j++) {
-                        if (location.pathname.includes(j)) {
-                            return (
-                                [<Nav.Item className="navPills uvs-left uvs-right">
-                                    <Nav.Link className="menubarFont" href="/settings">Settings</Nav.Link>
-                                </Nav.Item>,
-                                <Nav.Item className="navPills uvs-left uvs-right">
-                                    <Nav.Link className="menubarFont" href="/">Logout</Nav.Link>
-                                </Nav.Item>])  
-                        }
-                    }
-                }
-                return null;
-        }
-    }
 
     return (
         <>
@@ -121,7 +43,12 @@ const Menubar = () => {
                 </Card>
                 <Card className="pillz">
                     <Nav className="justify-content-end" variant="pills" defaultActiveKey="/dashboard">
-                        <GetPage></GetPage>
+                        <Nav.Item className="navPills uvs-left uvs-right">
+                            <Nav.Link className="menubarFont" href="/settings">Settings</Nav.Link>
+                        </Nav.Item>,
+                        <Nav.Item className="navPills uvs-left uvs-right">
+                            <Nav.Link className="menubarFont" href="/">Logout</Nav.Link>
+                        </Nav.Item>  
                     </Nav>
                 </Card>
             </CardGroup>

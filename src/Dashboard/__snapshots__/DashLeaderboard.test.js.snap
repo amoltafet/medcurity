@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders LoginPage 1`] = `
+<div
+  className="LeaderboardCard uvs-right uvs-left card-body"
+>
+  <a
+    className="dashLeaderboardFont card-link"
+    href="/leaderboard"
+  >
+    Leaderboard
+  </a>
+</div>
+`;
