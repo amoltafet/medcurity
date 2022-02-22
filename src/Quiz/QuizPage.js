@@ -62,15 +62,16 @@ const QuizPage = () => {
   useEffect(() => {
     if (!isLoading) {
       setQuestion(content[index])
+      console.log("runnn")
     }
   }, [isLoading, content, index])
 
 
-/**
- * Displays the current question
- * @returns the Questions
- */
-  function DisplayOneQuestion () {
+  /**
+   * Displays the current question
+   * @returns the Questions
+   */
+  function DisplayOneQuestion() {
     if (!isLoading) {
       console.log("elp", currentQuestion);
       const groupID = "q-group" + index;
@@ -88,9 +89,9 @@ const QuizPage = () => {
     }
   }
 
-/**
- * Decrements the question
- */
+  /**
+   * Decrements the question
+   */
   function previousQuestion() {
     var newIndex = index - 1;
     if (index !== 0) {
@@ -132,9 +133,9 @@ const QuizPage = () => {
    * Function is used as an onChange function for the question toggle buttons to change state data
   */
   function adjustStateData(index, answer) {
-    let newData=data[index];
-    newData["answer"]=answer;
-    data[index]=newData;
+    let newData = data[index];
+    newData["answer"] = answer;
+    data[index] = newData;
     setData([...data]);
     console.log("" + answer);
   }

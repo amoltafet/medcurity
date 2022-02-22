@@ -3,7 +3,6 @@ import './MenuBar.css';
 import '../Layout.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Nav, CardImg, Card, CardGroup } from 'react-bootstrap'
-import { useLocation } from 'react-router-dom';
 import Axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 
@@ -45,7 +44,7 @@ const Menubar = () => {
                     <Nav className="justify-content-end" variant="pills" defaultActiveKey="/dashboard">
                         <Nav.Item className="navPills uvs-left uvs-right">
                             <Nav.Link className="menubarFont" href="/settings">Settings</Nav.Link>
-                        </Nav.Item>,
+                        </Nav.Item>
                         <Nav.Item className="navPills uvs-left uvs-right">
                             <Nav.Link className="menubarFont" href="/">Logout</Nav.Link>
                         </Nav.Item>  
