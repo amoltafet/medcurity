@@ -17,9 +17,9 @@ import axios from 'axios';
 const QuizPage = () => {
   const [isLoading, setLoading] = useState(true);
   const [content, setContent] = useState([]);
-  const [numQuestions, setNumQuestions] = useState("");
   const [currentQuestion, setQuestion] = useState([]);
   const [index, setQuestionIndex] = useState(0);
+  const[isSubmitted, setSubmitted] = useState(false);
   // data array that holds question information using state
   const [data, setData] = useState([
     { answer: "", correct: false },
@@ -60,10 +60,10 @@ const QuizPage = () => {
 
   // once content is loaded set question
   useEffect(() => {
-    if (!isLoading) {
+    if (!isLoading && !isSubmitted) {
       setQuestion(content[index])
     }
-  }, [isLoading, content, index])
+  }, [isLoading, content, index, isSubmitted])
 
 
 /**
@@ -138,39 +138,71 @@ const QuizPage = () => {
     setData([...data]);
     console.log("" + answer);
   }
+  // function to display in the console the question data stored in the data state variable in Quizpage.js
+  function displayQuestionData() {
+    for(var i= 0; i < content.length; i++) {
+        var newData = data[i];
+        console.log("selected answer: " + newData["answer"]);
+    }
+    setSubmitted(true);
+}
 
   // catch for rerendering 
   if (isLoading) {
     return (<div></div>)
   }
-
-  return (
-    <>
-      <MenuBar></MenuBar>
-      <div id="quizPageContainer" className="quizBg img-fluid">
-        {DisplayOneQuestion()}
-        <Row>
-          <Button
-            id="leftQuestionBttn"
-            type="submit"
-            className="toggleQuestionLeft"
-            onClick={() => previousQuestion()}
-          >
-            <Image className="leftArrow" src="/left.png"></Image>
-          </Button>
-          <div className="questionPosOutOfTotal text-center" id="questionPosOutOfTotal"> {index + 1} / {content.length} </div>
-          <Button
-            id="rightQuestionBttn"
-            type="submit"
-            className="toggleQuestionRight"
-            onClick={() => nextQuestion()}>
-            <Image className="rightArrow" src="/right.png"></Image>
-          </Button>
-        </Row>
-        <SubmitButton value="Submit" questionData={data} content={content.length}></SubmitButton>
-        {console.log("finished rendering")}
+  if(!isSubmitted) {
+    return (
+      <>
+        <MenuBar></MenuBar>
+        <div id="quizPageContainer" className="quizBg img-fluid">
+          {DisplayOneQuestion()}
+          <Row>
+            <Button
+              id="leftQuestionBttn"
+              type="submit"
+              className="toggleQuestionLeft"
+              onClick={() => previousQuestion()}
+            >
+              <Image className="leftArrow" src="/left.png"></Image>
+            </Button>
+            <div className="questionPosOutOfTotal text-center" id="questionPosOutOfTotal"> {index + 1} / {content.length} </div>
+            <Button
+              id="rightQuestionBttn"
+              type="submit"
+              className="toggleQuestionRight"
+              onClick={() => nextQuestion()}>
+              <Image className="rightArrow" src="/right.png"></Image>
+            </Button>
+          </Row>
+          <SubmitButton value="Submit" questionData={data} content={content.length} action={displayQuestionData}></SubmitButton>
+          {console.log("finished rendering")}
+        </div>
+      </>
+    );
+  }
+  else {
+    var newestIndex = 0;
+    const QuestionContent = content.map((question) => { 
+      var newID = "q-group" + newestIndex
+      newestIndex++;
+      return ([
+        <div id="resultsPageHolder">
+          <Questions
+            id = {newID}
+            i={newestIndex - 1}
+            question={question.question}
+            answers={[question.solution, question.a2, question.a3, question.a4]}
+            action={adjustStateData}
+          />
+        </div>
+      ]);
+    });
+    return (
+      <div>
+        {QuestionContent}
       </div>
-    </>
-  );
+    );
+  }
 }
 export default QuizPage;
