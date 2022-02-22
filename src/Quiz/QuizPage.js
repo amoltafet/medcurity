@@ -134,6 +134,9 @@ const QuizPage = () => {
   function adjustStateData(index, answer) {
     let newData=data[index];
     newData["answer"]=answer;
+    if(answer === content[index].solution) {
+      newData["correct"] = true
+    }
     data[index]=newData;
     setData([...data]);
     console.log("" + answer);
@@ -183,26 +186,50 @@ const QuizPage = () => {
   }
   else {
     var newestIndex = 0;
+    var points = 0
+    var numCorrect = 0
     const QuestionContent = content.map((question) => { 
       var newID = "q-group" + newestIndex
       newestIndex++;
-      return ([
-        <div id="resultsPageHolder">
-          <Questions
-            id = {newID}
-            i={newestIndex - 1}
-            question={question.question}
-            answers={[question.solution, question.a2, question.a3, question.a4]}
-            action={adjustStateData}
-          />
-        </div>
-      ]);
+      if(data[newestIndex]["correct"] === true) {
+        points += 100
+        numCorrect += 1
+        return ([
+          <div id="resultsPageHolder" class="correct">
+            <Questions
+              id = {newID}
+              i={newestIndex - 1}
+              question={question.question}
+              answers={[question.solution, question.a2, question.a3, question.a4]}
+              action={adjustStateData}
+            />
+          </div>
+        ]);
+      }
+      else {
+        return ([
+          <div id="resultsPageHolder" class="wrong">
+            <Questions
+              id = {newID}
+              i={newestIndex - 1}
+              question={question.question}
+              answers={[question.solution, question.a2, question.a3, question.a4]}
+              action={adjustStateData}
+            />
+          </div>
+        ]);
+      }
     });
     return (
       <>
         <MenuBar></MenuBar>
         <div id="resultsPageContainer">
-          {QuestionContent}     
+          <h1 class="header">Quiz Results</h1>
+          {QuestionContent}
+          <p>
+            Points: {points}   {numCorrect}/{content.length}   %{(numCorrect/content.length * 100).toFixed(2)}
+          </p>
+          <Button variant="primary" href="/dash/">Home</Button>     
         </div>
       </>
     );

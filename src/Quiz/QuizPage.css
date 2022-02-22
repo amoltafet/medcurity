@@ -98,3 +98,15 @@
     margin-top: -1%;
 
 }
+
+.correct {
+    background-color: lightgreen;
+}
+
+.wrong {
+    background-color: red;
+}
+
+.header {
+    align-items: center;
+}
