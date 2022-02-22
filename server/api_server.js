@@ -35,7 +35,7 @@ var the_session =   session({
   saveUninitialized: true,
   secret: "subscribe",
   cookie: {
-    expires: 60 * 60 * 24,
+    expires: (60 * 60 * 24) * 3,
   },
 })
 
