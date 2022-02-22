@@ -62,15 +62,16 @@ const QuizPage = () => {
   useEffect(() => {
     if (!isLoading && !isSubmitted) {
       setQuestion(content[index])
+      console.log("runnn")
     }
   }, [isLoading, content, index, isSubmitted])
 
 
-/**
- * Displays the current question
- * @returns the Questions
- */
-  function DisplayOneQuestion () {
+  /**
+   * Displays the current question
+   * @returns the Questions
+   */
+  function DisplayOneQuestion() {
     if (!isLoading) {
       console.log("elp", currentQuestion);
       const groupID = "q-group" + index;
@@ -88,9 +89,9 @@ const QuizPage = () => {
     }
   }
 
-/**
- * Decrements the question
- */
+  /**
+   * Decrements the question
+   */
   function previousQuestion() {
     var newIndex = index - 1;
     if (index !== 0) {

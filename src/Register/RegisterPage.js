@@ -1,6 +1,6 @@
 import {Button, Image, Form, Card} from 'react-bootstrap'
 import React from 'react';
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Axios from "axios"
 import './RegisterPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -41,6 +41,10 @@ export default function RegisterPage()
       }
     });
   };
+
+  const login = () => {
+    navigate('/');
+  };
   
       return (
           <>
@@ -72,7 +76,8 @@ export default function RegisterPage()
                     onChange={ (e) => 
                     {
                       setPassword(e.target.value);
-                    }}/>
+                    }}/> 
+                  <Button className="loginRegisterBtn" variant="secondary" type="button" onClick={login}>Login</Button>
                   <Button className="createButton" variant="secondary" type="button" onClick={register}>Register</Button>
                 </Form.Group>
                 <Form.Text className="registerMessage">{message}</Form.Text>
