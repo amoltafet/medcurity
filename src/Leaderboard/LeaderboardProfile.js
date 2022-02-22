@@ -17,6 +17,17 @@ import './LeaderboardProfile.css'
 function LeaderboardProfile(props) {
     const [directories, setDirectories] = useState([]);
     const [isLoading, setLoading] = useState(true);
+    axios.defaults.withCredentials = true;
+    const [session, setSession] = useState([]);
+
+    useEffect(() => {
+        axios.get("http://localhost:3002/users/login").then((response) => {
+          console.log('aaahhh', response.data.user)
+          setSession(response.data.user[0])
+        });
+      }, []);
+
+    console.log(session)
 
     // Query for getting LearningDirectories Directory info
     useEffect(() => {
@@ -54,6 +65,7 @@ function LeaderboardProfile(props) {
                         </Col>
                         <Col>
                     <Card.Text className={props.className[2]}>Score</Card.Text>
+                    <Card.Text className={props.className[2]}> 0</Card.Text>
                     </Col>
                 </Row> 
                
@@ -65,7 +77,7 @@ function LeaderboardProfile(props) {
     }
 
 
-    if (props.name === "jsmith") {
+    if (props.name === session.username) {
         return (
             <>
                 <Card className={`uvs-left uvs-right ${props.className[0]}`} style={{ flexDirection: 'row' }}>
@@ -82,7 +94,7 @@ function LeaderboardProfile(props) {
                                     <Card.Text className="userNameTitle">{props.name}</Card.Text>
                                 </Col>
                                 <Col sm>
-                                    <div className="scoreLabelLeaderboard" >Score</div>
+                                    <div className="scoreLabelLeaderboard" >Total Score</div>
                                 </Col>
                                 <Col>
                                     <div className="userPointsLeaderboard">{props.user.overallPoints}</div>
@@ -120,7 +132,7 @@ function LeaderboardProfile(props) {
                                     <Card.Text className="userNameTitle">{props.name}</Card.Text>
                                 </Col>
                                 <Col sm>
-                                    <div className="scoreLabelLeaderboard" >Score</div>
+                                    <div className="scoreLabelLeaderboard" >Total Score</div>
                                 </Col>
                                 <Col>
                                     <div className="userPointsLeaderboard">{props.user.overallPoints}</div>

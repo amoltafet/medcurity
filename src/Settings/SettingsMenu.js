@@ -3,31 +3,24 @@ import { useEffect, useState } from "react";
 import axios from 'axios';
 import React from 'react';
 import './SettingsMenu.css';
-import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 /**
 * Creates and displays the Settings menu allows the user to toggle between diffrent settings. 
 * @return {GetPage}
 */
 const SettingsMenu = () => {
-    const [users, setUsers] = useState([]);
-    const [isLoading, setLoading] = useState(true);
+    axios.defaults.withCredentials = true;
+    const [session, setSession] = useState([]);
 
-
-    // Fetch User Data
     useEffect(() => {
-      axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 'SELECT * FROM Users' } }).then((response) => {
-        setUsers(Object.values(response.data))
-        setLoading(false);
+        axios.get("http://localhost:3002/users/login").then((response) => {
+          console.log('aaahhh', response.data.user)
+          setSession(response.data.user[0])
         });
-    }, [])
+      }, []);
 
-    // catch for rerendering 
-    if (isLoading) {
-      return (<div></div>)
-    }
-
-    console.log(users[0])
+    console.log(session)
 
     return (
         <>
@@ -53,11 +46,11 @@ const SettingsMenu = () => {
                                     <Form >
                                         <Form.Group className="usernameInput" controlId="exampleForm.ControlTextarea1">
                                             <Form.Text className="usernameText">UserName</Form.Text>
-                                            <Form.Control placeholder={users[0].username}></Form.Control>
+                                            <Form.Control placeholder={session.username}></Form.Control>
                                         </Form.Group>
                                         <Form.Group className="emailInput" controlId="exampleForm.ControlTextarea1">
                                             <Form.Text className="emailText">Email</Form.Text>
-                                            <Form.Control placeholder={users[0].email}></Form.Control>
+                                            <Form.Control placeholder={session.email}></Form.Control>
                                         </Form.Group>
                                     </Form>
                             </Tab.Pane>

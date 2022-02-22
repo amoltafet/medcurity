@@ -1,0 +1,175 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders SettingsPage 1`] = `
+Array [
+  <div
+    className="card-group"
+  >
+    <div
+      className="logo card"
+    >
+      <a
+        href="/dash"
+      >
+        <img
+          alt=""
+          className="card-img-top MedcurityLogo"
+          src="/Medcurity_Logo.png"
+        />
+      </a>
+    </div>
+    <div
+      className="pillz card"
+    >
+      <div
+        className="justify-content-end nav card-header-pills nav-pills"
+        onKeyDown={[Function]}
+      >
+        <div
+          className="navPills uvs-left uvs-right nav-item"
+        >
+          <a
+            className="menubarFont nav-link"
+            data-rb-event-key="/settings"
+            href="/settings"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+          >
+            Settings
+          </a>
+        </div>
+        ,
+        <div
+          className="navPills uvs-left uvs-right nav-item"
+        >
+          <a
+            className="menubarFont nav-link"
+            data-rb-event-key="/"
+            href="/"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+          >
+            Logout
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="settingsMenuContainer container-md"
+  >
+    <div
+      className="settingsRow row"
+    >
+      <div
+        className="shadowTab col-sm-2"
+      >
+        <div
+          className="flex-column marginTop  nav nav-pills"
+          onKeyDown={[Function]}
+          role="tablist"
+        >
+          <div
+            className="selectedSetting nav-item"
+          >
+            <a
+              aria-controls="left-tabs-example-tabpane-first"
+              aria-selected={true}
+              className="nav-link active"
+              data-rb-event-key="first"
+              href="#"
+              id="left-tabs-example-tab-first"
+              onClick={[Function]}
+              onKeyDown={[Function]}
+              role="tab"
+            >
+              <img
+                alt=""
+                className="profileImage  rounded-circle"
+                src="/user.png"
+                variant="top"
+              />
+            </a>
+          </div>
+          <div
+            className="unselectedSetting nav-item"
+          >
+            <a
+              aria-controls="left-tabs-example-tabpane-second"
+              aria-selected={false}
+              className="nav-link"
+              data-rb-event-key="second"
+              href="#"
+              id="left-tabs-example-tab-second"
+              onClick={[Function]}
+              onKeyDown={[Function]}
+              role="tab"
+            >
+              Tab 2
+            </a>
+          </div>
+        </div>
+      </div>
+      <div
+        className="dropShadow col-sm-8"
+      >
+        <div
+          className="settingsMenuContainer container"
+        >
+          <div
+            className="tab-content"
+          >
+            <div
+              aria-hidden={false}
+              aria-labelledby="left-tabs-example-tab-first"
+              className="fade tab-pane active show"
+              id="left-tabs-example-tabpane-first"
+              role="tabpanel"
+            >
+              <form
+                className=""
+              >
+                <div
+                  className="usernameInput form-group"
+                >
+                  <small
+                    className="usernameText form-text"
+                  >
+                    UserName
+                  </small>
+                  <input
+                    className="form-control"
+                    id="exampleForm.ControlTextarea1"
+                    placeholder="username"
+                  />
+                </div>
+                <div
+                  className="emailInput form-group"
+                >
+                  <small
+                    className="emailText form-text"
+                  >
+                    Email
+                  </small>
+                  <input
+                    className="form-control"
+                    id="exampleForm.ControlTextarea1"
+                    placeholder="email"
+                  />
+                </div>
+              </form>
+            </div>
+            <div
+              aria-hidden={true}
+              aria-labelledby="left-tabs-example-tab-second"
+              className="fade tab-pane"
+              id="left-tabs-example-tabpane-second"
+              role="tabpanel"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+]
+`;

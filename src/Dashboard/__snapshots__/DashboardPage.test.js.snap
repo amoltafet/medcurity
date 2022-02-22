@@ -1,0 +1,151 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders DashboardPage 1`] = `
+Array [
+  <div
+    className="card-group"
+  >
+    <div
+      className="logo card"
+    >
+      <a
+        href="/dash"
+      >
+        <img
+          alt=""
+          className="card-img-top MedcurityLogo"
+          src="/Medcurity_Logo.png"
+        />
+      </a>
+    </div>
+    <div
+      className="pillz card"
+    >
+      <div
+        className="justify-content-end nav card-header-pills nav-pills"
+        onKeyDown={[Function]}
+      >
+        <div
+          className="navPills uvs-left uvs-right nav-item"
+        >
+          <a
+            className="menubarFont nav-link"
+            data-rb-event-key="/settings"
+            href="/settings"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+          >
+            Settings
+          </a>
+        </div>
+        ,
+        <div
+          className="navPills uvs-left uvs-right nav-item"
+        >
+          <a
+            className="menubarFont nav-link"
+            data-rb-event-key="/"
+            href="/"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+          >
+            Logout
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="dashTopPanel card-deck"
+    style={
+      Object {
+        "display": "flex",
+        "flexDirection": "row",
+      }
+    }
+  >
+    <div
+      className="WelcomePanelCard uvs-right uvs-left card"
+      style={
+        Object {
+          "flexDirection": "row",
+        }
+      }
+    >
+      <img
+        alt=""
+        className="WelcomePanelImage rounded-circle"
+        src="/user.png"
+        variant="top"
+      />
+      <div
+        className="cardSize card-body"
+      >
+        <div
+          className="titleFont card-title h5"
+        >
+          Welcome Back jsmith!
+        </div>
+      </div>
+    </div>
+    <div
+      className="LeaderboardCard uvs-right uvs-left card-body"
+    >
+      <a
+        className="dashLeaderboardFont card-link"
+        href="/leaderboard"
+      >
+        Leaderboard
+      </a>
+    </div>
+  </div>,
+  <div
+    className="LearningModulesCards container"
+  >
+    <h2>
+      Required Learning Modules:  
+      <a
+        className="btn btn-outline-primary"
+        href="learning-directory"
+        id="select-more-modules"
+        onClick={[Function]}
+        onKeyDown={[Function]}
+      >
+        0
+         remaining required modules
+      </a>
+    </h2>
+  </div>,
+  <div
+    className="dashboard card-deck"
+    style={
+      Object {
+        "display": "flex",
+        "flexDirection": "row",
+      }
+    }
+  />,
+  <div
+    className="d-grid gap-2"
+  />,
+  <div
+    className=" LearningModulesDirectories container"
+  >
+    <h2>
+      Learning Module Directories
+    </h2>
+  </div>,
+  <div
+    className="dashboard card-deck"
+    style={
+      Object {
+        "display": "flex",
+        "flexDirection": "row",
+      }
+    }
+  />,
+  <div
+    className="d-grid gap-2"
+  />,
+]
+`;
