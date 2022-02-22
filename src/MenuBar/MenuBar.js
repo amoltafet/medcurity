@@ -3,7 +3,6 @@ import './MenuBar.css';
 import '../Layout.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Nav, CardImg, Card, CardGroup } from 'react-bootstrap'
-import { useLocation } from 'react-router-dom';
 import Axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 
