@@ -21,7 +21,8 @@ exports[`renders LoginPage 1`] = `
     <div
       className="titleFont card-title h5"
     >
-      Welcome Back jsmith!
+      Welcome Back 
+      !
     </div>
   </div>
 </div>

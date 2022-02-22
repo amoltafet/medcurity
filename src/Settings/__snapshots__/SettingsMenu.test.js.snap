@@ -5,7 +5,7 @@ exports[`renders LoginPage 1`] = `
   className="settingsRow row"
 >
   <div
-    className="shadowTab col-sm-2"
+    className="shadowTab uvs-left uvs-right col-sm-2"
   >
     <div
       className="flex-column marginTop  nav nav-pills"
@@ -54,7 +54,7 @@ exports[`renders LoginPage 1`] = `
     </div>
   </div>
   <div
-    className="dropShadow col-sm-8"
+    className="dropShadow uvs-left uvs-right col-sm-8"
   >
     <div
       className="settingsMenuContainer container"

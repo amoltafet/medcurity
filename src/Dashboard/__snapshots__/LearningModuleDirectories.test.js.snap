@@ -5,7 +5,9 @@ Array [
   <div
     className=" LearningModulesDirectories container"
   >
-    <h2>
+    <h2
+      className="text-center LearningModulesDirectoriesFont"
+    >
       Learning Module Directories
     </h2>
   </div>,
