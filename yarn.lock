@@ -2656,7 +2656,7 @@
   "resolved" "https://registry.npmjs.org/axios/-/axios-0.24.0.tgz"
   "version" "0.24.0"
   dependencies:
-    "follow-redirects" "^1.14.4"
+    "follow-redirects" "^1.14.8"
 
 "axobject-query@^2.2.0":
   "integrity" "sha512-Td525n+iPOOyUQIeBfcASuG6uJsDOITl7Mds5gFyerkWiX7qhUTdYUBlSgNMyVqtSJqwpt1kXGLdUt6SykLMRA=="
@@ -3452,7 +3452,7 @@
     "boolbase" "^1.0.0"
     "css-what" "^3.2.1"
     "domutils" "^1.7.0"
-    "nth-check" "^1.0.2"
+    "nth-check" "^2.0.1"
 
 "css-select@^4.1.3":
   "integrity" "sha512-/aUslKhzkTNCQUB2qTX84lVmfia9NyjP3WpDGtj/WxhwBzWBYUV3DgUpurHTme8UTPcPlAD1DJ+b0nN/t50zDQ=="
@@ -4659,10 +4659,10 @@
   "resolved" "https://registry.npmjs.org/fn.name/-/fn.name-1.1.0.tgz"
   "version" "1.1.0"
 
-"follow-redirects@^1.0.0", "follow-redirects@^1.14.4":
+"follow-redirects@^1.14.8":
   "integrity" "sha512-+hbxoLbFMbRKDwohX8GkTataGqO6Jb7jGwpAlwgy2bIz25XtRm7KEzJM76R1WiNT5SwZkX4Y75SwBolkpmE7iQ=="
-  "resolved" "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.14.7.tgz"
-  "version" "1.14.7"
+  "resolved" "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.14.8.tgz"
+  "version" "1.14.8"
 
 "fork-ts-checker-webpack-plugin@^6.5.0":
   "integrity" "sha512-cS178Y+xxtIjEUorcHddKS7yCMlrDPV31mt47blKKRfMd70Kxu5xruAFE2o9sDY6wVC5deuob/u/alD04YYHnw=="
@@ -5120,7 +5120,7 @@
   "version" "1.18.1"
   dependencies:
     "eventemitter3" "^4.0.0"
-    "follow-redirects" "^1.0.0"
+    "follow-redirects" "^1.14.8"
     "requires-port" "^1.0.0"
 
 "https-proxy-agent@^5.0.0":
@@ -6657,7 +6657,7 @@
     "gauge" "^3.0.0"
     "set-blocking" "^2.0.0"
 
-"nth-check@^1.0.2", "nth-check@^2.0.1":
+"nth-check@^2.0.1":
   "integrity" "sha512-it1vE95zF6dTT9lBsYbxvqh0Soy4SPowchj0UBGj/V6cTPnXXtQOPUbhZ6CmGzAD/rW22LQK6E96pcdJXk4A4w=="
   "resolved" "https://registry.npmjs.org/nth-check/-/nth-check-2.0.1.tgz"
   "version" "2.0.1"
@@ -7527,7 +7527,7 @@
   "resolved" "https://registry.npmjs.org/postcss-value-parser/-/postcss-value-parser-4.2.0.tgz"
   "version" "4.2.0"
 
-"postcss@^7.0.0 || ^8.0.1", "postcss@^8", "postcss@^8.0.0", "postcss@^8.0.2", "postcss@^8.0.3", "postcss@^8.0.9", "postcss@^8.1.0", "postcss@^8.1.2", "postcss@^8.1.4", "postcss@^8.2.14", "postcss@^8.2.15", "postcss@^8.2.2", "postcss@^8.3", "postcss@^8.3.3", "postcss@^8.3.5", "postcss@^8.4", "postcss@^8.4.4", "postcss@>= 8", "postcss@>=8":
+ "postcss@^8.3" || "postcss@^8.3.3", "postcss@^8.3.5", "postcss@^8.4", "postcss@^8.4.4", "postcss@>= 8", "postcss@>=8":
   "integrity" "sha512-jBDboWM8qpaqwkMwItqTQTiFikhs/67OYVvblFFTM7MrZjt6yMKd6r2kgXizEbTTljacm4NldIlZnhbjr84QYg=="
   "resolved" "https://registry.npmjs.org/postcss/-/postcss-8.4.5.tgz"
   "version" "8.4.5"
@@ -7536,9 +7536,9 @@
     "picocolors" "^1.0.0"
     "source-map-js" "^1.0.1"
 
-"postcss@^7.0.35":
+"postcss@^8.2.13":
   "integrity" "sha512-yioayjNbHn6z1/Bywyb2Y4s3yvDAeXGOyxqD+LnVOinq6Mdmd++SW2wUNVzavyyHxd6+DxzWGIuosg6P1Rj8uA=="
-  "resolved" "https://registry.npmjs.org/postcss/-/postcss-7.0.39.tgz"
+  "resolved" "https://registry.npmjs.org/postcss/-/postcss-8.2.13.tgz"
   "version" "7.0.39"
   dependencies:
     "picocolors" "^0.2.1"
@@ -8167,7 +8167,7 @@
     "adjust-sourcemap-loader" "^4.0.0"
     "convert-source-map" "^1.7.0"
     "loader-utils" "^2.0.0"
-    "postcss" "^7.0.35"
+    "postcss" "^8.2.13"
     "source-map" "0.6.1"
 
 "resolve.exports@^1.1.0":
