@@ -45,7 +45,7 @@ const Menubar = () => {
                     <Nav className="justify-content-end" variant="pills" defaultActiveKey="/dashboard">
                         <Nav.Item className="navPills uvs-left uvs-right">
                             <Nav.Link className="menubarFont" href="/settings">Settings</Nav.Link>
-                        </Nav.Item>,
+                        </Nav.Item>
                         <Nav.Item className="navPills uvs-left uvs-right">
                             <Nav.Link className="menubarFont" href="/">Logout</Nav.Link>
                         </Nav.Item>  

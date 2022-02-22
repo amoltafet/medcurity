@@ -1,13 +1,27 @@
-import { Nav, Image, Row, Form, Tab, Col, Container } from 'react-bootstrap'
+import { Nav, Image, Row, Form, Tab, Col, Container } from 'react-bootstrap';
+import { useEffect, useState } from "react";
+import axios from 'axios';
 import React from 'react';
 import './SettingsMenu.css';
-import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 /**
 * Creates and displays the Settings menu allows the user to toggle between diffrent settings. 
 * @return {GetPage}
 */
 const SettingsMenu = () => {
+    axios.defaults.withCredentials = true;
+    const [session, setSession] = useState([]);
+
+    useEffect(() => {
+        axios.get("http://localhost:3002/users/login").then((response) => {
+          console.log('aaahhh', response.data.user)
+          setSession(response.data.user[0])
+        });
+      }, []);
+
+    console.log(session)
+
     return (
         <>
             <Tab.Container id="left-tabs-example" defaultActiveKey="first" style={{display: 'flex'}}>
@@ -18,9 +32,9 @@ const SettingsMenu = () => {
                             <Nav.Item className="selectedSetting">
                                 <Nav.Link eventKey="first"><Image className="profileImage " variant="top" src="/user.png" alt="" roundedCircle></Image></Nav.Link>
                             </Nav.Item>
-                            <Nav.Item className="unselectedSetting">
+                            {/* <Nav.Item className="unselectedSetting">
                                 <Nav.Link eventKey="second">Tab 2</Nav.Link>
-                            </Nav.Item>
+                            </Nav.Item> */}
                         </Nav>
                     </Col>
                     
@@ -32,11 +46,11 @@ const SettingsMenu = () => {
                                     <Form >
                                         <Form.Group className="usernameInput" controlId="exampleForm.ControlTextarea1">
                                             <Form.Text className="usernameText">UserName</Form.Text>
-                                            <Form.Control placeholder="username"></Form.Control>
+                                            <Form.Control placeholder={session.username}></Form.Control>
                                         </Form.Group>
                                         <Form.Group className="emailInput" controlId="exampleForm.ControlTextarea1">
                                             <Form.Text className="emailText">Email</Form.Text>
-                                            <Form.Control placeholder="email"></Form.Control>
+                                            <Form.Control placeholder={session.email}></Form.Control>
                                         </Form.Group>
                                     </Form>
                             </Tab.Pane>

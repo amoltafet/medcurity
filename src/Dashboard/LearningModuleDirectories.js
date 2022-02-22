@@ -56,7 +56,7 @@ const LearningModulesDirectories = () => {
             
             <h2 className="text-center LearningModulesDirectoriesFont">Learning Module Directories</h2>
         </Container>
-        <CardDeck className="dashboard" style={{display: 'flex', flexDirection: 'row'}}>
+        <CardDeck className="LearningModulesDirectoriesDashboard" style={{display: 'flex', flexDirection: 'row'}}>
             {createDirectoriesCards(directories)}
         </CardDeck>
         <div className="d-grid gap-2">
