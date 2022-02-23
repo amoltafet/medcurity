@@ -19,7 +19,7 @@ const QuizPage = () => {
     ["questionNumbers text-center", "questionDesciption"],
     ["questionNumbersWrong text-center", "questionDesciptionWrong"],
     ["questionNumbersRight text-center", "questionDesciptionRight"]
-  ]
+  ];
   const [isLoading, setLoading] = useState(true);
   const [content, setContent] = useState([]);
   const [currentQuestion, setQuestion] = useState([]);

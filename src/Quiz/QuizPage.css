@@ -1,6 +1,6 @@
 .quizBg {
     background-image: url("quizBg.png");
-    height: 110%;
+    height: 100%;
     width: 100%;
     margin-top: 1%;
     background-position: center;
@@ -9,7 +9,7 @@
     position: fixed;
 }
 
-.buttonQuestionNumberRow{
+.buttonQuestionNumberRow {
     width: 80%;
     height: 10%;
 }
@@ -43,8 +43,8 @@
 .questionPosOutOfTotal {
     color: #93c2ec;
     font-family: Lato,sans-serif;
-    font-size: 90%;
-    margin-top: 1%;
+    font-size: 120%;
+    margin-top: 0%;
     margin-left: -1%;
     width: 8%;
 }
@@ -81,16 +81,12 @@
 
 .answerQuizSelection {
     margin-bottom: 2%;
-    margin-top: 3%;
+    margin-top: 1%;
     margin-left: 5%;
     margin-right: 5%;   
 }
 
-.questionDesciption {
-    color: #127ebf; 
-    font-size: 90%;
-    font-family: Lato,sans-serif;
-}
+
 
 .individualQuestions {
     text-align: start;

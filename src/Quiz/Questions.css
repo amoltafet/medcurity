@@ -1,23 +1,26 @@
 .questionNumbers {
-    margin-top: 2%;
+    margin-top: 5%;
+    font-size: 180%;
+    font-family: Lato,sans-serif;
 }
+
 
 .answerQuizSelection {
     margin-bottom: 2%;
-    margin-top: 3%;
+    margin-top: 1%;
     margin-left: 5%;
     margin-right: 5%;   
 }
 
 .questionDesciption {
     color: #127ebf; 
-    font-size: 90%;
+    font-size: 140%;
     font-family: Lato,sans-serif;
 }
 
 .individualQuestions {
     text-align: start;
-    font-size: 80%;
+    font-size: 100%;
     margin-top: -1%;
 
 }
