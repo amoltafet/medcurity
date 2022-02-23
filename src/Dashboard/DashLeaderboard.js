@@ -15,7 +15,7 @@ const Leaderboard = (props) => {
     // Fetch User Data
     useEffect(() => {
         Axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 'SELECT * FROM Users' } }).then((response) => {
-            setUsers(Object.values(response.data))
+            setUsers(Object.values(response.data));
         });
     }, [])
 
@@ -40,7 +40,7 @@ const Leaderboard = (props) => {
 
     const ProfileArray = () => {
         var otherUsers = [];
-        if (users.length !== 0 && users !== undefined) {
+        if (users !== undefined && users.length !==0) {
             console.log("ehyp", users)
             for (var i = 0; i < users.length; i++) {
                 if (users[i].username === props.user.username) {
@@ -50,29 +50,49 @@ const Leaderboard = (props) => {
             }
             console.log("whyyyyyyyyy", otherUsers)
 
-            //const newData = data.concat({answer: "", correct: false});
-            //setData(newData);
+            console.log("lastuser ", users[users.length - 1].username)
+            console.log("current user", props.user.username)
 
-            return ([
-                <DashLeaderboardProfiles
-                    name={otherUsers[0].username}
-                    user={user}
-                    index={7}
-                    className={className} />,
-                <DashLeaderboardProfiles
-                    name={props.user.username}
-                    user={user}
-                    index={8}
-                    className={className} />,
-                <DashLeaderboardProfiles
-                    name={otherUsers[1].username}
-                    user={user}
-                    index={9}
-                    className={className} />
-            ]);
+            if (users[users.length - 1].username === props.user.username) {
+                return ([
+                    <DashLeaderboardProfiles
+                        name={users[users.length - 3].username}
+                        user={user}
+                        index={users.length - 3}
+                        className={className} />,
+                    <DashLeaderboardProfiles
+                        name={users[users.length - 2].username}
+                        user={user}
+                        index={users.length - 2}
+                        className={className} />,
+                    <DashLeaderboardProfiles
+                        name={props.user.username}
+                        user={user}
+                        index={users.length - 1}
+                        className={className} />
+                ]);
+            }
+            else if (users[users.length - 1].username != props.user.username && otherUsers[1] != undefined) {
+                return ([
+                    <DashLeaderboardProfiles
+                        name={otherUsers[0].username}
+                        user={user}
+                        index={4}
+                        className={className} />,
+                    <DashLeaderboardProfiles
+                        name={props.user.username}
+                        user={user}
+                        index={5}
+                        className={className} />,
+                    <DashLeaderboardProfiles
+                        name={otherUsers[1].username}
+                        user={user}
+                        index={6}
+                        className={className} />
+                ]);
+            }
         }
     }
-
 
 
 
