@@ -126,8 +126,11 @@ const QuizPage = () => {
       setQuestionIndex(newIndex);
       console.log("index: ", newIndex)
 
-      if (newIndex === content.length) {
+      if (newIndex === content.length || newIndex >= content.length) {
         document.getElementById("rightQuestionBttn").disabled = true;
+      }
+      if(index === (content.length - 1)) {
+        document.getElementById("submit-btn").disabled = false;
       }
     }
   }
@@ -155,6 +158,10 @@ const QuizPage = () => {
       console.log("selected answer: " + newData["answer"]);
     }
     setSubmitted(true);
+  }
+
+  function disabledSubmitBttn() {
+     //document.getElementById("submit-btn").disabled = true;
   }
 
   // catch for rerendering 
@@ -186,8 +193,9 @@ const QuizPage = () => {
             </Button>
           </Row>
           <SubmitButton value="Submit" questionData={data} content={content.length} action={displayQuestionData}></SubmitButton>
-          {console.log("finished rendering")}
+          {console.log("finished rendering")}  
         </div>
+        {disabledSubmitBttn()}
       </>
     );
   }
@@ -240,7 +248,7 @@ const QuizPage = () => {
             <div> Points: {points} </div>
             <div> {(numCorrect / content.length * 100).toFixed(2)}% </div>
           </Row>
-          <Button className="quizHomeBttn" variant="primary" href="/dash/">Home</Button>
+          <Button className="quizHomeBttn uvs-left" variant="primary" href="/dash/">Home</Button>
         </div>
       </>
     );
