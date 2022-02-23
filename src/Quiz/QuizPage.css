@@ -98,15 +98,33 @@
     margin-top: -1%;
 
 }
+.quizPointInfo{
+    font-family: Lato,sans-serif;
+}
 
 .correct {
     background-color: lightgreen;
 }
 
 .wrong {
-    background-color: red;
+    background-color: #c33333;;
 }
 
-.header {
+.quizResultsHeader {
     align-items: center;
+    color: #1e5b88;
+    font-family: Lato,sans-serif;
+    font-size: 170%;
+    font-weight: bold;
+    margin-left: 5%;
+}
+
+.quizHomeBttn{
+    background-color: #127ebf;
+    color: white;
+    font-family: Lato,sans-serif;
+    border: 0;
+    width: 10%;
+    margin-left: 45%;
+    margin-bottom: 5%;
 }

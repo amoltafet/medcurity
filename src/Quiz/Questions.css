@@ -22,3 +22,20 @@
 
 }
 
+.questionNumbersWrong {
+    color: white;
+    margin-top: 2%;
+}
+
+.questionDesciptionWrong {
+    color: #d8dae3;
+}
+
+.questionNumbersRight {
+    color: #1e5b88;
+    margin-top: 2%;
+}
+
+.questionDesciptionRight {
+    color: #127ebf; 
+}
