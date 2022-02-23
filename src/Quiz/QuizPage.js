@@ -15,11 +15,16 @@ import axios from 'axios';
 * @return {QuizPage}
 */
 const QuizPage = () => {
+  const quizClassNames = [
+    ["questionNumbers text-center", "questionDesciption"],
+    ["questionNumbersWrong text-center", "questionDesciptionWrong"],
+    ["questionNumbersRight text-center", "questionDesciptionRight"]
+  ]
   const [isLoading, setLoading] = useState(true);
   const [content, setContent] = useState([]);
   const [currentQuestion, setQuestion] = useState([]);
   const [index, setQuestionIndex] = useState(0);
-  const[isSubmitted, setSubmitted] = useState(false);
+  const [isSubmitted, setSubmitted] = useState(false);
   // data array that holds question information using state
   const [data, setData] = useState([
     { answer: "", correct: false },
@@ -83,6 +88,7 @@ const QuizPage = () => {
           question={currentQuestion.question}
           answers={[currentQuestion.solution, currentQuestion.a2, currentQuestion.a3, currentQuestion.a4]}
           action={adjustStateData}
+          classes={quizClassNames[0]}
         />]
       );
 
@@ -120,8 +126,11 @@ const QuizPage = () => {
       setQuestionIndex(newIndex);
       console.log("index: ", newIndex)
 
-      if (newIndex === content.length) {
+      if (newIndex === content.length || newIndex >= content.length) {
         document.getElementById("rightQuestionBttn").disabled = true;
+      }
+      if(index === (content.length - 1)) {
+        document.getElementById("submit-btn").disabled = false;
       }
     }
   }
@@ -133,29 +142,33 @@ const QuizPage = () => {
    * Function is used as an onChange function for the question toggle buttons to change state data
   */
   function adjustStateData(index, answer) {
-    let newData=data[index];
-    newData["answer"]=answer;
-    if(answer === content[index].solution) {
+    let newData = data[index];
+    newData["answer"] = answer;
+    if (answer === content[index].solution) {
       newData["correct"] = true
     }
-    data[index]=newData;
+    data[index] = newData;
     setData([...data]);
     console.log("" + answer);
   }
   // function to display in the console the question data stored in the data state variable in Quizpage.js
   function displayQuestionData() {
-    for(var i= 0; i < content.length; i++) {
-        var newData = data[i];
-        console.log("selected answer: " + newData["answer"]);
+    for (var i = 0; i < content.length; i++) {
+      var newData = data[i];
+      console.log("selected answer: " + newData["answer"]);
     }
     setSubmitted(true);
-}
+  }
+
+  function disabledSubmitBttn() {
+     //document.getElementById("submit-btn").disabled = true;
+  }
 
   // catch for rerendering 
   if (isLoading) {
     return (<div></div>)
   }
-  if(!isSubmitted) {
+  if (!isSubmitted) {
     return (
       <>
         <MenuBar></MenuBar>
@@ -180,8 +193,9 @@ const QuizPage = () => {
             </Button>
           </Row>
           <SubmitButton value="Submit" questionData={data} content={content.length} action={displayQuestionData}></SubmitButton>
-          {console.log("finished rendering")}
+          {console.log("finished rendering")}  
         </div>
+        {disabledSubmitBttn()}
       </>
     );
   }
@@ -189,20 +203,21 @@ const QuizPage = () => {
     var newestIndex = 0;
     var points = 0
     var numCorrect = 0
-    const QuestionContent = content.map((question) => { 
+    const QuestionContent = content.map((question) => {
       var newID = "q-group" + newestIndex
       newestIndex++;
-      if(data[newestIndex]["correct"] === true) {
+      if (data[newestIndex]["correct"] === true) {
         points += 100
         numCorrect += 1
         return ([
           <div id="resultsPageHolder" class="correct">
             <Questions
-              id = {newID}
+              id={newID}
               i={newestIndex - 1}
               question={question.question}
               answers={[question.solution, question.a2, question.a3, question.a4]}
               action={adjustStateData}
+              classes={quizClassNames[2]}
             />
           </div>
         ]);
@@ -211,11 +226,12 @@ const QuizPage = () => {
         return ([
           <div id="resultsPageHolder" class="wrong">
             <Questions
-              id = {newID}
+              id={newID}
               i={newestIndex - 1}
               question={question.question}
               answers={[question.solution, question.a2, question.a3, question.a4]}
               action={adjustStateData}
+              classes={quizClassNames[1]}
             />
           </div>
         ]);
@@ -225,12 +241,14 @@ const QuizPage = () => {
       <>
         <MenuBar></MenuBar>
         <div id="resultsPageContainer">
-          <h1 class="header">Quiz Results</h1>
+          <h1 class="quizResultsHeader">Quiz Results</h1>
           {QuestionContent}
-          <p>
-            Points: {points}   {numCorrect}/{content.length}   %{(numCorrect/content.length * 100).toFixed(2)}
-          </p>
-          <Button variant="primary" href="/dash/">Home</Button>     
+          <Row className="text-center quizPointInfo">
+            <div> {numCorrect}/{content.length} </div>
+            <div> Points: {points} </div>
+            <div> {(numCorrect / content.length * 100).toFixed(2)}% </div>
+          </Row>
+          <Button className="quizHomeBttn uvs-left" variant="primary" href="/dash/">Home</Button>
         </div>
       </>
     );
