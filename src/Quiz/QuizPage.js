@@ -244,11 +244,12 @@ const QuizPage = () => {
           <h1 class="quizResultsHeader">Quiz Results</h1>
           {QuestionContent}
           <Row className="text-center quizPointInfo">
-            <div> {numCorrect}/{content.length} </div>
+            <div> {numCorrect} / {content.length} </div>
             <div> Points: {points} </div>
             <div> {(numCorrect / content.length * 100).toFixed(2)}% </div>
           </Row>
-          <Button className="quizHomeBttn uvs-left" variant="primary" href="/dash/">Home</Button>
+          <Row>
+          <Button className="quizHomeBttn uvs-left" variant="primary" href="/dash/">Home</Button></Row>
         </div>
       </>
     );
