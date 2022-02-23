@@ -1010,3 +1010,46 @@
 {"level":"info","message":"Queried Questions with ModuleID: \"1\" Fields: [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]","service":"query-service","timestamp":"2022-02-23T00:29:29.799Z"}
 {"level":"info","message":"Queried Questions with ModuleID: \"1\" Fields: [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]","service":"query-service","timestamp":"2022-02-23T00:30:33.448Z"}
 {"level":"info","message":"Queried Questions with ModuleID: \"1\" Fields: [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]","service":"query-service","timestamp":"2022-02-23T00:34:55.060Z"}
+{"level":"info","message":"Server is running on \"PORT: 3002\"","service":"api-service","timestamp":"2022-02-23T01:11:44.835Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM Users\" Fields: userid,companyid,username,type,email,password","service":"query-service","timestamp":"2022-02-23T01:13:12.485Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModules JOIN AssignedLearningModules ON LearningModules.ID = AssignedLearningModules.LearningModID WHERE AssignedLearningModules.UserID = 100\" Fields: ID,DirID,Title,Subtitle,Description,Banner,LearningModID,UserID","service":"query-service","timestamp":"2022-02-23T01:13:12.933Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-02-23T01:13:13.137Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM Users\" Fields: userid,companyid,username,type,email,password","service":"query-service","timestamp":"2022-02-23T01:13:21.841Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModules JOIN AssignedLearningModules ON LearningModules.ID = AssignedLearningModules.LearningModID WHERE AssignedLearningModules.UserID = 100\" Fields: ID,DirID,Title,Subtitle,Description,Banner,LearningModID,UserID","service":"query-service","timestamp":"2022-02-23T01:13:22.036Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-02-23T01:13:22.534Z"}
+{"level":"info","message":"Existing user \"apmiller37@gmail.com\" logged in.","service":"user-service","timestamp":"2022-02-23T01:13:50.183Z"}
+{"level":"info","message":"Created user session for \"apmiller37\"","service":"user-service","timestamp":"2022-02-23T01:13:50.272Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM Users\" Fields: userid,companyid,username,type,email,password","service":"query-service","timestamp":"2022-02-23T01:13:50.673Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModules JOIN AssignedLearningModules ON LearningModules.ID = AssignedLearningModules.LearningModID WHERE AssignedLearningModules.UserID = 100\" Fields: ID,DirID,Title,Subtitle,Description,Banner,LearningModID,UserID","service":"query-service","timestamp":"2022-02-23T01:13:50.852Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-02-23T01:13:50.991Z"}
+{"level":"info","message":"Queried LearningModuleID with ID: \"1\" Fields: [object Object]","service":"query-service","timestamp":"2022-02-23T01:13:57.042Z"}
+{"level":"info","message":"Created user session for \"apmiller37\"","service":"user-service","timestamp":"2022-02-23T01:14:03.860Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM Users\" Fields: userid,companyid,username,type,email,password","service":"query-service","timestamp":"2022-02-23T01:14:04.051Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModules JOIN AssignedLearningModules ON LearningModules.ID = AssignedLearningModules.LearningModID WHERE AssignedLearningModules.UserID = 100\" Fields: ID,DirID,Title,Subtitle,Description,Banner,LearningModID,UserID","service":"query-service","timestamp":"2022-02-23T01:14:05.309Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-02-23T01:14:05.665Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM Users\" Fields: userid,companyid,username,type,email,password","service":"query-service","timestamp":"2022-02-23T01:14:09.503Z"}
+{"level":"info","message":"Created user session for \"apmiller37\"","service":"user-service","timestamp":"2022-02-23T01:14:09.590Z"}
+{"level":"info","message":"Created user session for \"apmiller37\"","service":"user-service","timestamp":"2022-02-23T01:14:09.600Z"}
+{"level":"info","message":"Created user session for \"apmiller37\"","service":"user-service","timestamp":"2022-02-23T01:14:09.606Z"}
+{"level":"info","message":"Created user session for \"apmiller37\"","service":"user-service","timestamp":"2022-02-23T01:14:09.617Z"}
+{"level":"info","message":"Created user session for \"apmiller37\"","service":"user-service","timestamp":"2022-02-23T01:14:09.623Z"}
+{"level":"info","message":"Created user session for \"apmiller37\"","service":"user-service","timestamp":"2022-02-23T01:14:09.629Z"}
+{"level":"info","message":"Created user session for \"apmiller37\"","service":"user-service","timestamp":"2022-02-23T01:14:09.632Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-02-23T01:14:09.863Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-02-23T01:14:10.171Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-02-23T01:14:10.375Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-02-23T01:14:10.785Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-02-23T01:14:10.989Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-02-23T01:14:11.400Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-02-23T01:14:11.532Z"}
+{"level":"info","message":"Created user session for \"apmiller37\"","service":"user-service","timestamp":"2022-02-23T01:14:35.029Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM Users\" Fields: userid,companyid,username,type,email,password","service":"query-service","timestamp":"2022-02-23T01:14:36.566Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModules JOIN AssignedLearningModules ON LearningModules.ID = AssignedLearningModules.LearningModID WHERE AssignedLearningModules.UserID = 100\" Fields: ID,DirID,Title,Subtitle,Description,Banner,LearningModID,UserID","service":"query-service","timestamp":"2022-02-23T01:14:37.162Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-02-23T01:14:37.832Z"}
+{"level":"info","message":"Queried LearningModuleID with ID: \"1\" Fields: [object Object]","service":"query-service","timestamp":"2022-02-23T01:14:41.404Z"}
+{"level":"info","message":"Queried Questions with ModuleID: \"1\" Fields: [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]","service":"query-service","timestamp":"2022-02-23T01:14:44.584Z"}
+{"level":"info","message":"Queried Questions with ModuleID: \"1\" Fields: [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]","service":"query-service","timestamp":"2022-02-23T01:15:04.547Z"}
+{"level":"info","message":"Created user session for \"apmiller37\"","service":"user-service","timestamp":"2022-02-23T01:15:23.208Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM Users\" Fields: userid,companyid,username,type,email,password","service":"query-service","timestamp":"2022-02-23T01:15:23.386Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModules JOIN AssignedLearningModules ON LearningModules.ID = AssignedLearningModules.LearningModID WHERE AssignedLearningModules.UserID = 100\" Fields: ID,DirID,Title,Subtitle,Description,Banner,LearningModID,UserID","service":"query-service","timestamp":"2022-02-23T01:15:23.694Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-02-23T01:15:24.103Z"}

@@ -206,7 +206,7 @@ const QuizPage = () => {
     const QuestionContent = content.map((question) => {
       var newID = "q-group" + newestIndex
       newestIndex++;
-      if (data[newestIndex]["correct"] === true) {
+      if (data[newestIndex - 1]["correct"] === true) {
         points += 100
         numCorrect += 1
         return ([
