@@ -244,9 +244,9 @@ const QuizPage = () => {
           <h1 class="quizResultsHeader">Quiz Results</h1>
           {QuestionContent}
           <Row className="text-center quizPointInfo">
-            <div> {numCorrect} / {content.length} </div>
-            <div> Points: {points} </div>
-            <div> {(numCorrect / content.length * 100).toFixed(2)}% </div>
+            <div className="totalCorrectQuestions"> {numCorrect} / {content.length} </div>
+            <div className="totalCorrectPoints"> Points: {points} </div>
+            <div className="correctPercentage"> {(numCorrect / content.length * 100).toFixed(2)}% </div>
           </Row>
           <Row>
           <Button className="quizHomeBttn uvs-left" variant="primary" href="/dash/">Home</Button></Row>
