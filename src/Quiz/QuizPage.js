@@ -129,7 +129,7 @@ const QuizPage = () => {
       if (newIndex === content.length || newIndex >= content.length) {
         document.getElementById("rightQuestionBttn").disabled = true;
       }
-      if(index === (content.length - 1)) {
+      if (index === (content.length - 1)) {
         document.getElementById("submit-btn").disabled = false;
       }
     }
@@ -160,9 +160,7 @@ const QuizPage = () => {
     setSubmitted(true);
   }
 
-  function disabledSubmitBttn() {
-     //document.getElementById("submit-btn").disabled = true;
-  }
+
 
   // catch for rerendering 
   if (isLoading) {
@@ -174,7 +172,7 @@ const QuizPage = () => {
         <MenuBar></MenuBar>
         <div id="quizPageContainer" className="quizBg img-fluid">
           {DisplayOneQuestion()}
-          <Row>
+          <Row className="justify-content-md-center">
             <Button
               id="leftQuestionBttn"
               type="submit"
@@ -193,9 +191,8 @@ const QuizPage = () => {
             </Button>
           </Row>
           <SubmitButton value="Submit" questionData={data} content={content.length} action={displayQuestionData}></SubmitButton>
-          {console.log("finished rendering")}  
+          {console.log("finished rendering")}
         </div>
-        {disabledSubmitBttn()}
       </>
     );
   }
@@ -249,7 +246,7 @@ const QuizPage = () => {
             <div className="correctPercentage"> {(numCorrect / content.length * 100).toFixed(2)}% </div>
           </Row>
           <Row>
-          <Button className="quizHomeBttn uvs-left" variant="primary" href="/dash/">Home</Button></Row>
+            <Button className="quizHomeBttn uvs-left" variant="primary" href="/dash/">Home</Button></Row>
         </div>
       </>
     );
