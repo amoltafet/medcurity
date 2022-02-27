@@ -7,3 +7,10 @@
     border: 0;
     margin-bottom: 5%;
 }
+
+.quizSubmitBttn:hover {
+    background-color: #127ebf;
+    color: #d8dae3;
+    font-family: Lato,sans-serif;
+    border: 0;
+}
