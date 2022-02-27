@@ -3,7 +3,6 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './LearningModulesCards.css'
 import { Card,  Button, Container, CardDeck } from 'react-bootstrap';
 import { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 /**
@@ -20,7 +19,7 @@ const LearningModulesCards = () => {
             { params: { the_query: 'SELECT * FROM LearningModules JOIN AssignedLearningModules ON LearningModules.ID = AssignedLearningModules.LearningModID WHERE AssignedLearningModules.UserID = ' + userId} 
             }).then((response) => {
                 setLearningModules(Object.values(response.data))
-        });
+        }).catch(error => console.error(`Error ${error}`));
     }, [])
 
 

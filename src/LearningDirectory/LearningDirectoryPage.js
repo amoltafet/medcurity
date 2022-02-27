@@ -60,15 +60,15 @@ const  LearningDirectoryPage = () => {
     useEffect(() => {
         axios.get('http://localhost:3002/api/getQuery', { params: { the_query: "SELECT * FROM LearningModulesDirectory WHERE ID = " + slug } }).then((response) => {
               setDirectory(Object.values(response.data))
-        });
-    }, [])
+        }).catch(error => console.error(`Error ${error}`));
+    }, [slug])
 
     // Query for getting info on learning modules associated with the directory
     useEffect(() => {
         axios.get('http://localhost:3002/api/getQuery', { params: { the_query:"SELECT * FROM LearningModules WHERE DirID = " + slug} }).then((response) => {
             setModules(Object.values(response.data))
-        });
-    }, [])
+        }).catch(error => console.error(`Error ${error}`));
+    }, [slug])
 
     const directoryTitle = directory.map((directory) => {
         

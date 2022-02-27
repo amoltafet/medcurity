@@ -16,7 +16,7 @@ const Leaderboard = (props) => {
     useEffect(() => {
         Axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 'SELECT * FROM Users' } }).then((response) => {
             setUsers(Object.values(response.data));
-        });
+        }).catch(error => console.error(`Error ${error}`));
     }, [])
 
     // for stylizing the panels
@@ -40,7 +40,7 @@ const Leaderboard = (props) => {
 
     const ProfileArray = () => {
         var otherUsers = [];
-        if (users !== undefined && users.length !==0) {
+        if (users !== undefined && users.length !== 0) {
             console.log("ehyp", users)
             for (var i = 0; i < users.length; i++) {
                 if (users[i].username === props.user.username) {
@@ -72,7 +72,7 @@ const Leaderboard = (props) => {
                         className={className} />
                 ]);
             }
-            else if (users[users.length - 1].username != props.user.username && otherUsers[1] != undefined) {
+            else if (users[users.length - 1].username !== props.user.username && otherUsers[1] !== undefined) {
                 return ([
                     <DashLeaderboardProfiles
                         name={otherUsers[0].username}

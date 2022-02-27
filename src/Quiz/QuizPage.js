@@ -58,7 +58,7 @@ const QuizPage = () => {
     axios.get('http://localhost:3002/api/getModuleQuestions', { params: { id: slug } }).then((response) => {
       setContent(Object.values(response.data));
       setLoading(false);
-    })
+    }).catch(error => console.error(`Error ${error}`));
 
   }, [slug])
 
@@ -171,7 +171,7 @@ const QuizPage = () => {
   }
   if (!isSubmitted) {
     function disabledSubmitBttn () {
-      if (document.getElementById("submitBtn") != null && index != (content.length - 1)) {
+      if (document.getElementById("submitBtn") !== null && index !== (content.length - 1)) {
         document.getElementById("submitBtn").disabled = true;
       }
     }

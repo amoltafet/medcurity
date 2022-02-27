@@ -19,7 +19,7 @@ const LeaderboardPage = () => {
     useEffect(() => {
       axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 'SELECT * FROM Users' } }).then((response) => {
         setUsers(Object.values(response.data))
-        });
+        }).catch(error => console.error(`Error ${error}`));
     }, [])
 
     var className = [

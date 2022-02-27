@@ -16,7 +16,6 @@ import './LeaderboardProfile.css'
 */
 function LeaderboardProfile(props) {
     const [directories, setDirectories] = useState([]);
-    const [isLoading, setLoading] = useState(true);
     axios.defaults.withCredentials = true;
     const [session, setSession] = useState([]);
 
@@ -24,7 +23,7 @@ function LeaderboardProfile(props) {
         axios.get("http://localhost:3002/users/login").then((response) => {
           console.log('aaahhh', response.data.user)
           setSession(response.data.user[0])
-        });
+        }).catch(error => console.error(`Error ${error}`));
       }, []);
 
     console.log(session)
@@ -33,8 +32,7 @@ function LeaderboardProfile(props) {
     useEffect(() => {
         axios.get('http://localhost:3002/api/getQuery', { params: { the_query: "SELECT * FROM LearningModulesDirectory" } }).then((response) => {
             setDirectories(Object.values(response.data))
-            setLoading(false);
-        });
+        }).catch(error => console.error(`Error ${error}`));
     }, [])
 
     const GetCurrentModule = () => {

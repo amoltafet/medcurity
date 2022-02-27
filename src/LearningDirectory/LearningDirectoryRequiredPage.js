@@ -15,8 +15,8 @@ const LearningDirectoryRequiredPage = () => {
             { params: { the_query: 'SELECT * FROM LearningModules JOIN AssignedLearningModules ON LearningModules.ID = AssignedLearningModules.LearningModID WHERE AssignedLearningModules.UserID = ' + userId} 
             }).then((response) => {
                 setLearningModules(Object.values(response.data))
-        });
-    }, [])
+        }).catch(error => console.error(`Error ${error}`));
+    }, [userId])
 
 
     return(

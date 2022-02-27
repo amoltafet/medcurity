@@ -50,7 +50,7 @@ export default function LoginPage()
         {
           setMessage(response.data.message)
         }
-      });
+      }).catch(error => console.error(`Error ${error}`));
       }
 
   };
