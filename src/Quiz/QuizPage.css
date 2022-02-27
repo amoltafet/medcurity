@@ -17,7 +17,6 @@
 .toggleQuestionLeft {
     width: 10%;
     height: 10%;
-    margin-left: 38%;
     margin-top: -1%;
     border: 0;
     background: transparent !important;
@@ -44,8 +43,6 @@
     color: #93c2ec;
     font-family: Lato,sans-serif;
     font-size: 120%;
-    margin-top: 0%;
-    margin-left: -1%;
     width: 8%;
 }
 
@@ -53,7 +50,6 @@
 .toggleQuestionRight {
     width: 10%;
     height: 10%;
-    margin-left: -1%;
     margin-top: -1%;
     border: 0;
     background: transparent;
@@ -94,7 +90,9 @@
     margin-top: -1%;
 
 }
-.quizPointInfo{
+
+/* RESULTS DISPLAY */
+.quizPointInfo {
     font-family: Lato,sans-serif;
 }
 
@@ -103,16 +101,28 @@
 }
 
 .wrong {
-    background-color: #c33333;;
+    background-color: #c33333;
 }
 
 .quizResultsHeader {
     align-items: center;
+    color: #c33333;
+    font-family: Lato,sans-serif;
+    font-size: 190%;
+    margin-left: 3%;
+}
+
+.totalCorrectQuestions {
     color: #1e5b88;
     font-family: Lato,sans-serif;
-    font-size: 170%;
-    font-weight: bold;
-    margin-left: 5%;
+}
+
+.totalCorrectPoints {
+    color: #127ebf;
+}
+
+.correctPercentage {
+    color: #93c2ec;
 }
 
 .quizHomeBttn {
@@ -121,6 +131,7 @@
     font-family: Lato,sans-serif;
     border: 0;
     vertical-align: middle !important;
+    margin-top: 2%;
     margin-bottom: 5%;
 }
 

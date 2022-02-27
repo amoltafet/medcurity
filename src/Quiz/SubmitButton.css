@@ -1,11 +1,16 @@
 
 
 .quizSubmitBttn {
-    color: white;
     background-color: #127ebf;
+    color: white;
     font-family: Lato,sans-serif;
     border: 0;
-    width: 10%;
-    margin-left: 46%;
     margin-bottom: 5%;
+}
+
+.quizSubmitBttn:hover {
+    background-color: #127ebf;
+    color: #d8dae3;
+    font-family: Lato,sans-serif;
+    border: 0;
 }

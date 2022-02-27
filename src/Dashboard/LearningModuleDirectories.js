@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './LearningModuleDirectories.css'
-import { Card, Container, CardDeck, Row } from 'react-bootstrap';
+import { Card, Container, CardDeck, Row, Col } from 'react-bootstrap';
 import { useEffect, useState } from "react";
 import axios from 'axios';
 
@@ -46,6 +46,7 @@ const LearningModuleDirectories = () => {
         for (let index in modules) { 
             var module = modules[index]
             objs.push(<DirectoryPanel title={module.Title} link={module.ID} />)
+           
         }
         return objs;
     }
@@ -56,9 +57,9 @@ const LearningModuleDirectories = () => {
             
             <h2 className="text-center LearningModulesDirectoriesFont">Learning Module Directories</h2>
         </Container>
-        <CardDeck className="LearningModulesDirectoriesDashboard" style={{display: 'flex', flexDirection: 'row'}}>
+        <Row className="LearningModulesDirectoriesDashboard" >
             {createDirectoriesCards(directories)}
-        </CardDeck>
+        </Row>
         <div className="d-grid gap-2">
         </div>
         </>

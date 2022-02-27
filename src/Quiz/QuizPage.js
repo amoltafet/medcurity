@@ -1,4 +1,4 @@
-import { Button, Image, Row } from 'react-bootstrap';
+import { Button, Image, Row, Col } from 'react-bootstrap';
 import React, { useState, useEffect } from 'react';
 import { SubmitButton } from './SubmitButton';
 import { useParams } from "react-router";
@@ -106,6 +106,7 @@ const QuizPage = () => {
       setQuestionIndex(newIndex);
 
       if (index === 0) {
+        document.getElementById("submitBtn").disabled = true;
         document.getElementById("leftQuestionBttn").disabled = true;
       }
     }
@@ -128,9 +129,11 @@ const QuizPage = () => {
 
       if (newIndex === content.length || newIndex >= content.length) {
         document.getElementById("rightQuestionBttn").disabled = true;
+
+       
       }
-      if(index === (content.length - 1)) {
-        document.getElementById("submit-btn").disabled = false;
+      if (newIndex === (content.length - 1)) { 
+        document.getElementById("submitBtn").disabled = false;
       }
     }
   }
@@ -160,21 +163,25 @@ const QuizPage = () => {
     setSubmitted(true);
   }
 
-  function disabledSubmitBttn() {
-     //document.getElementById("submit-btn").disabled = true;
-  }
+
 
   // catch for rerendering 
   if (isLoading) {
     return (<div></div>)
   }
   if (!isSubmitted) {
+    function disabledSubmitBttn () {
+      if (document.getElementById("submitBtn") != null && index != (content.length - 1)) {
+        document.getElementById("submitBtn").disabled = true;
+      }
+    }
+
     return (
       <>
         <MenuBar></MenuBar>
         <div id="quizPageContainer" className="quizBg img-fluid">
           {DisplayOneQuestion()}
-          <Row>
+          <Row className="justify-content-center">
             <Button
               id="leftQuestionBttn"
               type="submit"
@@ -193,9 +200,9 @@ const QuizPage = () => {
             </Button>
           </Row>
           <SubmitButton value="Submit" questionData={data} content={content.length} action={displayQuestionData}></SubmitButton>
-          {console.log("finished rendering")}  
+          {console.log("finished rendering")}
+          {disabledSubmitBttn()}
         </div>
-        {disabledSubmitBttn()}
       </>
     );
   }
@@ -241,15 +248,22 @@ const QuizPage = () => {
       <>
         <MenuBar></MenuBar>
         <div id="resultsPageContainer">
-          <h1 class="quizResultsHeader">Quiz Results</h1>
-          {QuestionContent}
+          <h1 class="quizResultsHeader">Quiz Results</h1> 
           <Row className="text-center quizPointInfo">
-            <div className="totalCorrectQuestions"> {numCorrect} / {content.length} </div>
+            <Col>
+            <div className="totalCorrectQuestions"> {numCorrect} / {content.length} Questions Correct </div>
+            </Col>
+            <Col>
             <div className="totalCorrectPoints"> Points: {points} </div>
+            </Col>
+            <Col>
             <div className="correctPercentage"> {(numCorrect / content.length * 100).toFixed(2)}% </div>
+            </Col>
           </Row>
+          {QuestionContent}
+         
           <Row>
-          <Button className="quizHomeBttn uvs-left" variant="primary" href="/dash/">Home</Button></Row>
+            <Button className="quizHomeBttn uvs-left" variant="primary" href="/dash/">Home</Button></Row>
         </div>
       </>
     );
