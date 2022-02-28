@@ -2,8 +2,9 @@ import React from 'react';
 import './../Dashboard/DashboardPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import {CardDeck} from 'react-bootstrap'
-import MenuBar from '../MenuBar';
-import EmployeeCard from './EmployeeCard'
+import MenuBar from '../MenuBar/MenuBar';               
+import EmployeeCards from './EmployeeCards';
+import EmployerJoinRequests from './EmployerJoinRequests'
 
 
 /**
@@ -14,7 +15,8 @@ const EmployerDashboardPage = () => {
     return (
     <>
         <MenuBar></MenuBar>
-        <EmployeeCard email='bob@gmail.com' name='Jack' score='1' />
+        <EmployerJoinRequests />
+        <EmployeeCards />
         
     </>
   );

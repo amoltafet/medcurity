@@ -3,6 +3,9 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { Card, Col } from 'react-bootstrap';
 import './EmployeeCard.css';
 
+//TODO
+// Connect button to remove user functionality
+
 /**
  * Panel for Module cards
  * @param {} props 
@@ -13,16 +16,17 @@ import './EmployeeCard.css';
         <>
         <Card className="EmployeeCard uvs-right uvs-left" style={{ flexDirection: 'row' }}>
             <Col sm>
-                <div className="userEmail">{props.email}</div>
+                <div className="EmployeeCardValues">{props.email}</div>
             </Col>
             <Col sm>
-                <div className="userName">{props.name}</div>
+                <div className="EmployeeCardValues">{props.name}</div>
             </Col>
             <Col sm>
-                <div className="userScore">{props.score}</div>
+                <div className="EmployeeCardValues">{props.progress}</div>
             </Col>
             <Col sm>
-                <div className="RemoveButton">Remove button</div>
+                <button className="EmployeeRemoveButton" onclick="Remove user"> Remove User </button>
+                
             </Col>
         </Card>
         </>

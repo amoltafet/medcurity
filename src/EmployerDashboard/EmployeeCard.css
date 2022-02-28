@@ -1,15 +1,58 @@
 .EmployeeCard {
-    margin-top: 1%;
+    margin-top: .7%;
     margin-left: 1%;
     margin-right: .5%;
     margin-bottom: .1%;
     border-radius: 10px 10px 10px 10px;
     background-color: #c33333;
     width: 98%;
-    box-shadow:  0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: left;
 
     font-family: Lato,sans-serif;
     font-size: 90%;
 
     color: white;
+}
+
+.EmployeeJoinRequestCard {
+    margin-top: .3%;
+    margin-left: 1%;
+    margin-right: .5%;
+    margin-bottom: .5%;
+    border-radius: 10px 10px 10px 10px;
+    background-color: #4933c3;
+    width: 98%;
+    text-align: left;
+
+    font-family: Lato,sans-serif;
+    font-size: 90%;
+
+    color: white;
+}
+
+.EmployerJoinRequests {
+    margin-top: .3%;
+    margin-right: .5%;
+    margin-bottom: 3%;
+    width: 60%;
+}
+
+.EmployeeCardHeader {
+    margin-top: .7%;
+    margin-left: 3%;
+    margin-right: 3%;
+    margin-bottom: .1%;
+    width: 94%;
+}
+
+.EmployeeRemoveButton {
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+
+.EmployeeCardValues {
+    margin-top: 1%;
+    margin-bottom: 1%;
+    margin-left: 2%;
+    margin-right: .5%;
 }
