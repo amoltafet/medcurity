@@ -32,7 +32,7 @@ const  LearningModule = () => {
               Learning Modules: {module.Title} Module
             </h1>
             <div className="d-flex justify-content-center">
-              <img src={require(`../assets/` + module.Banner)} className="img-fluid rounded mx-auto d-block moduleImage uvs-left uvs-right" alt={module.Title} />
+              <img src={require(`../assets` + module.Banner)} className="img-fluid rounded mx-auto d-block moduleImage uvs-left uvs-right" alt={module.Title} />
             </div>
             <h6 className="text-center mt-2 moduleSubtitle">
               {module.Subtitle}

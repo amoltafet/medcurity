@@ -1,0 +1,46 @@
+{"level":"info","message":"Existing user \"ethanching@gmail.com\" logged in.","service":"user-service","timestamp":"2022-02-28T00:05:16.791Z"}
+{"level":"info","message":"Created user session for \"ethanching\"","service":"user-service","timestamp":"2022-02-28T00:05:16.880Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM Users\" Fields: userid,companyid,username,type,email,password","service":"query-service","timestamp":"2022-02-28T00:05:17.449Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModules JOIN AssignedLearningModules ON LearningModules.ID = AssignedLearningModules.LearningModID WHERE AssignedLearningModules.UserID = 100\" Fields: ID,DirID,Title,Subtitle,Description,Banner,LearningModID,UserID","service":"query-service","timestamp":"2022-02-28T00:05:17.750Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-02-28T00:05:17.989Z"}
+{"level":"info","message":"Created user session for \"ethanching\"","service":"user-service","timestamp":"2022-02-28T00:05:20.995Z"}
+{"level":"info","message":"Created user session for \"ethanching\"","service":"user-service","timestamp":"2022-02-28T00:06:04.535Z"}
+{"level":"info","message":"Created user session for \"ethanching\"","service":"user-service","timestamp":"2022-02-28T00:06:08.050Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM Users\" Fields: userid,companyid,username,type,email,password","service":"query-service","timestamp":"2022-02-28T00:06:08.749Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModules JOIN AssignedLearningModules ON LearningModules.ID = AssignedLearningModules.LearningModID WHERE AssignedLearningModules.UserID = 100\" Fields: ID,DirID,Title,Subtitle,Description,Banner,LearningModID,UserID","service":"query-service","timestamp":"2022-02-28T00:06:09.364Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-02-28T00:06:09.978Z"}
+{"level":"info","message":"Created user session for \"ethanching\"","service":"user-service","timestamp":"2022-02-28T00:06:12.840Z"}
+{"level":"info","message":"Created user session for \"ethanching\"","service":"user-service","timestamp":"2022-02-28T00:08:15.046Z"}
+{"level":"info","message":"Server is running on \"PORT: 3002\"","service":"api-service","timestamp":"2022-02-28T19:15:45.498Z"}
+{"level":"info","message":"Server is running on \"PORT: 3002\"","service":"api-service","timestamp":"2022-02-28T19:29:16.906Z"}
+{"level":"info","message":"Server is running on \"PORT: 3002\"","service":"api-service","timestamp":"2022-02-28T19:29:42.327Z"}
+{"level":"info","message":"Existing user \"ethanching@gmail.com\" logged in.","service":"user-service","timestamp":"2022-02-28T19:29:45.183Z"}
+{"level":"info","message":"Created user session for \"ethanching\"","service":"user-service","timestamp":"2022-02-28T19:29:45.288Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM Users\" Fields: userid,companyid,username,type,email,password","service":"query-service","timestamp":"2022-02-28T19:29:45.562Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModules JOIN AssignedLearningModules ON LearningModules.ID = AssignedLearningModules.LearningModID WHERE AssignedLearningModules.UserID = 100\" Fields: ID,DirID,Title,Subtitle,Description,Banner,LearningModID,UserID","service":"query-service","timestamp":"2022-02-28T19:29:45.703Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-02-28T19:29:46.064Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM Users\" Fields: userid,companyid,username,type,email,password","service":"query-service","timestamp":"2022-02-28T19:29:50.304Z"}
+{"level":"info","message":"Created user session for \"ethanching\"","service":"user-service","timestamp":"2022-02-28T19:29:50.458Z"}
+{"level":"info","message":"Created user session for \"ethanching\"","service":"user-service","timestamp":"2022-02-28T19:29:50.466Z"}
+{"level":"info","message":"Created user session for \"ethanching\"","service":"user-service","timestamp":"2022-02-28T19:29:50.472Z"}
+{"level":"info","message":"Created user session for \"ethanching\"","service":"user-service","timestamp":"2022-02-28T19:29:50.477Z"}
+{"level":"info","message":"Created user session for \"ethanching\"","service":"user-service","timestamp":"2022-02-28T19:29:50.483Z"}
+{"level":"info","message":"Created user session for \"ethanching\"","service":"user-service","timestamp":"2022-02-28T19:29:50.486Z"}
+{"level":"info","message":"Created user session for \"ethanching\"","service":"user-service","timestamp":"2022-02-28T19:29:50.490Z"}
+{"level":"info","message":"Created user session for \"ethanching\"","service":"user-service","timestamp":"2022-02-28T19:29:50.493Z"}
+{"level":"info","message":"Created user session for \"ethanching\"","service":"user-service","timestamp":"2022-02-28T19:29:50.499Z"}
+{"level":"info","message":"Created user session for \"ethanching\"","service":"user-service","timestamp":"2022-02-28T19:29:50.505Z"}
+{"level":"info","message":"Created user session for \"ethanching\"","service":"user-service","timestamp":"2022-02-28T19:29:50.508Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-02-28T19:29:50.809Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-02-28T19:29:50.933Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-02-28T19:29:51.206Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-02-28T19:29:51.371Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-02-28T19:29:51.731Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-02-28T19:29:51.881Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-02-28T19:29:52.027Z"}
+{"level":"info","message":"Created user session for \"ethanching\"","service":"user-service","timestamp":"2022-02-28T19:29:52.330Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-02-28T19:29:52.406Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-02-28T19:29:52.534Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM Users\" Fields: userid,companyid,username,type,email,password","service":"query-service","timestamp":"2022-02-28T19:29:52.808Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-02-28T19:29:52.940Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModules JOIN AssignedLearningModules ON LearningModules.ID = AssignedLearningModules.LearningModID WHERE AssignedLearningModules.UserID = 100\" Fields: ID,DirID,Title,Subtitle,Description,Banner,LearningModID,UserID","service":"query-service","timestamp":"2022-02-28T19:29:53.171Z"}

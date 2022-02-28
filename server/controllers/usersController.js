@@ -92,10 +92,25 @@ const userLogout = (req, res) =>
     }
 }
 
+const userUpdate = (req, res) => {
+    const newUserName = req.body.username;
+    const userId = req.body.id;
+
+    db.execute(`UPDATE Users SET username = "${newUserName}" WHERE userid = "${userId}"`);
+    
+
+    db.query(`SELECT EXISTS(SELECT * FROM Users WHERE username='${newUserName}') AS doesExist`, (err,result) => {
+        res.send({result: result, success: true, message: "Updated username!"});
+        logger.log('info', `Updated username to "${newUserName}"`)
+    })
+   
+}
+
 module.exports = 
 {
     userLogin,
     userRegister,
     userLoginSession,
     userLogout,
+    userUpdate,
 };

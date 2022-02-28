@@ -1,0 +1,111 @@
+.profileImage {
+    width: 100%;
+}
+
+.settingsRow {
+    width: 100%;
+}
+
+.nav-link.active {
+    margin-top: 5%;
+    background-color: #cc3333 !important;
+    text-align: center;
+    width: 100%;
+    font-size: 80%;
+}
+
+.nav-link.active:hover {
+    color: white;
+}
+
+.nav-link {
+    color: black;
+    text-align: center;
+    border: #1e5b88;
+    width: 100%;
+    font-size: 80%;
+    margin-top: 5%;
+}
+
+.nav-link:hover {
+    color: black;
+}
+
+.unselectedSetting:hover {
+    color: #d8dae3;
+}
+
+.settingsContentPaneContainer {
+    margin-top: 1%;
+    margin-bottom: 2%;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.usernameText { 
+    font-family: Lato,sans-serif;
+    font-size: 140%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.usernameControl {
+    border: #d8dae3;
+}
+
+
+.emailText {
+    font-family: Lato,sans-serif;
+    font-size: 140%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.emailControl {
+    border: #d8dae3;
+}
+
+
+.emailInput {
+    font-family: Lato,sans-serif;
+    font-size: 60%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.usernameInput {
+    font-family: Lato,sans-serif;
+    font-size: 60%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.dropShadow {
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-left: 2%;
+    margin-right: 2%;
+    width: 70%;
+}
+
+.shadowTab {
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-right: 5%;
+    width: 20%;
+    height: 13.5vmax;
+ 
+}
+
+.marginTop {
+    margin-top: 1%;
+}
+
+.settingsSaveButton {
+    background-color: #1e5b88;
+    border: none;
+    font-size: 70%;
+    margin-left: 88%;
+    margin-top: 1%;
+    margin-bottom: 2%;
+}

@@ -1,4 +1,4 @@
-import { Nav, Image, Row, Form, Tab, Col, Container } from 'react-bootstrap';
+import { Nav, Row, Form, Tab, Col, Container, Button } from 'react-bootstrap';
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import React from 'react';
@@ -12,6 +12,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const SettingsMenu = () => {
     axios.defaults.withCredentials = true;
     const [session, setSession] = useState([]);
+    const [newEmail, setEmail] = useState("");
+    const [newUserName, setUsername] = useState("");
+    const [saveData, setSaveData] = useState(false);
 
     useEffect(() => {
         axios.get("http://localhost:3002/users/login").then((response) => {
@@ -20,45 +23,39 @@ const SettingsMenu = () => {
         }).catch(error => console.error(`Error ${error}`));
     }, []);
 
+    useEffect(() => {
+        if (saveData === true) {
+            axios.put("http://localhost:3002/users/settings", { params: { username: newUserName, id: session.userid } }).then((response) => {
+                setSession(response);
+            })
+            .catch(error => console.log(`Error ${error}`));
+        } 
+   }, [saveData])
 
-    function ChangeUserName (newUserName) {
-        useEffect(() => {
-            if (newUserName !== session.username) {
-                
-            }
-        }, [])
-
-    }
-    
-    function ChangeEmail (newEmail) {
-        useEffect(() => {
-            if (newEmail !== session.email) {
-                
-            }
-        }, [])
-
+    function SaveUpdatedUserInfo () {
+      setSaveData(true);
     }
 
     console.log(session)
 
     return (
         <>
-            <Tab.Container id="left-tabs-example" defaultActiveKey="first" style={{ display: 'flex' }}>
+            <Tab.Container className="settingsRow" id="left-tabs-example" defaultActiveKey="first" style={{ display: 'flex' }}>
                 <Row className="settingsRow">
-                    <Col className="shadowTab uvs-left uvs-right" sm={2}>
+                    <Col className=" shadowTab justify-content-center uvs-left uvs-right" sm={2}>
 
                         <Nav variant="pills" className="flex-column marginTop">
-                            <Nav.Item className="selectedSetting">
-                                <Nav.Link eventKey="first"><Image className="profileImage" variant="top" src="/user.png" alt="" roundedCircle></Image></Nav.Link>
+                            <Nav.Item className="selectedSetting ">
+                                <Nav.Link eventKey="first">User Profile Settings</Nav.Link>
                             </Nav.Item>
-                            {/* <Nav.Item className="unselectedSetting">
-                                <Nav.Link eventKey="second">Tab 2</Nav.Link>
-                            </Nav.Item> */}
+                            <Nav.Item className="unselectedSetting">
+                                <Nav.Link eventKey="second">Organization Information</Nav.Link>
+                            </Nav.Item>
                         </Nav>
                     </Col>
 
-                    <Col className="dropShadow uvs-left uvs-right" sm={8}>
-                        <Container className="settingsMenuContainer">
+                    <Col className="dropShadow justify-content-center uvs-left uvs-right" sm={8}>
+                        <Container className="settingsContentPaneContainer">
                             <Tab.Content>
                                 <Tab.Pane eventKey="first">
                                     <Form >
@@ -67,30 +64,31 @@ const SettingsMenu = () => {
                                             <Form.Control
                                                 defaultValue={session.username}
                                                 onChange={(e) => {
-                                                    ChangeUserName(e.target.value);
+                                                    setUsername(e.target.value);
                                                 }}
                                             ></Form.Control>
                                         </Form.Group>
                                         <Form.Group className="emailInput" controlId="formPlaintextEmail">
                                             <Form.Text className="emailText">Email</Form.Text>
-                                            <Form.Control
-                                                defaultValue={session.email}
+                                            <Form.Control disabled defaultValue={session.email}
                                                 onChange={(e) => {
-                                                    ChangeEmail(e.target.value);
+                                                    setEmail(e.target.value);
                                                 }}></Form.Control>
                                         </Form.Group>
                                     </Form>
+                                    <Button 
+                                        className="settingsSaveButton"
+                                        onClick={() => SaveUpdatedUserInfo()}>
+                                        Save
+                                    </Button>
                                 </Tab.Pane>
-
-                                {/* <Tab.Pane eventKey="second">
-
-                            </Tab.Pane> */}
-                            </Tab.Content></Container>
+                                <Tab.Pane eventKey="second">
+                                </Tab.Pane>
+                            </Tab.Content>
+                        </Container>
                     </Col>
                 </Row>
             </Tab.Container>
-
-
         </>
     );
 }
