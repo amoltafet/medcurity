@@ -103,9 +103,21 @@
 
 .settingsSaveButton {
     background-color: #1e5b88;
+    color: white !important;
     border: none;
     font-size: 70%;
     margin-left: 88%;
     margin-top: 1%;
     margin-bottom: 2%;
+}
+
+.settingsSaveButton:hover {
+    border: none;
+    background-color: #1e5b88;
+    color: #d8dae3;
+}
+
+.settingsSaveButton:focus {
+    border: none;
+    background-color: #1e5b88;
 }
