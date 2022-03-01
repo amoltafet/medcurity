@@ -18,7 +18,7 @@ const EmployeeJoinRequestCard = (props) => {
      * and inserts them into the organization's employees table
      * @param {int} userId 
      */
-    const acceptUser = (userId) => {
+    const acceptUser = (userId, companyId) => {
         console.log("Accepted user");
     }
 
@@ -26,7 +26,7 @@ const EmployeeJoinRequestCard = (props) => {
      * This function removes a user from the invitation table
      * @param {int} userId 
      */
-    function rejectUser(userId) {
+    function rejectUser(userId, companyId) {
         console.log("Reject user");
     }
 
@@ -40,10 +40,10 @@ const EmployeeJoinRequestCard = (props) => {
                 <div className="EmployeeCardValues">{props.name}</div>
             </Col>
             <Col sm>
-                <Button className="uvs-right EmployeeInRowButton" variant="success" size="sm" onClick={() => acceptUser(props.userId)}> Accept User</Button>
+                <Button className="uvs-right EmployeeInRowButton" variant="success" size="sm" onClick={() => acceptUser(props.userId, props.companyId)}> Accept User</Button>
             </Col>
             <Col sm>
-                <Button className="uvs-right EmployeeInRowButton" variant="danger" size="sm" onClick={() => rejectUser(props.userId)}> Reject User </Button>
+                <Button className="uvs-right EmployeeInRowButton" variant="danger" size="sm" onClick={() => rejectUser(props.userId, props.companyId)}> Reject User </Button>
                 
             </Col>
         </Card>

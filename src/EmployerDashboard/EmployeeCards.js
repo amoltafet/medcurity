@@ -23,7 +23,7 @@ const EmployeesCards = () => {
     // admin of. Then selects their email, name, completed modules
     // useEffect(() => {
     //     axios.get('http://localhost:3002/api/getQuery', 
-    //         { params: { the_query: 'SELECT Users.username, Users.email, Users ' + 
+    //         { params: { the_query: 'SELECT Users.username, Users.email, Users.userid as UserId, CompanyAdmins.CompanyID as CompanyId ' + 
     //         'FROM AffiliatedUsers ' + 
     //             'JOIN Users ON AffiliatedUsers.UserID = Users.ID ' + 
     //             'JOIN CompanyAdmins ON CompanyAdmins.CompanyID = AffiliatedUsers.CompanyID ' +
@@ -46,7 +46,7 @@ const EmployeesCards = () => {
         for (let index in modules) {
             if (size == maxLength) { break; }
             module = modules[index]
-            objs.push(<EmployeeCard email={module.Email} name={module.Name} progress={module.Progress} />)
+            objs.push(<EmployeeCard email={module.Email} name={module.Name} progress={module.Progress} userId={module.UserId} companyId={module.CompanyId} />)
             size += 1;
         }
         return objs;
