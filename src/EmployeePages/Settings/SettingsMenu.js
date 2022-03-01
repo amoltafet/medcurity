@@ -18,17 +18,23 @@ const SettingsMenu = () => {
 
     useEffect(() => {
         axios.get("http://localhost:3002/users/login").then((response) => {
-            console.log('aaahhh', response.data.user)
             setSession(response.data.user[0])
         }).catch(error => console.error(`Error ${error}`));
     }, []);
 
     useEffect(() => {
         if (saveData === true) {
-            axios.put("http://localhost:3002/users/settings", { params: { username: newUserName, id: session.userid } }).then((response) => {
-                setSession(response);
-            })
-            .catch(error => console.log(`Error ${error}`));
+            console.log("e", newUserName)
+            console.log("sesid ", session.userid)
+
+            axios.post("http://localhost:3002/users/settings",  { 
+                username: newUserName,
+                id: session.userid
+              }).then((response) => {
+                console.log("response", response.data);
+
+            }).catch(error => console.log(`Error ${error}`));
+            setSaveData(false)
         } 
    }, [saveData])
 
@@ -36,7 +42,6 @@ const SettingsMenu = () => {
       setSaveData(true);
     }
 
-    console.log(session)
 
     return (
         <>
