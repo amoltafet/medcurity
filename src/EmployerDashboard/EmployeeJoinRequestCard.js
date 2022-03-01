@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { Card, Col } from 'react-bootstrap';
+import { Card, Col, Button} from 'react-bootstrap';
 import './EmployeeCard.css';
 
 //TODO
@@ -11,21 +11,39 @@ import './EmployeeCard.css';
  * @param {} props 
  * @returns 
  */
-    const EmployeeJoinRequestCard = (props) => {
+const EmployeeJoinRequestCard = (props) => {
+
+    /**
+     * This function removes a user from the invitation table
+     * and inserts them into the organization's employees table
+     * @param {int} userId 
+     */
+    const acceptUser = (userId) => {
+        console.log("Accepted user");
+    }
+
+    /**
+     * This function removes a user from the invitation table
+     * @param {int} userId 
+     */
+    function rejectUser(userId) {
+        console.log("Reject user");
+    }
+
     return (
         <>
         <Card className="EmployeeJoinRequestCard uvs-right uvs-left" style={{ flexDirection: 'row' }}>
             <Col sm>
-                <div className="EmployeeJoinCardValues">{props.email}</div>
+                <div className="EmployeeCardValues">{props.email}</div>
             </Col>
             <Col sm>
-                <div className="EmployeeJoinCardValues">{props.name}</div>
+                <div className="EmployeeCardValues">{props.name}</div>
             </Col>
             <Col sm>
-                <button className="EmployeeAcceptButton" onclick="Remove user"> Accept User</button>
+                <Button className="uvs-right EmployeeInRowButton" variant="success" size="sm" onClick={() => acceptUser(props.userId)}> Accept User</Button>
             </Col>
             <Col sm>
-                <button className="EmployeeRejectButton" onclick="Remove user"> Remove User </button>
+                <Button className="uvs-right EmployeeInRowButton" variant="danger" size="sm" onClick={() => rejectUser(props.userId)}> Reject User </Button>
                 
             </Col>
         </Card>

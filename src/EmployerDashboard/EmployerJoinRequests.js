@@ -15,9 +15,9 @@ const EmployerJoinRequests = () => {
     const userId = 100
     // const [employees, setEmployees] = useState([])
     let requestees = [
-        {Name:"Jill", Email:"j@gmail.com", Progress:1},
-        {Name:"Jen", Email:"ja@gmail.com", Progress:1},
-        {Name:"Joan", Email:"je@gmail.com", Progress:21}
+        {Name:"Jill", Email:"j@gmail.com", Progress:1, ID:77},
+        {Name:"Jen", Email:"ja@gmail.com", Progress:1, ID:78},
+        {Name:"Joan", Email:"je@gmail.com", Progress:21, ID:79}
     ]
 
     // Get all of the employees that are employed at the company the user is an
@@ -46,7 +46,7 @@ const EmployerJoinRequests = () => {
         for (let index in modules) {
             if (size == maxLength) { break; }
             module = modules[index]
-            objs.push(<EmployeeJoinRequestsCard email={module.Email} name={module.Name} />)
+            objs.push(<EmployeeJoinRequestsCard email={module.Email} name={module.Name} userId={module.ID} />)
             size += 1;
         }
         return objs;

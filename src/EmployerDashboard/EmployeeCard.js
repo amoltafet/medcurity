@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { Card, Col } from 'react-bootstrap';
+import { Card, Col, Button } from 'react-bootstrap';
 import './EmployeeCard.css';
 
 //TODO
@@ -25,7 +25,7 @@ import './EmployeeCard.css';
                 <div className="EmployeeCardValues">{props.progress}</div>
             </Col>
             <Col sm>
-                <button className="EmployeeRemoveButton" onclick="Remove user"> Remove User </button>
+                <Button className="EmployeeInRowButton uvs-right" size="sm" variant="danger" onclick="Remove user"> Remove User </Button>
                 
             </Col>
         </Card>
