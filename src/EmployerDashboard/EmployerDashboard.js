@@ -5,6 +5,10 @@ import {CardDeck} from 'react-bootstrap'
 import MenuBar from '../MenuBar/MenuBar';               
 import EmployeeCards from './EmployeeCards';
 import EmployerJoinRequests from './EmployerJoinRequests'
+import WelcomePanel from './../Dashboard/WelcomePanel'
+import { useEffect, useState, Link} from "react";
+import { useParams } from "react-router";
+import Axios from 'axios';
 
 
 /**
@@ -12,9 +16,23 @@ import EmployerJoinRequests from './EmployerJoinRequests'
 * @return {EmployerDashboardPage}
 */
 const EmployerDashboardPage = () => {
+    Axios.defaults.withCredentials = true;
+    const [session, setSession] = useState([]);
+
+    useEffect(() => {
+        Axios.get("http://localhost:3002/users/login").then((response) => {
+          console.log('aaahhh', response.data.user)
+          setSession(response.data.user[0])
+        });
+      }, []);
+
+    console.log(session)
+
+
     return (
     <>
         <MenuBar></MenuBar>
+        <WelcomePanel user={session} subtitle={'to the Administration Page'}/>
         <EmployerJoinRequests />
         <EmployeeCards />
         

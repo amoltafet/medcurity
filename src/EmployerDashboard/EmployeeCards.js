@@ -54,28 +54,28 @@ const EmployeesCards = () => {
 
     return (
         <>
-          
-        <h2>Employees</h2>      
-        <Card className="EmployeeCardHeader uvs-right uvs-left" style={{display: 'flex', flexDirection: 'row' }}>
-            <Col sm>
-                <div className="EmployeeCardValues">User Email</div>
-            </Col>
-            <Col sm>
-                <div className="EmployeeCardValues">User Name</div>
-            </Col>
-            <Col sm>
-                <div className="EmployeeCardValues">User Progress</div>
-            </Col>
-            <Col sm>
-                <div className="RemoveButton"></div>
-            </Col>
-        </Card>
-       
-        <CardDeck className="dashboard" style={{display: 'flex', flexDirection: 'column'}}>
-            {createEmployeeCards(employees)}
-        </CardDeck>
-        <div className="d-grid gap-2">
-        </div>
+        <Container className="EmployerJoinRequests uvs-right">
+            <h2>Employees</h2>      
+            <Card className="EmployeeCardHeader uvs-right uvs-left" style={{display: 'flex', flexDirection: 'row' }}>
+                <Col sm>
+                    <div className="EmployeeCardValues">User Email</div>
+                </Col>
+                <Col sm>
+                    <div className="EmployeeCardValues">User Name</div>
+                </Col>
+                <Col sm>
+                    <div className="EmployeeCardValues">User Progress</div>
+                </Col>
+                <Col sm>
+                    <div className="RemoveButton"></div>
+                </Col>
+            </Card>
+        
+            <CardDeck className="dashboard" style={{display: 'flex', flexDirection: 'column'}}>
+                {createEmployeeCards(employees)}
+            </CardDeck>
+
+        </Container>
         </>
     );
 }
