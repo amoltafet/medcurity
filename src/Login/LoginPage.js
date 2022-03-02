@@ -1,6 +1,6 @@
 import {Button, Image, Form, Card} from 'react-bootstrap'
 import React from 'react';
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Axios from "axios"
 import './LoginPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -41,12 +41,12 @@ export default function LoginPage()
       }).then((response) => 
       {
         console.log("response.data =", response.data)
-        if (response.data.success == true)
+        if (response.data.success === true)
         {
           setMessage(response.data.message)
           navigate('/dash');
         }
-        else if (response.data.success == false)
+        else if (response.data.success === false)
         {
           setMessage(response.data.message)
         }

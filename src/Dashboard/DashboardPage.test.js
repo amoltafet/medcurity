@@ -1,8 +1,8 @@
-import { render, screen } from '@testing-library/react';
+import renderer from 'react-test-renderer';
 import DashboardPage from './DashboardPage';
+import React from 'react';
 
-test('renders learn react link', () => {
-  render(<DashboardPage/>);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+test('renders DashboardPage', () => {
+  const tree = renderer.create(<DashboardPage />).toJSON();
+  expect(tree).toMatchSnapshot();
 });

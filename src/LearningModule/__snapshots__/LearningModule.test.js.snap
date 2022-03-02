@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders LoginPage 1`] = `
+<div
+  className="learningModuleBg img-fluid "
+>
+  <div
+    className="d-grid gap-2 "
+  >
+    <a
+      className="goToQuizBttn uvs-left uvs-right btn btn-primary"
+      href="/quiz/undefined"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+    >
+      Go to Quiz
+    </a>
+  </div>
+</div>
+`;

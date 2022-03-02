@@ -3,8 +3,9 @@
     text-align: center;
     color: white;
     margin-top: .5%;
-    margin-left: 5%;
-    margin-right: -2%;
+    margin-bottom: 1.5%;
+    margin-left: 1%;
+    margin-right: 1%;
     background-color: #cc3333 !important;
     width: 20%;
     height: 20vmax;
@@ -29,4 +30,10 @@
 
 .LearningModulesDirectories {
     font-family: Lato, sans-serif;
+}
+
+.LearningModulesDirectoriesDashboard {
+    width: 100%;
+    margin-bottom: 3%;
+    margin-left: 5%;
 }

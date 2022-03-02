@@ -1,6 +1,6 @@
 .quizBg {
     background-image: url("quizBg.png");
-    height: 110%;
+    height: 100%;
     width: 100%;
     margin-top: 1%;
     background-position: center;
@@ -9,7 +9,7 @@
     position: fixed;
 }
 
-.buttonQuestionNumberRow{
+.buttonQuestionNumberRow {
     width: 80%;
     height: 10%;
 }
@@ -17,7 +17,6 @@
 .toggleQuestionLeft {
     width: 10%;
     height: 10%;
-    margin-left: 38%;
     margin-top: -1%;
     border: 0;
     background: transparent !important;
@@ -43,9 +42,7 @@
 .questionPosOutOfTotal {
     color: #93c2ec;
     font-family: Lato,sans-serif;
-    font-size: 90%;
-    margin-top: 1%;
-    margin-left: -1%;
+    font-size: 120%;
     width: 8%;
 }
 
@@ -53,7 +50,6 @@
 .toggleQuestionRight {
     width: 10%;
     height: 10%;
-    margin-left: -1%;
     margin-top: -1%;
     border: 0;
     background: transparent;
@@ -81,20 +77,72 @@
 
 .answerQuizSelection {
     margin-bottom: 2%;
-    margin-top: 3%;
+    margin-top: 1%;
     margin-left: 5%;
     margin-right: 5%;   
 }
 
-.questionDesciption {
-    color: #127ebf; 
-    font-size: 90%;
-    font-family: Lato,sans-serif;
-}
+
 
 .individualQuestions {
     text-align: start;
     font-size: 80%;
     margin-top: -1%;
 
+}
+
+/* RESULTS DISPLAY */
+.quizPointInfo {
+    font-family: Lato,sans-serif;
+}
+
+.correct {
+    background-color: lightgreen;
+}
+
+.wrong {
+    background-color: #c33333;
+}
+
+.quizResultsHeader {
+    align-items: center;
+    color: #c33333;
+    font-family: Lato,sans-serif;
+    font-size: 190%;
+    margin-left: 3%;
+}
+
+.totalCorrectQuestions {
+    color: #1e5b88;
+    font-family: Lato,sans-serif;
+}
+
+.totalCorrectPoints {
+    color: #127ebf;
+}
+
+.correctPercentage {
+    color: #93c2ec;
+}
+
+.quizHomeBttn {
+    background-color: #127ebf;
+    color: white;
+    font-family: Lato,sans-serif;
+    border: 0;
+    vertical-align: middle !important;
+    margin-top: 2%;
+    margin-bottom: 5%;
+}
+
+.quizHomeBttn:focus {
+    border: none;
+    background-color: #127ebf;
+    color: #d8dae3;
+}
+
+.quizHomeBttn:hover {
+    border: none;
+    background-color: #127ebf;
+    color: #d8dae3;
 }

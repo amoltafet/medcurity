@@ -35,9 +35,9 @@ function Questions (props) {
 
     return(
         <>
-            <h3 id="qNumber" className="questionNumbers text-center"> Question {props.i + 1} </h3>
+            <h3 id="qNumber" className={props.classes[0]}> Question {props.i + 1} </h3>
             <div id={props.i} className="text-center"> 
-             <Container id="questionDesciption" className="questionDesciption">
+             <Container id="questionDesciption" className={props.classes[1]}>
                 {props.question} 
             </Container>
             

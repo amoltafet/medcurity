@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './LearningModuleDirectories.css'
-import { Card, Container, CardDeck } from 'react-bootstrap';
+import { Card, Container, CardDeck, Row, Col } from 'react-bootstrap';
 import { useEffect, useState } from "react";
 import axios from 'axios';
 
@@ -9,7 +9,7 @@ import axios from 'axios';
  * Returns Panels of the Learning Module Directories 
  * @returns 
  */
-const LearningModulesDirectories = () => {
+const LearningModuleDirectories = () => {
     const [directories, setDirectories] = useState([])
 
     // Query for getting LearningDirectories Directory info
@@ -46,6 +46,7 @@ const LearningModulesDirectories = () => {
         for (let index in modules) { 
             var module = modules[index]
             objs.push(<DirectoryPanel title={module.Title} link={module.ID} />)
+           
         }
         return objs;
     }
@@ -56,13 +57,13 @@ const LearningModulesDirectories = () => {
             
             <h2 className="text-center LearningModulesDirectoriesFont">Learning Module Directories</h2>
         </Container>
-        <CardDeck className="dashboard" style={{display: 'flex', flexDirection: 'row'}}>
+        <Row className="LearningModulesDirectoriesDashboard" >
             {createDirectoriesCards(directories)}
-        </CardDeck>
+        </Row>
         <div className="d-grid gap-2">
         </div>
         </>
     );
 }
 
-export default LearningModulesDirectories
+export default LearningModuleDirectories
