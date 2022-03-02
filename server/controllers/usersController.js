@@ -96,25 +96,24 @@ const userUpdate = (req, res) => {
     const newUserName = req.body.username;
     const userId = req.body.id;
 
-    // db.query(`UPDATE Users SET username = "${newUserName}" WHERE userid = "${userId}"`, (err, result) => {
-    //     if (err) {
-    //         console.log("can't update user: ", err);
-    //     }
-    //     db.query(`SELECT * FROM Users WHERE userid = '${userId}`, (err,result) => {
-    //         if (err) {
-    //             console.log("can't get user: ", err);
-    //         }
-    //         req.session.userSession = result;
-    //         logger.log('info', `Updated username to "${newUserName}"`);
-    //         res.send({result: result, success: true, message: "Updated username!"});
-            
-    //     });
-    // });
+    logger.log('info', ` username  "${newUserName}"`);
+    logger.log('info', `id "${userId}"`);
     db.query(`UPDATE Users SET username = "${newUserName}" WHERE userid = "${userId}"`, (err,result) => {
-        req.session.userSession = result;
-        logger.log('info', `Updated username to "${newUserName}"`)
-        res.send({result: result, success: true, message: "Updated username!"});
+        db.query(`SELECT * FROM Users WHERE userid = '${userId}'`, (err,result) => {
+            req.session.userSession = result;
+            logger.log('info', `Updated username to "${newUserName}"`);
+            res.send({ result: result, success: true, message: "Updated username!" });
+        })
     })
+
+    // db.execute(`UPDATE Users SET username = "${newUserName}" WHERE userid = "${userId}"`);
+    
+
+    // db.query(`SELECT EXISTS(SELECT * FROM Users WHERE username = '${newUserName}') AS doesExist`, (err,result) => {
+    //     res.send({result: result, success: true, message: "Updated username!"});
+    //     logger.log('info', `Updated username to "${newUserName}"`)
+    // })
+   
     
    
 }
