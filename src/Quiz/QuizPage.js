@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import MenuBar from '../MenuBar/MenuBar';
 import Questions from './Questions'
 import axios from 'axios';
+import Results from './Results';
 
 
 
@@ -23,6 +24,7 @@ const QuizPage = () => {
   const [isLoading, setLoading] = useState(true);
   const [content, setContent] = useState([]);
   const [currentQuestion, setQuestion] = useState([]);
+  const [curentAnswers, setAnswers] = useState([]);
   const [index, setQuestionIndex] = useState(0);
   const [isSubmitted, setSubmitted] = useState(false);
   // data array that holds question information using state
@@ -58,7 +60,7 @@ const QuizPage = () => {
     axios.get('http://localhost:3002/api/getModuleQuestions', { params: { id: slug } }).then((response) => {
       setContent(Object.values(response.data));
       setLoading(false);
-    })
+    }).catch(error => console.error(`Error ${error}`));
 
   }, [slug])
 
@@ -67,9 +69,30 @@ const QuizPage = () => {
   useEffect(() => {
     if (!isLoading && !isSubmitted) {
       setQuestion(content[index])
+      var answerArray = [];
+       answerArray.push(content[index].solution);
+       answerArray.push(content[index].a2);
+       answerArray.push(content[index].a3);
+       answerArray.push(content[index].a4);
+      setAnswers(answerArray)
       console.log("runnn")
     }
   }, [isLoading, content, index, isSubmitted])
+
+  function shuffleArray(array) {
+    let curId = array.length;
+    // There remain elements to shuffle
+    while (0 !== curId) {
+      // Pick a remaining element
+      let randId = Math.floor(Math.random() * curId);
+      curId -= 1;
+      // Swap it with the current element.
+      let tmp = array[curId];
+      array[curId] = array[randId];
+      array[randId] = tmp;
+    }
+    return array;
+  }
 
 
   /**
@@ -81,12 +104,13 @@ const QuizPage = () => {
       console.log("elp", currentQuestion);
       const groupID = "q-group" + index;
       // returns one quiz question based on index
+      shuffleArray(curentAnswers)
       return (
         [<Questions
           id={groupID}
           i={index}
           question={currentQuestion.question}
-          answers={[currentQuestion.solution, currentQuestion.a2, currentQuestion.a3, currentQuestion.a4]}
+          answers={curentAnswers}
           action={adjustStateData}
           classes={quizClassNames[0]}
         />]
@@ -104,6 +128,7 @@ const QuizPage = () => {
       var nextq = content[newIndex];
       setQuestion(nextq);
       setQuestionIndex(newIndex);
+      shuffleArray(curentAnswers);
 
       if (index === 0) {
         document.getElementById("submitBtn").disabled = true;
@@ -125,7 +150,8 @@ const QuizPage = () => {
       var nextq = content[newIndex];
       setQuestion(nextq);
       setQuestionIndex(newIndex);
-      console.log("index: ", newIndex)
+      shuffleArray(curentAnswers);
+      console.log("index: ", newIndex);
 
       if (newIndex === content.length || newIndex >= content.length) {
         document.getElementById("rightQuestionBttn").disabled = true;
@@ -162,6 +188,8 @@ const QuizPage = () => {
     }
     setSubmitted(true);
   }
+
+
 
 
 
@@ -218,7 +246,7 @@ const QuizPage = () => {
         numCorrect += 1
         return ([
           <div id="resultsPageHolder" class="correct">
-            <Questions
+            <Results
               id={newID}
               i={newestIndex - 1}
               question={question.question}
@@ -232,7 +260,7 @@ const QuizPage = () => {
       else {
         return ([
           <div id="resultsPageHolder" class="wrong">
-            <Questions
+            <Results
               id={newID}
               i={newestIndex - 1}
               question={question.question}
