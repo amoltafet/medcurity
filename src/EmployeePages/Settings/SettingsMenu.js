@@ -32,7 +32,10 @@ const SettingsMenu = () => {
                 username: newUserName,
                 id: session.userid
             }).then((response) => {
-                console.log("response", response.data);
+                console.log("response", response.data.user[0]);
+                //setSession(response.data)
+                /* fix user query 
+                **/
                 
             }).catch(error => console.log(`Error ${error}`));
             setSaveData(false);
