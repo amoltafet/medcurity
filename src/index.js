@@ -1,21 +1,21 @@
 import React from "react";
 import ReactDOM from 'react-dom';
 import './index.css';
-import DashboardPage from './EmployeePages/Dashboard/DashboardPage';
-import SettingsPage from './EmployeePages/Settings/SettingsPage';
-import LoginPage from './EmployeePages/Login/LoginPage';
-import RegisterPage from './EmployeePages/Register/RegisterPage';
-import Leaderboard from './EmployeePages/Leaderboard/LeaderboardPage';
+import DashboardPage from './Dashboard/DashboardPage';
+import SettingsPage from './Settings/SettingsPage';
+import LoginPage from './Login/LoginPage';
+import RegisterPage from './Register/RegisterPage';
+import Leaderboard from './Leaderboard/LeaderboardPage';
 import reportWebVitals from './reportWebVitals';
-import QuizPage from './EmployeePages/Quiz/QuizPage';
-import LearningPage from './EmployeePages/LearningModule/LearningPage';
-import LearningModule from './EmployeePages/LearningModule/LearningModule';
-import LearningModules from './EmployeePages/LearningModule/LearningModules';
-import LearningDirectory from './EmployeePages/LearningDirectory/LearningDirectory';
-import LearningDirectoryPage from './EmployeePages/LearningDirectory/LearningDirectoryPage';
-import LearningDirectoryRequiredPage from './EmployeePages/LearningDirectory/LearningDirectoryRequiredPage';
-import QuizModules from './EmployeePages/Quiz/QuizModules';
-import QuizBackground from './EmployeePages/Quiz/QuizBackground';
+import QuizPage from './Quiz/QuizPage';
+import LearningPage from './LearningModule/LearningPage';
+import LearningModule from './LearningModule/LearningModule';
+import LearningModules from './LearningModule/LearningModules';
+import LearningDirectory from './LearningDirectory/LearningDirectory';
+import LearningDirectoryPage from './LearningDirectory/LearningDirectoryPage';
+import LearningDirectoryRequiredPage from './LearningDirectory/LearningDirectoryRequiredPage';
+import QuizModules from './Quiz/QuizModules';
+import QuizBackground from './Quiz/QuizBackground';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 ReactDOM.render(

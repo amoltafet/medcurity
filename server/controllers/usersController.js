@@ -104,18 +104,24 @@ const userUpdate = (req, res) => {
             logger.log('info', `Updated username to "${newUserName}"`);
             res.send({ result: result, success: true, message: "Updated username!" });
         })
-    })
+    })   
+}
 
-    // db.execute(`UPDATE Users SET username = "${newUserName}" WHERE userid = "${userId}"`);
-    
+const userSetPoints = (req, res) => {
+    const userPoints = req.body.points;
+    const userId = req.body.id;
 
-    // db.query(`SELECT EXISTS(SELECT * FROM Users WHERE username = '${newUserName}') AS doesExist`, (err,result) => {
-    //     res.send({result: result, success: true, message: "Updated username!"});
-    //     logger.log('info', `Updated username to "${newUserName}"`)
-    // })
-   
-    
-   
+
+    logger.log('info', ` points  "${userPoints}"`);
+    logger.log('info', `id "${userId}"`);
+    db.query(`UPDATE Users SET username = "${newUserName}" WHERE userid = "${userId}"`, (err,result) => {
+        db.query(`SELECT * FROM Users WHERE userid = '${userId}'`, (err,result) => {
+            req.session.userSession = result;
+            logger.log('info', `Updated username to "${newUserName}"`);
+            res.send({ result: result, success: true, message: "Updated username!" });
+        })
+    })   
+
 }
 
 module.exports = 
@@ -125,4 +131,5 @@ module.exports =
     userLoginSession,
     userLogout,
     userUpdate,
+    userSetPoints,
 };

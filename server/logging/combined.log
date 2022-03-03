@@ -253,3 +253,84 @@
 {"level":"info","message":"Custom Query: \"SELECT * FROM Users\" Fields: userid,companyid,username,type,email,password","service":"query-service","timestamp":"2022-03-02T05:06:49.825Z"}
 {"level":"info","message":"Custom Query: \"SELECT * FROM LearningModules JOIN AssignedLearningModules ON LearningModules.ID = AssignedLearningModules.LearningModID WHERE AssignedLearningModules.UserID = 100\" Fields: ID,DirID,Title,Subtitle,Description,Banner,LearningModID,UserID","service":"query-service","timestamp":"2022-03-02T05:06:50.080Z"}
 {"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-03-02T05:06:50.217Z"}
+{"level":"info","message":"Server is running on \"PORT: 3002\"","service":"api-service","timestamp":"2022-03-02T19:07:59.161Z"}
+{"level":"info","message":"Server is running on \"PORT: 3002\"","service":"api-service","timestamp":"2022-03-02T19:10:31.976Z"}
+{"level":"info","message":"Existing user \"rhale2@gonzaga.edu\" logged in.","service":"user-service","timestamp":"2022-03-02T19:10:35.839Z"}
+{"level":"info","message":"Created user session for \"😎\"","service":"user-service","timestamp":"2022-03-02T19:10:35.932Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM Users\" Fields: userid,companyid,username,type,email,password","service":"query-service","timestamp":"2022-03-02T19:10:36.053Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModules JOIN AssignedLearningModules ON LearningModules.ID = AssignedLearningModules.LearningModID WHERE AssignedLearningModules.UserID = 100\" Fields: ID,DirID,Title,Subtitle,Description,Banner,LearningModID,UserID","service":"query-service","timestamp":"2022-03-02T19:10:36.181Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-03-02T19:10:36.306Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM Users\" Fields: userid,companyid,username,type,email,password","service":"query-service","timestamp":"2022-03-02T19:10:56.254Z"}
+{"level":"info","message":"Created user session for \"😎\"","service":"user-service","timestamp":"2022-03-02T19:10:56.346Z"}
+{"level":"info","message":"Created user session for \"😎\"","service":"user-service","timestamp":"2022-03-02T19:10:56.350Z"}
+{"level":"info","message":"Created user session for \"😎\"","service":"user-service","timestamp":"2022-03-02T19:10:56.352Z"}
+{"level":"info","message":"Created user session for \"😎\"","service":"user-service","timestamp":"2022-03-02T19:10:56.354Z"}
+{"level":"info","message":"Created user session for \"😎\"","service":"user-service","timestamp":"2022-03-02T19:10:56.358Z"}
+{"level":"info","message":"Created user session for \"😎\"","service":"user-service","timestamp":"2022-03-02T19:10:56.360Z"}
+{"level":"info","message":"Created user session for \"😎\"","service":"user-service","timestamp":"2022-03-02T19:10:56.364Z"}
+{"level":"info","message":"Created user session for \"😎\"","service":"user-service","timestamp":"2022-03-02T19:10:56.367Z"}
+{"level":"info","message":"Created user session for \"😎\"","service":"user-service","timestamp":"2022-03-02T19:10:56.371Z"}
+{"level":"info","message":"Created user session for \"😎\"","service":"user-service","timestamp":"2022-03-02T19:10:56.373Z"}
+{"level":"info","message":"Created user session for \"😎\"","service":"user-service","timestamp":"2022-03-02T19:10:56.379Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-03-02T19:10:56.488Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-03-02T19:10:56.626Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-03-02T19:10:56.766Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-03-02T19:10:56.896Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-03-02T19:10:57.021Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-03-02T19:10:57.140Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-03-02T19:10:57.259Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-03-02T19:10:57.415Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-03-02T19:10:57.542Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-03-02T19:10:57.678Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-03-02T19:10:57.803Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM Users\" Fields: userid,companyid,username,type,email,password","service":"query-service","timestamp":"2022-03-02T19:11:35.335Z"}
+{"level":"info","message":"Created user session for \"😎\"","service":"user-service","timestamp":"2022-03-02T19:11:35.364Z"}
+{"level":"info","message":"Created user session for \"😎\"","service":"user-service","timestamp":"2022-03-02T19:11:35.367Z"}
+{"level":"info","message":"Created user session for \"😎\"","service":"user-service","timestamp":"2022-03-02T19:11:35.370Z"}
+{"level":"info","message":"Created user session for \"😎\"","service":"user-service","timestamp":"2022-03-02T19:11:35.379Z"}
+{"level":"info","message":"Created user session for \"😎\"","service":"user-service","timestamp":"2022-03-02T19:11:35.384Z"}
+{"level":"info","message":"Created user session for \"😎\"","service":"user-service","timestamp":"2022-03-02T19:11:35.392Z"}
+{"level":"info","message":"Created user session for \"😎\"","service":"user-service","timestamp":"2022-03-02T19:11:35.398Z"}
+{"level":"info","message":"Created user session for \"😎\"","service":"user-service","timestamp":"2022-03-02T19:11:35.406Z"}
+{"level":"info","message":"Created user session for \"😎\"","service":"user-service","timestamp":"2022-03-02T19:11:35.411Z"}
+{"level":"info","message":"Created user session for \"😎\"","service":"user-service","timestamp":"2022-03-02T19:11:35.415Z"}
+{"level":"info","message":"Created user session for \"😎\"","service":"user-service","timestamp":"2022-03-02T19:11:35.420Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-03-02T19:11:35.489Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-03-02T19:11:35.618Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-03-02T19:11:35.738Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-03-02T19:11:35.878Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-03-02T19:11:36.006Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-03-02T19:11:36.139Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-03-02T19:11:36.367Z"}
+{"level":"info","message":"Queried LearningModuleID with ID: \"1\" Fields: [object Object]","service":"query-service","timestamp":"2022-03-02T19:11:37.566Z"}
+{"level":"info","message":"Queried Questions with ModuleID: \"1\" Fields: [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]","service":"query-service","timestamp":"2022-03-02T19:11:39.141Z"}
+{"level":"info","message":"Queried Questions with ModuleID: \"1\" Fields: [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]","service":"query-service","timestamp":"2022-03-02T19:13:02.700Z"}
+{"level":"info","message":"Queried Questions with ModuleID: \"1\" Fields: [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]","service":"query-service","timestamp":"2022-03-02T19:19:48.673Z"}
+{"level":"info","message":"Queried Questions with ModuleID: \"1\" Fields: [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]","service":"query-service","timestamp":"2022-03-02T19:33:22.802Z"}
+{"level":"info","message":"Queried Questions with ModuleID: \"1\" Fields: [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]","service":"query-service","timestamp":"2022-03-02T19:35:22.628Z"}
+{"level":"info","message":"Queried Questions with ModuleID: \"1\" Fields: [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]","service":"query-service","timestamp":"2022-03-02T19:37:55.288Z"}
+{"level":"info","message":"Queried Questions with ModuleID: \"1\" Fields: [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]","service":"query-service","timestamp":"2022-03-02T19:50:23.520Z"}
+{"level":"info","message":"Server is running on \"PORT: 3002\"","service":"api-service","timestamp":"2022-03-03T00:23:11.652Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM Users\" Fields: userid,companyid,username,type,email,password","service":"query-service","timestamp":"2022-03-03T00:23:21.378Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModules JOIN AssignedLearningModules ON LearningModules.ID = AssignedLearningModules.LearningModID WHERE AssignedLearningModules.UserID = 100\" Fields: ID,DirID,Title,Subtitle,Description,Banner,LearningModID,UserID","service":"query-service","timestamp":"2022-03-03T00:23:22.107Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-03-03T00:23:22.567Z"}
+{"level":"info","message":"Existing user \"rhale2@gonzaga.edu\" logged in.","service":"user-service","timestamp":"2022-03-03T00:23:29.698Z"}
+{"level":"info","message":"Created user session for \"😎\"","service":"user-service","timestamp":"2022-03-03T00:23:29.828Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM Users\" Fields: userid,companyid,username,type,email,password","service":"query-service","timestamp":"2022-03-03T00:23:30.176Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModules JOIN AssignedLearningModules ON LearningModules.ID = AssignedLearningModules.LearningModID WHERE AssignedLearningModules.UserID = 100\" Fields: ID,DirID,Title,Subtitle,Description,Banner,LearningModID,UserID","service":"query-service","timestamp":"2022-03-03T00:23:30.693Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-03-03T00:23:31.007Z"}
+{"level":"info","message":"Queried LearningModuleID with ID: \"1\" Fields: undefined","service":"query-service","timestamp":"2022-03-03T00:41:22.706Z"}
+{"level":"info","message":"Server is running on \"PORT: 3002\"","service":"api-service","timestamp":"2022-03-03T02:30:04.547Z"}
+{"level":"info","message":"Existing user \"rhale2@gonzaga.edu\" logged in.","service":"user-service","timestamp":"2022-03-03T02:32:04.732Z"}
+{"level":"info","message":"Created user session for \"😎\"","service":"user-service","timestamp":"2022-03-03T02:32:04.825Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM Users\" Fields: userid,companyid,username,type,email,password","service":"query-service","timestamp":"2022-03-03T02:32:04.934Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModules JOIN AssignedLearningModules ON LearningModules.ID = AssignedLearningModules.LearningModID WHERE AssignedLearningModules.UserID = 100\" Fields: ID,DirID,Title,Subtitle,Description,Banner,LearningModID,UserID","service":"query-service","timestamp":"2022-03-03T02:32:05.043Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-03-03T02:32:05.154Z"}
+{"level":"info","message":"Queried LearningModuleID with ID: \"1\" Fields: [object Object]","service":"query-service","timestamp":"2022-03-03T02:35:03.396Z"}
+{"level":"info","message":"Queried Questions with ModuleID: \"1\" Fields: [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]","service":"query-service","timestamp":"2022-03-03T02:35:05.463Z"}
+{"level":"info","message":"Queried Questions with ModuleID: \"1\" Fields: [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]","service":"query-service","timestamp":"2022-03-03T02:43:53.231Z"}
+{"level":"info","message":"Created user session for \"😎\"","service":"user-service","timestamp":"2022-03-03T02:44:04.329Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM Users\" Fields: userid,companyid,username,type,email,password","service":"query-service","timestamp":"2022-03-03T02:44:04.418Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModules JOIN AssignedLearningModules ON LearningModules.ID = AssignedLearningModules.LearningModID WHERE AssignedLearningModules.UserID = 100\" Fields: ID,DirID,Title,Subtitle,Description,Banner,LearningModID,UserID","service":"query-service","timestamp":"2022-03-03T02:44:04.524Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-03-03T02:44:04.631Z"}
+{"level":"info","message":"Queried LearningModuleID with ID: \"1\" Fields: [object Object]","service":"query-service","timestamp":"2022-03-03T02:44:07.291Z"}

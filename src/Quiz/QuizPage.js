@@ -20,12 +20,15 @@ const QuizPage = () => {
     ["questionNumbersWrong text-center", "questionDesciptionWrong"],
     ["questionNumbersRight text-center", "questionDesciptionRight"]
   ];
+  const [session, setSession] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [content, setContent] = useState([]);
   const [currentQuestion, setQuestion] = useState([]);
   const [curentAnswers, setAnswers] = useState([]);
   const [index, setQuestionIndex] = useState(0);
   const [isSubmitted, setSubmitted] = useState(false);
+  const [points, setPoints] = useState(0);
+  const [percentage, setPercentage] = useState(0.0);
   // data array that holds question information using state
   const [data, setData] = useState([
     { answer: "", correct: false },
@@ -52,6 +55,12 @@ const QuizPage = () => {
   ]);
 
   let { slug } = useParams();
+  useEffect(() => {
+    axios.get("http://localhost:3002/users/login").then((response) => {
+        setSession(response.data.user[0])
+        console.log("youuser ", response.data.user[0])
+    }).catch(error => console.error(`Error ${error}`));
+}, []);
 
   // grabs content and sets loading to false 
   useEffect(() => {
@@ -73,26 +82,23 @@ const QuizPage = () => {
        answerArray.push(content[index].a2);
        answerArray.push(content[index].a3);
        answerArray.push(content[index].a4);
-       answerArray = shuffleArray(answerArray)
       setAnswers(answerArray)
       console.log("runnn")
     }
   }, [isLoading, content, index, isSubmitted])
 
-  function shuffleArray(array) {
-    let curId = array.length;
-    // There remain elements to shuffle
-    while (0 !== curId) {
-      // Pick a remaining element
-      let randId = Math.floor(Math.random() * curId);
-      curId -= 1;
-      // Swap it with the current element.
-      let tmp = array[curId];
-      array[curId] = array[randId];
-      array[randId] = tmp;
+ 
+  useEffect(() => {
+    if (!isLoading && isSubmitted) {
+      axios.post('http://localhost:3002/api/user/quizResults',{
+        points: points,
+        id: session.userid
+    }).then((response) => {
+      console.log("updated data: ", response)
+    }).catch(error => console.log(`Error ${error}`));
+      
     }
-    return array;
-  }
+  }, [])
 
 
   /**
@@ -232,13 +238,12 @@ const QuizPage = () => {
   }
   else {
     var newestIndex = 0;
-    var points = 0
     var numCorrect = 0
     const QuestionContent = content.map((question) => {
       var newID = "q-group" + newestIndex
       newestIndex++;
       if (data[newestIndex - 1]["correct"] === true) {
-        points += 100
+        setPoints(points + 100);
         numCorrect += 1
         return ([
           <div id="resultsPageHolder" class="correct">
@@ -268,6 +273,7 @@ const QuizPage = () => {
         ]);
       }
     });
+
     return (
       <>
         <MenuBar></MenuBar>
