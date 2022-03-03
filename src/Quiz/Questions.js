@@ -11,7 +11,6 @@ import './Questions.css';
 function Questions (props) {
 
   const [quizToggleId, setQuizToggleId] = useState("group");
-
        /**
      * 
      * @param {!Array{str}} answers 
@@ -27,17 +26,17 @@ function Questions (props) {
         }
         const myanswers = convert_to_list_of_obj(props.answers);
     
-
         useEffect(() => {
           setQuizToggleId(props.id)
+
       },[props.id])
 
-
+    
     return(
         <>
             <h3 id="qNumber" className={props.classes[0]}> Question {props.i + 1} </h3>
             <div id={props.i} className="text-center"> 
-             <Container id="questionDesciption" className={props.classes[1]}>
+            <Container id="questionDesciption" className={props.classes[1]}>
                 {props.question} 
             </Container>
             
@@ -51,7 +50,8 @@ function Questions (props) {
                     name="radio "
                     value={radio.name}
                     className="individualQuestions"
-                    onChange={(e) => props.action(props.i, radio.name)}>
+                    checked = {props.checked[idx]}
+                    onChange={(e) => props.action(props.i, radio.name, idx)}>
                     {` ${radio.name}`}
                 </ToggleButton>
                 ))}
@@ -59,6 +59,7 @@ function Questions (props) {
             </div>
         </>
     );
+
 }
 
 export default Questions
