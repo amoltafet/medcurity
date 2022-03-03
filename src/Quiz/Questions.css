@@ -1,33 +1,23 @@
 .questionNumbers {
-    margin-top: 5%;
     font-size: 180%;
     font-family: Lato,sans-serif;
 }
 
-
-.answerQuizSelection {
-    margin-bottom: 2%;
-    margin-top: 1%;
-    margin-left: 5%;
-    margin-right: 5%;   
-}
-
 .questionDesciption {
     color: #127ebf; 
-    font-size: 140%;
+    font-size: 120%;
     font-family: Lato,sans-serif;
+    margin-bottom: 1%;
 }
 
 .individualQuestions {
     text-align: start;
     font-size: 100%;
-    margin-top: -1%;
 
 }
 
 .questionNumbersWrong {
     color: white;
-    margin-top: 2%;
 }
 
 .questionDesciptionWrong {
@@ -36,9 +26,14 @@
 
 .questionNumbersRight {
     color: #1e5b88;
-    margin-top: 2%;
 }
 
 .questionDesciptionRight {
     color: #127ebf; 
+}
+
+.individualQuestions {
+    text-align: start;
+    font-size: 100%;
+
 }

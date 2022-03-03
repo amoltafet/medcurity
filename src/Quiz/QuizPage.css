@@ -2,94 +2,48 @@
     background-image: url("quizBg.png");
     height: 100%;
     width: 100%;
-    margin-top: 1%;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     position: fixed;
 }
 
-.buttonQuestionNumberRow {
-    width: 80%;
-    height: 10%;
-}
-
-.toggleQuestionLeft {
-    width: 10%;
-    height: 10%;
-    margin-top: -1%;
-    border: 0;
-    background: transparent !important;
-}
-
-
-
-.toggleQuestionLeft:focus {
-    box-shadow: none !important;
-    background: none;
-}
-
-.toggleQuestionLeft:hover {
-    border: 0;
-    background: none;
-}
-
-.leftArrow {
-    width: 60%;
-    height: 100.5%;
-}
-
 .questionPosOutOfTotal {
     color: #93c2ec;
     font-family: Lato,sans-serif;
-    font-size: 120%;
-    width: 8%;
+    font-size: 100%;
+    margin-top: .5%;
 }
 
 
 .toggleQuestionRight {
     width: 10%;
-    height: 10%;
+    height: 20%;
+    background: none;
+    border: none;
     margin-top: -1%;
-    border: 0;
-    background: transparent;
 }
 
 .toggleQuestionRight:hover {
-    border: 0;
+    border: none;
     background: transparent;
 }
 
 .toggleQuestionRight:disabled {
-    border: 0;
+    border: none;
     background: transparent;
 }
 
 .toggleQuestionRight:focus {
     box-shadow: none !important;
     background: none;
+    border: none;
 }
 
 .rightArrow {
     width: 60%;
-    height: 100.5%;
 }
 
-.answerQuizSelection {
-    margin-bottom: 2%;
-    margin-top: 1%;
-    margin-left: 5%;
-    margin-right: 5%;   
-}
-
-
-
-.individualQuestions {
-    text-align: start;
-    font-size: 80%;
-    margin-top: -1%;
-
-}
 
 /* RESULTS DISPLAY */
 .quizPointInfo {
