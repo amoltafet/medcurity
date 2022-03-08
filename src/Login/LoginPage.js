@@ -21,7 +21,8 @@ export default function LoginPage()
   const navigate = useNavigate();
 
   const login = () => {
-    console.log('LOGGING IN', email, password)
+
+
     let credential_requirements = " "
     
     if (email <= 0 || password <= 0)
@@ -89,9 +90,10 @@ export default function LoginPage()
                   setPassword(e.target.value);
                 }}/>
               <Button className="loginButton" variant="secondary" type="button" onClick={login}>Login</Button>
-              <Button className="registerButton" variant="secondary" type="button" onClick={register}>Register</Button>
+              <Button className="registerButton" variant="secondary" type="button" onClick={register}>Register a New Account</Button>
+              <Form.Text className="loginMessage">{message}</Form.Text>
             </Form.Group>
-            <Form.Text className="loginMessage">{message}</Form.Text>
+            
         </Form>
       </Form>
       </>

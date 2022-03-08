@@ -79,14 +79,16 @@ const userLoginSession = (req, res) =>
 const userLogout = (req, res) =>
 {
     console.log('2896')
-    logger.log('info', `Logging out user "${req.session.userSession[0].username}"`, { service: 'user-service' })
+    
     if (req.session.userSession)
     {
-        res.session.destroy()
+        logger.log('info', `Successfully logged out user "${req.session.userSession[0].username}"`, { service: 'user-service' })
+        req.session.destroy()
         res.send({ success: true, message: "Logging out!" });
     } 
     else 
     {
+        logger.log('info', `Failing logged out user "${req.session.userSession[0].username}"`, { service: 'user-service' })
         res.end()
         res.send({ success: false, message: "Could not log out..." });
     }

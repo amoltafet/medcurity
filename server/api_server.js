@@ -12,15 +12,14 @@ const cors = require('cors')
 const API_CONFIG = require('./api_config.json')
 const app = express();
 const path = require('path')
-//app.use(cors());
 
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 
 app.use(express.json())
-
 app.use(cookieParser());
+
 app.use(
   cors({
     origin: [`${API_CONFIG.BASE_URL + API_CONFIG.ORIGIN_PORT}`],
@@ -30,32 +29,27 @@ app.use(
 );
 app.use(bodyParser.urlencoded({ extended: true }));
 
-var the_session =   session({
+app.use(session({
   resave: true,
   saveUninitialized: true,
-  secret: "subscribe",
-  cookie: {
-    expires: (60 * 60 * 24) * 5,
-  },
-})
-
-app.use(the_session);
+  secret: "medcuritysecretlock",
+}));
 
 var usersRouter = require('./routes/usersRoutes');
 var queryRouter = require('./routes/queryRoutes');
 //var adminRouter = require('./routes/adminRoutes');
 
-app.use('/users', the_session, usersRouter);
-app.use('/api', the_session, queryRouter);
+app.use('/users', usersRouter);
+app.use('/api', queryRouter);
 //app.use('/admin', adminRouter)
 
 // Serve static files from the React app
-app.use(express.static(path.join(__dirname, '/client/build')));
+// app.use(express.static(path.join(__dirname, '/client/build')));
 
 const LISTEN_PORT = API_CONFIG.API_PORT
 
 // Listen for API requests
-app.listen(LISTEN_PORT, (err)=>{
+app.listen(LISTEN_PORT, (err) => {
     
     if (err) console.log('ERROR: ', err)
 

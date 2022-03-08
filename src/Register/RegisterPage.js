@@ -77,7 +77,7 @@ export default function RegisterPage()
                     {
                       setPassword(e.target.value);
                     }}/> 
-                  <Button className="loginRegisterBtn" variant="secondary" type="button" onClick={login}>Login</Button>
+                  <Button className="loginRegisterBtn" variant="secondary" type="button" onClick={login}>Back to Login</Button>
                   <Button className="createButton" variant="secondary" type="button" onClick={register}>Register</Button>
                 </Form.Group>
                 <Form.Text className="registerMessage">{message}</Form.Text>

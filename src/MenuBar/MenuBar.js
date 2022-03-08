@@ -18,11 +18,13 @@ const Menubar = () => {
         {
           if (response.data.success == true)
           {
+            console.log('LOG OUT SUCCESS')
             navigate('/');
           }
           else if (response.data.success == false)
           {
             console.log(response.data.message)
+            console.log('LOG OUT FAILED')
           }
         });
     };
@@ -46,7 +48,7 @@ const Menubar = () => {
                             <Nav.Link className="menubarFont" href="/settings">Settings</Nav.Link>
                         </Nav.Item>
                         <Nav.Item className="navPills uvs-left uvs-right">
-                            <Nav.Link className="menubarFont" href="/">Logout</Nav.Link>
+                            <Nav.Link className="menubarFont" href="/" onClick={logout}>Logout</Nav.Link>
                         </Nav.Item>  
                     </Nav>
                 </Card>

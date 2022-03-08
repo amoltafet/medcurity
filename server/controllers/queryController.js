@@ -4,7 +4,6 @@ const logger = require('../logger').log
 
 const getQuery = (req,res) => 
 {
-    console.log('queryController: getQuery')
     db.query(`${req.query.the_query}`, (err,result) => {
         if (err) console.log(err)
         logger.log('info', `Custom Query: "${req.query.the_query}" Fields: ${Object.keys(result[0])}`, { service: 'query-service' })

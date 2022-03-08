@@ -1,0 +1,37 @@
+{"level":"info","message":"Existing user \"ethanching@gmail.com\" logged in.","service":"user-service","timestamp":"2022-03-02T01:13:20.586Z"}
+{"level":"info","message":"Created user session for \"ethanching\"","service":"user-service","timestamp":"2022-03-02T01:13:20.627Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM Users\" Fields: userid,companyid,username,type,email,password","service":"query-service","timestamp":"2022-03-02T01:13:20.821Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-03-02T01:13:21.025Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModules JOIN AssignedLearningModules ON LearningModules.ID = AssignedLearningModules.LearningModID WHERE AssignedLearningModules.UserID = 100\" Fields: ID,DirID,Title,Subtitle,Description,Banner,LearningModID,UserID","service":"query-service","timestamp":"2022-03-02T01:13:21.597Z"}
+{"level":"info","message":"Created user session for \"ethanching\"","service":"user-service","timestamp":"2022-03-02T01:18:40.110Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM Users\" Fields: userid,companyid,username,type,email,password","service":"query-service","timestamp":"2022-03-02T01:18:40.292Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModules JOIN AssignedLearningModules ON LearningModules.ID = AssignedLearningModules.LearningModID WHERE AssignedLearningModules.UserID = 100\" Fields: ID,DirID,Title,Subtitle,Description,Banner,LearningModID,UserID","service":"query-service","timestamp":"2022-03-02T01:18:40.469Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-03-02T01:18:40.643Z"}
+{"level":"info","message":"Logging out user \"ethanching\"","service":"user-service","timestamp":"2022-03-02T01:18:41.865Z"}
+{"level":"info","message":"Server is running on \"PORT: 3002\"","service":"api-service","timestamp":"2022-03-02T01:18:57.379Z"}
+{"level":"info","message":"Existing user \"spikedog@gmail.com\" logged in.","service":"user-service","timestamp":"2022-03-02T01:19:06.311Z"}
+{"level":"info","message":"Created user session for \"spikedog\"","service":"user-service","timestamp":"2022-03-02T01:19:06.360Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM Users\" Fields: userid,companyid,username,type,email,password","service":"query-service","timestamp":"2022-03-02T01:19:06.497Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-03-02T01:19:06.685Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModules JOIN AssignedLearningModules ON LearningModules.ID = AssignedLearningModules.LearningModID WHERE AssignedLearningModules.UserID = 100\" Fields: ID,DirID,Title,Subtitle,Description,Banner,LearningModID,UserID","service":"query-service","timestamp":"2022-03-02T01:19:06.963Z"}
+{"level":"info","message":"Logging out user \"spikedog\"","service":"user-service","timestamp":"2022-03-02T01:19:26.856Z"}
+{"level":"info","message":"Server is running on \"PORT: 3002\"","service":"api-service","timestamp":"2022-03-02T01:20:24.988Z"}
+{"level":"info","message":"Existing user \"spikedog@gmail.com\" logged in.","service":"user-service","timestamp":"2022-03-02T01:20:39.053Z"}
+{"level":"info","message":"Created user session for \"spikedog\"","service":"user-service","timestamp":"2022-03-02T01:20:39.098Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM Users\" Fields: userid,companyid,username,type,email,password","service":"query-service","timestamp":"2022-03-02T01:20:39.296Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModules JOIN AssignedLearningModules ON LearningModules.ID = AssignedLearningModules.LearningModID WHERE AssignedLearningModules.UserID = 100\" Fields: ID,DirID,Title,Subtitle,Description,Banner,LearningModID,UserID","service":"query-service","timestamp":"2022-03-02T01:20:39.462Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-03-02T01:20:39.612Z"}
+{"level":"info","message":"Successfully logged out user \"spikedog\"","service":"user-service","timestamp":"2022-03-02T01:20:42.205Z"}
+{"level":"info","message":"Server is running on \"PORT: 3002\"","service":"api-service","timestamp":"2022-03-02T01:21:20.508Z"}
+{"level":"info","message":"Existing user \"spikedog@gmail.com\" logged in.","service":"user-service","timestamp":"2022-03-02T01:21:31.962Z"}
+{"level":"info","message":"Created user session for \"spikedog\"","service":"user-service","timestamp":"2022-03-02T01:21:31.995Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModules JOIN AssignedLearningModules ON LearningModules.ID = AssignedLearningModules.LearningModID WHERE AssignedLearningModules.UserID = 100\" Fields: ID,DirID,Title,Subtitle,Description,Banner,LearningModID,UserID","service":"query-service","timestamp":"2022-03-02T01:21:32.149Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM Users\" Fields: userid,companyid,username,type,email,password","service":"query-service","timestamp":"2022-03-02T01:21:32.302Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-03-02T01:21:32.496Z"}
+{"level":"info","message":"Successfully logged out user \"spikedog\"","service":"user-service","timestamp":"2022-03-02T01:21:36.445Z"}
+{"level":"info","message":"Server is running on \"PORT: 3002\"","service":"api-service","timestamp":"2022-03-08T03:15:25.656Z"}
+{"level":"info","message":"New user \"\" registered.","service":"user-service","timestamp":"2022-03-08T03:16:21.414Z"}
+{"level":"info","message":"Created user session for \"\"","service":"user-service","timestamp":"2022-03-08T03:16:21.467Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM Users\" Fields: userid,companyid,username,type,email,password","service":"query-service","timestamp":"2022-03-08T03:16:21.563Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModules JOIN AssignedLearningModules ON LearningModules.ID = AssignedLearningModules.LearningModID WHERE AssignedLearningModules.UserID = 100\" Fields: ID,DirID,Title,Subtitle,Description,Banner,LearningModID,UserID","service":"query-service","timestamp":"2022-03-08T03:16:21.662Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-03-08T03:16:21.758Z"}
