@@ -16,9 +16,9 @@ const LearningManagersCards = () => {
     const userId = 100
     // const [learningModules, setLearningModules] = useState([])
     let learningModules = [
-        {Name:"John", Email:"j@gmail.com", Progress:1},
-        {Name:"Jack", Email:"ja@gmail.com", Progress:1},
-        {Name:"Jen", Email:"je@gmail.com", Progress:21}
+        {Name:"Privacy", Email:"j@gmail.com", Progress:1},
+        {Name:"bio", Email:"ja@gmail.com", Progress:1},
+        {Name:"jerseys", Email:"je@gmail.com", Progress:21}
     ]
 
     // Get all of the learningModules that are employed at the company the user is an
@@ -48,7 +48,7 @@ const LearningManagersCards = () => {
         for (let index in modules) {
             if (size == maxLength) { break; }
             module = modules[index]
-            objs.push(<LearningManagerCard email={module.Email} name={module.Name} progress={module.Progress} userId={module.UserId} companyId={module.CompanyId} />)
+            objs.push(<LearningManagerCard learningModuleName={module.Name} moduleId={module.Id} companyId={module.CompanyId} />)
             size += 1;
         }
         return objs;
@@ -57,16 +57,10 @@ const LearningManagersCards = () => {
     return (
         <>
         <Container className="EmployerJoinRequests uvs-right">
-            <h2>Learning Modules</h2>      
+            <h2>Current Learning Modules</h2>      
             <Card className="LearningManagerCardHeader uvs-right uvs-left" style={{display: 'flex', flexDirection: 'row' }}>
                 <Col sm>
-                    <div className="LearningManagerCardValues">User Email</div>
-                </Col>
-                <Col sm>
-                    <div className="LearningManagerCardValues">User Name</div>
-                </Col>
-                <Col sm>
-                    <div className="LearningManagerCardValues">User Progress</div>
+                    <div className="LearningManagerCardValues">Learning Module Name</div>
                 </Col>
                 <Col sm>
                     <div className="RemoveButton"></div>

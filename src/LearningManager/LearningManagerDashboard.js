@@ -33,7 +33,7 @@ const LearningManagerDashboardPage = () => {
     <>
         <MenuBar></MenuBar>
         <CardDeck className="dashTopPanel" style={{display: 'flex', flexDirection: 'row'}}>
-          <WelcomePanel user={session} subtitle={'to the Administration Page'}/>
+          <WelcomePanel user={session} subtitle={'to the Learning Manager Page'}/>
           <LearningModuleAdder />
         </CardDeck>
         <LearningManagerCards />
