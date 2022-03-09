@@ -42,3 +42,10 @@
 .questionDesciptionRight {
     color: #127ebf; 
 }
+
+.individualQuestions {
+    text-align: start;
+    font-size: 100%;
+    margin-top: 5%;
+
+}

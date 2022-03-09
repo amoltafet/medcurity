@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import MenuBar from '../MenuBar/MenuBar';
 import Questions from './Questions'
 import axios from 'axios';
+import Results from './Results';
 
 
 
@@ -23,8 +24,10 @@ const QuizPage = () => {
   const [isLoading, setLoading] = useState(true);
   const [content, setContent] = useState([]);
   const [currentQuestion, setQuestion] = useState([]);
+  const [curentAnswers, setAnswers] = useState([["a", "b", "c", "d"]]);
   const [index, setQuestionIndex] = useState(0);
   const [isSubmitted, setSubmitted] = useState(false);
+  const [isChecked, setChecked] = useState([[false, false, false, false]])
   // data array that holds question information using state
   const [data, setData] = useState([
     { answer: "", correct: false },
@@ -58,10 +61,15 @@ const QuizPage = () => {
     axios.get('http://localhost:3002/api/getModuleQuestions', { params: { id: slug } }).then((response) => {
       setContent(Object.values(response.data));
       setLoading(false);
-    })
+    }).catch(error => console.error(`Error ${error}`));
 
   }, [slug])
 
+  useEffect(() => {
+    if (!isLoading && !isSubmitted) {
+      initializeShuffledAnswers();
+    }
+  }, [isLoading, isSubmitted])
 
   // once content is loaded set question
   useEffect(() => {
@@ -71,6 +79,21 @@ const QuizPage = () => {
     }
   }, [isLoading, content, index, isSubmitted])
 
+  function shuffleArray(array) {
+    let curId = array.length;
+    // There remain elements to shuffle
+    while (0 !== curId) {
+      // Pick a remaining element
+      let randId = Math.floor(Math.random() * curId);
+      curId -= 1;
+      // Swap it with the current element.
+      let tmp = array[curId];
+      array[curId] = array[randId];
+      array[randId] = tmp;
+    }
+    return array;
+  }
+
 
   /**
    * Displays the current question
@@ -78,7 +101,6 @@ const QuizPage = () => {
    */
   function DisplayOneQuestion() {
     if (!isLoading) {
-      console.log("elp", currentQuestion);
       const groupID = "q-group" + index;
       // returns one quiz question based on index
       return (
@@ -86,56 +108,64 @@ const QuizPage = () => {
           id={groupID}
           i={index}
           question={currentQuestion.question}
-          answers={[currentQuestion.solution, currentQuestion.a2, currentQuestion.a3, currentQuestion.a4]}
+          answers={curentAnswers[index]}
           action={adjustStateData}
           classes={quizClassNames[0]}
+          checked = {isChecked[index]}
         />]
       );
 
     }
   }
 
-  /**
-   * Decrements the question
-   */
-  function previousQuestion() {
-    var newIndex = index - 1;
-    if (index !== 0) {
-      var nextq = content[newIndex];
-      setQuestion(nextq);
-      setQuestionIndex(newIndex);
-
-      if (index === 0) {
-        document.getElementById("submitBtn").disabled = true;
-        document.getElementById("leftQuestionBttn").disabled = true;
-      }
-    }
-
-  }
 
   /**
  * Increments the question
  */
   function nextQuestion() {
-    if (index === 0) {
-      document.getElementById("leftQuestionBttn").disabled = false;
+    var boolChecked = false;
+    for(var i = 0; i < 4; i++) {
+        if(isChecked[index][i] === true) {
+            boolChecked = true;
+            break;
+        }
     }
-    var newIndex = index + 1;
-    if (newIndex !== content.length) {
-      var nextq = content[newIndex];
-      setQuestion(nextq);
-      setQuestionIndex(newIndex);
-      console.log("index: ", newIndex)
+    if(boolChecked) {
+      var newIndex = index + 1;
+      if (newIndex !== content.length) {
+        var nextq = content[newIndex];
+        setQuestion(nextq);
+        setQuestionIndex(newIndex);
+        console.log("index: ", newIndex);
 
-      if (newIndex === content.length || newIndex >= content.length) {
-        document.getElementById("rightQuestionBttn").disabled = true;
+        if (newIndex === content.length || newIndex >= content.length) {
+          document.getElementById("rightQuestionBttn").disabled = true;
 
-       
-      }
-      if (newIndex === (content.length - 1)) { 
-        document.getElementById("submitBtn").disabled = false;
+        
+        }
+        if (newIndex === (content.length - 1)) { 
+          document.getElementById("submitBtn").disabled = false;
+        }
       }
     }
+  }
+
+  function initializeShuffledAnswers() {
+      var bigArray = []
+      var checkedArray = []
+      for(var i = 0; i < content.length; i++) {
+        var answerArray = [];
+        answerArray.push(content[i].solution);
+        answerArray.push(content[i].a2);
+        answerArray.push(content[i].a3);
+        answerArray.push(content[i].a4);
+        answerArray = shuffleArray(answerArray);
+        bigArray.push(answerArray);
+        answerArray = [false, false, false, false];
+        checkedArray.push(answerArray);
+      }
+      setAnswers(bigArray);
+      setChecked(checkedArray);
   }
 
   /** 
@@ -144,7 +174,7 @@ const QuizPage = () => {
    * @param {str} answer String value of answer that was clicked on 
    * Function is used as an onChange function for the question toggle buttons to change state data
   */
-  function adjustStateData(index, answer) {
+  function adjustStateData(index, answer, buttonIndex) {
     let newData = data[index];
     newData["answer"] = answer;
     if (answer === content[index].solution) {
@@ -153,6 +183,10 @@ const QuizPage = () => {
     data[index] = newData;
     setData([...data]);
     console.log("" + answer);
+
+    var checkedArray = isChecked;
+    checkedArray[index][buttonIndex] = true;
+    setChecked(checkedArray);
   }
   // function to display in the console the question data stored in the data state variable in Quizpage.js
   function displayQuestionData() {
@@ -162,8 +196,6 @@ const QuizPage = () => {
     }
     setSubmitted(true);
   }
-
-
 
   // catch for rerendering 
   if (isLoading) {
@@ -182,14 +214,6 @@ const QuizPage = () => {
         <div id="quizPageContainer" className="quizBg img-fluid">
           {DisplayOneQuestion()}
           <Row className="justify-content-center">
-            <Button
-              id="leftQuestionBttn"
-              type="submit"
-              className="toggleQuestionLeft"
-              onClick={() => previousQuestion()}
-            >
-              <Image className="leftArrow" src="/left.png"></Image>
-            </Button>
             <div className="questionPosOutOfTotal text-center" id="questionPosOutOfTotal"> {index + 1} / {content.length} </div>
             <Button
               id="rightQuestionBttn"
@@ -218,7 +242,7 @@ const QuizPage = () => {
         numCorrect += 1
         return ([
           <div id="resultsPageHolder" class="correct">
-            <Questions
+            <Results
               id={newID}
               i={newestIndex - 1}
               question={question.question}
@@ -232,7 +256,7 @@ const QuizPage = () => {
       else {
         return ([
           <div id="resultsPageHolder" class="wrong">
-            <Questions
+            <Results
               id={newID}
               i={newestIndex - 1}
               question={question.question}
