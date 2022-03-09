@@ -15,6 +15,7 @@ import LearningDirectory from './LearningDirectory/LearningDirectory';
 import LearningDirectoryPage from './LearningDirectory/LearningDirectoryPage';
 import LearningDirectoryRequiredPage from './LearningDirectory/LearningDirectoryRequiredPage';
 import EmployerDashboard from './EmployerDashboard/EmployerDashboard';
+import LearningManagerDashboard from './LearningManager/LearningManagerDashboard';
 import QuizModules from './Quiz/QuizModules';
 import QuizBackground from './Quiz/QuizBackground';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -26,6 +27,7 @@ ReactDOM.render(
       <Route path="/register" element={<RegisterPage />}/>
       <Route path="/dash" element={<DashboardPage />} />
       <Route path="/employer-dash" element={<EmployerDashboard />} />
+      <Route path="/learning-manager" element={<LearningManagerDashboard />} />
       <Route path="/settings" element={<SettingsPage />} />,
         <Route path="/quiz" element={<QuizBackground />}>
           <Route path="" element={<QuizModules />} />
