@@ -19,6 +19,7 @@ const WelcomePanel = (props) => {
             <Image className="WelcomePanelImage" variant="top" src="/user.png" alt="" roundedCircle />
             <Card.Body className="cardSize">
                <Card.Title className="titleFont" >Welcome Back {props.user.username}!</Card.Title>
+               <div>{props.subtitle}</div>
             </Card.Body> 
         </Card>
 
