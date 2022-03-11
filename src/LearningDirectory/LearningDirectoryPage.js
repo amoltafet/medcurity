@@ -19,14 +19,14 @@ const LearningDirectoryPageContent = (props) => {
     /**
      * Create directory cards from modules
      */
-         function createDirectoryCards(modules) {
-            const objs = []
-            for (let index in modules) {
-                module = modules[index]
-                objs.push(<LearningModulePanel title={module.Title} link={module.ID} />)
-            }
-            return objs;
+    function createDirectoryCards(modules) {
+        const objs = []
+        for (let index in modules) {
+            module = modules[index]
+            objs.push(<LearningModulePanel title={module.Title} link={module.ID} />)
         }
+        return objs;
+    }
 
     return (
         <>
