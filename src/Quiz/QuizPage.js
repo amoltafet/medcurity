@@ -16,6 +16,7 @@ import Results from './Results';
 * @return {QuizPage}
 */
 const QuizPage = () => {
+  axios.defaults.withCredentials = true;
   const quizClassNames = [
     ["questionNumbers text-center", "questionDesciption"],
     ["questionNumbersWrong text-center", "questionDesciptionWrong"],
@@ -56,6 +57,17 @@ const QuizPage = () => {
     { answer: "", correct: false },
   ]);
 
+
+  /**
+   *  grabs user session to store points 
+   */ 
+   useEffect(() => {
+      axios.get("http://localhost:3002/users/login").then((response) => {
+        setSession(response.data.user[0])
+      }).catch(error => console.error(`Error ${error}`));
+    }, []);
+
+
   let { slug } = useParams();
 
 
@@ -84,14 +96,6 @@ const QuizPage = () => {
     }
   }, [isLoading, content, index, isSubmitted])
 
-  /**
-   *  grabs user session to store points 
-   */ 
-   useEffect(() => {
-    axios.get("http://localhost:3002/users/login").then((response) => {
-      console.log("user", response)
-    }).catch(error => console.error(`Error ${error}`));
-  }, []);
 
   useEffect(() => {
     if (!isLoading && isSubmitted) {
