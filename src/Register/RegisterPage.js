@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function RegisterPage()
 {
+
   Axios.defaults.withCredentials = true;
   const [message, setMessage] = useState("")
   const [email, setEmail] = useState("");
@@ -32,28 +33,23 @@ export default function RegisterPage()
       let isValidPass  = checkPassword(password)
       let isValidEmail = checkEmail(email)
 
-      if (isValidPass[0] && isValidEmail[0])
+      if (isValidPass.result && isValidEmail.result)
       {
-        Axios.post("http://localhost:3002/users/register",
-        { 
-          email: email,
-          password: password
-        }).then((response) => 
+        Axios.post("http://localhost:3002/users/register", { email: email, password: password }).then((response) => 
         {
-          console.log("response.data =", response.data)
           if (response.data === true)
           {
             navigate('/dash');
           }
           else if (response.data === false)
           {
-            setMessage('This email is already in use! Please go back to the login page by clicking the Medcurity logo.')
+            setMessage('This email is already in use! Please go back to the login page by clicking the "Back to Login" button.')
           }
         });
       }
       else
       {
-        setMessage([isValidEmail[1], <br/>, isValidPass[1]])
+        setMessage([isValidEmail.message, <br/>, isValidPass.message])
       }
     }
     else
@@ -66,11 +62,12 @@ export default function RegisterPage()
   {
     if (emailValidator.validate(emailString))
     {
-      return true
+      return { result: true, message: null}
     }
     else
     {
-      return [false, `That's not a valid email address!`]
+      //return [false, `That's not a valid email address!`]
+      return { result: false, message: `That's not a valid email address!`}
     }
   }
 
@@ -80,16 +77,18 @@ export default function RegisterPage()
     {
       if (passwordStrength(passwordString).id > 1)
       {
-        return true
+        return { result: true, message: null}
       }
       else
       {
-        return [false, `Your password is too weak! Please enter a stronger password.`]
+        //return [false, `Your password is too weak! Please enter a stronger password.`]
+        return { result: false, message: `Your password is too weak! Please enter a stronger password.` }
       }
     }
     else
     {
-      return [false, `Your password must contain the following: lowercase letter, uppercase letter, symbol, number`]
+      //return [false, `Your password must contain the following: lowercase letter, uppercase letter, symbol, number`]
+      return { result: false, message: `Your password must contain the following: lowercase letter, uppercase letter, symbol, number` }
     }
   }
   

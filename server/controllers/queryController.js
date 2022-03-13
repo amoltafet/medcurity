@@ -1,5 +1,5 @@
 // Returns query based on input
-const db = require('../db_config')
+const db = require('../dbConfig')
 const logger = require('../logger').log
 
 const getQuery = (req,res) => 

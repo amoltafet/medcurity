@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
-const api_config = require('../api_config.json')
-const saltRounds = api_config.SALT_ROUNDS;
-const db = require('../db_config')
+const serverConfig = require('../serverConfig.json')
+const saltRounds = serverConfig.bcrypt.SALT_ROUNDS;
+const db = require('../dbConfig')
 const logger = require('../logger').log
 
 const userRegister = (req,res) => 
