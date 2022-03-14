@@ -41,11 +41,5 @@ const EmployerDashboardPage = () => {
     </>
   );
 }
-/*
-<CardDeck className="employeeDashTopPanel" style={{display: 'flex', flexDirection: 'row'}}>
-          <HelloEmployer></HelloEmployer>
-        </CardDeck>
-        <EmployeeCards></EmployeeCards>
-*/
 
 export default EmployerDashboardPage;
