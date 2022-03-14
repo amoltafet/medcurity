@@ -36,7 +36,7 @@ const EmployerDashboardPage = () => {
           <WelcomePanel user={session} subtitle={'to the Administration Page'}/>
           <EmployerInvitations />
         </CardDeck>
-        <EmployeeCards />
+        <EmployeeCards user={session} />
         
     </>
   );

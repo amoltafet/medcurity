@@ -10,8 +10,12 @@ import EmployeeCard from './EmployeeCard'
  * Returns Panels of the Employees Cards 
  * @returns 
  */
-const EmployeesCards = () => {
-    const userId = 159
+const EmployeesCards = (props) => {
+    const userId = String(props.user.userid)
+    // Test account details
+    // id 159
+    // email bobbytables@gmail.com
+    // 1234
     const [employees, setEmployees] = useState([])
     const [assignedModulesCount, setAssignedModulesCount] = useState([])
     const [userCompletedModules, setUserCompletedModules] = useState([])
