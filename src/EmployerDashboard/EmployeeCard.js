@@ -51,6 +51,9 @@ const EmployeeCard = (props) => {
                 <div className="EmployeeCardValues">{props.name}</div>
             </Col>
             <Col sm>
+                <div className="EmployeeCardValues">{String(Boolean(props.activeStatus))}</div>
+            </Col>
+            <Col sm>
                 <div className="EmployeeCardValues">{props.progress}</div>
             </Col>
             <Col sm>
