@@ -183,3 +183,12 @@
 {"level":"info","message":"Server is running on \"PORT: 3002\"","service":"api-service","timestamp":"2022-03-03T00:22:41.110Z"}
 {"level":"info","message":"Server is running on \"PORT: 3002\"","service":"api-service","timestamp":"2022-03-03T00:23:09.342Z"}
 {"level":"info","message":"Server is running on \"PORT: 3002\"","service":"api-service","timestamp":"2022-03-03T00:24:24.902Z"}
+{"level":"info","message":"Server is running on \"PORT: 3002\"","service":"api-service","timestamp":"2022-03-14T01:57:26.837Z"}
+{"level":"info","message":"Server is running on \"PORT: 3002\"","service":"api-service","timestamp":"2022-03-14T01:57:51.507Z"}
+{"level":"info","message":"New user \"tcall@zagmail.gonzaga.edu\" registered.","service":"user-service","timestamp":"2022-03-14T01:59:40.743Z"}
+{"level":"info","message":"Created user session for \"tcall\"","service":"user-service","timestamp":"2022-03-14T01:59:40.878Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM Users\" Fields: userid,companyid,username,type,email,password,active,personal","service":"query-service","timestamp":"2022-03-14T01:59:40.994Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModules JOIN AssignedLearningModules ON LearningModules.ID = AssignedLearningModules.LearningModID WHERE AssignedLearningModules.UserID = 100\" Fields: ID,DirID,Title,Subtitle,Description,Banner,LearningModID,UserID","service":"query-service","timestamp":"2022-03-14T01:59:41.131Z"}
+{"level":"info","message":"Custom Query: \"SELECT * FROM LearningModulesDirectory\" Fields: ID,Title,Description","service":"query-service","timestamp":"2022-03-14T01:59:41.264Z"}
+{"level":"info","message":"Created user session for \"tcall\"","service":"user-service","timestamp":"2022-03-14T01:59:52.640Z"}
+{"level":"info","message":"New user \"\" registered.","service":"user-service","timestamp":"2022-03-14T02:00:00.071Z"}

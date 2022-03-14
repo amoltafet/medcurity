@@ -19,7 +19,7 @@ const LearningModuleAdder = () => {
     const navigate = useNavigate();
     let modules = [
         {ID: '1', Title: 'privacy'},
-        {ID: '1', Title: 'code'}
+        {ID: '2', Title: 'code'}
     ];
 
     /**
@@ -37,13 +37,13 @@ const LearningModuleAdder = () => {
         console.log("response.data =", response.data)
         if (response.data === true)
         {
-            console.log("A new invitation!")
-            navigate('/employer-dash');
+            console.log("Adding!")
+            
         }
         else if (response.data === false)
         {
-            console.log("Already has account!")
-            setMessage('This learningModule is already associated with an account! Please try a different learningModule.')
+            console.log("Already added!")
+            setMessage('This learning Module is already assigned! Please try a different learningModule.')
         }
         });
     };
@@ -70,7 +70,7 @@ const LearningModuleAdder = () => {
                 
             <div className="registerHeader">Add a Learning Module: </div>
             <div className="InviteSubtitle font">Choose a learning module to assign it to all your employees.</div>
-            <Form className="learningModule Invite">
+            {/* <Form className="learningModule Invite">
                 <Form.Group className="learningModule" controlId="formlearningModule">
                     <Form.Control 
                     type="learningModule" 
@@ -84,11 +84,11 @@ const LearningModuleAdder = () => {
                 
                 <Form.Text className="registerMessage">{message}</Form.Text>
                 <Button className="createButton" variant="secondary" type="button" onClick={addModule}>Add Module</Button>
-            </Form>
+            </Form> */}
             <form onSubmit={addModule}>
                 <label>
                   
-                    <select value={learningModule} 
+                    <select className="learningModule" value={learningModule} 
                         onChange={ (e) => 
                         {
                             setLearningModule(e.target.value);
@@ -97,7 +97,7 @@ const LearningModuleAdder = () => {
                         {createDropDownOptions(modules)}
                     </select>
                 </label>
-                <input type="submit" value="Submit" />
+                <input className="createButton" type="submit" value="Submit" onClick={addModule} />
             </form>
                 
              

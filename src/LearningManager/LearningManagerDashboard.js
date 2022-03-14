@@ -21,7 +21,6 @@ const LearningManagerDashboardPage = () => {
 
     useEffect(() => {
         Axios.get("http://localhost:3002/users/login").then((response) => {
-          console.log('aaahhh', response.data.user)
           setSession(response.data.user[0])
         });
       }, []);
