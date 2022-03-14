@@ -27,7 +27,7 @@ function DashLeaderboardProfiles (props) {
                  <div className="scoreTextDash">Score</ div>
                 </Col>
                 <Col sm>
-                    <div body className="pointsDash">{props.user.overallPoints}</div> 
+                    <div body className="pointsDash">{props.score}</div> 
                 </Col>   
             </Card>
         </>

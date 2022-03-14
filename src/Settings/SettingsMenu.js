@@ -33,8 +33,6 @@ const SettingsMenu = () => {
                 id: session.userid
             }).then((response) => {
                 console.log("response", response.data);
-                /* fix user query 
-                **/
                 
             }).catch(error => console.log(`Error ${error}`));
             setSaveData(false);

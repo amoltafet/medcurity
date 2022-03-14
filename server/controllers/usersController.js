@@ -107,6 +107,28 @@ const userUpdate = (req, res) => {
     })   
 }
 
+const userPoints = (req, res) => {
+    logger.log("e")
+    const categoryName = req.body.categoryName;
+    const points = req.body.points;
+    const percentName = req.body.percentName;
+    const length = req.body.lengths;
+    const userid = req.body.userid;
+
+    logger.log('info', ` points  "${points}"`);
+    logger.log('info', `category name "${categoryName}"`);
+
+   
+
+    db.query(`UPDATE Users SET ${categoryName} = '${points}', ${percentName} = "${length}" WHERE userid = '${userid}'`, (err,result) => {
+        db.query(`SELECT * FROM Users WHERE userid = '${userid}'`, (err,result) => {
+            req.session.userSession = result;
+            logger.log('info', `Updated username to "${newUserName}"`);
+            res.send({ result: result, success: true, message: "Updated username!" });
+        })
+    })   
+}
+
 module.exports = 
 {
     userLogin,
@@ -114,4 +136,5 @@ module.exports =
     userLoginSession,
     userLogout,
     userUpdate,
+    userPoints,
 };

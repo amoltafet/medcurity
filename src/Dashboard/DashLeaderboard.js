@@ -13,7 +13,6 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 const Leaderboard = (props) => {
     Axios.defaults.withCredentials = true;
     const [users, setUsers] = useState([])
-    const [usersStats, setUsersStats] = useState([]);
     // Fetch User Data
     useEffect(() => {
         Axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 'SELECT * FROM Users' } }).then((response) => {
@@ -21,13 +20,7 @@ const Leaderboard = (props) => {
         }).catch(error => console.error(`Error ${error}`));
     }, [])
 
-    useEffect(() => {
-        Axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 'SELECT * FROM UserStatistics' } }).then((response) => {
-            console.log("money", response)
-            setUsersStats(Object.values(response.data));
-        }).catch(error => console.error(`Error ${error}`));
-    }, [])
-
+  
  
 
     // for stylizing the panels
@@ -50,10 +43,26 @@ const Leaderboard = (props) => {
     };
 
     const ProfileArray = () => {
+        users.sort(function (a, b) {
+            return b.value - a.value;
+          });
+          
+          // sort by name
+          users.sort(function(a, b) {
+            const pointsA = a.category1 + a.category2 + a.category3 + a.category4 + a.category5; // ignore upper and lowercase
+            const pointsB = b.category1 + b.category2 + b.category3 + b.category4 + b.category5; // ignore upper and lowercase
+            if (pointsA > pointsB) {
+              return -1;
+            }
+            if (pointsA < pointsB) {
+              return 1;
+            }
+            // names must be equal
+            return 0;
+          });
         var index = 0;
         var otherUsers = [];
         if (users !== undefined && users.length !== 0) {
-            console.log("ehyp", users)
             for (var i = 0; i < users.length; i++) {
                 if (users[i].username === props.user.username) {
                     index = i;
@@ -61,47 +70,51 @@ const Leaderboard = (props) => {
                     otherUsers.push(users[i + 1]);
                 }
             }
-            console.log("whyyyyyyyyy", otherUsers)
-
-            console.log("lastuser ", users[users.length - 1].username)
-            console.log("current user", props.user.username)
-
-            if (users[users.length - 1].username === props.user.username) {
+            console.log("users", users)
+            // user is in the last position
+            if (users[users.length-1].username === props.user.username) {
                 return ([
                     <DashLeaderboardProfiles
                         name={users[users.length - 3].username}
                         user={user}
                         index={users.length - 3}
-                        className={className} />,
+                        className={className}
+                        score={users[users.length - 3].category1 + users[users.length - 3].category2 + users[users.length - 3].category3 + users[users.length - 3].category4 + users[users.length - 3].category5} />,
                     <DashLeaderboardProfiles
                         name={users[users.length - 2].username}
                         user={user}
                         index={users.length - 2}
-                        className={className} />,
+                        className={className} 
+                        score={users[users.length - 2].category1 + users[users.length - 2].category2 + users[users.length - 2].category3 + users[users.length - 2].category4 + users[users.length - 2].category5}/>,
                     <DashLeaderboardProfiles
                         name={props.user.username}
                         user={user}
                         index={users.length - 1}
-                        className={className} />
+                        className={className}
+                        score={users[users.length - 1].category1 + users[users.length - 1].category2 + users[users.length - 1].category3 + users[users.length - 1].category4 + users[users.length - 1].category5} />
                 ]);
             }
+            // user is in the first position 
             else if (users[0].username === props.user.username) {
                 return ([
                     <DashLeaderboardProfiles
-                        name={users[users.length - 3].username}
-                        user={user}
-                        index={users.length - 3}
-                        className={className} />,
-                    <DashLeaderboardProfiles
-                        name={users[users.length - 2].username}
-                        user={user}
-                        index={users.length - 2}
-                        className={className} />,
-                    <DashLeaderboardProfiles
                         name={props.user.username}
                         user={user}
-                        index={users.length - 1}
-                        className={className} />
+                        index={1}
+                        className={className} 
+                        score={props.user.category1 + props.user.category2 + props.user.category3 + props.user.category4 + props.user.category5}/>,
+                    <DashLeaderboardProfiles
+                        name={users[1].username}
+                        user={user}
+                        index={2}
+                        className={className} 
+                        score={users[1].category1 + users[1].category2 + users[1].category3 + users[1].category4 + users[1].category5}/>,
+                    <DashLeaderboardProfiles
+                        name={users[2].username}
+                        user={user}
+                        index={3}
+                        className={className} 
+                        score={users[2].category1 + users[2].category2 + users[2].category3 + users[2].category4 + users[2].category5}/>,
                 ]);
             }
             else if (users[users.length - 1].username !== props.user.username && otherUsers[1] !== undefined) {
@@ -110,17 +123,20 @@ const Leaderboard = (props) => {
                         name={otherUsers[0].username}
                         user={user}
                         index={index}
-                        className={className} />,
+                        className={className} 
+                        score={otherUsers[0].category1 + otherUsers[0].category2 + otherUsers[0].category3 + otherUsers[0].category4 +  otherUsers[0].category5}/>,
                     <DashLeaderboardProfiles
                         name={props.user.username}
                         user={user}
                         index={index + 1}
-                        className={className} />,
+                        className={className} 
+                        score={props.user.category1 + props.user.category2 + props.user.category3 + props.user.category4 +  props.user.category5}/>,
                     <DashLeaderboardProfiles
                         name={otherUsers[1].username}
                         user={user}
                         index={index + 2}
-                        className={className} />
+                        className={className} 
+                        score={otherUsers[1].category1 + otherUsers[1].category2 + otherUsers[1].category3 + otherUsers[1].category4 +  otherUsers[1].category5}/>
                 ]);
             }
         }

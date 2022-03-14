@@ -7,5 +7,6 @@ router.post('/login', userControllers.userLogin);
 router.get('/login', userControllers.userLoginSession);
 router.post('/logout', userControllers.userLogout);
 router.post('/settings', userControllers.userUpdate);
+router.post('/quiz', userControllers.userPoints);
 
 module.exports = router

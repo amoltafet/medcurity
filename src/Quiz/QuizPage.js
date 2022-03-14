@@ -79,8 +79,6 @@ const QuizPage = () => {
     axios.get('http://localhost:3002/api/getModuleQuestions', { params: { id: slug } }).then((response) => {
       setContent(Object.values(response.data));
       setLoading(false);
-
-      console.log("yuh(airana venti)")
     }).catch(error => console.error(`Error ${error}`));
 
   }, [slug])
@@ -92,18 +90,23 @@ const QuizPage = () => {
     if (!isLoading && !isSubmitted) {
       initializeShuffledAnswers();
       setQuestion(content[index])
-      console.log("runnn")
     }
   }, [isLoading, content, index, isSubmitted])
 
 
+
+
   useEffect(() => {
     if (!isLoading && isSubmitted) {
-      axios.get("http://localhost:3002/users/quizResults").then((response) => {
-        console.log("yuh(airana grande): ", response)
+      var categoryName = "category" + slug;
+      var percentName = "percentage" + slug;
+      var percent = numCorrect/content.length
+      console.log("percent: ", percent)
+      axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `UPDATE Users SET ${categoryName} = '${points}', ${percentName} = "${percent}" WHERE userid = '${session.userid}'` } }).then((response) => {
+        console.log("money", session)
       }).catch(error => console.error(`Error ${error}`));
     }
-  }, [points, numCorrect])
+  }, [points, numCorrect, isSubmitted])
 
   /**
    *  shuffles the question answers
@@ -163,7 +166,6 @@ const QuizPage = () => {
         var nextq = content[newIndex];
         setQuestion(nextq);
         setQuestionIndex(newIndex);
-        console.log("index: ", newIndex);
 
         if (newIndex === content.length || newIndex >= content.length) {
           document.getElementById("rightQuestionBttn").disabled = true;
@@ -208,7 +210,6 @@ const QuizPage = () => {
     }
     data[index] = newData;
     setData([...data]);
-    console.log("" + answer);
 
     var checkedArray = isChecked;
     checkedArray[index][buttonIndex] = true;
@@ -221,7 +222,6 @@ const QuizPage = () => {
   function displayQuestionData() {
     for (var i = 0; i < content.length; i++) {
       var newData = data[i];
-      console.log("selected answer: " + newData["answer"]);
     }
     setSubmitted(true);
   }
@@ -237,7 +237,7 @@ const QuizPage = () => {
       }
     }
 
-    console.log(session)
+
 
     return (
       <>
@@ -258,7 +258,6 @@ const QuizPage = () => {
           
         
           <SubmitButton value="Submit" questionData={data} content={content.length} action={displayQuestionData}></SubmitButton>
-          {console.log("finished rendering")}
           {disabledSubmitBttn()}
         </div>
       </>
@@ -305,7 +304,7 @@ const QuizPage = () => {
       <>
         <MenuBar></MenuBar>
         <div id="resultsPageContainer">
-          <h1 class="quizResultsHeader">Quiz Results</h1> 
+          <h1 className="quizResultsHeader">Quiz Results</h1> 
           <Row className="text-center quizPointInfo">
             <Col>
             <div className="totalCorrectQuestions"> {numCorrect} / {content.length} Questions Correct </div>

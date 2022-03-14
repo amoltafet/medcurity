@@ -37,7 +37,6 @@ function LeaderboardProfile(props) {
         var categoryData = []
         if (directories != null) {
         for (var i = 0; i < directories.length; i++) {
-            console.log(directories[0])
             categoryData.push( <>
                 <Row>
                     <Col >
@@ -93,7 +92,7 @@ function LeaderboardProfile(props) {
                                     <div className="scoreLabelLeaderboard" >Total Score</div>
                                 </Col>
                                 <Col>
-                                    <div className="userPointsLeaderboard">{props.user.overallPoints}</div>
+                                    <div className="userPointsLeaderboard">{props.score}</div>
                                 </Col>
 
                             </Card>
@@ -131,7 +130,7 @@ function LeaderboardProfile(props) {
                                     <div className="scoreLabelLeaderboard" >Total Score</div>
                                 </Col>
                                 <Col>
-                                    <div className="userPointsLeaderboard">{props.user.overallPoints}</div>
+                                    <div className="userPointsLeaderboard">{props.score}</div>
                                 </Col>
 
                             </Card>
