@@ -10,8 +10,8 @@ import axios from 'axios';
  * Returns Panels of the Learning Module Cards 
  * @returns 
  */
-const LearningModulesCards = () => {
-    const userId = 100
+const LearningModulesCards = (props) => {
+    const userId = String(props.user.userId)
     const [learningModules, setLearningModules] = useState([])
 
     // Query for getting user's required learning modules
