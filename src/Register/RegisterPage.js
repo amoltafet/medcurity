@@ -9,7 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { useNavigate } from 'react-router-dom';
 
 /**
-* Creates and displays the main login page. 
+* Creates and displays the main registration page. 
 * @return {RegisterPage}
 */
 

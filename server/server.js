@@ -17,10 +17,6 @@ const ORIGIN_PORT = serverConfig.server.DEV_PORT
 const BASE_URL = serverConfig.server.BASE_URL
 const SECRET = serverConfig.server.SECRET
 
-var usersRouter = require('./routes/usersRoutes');
-var queryRouter = require('./routes/queryRoutes');
-//var adminRouter = require('./routes/adminRoutes');
-
 app.use(
   express.json(),
   cookieParser(),
@@ -28,6 +24,10 @@ app.use(
   cors({ origin: [`${BASE_URL + ORIGIN_PORT}`], methods: ["GET", "POST"], credentials: true }),
   session({ resave: true, saveUninitialized: true, secret: SECRET })
 );
+
+var usersRouter = require('./routes/usersRoutes');
+var queryRouter = require('./routes/queryRoutes');
+//var adminRouter = require('./routes/adminRoutes');
 
 app.use('/users', usersRouter);
 app.use('/api', queryRouter);
