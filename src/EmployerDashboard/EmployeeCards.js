@@ -28,44 +28,50 @@ const EmployeesCards = (props) => {
     // Get all of the employees that are employed at the company the user is an
     // admin of. Then selects their email, name
     useEffect(() => {
-        axios.get('http://localhost:3002/api/getQuery', 
-            { params: { the_query: 'SELECT Users.username, Users.email, Users.userid as UserId, Users.active, CompanyAdmins.CompanyID as CompanyId ' + 
-            'FROM AffiliatedUsers ' + 
-                'JOIN Users ON AffiliatedUsers.UserID = Users.userid ' + 
-                'JOIN CompanyAdmins ON CompanyAdmins.CompanyID = AffiliatedUsers.CompanyID ' +
-            'WHERE CompanyAdmins.UserID = ' + userId + ' ' +
-            'ORDER BY Users.email'} 
-            }).then((response) => {
-                setEmployees(Object.values(response.data))
-        });
+        if(props.user != undefined) {
+            axios.get('http://localhost:3002/api/getQuery', 
+                { params: { the_query: 'SELECT Users.username, Users.email, Users.userid as UserId, Users.active, CompanyAdmins.CompanyID as CompanyId ' + 
+                'FROM AffiliatedUsers ' + 
+                    'JOIN Users ON AffiliatedUsers.UserID = Users.userid ' + 
+                    'JOIN CompanyAdmins ON CompanyAdmins.CompanyID = AffiliatedUsers.CompanyID ' +
+                'WHERE CompanyAdmins.UserID = ' + userId + ' ' +
+                'ORDER BY Users.email'} 
+                }).then((response) => {
+                    setEmployees(Object.values(response.data))
+            });
+        }
     }, [])
 
     // Get each companies assigned modules
     useEffect(() => {
-        axios.get('http://localhost:3002/api/getQuery', 
-            { params: { the_query: 'SELECT COUNT(CompanyLearningModules.LearningModID) as totalAssignedModules ' + 
-            'FROM CompanyLearningModules ' + 
-                'JOIN CompanyAdmins ON CompanyAdmins.CompanyID = CompanyLearningModules.CompanyID ' +
-            'WHERE CompanyAdmins.UserID = ' + userId} 
-            }).then((response) => {
-                setAssignedModulesCount(Object.values(response.data))
-        });
+        if(props.user != undefined) {
+            axios.get('http://localhost:3002/api/getQuery', 
+                { params: { the_query: 'SELECT COUNT(CompanyLearningModules.LearningModID) as totalAssignedModules ' + 
+                'FROM CompanyLearningModules ' + 
+                    'JOIN CompanyAdmins ON CompanyAdmins.CompanyID = CompanyLearningModules.CompanyID ' +
+                'WHERE CompanyAdmins.UserID = ' + userId} 
+                }).then((response) => {
+                    setAssignedModulesCount(Object.values(response.data))
+            });
+        }
     }, [])
 
     // Get a count of how many modules each user associated with the company
     // of the current user has completed
     useEffect(() => {
-        axios.get('http://localhost:3002/api/getQuery', 
-            { params: { the_query: 'SELECT COUNT(CompletedModules.LearningModID), AffiliatedUsers.UserId ' + 
-            'FROM AffiliatedUsers ' + 
-                'JOIN CompletedModules ON AffiliatedUsers.UserID = CompletedModules.UserID ' + 
-                'JOIN CompanyAdmins ON CompanyAdmins.CompanyID = AffiliatedUsers.CompanyID ' +
-                'JOIN CompanyLearningModules ON CompanyAdmins.CompanyID = CompanyLearningModules.CompanyID ' +
-            'WHERE CompanyAdmins.UserID = ' + userId + ' ' +
-            'GROUP BY AffiliatedUsers.UserId'} 
-            }).then((response) => {
-                setUserCompletedModules(Object.values(response.data))
-        });
+        if(props.user != undefined) {
+            axios.get('http://localhost:3002/api/getQuery', 
+                { params: { the_query: 'SELECT COUNT(CompletedModules.LearningModID), AffiliatedUsers.UserId ' + 
+                'FROM AffiliatedUsers ' + 
+                    'JOIN CompletedModules ON AffiliatedUsers.UserID = CompletedModules.UserID ' + 
+                    'JOIN CompanyAdmins ON CompanyAdmins.CompanyID = AffiliatedUsers.CompanyID ' +
+                    'JOIN CompanyLearningModules ON CompanyAdmins.CompanyID = CompanyLearningModules.CompanyID ' +
+                'WHERE CompanyAdmins.UserID = ' + userId + ' ' +
+                'GROUP BY AffiliatedUsers.UserId'} 
+                }).then((response) => {
+                    setUserCompletedModules(Object.values(response.data))
+            });
+        }
     }, [])
 
     /**

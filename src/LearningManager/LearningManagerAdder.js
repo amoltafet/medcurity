@@ -49,11 +49,11 @@ const LearningModuleAdder = () => {
     };
 
     // // Query for getting info on learning modules
-    // useEffect(() => {
-    //     Axios.get('http://localhost:3002/api/getQuery', { params: { the_query:"SELECT * FROM LearningModules"} }).then((response) => {
-    //         setModules(Object.values(response.data))
-    //     });
-    // }, [])
+	// useEffect(() => {
+	//     Axios.get('http://localhost:3002/api/getQuery', { params: { the_query:"SELECT * FROM LearningModules"} }).then((response) => {
+	//         setModules(Object.values(response.data))
+	//     });
+	// }, [])
 
     function createDropDownOptions(items) {
         const dropdownList = [];
