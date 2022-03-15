@@ -36,7 +36,7 @@ const LearningManagerDashboardPage = () => {
           <WelcomePanel user={session} subtitle={'to the Learning Manager Page'}/>
           <LearningModuleAdder companyId={'1'}/>
         </CardDeck>
-        <LearningManagerCards />
+        <LearningManagerCards companyId={'1'}/>
         
     </>
   );

@@ -12,30 +12,24 @@ import LearningManagerCard from './LearningManagerCard'
  * Employers to remove the given learning module
  * @returns 
  */
-const LearningManagersCards = () => {
-    const userId = 100
-    // const [learningModules, setLearningModules] = useState([])
-    let learningModules = [
-        {Name:"Privacy", Email:"j@gmail.com", Progress:1},
-        {Name:"bio", Email:"ja@gmail.com", Progress:1},
-        {Name:"jerseys", Email:"je@gmail.com", Progress:21}
-    ]
+const LearningManagersCards = (props) => {
+    const [learningModules, setLearningModules] = useState([])
+    // let learningModules = [
+    //     {Name:"Privacy", Email:"j@gmail.com", Progress:1},
+    //     {Name:"bio", Email:"ja@gmail.com", Progress:1},
+    //     {Name:"jerseys", Email:"je@gmail.com", Progress:21}
+    // ]
 
-    // Get all of the learningModules that are employed at the company the user is an
-    // admin of. Then selects their email, name, completed modules
-    // useEffect(() => {
-    //     axios.get('http://localhost:3002/api/getQuery', 
-    //         { params: { the_query: 'SELECT Users.username, Users.email, Users.userid as UserId, CompanyAdmins.CompanyID as CompanyId ' + 
-    //         'FROM AffiliatedUsers ' + 
-    //             'JOIN Users ON AffiliatedUsers.UserID = Users.ID ' + 
-    //             'JOIN CompanyAdmins ON CompanyAdmins.CompanyID = AffiliatedUsers.CompanyID ' +
-    //             'JOIN UserStatistics ON UserStatistics.UserId = Users.ID ' +
-    //         'WHERE CompanyAdmins.UserID = ' + userId +
-    //         'ASCENDING...'} 
-    //         }).then((response) => {
-    //             setLearningModules(Object.values(response.data))
-    //     });
-    // }, [])
+    // Get all of the learningModules in a company
+    useEffect(() => {
+        axios.get('http://localhost:3002/api/getQuery', 
+            { params: { the_query: 'SELECT * ' +
+            'FROM CompanyLearningModules ' + 
+            'WHERE CompanyLearningModules.CompanyID == ' + props.companyId + ' '  
+            }}).then((response) => {
+                setLearningModules(Object.values(response.data))
+        });
+    }, [])
 
     /**
      * Create directory cards from modules
