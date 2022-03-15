@@ -18,6 +18,7 @@ import Axios from 'axios';
 const LearningManagerDashboardPage = () => {
     Axios.defaults.withCredentials = true;
     const [session, setSession] = useState([]);
+    const [companyId, setCompanyID] = useState('');
 
     useEffect(() => {
         Axios.get("http://localhost:3002/users/login").then((response) => {
@@ -33,7 +34,7 @@ const LearningManagerDashboardPage = () => {
         <MenuBar></MenuBar>
         <CardDeck className="dashTopPanel" style={{display: 'flex', flexDirection: 'row'}}>
           <WelcomePanel user={session} subtitle={'to the Learning Manager Page'}/>
-          <LearningModuleAdder />
+          <LearningModuleAdder companyId={'1'}/>
         </CardDeck>
         <LearningManagerCards />
         

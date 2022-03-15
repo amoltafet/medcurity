@@ -10,17 +10,16 @@ import Axios from 'axios';
  * This class allows employers to enter in future user learningModules.
  * Inputs are validated, then new users are added
  */
-const LearningModuleAdder = () => {
+const LearningModuleAdder = (props) => {
     Axios.defaults.withCredentials = true;
 
     const [message, setMessage] = useState("");
-    //const [modules, setModules] = useState("");
+    const [modules, setModules] = useState("");
     const [learningModule, setLearningModule] = useState("");
-    const navigate = useNavigate();
-    let modules = [
-        {ID: '1', Title: 'privacy'},
-        {ID: '2', Title: 'code'}
-    ];
+    // let modules = [
+    //     {ID: '1', Title: 'privacy'},
+    //     {ID: '2', Title: 'code'}
+    // ];
 
     /**
      * This function creates a new basic user account.
@@ -48,12 +47,21 @@ const LearningModuleAdder = () => {
         });
     };
 
-    // // Query for getting info on learning modules
-	// useEffect(() => {
-	//     Axios.get('http://localhost:3002/api/getQuery', { params: { the_query:"SELECT * FROM LearningModules"} }).then((response) => {
-	//         setModules(Object.values(response.data))
-	//     });
-	// }, [])
+    // Query for Learning Modules not included in the company already
+	useEffect(() => {
+	    Axios.get('http://localhost:3002/api/getQuery', { params: { the_query:'SELECT * ' +
+            'FROM LearningModules ' +
+                'WHERE NOT EXISTS ( ' +
+                    'SELECT * ' +
+                    'FROM CompanyLearningModules ' + 
+                    'WHERE CompanyLearningModules.CompanyID != ' + props.companyId + ' ' +
+                    'AND CompanyLearningModules.LearningModID = LearningModules.ID ' +
+                ')'
+        } }).then((response) => {
+	        setModules(Object.values(response.data))
+	    });
+	}, [])
+
 
     function createDropDownOptions(items) {
         const dropdownList = [];
@@ -99,6 +107,7 @@ const LearningModuleAdder = () => {
                 </label>
                 <input className="createButton" type="submit" value="Submit" onClick={addModule} />
             </form>
+            <div className="InviteSubtitle font">{message}</div>
                 
              
         </Container>
