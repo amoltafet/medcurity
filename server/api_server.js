@@ -34,6 +34,7 @@ var the_session =   session({
   resave: true,
   saveUninitialized: true,
   secret: "subscribe",
+
 })
 
 app.use(the_session);
