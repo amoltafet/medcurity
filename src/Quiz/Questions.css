@@ -36,4 +36,15 @@
     text-align: start;
     font-size: 100%;
 
+    margin-top: 5%;
+}
+
+#check-image {
+    width: 2%;
+}
+
+.correctResult {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
 }

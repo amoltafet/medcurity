@@ -287,8 +287,15 @@ const QuizPage = () => {
   else {
     var newestIndex = 0;
 
+   
+    var correctIndex = 0
     const QuestionContent = content.map((question) => {
       var newID = "q-group" + newestIndex
+      for(var i = 0; i < 4; i++) {
+        if(data[newestIndex]["answer"] == curentAnswers[newestIndex][i]) {
+          correctIndex = i;
+        }
+      }
       newestIndex++;
       if (data[newestIndex - 1]["correct"] === true) {
         points += 100
@@ -299,7 +306,9 @@ const QuizPage = () => {
               id={newID}
               i={newestIndex - 1}
               question={question.question}
-              answers={[question.solution, question.a2, question.a3, question.a4]}
+              answers={curentAnswers[newestIndex - 1]}
+              userAnswer={correctIndex}
+              isCorrect = {true}
               action={adjustStateData}
               classes={quizClassNames[2]}
             />
@@ -313,7 +322,9 @@ const QuizPage = () => {
               id={newID}
               i={newestIndex - 1}
               question={question.question}
-              answers={[question.solution, question.a2, question.a3, question.a4]}
+              answers={curentAnswers[newestIndex - 1]}
+              userAnswer={correctIndex}
+              isCorrect={false}
               action={adjustStateData}
               classes={quizClassNames[1]}
             />

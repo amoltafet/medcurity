@@ -35,7 +35,7 @@ const DashboardPage = () => {
           <WelcomePanel user={session} ></WelcomePanel> 
           <Leaderboard user={session} ></Leaderboard>
         </CardDeck>
-        <LearningModulesCards/>
+        <LearningModulesCards user={session} />
         <LearningModulesDirectories/>
     </>
   );
