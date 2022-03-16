@@ -14,33 +14,17 @@ import { useNavigate } from 'react-router-dom';
 export default function LoginPage()
 {
   Axios.defaults.withCredentials = true;
-
   const [message, setMessage] = useState("")
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const login = () => {
-    console.log('LOGGING IN', email, password)
-    let credential_requirements = " "
-    
-    if (email <= 0 || password <= 0)
+  const login = () => {    
+
+    if (email.length > 0 || password.length > 0)
     {
-      if (email <= 0) credential_requirements += "Email required. "
-      if (password <= 0) credential_requirements += "Password required. "
-      console.log(credential_requirements)
-      setMessage(credential_requirements)
-    }
-    else
-    {
-      setMessage(credential_requirements)
-      Axios.post("http://localhost:3002/users/login",
-      { 
-        email: email,
-        password: password
-      }).then((response) => 
+      Axios.post("http://localhost:3002/users/login", { email: email, password: password }).then((response) => 
       {
-        console.log("response.data =", response.data)
         if (response.data.success === true)
         {
           setMessage(response.data.message)
@@ -50,10 +34,16 @@ export default function LoginPage()
         {
           setMessage(response.data.message)
         }
-      }).catch(error => console.error(`Error ${error}`));
-      }
-
-  };
+      });
+    }
+    else
+    {
+      let loginMessage = ""
+      if (email <= 0) loginMessage += "Email required. "
+      if (password <= 0) loginMessage += "Password required. "
+      setMessage(loginMessage)
+    };
+  }
 
   const register = () => {
     navigate('/register');
@@ -89,9 +79,10 @@ export default function LoginPage()
                   setPassword(e.target.value);
                 }}/>
               <Button className="loginButton" variant="secondary" type="button" onClick={login}>Login</Button>
-              <Button className="registerButton" variant="secondary" type="button" onClick={register}>Register</Button>
+              <Button className="registerButton" variant="secondary" type="button" onClick={register}>Register a New Account</Button>
+              <Form.Text className="loginMessage">{message}</Form.Text>
             </Form.Group>
-            <Form.Text className="loginMessage">{message}</Form.Text>
+            
         </Form>
       </Form>
       </>
