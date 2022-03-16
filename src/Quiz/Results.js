@@ -1,6 +1,7 @@
-import { Container } from "react-bootstrap";
+import { Container, Col } from "react-bootstrap";
 import React, { useEffect, useState } from 'react';
 import './Questions.css';
+import Result from "./Result";
 function Results(props) {
     
 
@@ -25,29 +26,6 @@ function Results(props) {
         setQuizToggleId(props.id)
     },[props.id])
 
-    /* <ToggleButtonGroup id={quizToggleId} className="answerQuizSelection" vertical name={quizToggleId}>
-                {myanswers.map((radio, idx) => (
-                <ToggleButton 
-                    key={idx}
-                    id={`radio-${idx}`}
-                    type="radio"
-                    variant="light secondary"
-                    name="radio "
-                    value={radio.name}
-                    className="individualQuestions"
-                    onChange={(e) => props.action(props.i, radio.name)}>
-                    {` ${radio.name}`}
-                </ToggleButton>
-                ))}
-            </ToggleButtonGroup>
-            </div> */
-        // function resultContent(index) {
-        //     for(var i = 0; i < 4; i++) {
-        //         if(props.answerData[props.i]) {
-                    
-        //         }
-        //     }
-        // } 
 
     return(
         <>
@@ -57,17 +35,11 @@ function Results(props) {
                     {props.question} 
                 </Container>
 
-                <div id={quizToggleId} className="resultsQuizSelection" vertical name={quizToggleId}>
+                <Col id={quizToggleId} className="resultsQuizSelection" vertical name={quizToggleId}>
                     {myanswers.map((radio, idx) => (
-                        <Container 
-                            key={idx} 
-                            id={`result-${idx}`}
-                            value={radio.name}
-                            className="individualResults">
-                                {`${radio.name}`}
-                            </Container>
+                        <Result index={idx} rad = {radio} correctIdx = {props.userAnswer} correct={props.isCorrect}></Result>
                     ))}
-                </div>
+                </Col>
 
             </div>
         </>
