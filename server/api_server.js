@@ -1,5 +1,5 @@
-// IMPORTANT: To start up the middleware server, open a PowerShell window (or similar) in the /_server folder
-// and do the following command: node index.js
+// IMPORTANT: To start up the middleware server, open a PowerShell window (or similar) in the root folder
+// and run node server/api_server.js 
 // An output message saying "Server is running on 3002" should appear.
 
 // Below are two example queries. When the middleware server is running, if it receives a GET HTTP request 
