@@ -71,7 +71,6 @@ const  LearningDirectoryPage = () => {
     }, [])
 
     const directoryTitle = directory.map((directory) => {
-        
         return directory.Title
     })
 
