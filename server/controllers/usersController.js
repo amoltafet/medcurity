@@ -124,7 +124,7 @@ const userPoints = (req, res) => {
         db.query(`SELECT * FROM Users WHERE userid = '${userid}'`, (err,result) => {
             req.session.userSession = result;
             ///logger.log('info', `Updated username to "${newUserName}"`);
-            res.send({ result: result, success: true, message: "Updated username!" });
+            res.send({ result: result, success: true, message: `Updated user points to ${points}!` });
         })
     })   
 }
