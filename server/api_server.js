@@ -34,9 +34,7 @@ var the_session =   session({
   resave: true,
   saveUninitialized: true,
   secret: "subscribe",
-  cookie: {
-    expires: (60 * 60 * 24) * 5,
-  },
+
 })
 
 app.use(the_session);
