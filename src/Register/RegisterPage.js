@@ -2,8 +2,6 @@ import {Button, Image, Form, Card} from 'react-bootstrap'
 import React from 'react';
 import { useState } from "react";
 import Axios from "axios"
-import emailValidator from "email-validator"
-import { passwordStrength } from 'check-password-strength'
 import './RegisterPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useNavigate } from 'react-router-dom';
@@ -30,67 +28,28 @@ export default function RegisterPage()
 
     if (email.length > 0 || password.length > 0)
     {
-      let isValidPass  = checkPassword(password)
-      let isValidEmail = checkEmail(email)
-
-      if (isValidPass.result && isValidEmail.result)
+      console.log("REGISTER CALLED")
+      Axios.post("http://localhost:3002/users/register", { email: email, password: password }).then((response) => 
       {
-        Axios.post("http://localhost:3002/users/register", { email: email, password: password }).then((response) => 
+        if (response.data.result === true)
         {
-          if (response.data === true)
-          {
-            navigate('/dash');
-          }
-          else if (response.data === false)
-          {
-            setMessage('This email is already in use! Please go back to the login page by clicking the "Back to Login" button.')
-          }
-        });
-      }
-      else
-      {
-        setMessage([isValidEmail.message, <br/>, isValidPass.message])
-      }
+          setMessage(response.data.message)
+          navigate('/dash');
+        }
+        else if (response.data.result === false)
+        {
+          setMessage(response.data.message.join(" "))
+        }
+      });
     }
     else
     {
-      setMessage('You need to enter an email and password!')
+      let registerMessage = ""
+      if (email <= 0) registerMessage += "Email required. "
+      if (password <= 0) registerMessage += "Password required. "
+      setMessage(registerMessage)
     }
   };
-
-  const checkEmail = (emailString) => 
-  {
-    if (emailValidator.validate(emailString))
-    {
-      return { result: true, message: null}
-    }
-    else
-    {
-      //return [false, `That's not a valid email address!`]
-      return { result: false, message: `That's not a valid email address!`}
-    }
-  }
-
-  const checkPassword = (passwordString) => 
-  {
-    if (passwordStrength(passwordString).contains.length == 4)
-    {
-      if (passwordStrength(passwordString).id > 1)
-      {
-        return { result: true, message: null}
-      }
-      else
-      {
-        //return [false, `Your password is too weak! Please enter a stronger password.`]
-        return { result: false, message: `Your password is too weak! Please enter a stronger password.` }
-      }
-    }
-    else
-    {
-      //return [false, `Your password must contain the following: lowercase letter, uppercase letter, symbol, number`]
-      return { result: false, message: `Your password must contain the following: lowercase letter, uppercase letter, symbol, number` }
-    }
-  }
   
   return (
       <>
