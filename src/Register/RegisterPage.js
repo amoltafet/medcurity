@@ -39,7 +39,7 @@ export default function RegisterPage()
         console.log("Already has account!")
         setMessage('This email is already in use! Please go back to the login page by clicking the Medcurity logo.')
       }
-    });
+    }).catch(error => console.error(`Error ${error}`));
   };
 
   const login = () => {

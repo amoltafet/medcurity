@@ -11,7 +11,6 @@ import { useEffect, useState } from "react";
 * @return {WelcomePanel}
 */
 const WelcomePanel = (props) => {
-    console.log("explain", props.user)
 
     return (
         <>

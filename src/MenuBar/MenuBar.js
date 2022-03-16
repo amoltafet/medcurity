@@ -16,15 +16,15 @@ const Menubar = () => {
     const logout = () => {
         Axios.post("http://localhost:3002/users/logout").then((response) => 
         {
-          if (response.data.success == true)
+          if (response.data.success === true)
           {
             navigate('/');
           }
-          else if (response.data.success == false)
+          else if (response.data.success === false)
           {
             console.log(response.data.message)
           }
-        });
+        }).catch(error => console.error(`Error ${error}`));
     };
 
     /**

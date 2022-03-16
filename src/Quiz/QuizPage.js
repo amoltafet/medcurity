@@ -16,18 +16,22 @@ import Results from './Results';
 * @return {QuizPage}
 */
 const QuizPage = () => {
+  axios.defaults.withCredentials = true;
   const quizClassNames = [
     ["questionNumbers text-center", "questionDesciption"],
     ["questionNumbersWrong text-center", "questionDesciptionWrong"],
     ["questionNumbersRight text-center", "questionDesciptionRight"]
   ];
+  const [session, setSession] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [content, setContent] = useState([]);
   const [currentQuestion, setQuestion] = useState([]);
   const [curentAnswers, setAnswers] = useState([["a", "b", "c", "d"]]);
   const [index, setQuestionIndex] = useState(0);
   const [isSubmitted, setSubmitted] = useState(false);
-  const [isChecked, setChecked] = useState([[false, false, false, false]])
+  const [isChecked, setChecked] = useState([[false, false, false, false]]);
+  var points = 0;
+  var numCorrect = 0;
   // data array that holds question information using state
   const [data, setData] = useState([
     { answer: "", correct: false },
@@ -53,9 +57,23 @@ const QuizPage = () => {
     { answer: "", correct: false },
   ]);
 
+
+  /**
+   *  grabs user session to store points 
+   */ 
+   useEffect(() => {
+      axios.get("http://localhost:3002/users/login").then((response) => {
+        setSession(response.data.user[0])
+      }).catch(error => console.error(`Error ${error}`));
+    }, []);
+
+
   let { slug } = useParams();
 
-  // grabs content and sets loading to false 
+
+  /**
+   *  grabs content and sets loading to false 
+   */
   useEffect(() => {
     setQuestionIndex(0);
     axios.get('http://localhost:3002/api/getModuleQuestions', { params: { id: slug } }).then((response) => {
@@ -64,29 +82,41 @@ const QuizPage = () => {
     }).catch(error => console.error(`Error ${error}`));
 
   }, [slug])
-
+  
+  /**
+   *  once content is loaded shuffles & sets  question
+   */
   useEffect(() => {
     if (!isLoading && !isSubmitted) {
       initializeShuffledAnswers();
-    }
-  }, [isLoading, isSubmitted])
-
-  // once content is loaded set question
-  useEffect(() => {
-    if (!isLoading && !isSubmitted) {
       setQuestion(content[index])
-      console.log("runnn")
     }
   }, [isLoading, content, index, isSubmitted])
 
+
+
+
+  useEffect(() => {
+    if (!isLoading && isSubmitted) {
+      var categoryName = "category" + slug;
+      var percentName = "percentage" + slug;
+      var percent = numCorrect/content.length
+      console.log("percent: ", percent)
+      axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `UPDATE Users SET ${categoryName} = '${points}', ${percentName} = "${percent}" WHERE userid = '${session.userid}'` } }).then((response) => {
+        console.log("money", session)
+      }).catch(error => console.error(`Error ${error}`));
+    }
+  }, [points, numCorrect, isSubmitted])
+
+  /**
+   *  shuffles the question answers
+   * @returns the shuffled answers 
+   */
   function shuffleArray(array) {
     let curId = array.length;
-    // There remain elements to shuffle
     while (0 !== curId) {
-      // Pick a remaining element
       let randId = Math.floor(Math.random() * curId);
       curId -= 1;
-      // Swap it with the current element.
       let tmp = array[curId];
       array[curId] = array[randId];
       array[randId] = tmp;
@@ -119,7 +149,7 @@ const QuizPage = () => {
   }
 
 
-  /**
+/**
  * Increments the question
  */
   function nextQuestion() {
@@ -136,11 +166,9 @@ const QuizPage = () => {
         var nextq = content[newIndex];
         setQuestion(nextq);
         setQuestionIndex(newIndex);
-        console.log("index: ", newIndex);
 
         if (newIndex === content.length || newIndex >= content.length) {
           document.getElementById("rightQuestionBttn").disabled = true;
-
         
         }
         if (newIndex === (content.length - 1)) { 
@@ -182,17 +210,18 @@ const QuizPage = () => {
     }
     data[index] = newData;
     setData([...data]);
-    console.log("" + answer);
 
     var checkedArray = isChecked;
     checkedArray[index][buttonIndex] = true;
     setChecked(checkedArray);
   }
-  // function to display in the console the question data stored in the data state variable in Quizpage.js
+
+  /**
+   *  function to display in the console the question data stored in the data state variable in Quizpage.js
+   */
   function displayQuestionData() {
     for (var i = 0; i < content.length; i++) {
       var newData = data[i];
-      console.log("selected answer: " + newData["answer"]);
     }
     setSubmitted(true);
   }
@@ -208,23 +237,27 @@ const QuizPage = () => {
       }
     }
 
+
+
     return (
       <>
         <MenuBar></MenuBar>
-        <div id="quizPageContainer" className="quizBg img-fluid">
+        <div id="quizPageContainer" className="quizBg img-fluid text-center">
+        <div className="questionPosOutOfTotal text-center" id="questionPosOutOfTotal"> {index + 1} / {content.length} </div>
+
           {DisplayOneQuestion()}
-          <Row className="justify-content-center">
-            <div className="questionPosOutOfTotal text-center" id="questionPosOutOfTotal"> {index + 1} / {content.length} </div>
-            <Button
+
+         
+          <Button
               id="rightQuestionBttn"
               type="submit"
-              className="toggleQuestionRight"
+              className=" toggleQuestionRight"
               onClick={() => nextQuestion()}>
-              <Image className="rightArrow" src="/right.png"></Image>
+                <Image className="rightArrow" src="/right.png"></Image>
             </Button>
-          </Row>
+          
+        
           <SubmitButton value="Submit" questionData={data} content={content.length} action={displayQuestionData}></SubmitButton>
-          {console.log("finished rendering")}
           {disabledSubmitBttn()}
         </div>
       </>
@@ -232,8 +265,8 @@ const QuizPage = () => {
   }
   else {
     var newestIndex = 0;
-    var points = 0
-    var numCorrect = 0
+
+   
     var correctIndex = 0
     const QuestionContent = content.map((question) => {
       var newID = "q-group" + newestIndex
@@ -282,7 +315,7 @@ const QuizPage = () => {
       <>
         <MenuBar></MenuBar>
         <div id="resultsPageContainer">
-          <h1 class="quizResultsHeader">Quiz Results</h1> 
+          <h1 className="quizResultsHeader">Quiz Results</h1> 
           <Row className="text-center quizPointInfo">
             <Col>
             <div className="totalCorrectQuestions"> {numCorrect} / {content.length} Questions Correct </div>

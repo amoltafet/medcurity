@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './LearningModuleDirectories.css'
-import { Card, Container, CardDeck, Row, Col } from 'react-bootstrap';
+import { Card, Container, Row } from 'react-bootstrap';
 import { useEffect, useState } from "react";
 import axios from 'axios';
 
@@ -16,7 +16,7 @@ const LearningModuleDirectories = () => {
     useEffect(() => {
         axios.get('http://localhost:3002/api/getQuery', { params: { the_query: "SELECT * FROM LearningModulesDirectory"} }).then((response) => {
               setDirectories(Object.values(response.data))
-        });
+        }).catch(error => console.error(`Error ${error}`));
     }, [])
 
 
@@ -26,7 +26,6 @@ const LearningModuleDirectories = () => {
      * @returns 
      */
     const DirectoryPanel = (props) => {
-        console.log("e", props.title)
         return (
             <>
             <Card className="LearningModuleDirectoriesCard uvs-right uvs-left">

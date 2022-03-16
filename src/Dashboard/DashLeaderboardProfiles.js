@@ -10,7 +10,7 @@ import './DashLeaderboardProfiles.css'
     * @param {user} user holds all of the info for the user.
     * @return {GetPage}
     */
-function DashLeaderboardProfiles(props) {
+function DashLeaderboardProfiles (props) {
     return (
         <>
             <Card className="cardBackgroundDash" style={{ flexDirection: 'row' }}>
@@ -27,7 +27,7 @@ function DashLeaderboardProfiles(props) {
                  <div className="scoreTextDash">Score</ div>
                 </Col>
                 <Col sm>
-                    <div body className="pointsDash">{props.user.overallPoints}</div> 
+                    <div body className="pointsDash">{props.score}</div> 
                 </Col>   
             </Card>
         </>

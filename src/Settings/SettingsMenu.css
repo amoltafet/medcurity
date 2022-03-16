@@ -1,88 +1,123 @@
 .profileImage {
-    width: 5vmax;
-    height: 5vmax;
+    width: 100%;
 }
 
 .settingsRow {
-    width: 90vmax;
+    width: 100%;
 }
 
 .nav-link.active {
-    width: 8vmax;
-    border-radius: 5px;
+    margin-top: 5%;
     background-color: #cc3333 !important;
     text-align: center;
+    width: 100%;
+    font-size: 80%;
 }
 
-.unselectedSetting {
-    color: #1e5b88;
+.nav-link.active:hover {
+    color: white;
+}
+
+.nav-link {
+    color: black;
     text-align: center;
     border: #1e5b88;
-    width: 8vmax;
-    border-radius: 5px;  
+    width: 100%;
+    font-size: 80%;
+    margin-top: 5%;
+}
+
+.nav-link:hover {
+    color: black;
 }
 
 .unselectedSetting:hover {
     color: #d8dae3;
 }
 
-.settingsMenuContainer {
-    margin-top: 1vmax;
-    margin-bottom: 2vmax;
-    margin-left: 2vmax;
-    margin-right: 2vmax;
-    height: 20vmax;
+.settingsContentPaneContainer {
+    margin-top: 1%;
+    margin-bottom: 2%;
+    margin-left: 2%;
+    margin-right: 2%;
 }
 
 .usernameText { 
     font-family: Lato,sans-serif;
-    font-size: 1.4vmax;
-    margin-top: 2vmax;
-    margin-bottom: 2vmax;
+    font-size: 140%;
+    margin-top: 2%;
+    margin-bottom: 2%;
 }
+
+.usernameControl {
+    border: #d8dae3;
+}
+
 
 .emailText {
     font-family: Lato,sans-serif;
-    font-size: 1.4vmax;
-    margin-top: 2vmax;
-    margin-bottom: 2vmax;
+    font-size: 140%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.emailControl {
+    border: #d8dae3;
 }
 
 
 .emailInput {
     font-family: Lato,sans-serif;
-    font-size: 1.4vmax;
-    margin-top: 2vmax;
-    margin-bottom: 2vmax;
-    width: 60vmax;
+    font-size: 60%;
+    margin-top: 2%;
+    margin-bottom: 2%;
 }
 
 .usernameInput {
     font-family: Lato,sans-serif;
-    font-size: 1.4vmax;
-    margin-top: 2vmax;
-    margin-bottom: 2vmax;
-    width: 60vmax;
+    font-size: 60%;
+    margin-top: 2%;
+    margin-bottom: 2%;
 }
 
 .dropShadow {
-    margin-top: 2vmax;
-    margin-bottom: 2vmax;
-    margin-left: 2vmax;
-    margin-right: 2vmax;
-    width: 70vmax;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-left: 2%;
+    margin-right: 2%;
+    width: 70%;
 }
 
 .shadowTab {
-    margin-top: 2vmax;
-    margin-bottom: 2vmax;
-    margin-left: 2vmax;
-    margin-right: 2vmax;
-    width: 11vmax;
-    height: 13vmax;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-right: 5%;
+    width: 20%;
+    height: 13.5vmax;
  
 }
 
 .marginTop {
-    margin-top: 1vmax;
+    margin-top: 1%;
+}
+
+.settingsSaveButton {
+    background-color: #1e5b88;
+    color: white !important;
+    border: none;
+    font-size: 70%;
+    margin-left: 88%;
+    margin-top: 1%;
+    margin-bottom: 2%;
+}
+
+.settingsSaveButton:hover {
+    border: none;
+    background-color: #1e5b88;
+    color: #d8dae3;
+}
+
+.settingsSaveButton:focus {
+    border: none;
+    background-color: #1e5b88;
 }

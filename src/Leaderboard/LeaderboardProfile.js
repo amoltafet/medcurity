@@ -16,32 +16,27 @@ import './LeaderboardProfile.css'
 */
 function LeaderboardProfile(props) {
     const [directories, setDirectories] = useState([]);
-    const [isLoading, setLoading] = useState(true);
     axios.defaults.withCredentials = true;
     const [session, setSession] = useState([]);
 
     useEffect(() => {
         axios.get("http://localhost:3002/users/login").then((response) => {
-          console.log('aaahhh', response.data.user)
           setSession(response.data.user[0])
-        });
+        }).catch(error => console.error(`Error ${error}`));
       }, []);
 
-    console.log(session)
 
     // Query for getting LearningDirectories Directory info
     useEffect(() => {
         axios.get('http://localhost:3002/api/getQuery', { params: { the_query: "SELECT * FROM LearningModulesDirectory" } }).then((response) => {
             setDirectories(Object.values(response.data))
-            setLoading(false);
-        });
+        }).catch(error => console.error(`Error ${error}`));
     }, [])
 
     const GetCurrentModule = () => {
         var categoryData = []
         if (directories != null) {
         for (var i = 0; i < directories.length; i++) {
-            console.log(directories[0])
             categoryData.push( <>
                 <Row>
                     <Col >
@@ -97,7 +92,7 @@ function LeaderboardProfile(props) {
                                     <div className="scoreLabelLeaderboard" >Total Score</div>
                                 </Col>
                                 <Col>
-                                    <div className="userPointsLeaderboard">{props.user.overallPoints}</div>
+                                    <div className="userPointsLeaderboard">{props.score}</div>
                                 </Col>
 
                             </Card>
@@ -135,7 +130,7 @@ function LeaderboardProfile(props) {
                                     <div className="scoreLabelLeaderboard" >Total Score</div>
                                 </Col>
                                 <Col>
-                                    <div className="userPointsLeaderboard">{props.user.overallPoints}</div>
+                                    <div className="userPointsLeaderboard">{props.score}</div>
                                 </Col>
 
                             </Card>
