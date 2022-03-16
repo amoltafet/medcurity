@@ -9,17 +9,7 @@ const LearningDirectoryRequiredPage = () => {
     const [learningModules, setLearningModules] = useState([])
     Axios.defaults.withCredentials = true;
     const [session, setSession] = useState([]);
-
-    const userId = session.map((session) => {
-        let id = String(session.user.userId);
-        console.log('Hello')
-        if (id == undefined) {
-            return '0';
-        }
-        else {
-            return id;
-        }
-    })
+    const [isLoading, setLoading] = useState(true)
 
     useEffect(() => {
         Axios.get("http://localhost:3002/users/login").then((response) => {
@@ -28,16 +18,31 @@ const LearningDirectoryRequiredPage = () => {
         });
       }, []);
 
+    useEffect(() => {
+        console.log("testing")
+        if (session.user != undefined) {
+            setLoading(false)
+            console.log("changed")
+        }
+    }, [session])
+
+    
+
     // Query for getting user's required learning modules
     useEffect(() => {
-        Axios.get('http://localhost:3002/api/getQuery', 
-            { params: { the_query: 'SELECT * ' +
-            'FROM LearningModules JOIN AssignedLearningModules ON LearningModules.ID = AssignedLearningModules.LearningModID ' +
-            'WHERE AssignedLearningModules.UserID = ' + String(session.user.userId)} 
-            }).then((response) => {
-                setLearningModules(Object.values(response.data))
-        });
-    }, [])
+        console.log("ran")
+        if (!isLoading) {
+            console.log(String(session.user.userid))
+            Axios.get('http://localhost:3002/api/getQuery', 
+                { params: { the_query: 'SELECT * ' +
+                'FROM LearningModules JOIN AssignedLearningModules ON LearningModules.ID = AssignedLearningModules.LearningModID ' +
+                'WHERE AssignedLearningModules.UserID = ' + String(session.user.userid)} 
+                }).then((response) => {
+                    setLearningModules(Object.values(response.data))
+            });
+            
+        }
+    }, [isLoading])
 
 
     return(

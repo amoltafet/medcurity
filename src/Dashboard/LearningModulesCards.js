@@ -11,17 +11,28 @@ import axios from 'axios';
  * @returns 
  */
 const LearningModulesCards = (props) => {
-    const userId = String(props.user.userId)
+    const userId = String(props.user.userid)
+    const [isLoading, setLoading] = useState(true)
     const [learningModules, setLearningModules] = useState([])
+
+    useEffect(() => {
+        if (props.user != undefined) {
+            setLoading(false)
+        }
+    }, [props.user])
 
     // Query for getting user's required learning modules
     useEffect(() => {
-        axios.get('http://localhost:3002/api/getQuery', 
-            { params: { the_query: 'SELECT * FROM LearningModules JOIN AssignedLearningModules ON LearningModules.ID = AssignedLearningModules.LearningModID WHERE AssignedLearningModules.UserID = ' + userId} 
-            }).then((response) => {
-                setLearningModules(Object.values(response.data))
-        });
-    }, [])
+        if (!isLoading) {
+            console.log("userid is valid")
+            console.log(userId)
+            axios.get('http://localhost:3002/api/getQuery', 
+                { params: { the_query: 'SELECT * FROM LearningModules JOIN AssignedLearningModules ON LearningModules.ID = AssignedLearningModules.LearningModID WHERE AssignedLearningModules.UserID = ' + userId} 
+                }).then((response) => {
+                    setLearningModules(Object.values(response.data))
+            });
+        }
+    }, [userId])
 
 
     /**
