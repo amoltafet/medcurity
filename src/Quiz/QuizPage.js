@@ -78,6 +78,7 @@ const QuizPage = () => {
     setQuestionIndex(0);
     axios.get('http://localhost:3002/api/getModuleQuestions', { params: { id: slug } }).then((response) => {
       setContent(Object.values(response.data));
+      console.log(content)
       setLoading(false);
     }).catch(error => console.error(`Error ${error}`));
 
@@ -96,15 +97,36 @@ const QuizPage = () => {
 
 
 
+  // useEffect(() => {
+  //   if (!isLoading && isSubmitted) {
+  //     var categoryName = "category" + slug;
+  //     var percentName = "percentage" + slug;
+  //     var percent = numCorrect/content.length
+  //     console.log("percent: ", percent)
+  //     axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `UPDATE Users SET ${categoryName} = '${points}', ${percentName} = "${percent}" WHERE userid = '${session.userid}'` } }).then((response) => {
+  //       console.log("money", session)
+  //     }).catch(error => console.error(`Error ${error}`));
+  //   }
+  // }, [points, numCorrect, isSubmitted])
+  // console.log("user2: ", session);
+
   useEffect(() => {
-    if (!isLoading && isSubmitted) {
+    if (!isLoading && isSubmitted && points != 0) {
       var categoryName = "category" + slug;
       var percentName = "percentage" + slug;
-      var percent = numCorrect/content.length
-      console.log("percent: ", percent)
-      axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `UPDATE Users SET ${categoryName} = '${points}', ${percentName} = "${percent}" WHERE userid = '${session.userid}'` } }).then((response) => {
-        console.log("money", session)
-      }).catch(error => console.error(`Error ${error}`));
+      var percent = numCorrect/content.length;
+      console.log("percent: ", percent);
+      console.log("points: ", points);
+      axios.post("http://localhost:3002/users/quiz", {
+        categoryName: categoryName,
+        points: points,
+        percentName: percentName, 
+        lengths: (percent),
+        userid: session.userid,
+    }).then((response) => {
+        console.log("response", response.data);
+        
+    }).catch(error => console.log(`Error ${error}`));
     }
   }, [points, numCorrect, isSubmitted])
 
@@ -132,7 +154,6 @@ const QuizPage = () => {
   function DisplayOneQuestion() {
     if (!isLoading) {
       const groupID = "q-group" + index;
-      // returns one quiz question based on index
       return (
         [<Questions
           id={groupID}

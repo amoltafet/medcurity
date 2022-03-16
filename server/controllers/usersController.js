@@ -208,7 +208,7 @@ const userUpdate = (req, res) => {
 }
 
 const userPoints = (req, res) => {
-    logger.log("e")
+    //logger.log("e")
     const categoryName = req.body.categoryName;
     const points = req.body.points;
     const percentName = req.body.percentName;
@@ -223,8 +223,8 @@ const userPoints = (req, res) => {
     db.query(`UPDATE Users SET ${categoryName} = '${points}', ${percentName} = "${length}" WHERE userid = '${userid}'`, (err,result) => {
         db.query(`SELECT * FROM Users WHERE userid = '${userid}'`, (err,result) => {
             req.session.userSession = result;
-            logger.log('info', `Updated username to "${newUserName}"`);
-            res.send({ result: result, success: true, message: "Updated username!" });
+            ///logger.log('info', `Updated username to "${newUserName}"`);
+            res.send({ result: result, success: true, message: `Updated user points to ${points}!` });
         })
     })   
 }

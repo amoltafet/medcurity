@@ -102,13 +102,13 @@ const Leaderboard = (props) => {
                         user={user}
                         index={1}
                         className={className} 
-                        score={props.user.category1 + props.user.category2 + props.user.category3 + props.user.category4 + props.user.category5}/>,
+                        score={(props.user.category1 + props.user.category2 + props.user.category3 + props.user.category4 + props.user.category5)}/>,
                     <DashLeaderboardProfiles
                         name={users[1].username}
                         user={user}
                         index={2}
                         className={className} 
-                        score={users[1].category1 + users[1].category2 + users[1].category3 + users[1].category4 + users[1].category5}/>,
+                        score={(users[1].category1 + users[1].category2 + users[1].category3 + users[1].category4 + users[1].category5)}/>,
                     <DashLeaderboardProfiles
                         name={users[2].username}
                         user={user}
