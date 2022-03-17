@@ -18,25 +18,44 @@ import Axios from 'axios';
 const LearningManagerDashboardPage = () => {
     Axios.defaults.withCredentials = true;
     const [session, setSession] = useState([]);
-    const [companyId, setCompanyID] = useState('');
+    const [companyId, setCompanyId] = useState('');
+	const [company, setCompany] = useState('');
+    const [isLoading, setLoading] = useState(true)
+	const [isLoadingCompanyID, setIsLoadingCompanyID] = useState(true)
 
     useEffect(() => {
         Axios.get("http://localhost:3002/users/login").then((response) => {
           setSession(response.data.user[0])
         });
-      }, []);
+	}, []);
 
-    console.log(session)
+    useEffect(() => {
+        if (session.userid != undefined) {
+            setLoading(false)
+        }
+    }, [session])
 
+    // Query for getting user's required learning modules
+    useEffect(() => {
+        if (!isLoading) {
+            Axios.get('http://localhost:3002/api/getQuery', 
+                { params: { the_query: 'SELECT CompanyAdmins.CompanyID ' +
+                'FROM CompanyAdmins ' +
+                'WHERE CompanyAdmins.UserID = ' + String(session.userid)} 
+                }).then((response) => {
+                    setCompanyId(Object.values(response.data)[0].CompanyID)
+            });            
+        }
+    }, [isLoading])
 
     return (
     <>
         <MenuBar></MenuBar>
         <CardDeck className="dashTopPanel" style={{display: 'flex', flexDirection: 'row'}}>
           <WelcomePanel user={session} subtitle={'to the Learning Manager Page'}/>
-          <LearningModuleAdder companyId={'1'}/>
+          <LearningModuleAdder companyId={companyId}/>
         </CardDeck>
-        <LearningManagerCards companyId={'1'}/>
+        <LearningManagerCards companyId={companyId}/>
         
     </>
   );

@@ -25,11 +25,11 @@ const LearningManagersCards = (props) => {
         axios.get('http://localhost:3002/api/getQuery', 
             { params: { the_query: 'SELECT * ' +
             'FROM CompanyLearningModules ' + 
-            'WHERE CompanyLearningModules.CompanyID == ' + props.companyId + ' '  
+            'WHERE CompanyLearningModules.CompanyID = ' + String(props.companyId)  
             }}).then((response) => {
                 setLearningModules(Object.values(response.data))
         });
-    }, [])
+    }, [props.companyId])
 
     /**
      * Create directory cards from modules

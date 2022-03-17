@@ -60,7 +60,7 @@ const LearningModuleAdder = (props) => {
         } }).then((response) => {
 	        setModules(Object.values(response.data))
 	    });
-	}, [])
+	}, [props.companyId])
 
 
     function createDropDownOptions(items) {
