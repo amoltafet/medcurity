@@ -47,7 +47,7 @@
 
 .createButton {
     color: white;
-    background-color: #c33333;
+    background-color: #cc3333;
     margin-top: 5%;
     font-family: Lato,sans-serif;
     font-size: 1.1vmax;
@@ -56,18 +56,18 @@
 }
 
 .createButton:focus {
-    background-color: #c33333;
+    background-color: #cc3333;
     border: none;
 }
 
 .createButton:hover {
-    background-color: #c33333;
+    background-color: #cc3333;
     border: none;
 }
 
 .loginRegisterBtn {
     color: white;
-    background-color: #c33333;
+    background-color: #cc3333;
     margin-top: 5%;
     font-family: Lato,sans-serif;
     font-size: 1.1vmax;
@@ -76,22 +76,22 @@
 }
 
 .loginRegisterBtn:focus {
-    background-color: #c33333;
+    background-color: #cc3333;
     border: none;
 }
 
 .loginRegisterBtn:hover {
-    background-color: #c33333;
+    background-color: #cc3333;
     border: none;
 }
 
 .createButton:focus {
-    background-color: #c33333;
+    background-color: #cc3333;
     border: none;
 }
 
 .createButton:hover {
-    background-color: #c33333;
+    background-color: #cc3333;
     border: none;
 }
 

@@ -229,6 +229,27 @@ const userPoints = (req, res) => {
     })   
 }
 
+const userModuleCompleted = (req, res) => {
+    var today = new Date();
+    const categoryId = req.body.categoryId;
+    const userid = req.body.userid;
+
+    logger.log('info', ` userid:  "${userid}"`);
+    logger.log('info', `categoryid: "${categoryId}"`);
+    logger.log('info', `datern: "${today}"`);
+   
+
+    db.query(`INSERT INTO CompletedModules (userid, learningmodid, datecompleted)  VALUES (?,?,?)`, [userid, categoryId, today], (err,result) => {
+        db.query(`DELETE FROM AssignedLearningModules WHERE learningmodid = "${categoryId}" AND userid = "${userid}"`, (err,result) => {
+            db.query(`SELECT * FROM Users WHERE userid = '${userid}'`, (err,result) => {
+                req.session.userSession = result;
+                ///logger.log('info', `Updated username to "${newUserName}"`);
+                res.send({success: true, message: `Completed Module & Removed from the Assigned B)`  });
+            })
+        }) 
+    })   
+}
+
 module.exports = 
 {
     userLogin,
@@ -238,4 +259,5 @@ module.exports =
     userLogout,
     userUpdate,
     userPoints,
+    userModuleCompleted,
 };

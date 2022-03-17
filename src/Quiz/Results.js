@@ -1,6 +1,6 @@
 import { Container, Col } from "react-bootstrap";
 import React, { useEffect, useState } from 'react';
-import './Questions.css';
+
 import Result from "./Result";
 function Results(props) {
     
@@ -30,7 +30,7 @@ function Results(props) {
     return(
         <>
             <h3 id="qNumber" className={props.classes[0]}> Question {props.i + 1} </h3>
-            <div id={props.i} className="text-center"> 
+            <Container id={props.i} className="text-center"> 
                 <Container id="questionDesciption" className={props.classes[1]}>
                     {props.question} 
                 </Container>
@@ -41,7 +41,7 @@ function Results(props) {
                     ))}
                 </Col>
 
-            </div>
+            </Container>
         </>
     );
 }

@@ -10,18 +10,25 @@
     margin-bottom: 1%;
 }
 
+.answerQuizSelection {
+    font-family: Lato,sans-serif;
+    margin-top: 0%;
+}
+
 .individualQuestions {
     text-align: start;
     font-size: 100%;
 
 }
 
+/* RESULTS CSS */
+
 .questionNumbersWrong {
-    color: white;
+    color: #c33333;
 }
 
 .questionDesciptionWrong {
-    color: #d8dae3;
+    color: #cc3333;
 }
 
 .questionNumbersRight {
@@ -35,8 +42,7 @@
 .individualQuestions {
     text-align: start;
     font-size: 100%;
-
-    margin-top: 5%;
+    margin-top: 1%;
 }
 
 #check-image {

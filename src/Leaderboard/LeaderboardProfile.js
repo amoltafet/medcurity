@@ -18,6 +18,7 @@ function LeaderboardProfile(props) {
     const [directories, setDirectories] = useState([]);
     axios.defaults.withCredentials = true;
     const [session, setSession] = useState([]);
+    const totalScore = props.scores[0] + props.scores[1] + props.scores[2] + props.scores[3] + props.scores[4] + props.scores[5]; 
 
     useEffect(() => {
         axios.get("http://localhost:3002/users/login").then((response) => {
@@ -43,8 +44,8 @@ function LeaderboardProfile(props) {
                     <Card.Text className={props.className[2]}>{directories[i].Title}</Card.Text>
                     <CircularProgressbar
                         className={props.className[3]}
-                        value={props.user.category1TotalPoints}
-                        text={`${props.user.category1TotalPoints}%`}
+                        value={props.percents[i] * 100}
+                        text={`${Math.round(((props.percents[i] * 100) + Number.EPSILON) * 100) / 100}%`}
                         styles={{
                             path: {
                                 stroke: "#1e5b88",
@@ -60,7 +61,7 @@ function LeaderboardProfile(props) {
                         </Col>
                         <Col>
                     <Card.Text className={props.className[2]}>Score</Card.Text>
-                    <Card.Text className={props.className[2]}> 0</Card.Text>
+                    <Card.Text className={props.className[2]}>{props.scores[i]}</Card.Text>
                     </Col>
                 </Row> 
                
@@ -92,7 +93,7 @@ function LeaderboardProfile(props) {
                                     <div className="scoreLabelLeaderboard" >Total Score</div>
                                 </Col>
                                 <Col>
-                                    <div className="userPointsLeaderboard">{props.score}</div>
+                                    <div className="userPointsLeaderboard">{totalScore}</div>
                                 </Col>
 
                             </Card>
@@ -130,11 +131,9 @@ function LeaderboardProfile(props) {
                                     <div className="scoreLabelLeaderboard" >Total Score</div>
                                 </Col>
                                 <Col>
-                                    <div className="userPointsLeaderboard">{props.score}</div>
+                                    <div className="userPointsLeaderboard">{totalScore}</div>
                                 </Col>
-
                             </Card>
-
                         </Accordion.Toggle>
                     </Accordion>
                 </Card>

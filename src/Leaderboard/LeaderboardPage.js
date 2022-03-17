@@ -4,21 +4,30 @@ import LeaderboardProfile from './LeaderboardProfile';
 import { Card } from 'react-bootstrap';
 import { useEffect, useState } from "react";
 import axios from 'axios';
-import './Leaderboard.css'
-
-
-
+import './Leaderboard.css';
 
 /**
 * Creates the main container for the leaderboard. 
 * @return {LeaderboardPage}
 */
 const LeaderboardPage = () => {
-    const [users, setUsers] = useState([])
-    // remove 
+    const [users, setUsers] = useState([]);
+    const [completedModules, setCompletedModules] = useState([]);
+    
+    /**
+    * Grabs all of the user data for leaderboard. 
+    */
     useEffect(() => {
-      axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 'SELECT * FROM Users' } }).then((response) => {
-        setUsers(Object.values(response.data))
+        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 'SELECT * FROM Users' } }).then((response) => {
+            setUsers(Object.values(response.data));
+            console.log(users)
+        }).catch(error => console.error(`Error ${error}`));
+    }, [])
+
+    useEffect(() => {
+        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 'SELECT * FROM CompletedModules' } }).then((response) => {
+            console.log("", completedModules)
+            console.log(response)
         }).catch(error => console.error(`Error ${error}`));
     }, [])
 
@@ -74,7 +83,8 @@ const LeaderboardPage = () => {
                 index={index}
                 user={user} 
                 className={className}
-                score={userProfile.category1 + userProfile.category2 + userProfile.category3 + userProfile.category4 + userProfile.category5}/>
+                scores={[userProfile.category1, userProfile.category2, userProfile.category3, userProfile.category4,  userProfile.category5, userProfile.category6]}
+                percents={[userProfile.percentage1, userProfile.percentage2, userProfile.percentage3, userProfile.percentage4,  userProfile.percentage5, userProfile.percentage6]}/>
         );
     })
 

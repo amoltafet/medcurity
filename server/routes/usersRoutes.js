@@ -14,5 +14,6 @@ router.get('/login', userControllers.userLoginSession);
 router.post('/logout', userControllers.userLogout);
 router.post('/settings', userControllers.userUpdate);
 router.post('/quiz', userControllers.userPoints);
+router.post('/moduleCompleted', userControllers.userModuleCompleted);
 
 module.exports = router

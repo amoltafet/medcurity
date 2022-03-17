@@ -13,6 +13,7 @@ const LearningModulesCards = (props) => {
     const userId = String(props.user.userid)
     const [isLoading, setLoading] = useState(true)
     const [learningModules, setLearningModules] = useState([])
+    const [completedModules, setCompletedModules] = useState([])
 
     useEffect(() => {
         if (props.user != undefined) {
@@ -33,8 +34,8 @@ const LearningModulesCards = (props) => {
         }
     }, [userId])
 
-
-
+    
+   
     /**
      * Panel for Module cards
      * @param {} props 

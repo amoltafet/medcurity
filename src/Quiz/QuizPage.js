@@ -1,4 +1,4 @@
-import { Button, Image, Row, Col } from 'react-bootstrap';
+import { Button, Image, Row, Col, Container } from 'react-bootstrap';
 import React, { useState, useEffect } from 'react';
 import { SubmitButton } from './SubmitButton';
 import { useParams } from "react-router";
@@ -124,9 +124,15 @@ const QuizPage = () => {
         lengths: (percent),
         userid: session.userid,
     }).then((response) => {
+        console.log("response", response);
+    }).catch(error => console.log(`Error ${error}`));
+      axios.post("http://localhost:3002/users/moduleCompleted", {
+        categoryId: slug,
+        userid: session.userid,
+      }).then((response) => {
         console.log("response", response.data);
         
-    }).catch(error => console.log(`Error ${error}`));
+      }).catch(error => console.log(`Error ${error}`));
     }
   }, [points, numCorrect, isSubmitted])
 
@@ -298,10 +304,14 @@ const QuizPage = () => {
       }
       newestIndex++;
       if (data[newestIndex - 1]["correct"] === true) {
+        if (slug == 6) {
+          points +=500
+        }
+        
         points += 100
         numCorrect += 1
         return ([
-          <div id="resultsPageHolder" class="correct">
+          <Container id="resultsPageHolder" class="resultAnswers">
             <Results
               id={newID}
               i={newestIndex - 1}
@@ -312,12 +322,12 @@ const QuizPage = () => {
               action={adjustStateData}
               classes={quizClassNames[2]}
             />
-          </div>
+          </Container>
         ]);
       }
       else {
         return ([
-          <div id="resultsPageHolder" class="wrong">
+          <Container id="resultsPageHolder" class="resultAnswers">
             <Results
               id={newID}
               i={newestIndex - 1}
@@ -328,7 +338,7 @@ const QuizPage = () => {
               action={adjustStateData}
               classes={quizClassNames[1]}
             />
-          </div>
+          </Container>
         ]);
       }
     });
