@@ -19,17 +19,27 @@ const LearningManagersCards = (props) => {
     //     {Name:"bio", Email:"ja@gmail.com", Progress:1},
     //     {Name:"jerseys", Email:"je@gmail.com", Progress:21}
     // ]
+    const [isLoading, setLoading] = useState(true)
+
+    useEffect(() => {
+        if (Number.isInteger(props.companyId)) {
+            setLoading(false)
+        }
+    }, [props.companyId])
 
     // Get all of the learningModules in a company
     useEffect(() => {
-        axios.get('http://localhost:3002/api/getQuery', 
-            { params: { the_query: 'SELECT * ' +
-            'FROM CompanyLearningModules ' + 
-            'WHERE CompanyLearningModules.CompanyID = ' + String(props.companyId)  
-            }}).then((response) => {
-                setLearningModules(Object.values(response.data))
-        });
-    }, [props.companyId])
+        if (!isLoading) {
+            axios.get('http://localhost:3002/api/getQuery', 
+                { params: { the_query: 'SELECT * ' +
+                'FROM CompanyLearningModules ' + 
+                    'JOIN LearningModules ON LearningModules.ID = CompanyLearningModules.LearningModID ' + 
+                'WHERE CompanyLearningModules.CompanyID = ' + String(props.companyId)  
+                }}).then((response) => {
+                    setLearningModules(Object.values(response.data))
+            });
+        }
+    }, [isLoading])
 
     /**
      * Create directory cards from modules
@@ -37,12 +47,13 @@ const LearningManagersCards = (props) => {
      * @param {max_length} to limit max card number created
      */
     function createLearningManagerCards(modules, maxLength=-1) {
+        console.log(modules)
         const objs = [];
         let size = 0
         for (let index in modules) {
             if (size == maxLength) { break; }
             module = modules[index]
-            objs.push(<LearningManagerCard learningModuleName={module.Name} moduleId={module.Id} companyId={module.CompanyId} />)
+            objs.push(<LearningManagerCard learningModuleName={module.Title} moduleId={module.ID} companyId={module.CompanyID} />)
             size += 1;
         }
         return objs;

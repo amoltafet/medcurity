@@ -20,6 +20,30 @@ const LearningModuleAdder = (props) => {
     //     {ID: '1', Title: 'privacy'},
     //     {ID: '2', Title: 'code'}
     // ];
+    const [isLoading, setLoading] = useState(true)
+
+    useEffect(() => {
+        if (Number.isInteger(props.companyId)) {
+            setLoading(false)
+        }
+    }, [props.companyId])
+
+    // Query for Learning Modules not included in the company already
+	useEffect(() => {
+        if (!isLoading) {
+            Axios.get('http://localhost:3002/api/getQuery', { params: { the_query:'SELECT * ' +
+                'FROM LearningModules ' +
+                    'WHERE NOT EXISTS ( ' +
+                        'SELECT * ' +
+                        'FROM CompanyLearningModules ' + 
+                        'WHERE CompanyLearningModules.CompanyID != ' + props.companyId + ' ' +
+                        'AND CompanyLearningModules.LearningModID = LearningModules.ID ' +
+                    ')'
+            } }).then((response) => {
+                setModules(Object.values(response.data))
+            });
+        }
+	}, [isLoading])
 
     /**
      * This function creates a new basic user account.
@@ -47,20 +71,7 @@ const LearningModuleAdder = (props) => {
         });
     };
 
-    // Query for Learning Modules not included in the company already
-	useEffect(() => {
-	    Axios.get('http://localhost:3002/api/getQuery', { params: { the_query:'SELECT * ' +
-            'FROM LearningModules ' +
-                'WHERE NOT EXISTS ( ' +
-                    'SELECT * ' +
-                    'FROM CompanyLearningModules ' + 
-                    'WHERE CompanyLearningModules.CompanyID != ' + props.companyId + ' ' +
-                    'AND CompanyLearningModules.LearningModID = LearningModules.ID ' +
-                ')'
-        } }).then((response) => {
-	        setModules(Object.values(response.data))
-	    });
-	}, [props.companyId])
+    
 
 
     function createDropDownOptions(items) {
