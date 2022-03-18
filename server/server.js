@@ -20,7 +20,6 @@ const FULL_URL = BASE_URL + ORIGIN_PORT
 const METHODS = serverConfig.server.METHODS
 const SECRET = serverConfig.server.SECRET
 const STATIC_PATH = serverConfig.server.STATIC_PATH
-const SENDFILE_PATH = serverConfig.server.SENDFILE_PATH
 
 app.use(
   express.json(),
@@ -42,7 +41,7 @@ app.use('/api', queryRouter);
 app.use(express.static(path.join(__dirname, STATIC_PATH)));
 app.use(express.static("client"));
 app.use((req, res, next) => {
-  res.sendFile(path.join(__dirname, "..", SENDFILE_PATH, "index.html"));
+  res.sendFile(path.join(__dirname, STATIC_PATH, "index.html"));
 });
 
 app.listen(LISTEN_PORT, (err) => {
