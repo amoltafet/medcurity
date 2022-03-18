@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from 'react-dom';
 import './index.css';
+import InvalidPage from './InvalidPage/InvalidPage';
 import DashboardPage from './Dashboard/DashboardPage';
 import SettingsPage from './Settings/SettingsPage';
 import LoginPage from './Login/LoginPage';
@@ -18,13 +19,20 @@ import EmployerDashboard from './EmployerDashboard/EmployerDashboard';
 import QuizModules from './Quiz/QuizModules';
 import QuizBackground from './Quiz/QuizBackground';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Axios from 'axios';
+
+Axios.get("http://localhost:3002/users/login").then((response) => {
+          console.log('is working???', response.data.user) })
 
 ReactDOM.render(
   <Router>
     <Routes>
+      <Route path="*" element={<InvalidPage />}/>
       <Route path="/" element={<LoginPage />}/>
       <Route path="/register" element={<RegisterPage />}/>
-      <Route path="/dash" element={<DashboardPage />} />
+
+      {<Route path="/dash" element={<DashboardPage />} />}
+
       <Route path="/employer-dash" element={<EmployerDashboard />} />
       <Route path="/settings" element={<SettingsPage />} />,
         <Route path="/quiz" element={<QuizBackground />}>
