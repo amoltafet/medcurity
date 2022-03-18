@@ -1,5 +1,9 @@
 const winston = require('winston');
 
+/**
+* A logger that is used for logging back-end/server components.
+*/
+
 const logger = winston.createLogger({
   level: 'info',
   format: winston.format.combine(

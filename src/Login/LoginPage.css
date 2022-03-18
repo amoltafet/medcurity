@@ -98,13 +98,9 @@
 
 .loginMessage {
     font-family: Lato,sans-serif;
-    font-size: 2vmax;
-    margin-top: 2%;
-    margin-bottom: 0;
-    margin-left: 18%;
-    margin-right: 23%;
+    font-size: 1vmax;
     color: white;
-
+    background-color: #0000003f;
 }
 
 .email {
@@ -113,6 +109,8 @@
     margin-left: 10%;
     width: 50%;
     font-size: .1vmax;
+    animation-name: fadein;
+    animation-duration: 2.5s;
 }
 
 .pass {
@@ -120,5 +118,18 @@
     margin-top: 1%;
     margin-left: 10%;
     width: 50%;
+    text-align: center;
     font-size: .1vmax;
+    animation-name: fadein;
+    animation-duration: 2.5s;
 }
+
+@keyframes fadein {
+    from {
+        opacity: 0%
+    }
+  
+    to {
+        opacity: 100%
+    }
+  }
