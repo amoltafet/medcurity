@@ -19,7 +19,8 @@ const BASE_URL = serverConfig.server.BASE_URL
 const FULL_URL = BASE_URL + ORIGIN_PORT
 const METHODS = serverConfig.server.METHODS
 const SECRET = serverConfig.server.SECRET
-const STATIC_PATH = '/client/build'
+const STATIC_PATH = serverConfig.server.STATIC_PATH
+const SENDFILE_PATH = serverConfig.server.SENDFILE_PATH
 
 app.use(
   express.json(),
@@ -37,8 +38,12 @@ app.use('/users', usersRouter);
 app.use('/api', queryRouter);
 //app.use('/admin', adminRouter)
 
-// Serve static files from the React app, must be uncommented for production
+// Serve static files from the React app, must be uncommented for production deployment
 app.use(express.static(path.join(__dirname, STATIC_PATH)));
+app.use(express.static("client"));
+app.use((req, res, next) => {
+  res.sendFile(path.join(__dirname, "..", SENDFILE_PATH, "index.html"));
+});
 
 app.listen(LISTEN_PORT, (err) => {
     

@@ -5,6 +5,8 @@
         "METHODS": ["GET", "POST"],
         "LISTEN_PORT": 3002, 
         "ORIGIN_PORT": 443,
+        "STATIC_PATH": "../client/build",
+        "SENDFILE_PATH": "../medcurity/client/build",
         "SECRET": "9ed335ccb831728208b84c29dec7ddbc"
     },
     "database":
