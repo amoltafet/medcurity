@@ -1,12 +1,13 @@
 import React from 'react';
-import './../Dashboard/DashboardPage.css';
+import './../../Dashboard/DashboardPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { CardDeck } from 'react-bootstrap';
-import MenuBar from '../MenuBar/MenuBar';               
+import MenuBar from '../../MenuBar/MenuBar';               
 import EmployerCards from './EmployerCards';
-import WelcomePanel from '../Dashboard/WelcomePanel';
+import WelcomePanel from '../../Dashboard/WelcomePanel';
 import AdminInvitations from './AdminInvitations';
 import { useEffect, useState, Link} from "react";
+import AddCompany from './AddCompany';
 import { useParams } from "react-router";
 import Axios from 'axios';
 
@@ -33,8 +34,8 @@ const AdminDashboardPage = () => {
     <>
         <MenuBar></MenuBar>
         <CardDeck className="dashTopPanel" style={{display: 'flex', flexDirection: 'row'}}>
-          <WelcomePanel user={session} subtitle={'to the Administration Page'}/>
           <AdminInvitations />
+          <AddCompany />
         </CardDeck>
         <EmployerCards />
         

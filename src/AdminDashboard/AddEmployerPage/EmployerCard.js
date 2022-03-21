@@ -24,8 +24,8 @@ const EmployerCard = (props) => {
      * Removes a user from the selected company
      * @param {int} userId 
      */
-    function removeUser(userId, companyId) {
-        console.log("Removing user from company");
+    function removeEmployer(userId, companyId) {
+        console.log("Removing Employer from company");
     }
 
     const popover = (props) => {
@@ -34,11 +34,25 @@ const EmployerCard = (props) => {
                 {props.content}
                 <Button className="EmployerInRowButton uvs-right" 
                     variant="success" 
-                    onClick={() => removeUser(props.userId, props.companyId)}> 
+                    onClick={() => removeEmployer(props.userId, props.companyId)}> 
                     Confirm 
                 </Button>
             </Popover>
         )
+    }
+    var userStatus;
+    if(props.status == 0) {
+        userStatus = "Inactive"
+    }
+    else if (props.status == 1) {
+        userStatus = "Active"
+    }
+    var companyName;
+    for(var i = 0; i < props.companyNames.length; i++) {
+        var company = props.companyNames[i]
+        if(company.companyid === props.company) {
+            companyName = company.name
+        }
     }
 
     return (
@@ -51,7 +65,10 @@ const EmployerCard = (props) => {
                 <div className="EmployerCardValues">{props.name}</div>
             </Col>
             <Col sm>
-                <div className="EmployerCardValues">{props.progress}</div>
+                <div className="EmployerCardValues">{companyName}</div>
+            </Col>
+            <Col sm>
+                <div className="EmployerCardValues">{userStatus}</div>
             </Col>
             <Col sm>
                 <OverlayTrigger trigger="click" placement="left" 
@@ -60,7 +77,7 @@ const EmployerCard = (props) => {
                         <div className="EmployerCardValues">Please confirm that you want to delete the user '{props.name}': </div> 
                         <Button className="EmployerInRowButton uvs-right" 
                             variant="success" 
-                            onClick={() => removeUser(props.userId, props.companyId)}> 
+                            onClick={() => removeEmployer(props.userId, props.companyId)}> 
                             Confirm 
                         </Button>
                     </Popover>

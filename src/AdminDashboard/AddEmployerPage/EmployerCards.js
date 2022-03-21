@@ -13,11 +13,21 @@ import EmployerCard from './EmployerCard'
 const EmployersCards = () => {
     const userId = 100
     // const [Employers, setEmployers] = useState([])
-    let Employers = [
-        {Name:"John", Email:"j@gmail.com", Progress:1},
-        {Name:"Jack", Email:"ja@gmail.com", Progress:1},
-        {Name:"Jen", Email:"je@gmail.com", Progress:21}
-    ]
+    const [employers, setEmployers] = useState("")
+    const [companies, setCompanies] = useState("")
+    useEffect(() => {
+        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `SELECT * FROM CompanyAdmins LEFT JOIN Users ON CompanyAdmins.UserID = Users.userid` } }).then((response) => {
+            setEmployers(response.data)
+            // console.log("We added", response.data)
+            }).catch(error => console.error(`Error ${error}`));
+        },[])
+
+    useEffect(() => {
+        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `SELECT * FROM Companies ` } }).then((response) => {
+            setCompanies(response.data)
+            // console.log("Companies:", companies)
+            }).catch(error => console.error(`Error ${error}`));
+        },[])
 
     // Get all of the Employers that are employed at the company the user is an
     // admin of. Then selects their email, name, completed modules
@@ -35,18 +45,20 @@ const EmployersCards = () => {
     //     });
     // }, [])
 
+
+
     /**
      * Create directory cards from modules
      * @param {modules} to create cards for
      * @param {max_length} to limit max card number created
      */
-    function createEmployerCards(modules, maxLength=-1) {
+    function createEmployerCards(maxLength=-1) {
         const objs = [];
         let size = 0
-        for (let index in modules) {
+        for (let index in employers) {
             if (size == maxLength) { break; }
-            module = modules[index]
-            objs.push(<EmployerCard email={module.Email} name={module.Name} progress={module.Progress} userId={module.UserId} companyId={module.CompanyId} />)
+            var employer = employers[index]
+            objs.push(<EmployerCard companyNames={companies} email={employer.email} name={employer.username} company={employer.CompanyID} userId={employer.UserId} companyId={employer.CompanyId} status={employer.active} />)
             size += 1;
         }
         return objs;
@@ -58,13 +70,16 @@ const EmployersCards = () => {
             <h2>Employers</h2>      
             <Card className="EmployerCardHeader uvs-right uvs-left" style={{display: 'flex', flexDirection: 'row' }}>
                 <Col sm>
-                    <div className="EmployerCardValues">User Email</div>
+                    <div className="EmployerCardValues">Employer Email</div>
                 </Col>
                 <Col sm>
-                    <div className="EmployerCardValues">User Name</div>
+                    <div className="EmployerCardValues">Employer Username</div>
                 </Col>
                 <Col sm>
-                    <div className="EmployerCardValues">User Progress</div>
+                    <div className="EmployerCardValues">Employer Company</div>
+                </Col>
+                <Col sm>
+                    <div className="EmployerCardValues">Employer Status</div>
                 </Col>
                 <Col sm>
                     <div className="RemoveButton"></div>
@@ -72,7 +87,7 @@ const EmployersCards = () => {
             </Card>
         
             <CardDeck className="dashboard" style={{display: 'flex', flexDirection: 'column'}}>
-                {createEmployerCards(Employers)}
+                {createEmployerCards(employers)}
             </CardDeck>
 
         </Container>

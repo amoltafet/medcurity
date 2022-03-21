@@ -66,3 +66,18 @@
 .InviteSubtitle {
     font-size: 1vmax;
 }
+
+.createButton {
+    margin-left: 8%;
+    margin-bottom: 3%;
+}
+
+#emailTextBox {
+    margin-bottom: 2%;
+}
+
+.addButton {
+    margin-top: 10%;
+    width: 100%;
+    margin-bottom: 0%;
+}
