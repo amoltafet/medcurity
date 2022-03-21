@@ -33,12 +33,13 @@ const LearningModuleAdder = (props) => {
         if (!isLoading) {
             Axios.get('http://localhost:3002/api/getQuery', { params: { the_query:'SELECT * ' +
                 'FROM LearningModules ' +
-                    'WHERE NOT EXISTS ( ' +
-                        'SELECT * ' +
-                        'FROM CompanyLearningModules ' + 
-                        'WHERE CompanyLearningModules.CompanyID != ' + props.companyId + ' ' +
-                        'AND CompanyLearningModules.LearningModID = LearningModules.ID ' +
-                    ')'
+                'WHERE NOT EXISTS ( ' +
+                    'SELECT lm.* ' +
+                    'FROM CompanyLearningModules JOIN LearningModules as lm ' +
+                        'ON CompanyLearningModules.LearningModID = lm.ID ' + 
+                    'WHERE CompanyLearningModules.CompanyID = ' + props.companyId + ' ' +
+                    'AND CompanyLearningModules.LearningModID = LearningModules.ID ' +
+                ')'
             } }).then((response) => {
                 setModules(Object.values(response.data))
             });
