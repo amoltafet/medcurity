@@ -36,16 +36,10 @@ const EmployerDashboardPage = () => {
           <WelcomePanel user={session} subtitle={'to the Administration Page'}/>
           <EmployerInvitations />
         </CardDeck>
-        <EmployeeCards />
+        <EmployeeCards user={session} />
         
     </>
   );
 }
-/*
-<CardDeck className="employeeDashTopPanel" style={{display: 'flex', flexDirection: 'row'}}>
-          <HelloEmployer></HelloEmployer>
-        </CardDeck>
-        <EmployeeCards></EmployeeCards>
-*/
 
 export default EmployerDashboardPage;

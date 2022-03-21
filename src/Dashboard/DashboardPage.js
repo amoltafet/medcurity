@@ -16,7 +16,7 @@ import Axios from 'axios';
 * @return {DashboardPage}
 */
 const DashboardPage = () => {
-  Axios.defaults.withCredentials = true;
+    Axios.defaults.withCredentials = true;
     const [session, setSession] = useState([]);
 
     useEffect(() => {
@@ -30,10 +30,10 @@ const DashboardPage = () => {
 
   return (
     <>
-      <MenuBar></MenuBar>
-      <CardDeck className="dashTopPanel" style={{display: 'flex', flexDirection: 'row'}}>
-          <WelcomePanel user={session} ></WelcomePanel> 
-          <Leaderboard user={session} ></Leaderboard>
+		<MenuBar></MenuBar>
+		<CardDeck className="dashTopPanel" style={{display: 'flex', flexDirection: 'row'}}>
+			<WelcomePanel user={session} ></WelcomePanel> 
+			<Leaderboard user={session} ></Leaderboard>
         </CardDeck>
         <LearningModulesCards user={session} />
         <LearningModulesDirectories/>
