@@ -9,6 +9,7 @@ const router = express.Router();
 
 router.post('/register', userControllers.userRegister);
 router.post('/registerEmpty', userControllers.userRegisterEmpty);
+router.post('/registerCompanyAdmin', userControllers.userRegisterCompanyAdmin);
 router.post('/login', userControllers.userLogin);
 router.get('/login', userControllers.userLoginSession);
 router.post('/logout', userControllers.userLogout);
