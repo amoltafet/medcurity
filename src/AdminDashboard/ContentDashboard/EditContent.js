@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import "./EditContent.css"
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 /**
 * Creates and displays the learning page for each test category. 
@@ -17,6 +18,8 @@ const  EditContent = () => {
     const [description, setDescription] = useState([])
     const [subtitle, setSubtitle] = useState([])
     const [isLoading, setIsLoading] = useState(true)
+    const navigate = useNavigate();
+    
 
     useEffect(() => {
       // Fetch post using the postSlug
@@ -49,6 +52,8 @@ const  EditContent = () => {
         console.log("Title:", title)
         console.log("Subtitle:", subtitle)
         console.log("Description:", description)
+
+        navigate('/admin-content');
     }
 
 
