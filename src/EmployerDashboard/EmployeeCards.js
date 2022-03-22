@@ -19,16 +19,22 @@ const EmployeesCards = (props) => {
     const [employees, setEmployees] = useState([])
     const [assignedModulesCount, setAssignedModulesCount] = useState([])
     const [userCompletedModules, setUserCompletedModules] = useState([])
+    const [isLoading, setLoading] = useState(true)
     // let employees = [
     //     {Name:"John", Email:"j@gmail.com", Progress:1},
     //     {Name:"Jack", Email:"ja@gmail.com", Progress:1},
     //     {Name:"Jen", Email:"je@gmail.com", Progress:21}
     // ]
+    useEffect(() => {
+        if (Number.isInteger(props.user.userid)) {
+            setLoading(false)
+        }
+    }, [props.user])
 
     // Get all of the employees that are employed at the company the user is an
     // admin of. Then selects their email, name
     useEffect(() => {
-        if(props.user != undefined) {
+        if(!isLoading) {
             axios.get('http://localhost:3002/api/getQuery', 
                 { params: { the_query: 'SELECT Users.username, Users.email, Users.userid as UserId, Users.active, CompanyAdmins.CompanyID as CompanyId ' + 
                 'FROM AffiliatedUsers ' + 
@@ -44,7 +50,7 @@ const EmployeesCards = (props) => {
 
     // Get each companies assigned modules
     useEffect(() => {
-        if(props.user != undefined) {
+        if(!isLoading) {
             axios.get('http://localhost:3002/api/getQuery', 
                 { params: { the_query: 'SELECT COUNT(CompanyLearningModules.LearningModID) as totalAssignedModules ' + 
                 'FROM CompanyLearningModules ' + 
@@ -59,7 +65,7 @@ const EmployeesCards = (props) => {
     // Get a count of how many modules each user associated with the company
     // of the current user has completed
     useEffect(() => {
-        if(props.user != undefined) {
+        if(!isLoading) {
             axios.get('http://localhost:3002/api/getQuery', 
                 { params: { the_query: 'SELECT COUNT(CompletedModules.LearningModID), AffiliatedUsers.UserId ' + 
                 'FROM AffiliatedUsers ' + 
