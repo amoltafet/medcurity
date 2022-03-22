@@ -51,11 +51,11 @@ const AdminInvitations = () => {
         }
         });
         
-        // for(var i = 0; i < companies.length; i++) {
-        //     if(userCompany === companies[i].companyid) {
-        //         let userName = companies[i].name
-        //     }
-        // }
+        for(var i = 0; i < companies.length; i++) {
+            if(userCompany === companies[i].companyid) {
+                let userName = companies[i].name
+            }
+        }
         // const addCompany = () =>
         // {
         //     Axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `INSERT INTO Companies (name) VALUES ('${company}')` } }).then((response) => {

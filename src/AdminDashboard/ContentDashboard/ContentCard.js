@@ -2,7 +2,8 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Card, Col, Button, OverlayTrigger, Popover } from 'react-bootstrap';
 import './ContentDashboard.css';
-import { useState} from "react";
+import { useEffect, useState } from "react";
+import axios from 'axios';
 
 //TODO
 // Connect button to remove user functionality
@@ -13,15 +14,22 @@ import { useState} from "react";
  * @returns 
  */
 const ContentCard = (props) => {
-    const [isOpen, setIsOpen] = useState(false);
+    const [questions, setQuestions] = useState([])
  
 
     /**
      * Removes a user from the selected company
      * @param {int} userId 
      */
-    function removeModule(userId, companyId) {
+    function removeModule() {
         console.log("Removing LearningModule from company");
+        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `DELETE FROM Questions WHERE module = '${props.moduleId}'` } }).then((response) => {
+            console.log("Removing Questions for", props.moduleId)
+            }).catch(error => console.error(`Error ${error}`));
+        
+        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `DELETE FROM LearningModules WHERE ID = '${props.moduleId}'` } }).then((response) => {
+            console.log("Removing Questions for", props.moduleId)
+            }).catch(error => console.error(`Error ${error}`));
     }
 
 
@@ -32,13 +40,27 @@ const ContentCard = (props) => {
                 <div className="ContentCardValues">{props.learningModuleName}</div>
             </Col>
             <Col sm>
+                <Button className="ContentInRowButton uvs-right" 
+                        size="sm" 
+                        variant="danger"
+                        href={"/edit-content/" + props.moduleId}> 
+                        Edit Content </Button>
+            </Col>
+            <Col sm>
+                <Button className="ContentInRowButton uvs-right" 
+                        size="sm" 
+                        variant="danger"
+                        href={"/edit-questions/" + props.moduleId}> 
+                        Edit Questions </Button>
+                </Col>
+            <Col sm>
                 <OverlayTrigger trigger="click" placement="left" 
                 overlay={
-                    <Popover id="popover-basic" className="ContentPopup">
+                    <Popover id="popover-basic" data-trigger="focus" className="ContentPopup">
                         <div className="ContentCardValues">Please confirm that you want to remove the module '{props.learningModuleName}' from your assigned list of modules: </div> 
                         <Button className="ContentInRowButton uvs-right" 
                             variant="success" 
-                            onClick={() => removeModule(props.moduleId, props.companyId)}> 
+                            onClick={() => removeModule(props.moduleId)}> 
                             Confirm 
                         </Button>
                     </Popover>

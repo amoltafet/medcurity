@@ -14,11 +14,6 @@ import ContentCard from './ContentCard'
  */
 const ContentsCards = (props) => {
     const [learningModules, setLearningModules] = useState([])
-    // let learningModules = [
-    //     {Name:"Privacy", Email:"j@gmail.com", Progress:1},
-    //     {Name:"bio", Email:"ja@gmail.com", Progress:1},
-    //     {Name:"jerseys", Email:"je@gmail.com", Progress:21}
-    // ]
     const [isLoading, setLoading] = useState(true)
 
     // useEffect(() => {
@@ -27,19 +22,14 @@ const ContentsCards = (props) => {
     //     }
     // }, [props.companyId])
 
-    // // Get all of the learningModules in a company
-    // useEffect(() => {
-    //     if (!isLoading) {
-    //         axios.get('http://localhost:3002/api/getQuery', 
-    //             { params: { the_query: 'SELECT * ' +
-    //             'FROM CompanyLearningModules ' + 
-    //                 'JOIN LearningModules ON LearningModules.ID = CompanyLearningModules.LearningModID ' + 
-    //             'WHERE CompanyLearningModules.CompanyID = ' + String(props.companyId)  
-    //             }}).then((response) => {
-    //                 setLearningModules(Object.values(response.data))
-    //         });
-    //     }
-    // }, [isLoading])
+    // Get all of the learningModules
+    useEffect(() => {
+        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `SELECT * FROM LearningModules` } }).then((response) => {
+            setLearningModules(response.data)
+            console.log("Modules:", response.data)
+            }).catch(error => console.error(`Error ${error}`));
+        },[])
+
 
     /**
      * Create directory cards from modules
@@ -53,7 +43,7 @@ const ContentsCards = (props) => {
         for (let index in modules) {
             if (size == maxLength) { break; }
             module = modules[index]
-            objs.push(<ContentCard learningModuleName={module.Title} moduleId={module.ID} companyId={module.CompanyID} />)
+            objs.push(<ContentCard learningModuleName={module.Title} moduleId={module.ID} />)
             size += 1;
         }
         return objs;
@@ -68,6 +58,12 @@ const ContentsCards = (props) => {
                     <div className="ContentCardValues">Learning Module Name</div>
                 </Col>
                 <Col sm>
+                    <div className="editContentButton"></div>
+                </Col>
+                <Col sm>
+                    <div className="editQuestionsButton"></div>
+                </Col>
+                <Col sm>
                     <div className="RemoveButton"></div>
                 </Col>
             </Card>
@@ -75,6 +71,8 @@ const ContentsCards = (props) => {
             <CardDeck className="dashboard" style={{display: 'flex', flexDirection: 'column'}}>
                 {createContentCards(learningModules)}
             </CardDeck>
+
+            <Button className='add-btn' href="/add-content"> Add Module</Button>
 
         </Container>
         </>

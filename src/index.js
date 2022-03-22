@@ -20,6 +20,14 @@ import QuizBackground from './Quiz/QuizBackground';
 import AdminContentPage from "./AdminDashboard/ContentDashboard/ContentDashboard";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import AdminDashboardPage from "./AdminDashboard/AddEmployerPage/AdminDashboard";
+import EditContentSlug from "./AdminDashboard/ContentDashboard/EditContentSlug";
+import EditContent from "./AdminDashboard/ContentDashboard/EditContent";
+import EditContentBackground from "./AdminDashboard/ContentDashboard/EditContentBackground"
+import EditQuestionBackground from "./AdminDashboard/ContentDashboard/EditQuestionBackground"
+import EditQuestionSlug from "./AdminDashboard/ContentDashboard/EditQuestionSlug"
+import EditQuestion from "./AdminDashboard/ContentDashboard/EditQuestion";
+import AddContent from "./AdminDashboard/ContentDashboard/AddContent";
+
 
 ReactDOM.render(
   <Router>
@@ -30,11 +38,20 @@ ReactDOM.render(
       <Route path="/employer-dash" element={<EmployerDashboard />} />
       <Route path="/admin-dash" element={<AdminDashboardPage />} />
       <Route path="/admin-content" element={<AdminContentPage />} />
+      <Route path="/edit-content" element={<EditContentBackground />}>
+        <Route path="" element={<EditContentSlug />} />
+        <Route path=":slug" element={<EditContent />} />
+      </Route>
+      <Route path="/add-content" element={<AddContent />} />
+      <Route path="/edit-questions" element={<EditQuestionBackground />}>
+        <Route path="" element={<EditQuestionSlug />} />
+        <Route path=":slug" element={<EditQuestion />} />
+      </Route>
       <Route path="/settings" element={<SettingsPage />} />,
-        <Route path="/quiz" element={<QuizBackground />}>
-          <Route path="" element={<QuizModules />} />
-          <Route path=":slug" element={<QuizPage />} />
-        </Route>
+      <Route path="/quiz" element={<QuizBackground />}>
+        <Route path="" element={<QuizModules />} />
+        <Route path=":slug" element={<QuizPage />} />
+      </Route>
       <Route path="/learning-module" element={<LearningPage />}>
         <Route path="" element={<LearningModules />} />
         <Route path=":slug" element={<LearningModule />} />

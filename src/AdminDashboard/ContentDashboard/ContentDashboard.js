@@ -1,4 +1,5 @@
 import React from 'react';
+import { Form , Card, Button, Container, Col} from 'react-bootstrap';
 import './../../Dashboard/DashboardPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { CardDeck } from 'react-bootstrap';
@@ -19,9 +20,15 @@ const AdminContentPage = () => {
     //Axios.defaults.withCredentials = true;
     const [session, setSession] = useState([]);
     const [companyId, setCompanyId] = useState('');
-	const [company, setCompany] = useState('');
-    const [isLoading, setLoading] = useState(true)
-	const [isLoadingCompanyID, setIsLoadingCompanyID] = useState(true)
+
+  Axios.defaults.withCredentials = true;
+
+  useEffect(() => {
+      Axios.get("http://localhost:3002/users/login").then((response) => {
+        console.log('aaahhh', response.data.user)
+        setSession(response.data.user[0])
+      }).catch(error => console.error(`Error ${error}`));
+    }, []);
 
     // useEffect(() => {
     //     Axios.get("http://localhost:3002/users/login").then((response) => {
@@ -53,6 +60,7 @@ const AdminContentPage = () => {
         <MenuBar></MenuBar>
         <CardDeck className="dashTopPanel" style={{display: 'flex', flexDirection: 'row'}}>
           <WelcomePanel user={session} subtitle={'to the Learning Manager Page'}/>
+          <Button href="/admin-dash">Press to add Employers</Button>
         </CardDeck>
         <LearningManagerCards companyId={companyId}/>
         

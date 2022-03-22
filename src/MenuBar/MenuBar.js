@@ -45,6 +45,9 @@ const Menubar = () => {
                 <Card className="pillz">
                     <Nav className="justify-content-end" variant="pills" defaultActiveKey="/dashboard">
                         <Nav.Item className="navPills uvs-left uvs-right">
+                            <Nav.Link className="menubarFont" href="/admin-content">AdminPage</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item className="navPills uvs-left uvs-right">
                             <Nav.Link className="menubarFont" href="/settings">Settings</Nav.Link>
                         </Nav.Item>
                         <Nav.Item className="navPills uvs-left uvs-right">
