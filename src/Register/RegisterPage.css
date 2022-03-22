@@ -45,7 +45,7 @@
     width: 70%;
 }
 
-.createButton {
+.createRegButton {
     color: white;
     background-color: #c33333;
     margin-top: 5%;
@@ -55,12 +55,12 @@
     width: 50%;
 }
 
-.createButton:focus {
+.createRegButton:focus {
     background-color: #c33333;
     border: none;
 }
 
-.createButton:hover {
+.createRegButton:hover {
     background-color: #c33333;
     border: none;
 }
@@ -85,12 +85,12 @@
     border: none;
 }
 
-.createButton:focus {
+.createRegButton:focus {
     background-color: #c33333;
     border: none;
 }
 
-.createButton:hover {
+.createRegButton:hover {
     background-color: #c33333;
     border: none;
 }
