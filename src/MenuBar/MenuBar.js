@@ -34,12 +34,12 @@ const Menubar = () => {
         }
     }, [session])
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        if (isLoggedIn == []) {
-            console.log("Log out")
-        }
-    }, [isLoggedIn])
+    //     if (isLoggedIn == []) {
+    //         console.log("Log out")
+    //     }
+    // }, [isLoggedIn])
 
     // Query for getting user's required learning modules
     useEffect(() => {
@@ -56,21 +56,16 @@ const Menubar = () => {
     }, [isLoading])
 
     useEffect(() => {
-        console.log("Company")
-        console.log(company)
-        if (company != undefined) {
+        if (company.length != 0) {
             setCompanyLoading(false)
-            setCompanyId(company.companyId)
         }
     }, [company])
 
-    // useEffect(() => {
-    //     console.log(company)
-    //     if (company != undefined) {
-    //         console.log("working")
-    //         setCompanyId(company[0].companyId)
-    //     }
-    // }, [company])
+    useEffect(() => {
+        if (!isCompanyLoading) {
+            setCompanyId(company[0].CompanyID)
+        }
+    }, [isCompanyLoading])
 
     const logout = () => {
         Axios.post("http://localhost:3002/users/logout").then((response) => 
@@ -87,8 +82,6 @@ const Menubar = () => {
           }
         }).catch(error => console.error(`Error ${error}`));
     };
-
-
 
     /**
      * Returns buttons for accessing employer pages if the user is a company
