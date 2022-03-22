@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from 'react-dom';
 import './index.css';
+import InvalidPage from './InvalidPage/InvalidPage';
 import DashboardPage from './Dashboard/DashboardPage';
 import SettingsPage from './Settings/SettingsPage';
 import LoginPage from './Login/LoginPage';
@@ -20,6 +21,7 @@ import QuizModules from './Quiz/QuizModules';
 import QuizBackground from './Quiz/QuizBackground';
 import AdminContentPage from "./AdminDashboard/ContentDashboard/ContentDashboard";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+<<<<<<< HEAD
 import AdminDashboardPage from "./AdminDashboard/AddEmployerPage/AdminDashboard";
 import EditContentSlug from "./AdminDashboard/ContentDashboard/EditContentSlug";
 import EditContent from "./AdminDashboard/ContentDashboard/EditContent";
@@ -29,13 +31,22 @@ import EditQuestionSlug from "./AdminDashboard/ContentDashboard/EditQuestionSlug
 import EditQuestion from "./AdminDashboard/ContentDashboard/EditQuestion";
 import AddContent from "./AdminDashboard/ContentDashboard/AddContent";
 
+=======
+import Axios from 'axios';
+
+Axios.get("http://localhost:3002/users/login").then((response) => {
+          console.log('is working???', response.data.user) })
+>>>>>>> axios-hotfix
 
 ReactDOM.render(
   <Router>
     <Routes>
+      <Route path="*" element={<InvalidPage />}/>
       <Route path="/" element={<LoginPage />}/>
       <Route path="/register" element={<RegisterPage />}/>
-      <Route path="/dash" element={<DashboardPage />} />
+
+      {<Route path="/dash" element={<DashboardPage />} />}
+
       <Route path="/employer-dash" element={<EmployerDashboard />} />
       <Route path="/admin-dash" element={<AdminDashboardPage />} />
       <Route path="/admin-content" element={<AdminContentPage />} />

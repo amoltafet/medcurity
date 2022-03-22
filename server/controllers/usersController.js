@@ -101,19 +101,46 @@ const userRegister = (req,res) =>
  */
 const userRegisterEmpty = (req,res) => 
 {
-    console.log(req)
+
     const email = req.body.email
     const username = email.substring(0, email.indexOf("@"));
 
     db.query(`SELECT EXISTS(SELECT * FROM Users WHERE email = '${email}') AS doesExist`, (err,result) => {
         if (result[0].doesExist == 0)
         {
-            if (err) console.log(err);
-
             db.query("INSERT INTO Users (username, email, active) VALUES (?,?,?)", [username, email, false], (err, result) => {
                 db.query(`SELECT * FROM Users WHERE email = '${email}'`, (err,result) => {
                     res.send(true)
                 })
+            });
+        }
+        else
+        {
+            res.send(false)
+        }
+    })
+}
+
+/**
+ * Queries the database to register an inactive company admin assigned to a company.
+ */
+const userRegisterCompanyAdmin = (req,res) => 
+{
+    const email = req.body.email
+    const companyid = req.body.companyid
+    const username = email.substring(0, email.indexOf("@"));
+
+    db.query(`SELECT EXISTS(SELECT * FROM Users WHERE email = '${email}') AS doesExist`, (err, result) => {
+        if (result[0].doesExist == 0)
+        {
+            if (err) console.log(err);
+
+            db.query("INSERT INTO Users (username, email, active, companyid) VALUES (?,?,?,?)", [username, email, false, companyid], (err, result) => {
+                db.query(`SELECT * FROM Users WHERE email = '${email}'`, (err, user) => {
+                    db.query("INSERT INTO CompanyAdmins (UserID, CompanyID) VALUES (?,?)", [user[0].userid, companyid], (err, result) => {
+                        res.send(true)
+                    });
+                });
             });
         }
         else
@@ -257,6 +284,7 @@ module.exports =
     userLogin,
     userRegister,
     userRegisterEmpty,
+    userRegisterCompanyAdmin,
     userLoginSession,
     userLogout,
     userUpdate,
