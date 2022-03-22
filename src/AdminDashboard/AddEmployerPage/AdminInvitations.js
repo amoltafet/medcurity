@@ -69,10 +69,6 @@ const AdminInvitations = () => {
             console.log("Reponding from invite", response)
         })
     };
-
-    const login = () => {
-        navigate('/');
-    };
   
     function createDropDownOptions() {
         const dropdownList = [];
