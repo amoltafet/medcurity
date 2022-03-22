@@ -13,7 +13,6 @@ const LearningModulesCards = (props) => {
     const userId = String(props.user.userid)
     const [isLoading, setLoading] = useState(true)
     const [learningModules, setLearningModules] = useState([])
-    const [completedModules, setCompletedModules] = useState([])
 
     useEffect(() => {
         if (props.user != undefined) {
@@ -42,11 +41,15 @@ const LearningModulesCards = (props) => {
      * @returns 
      */
     const ModulePanel = (props) => {
+        var dueDate = new Date(props.dueDate); 
+        console.log("duedate: ", dueDate)
         return (
+           
             <>
             <Card className="LearningModuleCard uvs-right uvs-left">
                 <Card.Body>
                    <Card.Link className="font" href={"/learning-module/" + props.link} >{props.title}</Card.Link>
+                   <Card.Text className="dueDateRequiredModule">Due At: {dueDate.toDateString()}</Card.Text>
                 </Card.Body> 
             </Card>
             </>
@@ -64,7 +67,8 @@ const LearningModulesCards = (props) => {
         for (let index in modules) {
             if (size === maxLength) { break; }
             module = modules[index]
-            objs.push(<ModulePanel title={module.Title} link={module.ID} />)
+            console.log(module)
+            objs.push(<ModulePanel title={module.Title} link={module.ID} dueDate={module.DueDate} />)
             size += 1;
         }
         return objs;

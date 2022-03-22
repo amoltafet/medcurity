@@ -27,10 +27,12 @@ app.use(
 
 var usersRouter = require('./routes/usersRoutes');
 var queryRouter = require('./routes/queryRoutes');
+var testingRouter = require('./routes/testingRoutes');
 //var adminRouter = require('./routes/adminRoutes');
 
 app.use('/users', usersRouter);
 app.use('/api', queryRouter);
+app.use('/testing', testingRouter);
 //app.use('/admin', adminRouter)
 
 // Serve static files from the React app

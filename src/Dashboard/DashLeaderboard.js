@@ -17,6 +17,7 @@ const Leaderboard = (props) => {
     useEffect(() => {
         Axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 'SELECT * FROM Users' } }).then((response) => {
             setUsers(Object.values(response.data));
+            console.log("leaderboard: ", response.data)
         }).catch(error => console.error(`Error ${error}`));
     }, [])
 
@@ -31,16 +32,6 @@ const Leaderboard = (props) => {
         "progressBar",
     ];
 
-    // temp data 
-    var user = {
-        userName: "Bobby Boy",
-        overallPoints: 20,
-        category1TotalPoints: 11,
-        category2TotalPoints: 22,
-        category3TotalPoints: 33,
-        category4TotalPoints: 44,
-        category5TotalPoints: 55
-    };
 
     const ProfileArray = () => {
         users.sort(function (a, b) {
@@ -70,25 +61,21 @@ const Leaderboard = (props) => {
                     otherUsers.push(users[i + 1]);
                 }
             }
-            console.log("users", users)
             // user is in the last position
             if (users[users.length-1].username === props.user.username) {
                 return ([
                     <DashLeaderboardProfiles
                         name={users[users.length - 3].username}
-                        user={user}
                         index={users.length - 3}
                         className={className}
                         score={users[users.length - 3].category1 + users[users.length - 3].category2 + users[users.length - 3].category3 + users[users.length - 3].category4 + users[users.length - 3].category5} />,
                     <DashLeaderboardProfiles
                         name={users[users.length - 2].username}
-                        user={user}
                         index={users.length - 2}
                         className={className} 
                         score={users[users.length - 2].category1 + users[users.length - 2].category2 + users[users.length - 2].category3 + users[users.length - 2].category4 + users[users.length - 2].category5}/>,
                     <DashLeaderboardProfiles
                         name={props.user.username}
-                        user={user}
                         index={users.length - 1}
                         className={className}
                         score={users[users.length - 1].category1 + users[users.length - 1].category2 + users[users.length - 1].category3 + users[users.length - 1].category4 + users[users.length - 1].category5} />
@@ -99,19 +86,16 @@ const Leaderboard = (props) => {
                 return ([
                     <DashLeaderboardProfiles
                         name={props.user.username}
-                        user={user}
                         index={1}
                         className={className} 
                         score={(props.user.category1 + props.user.category2 + props.user.category3 + props.user.category4 + props.user.category5)}/>,
                     <DashLeaderboardProfiles
                         name={users[1].username}
-                        user={user}
                         index={2}
                         className={className} 
                         score={(users[1].category1 + users[1].category2 + users[1].category3 + users[1].category4 + users[1].category5)}/>,
                     <DashLeaderboardProfiles
                         name={users[2].username}
-                        user={user}
                         index={3}
                         className={className} 
                         score={users[2].category1 + users[2].category2 + users[2].category3 + users[2].category4 + users[2].category5}/>,
@@ -121,19 +105,16 @@ const Leaderboard = (props) => {
                 return ([
                     <DashLeaderboardProfiles
                         name={otherUsers[0].username}
-                        user={user}
                         index={index}
                         className={className} 
                         score={otherUsers[0].category1 + otherUsers[0].category2 + otherUsers[0].category3 + otherUsers[0].category4 +  otherUsers[0].category5}/>,
                     <DashLeaderboardProfiles
                         name={props.user.username}
-                        user={user}
                         index={index + 1}
                         className={className} 
                         score={props.user.category1 + props.user.category2 + props.user.category3 + props.user.category4 +  props.user.category5}/>,
                     <DashLeaderboardProfiles
                         name={otherUsers[1].username}
-                        user={user}
                         index={index + 2}
                         className={className} 
                         score={otherUsers[1].category1 + otherUsers[1].category2 + otherUsers[1].category3 + otherUsers[1].category4 +  otherUsers[1].category5}/>

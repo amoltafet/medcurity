@@ -37,7 +37,7 @@ function Results(props) {
 
                 <Col id={quizToggleId} className="resultsQuizSelection" vertical name={quizToggleId}>
                     {myanswers.map((radio, idx) => (
-                        <Result index={idx} rad = {radio} correctIdx = {props.userAnswer} correct={props.isCorrect}></Result>
+                        <Result index={idx} rad={radio} correctIdx={props.userAnswer} correct={props.isCorrect}></Result>
                     ))}
                 </Col>
 

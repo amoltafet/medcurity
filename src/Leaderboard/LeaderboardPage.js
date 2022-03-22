@@ -12,7 +12,6 @@ import './Leaderboard.css';
 */
 const LeaderboardPage = () => {
     const [users, setUsers] = useState([]);
-    const [completedModules, setCompletedModules] = useState([]);
     
     /**
     * Grabs all of the user data for leaderboard. 
@@ -20,17 +19,10 @@ const LeaderboardPage = () => {
     useEffect(() => {
         axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 'SELECT * FROM Users' } }).then((response) => {
             setUsers(Object.values(response.data));
-            console.log(users)
         }).catch(error => console.error(`Error ${error}`));
     }, [])
 
-    useEffect(() => {
-        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 'SELECT * FROM CompletedModules' } }).then((response) => {
-            console.log("", completedModules)
-            console.log(response)
-        }).catch(error => console.error(`Error ${error}`));
-    }, [])
-
+    // classes for the accordian
     var className = [
         "userPanel", 
         "userProfile", 
@@ -38,18 +30,8 @@ const LeaderboardPage = () => {
         "progressBar", 
     ];
 
-    var user = {
-        userName: "Bobby Boy",
-        overallPoints: 20,
-        category1TotalPoints: 11,
-        category2TotalPoints: 22,
-        category3TotalPoints: 33,
-        category4TotalPoints: 44,
-        category5TotalPoints: 55
-    };
-
     function sortUsers() {
-        if (users != undefined) {
+        if (users !== undefined) {
             users.sort(function (a, b) {
                 return b.value - a.value;
               });
@@ -72,7 +54,7 @@ const LeaderboardPage = () => {
     
 
     
-     sortUsers()
+    sortUsers()
     var index = 0;
     const ProfileArray = users.map((userProfile) => {
        
@@ -81,7 +63,6 @@ const LeaderboardPage = () => {
             <LeaderboardProfile 
                 name={userProfile.username} 
                 index={index}
-                user={user} 
                 className={className}
                 scores={[userProfile.category1, userProfile.category2, userProfile.category3, userProfile.category4,  userProfile.category5, userProfile.category6]}
                 percents={[userProfile.percentage1, userProfile.percentage2, userProfile.percentage3, userProfile.percentage4,  userProfile.percentage5, userProfile.percentage6]}/>

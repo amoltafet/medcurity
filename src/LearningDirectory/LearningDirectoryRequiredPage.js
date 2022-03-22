@@ -21,8 +21,7 @@ const LearningDirectoryRequiredPage = () => {
 
     useEffect(() => {
         console.log("testing")
-        console.log(session)
-        if (session.userid != undefined) {
+        if (session.userid !== undefined) {
             setLoading(false)
             console.log("changed")
         }
@@ -42,7 +41,7 @@ const LearningDirectoryRequiredPage = () => {
             });
             
         }
-    }, [isLoading])
+    }, [isLoading, session.userid])
 
 
     return(

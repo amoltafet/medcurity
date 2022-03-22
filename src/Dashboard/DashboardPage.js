@@ -21,12 +21,12 @@ const DashboardPage = () => {
 
     useEffect(() => {
         Axios.get("http://localhost:3002/users/login").then((response) => {
-          console.log('aaahhh', response.data.user)
+          console.log('user: ', response.data.user)
           setSession(response.data.user[0])
         }).catch(error => console.error(`Error ${error}`));
       }, []);
 
-    console.log(session)
+      
 
   return (
     <>
@@ -36,7 +36,7 @@ const DashboardPage = () => {
           <Leaderboard user={session} ></Leaderboard>
         </CardDeck>
         <LearningModulesCards user={session} />
-        <LearningModulesDirectories/>
+        <LearningModulesDirectories user={session}/>
     </>
   );
 }

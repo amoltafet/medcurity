@@ -14,12 +14,18 @@ import './LeaderboardProfile.css'
 * @param {user} user the user grabed from the dashboard.
 * @return {GetPage}
 */
-function LeaderboardProfile(props) {
+function LeaderboardProfile( props) {
     const [directories, setDirectories] = useState([]);
     axios.defaults.withCredentials = true;
     const [session, setSession] = useState([]);
     const totalScore = props.scores[0] + props.scores[1] + props.scores[2] + props.scores[3] + props.scores[4] + props.scores[5]; 
 
+    /**
+    * Creates and displays each users leaderboard profile. 
+    * @param {Array} className the css style to display. 
+    * @param {user} user the user grabed from the dashboard.
+    * @return {GetPage}
+    */
     useEffect(() => {
         axios.get("http://localhost:3002/users/login").then((response) => {
           setSession(response.data.user[0])
@@ -27,6 +33,12 @@ function LeaderboardProfile(props) {
       }, []);
 
 
+    /**
+    * Creates and displays each users leaderboard profile. 
+    * @param {Array} className the css style to display. 
+    * @param {user} user the user grabed from the dashboard.
+    * @return {GetPage}
+    */
     // Query for getting LearningDirectories Directory info
     useEffect(() => {
         axios.get('http://localhost:3002/api/getQuery', { params: { the_query: "SELECT * FROM LearningModulesDirectory" } }).then((response) => {
@@ -36,7 +48,7 @@ function LeaderboardProfile(props) {
 
     const GetCurrentModule = () => {
         var categoryData = []
-        if (directories != null) {
+        if (directories !== null) {
         for (var i = 0; i < directories.length; i++) {
             categoryData.push( <>
                 <Row>
@@ -100,8 +112,9 @@ function LeaderboardProfile(props) {
 
                         </Accordion.Toggle>
                         <Accordion.Collapse className="accordianCollapse" eventKey="1">
-
                             <Row className="categorgiesLeaderboardRow">
+
+                            <Image className="leaderboardBreak" src="/line.png" alt=""></Image>
                                 {GetCurrentModule()}
                             </Row>
 
