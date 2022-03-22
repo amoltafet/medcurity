@@ -32,30 +32,30 @@ const AdminInvitations = () => {
      * 
      */
     const invite = () => {
-        console.log('INVITING', email)
-        Axios.post("http://localhost:3002/users/register",
-        { 
-        email: email,
-        }).then((response) => 
-        {
-        console.log("response.data =", response.data)
-        if (response.data === true)
-        {
-            console.log("A new invitation!")
-            navigate('/admin-dash');
-        }
-        else if (response.data === false)
-        {
-            console.log("Already has account!")
-            setMessage('This email is already associated with an account! Please try a different email.')
-        }
-        });
+        // console.log('INVITING', email)
+        // Axios.post("http://localhost:3002/users/register",
+        // { 
+        // email: email,
+        // }).then((response) => 
+        // {
+        // console.log("response.data =", response.data)
+        // if (response.data === true)
+        // {
+        //     console.log("A new invitation!")
+        //     navigate('/admin-dash');
+        // }
+        // else if (response.data === false)
+        // {
+        //     console.log("Already has account!")
+        //     setMessage('This email is already associated with an account! Please try a different email.')
+        // }
+        // });
         
-        for(var i = 0; i < companies.length; i++) {
-            if(userCompany === companies[i].companyid) {
-                let userName = companies[i].name
-            }
-        }
+        // for(var i = 0; i < companies.length; i++) {
+        //     if(userCompany === companies[i].companyid) {
+        //         let userName = companies[i].name
+        //     }
+        // }
         // const addCompany = () =>
         // {
         //     Axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `INSERT INTO Companies (name) VALUES ('${company}')` } }).then((response) => {
@@ -63,6 +63,11 @@ const AdminInvitations = () => {
         //     }).catch(error => console.error(`Error ${error}`));
         //     console.log("We added")
         // }
+
+        Axios.post("http://localhost:3002/users/registerCompanyAdmin", { email: email, companyid: userCompany }).then((response) =>
+        {
+            console.log("Reponding from invite", response)
+        })
     };
 
     const login = () => {
