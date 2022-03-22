@@ -25,7 +25,7 @@ const userRegister = (req,res) =>
   
     const checkPassword = (passwordString) => 
     {
-      if (passwordStrength(passwordString).contains.length == 4)
+      if (passwordStrength(passwordString).contains.length === 4)
       {
         if (passwordStrength(passwordString).id > 1)
         {
@@ -192,6 +192,9 @@ const userLogout = (req, res) =>
     }
 }
 
+/**
+ * Updates the users settings - only username for now.
+ */
 const userUpdate = (req, res) => {
     const newUserName = req.body.username;
     const userId = req.body.id;
@@ -207,27 +210,47 @@ const userUpdate = (req, res) => {
     })   
 }
 
+/**
+ * Updates the users points from the quiz.
+ */
 const userPoints = (req, res) => {
-    //logger.log("e")
     const categoryName = req.body.categoryName;
     const points = req.body.points;
     const percentName = req.body.percentName;
     const length = req.body.lengths;
     const userid = req.body.userid;
 
-    logger.log('info', ` points  "${points}"`);
-    logger.log('info', `category name "${categoryName}"`);
-
    
 
     db.query(`UPDATE Users SET ${categoryName} = '${points}', ${percentName} = "${length}" WHERE userid = '${userid}'`, (err,result) => {
         db.query(`SELECT * FROM Users WHERE userid = '${userid}'`, (err,result) => {
+            logger.log('info', `Updated User-"${userid}" points to: "${points}"`);
             req.session.userSession = result;
-            ///logger.log('info', `Updated username to "${newUserName}"`);
             res.send({ result: result, success: true, message: `Updated user points to ${points}!` });
         })
     })   
 }
+
+/**
+ * Moves the assigned module to be a completed module.
+ */
+const userModuleCompleted = (req, res) => {
+    var today = new Date();
+    const categoryId = req.body.categoryId;
+    const userid = req.body.userid;   
+
+    db.query(`INSERT INTO CompletedModules (UserID, LearningModID, DateCompleted)  VALUES (?,?,?)`, [userid, categoryId, today], (err,result) => {
+        db.query(`DELETE FROM AssignedLearningModules WHERE LearningModID = "${categoryId}" AND UserID = "${userid}"`, (err,result) => {
+            db.query(`SELECT * FROM Users WHERE userid = '${userid}'`, (err,result) => {
+                logger.log('info', `User-'${userid}' completed Module '${categoryId}', on: "${today}"`);
+                req.session.userSession = result;
+                res.send({success: true, message: `Completed Module & Removed from the Assigned`});
+            })
+        }) 
+    })   
+}
+
+
 
 module.exports = 
 {
@@ -238,4 +261,5 @@ module.exports =
     userLogout,
     userUpdate,
     userPoints,
+    userModuleCompleted,
 };

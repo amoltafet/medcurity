@@ -12,22 +12,42 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const SettingsMenu = () => {
     axios.defaults.withCredentials = true;
     const [session, setSession] = useState([]);
-    const [newEmail, setEmail] = useState("");
     const [newUserName, setUsername] = useState("");
     const [saveData, setSaveData] = useState(false);
     const [show, setShow] = useState(false);
+    const [isLoaded, setLoaded] = useState(false);
+    const [company, setCompany] = useState([]);
+    const [dueDate, setDueDate] = useState([]);
 
     useEffect(() => {
         axios.get("http://localhost:3002/users/login").then((response) => {
             setSession(response.data.user[0])
+           
         }).catch(error => console.error(`Error ${error}`));
+        setLoaded(true)
     }, []);
 
     useEffect(() => {
-        if (saveData === true) {
-            console.log("e", newUserName)
-            console.log("sesid ", session.userid)
+        if (isLoaded) {
+            axios.get('http://localhost:3002/api/getQuery', 
+                { params: { the_query: 'SELECT * FROM Companies WHERE companyid = ' + session.companyid} 
+            }).then((response) => {
+              
+               if (response.data[0].datejoined !== null) { 
+                setCompany(response.data[0]);
+                var date = new Date(response.data[0].datejoined);
+                setDueDate(date.toDateString()); 
+                console.log("e", dueDate)
+                }
 
+            }).catch(error => console.error(`Error ${error}`));
+        }
+    },[session, dueDate, isLoaded])
+
+ 
+
+    useEffect(() => {
+        if (saveData === true) {
             axios.post("http://localhost:3002/users/settings", {
                 username: newUserName,
                 id: session.userid
@@ -39,7 +59,7 @@ const SettingsMenu = () => {
             setShow(true);
         }
        
-    }, [saveData])
+    }, [saveData, newUserName, session.userid])
 
     setTimeout(() =>{
         setShow(false)
@@ -88,11 +108,9 @@ const SettingsMenu = () => {
                                 </Form.Group>
                                 <Form.Group className="emailInput" controlId="formPlaintextEmail">
                                         <Form.Text className="emailText">Email</Form.Text>
-                                        <Form.Control disabled defaultValue={session.email}
-                                            onChange={(e) => {
-                                               setEmail(e.target.value);
-                                        }}></Form.Control>
+                                        <Form.Control disabled defaultValue={session.email}></Form.Control>
                                 </Form.Group>
+                                    <a href="" className="changePasswordText" >Change Password</a>
                             </Form>
                                <OverlayTrigger delay={{ show: 5000, hide: 4000 }} show={show} placement="bottom" overlay={popover}>
                                             <Button
@@ -104,6 +122,16 @@ const SettingsMenu = () => {
                                    
                                 </Tab.Pane>
                                 <Tab.Pane eventKey="second">
+                                    <Form>
+                                    <Form.Group className="usernameInput" controlId="formPlaintextEmail">
+                                        <Form.Text className="usernameText">Company</Form.Text>
+                                        <Form.Control disabled defaultValue={company.name}></Form.Control>
+                                    </Form.Group>
+                                    <Form.Group className="emailInput" controlId="formPlaintextEmail">
+                                            <Form.Text className="emailText">Date Joined</Form.Text>
+                                            <Form.Control disabled defaultValue={dueDate}></Form.Control>
+                                    </Form.Group>
+                                    </Form>
                                 </Tab.Pane>
                             </Tab.Content>
                         </Container>
