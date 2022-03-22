@@ -12,7 +12,6 @@ const LearningDirectoryRequiredPage = () => {
     const [isLoading, setLoading] = useState(true)
 
     useEffect(() => {
-
         Axios.get("http://localhost:3002/users/login").then((response) => {
           setSession(response.data.user[0])
         });

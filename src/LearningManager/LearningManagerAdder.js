@@ -90,21 +90,6 @@ const LearningModuleAdder = (props) => {
                 
             <div className="registerHeader">Add a Learning Module: </div>
             <div className="InviteSubtitle font">Choose a learning module to assign it to all your employees.</div>
-            {/* <Form className="learningModule Invite">
-                <Form.Group className="learningModule" controlId="formlearningModule">
-                    <Form.Control 
-                    type="learningModule" 
-                    placeholder="learningModule"
-                    
-                    onChange={ (e) => 
-                    {
-                        setLearningModule(e.target.value);
-                    }}/>
-                </Form.Group>
-                
-                <Form.Text className="registerMessage">{message}</Form.Text>
-                <Button className="createButton" variant="secondary" type="button" onClick={addModule}>Add Module</Button>
-            </Form> */}
             <form onSubmit={addModule}>
                 <label>
                   
