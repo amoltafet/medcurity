@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { Card, Col, Button, OverlayTrigger, Popover } from 'react-bootstrap';
 import './EmployerCard.css';
 import { useState} from "react";
+import axios from 'axios';
 
 //TODO
 // Connect button to remove user functionality
@@ -24,22 +25,28 @@ const EmployerCard = (props) => {
      * Removes a user from the selected company
      * @param {int} userId 
      */
-    function removeEmployer(userId, companyId) {
+    function removeEmployer() {
         console.log("Removing Employer from company");
+            axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `DELETE FROM CompanyAdmins WHERE UserID = '${props.userId}'` } }).then((response) => {
+            }).catch(error => console.error(`Error ${error}`));
+        
+        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `DELETE FROM Users WHERE userid = '${props.userId}'` } }).then((response) => {
+        }).catch(error => console.error(`Error ${error}`));
+        
+
     }
 
-    const popover = (props) => {
-        return (
-            <Popover id="popover-basic">
-                {props.content}
-                <Button className="EmployerInRowButton uvs-right" 
-                    variant="success" 
-                    onClick={() => removeEmployer(props.userId, props.companyId)}> 
-                    Confirm 
-                </Button>
-            </Popover>
-        )
-    }
+    // function removeModule() {
+    //     console.log("Removing LearningModule from company");
+    //     axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `DELETE FROM Questions WHERE module = '${props.moduleId}'` } }).then((response) => {
+    //         console.log("Removing Questions for", props.moduleId)
+    //         }).catch(error => console.error(`Error ${error}`));
+        
+    //     axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `DELETE FROM LearningModules WHERE ID = '${props.moduleId}'` } }).then((response) => {
+    //         console.log("Removing Questions for", props.moduleId)
+    //         }).catch(error => console.error(`Error ${error}`));
+    // }
+
     var userStatus;
     if(props.status == 0) {
         userStatus = "Inactive"
@@ -77,7 +84,7 @@ const EmployerCard = (props) => {
                         <div className="EmployerCardValues">Please confirm that you want to delete the user '{props.name}': </div> 
                         <Button className="EmployerInRowButton uvs-right" 
                             variant="success" 
-                            onClick={() => removeEmployer(props.userId, props.companyId)}> 
+                            onClick={() => removeEmployer()}> 
                             Confirm 
                         </Button>
                     </Popover>

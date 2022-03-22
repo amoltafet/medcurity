@@ -10,6 +10,7 @@ import { useEffect, useState, Link} from "react";
 import AddCompany from './AddCompany';
 import { useParams } from "react-router";
 import Axios from 'axios';
+import DeleteCompany from './DeleteCompany';
 
 
 /**
@@ -36,6 +37,7 @@ const AdminDashboardPage = () => {
         <CardDeck className="dashTopPanel" style={{display: 'flex', flexDirection: 'row'}}>
           <AdminInvitations />
           <AddCompany />
+          <DeleteCompany />
         </CardDeck>
         <EmployerCards />
         

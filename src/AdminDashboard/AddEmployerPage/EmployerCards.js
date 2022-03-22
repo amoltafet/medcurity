@@ -58,7 +58,7 @@ const EmployersCards = () => {
         for (let index in employers) {
             if (size == maxLength) { break; }
             var employer = employers[index]
-            objs.push(<EmployerCard companyNames={companies} email={employer.email} name={employer.username} company={employer.CompanyID} userId={employer.UserId} companyId={employer.CompanyId} status={employer.active} />)
+            objs.push(<EmployerCard companyNames={companies} email={employer.email} name={employer.username} company={employer.CompanyID} userId={employer.UserID} companyId={employer.CompanyId} status={employer.active} />)
             size += 1;
         }
         return objs;
