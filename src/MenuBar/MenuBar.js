@@ -13,15 +13,18 @@ import { useNavigate } from 'react-router-dom';
  */
 const Menubar = () => {
     const navigate = useNavigate();
+    const [companyId, setCompanyId] = useState('')
     const [company, setCompany] = useState([])
     Axios.defaults.withCredentials = true;
     const [session, setSession] = useState([]);
+    const [isLoggedIn, setIsLoggedIn] = useState([]);
     const [isLoading, setLoading] = useState(true)
     const [isCompanyLoading, setCompanyLoading] = useState(true)
 
     useEffect(() => {
         Axios.get("http://localhost:3002/users/login").then((response) => {
           setSession(response.data.user[0])
+          setIsLoggedIn(response.data.loggedIn)
         });
       }, []);
 
@@ -30,6 +33,13 @@ const Menubar = () => {
             setLoading(false)
         }
     }, [session])
+
+    useEffect(() => {
+
+        if (isLoggedIn == []) {
+            console.log("Log out")
+        }
+    }, [isLoggedIn])
 
     // Query for getting user's required learning modules
     useEffect(() => {
@@ -46,10 +56,21 @@ const Menubar = () => {
     }, [isLoading])
 
     useEffect(() => {
+        console.log("Company")
+        console.log(company)
         if (company != undefined) {
             setCompanyLoading(false)
+            setCompanyId(company.companyId)
         }
     }, [company])
+
+    // useEffect(() => {
+    //     console.log(company)
+    //     if (company != undefined) {
+    //         console.log("working")
+    //         setCompanyId(company[0].companyId)
+    //     }
+    // }, [company])
 
     const logout = () => {
         Axios.post("http://localhost:3002/users/logout").then((response) => 
@@ -67,9 +88,7 @@ const Menubar = () => {
         }).catch(error => console.error(`Error ${error}`));
     };
 
-    const companyId = company.map((company) => {
-        return company.companyId
-    })
+
 
     /**
      * Returns buttons for accessing employer pages if the user is a company
@@ -77,6 +96,7 @@ const Menubar = () => {
      */
     function get_employer_buttons() {
         let objs = [];
+        console.log(companyId)
         if (!isCompanyLoading && Number.isInteger(companyId)) {
             objs.push(
                 <Nav.Item className="navPills uvs-left uvs-right">
