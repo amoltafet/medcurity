@@ -51,7 +51,6 @@ const Menubar = () => {
                 }).then((response) => {
                     setCompany(Object.values(response.data))
             });
-            
         }
     }, [isLoading])
 
