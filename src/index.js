@@ -15,6 +15,7 @@ import LearningDirectory from './LearningDirectory/LearningDirectory';
 import LearningDirectoryPage from './LearningDirectory/LearningDirectoryPage';
 import LearningDirectoryRequiredPage from './LearningDirectory/LearningDirectoryRequiredPage';
 import EmployerDashboard from './EmployerDashboard/EmployerDashboard';
+import LearningManagerDashboard from './LearningManager/LearningManagerDashboard';
 import QuizModules from './Quiz/QuizModules';
 import QuizBackground from './Quiz/QuizBackground';
 import AdminContentPage from "./AdminDashboard/ContentDashboard/ContentDashboard";
@@ -47,6 +48,7 @@ ReactDOM.render(
         <Route path="" element={<EditQuestionSlug />} />
         <Route path=":slug" element={<EditQuestion />} />
       </Route>
+      <Route path="/learning-manager" element={<LearningManagerDashboard />} />
       <Route path="/settings" element={<SettingsPage />} />,
       <Route path="/quiz" element={<QuizBackground />}>
         <Route path="" element={<QuizModules />} />
