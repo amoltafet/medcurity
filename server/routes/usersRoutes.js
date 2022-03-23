@@ -9,10 +9,13 @@ const router = express.Router();
 
 router.post('/register', userControllers.userRegister);
 router.post('/registerEmpty', userControllers.userRegisterEmpty);
+router.post('/registerCompanyAdmin', userControllers.userRegisterCompanyAdmin);
 router.post('/login', userControllers.userLogin);
 router.get('/login', userControllers.userLoginSession);
 router.post('/logout', userControllers.userLogout);
 router.post('/settings', userControllers.userUpdate);
 router.post('/quiz', userControllers.userPoints);
+router.post('/moduleCompleted', userControllers.userModuleCompleted);
+
 
 module.exports = router
