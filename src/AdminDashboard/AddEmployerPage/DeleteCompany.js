@@ -19,10 +19,12 @@ const DeleteCompany = () => {
 
     const deleteCompany = () =>
     {
-        Axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `DELETE FROM Companies WHERE name = '${company}'` } }).then((response) => {
-        console.log(response)
-        }).catch(error => console.error(`Error ${error}`));
-        console.log("We Deleteed")
+        if(company != "") {
+            Axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `DELETE FROM Companies WHERE name = '${company}'` } }).then((response) => {
+            console.log(response)
+            }).catch(error => console.error(`Error ${error}`));
+            console.log("We Deleteed")
+        }
     }
 
     /**
@@ -74,7 +76,7 @@ const DeleteCompany = () => {
                         
                     </Form.Group>
                     <Form.Text className="registerMessage">{message}</Form.Text>
-                    <Button className="addButton" variant="secondary" type="button" onClick={deleteCompany}>Delete Company</Button>
+                    <Button className="addButton" variant="secondary" type="button" href='/admin-dash' onClick={deleteCompany}>Delete Company</Button>
 
             </Form>
         </Container>

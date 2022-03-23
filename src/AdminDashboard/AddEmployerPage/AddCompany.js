@@ -19,10 +19,12 @@ const AddCompany = () => {
 
     const addCompany = () =>
     {
-        Axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `INSERT INTO Companies (name) VALUES ('${company}')` } }).then((response) => {
-        console.log(response)
-        }).catch(error => console.error(`Error ${error}`));
-        console.log("We added")
+        if(company != "") {
+            Axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `INSERT INTO Companies (name) VALUES ('${company}')` } }).then((response) => {
+            console.log(response)
+            }).catch(error => console.error(`Error ${error}`));
+            console.log("We added")
+        }
     }
 
     /**
@@ -74,7 +76,7 @@ const AddCompany = () => {
                         
                     </Form.Group>
                     <Form.Text className="registerMessage">{message}</Form.Text>
-                    <Button className="addButton" variant="secondary" type="button" onClick={addCompany}>Add Company</Button>
+                    <Button className="addButton" variant="secondary" type="button" href="/admin-dash" onClick={addCompany}>Add Company</Button>
 
             </Form>
         </Container>

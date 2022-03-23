@@ -16,13 +16,13 @@ const AdminInvitations = () => {
     const [message, setMessage] = useState("")
     const [email, setEmail] = useState("");
     const [companies, setCompanies] = useState("")
-    const [userCompany, setUserCompany] = useState("")
+    const [userCompany, setUserCompany] = useState(1)
     const navigate = useNavigate();
 
     useEffect(() => {
         Axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `SELECT * FROM Companies ` } }).then((response) => {
             setCompanies(response.data)
-            console.log("Companies from Admin invitations:", companies)
+            console.log("Companies from Admin invitations:", response.data)
             }).catch(error => console.error(`Error ${error}`));
         },[])
 
@@ -63,18 +63,21 @@ const AdminInvitations = () => {
         //     }).catch(error => console.error(`Error ${error}`));
         //     console.log("We added")
         // }
-
-        Axios.post("http://localhost:3002/users/registerCompanyAdmin", { email: email, companyid: userCompany }).then((response) =>
-        {
-            console.log("Reponding from invite", response)
-        })
+        console.log("Email:", email)
+        console.log("")
+        if(email != "") {
+            Axios.post("http://localhost:3002/users/registerCompanyAdmin", { email: email, companyid: userCompany }).then((response) =>
+            {
+                console.log("Reponding from invite", response)
+            })
+        }   
     };
   
     function createDropDownOptions() {
         const dropdownList = [];
         for (let index in companies) {
             let item = companies[index];
-            dropdownList.push(<option classname="companyList font" value={item.companyid}>{item.name}</option>); 
+            dropdownList.push(<option className="companyList" value={item.companyid}>{item.name}</option>); 
         }
         return dropdownList;
     }
@@ -112,7 +115,7 @@ const AdminInvitations = () => {
                     </select>
                 </label>
             </Container>
-            <Button className="createButton" variant="secondary" type="button" onClick={invite}>Invite</Button>
+            <Button className="createButton" variant="secondary" type="button" onClick={invite} href='/admin-dash'>Invite</Button>
         </Container>
     );
 }

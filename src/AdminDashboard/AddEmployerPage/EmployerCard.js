@@ -84,7 +84,9 @@ const EmployerCard = (props) => {
                         <div className="EmployerCardValues">Please confirm that you want to delete the user '{props.name}': </div> 
                         <Button className="EmployerInRowButton uvs-right" 
                             variant="success" 
-                            onClick={() => removeEmployer()}> 
+                            onClick={() => removeEmployer()}
+                            href='/admin-dash'
+                            > 
                             Confirm 
                         </Button>
                     </Popover>

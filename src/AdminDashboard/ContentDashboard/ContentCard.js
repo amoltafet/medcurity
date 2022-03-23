@@ -30,6 +30,8 @@ const ContentCard = (props) => {
         axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `DELETE FROM LearningModules WHERE ID = '${props.moduleId}'` } }).then((response) => {
             console.log("Removing Questions for", props.moduleId)
             }).catch(error => console.error(`Error ${error}`));
+
+        
     }
 
 
@@ -60,7 +62,9 @@ const ContentCard = (props) => {
                         <div className="ContentCardValues">Please confirm that you want to remove the module '{props.learningModuleName}' from your assigned list of modules: </div> 
                         <Button className="ContentInRowButton uvs-right" 
                             variant="success" 
-                            onClick={() => removeModule(props.moduleId)}> 
+                            onClick={() => removeModule(props.moduleId)}
+                            href='/admin-content'
+                            > 
                             Confirm 
                         </Button>
                     </Popover>
@@ -68,7 +72,8 @@ const ContentCard = (props) => {
         
                     <Button className="ContentInRowButton uvs-right" 
                     size="sm" 
-                    variant="danger"> 
+                    variant="danger"
+                    > 
                     Remove Module </Button>
                 </OverlayTrigger>
             </Col>
