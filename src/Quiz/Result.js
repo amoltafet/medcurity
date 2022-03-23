@@ -5,12 +5,12 @@ function Result(props) {
 
     if (props.correctIdx === props.index && props.correct) {
         return(
-            <>
+            <>  
                 <Row > 
-                    <Col xs lg="1"  className="justify-content-right">
+                    <Col className="checkmarkImage">
                         <Image src="/checkmark.png" className="checkmarkImage"  alt="checkmark" />
                     </Col >
-                    <Col xs lg="8"  className="justify-content-left">
+                    <Col className="justify-content-left">
                         <div
                             key={props.index} 
                             id={`result-${props.index}`}

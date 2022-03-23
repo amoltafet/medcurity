@@ -19,7 +19,6 @@
     text-align: start;
     font-size: 100%;
     font-family: Lato,sans-serif;
-
 }
 
 /* RESULTS CSS */
@@ -31,6 +30,7 @@
 
 .questionDesciptionWrong {
     color: #cc3333;
+    margin-bottom: .5%;
 }
 
 .questionNumbersRight {
@@ -43,12 +43,3 @@
 }
 
 
-#check-image {
-    width: 2%;
-}
-
-.correctResult {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-}

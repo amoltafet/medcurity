@@ -40,6 +40,7 @@ const QuizPage = () => {
   const [showEarlyCompletionPopup, setShowEarlyCompletionPopup] = useState(false);
   const [showPassedPopup, setShowPassedPopup] = useState(true);
   const [showUserDidNotCompleteOnTime, setShowUserDidNotCompleteOnTime] = useState(false);
+  const [moduleNotAssigned, setModuleNotAssigned] = useState(false);
 
   const [moduleName, setModuleName] = useState("");
   var points = 0;
@@ -120,8 +121,8 @@ const QuizPage = () => {
       // }).catch(error => console.log(`Error ${error}`));
       // axios.post("http://localhost:3002/testing/assignModules", {
       //     userid: session.userid, 
-      //     modulenum: 5,
-      //     daysaway: 6,
+      //     modulenum:1,
+      //     daysaway: 2,
       //   }).then((response) => {
       //     console.log("response", response);
       //   }).catch(error => console.log(`Error ${error}`));
@@ -162,7 +163,7 @@ const QuizPage = () => {
       var categoryName = "category" + slug;
       var percentName = "percentage" + slug;
       var percent = numCorrect / content.length;
-      if ((percent * 100) >= 60) {
+      if ((percent * 100) >= 60 && !moduleNotAssigned) {
         console.log("percent: ", percent);
         console.log("points: ", totalPoints);
         axios.post("http://localhost:3002/users/quiz", {
@@ -292,16 +293,23 @@ const QuizPage = () => {
 
   function checkIfUserCompletedModuleOnTime (currentModule) {
     var today = new Date(); 
-    var moduleDueDate = new Date(currentModule.DueDate); 
-    console.log(today == moduleDueDate)
-    console.log(today > moduleDueDate) // today is before module date
-    console.log(today < moduleDueDate)
-    if (today > moduleDueDate) {
-      setNoCompleteOnTime(-200);
-      console.log("Boo complete your module on time: -", 200);
+    var moduleDueDate;
+    try {
+      moduleDueDate = new Date(currentModule.DueDate);
+      if (today > moduleDueDate) {
+        setNoCompleteOnTime(-200);
+        console.log("Boo complete your module on time: -", 200);
+        setShowUserDidNotCompleteOnTime(true);
+        return false;
+      }
+      return true;
+    }
+    catch (e){
+      console.log("Module not assigned: ", e);
+      setModuleNotAssigned(true);
       return false;
     }
-    return true;
+    
   }
 
   function checkIfUserGotEarlyCompletion (currentModule) {
@@ -315,12 +323,15 @@ const QuizPage = () => {
         console.log("two days early: ", twoDaysEarly);
         console.log("one day early: ", oneDayEarly);
 
+        const msBetweenOneDay = Math.abs(today.getTime() - oneDayEarly.getTime());
+        const hoursBetweenOneDay = msBetweenOneDay / (60 * 60 * 1000);
+
     if (today <= twoDaysEarly) {
       setEarlyCompletion(200);
       console.log("yay early completion 2x early+: ", 200);
       setShowEarlyCompletionPopup(true);
     }
-    else if (today <= oneDayEarly && earlyCompletion === 0) {
+    else if ((today <= oneDayEarly || hoursBetweenOneDay < 24)&& earlyCompletion === 0  ) {
       setEarlyCompletion(100);
       console.log("yay early completion 1x early+:", 100);
       setShowEarlyCompletionPopup(true);
@@ -364,17 +375,16 @@ const QuizPage = () => {
       }
     
     });
-
-    if (currentModule.DueDate != null) {
-      console.log("CurrentModule", currentModule);
-      if (checkIfUserCompletedModuleOnTime(currentModule)) {
-          checkIfUserGotEarlyCompletion(currentModule);
-          checkIfUserGotSpacedLearning();
-      }
-   
-      setSubmitted(true);
-
+  
+    console.log("CurrentModule", currentModule);
+    if (checkIfUserCompletedModuleOnTime(currentModule)) {
+        checkIfUserGotEarlyCompletion(currentModule);
+        checkIfUserGotSpacedLearning();
     }
+  
+    setSubmitted(true);
+
+  
   }
 
   function UserGotEarlyCompletion() {
@@ -386,7 +396,7 @@ const QuizPage = () => {
             You scored bonus points by completing your module early! +{earlyCompletion} points!
           </p>
           <div className="d-flex justify-content-end">
-          <Button onClick={() => setShowEarlyCompletionPopup(false)} variant="success-info">
+          <Button onClick={() => setShowEarlyCompletionPopup(false)} variant="outline-success">
             X
           </Button>
           </div>
@@ -404,7 +414,7 @@ const QuizPage = () => {
             You scored bonus points by spacing out your learning! +{spaceLearning} points!
           </p>
           <div className="d-flex justify-content-end">
-          <Button onClick={() => setShowSpacedLearningPopup(false)} variant="success-info">
+          <Button onClick={() => setShowSpacedLearningPopup(false)} variant="outline-success">
             X
           </Button>
           </div>
@@ -416,13 +426,13 @@ const QuizPage = () => {
   function UserDidNotCompleteModuleOnTime() {
     if (showUserDidNotCompleteOnTime) {
       return (
-        <Alert variant="success" show={showUserDidNotCompleteOnTime}>
+        <Alert variant="info" show={showUserDidNotCompleteOnTime}>
           <Alert.Heading>You Did Not Complete the Module on Time.</Alert.Heading>
           <p>
             You did not complete this module by its due date. -${notCompleteOnTime} points.
           </p>
           <div className="d-flex justify-content-end">
-          <Button onClick={() => setShowSpacedLearningPopup(false)} variant="success-info">
+          <Button onClick={() => setShowUserDidNotCompleteOnTime(false)} variant="outline-info">
             X
           </Button>
           </div>
@@ -431,39 +441,42 @@ const QuizPage = () => {
     }
   }
 
-  function Passed() {
-    if (passed) {
-      return (
-        <Alert variant="success" show={showPassedPopup}>
-          <Alert.Heading>Yay You Passed the Module!</Alert.Heading>
-          <p>
-            Congratulations you passed the {moduleName.Title} module!
-          </p>
-          <div className="d-flex justify-content-end">
-          <Button onClick={() => setShowPassedPopup(false)} variant="outline-success">
-            X
-          </Button>
-          </div>
-        </Alert>
-      );
-    } else {
-      return (
-        <Alert variant="warning" show={showPassedPopup}>
-          <Alert.Heading>Try again</Alert.Heading>
-          <p>
-            Sorry you did not pass the Module. You need higher than a 60 to pass.
-          </p>
-          <div className="d-flex justify-content-end">
-          <Button href={`/quiz/${slug}`} variant="outline-warning">
-            Try Again
-          </Button>
-          <Button onClick={() => setShowPassedPopup(false)} variant="outline-warning">
-            X
-          </Button>
-          </div>
-        </Alert>
-      );
-    }  
+  function Passed () {
+    console.log("module not assigned:", moduleNotAssigned)
+    if (!moduleNotAssigned){
+      if (passed) {
+        return (
+          <Alert variant="success" show={showPassedPopup}>
+            <Alert.Heading>Yay, You Passed the Module!</Alert.Heading>
+            <p>
+              Congratulations you passed the {moduleName.Title} module!
+            </p>
+            <div className="d-flex justify-content-end">
+            <Button onClick={() => setShowPassedPopup(false)} variant="outline-success">
+              X
+            </Button>
+            </div>
+          </Alert>
+        );
+      } else {
+        return (
+          <Alert variant="warning" show={showPassedPopup}>
+            <Alert.Heading>Try again</Alert.Heading>
+            <p>
+              Sorry you did not pass the Module. You need higher than a 60 to pass.
+            </p>
+            <div className="d-flex justify-content-end">
+            <Button href={`/quiz/${slug}`} variant="outline-warning">
+              Try Again
+            </Button>
+            <Button onClick={() => setShowPassedPopup(false)} variant="outline-warning">
+              X
+            </Button>
+            </div>
+          </Alert>
+        );
+      }  
+    }
   }
 
   // catch for rerendering 
@@ -519,7 +532,7 @@ const QuizPage = () => {
         points += 100
         numCorrect += 1
         return ([
-          <Container id="resultsPageHolder" className="resultAnswers">
+          <Container id="resultsPageHolder" className="resultAnswers uvs-left uvs-right">
             <Results
               id={newID}
               i={newestIndex - 1}
@@ -535,7 +548,7 @@ const QuizPage = () => {
       }
       else {
         return ([
-          <Container id="resultsPageHolder" className="resultAnswers">
+          <Container id="resultsPageHolder" className="resultAnswers uvs-left uvs-right">
             <Results
               id={newID}
               i={newestIndex - 1}
@@ -554,11 +567,12 @@ const QuizPage = () => {
       <>
         <MenuBar></MenuBar>
         <div id="resultsPageContainer">
-          {Passed()}
+         
+          <h1 className="quizResultsHeader">Quiz Results</h1> {
+          Passed()}
           {UserGotEarlyCompletion()}
           {UserGotSpacedLearning()}
           {UserDidNotCompleteModuleOnTime()}
-          <h1 className="quizResultsHeader">Quiz Results</h1>
           <Row className="text-center quizPointInfo">
             <Col>
               <div className="totalCorrectQuestions"> {numCorrect} / {content.length} Questions Correct </div>

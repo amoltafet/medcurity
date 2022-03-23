@@ -1,4 +1,4 @@
-import { Container, Row } from "react-bootstrap";
+import { Container, Row, Card } from "react-bootstrap";
 import React, { useEffect, useState } from 'react';
 
 import Result from "./Result";
@@ -29,8 +29,9 @@ function Results(props) {
 
     return(
         <>
+        <Card  className="resultsCard">
             <h3 id="qNumber" className={props.classes[0]}> Question {props.i + 1} </h3>
-            <Container id={props.i} className="text-center"> 
+            <Container id={props.i} className="text-center resultsContainerQuestionBottom"> 
                 <Container id="questionDesciption" className={props.classes[1]}>
                     {props.question} 
                 </Container>
@@ -42,6 +43,7 @@ function Results(props) {
                 </Row>
 
             </Container>
+            </Card>
         </>
     );
 }
