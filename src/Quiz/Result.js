@@ -1,21 +1,24 @@
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Image } from "react-bootstrap";
+import './Result.css';
 
 function Result(props) {
 
     if (props.correctIdx === props.index && props.correct) {
         return(
             <>
-                <Row className="correctResult">
-                    <div className="img-col">
-                        <img src={require(`../assets/checkmark.png`)} id="check-image" className="text-end" alt="checkmark" />
-                    </div>
-                    <div 
-                        key={props.index} 
-                        id={`result-${props.index}`}
-                        value={props.rad.name}
-                        className="individualResults text-start">
-                            {`${props.rad.name}`}
-                    </div>
+                <Row > 
+                    <Col xs lg="1"  className="justify-content-right">
+                        <Image src="/checkmark.png" className="checkmarkImage"  alt="checkmark" />
+                    </Col >
+                    <Col xs lg="8"  className="justify-content-left">
+                        <div
+                            key={props.index} 
+                            id={`result-${props.index}`}
+                            value={props.rad.name}
+                            className="correctResults text-center">
+                                {`${props.rad.name}`}
+                        </div>
+                    </Col>
                 </Row>    
             </>
         );
@@ -24,17 +27,19 @@ function Result(props) {
     else if (props.correctIdx === props.index && !props.correct) {
         return(
             <>
-                <Row className="correctResult  text-center">
-                    <div className="img-col">
-                        <img src={require(`../assets/x-mark.png`)} id="check-image" className="" alt="checkmark" />
-                    </div>
-                    <div 
-                        key={props.index} 
-                        id={`result-${props.index}`}
-                        value={props.rad.name}
-                        className="individualResults text-start">
-                            {`${props.rad.name}`}
-                    </div>
+                <Row >
+                    <Col className="x-markImage">
+                        <Image src="/x-mark.png" className="x-markImage" alt="xmark" />
+                    </Col>
+                    <Col   className="justify-content-left">
+                        <div 
+                            key={props.index} 
+                            id={`result-${props.index}`}
+                            value={props.rad.name}
+                            className="wrongResults">
+                                {`${props.rad.name}`}
+                        </div>
+                    </Col>
                 </Row>    
             </>
         );
@@ -42,14 +47,14 @@ function Result(props) {
     else {
         return(
             <>
-                <div 
+                <Row 
+                    className="justify-content-center"
                     key={props.index} 
                     id={`result-${props.index}`}
                     value={props.rad.name}
-                    className="text-center"
                     >
                         {`${props.rad.name}`}
-                </div>       
+                </Row>       
             </>
         );
     }

@@ -32,7 +32,7 @@ const assignModulesTest = (req, res) => {
     const dateDue = req.body.daysaway;
     
     var today = new Date();
-    today.setDate(today.getDate() - dateDue);
+    today.setDate(today.getDate() + dateDue);
   
     logger.log('info', `userid: "${userid}"`);
     logger.log('info', `Modulenum: "${moduleNum}"`);

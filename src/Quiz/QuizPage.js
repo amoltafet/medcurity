@@ -33,9 +33,15 @@ const QuizPage = () => {
   const [userCompletedModules, setUserCompletedModules] = useState([]);
   const [userAssignedModules, setUserAssignedModules] = useState([]);
   const [earlyCompletion, setEarlyCompletion] = useState(0);
-  const [spaceLearning, setSpacedLearning] = useState(0);
+  const [spaceLearning, setSpacedLearning] = useState(0);  
+  const [passed, setPassed] = useState(false);
+  const [notCompleteOnTime, setNoCompleteOnTime] = useState(0);
   const [showSpacedLearningPopup, setShowSpacedLearningPopup] = useState(false);
-  const [showEarlyCompletionPopup, setShowCompletionPopup] = useState(false);
+  const [showEarlyCompletionPopup, setShowEarlyCompletionPopup] = useState(false);
+  const [showPassedPopup, setShowPassedPopup] = useState(true);
+  const [showUserDidNotCompleteOnTime, setShowUserDidNotCompleteOnTime] = useState(false);
+
+  const [moduleName, setModuleName] = useState("");
   var points = 0;
   var numCorrect = 0;
   // data array that holds question information using state
@@ -81,15 +87,6 @@ const QuizPage = () => {
    */
   useEffect(() => {
     if (!isLoading && session.userid != null) {
-      // I gave up 
-      // axios.get('http://localhost:3002/api/getQuery',
-      //   {
-      //     params: { the_query: 'SELECT DISTINCT c.UserID, c.LearningModID, c.DateCompleted, a.UserID, a.LearningModID, a.DueDate FROM AssignedLearningModules a JOIN CompletedModules c WHERE c.UserID = ' + session.userid + ' OR a.UserID = ' + session.userid }
-      //   }).then((response) => {
-      //     console.log("re1: ", response)
-      //     //setLearningModules(Object.values(response.data))
-      //     //console.log("modules: ", learningModules)
-      //   });
       axios.get('http://localhost:3002/api/getQuery',{
         params: { the_query: 'SELECT * FROM CompletedModules WHERE UserID = ' + session.userid }
       }).then((response) => {
@@ -102,6 +99,20 @@ const QuizPage = () => {
         setUserAssignedModules(response.data); 
         console.log("Assigned: ", response.data);
       });
+      axios.get('http://localhost:3002/api/getQuery',{
+        params: { the_query: 'SELECT * FROM LearningModules WHERE ID = ' + slug }
+      }).then((response) => {
+        setModuleName(response.data); 
+        console.log("ModuleName: ", response.data);
+      });
+
+      content.forEach(element => {
+         console.log(element.solution)
+      });
+     
+
+      // Keep for testing
+
       // axios.post("http://localhost:3002/testing/resetUser", {
       //   userid: session.userid,
       // }).then((response) => {
@@ -147,15 +158,16 @@ const QuizPage = () => {
    */
   useEffect(() => {
     if (!isLoading && isSubmitted && points !== 0) {
+      var totalPoints = points + earlyCompletion + notCompleteOnTime + spaceLearning;
       var categoryName = "category" + slug;
       var percentName = "percentage" + slug;
       var percent = numCorrect / content.length;
       if ((percent * 100) >= 60) {
         console.log("percent: ", percent);
-        console.log("points: ", points);
+        console.log("points: ", totalPoints);
         axios.post("http://localhost:3002/users/quiz", {
           categoryName: categoryName,
-          points: points,
+          points: totalPoints,
           percentName: percentName,
           lengths: (percent),
           userid: session.userid,
@@ -168,6 +180,7 @@ const QuizPage = () => {
         }).then((response) => {
           console.log("response", response.data);
         }).catch(error => console.log(`Error ${error}`));
+        setPassed(true)
       }
     }
   }, [points, numCorrect, isSubmitted])
@@ -277,67 +290,106 @@ const QuizPage = () => {
     setChecked(checkedArray);
   }
 
-  /**
-   *  sees if the user can get bonus points through early completion or spaced learning
-   */
-  function checkIfUserGetsExtraPoints() {
+  function checkIfUserCompletedModuleOnTime (currentModule) {
     var today = new Date(); 
-    var twoDaysEarly = new Date();
-    var oneDayEarly = new Date();
+    var moduleDueDate = new Date(currentModule.DueDate); 
+    console.log(today == moduleDueDate)
+    console.log(today > moduleDueDate) // today is before module date
+    console.log(today < moduleDueDate)
+    if (today > moduleDueDate) {
+      setNoCompleteOnTime(-200);
+      console.log("Boo complete your module on time: -", 200);
+      return false;
+    }
+    return true;
+  }
+
+  function checkIfUserGotEarlyCompletion (currentModule) {
+    var today = new Date(); 
+    var twoDaysEarly = new Date(currentModule.DueDate);
+    var oneDayEarly = new Date(currentModule.DueDate);
     twoDaysEarly.setDate(twoDaysEarly.getDate() - 2);
     oneDayEarly.setDate(oneDayEarly.getDate() - 1);
 
-        console.log("today: ", today);
+        console.log("due date for module: ", currentModule.DueDate);
         console.log("two days early: ", twoDaysEarly);
         console.log("one day early: ", oneDayEarly);
+
+    if (today <= twoDaysEarly) {
+      setEarlyCompletion(200);
+      console.log("yay early completion 2x early+: ", 200);
+      setShowEarlyCompletionPopup(true);
+    }
+    else if (today <= oneDayEarly && earlyCompletion === 0) {
+      setEarlyCompletion(100);
+      console.log("yay early completion 1x early+:", 100);
+      setShowEarlyCompletionPopup(true);
+    }         
+  }
+
+  function checkIfUserGotSpacedLearning () {
+    if (userCompletedModules.length !== 0 && userCompletedModules !== undefined && notCompleteOnTime === 0) {
+      var lastCompletedModuleDate = userCompletedModules.reduce((a, b) => (a.MeasureDate > b.MeasureDate ? a : b));
+   
+    
+      lastCompletedModuleDate = (lastCompletedModuleDate.DateCompleted);
+      var moduleFinishedDate = new Date(lastCompletedModuleDate);
+      console.log("last completed module date : ", lastCompletedModuleDate);
+      console.log("last completed module date converted: ", moduleFinishedDate);
       
-    userAssignedModules.forEach(element => {
-      console.log("module id: ", element.LearningModID);
-      console.log("slug ", slug);
-      if (element.LearningModID === slug) {
-        console.log("module due at: ", element.DueDate);
-        console.log("slug ", slug);
-        
-          if (element.DueDate < twoDaysEarly.toISOString()) {
-            setEarlyCompletion(200);
-            console.log("yay early completion 2x early+: ", 200);
-          }
-          else if (element.DueDate < oneDayEarly.toISOString()) {
-            setEarlyCompletion(100);
-            console.log("yay early completion 1x early+:", 100);
-          }         
+      var spacedLearningDate = new Date(lastCompletedModuleDate);
+      spacedLearningDate.setDate(spacedLearningDate.getDate() + 2);
+      console.log("spaced learning date: ", spacedLearningDate);
+
+      const msBetweenDates = Math.abs(moduleFinishedDate.getTime() - spacedLearningDate.getTime());
+      const hoursBetweenDates = msBetweenDates / (60 * 60 * 1000);
+      
+      if (hoursBetweenDates < 24) {
+        setSpacedLearning(300);
+        console.log("yay spaced learning+:", 300);
+        setShowSpacedLearningPopup(true);
       }
+    }
+  }
+  /**
+   *  sees if the user can get bonus points through early completion or spaced learning
+   */
+  function checkIfUserGetsExtraPoints () { 
+    var currentModule;
+    
+    
+    userAssignedModules.forEach(element => {
+      if (element.LearningModID === parseInt(slug)) {
+        currentModule = element;
+      }
+    
     });
 
-    // datetime
-    var lastCompletedModuleDate = userCompletedModules.reduce((a, b) => (a.MeasureDate > b.MeasureDate ? a : b)); 
-    lastCompletedModuleDate = (lastCompletedModuleDate.DateCompleted);
-    var moduleFinishedDate = new Date(lastCompletedModuleDate);
-    console.log("last completed module date : ", lastCompletedModuleDate);
-    console.log("last completed module date converted: ", moduleFinishedDate);
-    
-    var spacedLearningDate = new Date(lastCompletedModuleDate);
-    spacedLearningDate.setDate(spacedLearningDate.getDate() + 2);
-    console.log("spaced learning date: ", spacedLearningDate);
+    if (currentModule.DueDate != null) {
+      console.log("CurrentModule", currentModule);
+      if (checkIfUserCompletedModuleOnTime(currentModule)) {
+          checkIfUserGotEarlyCompletion(currentModule);
+          checkIfUserGotSpacedLearning();
+      }
+   
+      setSubmitted(true);
 
-    const msBetweenDates = Math.abs(moduleFinishedDate.getTime() - spacedLearningDate.getTime());
-    const hoursBetweenDates = msBetweenDates / (60 * 60 * 1000);
-    
-    if (hoursBetweenDates < 24) {
-      setSpacedLearning(300);
-      console.log("yay spaced learning+:", 300);
     }
-    setSubmitted(true);
   }
 
   function UserGotEarlyCompletion() {
     if (showEarlyCompletionPopup) {
       return (
-        <Alert variant="info" onClose={() => setShowCompletionPopup(false)} dismissible>
-          <Alert.Heading>ay You Got Bonus Points!</Alert.Heading>
+        <Alert variant="success" show={showEarlyCompletionPopup}>
+          <Alert.Heading>Yay, You Got Bonus Points!</Alert.Heading>
           <p>
-            You scored bonus points by completing your module early! +${earlyCompletion}
+            You scored bonus points by completing your module early! +{earlyCompletion} points!
           </p>
+          <div className="d-flex justify-content-end">
+          <Button onClick={() => setShowEarlyCompletionPopup(false)} variant="success-info">
+            X
+          </Button>
+          </div>
         </Alert>
       );
     }
@@ -346,14 +398,72 @@ const QuizPage = () => {
   function UserGotSpacedLearning() {
     if (showSpacedLearningPopup) {
       return (
-        <Alert variant="info" onClose={() => setShowSpacedLearningPopup(false)} dismissible>
-          <Alert.Heading>Yay You Got Bonus Points!</Alert.Heading>
+        <Alert variant="success" show={showSpacedLearningPopup}>
+          <Alert.Heading>Yay, You Got Bonus Points!</Alert.Heading>
           <p>
-            You scored bonus points by spacing out your learning! + ${spaceLearning}
+            You scored bonus points by spacing out your learning! +{spaceLearning} points!
           </p>
+          <div className="d-flex justify-content-end">
+          <Button onClick={() => setShowSpacedLearningPopup(false)} variant="success-info">
+            X
+          </Button>
+          </div>
         </Alert>
       );
     }
+  }
+
+  function UserDidNotCompleteModuleOnTime() {
+    if (showUserDidNotCompleteOnTime) {
+      return (
+        <Alert variant="success" show={showUserDidNotCompleteOnTime}>
+          <Alert.Heading>You Did Not Complete the Module on Time.</Alert.Heading>
+          <p>
+            You did not complete this module by its due date. -${notCompleteOnTime} points.
+          </p>
+          <div className="d-flex justify-content-end">
+          <Button onClick={() => setShowSpacedLearningPopup(false)} variant="success-info">
+            X
+          </Button>
+          </div>
+        </Alert>
+      );
+    }
+  }
+
+  function Passed() {
+    if (passed) {
+      return (
+        <Alert variant="success" show={showPassedPopup}>
+          <Alert.Heading>Yay You Passed the Module!</Alert.Heading>
+          <p>
+            Congratulations you passed the {moduleName.Title} module!
+          </p>
+          <div className="d-flex justify-content-end">
+          <Button onClick={() => setShowPassedPopup(false)} variant="outline-success">
+            X
+          </Button>
+          </div>
+        </Alert>
+      );
+    } else {
+      return (
+        <Alert variant="warning" show={showPassedPopup}>
+          <Alert.Heading>Try again</Alert.Heading>
+          <p>
+            Sorry you did not pass the Module. You need higher than a 60 to pass.
+          </p>
+          <div className="d-flex justify-content-end">
+          <Button href={`/quiz/${slug}`} variant="outline-warning">
+            Try Again
+          </Button>
+          <Button onClick={() => setShowPassedPopup(false)} variant="outline-warning">
+            X
+          </Button>
+          </div>
+        </Alert>
+      );
+    }  
   }
 
   // catch for rerendering 
@@ -409,7 +519,7 @@ const QuizPage = () => {
         points += 100
         numCorrect += 1
         return ([
-          <Container id="resultsPageHolder" class="resultAnswers">
+          <Container id="resultsPageHolder" className="resultAnswers">
             <Results
               id={newID}
               i={newestIndex - 1}
@@ -425,7 +535,7 @@ const QuizPage = () => {
       }
       else {
         return ([
-          <Container id="resultsPageHolder" class="resultAnswers">
+          <Container id="resultsPageHolder" className="resultAnswers">
             <Results
               id={newID}
               i={newestIndex - 1}
@@ -444,8 +554,10 @@ const QuizPage = () => {
       <>
         <MenuBar></MenuBar>
         <div id="resultsPageContainer">
+          {Passed()}
           {UserGotEarlyCompletion()}
           {UserGotSpacedLearning()}
+          {UserDidNotCompleteModuleOnTime()}
           <h1 className="quizResultsHeader">Quiz Results</h1>
           <Row className="text-center quizPointInfo">
             <Col>

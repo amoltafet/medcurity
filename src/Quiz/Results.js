@@ -1,4 +1,4 @@
-import { Container, Col } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import React, { useEffect, useState } from 'react';
 
 import Result from "./Result";
@@ -35,11 +35,11 @@ function Results(props) {
                     {props.question} 
                 </Container>
 
-                <Col id={quizToggleId} className="resultsQuizSelection" vertical name={quizToggleId}>
+                <Row id={quizToggleId} className="resultsQuizSelection" name={quizToggleId}>
                     {myanswers.map((radio, idx) => (
                         <Result index={idx} rad={radio} correctIdx={props.userAnswer} correct={props.isCorrect}></Result>
                     ))}
-                </Col>
+                </Row>
 
             </Container>
         </>

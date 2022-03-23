@@ -1,0 +1,23 @@
+.x-markImage {
+    width: 5%; 
+    justify-content: end !important;
+}
+
+.checkmarkImage {
+    width: 5%;
+    justify-content: end !important;
+}
+
+.correctResults {
+    font-family: Lato,sans-serif;
+    justify-content: start !important;
+}
+
+.wrongResults{
+    font-family: Lato,sans-serif;
+    justify-content: start !important;
+}
+
+.otherAnswers {
+    font-family: Lato,sans-serif;
+}
