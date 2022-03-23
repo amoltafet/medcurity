@@ -46,7 +46,7 @@ const EmployeesCards = (props) => {
                     setEmployees(Object.values(response.data))
             });
         }
-    }, [])
+    }, [isLoading])
 
     // Get each companies assigned modules
     useEffect(() => {
@@ -60,7 +60,7 @@ const EmployeesCards = (props) => {
                     setAssignedModulesCount(Object.values(response.data))
             });
         }
-    }, [])
+    }, [isLoading])
 
     // Get a count of how many modules each user associated with the company
     // of the current user has completed
@@ -78,7 +78,7 @@ const EmployeesCards = (props) => {
                     setUserCompletedModules(Object.values(response.data))
             });
         }
-    }, [])
+    }, [isLoading])
 
     /**
      * Create directory cards from modules
