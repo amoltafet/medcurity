@@ -12,26 +12,20 @@ const LearningDirectoryRequiredPage = () => {
     const [isLoading, setLoading] = useState(true)
 
     useEffect(() => {
-
         Axios.get("http://localhost:3002/users/login").then((response) => {
-          console.log('aaahhh', response.data.user)
           setSession(response.data.user[0])
         });
       }, []);
 
     useEffect(() => {
-        console.log("testing")
-        if (session.userid !== undefined) {
+        if (session.userid != undefined) {
             setLoading(false)
-            console.log("changed")
         }
     }, [session])
 
     // Query for getting user's required learning modules
     useEffect(() => {
-        console.log("ran")
         if (!isLoading) {
-            console.log(String(session.userid))
             Axios.get('http://localhost:3002/api/getQuery', 
                 { params: { the_query: 'SELECT * ' +
                 'FROM LearningModules JOIN AssignedLearningModules ON LearningModules.ID = AssignedLearningModules.LearningModID ' +

@@ -23,15 +23,13 @@ const LearningModulesCards = (props) => {
     // Query for getting user's required learning modules
     useEffect(() => {
         if (!isLoading) {
-            console.log("userid is valid")
-            console.log(userId)
             axios.get('http://localhost:3002/api/getQuery', 
                 { params: { the_query: 'SELECT * FROM LearningModules JOIN AssignedLearningModules ON LearningModules.ID = AssignedLearningModules.LearningModID WHERE AssignedLearningModules.UserID = ' + userId} 
                 }).then((response) => {
                     setLearningModules(Object.values(response.data))
             });
         }
-    }, [userId])
+    }, [userId, isLoading])
 
     
    
@@ -70,6 +68,7 @@ const LearningModulesCards = (props) => {
             console.log(module)
             objs.push(<ModulePanel title={module.Title} link={module.ID} dueDate={module.DueDate} />)
             size += 1;
+            console.log(module)
         }
         return objs;
     }

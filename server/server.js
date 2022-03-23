@@ -1,7 +1,8 @@
 const logger = require('./logger').log;
 const express = require('express');
-const cors = require('cors')
-const serverConfig = require('./serverConfig.json')
+const cors = require('cors');
+const path = require('path');
+const serverConfig = require('./serverConfig.json');
 const app = express();
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
@@ -13,15 +14,18 @@ const session = require("express-session");
 */
 
 const LISTEN_PORT = serverConfig.server.LISTEN_PORT
-const ORIGIN_PORT = serverConfig.server.DEV_PORT
+const ORIGIN_PORT = serverConfig.server.ORIGIN_PORT
 const BASE_URL = serverConfig.server.BASE_URL
+const FULL_URL = BASE_URL + ORIGIN_PORT
+const METHODS = serverConfig.server.METHODS
 const SECRET = serverConfig.server.SECRET
+const STATIC_PATH = serverConfig.server.STATIC_PATH
 
 app.use(
   express.json(),
   cookieParser(),
   bodyParser.urlencoded({ extended: true }),
-  cors({ origin: [`${BASE_URL + ORIGIN_PORT}`], methods: ["GET", "POST"], credentials: true }),
+  cors({ origin: [`${FULL_URL}`], methods: METHODS, credentials: true }),
   session({ resave: true, saveUninitialized: true, secret: SECRET })
 );
 
@@ -35,15 +39,19 @@ app.use('/api', queryRouter);
 app.use('/testing', testingRouter);
 //app.use('/admin', adminRouter)
 
-// Serve static files from the React app
-// app.use(express.static(path.join(__dirname, '/client/build')));
+// Serve static files from the React app, must be uncommented for production deployment
+app.use(express.static(path.join(__dirname, STATIC_PATH)));
+app.use(express.static("client"));
+app.use((req, res, next) => {
+  res.sendFile(path.join(__dirname, STATIC_PATH, "index.html"));
+});
 
 app.listen(LISTEN_PORT, (err) => {
     
     if (err) console.log('ERROR: ', err)
 
     console.log(`API is running on ${LISTEN_PORT}`)
-    console.log(`Server is running on ${ORIGIN_PORT}`)
+    console.log(`Server is running on ${FULL_URL}`)
     logger.log('info', `Server is running on "PORT: ${ORIGIN_PORT}"`, { service: 'api-service' })
 
 })
