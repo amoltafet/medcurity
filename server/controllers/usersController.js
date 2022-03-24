@@ -277,6 +277,31 @@ const userModuleCompleted = (req, res) => {
     })   
 }
 
+/**
+ * Removes a user from a company. Checks if the user exists first. 
+ */
+const removeUserFromCompany = (req,res) => 
+{
+    const userid = req.body.userId
+    const companyid = req.body.companyid
+
+    db.query((`SELECT EXISTS(SELECT * FROM AffiliatedUsers ` +
+        `WHERE AffiliatedUsers.userid = '${userid}' and AffiliatedUsers.companyID = '${companyid}') AS doesExist`), (err, result) => {
+        if (result[0].doesExist == 0)
+        {
+            if (err) console.log(err);
+
+            db.query(`DELETE FROM AssignedLearningModules WHERE LearningModID = "${categoryId}" AND UserID = "${userid}"`, (err, result) => {
+            res.send(true)
+            });
+        }
+        else
+        {
+            res.send(false)
+        }
+    })
+}
+
 
 
 module.exports = 
@@ -290,4 +315,5 @@ module.exports =
     userUpdate,
     userPoints,
     userModuleCompleted,
+    removeUserFromCompany,
 };

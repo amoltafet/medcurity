@@ -16,6 +16,7 @@ router.post('/logout', userControllers.userLogout);
 router.post('/settings', userControllers.userUpdate);
 router.post('/quiz', userControllers.userPoints);
 router.post('/moduleCompleted', userControllers.userModuleCompleted);
+router.post('/removeUserFromCompany', userControllers.removeUserFromCompany);
 
 
 module.exports = router

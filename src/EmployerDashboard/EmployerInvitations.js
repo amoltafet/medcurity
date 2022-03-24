@@ -24,7 +24,7 @@ const EmployerInvitations = () => {
      */
     const invite = () => {
         console.log('INVITING', email)
-        Axios.post("http://localhost:3002/users/register",
+        Axios.post("http://localhost:3002/users/registerEmpty",
         { 
         email: email,
         }).then((response) => 

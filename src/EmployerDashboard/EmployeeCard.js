@@ -26,6 +26,16 @@ const EmployeeCard = (props) => {
      */
     function removeUser(userId, companyId) {
         console.log("Removing user from company");
+        // axios.post("http://localhost:3002/users/registerEmpty", {
+        //     categoryName: categoryName,
+        //     points: points,
+        //     percentName: percentName, 
+        //     lengths: (percent),
+        //     userid: session.userid,
+        // }).then((response) => {
+        //     console.log("response", response.data);
+            
+        // }).catch(error => console.log(`Error ${error}`));
     }
 
     const popover = (props) => {
