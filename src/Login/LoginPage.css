@@ -9,127 +9,64 @@
     
 }
 
-.emailAndPass {
-    font-family: Lato,sans-serif;
-    margin-top: 12vmax;
-    margin-bottom: 10vmax;
-    margin-left: 16vmax;
-    margin-right: 10vmax;
-    width: 90%;
-    font-size: .1vmax;
+.login_columnDivder{
+    margin-top: 12%;
+    margin-left: 7%;
 }
 
-.header {
-    font-family: Lato,sans-serif;
-    font-weight: bold;
-    font-size: 2vmax;
-    margin-top: 2%;
-    margin-bottom: 0;
-    margin-left: 5%;
-    margin-right: 30%;
-    color: #1e5b88;
+.login_h3{
+    color: white;
+    text-shadow: 2px 2px 2px black;
 }
 
-.body {
-    font-family: Lato,sans-serif;
-    font-size: 100%;
-    margin-left: 5%;
-    margin-right: 20%;
-    margin-top: 0;
-    color: #1e5b88;
+.login_p{
+    color: white;
 }
 
-.loginCard {
+.login_loginResponse {
+    font-family: Lato,sans-serif;
+    font-size: 1vmax;
+    color: white;
+    width: 75%;
+    background-color: #0000003f;
+}
+
+.login_forgotPass{
+    margin-top: 3%;
+    color: white;
+}
+
+.login_passForm{
+    width: 75%;
+}
+
+.login_emailForm{
+    width: 75%;
+}
+
+.login_loginCard {
     border: white;
     background-color: transparent;
     width: 70%;
 }
 
-.loginButton {
+.login_loginButton {
     color: white;
     background-color: #c33333;
-    margin-top: 5%;
     font-family: Lato,sans-serif;
-    font-size: 1.1vmax;
+    font-size: 1.3vmax;
     text-align: center;
-    width: 50%;
+    width: 75%;
+    height: 20%
 }
 
-.loginButton:hover {
-    background-color: #c33333;
-    border: none;
-}
-
-.loginButton:focus {
-    background-color: #c33333;
-    border: none;
-}
-
-.registerButton {
+.login_registerButton {
     color: white;
     background-color: #c33333;
-    margin-top: 5%;
+    margin-top: 0%;
     font-family: Lato,sans-serif;
-    font-size: 1.1vmax;
+    font-size: 1.3vmax;
     text-align: center;
-    width: 50%;
+    width: 75%;
+    height: 20%
 }
-
-.registerButton:hover {
-    background-color: #c33333;
-    border: none;
-}
-
-.registerButton:focus {
-    background-color: #c33333;
-    border: none;
-}
-
-.loginHeader {
-    font-family: Lato,sans-serif;
-    font-size: 2vmax;
-    margin-top: 2%;
-    margin-bottom: 0;
-    margin-left: 20%;
-    margin-right: 23%;
-    color: white;
-
-}
-
-.loginMessage {
-    font-family: Lato,sans-serif;
-    font-size: 1vmax;
-    color: white;
-    background-color: #0000003f;
-}
-
-.email {
-    margin-bottom: 1%;
-    margin-top: 1%;
-    margin-left: 10%;
-    width: 50%;
-    font-size: .1vmax;
-    animation-name: fadein;
-    animation-duration: 2.5s;
-}
-
-.pass {
-    margin-bottom: 1%;
-    margin-top: 1%;
-    margin-left: 10%;
-    width: 50%;
-    text-align: center;
-    font-size: .1vmax;
-    animation-name: fadein;
-    animation-duration: 2.5s;
-}
-
-@keyframes fadein {
-    from {
-        opacity: 0%
-    }
-  
-    to {
-        opacity: 100%
-    }
-  }

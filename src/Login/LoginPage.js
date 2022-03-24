@@ -53,36 +53,34 @@ export default function LoginPage()
       <>
       <Form className="loginbg img-fluid">
         <Image className="MedcurityLogo justify-content-bottom" variant="top" src="/Medcurity_Logo.png" alt="" />
-          <Card className="loginCard">
-            <Card.Text className="header">Medcurity Learn Security</Card.Text>
-            <Card.Text className="body">
-              To access your Medcurity Learn Security Dashboard please enter your login credentials.
-            </Card.Text>
-          </Card>
-        <Form className="emailAndPass">
-          <Form.Text className="loginHeader">Login to Medcurity Learn Security</Form.Text>
-            <Form.Group className="email" controlId="formEmail">
-              <Form.Control 
-                type="email" 
-                placeholder="Email" 
-                onChange={ (e) => 
-                {
-                  setEmail(e.target.value);
-                }}/>
-            </Form.Group>
-            <Form.Group className="pass" controlId="formPassword">
-              <Form.Control 
-                type="password" 
-                placeholder="Password"
-                onChange={ (e) => 
-                {
-                  setPassword(e.target.value);
-                }}/>
-              <Button className="loginButton" variant="secondary" type="button" onClick={login}>Login</Button>
-              <Button className="registerButton" variant="secondary" type="button" onClick={register}>Register a New Account</Button>
-              <Form.Text className="loginMessage">{message}</Form.Text>
-            </Form.Group>
-            
+            <Card className="login_loginCard">
+              <Card.Text className="header">Medcurity Learn Security</Card.Text>
+              <Card.Text className="body">
+                To access your Medcurity Learn Security Dashboard please enter your login credentials.
+              </Card.Text>
+            </Card>
+        <Form className="login_columnDivder"> 
+            <div class="row justify-content-md-center">
+              <div class="col-xs-5 col-md-5">
+                <h3 class="login_h3">Login to Medcurity Learn Security</h3>
+                <p class="login_p">Already have an account? Please login!</p>
+                <Form.Group className="login_emailForm" controlId="formEmail"> <Form.Control type="email" placeholder="Email" onChange={ (e) => {setEmail(e.target.value); }}/> </Form.Group>
+                <br></br>
+                <Form.Group className="login_passForm" controlId="formPassword"> <Form.Control type="password" placeholder="Password" onChange={ (e) => {setEmail(e.target.value); }}/> </Form.Group>
+                <br></br>
+                <p class="login_loginResponse">{message}</p>
+                <Button className="login_loginButton" onClick={login} variant="secondary" type="button">Login with Existing Account</Button>
+                <br></br>
+                <br></br>
+                <a class="login_forgotPass" href="/">Forgot password?</a>
+              </div>
+              
+              <div class="col-xs-5 col-md-5">
+                <h3 class="login_h3">Need an account?</h3>
+                <p class="login_p">Creating a new account is quick and easy. Get started here!</p>
+                <Button className="login_registerButton" onClick={register} variant="secondary" type="button">Register a New Account</Button>
+              </div>
+            </div>
         </Form>
       </Form>
       </>
