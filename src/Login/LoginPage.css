@@ -4,43 +4,61 @@
     width: 100%;
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;
     position: fixed;
-    
 }
 
-.login_columnDivder{
-    margin-top: 12%;
-    margin-left: 7%;
+.login_pageHeader {
+    margin-top: 7%;
+    text-align: center;
+}
+
+.login_pageHeaderText {
+    color: white;
+    text-shadow: 2px 2px 5px black;
+    font-size: 3vmax;
+}
+
+.login_columnDivder {
+    margin-top: 5%;
+    animation: login_upwardsFadeIn 1s;
+}
+
+.login_formColumn {
+    border-radius: 25px;
+    padding-top: 3%;
+}
+
+.login_formColumn:hover {
+    animation: login_hoverFade 0.5s linear;
+    background-color: #ffffff1f; 
 }
 
 .login_h3{
     color: white;
+    width: 75%;
     text-shadow: 2px 2px 2px black;
 }
 
 .login_p{
     color: white;
+    width: 75%;
 }
 
 .login_loginResponse {
+    margin-top: 2%;
     font-family: Lato,sans-serif;
     font-size: 1vmax;
     color: white;
-    width: 75%;
+    width: 72%;
     background-color: #0000003f;
 }
 
 .login_forgotPass{
-    margin-top: 3%;
+    width: 75%;
     color: white;
 }
 
-.login_passForm{
-    width: 75%;
-}
-
-.login_emailForm{
+.login_Form{
     width: 75%;
 }
 
@@ -50,23 +68,34 @@
     width: 70%;
 }
 
-.login_loginButton {
+.login_formButton {
     color: white;
-    background-color: #c33333;
+    background-color: #cc3333;
     font-family: Lato,sans-serif;
     font-size: 1.3vmax;
     text-align: center;
-    width: 75%;
-    height: 20%
+    width: 72%;
+    height: 20%;
+    margin-bottom: 10%;
+    transition: background-color 0.5s ease-out
 }
 
-.login_registerButton {
-    color: white;
-    background-color: #c33333;
-    margin-top: 0%;
-    font-family: Lato,sans-serif;
-    font-size: 1.3vmax;
-    text-align: center;
-    width: 75%;
-    height: 20%
+.login_formButton:hover {
+    animation: login_sizeBump .3s linear
+}
+
+@keyframes login_hoverFade { 
+    from { background-color: #ffffff00; } 
+    to { background-color: #ffffff1f; }
+}
+
+@keyframes login_upwardsFadeIn { 
+    from { margin-top:10%; opacity:0; } 
+    to { margin-top:5%; opacity:1; } 
+}
+
+@keyframes login_sizeBump { 
+    0% { font-size: 1.3vmax; } 
+    50% { font-size: 1.32vmax; } 
+    0% { font-size: 1.3vmax; } 
 }

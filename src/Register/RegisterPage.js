@@ -54,38 +54,22 @@ export default function RegisterPage()
   return (
       <>
       <Form className="registerbg img-fluid">
-        <a href="/">
-        <Image className="MedcurityLogo justify-content-bottom" variant="top" src="/Medcurity_Logo.png" alt="" />
-        </a>
-          <Card className="registerCard">
-            <Card.Text className="header">Medcurity Learn Security</Card.Text>
-            <Card.Text className="body">
-              After creating your account, you'll be able to access the various HIPAA learning content.
-            </Card.Text>
-          </Card>
-        <Form className="emailAndPass">
-          <Form.Text className="registerHeader">Create an account for Medcurity Learn Security</Form.Text>
-            <Form.Group className="email" controlId="formEmail">
-              <Form.Control 
-                type="email" 
-                placeholder="Email" 
-                onChange={ (e) => 
-                {
-                  setEmail(e.target.value);
-                }}/>
-            </Form.Group>
-            <Form.Group className="pass" controlId="formPassword">
-              <Form.Control 
-                type="password" 
-                placeholder="Password"
-                onChange={ (e) => 
-                {
-                  setPassword(e.target.value);
-                }}/> 
-              <Button className="createRegButton" variant="secondary" type="button" onClick={register}>Register</Button>
-              <Button className="loginRegisterBtn" variant="secondary" type="button" onClick={login}>Back to Login</Button>
-              <Form.Text className="registerMessage">{message}</Form.Text>
-            </Form.Group>
+      <Image className="MedcurityLogo justify-content-bottom" variant="top" src="/Medcurity_Logo.png" alt="" />
+      <Form className="register_columnDivder"> 
+            <div class="row justify-content-md-center">
+              <div class="col-xs-5 col-md-5">
+                <div class="register_formColumn row justify-content-center">
+                  <h3 class="register_h3">Create an Account</h3>
+                  <p class="register_p">All we require is an email and password. It's that fast and simple!</p>
+                  <Form.Group className="register_Form" controlId="formEmail"> <Form.Control type="email" placeholder="Email" onChange={ (e) => {setEmail(e.target.value); }}/> </Form.Group>
+                  <p></p>
+                  <Form.Group className="register_Form" controlId="formPassword"> <Form.Control type="password" placeholder="Password" onChange={ (e) => {setEmail(e.target.value); }}/> </Form.Group>
+                  <p class="register_registerResponse">{message}</p>
+                  <Button className="register_button" onClick={register} variant="secondary" type="button">Create Account</Button>
+                  <Button className="register_button" onClick={login} variant="secondary" type="button">Back to Login Page</Button>
+                </div>
+              </div>
+            </div>
         </Form>
       </Form>
       </>

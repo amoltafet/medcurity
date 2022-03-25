@@ -4,128 +4,96 @@
     width: 100%;
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;
     position: fixed;
     
 }
 
-.emailAndPass {
-    font-family: Lato,sans-serif;
-    margin-top: 12vmax;
-    margin-bottom: 10vmax;
-    margin-left: 16vmax;
-    margin-right: 10vmax;
-    width: 90%;
-    font-size: .1vmax;
-}
-
-.header {
-    font-family: Lato,sans-serif;
-    font-weight: bold;
-    font-size: 2vmax;
-    margin-top: 2%;
-    margin-bottom: 0;
-    margin-left: 5%;
-    margin-right: 30%;
-    color: #1e5b88;
-}
-
-.body {
-    font-family: Lato,sans-serif;
-    font-size: 100%;
-    margin-left: 5%;
-    margin-right: 20%;
-    margin-top: 0;
-    color: #1e5b88;
-}
-
-.registerCard {
+.register_registerCard {
     border: white;
     background-color: transparent;
     width: 70%;
 }
 
-.createRegButton {
+.register_pageHeaderText {
     color: white;
-    background-color: #c33333;
-    margin-top: 5%;
-    font-family: Lato,sans-serif;
-    font-size: 1.1vmax;
-    text-align: center;
-    width: 50%;
+    text-shadow: 2px 2px 5px black;
+    font-size: 3vmax;
 }
 
-.createRegButton:focus {
-    background-color: #c33333;
-    border: none;
+.register_columnDivder {
+    margin-top: 10%;
+    animation: register_upwardsFadeIn 0.5s ease-out;
 }
 
-.createRegButton:hover {
-    background-color: #c33333;
-    border: none;
+
+.register_formColumn {
+    border-radius: 25px;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    
 }
 
-.loginRegisterBtn {
+.register_formColumn:hover {
+    padding-top: 2%;
+    padding-bottom: 2%;
+    animation: register_hoverFade 0.5s linear;
+    background-color: #ffffff1f; 
+}
+
+.register_h3{
     color: white;
-    background-color: #c33333;
-    margin-top: 5%;
-    font-family: Lato,sans-serif;
-    font-size: 1.1vmax;
     text-align: center;
-    width: 50%;
+    width: 75%;
+    margin-bottom: 2%;
+    text-shadow: 2px 2px 2px black;
 }
 
-.loginRegisterBtn:focus {
-    background-color: #c33333;
-    border: none;
+.register_p{
+    color: white;
+    text-align: center;
+    width: 75%;
 }
 
-.loginRegisterBtn:hover {
-    background-color: #c33333;
-    border: none;
-}
-
-.createRegButton:focus {
-    background-color: #c33333;
-    border: none;
-}
-
-.createRegButton:hover {
-    background-color: #c33333;
-    border: none;
-}
-
-.registerHeader {
-    font-family: Lato,sans-serif;
-    font-size: 2vmax;
+.register_registerResponse {
     margin-top: 2%;
-    margin-bottom: 0;
-    margin-left: 12%;
-    margin-right: 0%;
-    color: white;
-
-}
-
-.registerMessage {
     font-family: Lato,sans-serif;
     font-size: 1vmax;
     color: white;
+    width: 72%;
     background-color: #0000003f;
 }
 
-.email {
-    margin-bottom: 1%;
-    margin-top: 1%;
-    margin-left: 10%;
-    width: 50%;
-    font-size: .1vmax;
+.register_Form{
+    width: 75%;
 }
 
-.pass {
-    margin-bottom: 1%;
-    margin-top: 1%;
-    margin-left: 10%;
-    width: 50%;
-    font-size: .1vmax;
+.register_button {
+    color: white;
+    background-color: #0065BD;
+    font-family: Lato,sans-serif;
+    font-size: 1.3vmax;
+    text-align: center;
+    width: 72%;
+    height: 20%;
+    margin-bottom: 3%;
 }
 
+.register_button:hover {
+    animation: register_buttonHover .3s linear
+}
+
+@keyframes register_hoverFade { 
+    from { background-color: #ffffff00; } 
+    to { background-color: #ffffff1f; }
+}
+
+@keyframes register_upwardsFadeIn { 
+    from { margin-top:13%; opacity:0; } 
+    to { margin-top:10%; opacity:1; } 
+}
+
+@keyframes register_buttonHover { 
+    0% { font-size: 1.3vmax; } 
+    50% { font-size: 1.32vmax; } 
+    0% { font-size: 1.3vmax; } 
+}
