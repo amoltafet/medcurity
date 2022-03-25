@@ -143,7 +143,6 @@ const QuizPage = () => {
       // }).catch(error => console.log(`Error ${error}`));
     }
    
-    
 
   }, [isLoading, session.userid])
 
@@ -306,6 +305,11 @@ const QuizPage = () => {
     setChecked(checkedArray);
   }
 
+  /**
+   * checks if the module was completed on time. 
+   * @param {Obj} currentModule
+   * @returns true if the user completed the module on time.  
+   */
   function checkIfUserCompletedModuleOnTime (currentModule) {
     var today = new Date(); 
     var moduleDueDate;
@@ -328,6 +332,10 @@ const QuizPage = () => {
     
   }
 
+  /**
+   *  checks if the user completed the module early 
+   * @param {Obj} currentModule
+   */
   function checkIfUserGotEarlyCompletion (currentModule) {
     var today = new Date(); 
     var twoDaysEarly = new Date(currentModule.DueDate);
@@ -354,6 +362,9 @@ const QuizPage = () => {
     }         
   }
 
+  /**
+   *  checks if the user got spaced learning by spacing of 2 days 
+   */
   function checkIfUserGotSpacedLearning () {
     var today = new Date(); 
     if (userCompletedModules.length !== 0 && userCompletedModules !== undefined && notCompleteOnTime === 0) {
@@ -379,12 +390,12 @@ const QuizPage = () => {
       }
     }
   }
+
   /**
-   *  sees if the user can get bonus points through early completion or spaced learning
+   *  holder for gamification extra points. 
    */
   function checkIfUserGetsExtraPoints () { 
     var currentModule;
-    
     
     userAssignedModules.forEach(element => {
       if (element.LearningModID === parseInt(slug)) {
@@ -398,12 +409,12 @@ const QuizPage = () => {
         checkIfUserGotEarlyCompletion(currentModule);
         checkIfUserGotSpacedLearning();
     }
-  
     setSubmitted(true);
-
-  
   }
 
+  /**
+   *  shows popup if user got early completion.
+   */
   function UserGotEarlyCompletion() {
     if (showEarlyCompletionPopup) {
       return (
@@ -422,6 +433,9 @@ const QuizPage = () => {
     }
   }
 
+  /**
+   *  shows popup if user got spaced learning. 
+   */
   function UserGotSpacedLearning() {
     if (showSpacedLearningPopup) {
       return (
@@ -440,6 +454,9 @@ const QuizPage = () => {
     }
   }
 
+  /**
+   *  shows popup if user did not complete the module on time. 
+   */
   function UserDidNotCompleteModuleOnTime() {
     if (showUserDidNotCompleteOnTime) {
       return (
@@ -458,6 +475,9 @@ const QuizPage = () => {
     }
   }
 
+  /**
+   *  shows popup to tell user if they passed the module or neeed to retake it. 
+   */
   function Passed () {
     console.log("module not assigned:", moduleNotAssigned)
     if (!moduleNotAssigned){
