@@ -46,6 +46,9 @@ const assignModulesTest = (req, res) => {
     })
 } 
 
+/**
+ * Adds a completed module with a specified date.
+ */
 const addFakeCompletedModules = (req, res) => {
     const userid = req.body.userid;
     const moduleNum = req.body.modulenum;
