@@ -116,18 +116,18 @@ const QuizPage = () => {
 
       //rests users stats
 
-      // axios.post("http://localhost:3002/testing/resetUser", {
-      //   userid: session.userid,
-      // }).then((response) => {
-      //   console.log("response", response);
-      // }).catch(error => console.log(`Error ${error}`));
+      axios.post("http://localhost:3002/testing/resetUser", {
+        userid: session.userid,
+      }).then((response) => {
+        console.log("response", response);
+      }).catch(error => console.log(`Error ${error}`));
 
       //assigns modules
 
       // axios.post("http://localhost:3002/testing/assignModules", {
       //     userid: session.userid, 
-      //     modulenum: 2,
-      //     daysaway: -1,
+      //     modulenum: 1,
+      //     daysaway: 1,
       //   }).then((response) => {
       //     console.log("response", response);
       //   }).catch(error => console.log(`Error ${error}`));
