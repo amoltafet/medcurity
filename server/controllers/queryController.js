@@ -10,8 +10,8 @@ const path = require('path')
 const getQuery = (req,res) => 
 {
     db.query(`${req.query.the_query}`, (err,result) => {
-        if (err) console.log(err)
-        //logger.log('info', `Custom Query: "${req.query.the_query}" Fields: ${Object.keys(result[0]) || 'None'}`, { service: 'query-service' })
+        if (err) logger.log('error', { methodName: '/geQuery', errorBody: err }, { service: 'query-service' })
+        logger.log('info', `Custom Query: "${req.query.the_query}"`, { service: 'query-service' })
         return res.send(result)
     })
 }
@@ -21,7 +21,7 @@ const getQuery = (req,res) =>
  */
 const queryModuleInfo = (req,res)=>{
     db.query(`SELECT * FROM LearningModules WHERE ID = ${req.query.id}`, (err,result) => {
-        if (err) console.log(err)
+        if (err) logger.log('error', { methodName: '/queryModuleInfo', errorBody: err }, { service: 'query-service' })
         logger.log('info', `Queried LearningModuleID with ID: "${req.query.id}" Fields: ${result}`, { service: 'query-service' })
         res.send(result)
     })
@@ -32,7 +32,7 @@ const queryModuleInfo = (req,res)=>{
  */
 const queryModuleQuestions = (req,res)=>{
     db.query(`SELECT * FROM Questions WHERE module = ${req.query.id}`, (err,result) => {
-        if (err) console.log(err)
+        if (err) logger.log('error', { methodName: '/queryModuleQuestions', errorBody: err }, { service: 'query-service' })
         logger.log('info', `Queried Questions with ModuleID: "${req.query.id}" Fields: ${result}`, { service: 'query-service' })
         res.send(result)
     })
@@ -43,7 +43,7 @@ const queryModuleQuestions = (req,res)=>{
  */
 const queryModuleDirectoryInfo = (req,res)=>{
     db.query(`SELECT * FROM LearningModulesDirectory WHERE module = ${req.query.id}`, (err,result) => {
-        if (err) console.log(err)
+        if (err) logger.log('error', { methodName: '/queryModuleDirectoryInfo', errorBody: err }, { service: 'query-service' })
         logger.log('info', `Queried LearningModulesDirectories with ModuleID: "${req.query.id}" Fields: ${result}`, { service: 'query-service' })
         res.send(result)
     })
@@ -54,7 +54,7 @@ const queryModuleDirectoryInfo = (req,res)=>{
  */
 const queryDirectoryModulesInfo = (req,res)=>{
     db.query(`SELECT * FROM LearningModules WHERE DirId = ${req.query.id}`, (err,result) => {
-        if (err) console.log(err)
+        if (err) logger.log('error', { methodName: '/queryDirectoryModulesInfo', errorBody: err }, { service: 'query-service' })
         logger.log('info', `Queried LearningModules with DirID: "${req.query.id}" Fields: ${result}`, { service: 'query-service' })
         res.send(result)
     })
@@ -62,7 +62,7 @@ const queryDirectoryModulesInfo = (req,res)=>{
 
 const queryModuleBanner = (req,res)=>{
     db.query(`SELECT ID, Banner FROM LearningModules WHERE ID = ${req.query.id}`, (err,result) => {
-        console.log(req.query.id)
+        if (err) logger.log('error', { methodName: '/queryModuleBanner', errorBody: err }, { service: 'query-service' })
         try {
             let image = fs.readFileSync(path.join(__dirname, `../assets/images/banners/${result[0].Banner}`));
             res.send({ bannerImage: new Buffer.from(image).toString('base64') })
