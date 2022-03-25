@@ -22,7 +22,7 @@ const LearningModulesCards = (props) => {
 
     // Query for getting user's required learning modules
     useEffect(() => {
-        if (!isLoading) {
+        if (!isLoading && userId !== undefined) {
             axios.get('http://localhost:3002/api/getQuery', 
                 { params: { the_query: 'SELECT * FROM LearningModules JOIN AssignedLearningModules ON LearningModules.ID = AssignedLearningModules.LearningModID WHERE AssignedLearningModules.UserID = ' + userId} 
                 }).then((response) => {

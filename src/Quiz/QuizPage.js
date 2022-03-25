@@ -112,20 +112,35 @@ const QuizPage = () => {
       });
      
 
-      // Keep for testing
+      // KEEP FOR TESTING!!
+
+      //rests users stats
 
       // axios.post("http://localhost:3002/testing/resetUser", {
       //   userid: session.userid,
       // }).then((response) => {
       //   console.log("response", response);
       // }).catch(error => console.log(`Error ${error}`));
-      // axios.post("http://localhost:3002/testing/assignModules", {
-      //     userid: session.userid, 
-      //     modulenum:1,
-      //     daysaway: 2,
-      //   }).then((response) => {
-      //     console.log("response", response);
-      //   }).catch(error => console.log(`Error ${error}`));
+
+      //assigns modules
+
+      axios.post("http://localhost:3002/testing/assignModules", {
+          userid: session.userid, 
+          modulenum: 2,
+          daysaway: -1,
+        }).then((response) => {
+          console.log("response", response);
+        }).catch(error => console.log(`Error ${error}`));
+
+      //adds completed modules 
+
+      // axios.post("http://localhost:3002/testing/fillCompletedModules", {
+      //   userid: session.userid,
+      //   modulenum: 3,
+      //   daysaway: 2,
+      // }).then((response) => {
+      //   console.log("response", response);
+      // }).catch(error => console.log(`Error ${error}`));
     }
    
     
@@ -296,6 +311,7 @@ const QuizPage = () => {
     var moduleDueDate;
     try {
       moduleDueDate = new Date(currentModule.DueDate);
+      moduleDueDate.setDate(moduleDueDate.getDate() + 1)
       if (today > moduleDueDate) {
         setNoCompleteOnTime(-200);
         console.log("Boo complete your module on time: -", 200);
@@ -316,8 +332,8 @@ const QuizPage = () => {
     var today = new Date(); 
     var twoDaysEarly = new Date(currentModule.DueDate);
     var oneDayEarly = new Date(currentModule.DueDate);
-    twoDaysEarly.setDate(twoDaysEarly.getDate() - 2);
-    oneDayEarly.setDate(oneDayEarly.getDate() - 1);
+    twoDaysEarly.setDate(twoDaysEarly.getDate() - 3);
+    oneDayEarly.setDate(oneDayEarly.getDate() - 2);
 
         console.log("due date for module: ", currentModule.DueDate);
         console.log("two days early: ", twoDaysEarly);
@@ -331,7 +347,7 @@ const QuizPage = () => {
       console.log("yay early completion 2x early+: ", 200);
       setShowEarlyCompletionPopup(true);
     }
-    else if ((today <= oneDayEarly || hoursBetweenOneDay < 24)&& earlyCompletion === 0  ) {
+    else if ((today <= oneDayEarly || hoursBetweenOneDay < 24) && earlyCompletion === 0  ) {
       setEarlyCompletion(100);
       console.log("yay early completion 1x early+:", 100);
       setShowEarlyCompletionPopup(true);
@@ -339,23 +355,24 @@ const QuizPage = () => {
   }
 
   function checkIfUserGotSpacedLearning () {
+    var today = new Date(); 
     if (userCompletedModules.length !== 0 && userCompletedModules !== undefined && notCompleteOnTime === 0) {
-      var lastCompletedModuleDate = userCompletedModules.reduce((a, b) => (a.MeasureDate > b.MeasureDate ? a : b));
+      var lastCompletedModule = userCompletedModules.reduce((a, b) => (a.MeasureDate < b.MeasureDate ? a : b));
    
     
-      lastCompletedModuleDate = (lastCompletedModuleDate.DateCompleted);
-      var moduleFinishedDate = new Date(lastCompletedModuleDate);
-      console.log("last completed module date : ", lastCompletedModuleDate);
-      console.log("last completed module date converted: ", moduleFinishedDate);
+      lastCompletedModule = (lastCompletedModule.DateCompleted);
+      var lastCompletedModuleDate = new Date(lastCompletedModule);
+      lastCompletedModuleDate.setDate(lastCompletedModuleDate.getDate() + 1);
+      console.log("last completed module date converted: ", lastCompletedModuleDate);
       
       var spacedLearningDate = new Date(lastCompletedModuleDate);
       spacedLearningDate.setDate(spacedLearningDate.getDate() + 2);
       console.log("spaced learning date: ", spacedLearningDate);
 
-      const msBetweenDates = Math.abs(moduleFinishedDate.getTime() - spacedLearningDate.getTime());
+      const msBetweenDates = Math.abs(today.getTime() - spacedLearningDate.getTime());
       const hoursBetweenDates = msBetweenDates / (60 * 60 * 1000);
       
-      if (hoursBetweenDates < 24) {
+      if (hoursBetweenDates < 24 && hoursBetweenDates < 1) {
         setSpacedLearning(300);
         console.log("yay spaced learning+:", 300);
         setShowSpacedLearningPopup(true);
@@ -578,7 +595,7 @@ const QuizPage = () => {
               <div className="totalCorrectQuestions"> {numCorrect} / {content.length} Questions Correct </div>
             </Col>
             <Col>
-              <div className="totalCorrectPoints"> Points: {points} </div>
+              <div className="totalCorrectPoints"> Points: {points + earlyCompletion + notCompleteOnTime + spaceLearning} </div>
             </Col>
             <Col>
               <div className="correctPercentage"> {(numCorrect / content.length * 100).toFixed(2)}% </div>

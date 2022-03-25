@@ -33,7 +33,8 @@ import AddContent from "./AdminDashboard/ContentDashboard/AddContent";
 import Axios from 'axios';
 
 Axios.get("http://localhost:3002/users/login").then((response) => {
-          console.log('is working???', response.data.user) })
+  //console.log('is working???', response.data.user) 
+})
 
 ReactDOM.render(
   <Router>

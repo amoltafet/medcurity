@@ -32,11 +32,11 @@ const assignModulesTest = (req, res) => {
     const dateDue = req.body.daysaway;
     
     var today = new Date();
-    today.setDate(today.getDate() + dateDue);
+    today.setDate((today.getDate() + dateDue)-1);
   
     logger.log('info', `userid: "${userid}"`);
     logger.log('info', `Modulenum: "${moduleNum}"`);
-    logger.log('info', `today: "${today}"`);
+    logger.log('info', `assigned module date: "${today}"`);
 
     db.query("INSERT INTO AssignedLearningModules (UserID, LearningModID, DueDate)  VALUES (?,?,?)", [userid, moduleNum, today], (err,result) => {
         logger.log('info', `New Assigned Learning Module: "${result}"`);
@@ -46,8 +46,29 @@ const assignModulesTest = (req, res) => {
     })
 } 
 
+const addFakeCompletedModules = (req, res) => {
+    const userid = req.body.userid;
+    const moduleNum = req.body.modulenum;
+    const dateDue = req.body.daysaway;
+    
+    var today = new Date();
+    today.setDate((today.getDate() - dateDue)-1);
+  
+    logger.log('info', `userid: "${userid}"`);
+    logger.log('info', `Completed Modulenum: "${moduleNum}"`);
+    logger.log('info', `new assigned date: "${today}"`);
+
+    db.query("INSERT INTO CompletedModules (DateCompleted, LearningModID, UserID) VALUES (?,?,?)", [today, moduleNum, userid], (err,result) => {
+        logger.log('info', `New Completed Learning Module: "${result}"`);
+        db.query(`SELECT * FROM CompletedModules WHERE UserID = '${userid}'`, (err,result) => {
+            res.send({result:result, success: true, message: `Users Completed Modules: `});
+        })
+    })
+}
+
 module.exports = 
 {
     resetUserStats,
     assignModulesTest,
+    addFakeCompletedModules,
 };

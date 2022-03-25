@@ -88,7 +88,7 @@ const Menubar = () => {
      */
     function get_employer_buttons() {
         let objs = [];
-        console.log(companyId)
+      
         if (!isCompanyLoading && Number.isInteger(companyId)) {
             objs.push(
                 <Nav.Item className="navPills uvs-left uvs-right">
