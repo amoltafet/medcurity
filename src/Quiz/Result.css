@@ -1,0 +1,35 @@
+.x-markImage {
+    width: 3%; 
+    float: right;
+    margin-left: -30%; 
+}
+
+.checkmarkImage {
+    width: 3%;
+    float: right;
+    margin-left: -30%;
+   
+}
+
+.correctResults {
+    font-family: Lato,sans-serif;
+   text-align: start !important;
+}
+
+.wrongResults{
+    font-family: Lato,sans-serif;
+    text-align: start !important;
+}
+
+.otherAnswers {
+    font-family: Lato,sans-serif;
+}
+
+.resultsContainerQuestionBottom {
+    margin-bottom:2%;
+}
+
+.resultsCard {
+    border: none;
+    margin-bottom: 3%;
+}

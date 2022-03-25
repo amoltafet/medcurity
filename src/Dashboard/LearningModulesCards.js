@@ -22,7 +22,7 @@ const LearningModulesCards = (props) => {
 
     // Query for getting user's required learning modules
     useEffect(() => {
-        if (!isLoading) {
+        if (!isLoading && userId !== undefined) {
             axios.get('http://localhost:3002/api/getQuery', 
                 { params: { the_query: 'SELECT * FROM LearningModules JOIN AssignedLearningModules ON LearningModules.ID = AssignedLearningModules.LearningModID WHERE AssignedLearningModules.UserID = ' + userId} 
                 }).then((response) => {
@@ -31,8 +31,8 @@ const LearningModulesCards = (props) => {
         }
     }, [userId, isLoading])
 
-
-
+    
+   
     /**
      * Panel for Module cards
      * @param {} props 
@@ -40,8 +40,9 @@ const LearningModulesCards = (props) => {
      */
     const ModulePanel = (props) => {
         var dueDate = new Date(props.dueDate); 
-        console.log("dueDate: ", props.dueDate)
+        console.log("duedate: ", dueDate)
         return (
+           
             <>
             <Card className="LearningModuleCard uvs-right uvs-left">
                 <Card.Body>
@@ -64,6 +65,7 @@ const LearningModulesCards = (props) => {
         for (let index in modules) {
             if (size === maxLength) { break; }
             module = modules[index]
+            console.log(module)
             objs.push(<ModulePanel title={module.Title} link={module.ID} dueDate={module.DueDate} />)
             size += 1;
             console.log(module)

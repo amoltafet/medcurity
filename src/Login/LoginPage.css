@@ -47,7 +47,7 @@
 
 .loginButton {
     color: white;
-    background-color: #c33333;
+    background-color: #cc3333;
     margin-top: 5%;
     font-family: Lato,sans-serif;
     font-size: 1.1vmax;
@@ -56,18 +56,18 @@
 }
 
 .loginButton:hover {
-    background-color: #c33333;
+    background-color: #cc3333;
     border: none;
 }
 
 .loginButton:focus {
-    background-color: #c33333;
+    background-color: #cc3333;
     border: none;
 }
 
 .registerButton {
     color: white;
-    background-color: #c33333;
+    background-color: #cc3333;
     margin-top: 5%;
     font-family: Lato,sans-serif;
     font-size: 1.1vmax;
@@ -76,12 +76,12 @@
 }
 
 .registerButton:hover {
-    background-color: #c33333;
+    background-color: #cc3333;
     border: none;
 }
 
 .registerButton:focus {
-    background-color: #c33333;
+    background-color: #cc3333;
     border: none;
 }
 

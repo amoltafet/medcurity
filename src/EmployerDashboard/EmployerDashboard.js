@@ -6,8 +6,7 @@ import MenuBar from '../MenuBar/MenuBar';
 import EmployeeCards from './EmployeeCards';
 import WelcomePanel from './../Dashboard/WelcomePanel';
 import EmployerInvitations from './EmployerInvitations';
-import { useEffect, useState, Link} from "react";
-import { useParams } from "react-router";
+import { useEffect, useState} from "react";
 import Axios from 'axios';
 
 
@@ -21,12 +20,10 @@ const EmployerDashboardPage = () => {
 
     useEffect(() => {
         Axios.get("http://localhost:3002/users/login").then((response) => {
-          console.log('aaahhh', response.data.user)
+          console.log('user: ', response.data.user)
           setSession(response.data.user[0])
         });
       }, []);
-
-    console.log(session)
 
 
     return (

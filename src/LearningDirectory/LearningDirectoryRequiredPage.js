@@ -35,7 +35,7 @@ const LearningDirectoryRequiredPage = () => {
             });
             
         }
-    }, [isLoading])
+    }, [isLoading, session.userid])
 
 
     return(

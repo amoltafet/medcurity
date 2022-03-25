@@ -263,6 +263,7 @@ const userPoints = (req, res) => {
  */
 const userModuleCompleted = (req, res) => {
     var today = new Date();
+    today.setDate(today.getDate() - 1);
     const categoryId = req.body.categoryId;
     const userid = req.body.userid;   
 
