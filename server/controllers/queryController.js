@@ -1,5 +1,7 @@
 const db = require('../dbConfig')
 const logger = require('../logger').log
+const fs = require('fs')
+const path = require('path')
 
 /**
  * Queries the database with any given mySQL query. 
@@ -59,10 +61,16 @@ const queryDirectoryModulesInfo = (req,res)=>{
 }
 
 const queryModuleBanner = (req,res)=>{
-    db.query(`SELECT Banner FROM LearningModules WHERE DirId = ${req.query.id}`, (err,result) => {
-        if (err) console.log(err)
-
-        res.send(result)
+    db.query(`SELECT ID, Banner FROM LearningModules WHERE ID = ${req.query.id}`, (err,result) => {
+        console.log(req.query.id)
+        try {
+            let image = fs.readFileSync(path.join(__dirname, `../assets/images/banners/${result[0].Banner}`));
+            res.send({ bannerImage: new Buffer.from(image).toString('base64') })
+        }
+        catch (error) {
+            let image = fs.readFileSync(path.join(__dirname, `../assets/images/banners/banner-default.png`));
+            res.send({ bannerImage: new Buffer.from(image).toString('base64') })
+        }
     })
 }
 
