@@ -9,6 +9,7 @@ const router = express.Router();
 
 router.get('/getQuery', queryControllers.getQuery);
 router.get('/getModuleInfo', queryControllers.queryModuleInfo);
+router.get('/getModuleBanner', queryControllers.queryModuleBanner);
 router.get('/getModuleQuestions', queryControllers.queryModuleQuestions);
 router.get('/getModuleDirectoryInfo', queryControllers.queryModuleDirectoryInfo);
 router.get('/getDirectoryModulesInfo', queryControllers.queryDirectoryModulesInfo);

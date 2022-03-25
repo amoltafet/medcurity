@@ -58,9 +58,18 @@ const queryDirectoryModulesInfo = (req,res)=>{
     })
 }
 
+const queryModuleBanner = (req,res)=>{
+    db.query(`SELECT Banner FROM LearningModules WHERE DirId = ${req.query.id}`, (err,result) => {
+        if (err) console.log(err)
+
+        res.send(result)
+    })
+}
+
 module.exports = 
 {
     getQuery,
+    queryModuleBanner,
     queryModuleInfo,
     queryModuleQuestions,
     queryModuleDirectoryInfo,
