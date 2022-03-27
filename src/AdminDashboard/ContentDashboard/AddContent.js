@@ -75,6 +75,10 @@ const  AddContent = () => {
         }).catch(error => console.error(`Error ${error}`));
 
         //TODO ... THEN call API method to store the image from (banner)
+        axios.post("http://localhost:3002/api/queryUploadBanner", { bannerImage: banner[0] }).then((response) => 
+        { 
+            console.log('from /queryUploadBanner:', response)
+        }).catch(error => console.error(`Error ${error}`));
 
         var moduleIndex = learningModules[learningModules.length - 1].ID + 1;
         console.log("Index", moduleIndex)

@@ -60,6 +60,9 @@ const queryDirectoryModulesInfo = (req,res)=>{
     })
 }
 
+/**
+ * Queries the data base for the module banner image (base64)
+ */
 const queryModuleBanner = (req,res)=>{
     db.query(`SELECT ID, Banner FROM LearningModules WHERE ID = ${req.query.id}`, (err,result) => {
         if (err) logger.log('error', { methodName: '/queryModuleBanner', errorBody: err }, { service: 'query-service' })
@@ -74,9 +77,15 @@ const queryModuleBanner = (req,res)=>{
     })
 }
 
+const queryUploadBanner = (req, res) => {
+    let bannerImage = req.query.bannerImage
+    
+}
+
 module.exports = 
 {
     getQuery,
+    queryUploadBanner,
     queryModuleBanner,
     queryModuleInfo,
     queryModuleQuestions,
