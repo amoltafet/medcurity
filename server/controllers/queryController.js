@@ -77,9 +77,11 @@ const queryModuleBanner = (req,res)=>{
     })
 }
 
+/**
+ * Handles image uploading. Not sure if this needs to be here...
+ */
 const queryUploadBanner = (req, res) => {
-    let bannerImage = req.query.bannerImage
-    
+    res.send(true)
 }
 
 module.exports = 
