@@ -1,6 +1,6 @@
-import { Container, Col } from "react-bootstrap";
+import { Container, Row, Card } from "react-bootstrap";
 import React, { useEffect, useState } from 'react';
-import './Questions.css';
+
 import Result from "./Result";
 function Results(props) {
     
@@ -29,19 +29,21 @@ function Results(props) {
 
     return(
         <>
+        <Card  className="resultsCard">
             <h3 id="qNumber" className={props.classes[0]}> Question {props.i + 1} </h3>
-            <div id={props.i} className="text-center"> 
+            <Container id={props.i} className="text-center resultsContainerQuestionBottom"> 
                 <Container id="questionDesciption" className={props.classes[1]}>
                     {props.question} 
                 </Container>
 
-                <Col id={quizToggleId} className="resultsQuizSelection" vertical name={quizToggleId}>
+                <Row id={quizToggleId} className="resultsQuizSelection" name={quizToggleId}>
                     {myanswers.map((radio, idx) => (
-                        <Result index={idx} rad = {radio} correctIdx = {props.userAnswer} correct={props.isCorrect}></Result>
+                        <Result index={idx} rad={radio} correctIdx={props.userAnswer} correct={props.isCorrect}></Result>
                     ))}
-                </Col>
+                </Row>
 
-            </div>
+            </Container>
+            </Card>
         </>
     );
 }

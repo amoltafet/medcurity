@@ -41,7 +41,7 @@
 }
 
 .rightArrow {
-    width: 60%;
+    width: 50%;
 }
 
 
@@ -50,12 +50,9 @@
     font-family: Lato,sans-serif;
 }
 
-.correct {
-    background-color: lightgreen;
-}
-
-.wrong {
-    background-color: #c33333;
+.resultAnswers {
+    margin-bottom: 2%;
+    margin-top: 3%;
 }
 
 .quizResultsHeader {

@@ -1,4 +1,4 @@
-import { Button, Image, Row, Col } from 'react-bootstrap';
+import { Button, Image, Row, Col, Container, Alert } from 'react-bootstrap';
 import React, { useState, useEffect } from 'react';
 import { SubmitButton } from './SubmitButton';
 import { useParams } from "react-router";
@@ -30,6 +30,19 @@ const QuizPage = () => {
   const [index, setQuestionIndex] = useState(0);
   const [isSubmitted, setSubmitted] = useState(false);
   const [isChecked, setChecked] = useState([[false, false, false, false]]);
+  const [userCompletedModules, setUserCompletedModules] = useState([]);
+  const [userAssignedModules, setUserAssignedModules] = useState([]);
+  const [earlyCompletion, setEarlyCompletion] = useState(0);
+  const [spaceLearning, setSpacedLearning] = useState(0);  
+  const [passed, setPassed] = useState(false);
+  const [notCompleteOnTime, setNoCompleteOnTime] = useState(0);
+  const [showSpacedLearningPopup, setShowSpacedLearningPopup] = useState(false);
+  const [showEarlyCompletionPopup, setShowEarlyCompletionPopup] = useState(false);
+  const [showPassedPopup, setShowPassedPopup] = useState(true);
+  const [showUserDidNotCompleteOnTime, setShowUserDidNotCompleteOnTime] = useState(false);
+  const [moduleNotAssigned, setModuleNotAssigned] = useState(false);
+
+  const [moduleName, setModuleName] = useState("");
   var points = 0;
   var numCorrect = 0;
   // data array that holds question information using state
@@ -60,16 +73,78 @@ const QuizPage = () => {
 
   /**
    *  grabs user session to store points 
-   */ 
-   useEffect(() => {
-      axios.get("http://localhost:3002/users/login").then((response) => {
-        setSession(response.data.user[0])
-      }).catch(error => console.error(`Error ${error}`));
-    }, []);
+   */
+  useEffect(() => {
+    axios.get("http://localhost:3002/users/login").then((response) => {
+      setSession(response.data.user[0])
+    }).catch(error => console.error(`Error ${error}`));
+  }, []);
 
 
   let { slug } = useParams();
 
+  /**
+   *  gets all of users module info
+   */
+  useEffect(() => {
+    if (!isLoading && session.userid != null) {
+      axios.get('http://localhost:3002/api/getQuery',{
+        params: { the_query: 'SELECT * FROM CompletedModules WHERE UserID = ' + session.userid }
+      }).then((response) => {
+        setUserCompletedModules(response.data);
+        console.log("Completed", response.data);
+      });
+      axios.get('http://localhost:3002/api/getQuery',{
+        params: { the_query: 'SELECT * FROM AssignedLearningModules WHERE UserID = ' + session.userid }
+      }).then((response) => {
+        setUserAssignedModules(response.data); 
+        console.log("Assigned: ", response.data);
+      });
+      axios.get('http://localhost:3002/api/getQuery',{
+        params: { the_query: 'SELECT * FROM LearningModules WHERE ID = ' + slug }
+      }).then((response) => {
+        setModuleName(response.data); 
+        console.log("ModuleName: ", response.data);
+      });
+
+      content.forEach(element => {
+         console.log(element.solution)
+      });
+     
+
+      // KEEP FOR TESTING!!
+
+      //rests users stats
+
+      // axios.post("http://localhost:3002/testing/resetUser", {
+      //   userid: session.userid,
+      // }).then((response) => {
+      //   console.log("response", response);
+      // }).catch(error => console.log(`Error ${error}`));
+
+      //assigns modules
+
+      // axios.post("http://localhost:3002/testing/assignModules", {
+      //     userid: session.userid, 
+      //     modulenum: 2,
+      //     daysaway: -1,
+      //   }).then((response) => {
+      //     console.log("response", response);
+      //   }).catch(error => console.log(`Error ${error}`));
+
+      //adds completed modules 
+
+      // axios.post("http://localhost:3002/testing/fillCompletedModules", {
+      //   userid: session.userid,
+      //   modulenum: 3,
+      //   daysaway: 2,
+      // }).then((response) => {
+      //   console.log("response", response);
+      // }).catch(error => console.log(`Error ${error}`));
+    }
+   
+
+  }, [isLoading, session.userid])
 
   /**
    *  grabs content and sets loading to false 
@@ -77,13 +152,12 @@ const QuizPage = () => {
   useEffect(() => {
     setQuestionIndex(0);
     axios.get('http://localhost:3002/api/getModuleQuestions', { params: { id: slug } }).then((response) => {
-      setContent(Object.values(response.data));
-      console.log(content)
+      setContent(Object.values(response.data))
       setLoading(false);
     }).catch(error => console.error(`Error ${error}`));
 
   }, [slug])
-  
+
   /**
    *  once content is loaded shuffles & sets  question
    */
@@ -94,39 +168,35 @@ const QuizPage = () => {
     }
   }, [isLoading, content, index, isSubmitted])
 
-
-
-
-  // useEffect(() => {
-  //   if (!isLoading && isSubmitted) {
-  //     var categoryName = "category" + slug;
-  //     var percentName = "percentage" + slug;
-  //     var percent = numCorrect/content.length
-  //     console.log("percent: ", percent)
-  //     axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `UPDATE Users SET ${categoryName} = '${points}', ${percentName} = "${percent}" WHERE userid = '${session.userid}'` } }).then((response) => {
-  //       console.log("money", session)
-  //     }).catch(error => console.error(`Error ${error}`));
-  //   }
-  // }, [points, numCorrect, isSubmitted])
-  // console.log("user2: ", session);
-
+  /**
+   *  sets module complete, removes from assigned & updates points 
+   */
   useEffect(() => {
-    if (!isLoading && isSubmitted && points != 0) {
+    if (!isLoading && isSubmitted && points !== 0) {
+      var totalPoints = points + earlyCompletion + notCompleteOnTime + spaceLearning;
       var categoryName = "category" + slug;
       var percentName = "percentage" + slug;
-      var percent = numCorrect/content.length;
-      console.log("percent: ", percent);
-      console.log("points: ", points);
-      axios.post("http://localhost:3002/users/quiz", {
-        categoryName: categoryName,
-        points: points,
-        percentName: percentName, 
-        lengths: (percent),
-        userid: session.userid,
-    }).then((response) => {
-        console.log("response", response.data);
-        
-    }).catch(error => console.log(`Error ${error}`));
+      var percent = numCorrect / content.length;
+      if ((percent * 100) >= 60 && !moduleNotAssigned) {
+        console.log("percent: ", percent);
+        console.log("points: ", totalPoints);
+        axios.post("http://localhost:3002/users/quiz", {
+          categoryName: categoryName,
+          points: totalPoints,
+          percentName: percentName,
+          lengths: (percent),
+          userid: session.userid,
+        }).then((response) => {
+          console.log("response", response);
+        }).catch(error => console.log(`Error ${error}`));
+        axios.post("http://localhost:3002/users/moduleCompleted", {
+          categoryId: slug,
+          userid: session.userid,
+        }).then((response) => {
+          console.log("response", response.data);
+        }).catch(error => console.log(`Error ${error}`));
+        setPassed(true)
+      }
     }
   }, [points, numCorrect, isSubmitted])
 
@@ -162,26 +232,24 @@ const QuizPage = () => {
           answers={curentAnswers[index]}
           action={adjustStateData}
           classes={quizClassNames[0]}
-          checked = {isChecked[index]}
+          checked={isChecked[index]}
         />]
       );
 
     }
   }
-
-
-/**
- * Increments the question
- */
+  /**
+   * Increments the question
+   */
   function nextQuestion() {
     var boolChecked = false;
-    for(var i = 0; i < 4; i++) {
-        if(isChecked[index][i] === true) {
-            boolChecked = true;
-            break;
-        }
+    for (var i = 0; i < 4; i++) {
+      if (isChecked[index][i] === true) {
+        boolChecked = true;
+        break;
+      }
     }
-    if(boolChecked) {
+    if (boolChecked) {
       var newIndex = index + 1;
       if (newIndex !== content.length) {
         var nextq = content[newIndex];
@@ -190,9 +258,9 @@ const QuizPage = () => {
 
         if (newIndex === content.length || newIndex >= content.length) {
           document.getElementById("rightQuestionBttn").disabled = true;
-        
+
         }
-        if (newIndex === (content.length - 1)) { 
+        if (newIndex === (content.length - 1)) {
           document.getElementById("submitBtn").disabled = false;
         }
       }
@@ -200,21 +268,21 @@ const QuizPage = () => {
   }
 
   function initializeShuffledAnswers() {
-      var bigArray = []
-      var checkedArray = []
-      for(var i = 0; i < content.length; i++) {
-        var answerArray = [];
-        answerArray.push(content[i].solution);
-        answerArray.push(content[i].a2);
-        answerArray.push(content[i].a3);
-        answerArray.push(content[i].a4);
-        answerArray = shuffleArray(answerArray);
-        bigArray.push(answerArray);
-        answerArray = [false, false, false, false];
-        checkedArray.push(answerArray);
-      }
-      setAnswers(bigArray);
-      setChecked(checkedArray);
+    var bigArray = []
+    var checkedArray = []
+    for (var i = 0; i < content.length; i++) {
+      var answerArray = [];
+      answerArray.push(content[i].solution);
+      answerArray.push(content[i].a2);
+      answerArray.push(content[i].a3);
+      answerArray.push(content[i].a4);
+      answerArray = shuffleArray(answerArray);
+      bigArray.push(answerArray);
+      answerArray = [false, false, false, false];
+      checkedArray.push(answerArray);
+    }
+    setAnswers(bigArray);
+    setChecked(checkedArray);
   }
 
   /** 
@@ -238,13 +306,214 @@ const QuizPage = () => {
   }
 
   /**
-   *  function to display in the console the question data stored in the data state variable in Quizpage.js
+   * checks if the module was completed on time. 
+   * @param {Obj} currentModule
+   * @returns true if the user completed the module on time.  
    */
-  function displayQuestionData() {
-    for (var i = 0; i < content.length; i++) {
-      var newData = data[i];
+  function checkIfUserCompletedModuleOnTime (currentModule) {
+    var today = new Date(); 
+    var moduleDueDate;
+    try {
+      moduleDueDate = new Date(currentModule.DueDate);
+      moduleDueDate.setDate(moduleDueDate.getDate() + 1)
+      if (today > moduleDueDate) {
+        setNoCompleteOnTime(-200);
+        console.log("Boo complete your module on time: -", 200);
+        setShowUserDidNotCompleteOnTime(true);
+        return false;
+      }
+      return true;
+    }
+    catch (e){
+      console.log("Module not assigned: ", e);
+      setModuleNotAssigned(true);
+      return false;
+    }
+    
+  }
+
+  /**
+   *  checks if the user completed the module early 
+   * @param {Obj} currentModule
+   */
+  function checkIfUserGotEarlyCompletion (currentModule) {
+    var today = new Date(); 
+    var twoDaysEarly = new Date(currentModule.DueDate);
+    var oneDayEarly = new Date(currentModule.DueDate);
+    twoDaysEarly.setDate(twoDaysEarly.getDate() - 3);
+    oneDayEarly.setDate(oneDayEarly.getDate() - 2);
+
+        console.log("due date for module: ", currentModule.DueDate);
+        console.log("two days early: ", twoDaysEarly);
+        console.log("one day early: ", oneDayEarly);
+
+        const msBetweenOneDay = Math.abs(today.getTime() - oneDayEarly.getTime());
+        const hoursBetweenOneDay = msBetweenOneDay / (60 * 60 * 1000);
+
+    if (today <= twoDaysEarly) {
+      setEarlyCompletion(200);
+      console.log("yay early completion 2x early+: ", 200);
+      setShowEarlyCompletionPopup(true);
+    }
+    else if ((today <= oneDayEarly || hoursBetweenOneDay < 24) && earlyCompletion === 0  ) {
+      setEarlyCompletion(100);
+      console.log("yay early completion 1x early+:", 100);
+      setShowEarlyCompletionPopup(true);
+    }         
+  }
+
+  /**
+   *  checks if the user got spaced learning by spacing of 2 days 
+   */
+  function checkIfUserGotSpacedLearning () {
+    var today = new Date(); 
+    if (userCompletedModules.length !== 0 && userCompletedModules !== undefined && notCompleteOnTime === 0) {
+      var lastCompletedModule = userCompletedModules.reduce((a, b) => (a.MeasureDate < b.MeasureDate ? a : b));
+   
+    
+      lastCompletedModule = (lastCompletedModule.DateCompleted);
+      var lastCompletedModuleDate = new Date(lastCompletedModule);
+      lastCompletedModuleDate.setDate(lastCompletedModuleDate.getDate() + 1);
+      console.log("last completed module date converted: ", lastCompletedModuleDate);
+      
+      var spacedLearningDate = new Date(lastCompletedModuleDate);
+      spacedLearningDate.setDate(spacedLearningDate.getDate() + 2);
+      console.log("spaced learning date: ", spacedLearningDate);
+
+      const msBetweenDates = Math.abs(today.getTime() - spacedLearningDate.getTime());
+      const hoursBetweenDates = msBetweenDates / (60 * 60 * 1000);
+      
+      if (hoursBetweenDates < 24 && hoursBetweenDates < 1) {
+        setSpacedLearning(300);
+        console.log("yay spaced learning+:", 300);
+        setShowSpacedLearningPopup(true);
+      }
+    }
+  }
+
+  /**
+   *  holder for gamification extra points. 
+   */
+  function checkIfUserGetsExtraPoints () { 
+    var currentModule;
+    
+    userAssignedModules.forEach(element => {
+      if (element.LearningModID === parseInt(slug)) {
+        currentModule = element;
+      }
+    
+    });
+  
+    console.log("CurrentModule", currentModule);
+    if (checkIfUserCompletedModuleOnTime(currentModule)) {
+        checkIfUserGotEarlyCompletion(currentModule);
+        checkIfUserGotSpacedLearning();
     }
     setSubmitted(true);
+  }
+
+  /**
+   *  shows popup if user got early completion.
+   */
+  function UserGotEarlyCompletion() {
+    if (showEarlyCompletionPopup) {
+      return (
+        <Alert variant="success" show={showEarlyCompletionPopup}>
+          <Alert.Heading>Yay, You Got Bonus Points!</Alert.Heading>
+          <p>
+            You scored bonus points by completing your module early! +{earlyCompletion} points!
+          </p>
+          <div className="d-flex justify-content-end">
+          <Button onClick={() => setShowEarlyCompletionPopup(false)} variant="outline-success">
+            X
+          </Button>
+          </div>
+        </Alert>
+      );
+    }
+  }
+
+  /**
+   *  shows popup if user got spaced learning. 
+   */
+  function UserGotSpacedLearning() {
+    if (showSpacedLearningPopup) {
+      return (
+        <Alert variant="success" show={showSpacedLearningPopup}>
+          <Alert.Heading>Yay, You Got Bonus Points!</Alert.Heading>
+          <p>
+            You scored bonus points by spacing out your learning! +{spaceLearning} points!
+          </p>
+          <div className="d-flex justify-content-end">
+          <Button onClick={() => setShowSpacedLearningPopup(false)} variant="outline-success">
+            X
+          </Button>
+          </div>
+        </Alert>
+      );
+    }
+  }
+
+  /**
+   *  shows popup if user did not complete the module on time. 
+   */
+  function UserDidNotCompleteModuleOnTime() {
+    if (showUserDidNotCompleteOnTime) {
+      return (
+        <Alert variant="info" show={showUserDidNotCompleteOnTime}>
+          <Alert.Heading>You Did Not Complete the Module on Time.</Alert.Heading>
+          <p>
+            You did not complete this module by its due date. -${notCompleteOnTime} points.
+          </p>
+          <div className="d-flex justify-content-end">
+          <Button onClick={() => setShowUserDidNotCompleteOnTime(false)} variant="outline-info">
+            X
+          </Button>
+          </div>
+        </Alert>
+      );
+    }
+  }
+
+  /**
+   *  shows popup to tell user if they passed the module or neeed to retake it. 
+   */
+  function Passed () {
+    console.log("module not assigned:", moduleNotAssigned)
+    if (!moduleNotAssigned){
+      if (passed) {
+        return (
+          <Alert variant="success" show={showPassedPopup}>
+            <Alert.Heading>Yay, You Passed the Module!</Alert.Heading>
+            <p>
+              Congratulations you passed the {moduleName.Title} module!
+            </p>
+            <div className="d-flex justify-content-end">
+            <Button onClick={() => setShowPassedPopup(false)} variant="outline-success">
+              X
+            </Button>
+            </div>
+          </Alert>
+        );
+      } else {
+        return (
+          <Alert variant="warning" show={showPassedPopup}>
+            <Alert.Heading>Try again</Alert.Heading>
+            <p>
+              Sorry you did not pass the Module. You need higher than a 60 to pass.
+            </p>
+            <div className="d-flex justify-content-end">
+            <Button href={`/quiz/${slug}`} variant="outline-warning">
+              Try Again
+            </Button>
+            <Button onClick={() => setShowPassedPopup(false)} variant="outline-warning">
+              X
+            </Button>
+            </div>
+          </Alert>
+        );
+      }  
+    }
   }
 
   // catch for rerendering 
@@ -252,8 +521,8 @@ const QuizPage = () => {
     return (<div></div>)
   }
   if (!isSubmitted) {
-    function disabledSubmitBttn () {
-      if (document.getElementById("submitBtn") != null && index != (content.length - 1)) {
+    function disabledSubmitBttn() {
+      if (document.getElementById("submitBtn") !== null && index !== (content.length - 1)) {
         document.getElementById("submitBtn").disabled = true;
       }
     }
@@ -264,21 +533,16 @@ const QuizPage = () => {
       <>
         <MenuBar></MenuBar>
         <div id="quizPageContainer" className="quizBg img-fluid text-center">
-        <div className="questionPosOutOfTotal text-center" id="questionPosOutOfTotal"> {index + 1} / {content.length} </div>
-
+          <div className="questionPosOutOfTotal text-center" id="questionPosOutOfTotal"> {index + 1} / {content.length} </div>
           {DisplayOneQuestion()}
-
-         
           <Button
-              id="rightQuestionBttn"
-              type="submit"
-              className=" toggleQuestionRight"
-              onClick={() => nextQuestion()}>
-                <Image className="rightArrow" src="/right.png"></Image>
-            </Button>
-          
-        
-          <SubmitButton value="Submit" questionData={data} content={content.length} action={displayQuestionData}></SubmitButton>
+            id="rightQuestionBttn"
+            type="submit"
+            className=" toggleQuestionRight"
+            onClick={() => nextQuestion()}>
+            <Image className="rightArrow" src="/right.png"></Image>
+          </Button>
+          <SubmitButton value="Submit" questionData={data} content={content.length} action={checkIfUserGetsExtraPoints}></SubmitButton>
           {disabledSubmitBttn()}
         </div>
       </>
@@ -287,37 +551,41 @@ const QuizPage = () => {
   else {
     var newestIndex = 0;
 
-   
+
     var correctIndex = 0
     const QuestionContent = content.map((question) => {
       var newID = "q-group" + newestIndex
-      for(var i = 0; i < 4; i++) {
-        if(data[newestIndex]["answer"] == curentAnswers[newestIndex][i]) {
+      for (var i = 0; i < 4; i++) {
+        if (data[newestIndex]["answer"] === curentAnswers[newestIndex][i]) {
           correctIndex = i;
         }
       }
       newestIndex++;
       if (data[newestIndex - 1]["correct"] === true) {
+        if (slug === 6) {
+          points += 500
+        }
+
         points += 100
         numCorrect += 1
         return ([
-          <div id="resultsPageHolder" class="correct">
+          <Container id="resultsPageHolder" className="resultAnswers uvs-left uvs-right">
             <Results
               id={newID}
               i={newestIndex - 1}
               question={question.question}
               answers={curentAnswers[newestIndex - 1]}
               userAnswer={correctIndex}
-              isCorrect = {true}
+              isCorrect={true}
               action={adjustStateData}
               classes={quizClassNames[2]}
             />
-          </div>
+          </Container>
         ]);
       }
       else {
         return ([
-          <div id="resultsPageHolder" class="wrong">
+          <Container id="resultsPageHolder" className="resultAnswers uvs-left uvs-right">
             <Results
               id={newID}
               i={newestIndex - 1}
@@ -328,7 +596,7 @@ const QuizPage = () => {
               action={adjustStateData}
               classes={quizClassNames[1]}
             />
-          </div>
+          </Container>
         ]);
       }
     });
@@ -336,20 +604,25 @@ const QuizPage = () => {
       <>
         <MenuBar></MenuBar>
         <div id="resultsPageContainer">
-          <h1 className="quizResultsHeader">Quiz Results</h1> 
+         
+          <h1 className="quizResultsHeader">Quiz Results</h1> {
+          Passed()}
+          {UserGotEarlyCompletion()}
+          {UserGotSpacedLearning()}
+          {UserDidNotCompleteModuleOnTime()}
           <Row className="text-center quizPointInfo">
             <Col>
-            <div className="totalCorrectQuestions"> {numCorrect} / {content.length} Questions Correct </div>
+              <div className="totalCorrectQuestions"> {numCorrect} / {content.length} Questions Correct </div>
             </Col>
             <Col>
-            <div className="totalCorrectPoints"> Points: {points} </div>
+              <div className="totalCorrectPoints"> Points: {points + earlyCompletion + notCompleteOnTime + spaceLearning} </div>
             </Col>
             <Col>
-            <div className="correctPercentage"> {(numCorrect / content.length * 100).toFixed(2)}% </div>
+              <div className="correctPercentage"> {(numCorrect / content.length * 100).toFixed(2)}% </div>
             </Col>
           </Row>
           {QuestionContent}
-         
+
           <Row>
             <Button className="quizHomeBttn uvs-left" variant="primary" href="/dash/">Home</Button></Row>
         </div>

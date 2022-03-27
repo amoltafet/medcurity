@@ -15,6 +15,7 @@ const LearningModulePanel = (props) => {
         <Card className="LearningModulePanelCard uvs-right uvs-left">
             <Card.Body>
                <Card.Link className="font" href={"/learning-module/" + props.link} >{props.title}</Card.Link>
+               <Card.Text></Card.Text> 
             </Card.Body> 
         </Card>
         </>

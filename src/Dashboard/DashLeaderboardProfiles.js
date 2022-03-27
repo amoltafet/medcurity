@@ -2,7 +2,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Card, Image,  Col } from 'react-bootstrap';
-
+import Axios from 'axios';
 import './DashLeaderboardProfiles.css'
 
  /**
@@ -11,6 +11,7 @@ import './DashLeaderboardProfiles.css'
     * @return {GetPage}
     */
 function DashLeaderboardProfiles (props) {
+    Axios.defaults.withCredentials = true;
     return (
         <>
             <Card className="cardBackgroundDash" style={{ flexDirection: 'row' }}>

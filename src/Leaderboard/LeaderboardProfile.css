@@ -3,7 +3,7 @@
     margin-left: 1%;
     margin-right: .5%;
     margin-bottom: .5%;
-    background-color: #c33333;
+    background-color: #cc3333;
     width: 98%;
 
 }
@@ -51,12 +51,22 @@
     margin-top: 5%;
 }
 
+.leaderboardBreak {
+    width: 100%;
+    height: .01vmax;
+    margin-bottom: 2%;
+}
 .category {
     font-family: Lato,sans-serif;
-    font-size: 70%;
+    font-size: 90%;
     text-align: center;
     color: white;
     margin-bottom: 5%;
+}
+
+.CircularProgressbar-text {
+    margin-top: 1%;
+    font-size: 120%;
 }
 
 .progressBar {
@@ -66,9 +76,7 @@
     display: flex;
     flex: column;
     justify-content: center;
-    font-size: 140%;
 }
-
 .accordian {
     border-color: transparent;
     background-color: transparent;
@@ -90,7 +98,7 @@
     margin-left: .5%;
     margin-right: .5%;
     margin-bottom: 1.3%;
-    background-color: #c33333;
+    background-color: #cc3333;
     width: 77%;
 }
 

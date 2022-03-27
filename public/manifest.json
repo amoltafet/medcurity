@@ -31,6 +31,16 @@
       "src": "left.png",
       "sizes": "512x512",
       "type": "image/png"
+    },
+    {
+      "src": "x-mark.png",
+      "sizes": "640x640",
+      "type": "image/png"
+    },
+    {
+      "src": "checkmark.png",
+      "sizes": "640×524",
+      "type": "image/png"
     }
   ],
   "props":[
