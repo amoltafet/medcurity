@@ -15,6 +15,8 @@ const  AddContent = () => {
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
     const [subtitle, setSubtitle] = useState("")
+    const [banner, setBanner] = useState([])
+    const [bannerName, setBannerName] = useState("")
     const [learningModules, setLearningModules] = useState([])
 
     const [question, setQuestion] = useState([])
@@ -67,9 +69,12 @@ const  AddContent = () => {
 
 
     function submitData() {
-        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `INSERT INTO LearningModules (Title, Subtitle, Description, Banner) VALUES ('${title}', '${subtitle}', '${description}', '')` } }).then((response) => {
+        console.log('submitData:', banner[0])
+        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `INSERT INTO LearningModules (Title, Subtitle, Description, Banner) VALUES ('${title}', '${subtitle}', '${description}', '${banner[0].name}')` } }).then((response) => {
         console.log(response)
         }).catch(error => console.error(`Error ${error}`));
+
+        //TODO ... THEN call API method to store the image from (banner)
 
         var moduleIndex = learningModules[learningModules.length - 1].ID + 1;
         console.log("Index", moduleIndex)
@@ -80,7 +85,7 @@ const  AddContent = () => {
             }).catch(error => console.error(`Error ${error}`));
         }
 
-        console.log("Title:", title)
+        /*console.log("Title:", title)
         console.log("Subtitle:", subtitle)
         console.log("Description:", description)
 
@@ -88,7 +93,7 @@ const  AddContent = () => {
         console.log("Solution Array:", solution)
         console.log("Answer2 Array:", answer2)
         console.log("Answer3 Array:", answer3)
-        console.log("answer4 Array:", answer4)
+        console.log("answer4 Array:", answer4)*/
 
         
         navigate('/admin-content');
@@ -172,6 +177,8 @@ const  AddContent = () => {
                             {
                                 setDescription(e.target.value);
                             }}></textarea><br></br>
+                <label htmlFor="banner">Module Banner Image:</label> 
+                <input type="file" name="myImage" accept="image/png, image/jpeg" onChange={ (e) => {setBanner(e.target.files); }}/>
             </form>
             {ModuleContent}
         <div className="d-grid gap-2 ">
