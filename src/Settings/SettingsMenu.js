@@ -18,6 +18,8 @@ const SettingsMenu = () => {
     const [isLoaded, setLoaded] = useState(false);
     const [company, setCompany] = useState([]);
     const [dueDate, setDueDate] = useState([]);
+    const [newPassword, setPassword] = useState("");
+    const [repeatPassword, setRepeatPassword] = useState("");
 
     useEffect(() => {
         axios.get("http://localhost:3002/users/login").then((response) => {
@@ -70,6 +72,16 @@ const SettingsMenu = () => {
         setSaveData(true);
     }
 
+    function checkPassword() {
+        if (newPassword != "" && repeatPassword != "") {
+            // TODO: Ask Ethan how to check password for needed characters
+            return true
+        }
+        else {
+            return false
+        }  
+    }
+
     const popover = (
         <Popover id="popover-basic">
             <Popover.Title as="h3">Saved!</Popover.Title>
@@ -110,7 +122,23 @@ const SettingsMenu = () => {
                                         <Form.Text className="emailText">Email</Form.Text>
                                         <Form.Control disabled defaultValue={session.email}></Form.Control>
                                 </Form.Group>
-                                    <a href="" className="changePasswordText" >Change Password</a>
+                                <h3>Change Password</h3>
+                                <Form.Group className="passwordInput" controlId="formPlaintextEmail">
+                                    <Form.Text className="passwordText">New Password</Form.Text>
+                                    <Form.Control
+                                        onChange={(e) => {
+                                            setPassword(e.target.value);
+                                        }}
+                                    ></Form.Control>
+                                </Form.Group>
+                                <Form.Group className="passwordInput" controlId="formPlaintextEmail">
+                                    <Form.Text className="passwordText">Retype Password</Form.Text>
+                                    <Form.Control
+                                        onChange={(e) => {
+                                            setRepeatPassword(e.target.value);
+                                        }}
+                                    ></Form.Control>
+                                </Form.Group>
                             </Form>
                                <OverlayTrigger delay={{ show: 5000, hide: 4000 }} show={show} placement="bottom" overlay={popover}>
                                             <Button
