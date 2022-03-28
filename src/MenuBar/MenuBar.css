@@ -29,5 +29,6 @@
 }
 
 .pillz {
-    border: white;
+    border: none;
+    background: none;
 }
