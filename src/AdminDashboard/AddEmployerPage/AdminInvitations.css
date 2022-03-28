@@ -1,0 +1,23 @@
+.createButton {
+    margin-top: 5%;
+    margin-left: -1.5%;
+    width: 58%;
+    background-color: #c33333;
+    
+}
+
+#company-label {
+    margin-left: 35%;
+}
+
+#company-list {
+    margin-left: 20%;
+    width: 80%;
+    margin-bottom: 0%
+}
+
+#email-invite {
+    margin-top: 3%;
+    margin-left: -8%;
+    margin-right: -13%
+}

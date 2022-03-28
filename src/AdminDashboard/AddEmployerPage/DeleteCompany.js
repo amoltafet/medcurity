@@ -3,7 +3,7 @@ import { Form , Card, Button, Container} from 'react-bootstrap';
 import { useEffect, useState, Link} from "react";
 import { useParams } from "react-router";
 import { useNavigate } from 'react-router-dom';
-import './EmployerCard.css'
+import './AddCompany.css'
 import Axios from 'axios';
 
 /**
@@ -61,10 +61,10 @@ const DeleteCompany = () => {
         <Container className="EmployerInviteRequestCard uvs-right">
 
                 
-                    <div className="registerHeader">Delete a New Company</div>
+                    <h2 className="registerHeader">Delete a New Company</h2>
                     <div className="InviteSubtitle font">Type in a company name to delete a company from the list of available companies. </div>
                     <Form className="email Invite">
-                    <Form.Group className="company" controlId="formCompany">
+                    <Form.Group className="company" id="delete-company" controlId="formCompany">
                         <Form.Control 
                         type="company" 
                         id ="companyTextBox"
