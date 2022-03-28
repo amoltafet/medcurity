@@ -30,13 +30,15 @@ const DashboardPage = () => {
 
   return (
     <>
+ 
 		<MenuBar></MenuBar>
 		<CardDeck className="dashTopPanel" style={{display: 'flex', flexDirection: 'row'}}>
 			<WelcomePanel user={session} ></WelcomePanel> 
 			<Leaderboard user={session} ></Leaderboard>
         </CardDeck>
         <LearningModulesCards user={session} />
-        <LearningModulesDirectories user={session}/>
+        <LearningModulesDirectories user={session}/>   
+      
     </>
   );
 }

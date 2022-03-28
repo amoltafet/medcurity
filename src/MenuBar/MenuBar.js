@@ -2,7 +2,7 @@ import React from 'react';
 import './MenuBar.css';
 import '../Layout.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { Nav, CardImg, Card, CardGroup } from 'react-bootstrap'
+import { Nav, CardImg, Card, CardGroup, Row, Col } from 'react-bootstrap'
 import { useEffect, useState } from "react";
 import Axios from 'axios'
 import { useNavigate } from 'react-router-dom';
@@ -111,12 +111,15 @@ const Menubar = () => {
 
     return (
         <>
-            <CardGroup>
+        <Row>
+            <Col xs={2} md={2}>
                 <Card className="logo">
                     <a href="/dash">
                         <CardImg className="MedcurityLogo" variant="top" src="/Medcurity_Logo.png" alt="" />
                     </a>
                 </Card>
+            </Col>
+            <Col xs={10} md={10}>
                 <Card className="pillz">
                     <Nav className="justify-content-end" variant="pills" defaultActiveKey="/dashboard">
                         {get_employer_buttons()}
@@ -131,7 +134,8 @@ const Menubar = () => {
                         </Nav.Item>  
                     </Nav>
                 </Card>
-            </CardGroup>
+            </Col>
+        </Row>
         </>
     );
 

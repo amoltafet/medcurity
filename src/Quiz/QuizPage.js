@@ -116,18 +116,18 @@ const QuizPage = () => {
 
       //rests users stats
 
-      axios.post("http://localhost:3002/testing/resetUser", {
-        userid: session.userid,
-      }).then((response) => {
-        console.log("response", response);
-      }).catch(error => console.log(`Error ${error}`));
+      // axios.post("http://localhost:3002/testing/resetUser", {
+      //   userid: session.userid,
+      // }).then((response) => {
+      //   console.log("response", response);
+      // }).catch(error => console.log(`Error ${error}`));
 
       //assigns modules
 
       // axios.post("http://localhost:3002/testing/assignModules", {
       //     userid: session.userid, 
       //     modulenum: 1,
-      //     daysaway: 1,
+      //     daysaway: 3,
       //   }).then((response) => {
       //     console.log("response", response);
       //   }).catch(error => console.log(`Error ${error}`));
@@ -261,7 +261,7 @@ const QuizPage = () => {
 
         }
         if (newIndex === (content.length - 1)) {
-          document.getElementById("submitBtn").disabled = false;
+          document.getElementById("submitBtn").className = "quizSubmitBttn uvs-left";
         }
       }
     }
@@ -523,7 +523,7 @@ const QuizPage = () => {
   if (!isSubmitted) {
     function disabledSubmitBttn() {
       if (document.getElementById("submitBtn") !== null && index !== (content.length - 1)) {
-        document.getElementById("submitBtn").disabled = true;
+        document.getElementById("submitBtn").className = "quizSubmitBttnRemoved";
       }
     }
 
