@@ -79,8 +79,7 @@ const  AddContent = () => {
         //TODO ... THEN call API method to store the image from (banner)
         var data = new FormData();
         data.append("bannerImage", banner[0]);
-        axios.post("http://localhost:3002/api/queryUploadBanner", data, { headers: { 'Content-Type': 'multipart/form-data' } }).then((response) => 
-        { console.log('from AddContent:', response) }).catch(error => console.error(`Error you fucker: ${error}`));
+        axios.post("http://localhost:3002/api/postModuleBanner", data, { headers: { 'Content-Type': 'multipart/form-data' } })
 
         var moduleIndex = learningModules[learningModules.length - 1].ID + 1;
         console.log("Index", moduleIndex)
