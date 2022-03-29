@@ -88,7 +88,7 @@ const queryUploadBanner = (req, res) => {
     }
     else
     {
-        if (err) logger.log('error', { methodName: '/queryModuleBanner', body: `Failed to upload ${req?.file.filename || 'a banner'}` }, { service: 'query-service' })
+        logger.log('error', { methodName: '/queryModuleBanner', body: `Failed to upload ${req?.file.filename || 'a banner'}` }, { service: 'query-service' })
         res.send(false)
     }
 }
