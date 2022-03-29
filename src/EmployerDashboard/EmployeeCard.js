@@ -2,6 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Card, Col, Button, OverlayTrigger, Popover } from 'react-bootstrap';
 import './EmployeeCard.css';
+import axios from 'axios';
 
 //TODO
 // Connect button to remove user functionality
@@ -20,16 +21,13 @@ const EmployeeCard = (props) => {
      */
     function removeUser(userId, companyId) {
         console.log("Removing user from company");
-        // axios.post("http://localhost:3002/users/registerEmpty", {
-        //     categoryName: categoryName,
-        //     points: points,
-        //     percentName: percentName, 
-        //     lengths: (percent),
-        //     userid: session.userid,
-        // }).then((response) => {
-        //     console.log("response", response.data);
+        axios.post("http://localhost:3002/users/removeUserFromCompany", {
+            userid: userId,
+            companyid: companyId,
+        }).then((response) => {
+            console.log("response", response.data);
             
-        // }).catch(error => console.log(`Error ${error}`));
+        }).catch(error => console.log(`Error ${error}`));
     }
 
  

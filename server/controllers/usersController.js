@@ -104,14 +104,22 @@ const userRegisterEmpty = (req,res) =>
 
     const email = req.body.email
     const username = email.substring(0, email.indexOf("@"));
+    const companyid = req.body.companyid
 
     db.query(`SELECT EXISTS(SELECT * FROM Users WHERE email = '${email}') AS doesExist`, (err,result) => {
         if (result[0].doesExist == 0)
         {
             db.query("INSERT INTO Users (username, email, active) VALUES (?,?,?)", [username, email, false], (err, result) => {
-                db.query(`SELECT * FROM Users WHERE email = '${email}'`, (err,result) => {
-                    res.send(true)
-                })
+                db.query(`SELECT * FROM Users WHERE email = '${email}'`, (err,user) => {
+                    console.log("Query stuff")
+                    console.log(user[0].userid)
+                    console.log(companyid)
+                    console.log(err)
+                    db.query("INSERT INTO AffiliatedUsers (UserID, CompanyID) VALUES (?,?)", [user[0].userid, companyid], (err, result) => {
+                        console.log(err)
+                        res.send(true)
+                    });
+                });
             });
         }
         else
@@ -301,6 +309,8 @@ const removeUserFromCompany = (req,res) =>
             res.send(false)
         }
     })
+}
+/**
  * Changes the users profile picture.
  */
  const changeProfilePicture = (req, res) => {

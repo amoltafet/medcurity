@@ -43,6 +43,7 @@ const EmployeesCards = (props) => {
                 'ORDER BY Users.email'} 
                 }).then((response) => {
                     setEmployees(Object.values(response.data))
+                    console.log("Got employees")
             });
         }
     }, [isLoading])

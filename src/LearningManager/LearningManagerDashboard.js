@@ -19,9 +19,7 @@ const LearningManagerDashboardPage = () => {
     Axios.defaults.withCredentials = true;
     const [session, setSession] = useState([]);
     const [companyId, setCompanyId] = useState('');
-	const [company, setCompany] = useState('');
     const [isLoading, setLoading] = useState(true)
-	const [isLoadingCompanyID, setIsLoadingCompanyID] = useState(true)
 
     useEffect(() => {
         Axios.get("http://localhost:3002/users/login").then((response) => {
@@ -35,7 +33,7 @@ const LearningManagerDashboardPage = () => {
         }
     }, [session])
 
-    // Query for getting user's required learning modules
+    // Query for getting companyid of associated user
     useEffect(() => {
         if (!isLoading) {
             Axios.get('http://localhost:3002/api/getQuery', 
