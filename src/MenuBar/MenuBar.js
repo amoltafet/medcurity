@@ -92,12 +92,12 @@ const Menubar = () => {
         if (!isCompanyLoading && Number.isInteger(companyId)) {
             objs.push(
                 <Nav.Item className="navPills uvs-left uvs-right">
-                    <Nav.Link className="menubarFont" href="/employer-dash">Employer Dashboard</Nav.Link>
+                    <Nav.Link className="menubarFontSpecial" href="/employer-dash">Employer Dashboard</Nav.Link>
                 </Nav.Item>
             )
             objs.push(
                 <Nav.Item className="navPills uvs-left uvs-right">
-                    <Nav.Link className="menubarFont" href="/learning-manager">Learning Module Manager</Nav.Link>
+                    <Nav.Link className="menubarFontSpecial" href="/learning-manager">Learning Module Manager</Nav.Link>
                 </Nav.Item>
             )
         }

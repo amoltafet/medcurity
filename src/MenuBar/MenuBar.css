@@ -9,9 +9,16 @@
     
 }
 
+
 .menubarFont {
     color: white !important;
     font-family: Lato,sans-serif;
+}
+
+.menubarFontSpecial {
+    color: white !important;
+    font-family: Lato,sans-serif;
+    margin-top: 2.5% !important;
 }
 
 .menubarFont:hover {
