@@ -222,7 +222,7 @@ const userLogout = (req, res) =>
 /**
  * Updates the users settings - only username for now.
  */
-const userUpdate = (req, res) => {
+const changeUserName = (req, res) => {
     const newUserName = req.body.username;
     const userId = req.body.id;
 
@@ -263,6 +263,7 @@ const userPoints = (req, res) => {
  */
 const userModuleCompleted = (req, res) => {
     var today = new Date();
+    today.setDate(today.getDate() - 1);
     const categoryId = req.body.categoryId;
     const userid = req.body.userid;   
 
@@ -300,6 +301,21 @@ const removeUserFromCompany = (req,res) =>
             res.send(false)
         }
     })
+ * Changes the users profile picture.
+ */
+ const changeProfilePicture = (req, res) => {
+    const newProfilePicture = req.body.profilepicture;
+    const userId = req.body.id;
+
+    logger.log('info', ` profile picture  "${newProfilePicture}"`);
+    logger.log('info', `id "${userId}"`);
+    db.query(`UPDATE Users SET profilepicture = "${newProfilePicture}" WHERE userid = "${userId}"`, (err,result) => {
+        db.query(`SELECT * FROM Users WHERE userid = '${userId}'`, (err,result) => {
+            req.session.userSession = result;
+            logger.log('info', `Updated profile picture to "${newProfilePicture}"`);
+            res.send({ result: result, success: true, message: "Updated profile picture!" });
+        })
+    }) 
 }
 
 
@@ -312,8 +328,9 @@ module.exports =
     userRegisterCompanyAdmin,
     userLoginSession,
     userLogout,
-    userUpdate,
+    changeUserName,
     userPoints,
     userModuleCompleted,
     removeUserFromCompany,
+    changeProfilePicture,
 };

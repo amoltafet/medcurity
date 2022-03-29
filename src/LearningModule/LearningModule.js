@@ -1,4 +1,4 @@
-import { Button } from 'react-bootstrap'
+import { Button, Image } from 'react-bootstrap'
 import React from 'react';
 import './LearningModule.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -26,13 +26,16 @@ const  LearningModule = () => {
 
 
     const LearningModuleContent = content.map((module) => {
+      if (module.Banner !== "") {
         return ([
           <>
             <h1 className="text-center moduleName">
               Learning Modules: {module.Title} Module
             </h1>
             <div className="d-flex justify-content-center">
-              <img src={require(`../assets/` + module.Banner)} className="img-fluid rounded mx-auto d-block moduleImage uvs-left uvs-right" alt={module.Title} />
+              {console.log("../assets/" + module.Banner)}
+              {console.log("banner: " + module.Banner)}
+              <Image src={require(`../assets/` + module.Banner)} className="img-fluid rounded mx-auto d-block moduleImage uvs-left uvs-right" alt={module.Title} />
             </div>
             <h6 className="text-center mt-2 moduleSubtitle">
               {module.Subtitle}
@@ -42,6 +45,24 @@ const  LearningModule = () => {
             </h4>
             </>
         ]);
+      }
+      else {
+      return ([
+          <>
+            <h1 className="text-center moduleName">
+              Learning Modules: {module.Title} Module
+            </h1>
+            <div className="d-flex justify-content-center">
+            </div>
+            <h6 className="text-center mt-2 moduleSubtitle">
+              {module.Subtitle}
+            </h6>
+            <h4 className="text-center mt-3 moduleDescription">
+              {module.Description}
+            </h4>
+            </>
+      ]);
+      }
     })
 
     return (

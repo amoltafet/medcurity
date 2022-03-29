@@ -1,55 +1,60 @@
-
-import './Questions.css';
+import { Row, Col, Image } from "react-bootstrap";
+import './Result.css';
 
 function Result(props) {
 
-    if(props.correctIdx === props.index && props.correct) {
+    if (props.correctIdx === props.index && props.correct) {
         return(
-            <>
-                <div class="correctResult">
-                    <div className="img-col">
-                        <img src={require(`../assets/checkmark.png`)} id="check-image" className="img-fluid rounded mx-auto d-block moduleImage uvs-left uvs-right" alt="checkmark" />
-                    </div>
-                    <div 
-                        key={props.index} 
-                        id={`result-${props.index}`}
-                        value={props.rad.name}
-                        className="individualResults">
-                            {`${props.rad.name}`}
-                    </div>
-                </div>    
+            <>  
+                <Row > 
+                    <Col className="checkmarkImage">
+                        <Image src="/checkmark.png" className="checkmarkImage"  alt="checkmark" />
+                    </Col >
+                    <Col className="justify-content-left">
+                        <div
+                            key={props.index} 
+                            id={`result-${props.index}`}
+                            value={props.rad.name}
+                            className="correctResults text-center">
+                                {`${props.rad.name}`}
+                        </div>
+                    </Col>
+                </Row>    
             </>
         );
     }
 
-    else if(props.correctIdx === props.index && !props.correct) {
+    else if (props.correctIdx === props.index && !props.correct) {
         return(
             <>
-                <div class="correctResult">
-                    <div className="img-col">
-                        <img src={require(`../assets/x-mark.png`)} id="check-image" className="img-fluid rounded mx-auto d-block moduleImage uvs-left uvs-right" alt="checkmark" />
-                    </div>
-                    <div 
-                        key={props.index} 
-                        id={`result-${props.index}`}
-                        value={props.rad.name}
-                        className="individualResults">
-                            {`${props.rad.name}`}
-                    </div>
-                </div>    
+                <Row >
+                    <Col className="x-markImage">
+                        <Image src="/x-mark.png" className="x-markImage" alt="xmark" />
+                    </Col>
+                    <Col   className="justify-content-left">
+                        <div 
+                            key={props.index} 
+                            id={`result-${props.index}`}
+                            value={props.rad.name}
+                            className="wrongResults">
+                                {`${props.rad.name}`}
+                        </div>
+                    </Col>
+                </Row>    
             </>
         );
     }
     else {
         return(
             <>
-                <div 
+                <Row 
+                    className="justify-content-center"
                     key={props.index} 
                     id={`result-${props.index}`}
                     value={props.rad.name}
                     >
                         {`${props.rad.name}`}
-                </div>       
+                </Row>       
             </>
         );
     }

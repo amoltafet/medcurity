@@ -26,6 +26,7 @@ const LearningModuleDirectories = () => {
      * @returns 
      */
     const DirectoryPanel = (props) => {
+        console.log("e", props.title)
         return (
             <>
             <Card className="LearningModuleDirectoriesCard uvs-right uvs-left">

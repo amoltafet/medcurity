@@ -2,7 +2,6 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Card, Col, Button, OverlayTrigger, Popover } from 'react-bootstrap';
 import './EmployeeCard.css';
-import { useState} from "react";
 
 //TODO
 // Connect button to remove user functionality
@@ -13,12 +12,7 @@ import { useState} from "react";
  * @returns 
  */
 const EmployeeCard = (props) => {
-    const [isOpen, setIsOpen] = useState(false);
  
-    const togglePopup = () => {
-      setIsOpen(!isOpen);
-      console.log("Toggling")
-    }
 
     /**
      * Removes a user from the selected company
@@ -38,19 +32,7 @@ const EmployeeCard = (props) => {
         // }).catch(error => console.log(`Error ${error}`));
     }
 
-    const popover = (props) => {
-        return (
-            <Popover id="popover-basic">
-                {props.content}
-                <Button className="EmployeeInRowButton uvs-right" 
-                    variant="success" 
-                    onClick={() => removeUser(props.userId, props.companyId)}> 
-                    Confirm 
-                </Button>
-            </Popover>
-        )
-    }
-
+ 
     return (
         <>
         <Card className="EmployeeCard uvs-right uvs-left" style={{ flexDirection: 'row' }}>

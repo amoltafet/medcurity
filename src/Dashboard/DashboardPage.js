@@ -26,17 +26,19 @@ const DashboardPage = () => {
         }).catch(error => console.error(`Error ${error}`));
       }, []);
 
-    console.log(session)
+      
 
   return (
     <>
+ 
 		<MenuBar></MenuBar>
 		<CardDeck className="dashTopPanel" style={{display: 'flex', flexDirection: 'row'}}>
 			<WelcomePanel user={session} ></WelcomePanel> 
 			<Leaderboard user={session} ></Leaderboard>
         </CardDeck>
         <LearningModulesCards user={session} />
-        <LearningModulesDirectories user={session}/>
+        <LearningModulesDirectories user={session}/>   
+      
     </>
   );
 }

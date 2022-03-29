@@ -13,10 +13,11 @@ router.post('/registerCompanyAdmin', userControllers.userRegisterCompanyAdmin);
 router.post('/login', userControllers.userLogin);
 router.get('/login', userControllers.userLoginSession);
 router.post('/logout', userControllers.userLogout);
-router.post('/settings', userControllers.userUpdate);
+router.post('/changeUserName', userControllers.changeUserName);
 router.post('/quiz', userControllers.userPoints);
 router.post('/moduleCompleted', userControllers.userModuleCompleted);
 router.post('/removeUserFromCompany', userControllers.removeUserFromCompany);
+router.post('/changeProfilePicture', userControllers.changeProfilePicture);
 
 
 module.exports = router

@@ -10,41 +10,36 @@
     margin-bottom: 1%;
 }
 
+.answerQuizSelection {
+    font-family: Lato,sans-serif;
+    margin-top: 0%;
+}
+
 .individualQuestions {
     text-align: start;
     font-size: 100%;
-
+    font-family: Lato,sans-serif;
 }
 
+/* RESULTS CSS */
+
 .questionNumbersWrong {
-    color: white;
+    color: #c33333;
+    margin-top: 2%;
 }
 
 .questionDesciptionWrong {
-    color: #d8dae3;
+    color: #cc3333;
+    margin-bottom: .5%;
 }
 
 .questionNumbersRight {
     color: #1e5b88;
+    margin-top: 2%;
 }
 
 .questionDesciptionRight {
     color: #127ebf; 
 }
 
-.individualQuestions {
-    text-align: start;
-    font-size: 100%;
 
-    margin-top: 5%;
-}
-
-#check-image {
-    width: 2%;
-}
-
-.correctResult {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-}

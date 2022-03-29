@@ -1,8 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'   
-import { Card, Image, Button, Container, CardDeck, Col } from 'react-bootstrap';
-import { useEffect, useState, Link} from "react";
-import { useParams } from "react-router";
+import { Card, Container, CardDeck, Col } from 'react-bootstrap';
+import { useEffect, useState} from "react";
 import axios from 'axios';
 import EmployeeCard from './EmployeeCard'
 
@@ -89,7 +88,7 @@ const EmployeesCards = (props) => {
         const objs = [];
         let size = 0
         for (let index in modules) {
-            if (size == maxLength) { break; }
+            if (size === maxLength) { break; }
             module = modules[index]
             objs.push(<EmployeeCard email={module.email} name={module.username} progress={'0/' + String(totalCompanyRequiredModules)} userId={module.UserId} activeStatus={module.active} companyId={module.CompanyId} />)
             size += 1;
