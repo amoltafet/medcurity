@@ -1,4 +1,4 @@
-import { Nav, Row, Form, Tab, Col, Container, Button, Popover, OverlayTrigger } from 'react-bootstrap';
+import { Nav, Row, Form, Tab, Col, Container, Button, Popover, OverlayTrigger, Image } from 'react-bootstrap';
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import React from 'react';
@@ -18,11 +18,12 @@ const SettingsMenu = () => {
     const [isLoaded, setLoaded] = useState(false);
     const [company, setCompany] = useState([]);
     const [dueDate, setDueDate] = useState([]);
+    const [convertedProfilePhoto, setConvertedProfilePicture] = useState("/user.png");
+    const [profilePhoto, setProfilePicture] = useState("/user.png");
 
     useEffect(() => {
         axios.get("http://localhost:3002/users/login").then((response) => {
-            setSession(response.data.user[0])
-           
+            setSession(response.data.user[0]);
         }).catch(error => console.error(`Error ${error}`));
         setLoaded(true)
     }, []);
@@ -32,12 +33,15 @@ const SettingsMenu = () => {
             axios.get('http://localhost:3002/api/getQuery', 
                 { params: { the_query: 'SELECT * FROM Companies WHERE companyid = ' + session.companyid} 
             }).then((response) => {
-              
+                console.log(session)
+                var photo = URL.createObjectURL(session.profilepicture)
+                setProfilePicture(session.profilepicture)
+                setConvertedProfilePicture(photo);
                if (response.data[0].datejoined !== null) { 
                 setCompany(response.data[0]);
                 var date = new Date(response.data[0].datejoined);
                 setDueDate(date.toDateString()); 
-                console.log("e", dueDate)
+              
                 }
 
             }).catch(error => console.error(`Error ${error}`));
@@ -48,13 +52,21 @@ const SettingsMenu = () => {
 
     useEffect(() => {
         if (saveData === true) {
-            axios.post("http://localhost:3002/users/settings", {
+            axios.post("http://localhost:3002/users/changeUserName", {
                 username: newUserName,
                 id: session.userid
             }).then((response) => {
                 console.log("response", response.data);
                 
             }).catch(error => console.log(`Error ${error}`));
+            console.log("profilepic to bee saved: ", profilePhoto)
+            // axios.post("http://localhost:3002/users/changeProfilePicture", {
+            //     profilepicture: profilePhoto,
+            //     id: session.userid
+            // }).then((response) => {
+            //     console.log("response", response.data);
+                
+            // }).catch(error => console.log(`Error ${error}`));
             setSaveData(false);
             setShow(true);
         }
@@ -64,6 +76,17 @@ const SettingsMenu = () => {
     setTimeout(() =>{
         setShow(false)
     }, 9000)
+
+   
+
+    function uploadUserPhoto (userPhoto) {
+        console.log("unconverted photo", userPhoto)
+        var convertedPhoto = URL.createObjectURL(userPhoto);
+        console.log("convertedPhoto: ", convertedPhoto)
+        setConvertedProfilePicture(convertedPhoto);
+        setProfilePicture(userPhoto);
+
+    }
   
     
     function SaveUpdatedUserInfo() {
@@ -75,7 +98,6 @@ const SettingsMenu = () => {
             <Popover.Title as="h3">Saved!</Popover.Title>
         </Popover>
     );
-
 
 
     return (
@@ -97,20 +119,30 @@ const SettingsMenu = () => {
                         <Tab.Content>
                         <Tab.Pane eventKey="first">
                             <Form>
+                                <Form.Group>
+                                    <Image className="settingsProfilePicture" variant="top" src={convertedProfilePhoto} alt="" roundedCircle></Image>
+                                <Form.File 
+                                    className="userProfilePhotoInput"
+                                    onChange={(e) => uploadUserPhoto((e.target.files[0]))}
+                                    accept=".png,.jpg,.jpeg"/>
+                                </Form.Group>
+                                <Form.Group className="emailInput" controlId="formPlaintextEmail">
+                                        <Form.Text className="emailText">Email</Form.Text>
+                                        <Form.Control disabled defaultValue={session.email}></Form.Control>
+                                </Form.Group>
                                 <Form.Group className="usernameInput" controlId="formPlaintextEmail">
                                     <Form.Text className="usernameText">UserName</Form.Text>
                                     <Form.Control
                                         defaultValue={session.username}
                                         onChange={(e) => {
                                             setUsername(e.target.value);
-                                        }}
-                                    ></Form.Control>
+                                        }}>
+                                    </Form.Control>
                                 </Form.Group>
                                 <Form.Group className="emailInput" controlId="formPlaintextEmail">
-                                        <Form.Text className="emailText">Email</Form.Text>
-                                        <Form.Control disabled defaultValue={session.email}></Form.Control>
+                                        <Form.Text className="emailText">Change Password</Form.Text>
+                                        <Form.Control></Form.Control>
                                 </Form.Group>
-                                    <a href="" className="changePasswordText" >Change Password</a>
                             </Form>
                                <OverlayTrigger delay={{ show: 5000, hide: 4000 }} show={show} placement="bottom" overlay={popover}>
                                             <Button

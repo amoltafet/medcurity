@@ -14,3 +14,10 @@
     font-family: Lato,sans-serif;
     border: 0;
 }
+
+.quizSubmitBttnRemoved {
+    background-color: none;
+    color: none;
+    border: none;
+    display: none;
+}
