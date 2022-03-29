@@ -14,14 +14,13 @@ const WelcomePanel = (props) => {
 
     return (
         <>
-        <Card className="WelcomePanelCard uvs-right uvs-left" style={{flexDirection: 'row'}}>
+        <Card className="WelcomePanelCard" style={{flexDirection: 'row'}}>
             <Image className="WelcomePanelImage" variant="top" src="/user.png" alt="" roundedCircle />
             <Card.Body className="cardSize">
                <Card.Title className="titleFont" >Welcome Back {props.user.username}!</Card.Title>
                <div>{props.subtitle}</div>
             </Card.Body> 
         </Card>
-
         </>
     );
 }

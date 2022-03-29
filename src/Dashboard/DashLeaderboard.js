@@ -127,7 +127,7 @@ const Leaderboard = (props) => {
 
     return (
         <>
-            <Card.Body className="LeaderboardCard uvs-right uvs-left">
+            <Card.Body className="LeaderboardCard">
                 <Card.Link className="dashLeaderboardFont" href="/leaderboard" >Leaderboard</Card.Link>
                 {ProfileArray()}
             </Card.Body>
