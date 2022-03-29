@@ -15,7 +15,6 @@
 }
 
 .dash_moduleDirectories {
-  margin-top: -30px;
   background-color: rgb(219, 224, 237);
 }
 
@@ -81,6 +80,29 @@
   text-shadow: 2px 2px 5px black;
   font-size: 3.5vmax;
   margin-top: -15px;
+}
+
+.dash_h1Style {
+  color: rgb(23, 77, 125);
+  margin-left: 20%;
+  margin-right: 20%;
+  border-radius: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-size: 2.5vmax;
+  text-align: center;
+}
+
+.dash_pStyle {
+  color: rgb(0, 0, 0);
+  font-size: 1vmax;
+  text-align: center;
+}
+
+.dash_leaderboardLink {
+  color: white;
+  text-shadow: 2px 2px 5px black;
+  text-align: right;
 }
 
 @keyframes dash_fadeIn { 

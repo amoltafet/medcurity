@@ -1,4 +1,4 @@
-import { Card } from 'react-bootstrap'
+import { Card, Button} from 'react-bootstrap'
 import React from 'react';
 import DashLeaderboardProfiles from './DashLeaderboardProfiles';
 import { useEffect, useState } from "react";
@@ -127,11 +127,15 @@ const Leaderboard = (props) => {
 
     return (
         <>
+        <br></br>
             <Card.Body className="LeaderboardCard">
-                <Card.Link className="dashLeaderboardFont" href="/leaderboard" >Leaderboard</Card.Link>
+                <h3>Leaderboard</h3>
                 {ProfileArray()}
+                <Button className="dashlb_viewFullButton" variant="secondary" type="button">View Full Leaderboard</Button>
             </Card.Body>
         </>
     );
 }
 export default Leaderboard;
+
+//                <Card.Link className="dashLeaderboardFont" href="/leaderboard" >Leaderboard</Card.Link>

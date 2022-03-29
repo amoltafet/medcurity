@@ -7,6 +7,7 @@ import WelcomePanel from './WelcomePanel';
 import Leaderboard from './DashLeaderboard';
 import MenuBar from '../MenuBar/MenuBar';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import LearningModulesCards from './LearningModulesCards';
 import LearningModulesDirectories from './LearningModuleDirectories';
 import Axios from 'axios';
@@ -24,13 +25,13 @@ const DashboardPage = () => {
         Axios.get("http://localhost:3002/users/login").then((response) => {
           setSession(response.data.user[0])
         }).catch(error => console.error(`Error ${error}`)); }, []);
-
-      
-
+    
   return (
     <>
     <Form className="dash_page">
       <MenuBar></MenuBar>
+        <h1 className='dash_h1Style'>Personal Dashboard</h1>
+        <p className='dash_pStyle'>The quick brown fox jumps over the lazy dog.</p>
         <div class="dash_topBackdrop">
           <div class="dash_welcomeDiv">
             <Image className="dash_profilePicture" variant="top" src="/user.png" alt="" roundedCircle />
@@ -41,11 +42,16 @@ const DashboardPage = () => {
             <Leaderboard user={session} ></Leaderboard>
           </div>
         </div>
+
         <div className="dash_requiredModules">
-          <LearningModulesCards user={session} />
+          <h1 className='dash_h1Style'>Required Learning Modules</h1> <LearningModulesCards user={session} />
         </div>
+
         <div className="dash_separator"></div>
+        
         <div className='dash_moduleDirectories'>
+          <h1 className='dash_h1Style'>Learning Module Directories</h1>
+          <p className='dash_pStyle'>The quick brown fox jumps over the lazy dog.</p>
           <LearningModulesDirectories user={session}/>  
         </div> 
     </Form>

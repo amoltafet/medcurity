@@ -82,7 +82,7 @@ const LearningModulesCards = (props) => {
         //objs.push(<h2>Required Learning Modules</h2>);
 
         objs.push(
-            <h2 className="text-center requiredModulesRow"> Required Learning Modules: &nbsp;  
+            <h2 className="text-center requiredModulesRow">&nbsp;  
                 <Button
                     id="select-more-modules"
                     href='learning-directory'
