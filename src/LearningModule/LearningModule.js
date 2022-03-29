@@ -24,6 +24,7 @@ const  LearningModule = () => {
           }).catch(error => console.error(`Error ${error}`));
     }, [slug])
 
+    useEffect(() => { axios.get("http://localhost:3002/api/getModuleBanner", { params: { id: slug }} ).then((response) => { setBanner(response.data.bannerImage) }); })
 
     const LearningModuleContent = content.map((module) => {
       if (module.Banner !== "") {

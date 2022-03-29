@@ -10,7 +10,7 @@ const path = require('path')
 const getQuery = (req,res) => 
 {
     db.query(`${req.query.the_query}`, (err,result) => {
-        if (err) logger.log('error', { methodName: '/geQuery', errorBody: err }, { service: 'query-service' })
+        if (err) logger.log('error', { methodName: '/geQuery', body: err }, { service: 'query-service' })
         logger.log('info', `Custom Query: "${req.query.the_query}"`, { service: 'query-service' })
         return res.send(result)
     })
@@ -21,7 +21,7 @@ const getQuery = (req,res) =>
  */
 const queryModuleInfo = (req,res)=>{
     db.query(`SELECT * FROM LearningModules WHERE ID = ${req.query.id}`, (err,result) => {
-        if (err) logger.log('error', { methodName: '/queryModuleInfo', errorBody: err }, { service: 'query-service' })
+        if (err) logger.log('error', { methodName: '/queryModuleInfo', body: err }, { service: 'query-service' })
         logger.log('info', `Queried LearningModuleID with ID: "${req.query.id}" Fields: ${result}`, { service: 'query-service' })
         res.send(result)
     })
@@ -32,7 +32,7 @@ const queryModuleInfo = (req,res)=>{
  */
 const queryModuleQuestions = (req,res)=>{
     db.query(`SELECT * FROM Questions WHERE module = ${req.query.id}`, (err,result) => {
-        if (err) logger.log('error', { methodName: '/queryModuleQuestions', errorBody: err }, { service: 'query-service' })
+        if (err) logger.log('error', { methodName: '/queryModuleQuestions', body: err }, { service: 'query-service' })
         logger.log('info', `Queried Questions with ModuleID: "${req.query.id}" Fields: ${result}`, { service: 'query-service' })
         res.send(result)
     })
@@ -43,7 +43,7 @@ const queryModuleQuestions = (req,res)=>{
  */
 const queryModuleDirectoryInfo = (req,res)=>{
     db.query(`SELECT * FROM LearningModulesDirectory WHERE module = ${req.query.id}`, (err,result) => {
-        if (err) logger.log('error', { methodName: '/queryModuleDirectoryInfo', errorBody: err }, { service: 'query-service' })
+        if (err) logger.log('error', { methodName: '/queryModuleDirectoryInfo', body: err }, { service: 'query-service' })
         logger.log('info', `Queried LearningModulesDirectories with ModuleID: "${req.query.id}" Fields: ${result}`, { service: 'query-service' })
         res.send(result)
     })
@@ -54,15 +54,18 @@ const queryModuleDirectoryInfo = (req,res)=>{
  */
 const queryDirectoryModulesInfo = (req,res)=>{
     db.query(`SELECT * FROM LearningModules WHERE DirId = ${req.query.id}`, (err,result) => {
-        if (err) logger.log('error', { methodName: '/queryDirectoryModulesInfo', errorBody: err }, { service: 'query-service' })
+        if (err) logger.log('error', { methodName: '/queryDirectoryModulesInfo', body: err }, { service: 'query-service' })
         logger.log('info', `Queried LearningModules with DirID: "${req.query.id}" Fields: ${result}`, { service: 'query-service' })
         res.send(result)
     })
 }
 
+/**
+ * Queries the data base for the module banner image (base64)
+ */
 const queryModuleBanner = (req,res)=>{
     db.query(`SELECT ID, Banner FROM LearningModules WHERE ID = ${req.query.id}`, (err,result) => {
-        if (err) logger.log('error', { methodName: '/queryModuleBanner', errorBody: err }, { service: 'query-service' })
+        if (err) logger.log('error', { methodName: '/queryModuleBanner', body: err }, { service: 'query-service' })
         try {
             let image = fs.readFileSync(path.join(__dirname, `../assets/images/banners/${result[0].Banner}`));
             res.send({ bannerImage: new Buffer.from(image).toString('base64') })
@@ -74,9 +77,26 @@ const queryModuleBanner = (req,res)=>{
     })
 }
 
+/**
+ * Logs image handling for uploading banners.
+ */
+const queryUploadBanner = (req, res) => {
+    if (req.file)
+    {
+        logger.log('info', { methodName: '/postModuleBanner', body: `Uploaded "${req.file.filename}" to "assets/images/banners"` }, { service: 'query-service' })
+        res.send(true)
+    }
+    else
+    {
+        if (err) logger.log('error', { methodName: '/queryModuleBanner', body: `Failed to upload ${req?.file.filename || 'a banner'}` }, { service: 'query-service' })
+        res.send(false)
+    }
+}
+
 module.exports = 
 {
     getQuery,
+    queryUploadBanner,
     queryModuleBanner,
     queryModuleInfo,
     queryModuleQuestions,
