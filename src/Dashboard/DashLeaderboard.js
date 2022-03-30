@@ -127,7 +127,6 @@ const Leaderboard = (props) => {
 
     return (
         <>
-                <h3>Leaderboard</h3>
                 {ProfileArray()}
                 <Button className="dashlb_viewFullButton" variant="secondary" type="button">View Full Leaderboard</Button>
         </>

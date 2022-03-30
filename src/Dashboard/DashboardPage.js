@@ -30,16 +30,17 @@ const DashboardPage = () => {
     <>
     <Form className="dash_page">
       <MenuBar></MenuBar>
-        <h1 className='dash_h1Style'>Personal Dashboard</h1>
-        <p className='dash_pStyle'>The quick brown fox jumps over the lazy dog.</p>
-        <div class="dash_topBackdrop">
-          <div class="dash_welcomeDiv">
+        <div class="row dash_topBackdrop">
+          <div class="col-md-3 dash_welcomeDiv">
             <Image className="dash_profilePicture" variant="top" src="/user.png" alt="" roundedCircle />
             <h1 class="dash_welcomeMessageP1">Welcome back,</h1>
             <h1 class="dash_welcomeMessageP2">{session.username}!</h1>
+            <h1 class="dash_welcomeMessageP3">{session.email}!</h1>
           </div>
-          <div class="dash_miniLeaderboard ">
-            <Leaderboard user={session} ></Leaderboard>
+          <div class="col-md-6 dash_navDiv">
+            <Button variant="secondary" type="button">Required Modules</Button>
+            <Button variant="secondary" type="button">Learning Modulse</Button>
+            <Button variant="secondary" type="button">Leaderboard</Button>
           </div>
         </div>
 
@@ -47,13 +48,21 @@ const DashboardPage = () => {
           <h1 className='dash_h1Style'>Required Learning Modules</h1> <LearningModulesCards user={session} />
         </div>
 
-        <div className="dash_separator"></div>
+        <div className="dash_separatorBegin"></div>
         
         <div className='dash_moduleDirectories'>
           <h1 className='dash_h1Style'>Learning Module Directories</h1>
           <p className='dash_pStyle'>The quick brown fox jumps over the lazy dog.</p>
           <LearningModulesDirectories user={session}/>  
-        </div> 
+        </div>
+
+        <div className="dash_separatorEnd"></div>
+
+        <div class="dash_miniLeaderboard justify-center">
+          <h1 className='dash_h1Style'>Leaderboard</h1>
+          <p className='dash_pStyle'>The quick brown fox jumps over the lazy dog.</p>
+          <Leaderboard user={session} ></Leaderboard>
+        </div>
     </Form>
     </>
   );

@@ -18,11 +18,33 @@
   background-color: rgb(219, 224, 237);
 }
 
+.dash_topBackdrop {
+  display: flex;
+  background-image: url("dash_welcomebg.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  justify-content: center;
+  width: auto;
+  height: 60vh;
+  padding-top: 1vh;
+  animation: dash_fadeIn 1s;
+
+}
+
 .dash_welcomeDiv {
-  float: left;
-  padding-left: 10%;
+  padding-left: 2%;
   padding-top: 10vh;
   animation: dash_rightwardsFadeIn 1s;
+}
+
+.dash_navDiv {
+  display: flex;
+  justify-content: center;
+  color: white;
+  height: 50px;
+  width: 400px;
+  flex-direction: column;
+  
 }
 
 .dash_profilePicture {
@@ -32,18 +54,7 @@
   height: 20vmin; 
 }
 
-.dash_topBackdrop {
-  background-image: url("dash_welcomebg.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  width: auto;
-  height: 60vh;
-  padding-top: 1vh;
-  animation: dash_fadeIn 1s;
-
-}
-
-.dash_separator {
+.dash_separatorBegin {
   background-image: url("dash_directoriesbg.png");
   background-repeat: no-repeat;
   background-position: 0% 100%;
@@ -51,28 +62,30 @@
   height: 25vh;
 }
 
-@media screen and (min-width: 500px) {
-  .dash_miniLeaderboard {
-    margin: auto;
-    padding-top: 10vh;
-    width: 400px;
-  }
+.dash_separatorEnd {
+  background-image: url("dash_directoriesbg.png");
+  background-repeat: no-repeat;
+  background-position: 0% 100%;
+  width: auto;
+  height: 25vh;
+  transform: scaleY(-1);
 }
 
-@media screen and (min-width: 1000px) {
-  .dash_miniLeaderboard {
-    margin-right: 10%;
-    text-align: center;
-    width: 35%;
-    height: 50%;
-    animation: dash_leftwardsFadeIn 1s;
-  }
+.dash_miniLeaderboard {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: -120px;
+  width: 80%;
+  height: 300px;
+  animation: dash_leftwardsFadeIn 1s;
 }
 
 .dash_welcomeMessageP1 {
   color: white;
   text-shadow: 2px 2px 5px black;
   font-size: 2vmax;
+  margin-left: 0px;
 }
 
 .dash_welcomeMessageP2 {
@@ -80,6 +93,15 @@
   text-shadow: 2px 2px 5px black;
   font-size: 3.5vmax;
   margin-top: -15px;
+}
+
+.dash_welcomeMessageP3 {
+  color: white;
+  text-shadow: 2px 2px 5px black;
+  font-size: 1vmax;
+  font-style: italic;
+  margin-top: -5px;
+  margin-left: 5px;
 }
 
 .dash_h1Style {
