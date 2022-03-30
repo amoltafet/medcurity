@@ -30,27 +30,32 @@ const DashboardPage = () => {
     <>
     <Form className="dash_page">
       <MenuBar></MenuBar>
-        <div class="row dash_topBackdrop">
-          <div class="col-md-3 dash_welcomeDiv">
+        <div class="col dash_topBackdrop">
+          <div class="dash_welcomeDiv">
             <Image className="dash_profilePicture" variant="top" src="/user.png" alt="" roundedCircle />
-            <h1 class="dash_welcomeMessageP1">Welcome back,</h1>
-            <h1 class="dash_welcomeMessageP2">{session.username}!</h1>
-            <h1 class="dash_welcomeMessageP3">{session.email}!</h1>
+            <div>
+              <h1 class="dash_welcomeMessageP1">Welcome back, {session.username}!</h1>
+              <h1 class="dash_welcomeMessageP3">Logged in as: {session.email}!</h1>
+            </div>
           </div>
-          <div class="col-md-6 dash_navDiv">
-            <Button variant="secondary" type="button">Required Modules</Button>
-            <Button variant="secondary" type="button">Learning Modulse</Button>
-            <Button variant="secondary" type="button">Leaderboard</Button>
+          <div class="dash_navDiv">
+            <div class="col dash_navButtons">
+              <a href="#requiredModules" class="btn btn-primary">Required Learning Modules</a>
+              <br></br>
+              <a href="#moduleDirectories" class="btn btn-primary">Learning Module Directories</a>
+              <br></br>
+              <a href="#leaderboard" class="btn btn-primary">Leaderboard</a>
+            </div>
           </div>
         </div>
 
-        <div className="dash_requiredModules">
+        <div id="requiredModules" className="dash_requiredModules">
           <h1 className='dash_h1Style'>Required Learning Modules</h1> <LearningModulesCards user={session} />
         </div>
 
         <div className="dash_separatorBegin"></div>
         
-        <div className='dash_moduleDirectories'>
+        <div id="moduleDirectories" className='dash_moduleDirectories'>
           <h1 className='dash_h1Style'>Learning Module Directories</h1>
           <p className='dash_pStyle'>The quick brown fox jumps over the lazy dog.</p>
           <LearningModulesDirectories user={session}/>  
@@ -58,10 +63,14 @@ const DashboardPage = () => {
 
         <div className="dash_separatorEnd"></div>
 
-        <div class="dash_miniLeaderboard justify-center">
+        <div id="leaderboard" class="dash_miniLeaderboard justify-center">
           <h1 className='dash_h1Style'>Leaderboard</h1>
           <p className='dash_pStyle'>The quick brown fox jumps over the lazy dog.</p>
           <Leaderboard user={session} ></Leaderboard>
+          <a href="/leaderboard" class="btn btn-primary">View Full Leaderboard</a>
+        </div>
+        <div class="col dash_bottomBackdrop">
+
         </div>
     </Form>
     </>
