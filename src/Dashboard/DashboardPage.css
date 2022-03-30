@@ -47,23 +47,23 @@ html {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  padding-top: 10vh;
-  animation: dash_rightwardsFadeIn 1s;
+  padding-top: 18vh;
+  animation: dash_moveUpwards 1s;
 }
 
 .dash_navDiv {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: left;
   color: white;
 }
 
 .dash_navButtons {
-  padding-top: 50px;
-  margin: auto;
+  padding-top: 20px;
+  margin-left: 3%;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: left;
   text-align: center;
 }
 
@@ -72,9 +72,9 @@ html {
   margin-left: 10px;
   margin-right: 10px;
   color: rgb(255, 255, 255);
-  font-size: 1.1vmax;
+  font-size: 0.8vmax;
   font-family: Verdana, sans-serif;
-  width: 40%;
+  text-align: center;
 }
 
 .dash_profilePicture {
@@ -127,7 +127,7 @@ html {
 
 .dash_welcomeMessageP3 {
   color: white;
-  font-size: 1vmax;
+  font-size: 0.8vmax;
   font-style: italic;
   margin-top: -5px;
   margin-left: 5px;
@@ -160,4 +160,9 @@ html {
 @keyframes dash_fadeIn { 
   from { opacity:0; } 
   to { opacity:1; } 
+}
+
+@keyframes dash_moveUpwards {
+  from { padding-top: 24vh; } 
+  to { padding-top: 18vh; }   
 }

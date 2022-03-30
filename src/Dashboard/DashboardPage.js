@@ -30,21 +30,21 @@ const DashboardPage = () => {
     <>
     <Form className="dash_page">
       <MenuBar></MenuBar>
-        <div class="col dash_topBackdrop">
+        <div class="col dash_topBackdrop justif">
           <div class="dash_welcomeDiv">
             <Image className="dash_profilePicture" variant="top" src="/user.png" alt="" roundedCircle />
             <div>
               <h1 class="dash_welcomeMessageP1">Welcome back, {session?.username || "... "}!</h1>
               <h1 class="dash_welcomeMessageP3">Logged in as: {session?.email || "..."}</h1>
-            </div>
-          </div>
-          <div class="dash_navDiv">
-            <div class="dash_navButtons">
-              <a href="#requiredModules" class="btn dash_navButton">Required Learning Modules</a>
-              <br></br>
-              <a href="#moduleDirectories" class="btn dash_navButton">Learning Module Directories</a>
-              <br></br>
-              <a href="#leaderboard" class="btn dash_navButton">Leaderboard</a>
+              <div class="dash_navDiv">
+                <div class="dash_navButtons">
+                  <a href="#requiredModules" class="btn dash_navButton">Required Learning Modules</a>
+                  <br></br>
+                  <a href="#moduleDirectories" class="btn dash_navButton">Learning Module Directories</a>
+                  <br></br>
+                  <a href="#leaderboard" class="btn dash_navButton">Leaderboard</a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
