@@ -50,7 +50,8 @@ const DashboardPage = () => {
         </div>
 
         <div id="requiredModules" className="dash_requiredModules">
-          <h1 className='dash_h1Style'>Required Learning Modules</h1> <LearningModulesCards user={session} />
+          <h1 className='dash_h1Style'>Required Learning Modules</h1> 
+          <LearningModulesCards user={session} />
         </div>
 
         <div className="dash_separatorBegin"></div>
