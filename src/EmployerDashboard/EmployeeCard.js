@@ -2,6 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Card, Col, Button, OverlayTrigger, Popover } from 'react-bootstrap';
 import './EmployeeCard.css';
+import { useEffect, useState} from "react";
 import axios from 'axios';
 
 //TODO
@@ -13,7 +14,7 @@ import axios from 'axios';
  * @returns 
  */
 const EmployeeCard = (props) => {
- 
+    const [message, setMessage] = useState('');
 
     /**
      * Removes a user from the selected company
@@ -21,13 +22,21 @@ const EmployeeCard = (props) => {
      */
     function removeUser(userId, companyId) {
         console.log("Removing user from company");
-        axios.post("http://localhost:3002/users/removeUserFromCompany", {
+        axios.post("http://localhost:3002/users/deleteUser", {
             userid: userId,
-            companyid: companyId,
         }).then((response) => {
-            console.log("response", response.data);
-            
-        }).catch(error => console.log(`Error ${error}`));
+            console.log("response.data =", response.data)
+            if (response.data === true)
+            {
+                console.log("Deleted!")
+                window.location.reload(false);
+            }
+            else if (response.data === false)
+            {
+                console.log("Already deleted!")
+                setMessage('This user has already been removed. Please Refresh the page.')
+            }
+        });
     }
 
  
@@ -51,6 +60,7 @@ const EmployeeCard = (props) => {
                 overlay={
                     <Popover id="popover-basic" className="EmployeePopup">
                         <div className="EmployeeCardValues">Please confirm that you want to delete the user '{props.name}': </div> 
+                        <div>{message}</div>
                         <Button className="EmployeeInRowButton uvs-right" 
                             variant="success" 
                             onClick={() => removeUser(props.userId, props.companyId)}> 

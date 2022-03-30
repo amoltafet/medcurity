@@ -13,5 +13,6 @@ router.get('/getModuleBanner', queryControllers.queryModuleBanner);
 router.get('/getModuleQuestions', queryControllers.queryModuleQuestions);
 router.get('/getModuleDirectoryInfo', queryControllers.queryModuleDirectoryInfo);
 router.get('/getDirectoryModulesInfo', queryControllers.queryDirectoryModulesInfo);
+router.get('/getAllUserRequiredModules', queryControllers.queryAllUserRequiredModules);
 
 module.exports = router

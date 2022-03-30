@@ -111,12 +111,7 @@ const userRegisterEmpty = (req,res) =>
         {
             db.query("INSERT INTO Users (username, email, active) VALUES (?,?,?)", [username, email, false], (err, result) => {
                 db.query(`SELECT * FROM Users WHERE email = '${email}'`, (err,user) => {
-                    console.log("Query stuff")
-                    console.log(user[0].userid)
-                    console.log(companyid)
-                    console.log(err)
                     db.query("INSERT INTO AffiliatedUsers (UserID, CompanyID) VALUES (?,?)", [user[0].userid, companyid], (err, result) => {
-                        console.log(err)
                         res.send(true)
                     });
                 });
@@ -128,6 +123,7 @@ const userRegisterEmpty = (req,res) =>
         }
     })
 }
+
 
 /**
  * Queries the database to register an inactive company admin assigned to a company.
@@ -267,7 +263,7 @@ const userPoints = (req, res) => {
 }
 
 /**
- * Moves the assigned module to be a completed module.
+ * Store a learning module as completed.
  */
 const userModuleCompleted = (req, res) => {
     var today = new Date();
@@ -276,31 +272,88 @@ const userModuleCompleted = (req, res) => {
     const userid = req.body.userid;   
 
     db.query(`INSERT INTO CompletedModules (UserID, LearningModID, DateCompleted)  VALUES (?,?,?)`, [userid, categoryId, today], (err,result) => {
-        db.query(`DELETE FROM AssignedLearningModules WHERE LearningModID = "${categoryId}" AND UserID = "${userid}"`, (err,result) => {
-            db.query(`SELECT * FROM Users WHERE userid = '${userid}'`, (err,result) => {
-                logger.log('info', `User-'${userid}' completed Module '${categoryId}', on: "${today}"`);
-                req.session.userSession = result;
-                res.send({success: true, message: `Completed Module & Removed from the Assigned`});
-            })
-        }) 
+        db.query(`SELECT * FROM Users WHERE userid = '${userid}'`, (err,result) => {
+            logger.log('info', `User-'${userid}' completed Module '${categoryId}', on: "${today}"`);
+            req.session.userSession = result;
+            res.send({success: true, message: `Completed Module & Removed from the Assigned`});
+        })
     })   
 }
 
 /**
- * Removes a user from a company. Checks if the user exists first. 
+ * Removes a user from the site
+ * Involves removing the user from Users table, AffiliatedUsers,
+ * CompanyAdmins, CompletedModules
  */
-const removeUserFromCompany = (req,res) => 
+const deleteUser = (req,res) => 
 {
-    const userid = req.body.userId
+    const userid = req.body.userid
+
+    db.query((`SELECT EXISTS(SELECT * FROM Users ` +
+        `WHERE Users.userid = '${userid}') AS doesExist`), (err, result) => {
+        if (result[0].doesExist == 1)
+        {
+            if (err) console.log(err);
+
+            db.query(`DELETE FROM AffiliatedUsers WHERE AffiliatedUsers.UserID = '${userid}'`, (err, result) => {});
+            db.query(`DELETE FROM Users WHERE Users.userid = '${userid}'`, (err, result) => {});
+            db.query(`DELETE FROM CompanyAdmins WHERE CompanyAdmins.UserID = '${userid}'`, (err, result) => {});
+            db.query(`DELETE FROM CompletedModules WHERE CompletedModules.UserID = '${userid}'`, (err, result) => {});
+            res.send(true)
+        }
+        else
+        {
+            res.send(false)
+        }
+    })
+
+    
+}
+
+/**
+ * Assign a learning module to a company
+ * TODO assign modules to users
+ */
+ const assignModulesToCompany = (req,res) => 
+ {
+ 
+     const learningmodid = req.body.learningModId
+     const companyid = req.body.companyid
+ 
+     db.query(`SELECT EXISTS(SELECT * FROM CompanyLearningModules WHERE LearningModId = '${learningmodid}') AS doesExist`, (err,result) => {
+         if (result[0].doesExist == 0)
+         {
+             db.query("INSERT INTO CompanyLearningModules (LearningModID, CompanyID) VALUES (?,?)", [username, learningmodid], (err, result) => {
+                 db.query(`SELECT * FROM CompanyLearningModules WHERE LearningModId = '${learningmodid}'`, (err,user) => {
+                     db.query("INSERT INTO AffiliatedUsers (UserID, CompanyID) VALUES (?,?)", [user[0].userid, companyid], (err, result) => {
+                         // TODO add assigned user modules to user?
+                         res.send(true)
+                     });
+                 });
+             });
+         }
+         else
+         {
+             res.send(false)
+         }
+     })
+ }
+
+/**
+ * Removes assigned learning module from a company
+ * TODO remove from all associated users
+ */
+ const removeModuleFromCompany = (req, res) => {
+    const learningmodid = req.body.learningModId
     const companyid = req.body.companyid
 
-    db.query((`SELECT EXISTS(SELECT * FROM AffiliatedUsers ` +
-        `WHERE AffiliatedUsers.userid = '${userid}' and AffiliatedUsers.companyID = '${companyid}') AS doesExist`), (err, result) => {
+    db.query((`SELECT EXISTS(SELECT * FROM CompanyLearningModules ` +
+        `WHERE CompanyLearningModules.LearningModID = '${learningmodid}' and CompanyLearningModules.CompanyID = '${companyid}') AS doesExist`), (err, result) => {
         if (result[0].doesExist == 0)
         {
             if (err) console.log(err);
 
-            db.query(`DELETE FROM AssignedLearningModules WHERE LearningModID = "${categoryId}" AND UserID = "${userid}"`, (err, result) => {
+            db.query(`DELETE FROM CompanyLearningModules WHERE CompanyLearningModules.LearningModID = '${learningmodid}' and CompanyLearningModules.CompanyID = '${companyid}'`, (err, result) => {
             res.send(true)
             });
         }
@@ -310,6 +363,7 @@ const removeUserFromCompany = (req,res) =>
         }
     })
 }
+
 /**
  * Changes the users profile picture.
  */
@@ -341,6 +395,8 @@ module.exports =
     changeUserName,
     userPoints,
     userModuleCompleted,
-    removeUserFromCompany,
+    deleteUser,
     changeProfilePicture,
+    removeModuleFromCompany,
+
 };

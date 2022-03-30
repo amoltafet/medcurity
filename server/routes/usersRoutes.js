@@ -16,7 +16,7 @@ router.post('/logout', userControllers.userLogout);
 router.post('/changeUserName', userControllers.changeUserName);
 router.post('/quiz', userControllers.userPoints);
 router.post('/moduleCompleted', userControllers.userModuleCompleted);
-router.post('/removeUserFromCompany', userControllers.removeUserFromCompany);
+router.post('/deleteUser', userControllers.deleteUser);
 router.post('/changeProfilePicture', userControllers.changeProfilePicture);
 
 

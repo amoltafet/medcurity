@@ -43,7 +43,7 @@ const EmployerInvitations = (props) => {
             if (response.data === true)
             {
                 console.log("A new invitation!")
-                navigate('/employer-dash');
+                window.location.reload(false);
             }
             else if (response.data === false)
             {
