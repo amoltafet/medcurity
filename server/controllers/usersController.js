@@ -311,37 +311,32 @@ const deleteUser = (req,res) =>
 }
 
 /**
- * Assign a learning module to a company
- * TODO assign modules to users
- */
- const assignModulesToCompany = (req,res) => 
- {
- 
-     const learningmodid = req.body.learningModId
-     const companyid = req.body.companyid
- 
-     db.query(`SELECT EXISTS(SELECT * FROM CompanyLearningModules WHERE LearningModId = '${learningmodid}') AS doesExist`, (err,result) => {
-         if (result[0].doesExist == 0)
-         {
-             db.query("INSERT INTO CompanyLearningModules (LearningModID, CompanyID) VALUES (?,?)", [username, learningmodid], (err, result) => {
-                 db.query(`SELECT * FROM CompanyLearningModules WHERE LearningModId = '${learningmodid}'`, (err,user) => {
-                     db.query("INSERT INTO AffiliatedUsers (UserID, CompanyID) VALUES (?,?)", [user[0].userid, companyid], (err, result) => {
-                         // TODO add assigned user modules to user?
-                         res.send(true)
-                     });
-                 });
-             });
-         }
-         else
-         {
-             res.send(false)
-         }
-     })
+ * Assign a learning module to a company if it is not already assigned
+ * TODO assign date
+*/
+const assignModulesToCompany = (req,res) => 
+{
+    const learningmodid = req.body.learningModId
+    const companyid = req.body.companyid
+
+    db.query(`SELECT EXISTS(SELECT * FROM CompanyLearningModules as CLM ` +
+    `WHERE CLM.LearningModId = '${learningmodid}' and CLM.CompanyID = '${companyid}') AS doesExist`, (err,result) => {
+        if (result[0].doesExist == 0)
+        {
+            db.query("INSERT INTO CompanyLearningModules (LearningModID, CompanyID) VALUES (?,?)", [learningmodid, companyid], (err, result) => {
+            res.send(true)
+            });
+        }
+        else
+        {
+            res.send(false)
+        }
+    })
  }
 
 /**
  * Removes assigned learning module from a company
- * TODO remove from all associated users
+ * TODO remove all completed modules
  */
  const removeModuleFromCompany = (req, res) => {
     const learningmodid = req.body.learningModId
@@ -397,6 +392,7 @@ module.exports =
     userModuleCompleted,
     deleteUser,
     changeProfilePicture,
+    assignModulesToCompany,
     removeModuleFromCompany,
 
 };

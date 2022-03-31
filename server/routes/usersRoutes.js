@@ -18,6 +18,8 @@ router.post('/quiz', userControllers.userPoints);
 router.post('/moduleCompleted', userControllers.userModuleCompleted);
 router.post('/deleteUser', userControllers.deleteUser);
 router.post('/changeProfilePicture', userControllers.changeProfilePicture);
+router.post('/assignModulesToCompany', userControllers.assignModulesToCompany);
+router.post('/removeModuleFromCompany', userControllers.removeModuleFromCompany);
 
 
 module.exports = router

@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { Card, Col, Button, OverlayTrigger, Popover } from 'react-bootstrap';
 import './LearningManager.css';
 import { useState} from "react";
+import Axios from 'axios';
 
 //TODO
 // Connect button to remove user functionality
@@ -13,15 +14,33 @@ import { useState} from "react";
  * @returns 
  */
 const LearningManagerCard = (props) => {
-    const [isOpen, setIsOpen] = useState(false);
+    const [message, setMessage] = useState('');
  
-
     /**
      * Removes a user from the selected company
      * @param {int} userId 
      */
-    function removeModule(userId, companyId) {
-        console.log("Removing LearningModule from company");
+    function removeModule(moduleId, companyId) {
+        console.log('Removing Module: ', moduleId)
+        Axios.post("http://localhost:3002/users/assignModulesToCompany",
+        { 
+        learningmodid: moduleId,
+        companyid: companyId
+        }).then((response) => 
+        {
+        console.log("response.data =", response.data)
+        if (response.data === true)
+        {
+            console.log("Adding module!")
+            //window.location.reload(false);
+            
+        }
+        else if (response.data === false)
+        {
+            console.log("Already added!")
+            setMessage('This has already been removed. Please refresh the page.')
+        }
+        });
     }
 
 
@@ -36,6 +55,7 @@ const LearningManagerCard = (props) => {
                 overlay={
                     <Popover id="popover-basic" className="LearningManagerPopup">
                         <div className="LearningManagerCardValues">Please confirm that you want to remove the module '{props.learningModuleName}' from your assigned list of modules: </div> 
+                        <div>{message}</div>
                         <Button className="LearningManagerInRowButton uvs-right" 
                             variant="success" 
                             onClick={() => removeModule(props.moduleId, props.companyId)}> 
