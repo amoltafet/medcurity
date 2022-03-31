@@ -1,24 +1,19 @@
 .x-markImage {
-    width: 3%; 
-    float: right;
-    margin-left: -30%; 
+    width: 2vmin; 
+    margin-left: -1%;
 }
 
 .checkmarkImage {
-    width: 3%;
-    float: right;
-    margin-left: -30%;
-   
+    width: 2vmin;
+    margin-left: -1%;
 }
 
 .correctResults {
     font-family: Lato,sans-serif;
-    text-align: start !important;
 }
 
 .wrongResults{
     font-family: Lato,sans-serif;
-    text-align: start !important;
 }
 
 .otherAnswers {

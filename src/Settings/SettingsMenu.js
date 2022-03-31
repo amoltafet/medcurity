@@ -19,7 +19,6 @@ const SettingsMenu = () => {
     const [company, setCompany] = useState([]);
     const [dueDate, setDueDate] = useState([]);
     const [convertedProfilePhoto, setConvertedProfilePicture] = useState("/user.png");
-    const [profilePhoto, setProfilePicture] = useState("/user.png");
 
     useEffect(() => {
         axios.get("http://localhost:3002/users/login").then((response) => {
@@ -34,16 +33,25 @@ const SettingsMenu = () => {
                 { params: { the_query: 'SELECT * FROM Companies WHERE companyid = ' + session.companyid} 
             }).then((response) => {
                 console.log(session)
-                var photo = URL.createObjectURL(session.profilepicture)
-                setProfilePicture(session.profilepicture)
-                setConvertedProfilePicture(photo);
-               if (response.data[0].datejoined !== null) { 
-                setCompany(response.data[0]);
-                var date = new Date(response.data[0].datejoined);
-                setDueDate(date.toDateString()); 
-              
+                if (session.profilepicture !== null) {
+                  
+                    try {     
+                        console.log("grabbed image: ", session.profilepicture.data)
+                        var photo = URL.createObjectURL(session.profilepicture.data);  
+                        console.log("converted image: ",photo )
+                          setConvertedProfilePicture(photo);
+                        
+                    } catch (error) {
+                        console.log(error)
+                    }
+                  
                 }
-
+                if (response.data[0].datejoined !== null) { 
+                    setCompany(response.data[0]);
+                    var date = new Date(response.data[0].datejoined);
+                    setDueDate(date.toDateString()); 
+                
+                }
             }).catch(error => console.error(`Error ${error}`));
         }
     },[session, dueDate, isLoaded])
@@ -52,6 +60,14 @@ const SettingsMenu = () => {
 
     useEffect(() => {
         if (saveData === true) {
+            console.log("profilepic to bee saved: ", convertedProfilePhoto)
+            axios.post("http://localhost:3002/users/changeProfilePicture", {
+                profilepicture: convertedProfilePhoto,
+                id: session.userid
+            }).then((response) => {
+                console.log("response", response.data);
+                
+            }).catch(error => console.log(`Error ${error}`));
             axios.post("http://localhost:3002/users/changeUserName", {
                 username: newUserName,
                 id: session.userid
@@ -59,14 +75,6 @@ const SettingsMenu = () => {
                 console.log("response", response.data);
                 
             }).catch(error => console.log(`Error ${error}`));
-            console.log("profilepic to bee saved: ", profilePhoto)
-            // axios.post("http://localhost:3002/users/changeProfilePicture", {
-            //     profilepicture: profilePhoto,
-            //     id: session.userid
-            // }).then((response) => {
-            //     console.log("response", response.data);
-                
-            // }).catch(error => console.log(`Error ${error}`));
             setSaveData(false);
             setShow(true);
         }
@@ -84,7 +92,6 @@ const SettingsMenu = () => {
         var convertedPhoto = URL.createObjectURL(userPhoto);
         console.log("convertedPhoto: ", convertedPhoto)
         setConvertedProfilePicture(convertedPhoto);
-        setProfilePicture(userPhoto);
 
     }
   
