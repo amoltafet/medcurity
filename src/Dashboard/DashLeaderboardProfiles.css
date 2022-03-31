@@ -1,24 +1,19 @@
 .cardBackgroundDash {
-    margin-left: 4.5%;
-    margin-right: 2%;
-    margin-top: 1%;
-    margin-bottom: 5.5%;
-    width: 90%;
+    margin-bottom: 2%;
+    width: 100%;
     height: 22%;
-    border-radius: 20px;
 
 }
 
 .dashLeaderNumberPosition {
     color: #1e5b88;
-    font-size: 70%;
-    margin-top: 15%;
-    margin-left: 15%;
+    font-size: 90%;
+    margin-top: 8%;
 }
 
 .profileImageDash {    
     height: 70%;
-    margin-top: 10%;
+    margin-top: 5%;
 }
 
 .userTextDash {
@@ -26,7 +21,7 @@
     font-size: 70%;
     font-family: Lato,sans-serif;
     text-overflow: ellipsis;
-    margin-top: 15%;
+    margin-top: 10%;
 }
 
 .scoreTextDash {
@@ -34,7 +29,7 @@
     font-family: Lato,sans-serif;
     font-size: 70%;
     text-overflow: ellipsis;
-    margin-top: 15%;
+    margin-top: 10%;
 }
 
 .pointsDash {
@@ -42,12 +37,12 @@
     font-family: Lato,sans-serif;
     font-size: 70% ;
     text-overflow: ellipsis;
-    margin-top: 15%;
+    margin-top: 10%;
 }
 
 
 .statusImageDash {
-    width: 12%;
+    width: 10%;
     height: 80%;
     margin-left: 6%;
     margin-bottom: 1%;
