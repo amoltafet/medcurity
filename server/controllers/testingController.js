@@ -26,6 +26,8 @@ const logger = require('../logger').log
 /**
  * Assigns user specific module & due date.
  * NOTE: AssignedLearningModules no longer exists. 
+ * Instead assign a learning module to a company and/or delete a user's 
+ * completed progress on the module
  * 
  */
 const assignModulesTest = (req, res) => {   
