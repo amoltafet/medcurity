@@ -19,6 +19,12 @@ const EmployerDashboardPage = () => {
     const [session, setSession] = useState([]);
     const [companyId, setCompanyId] = useState('');
     const [isLoading, setLoading] = useState(true)
+    const [reload, setReload] = useState(false);
+
+    // Resets reload after it has been triggered
+    useEffect(() => {
+        setReload(false)
+    }, [reload]);
 
     useEffect(() => {
         Axios.get("http://localhost:3002/users/login").then((response) => {
@@ -51,9 +57,9 @@ const EmployerDashboardPage = () => {
         <MenuBar></MenuBar>
         <CardDeck className="dashTopPanel" style={{display: 'flex', flexDirection: 'row'}}>
           <WelcomePanel user={session} subtitle={'to the Administration Page'}/>
-          <EmployerInvitations companyId={companyId}/>
+          <EmployerInvitations companyId={companyId} reload={reload} setReload={setReload} />
         </CardDeck>
-        <EmployeeCards user={session} />
+        <EmployeeCards user={session} reload={reload} setReload={setReload} />
         
     </>
   );

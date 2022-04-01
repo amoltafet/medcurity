@@ -22,7 +22,7 @@ const LearningManagerDashboardPage = () => {
     const [isLoading, setLoading] = useState(true)
     const [reload, setReload] = useState(false);
 
-    // Resets reload so will trigger later
+    // Resets reload after it has been triggered
     useEffect(() => {
         setReload(false)
     }, [reload]);

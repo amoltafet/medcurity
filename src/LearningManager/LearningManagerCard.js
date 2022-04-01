@@ -50,7 +50,7 @@ const LearningManagerCard = (props) => {
                 <div className="LearningManagerCardValues">{props.learningModuleName}</div>
             </Col>
             <Col sm>
-                <OverlayTrigger trigger="click" placement="left" 
+                <OverlayTrigger trigger="click" rootClose placement="left" 
                 overlay={
                     <Popover id="popover-basic" className="LearningManagerPopup">
                         <div className="LearningManagerCardValues">Please confirm that you want to remove the module '{props.learningModuleName}' from your assigned list of modules: </div> 

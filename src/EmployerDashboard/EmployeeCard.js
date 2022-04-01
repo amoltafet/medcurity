@@ -29,7 +29,7 @@ const EmployeeCard = (props) => {
             if (response.data === true)
             {
                 console.log("Deleted!")
-                window.location.reload(false);
+                props.setReload(true)
             }
             else if (response.data === false)
             {
@@ -56,7 +56,7 @@ const EmployeeCard = (props) => {
                 <div className="EmployeeCardValues">{props.progress}</div>
             </Col>
             <Col sm>
-                <OverlayTrigger trigger="click" placement="left" 
+                <OverlayTrigger trigger="click" rootClose placement="left" 
                 overlay={
                     <Popover id="popover-basic" className="EmployeePopup">
                         <div className="EmployeeCardValues">Please confirm that you want to delete the user '{props.name}': </div> 

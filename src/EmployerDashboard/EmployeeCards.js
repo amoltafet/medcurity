@@ -11,19 +11,11 @@ import EmployeeCard from './EmployeeCard'
  */
 const EmployeesCards = (props) => {
     const userId = String(props.user.userid)
-    // Test account details
-    // id 159
-    // email bobbytables@gmail.com
-    // 1234
     const [employees, setEmployees] = useState([])
     const [assignedModulesCount, setAssignedModulesCount] = useState([])
     const [userCompletedModules, setUserCompletedModules] = useState([])
     const [isLoading, setLoading] = useState(true)
-    // let employees = [
-    //     {Name:"John", Email:"j@gmail.com", Progress:1},
-    //     {Name:"Jack", Email:"ja@gmail.com", Progress:1},
-    //     {Name:"Jen", Email:"je@gmail.com", Progress:21}
-    // ]
+
     useEffect(() => {
         if (Number.isInteger(props.user.userid)) {
             setLoading(false)
@@ -46,7 +38,7 @@ const EmployeesCards = (props) => {
                     console.log("Got employees")
             });
         }
-    }, [isLoading])
+    }, [isLoading, props.reload])
 
     // Get each companies assigned modules
     useEffect(() => {
@@ -60,7 +52,7 @@ const EmployeesCards = (props) => {
                     setAssignedModulesCount(Object.values(response.data))
             });
         }
-    }, [isLoading])
+    }, [isLoading, props.reload])
 
     // Get a count of how many modules each user associated with the company
     // of the current user has completed
@@ -78,7 +70,7 @@ const EmployeesCards = (props) => {
                     setUserCompletedModules(Object.values(response.data))
             });
         }
-    }, [isLoading])
+    }, [isLoading, props.reload])
 
     /**
      * Create directory cards from modules
@@ -91,7 +83,10 @@ const EmployeesCards = (props) => {
         for (let index in modules) {
             if (size === maxLength) { break; }
             module = modules[index]
-            objs.push(<EmployeeCard email={module.email} name={module.username} progress={'0/' + String(totalCompanyRequiredModules)} userId={module.UserId} activeStatus={module.active} companyId={module.CompanyId} />)
+            objs.push(<EmployeeCard email={module.email} name={module.username} 
+                progress={'0/' + String(totalCompanyRequiredModules)} userId={module.UserId} 
+                activeStatus={module.active} companyId={module.CompanyId} 
+                setReload={props.setReload} />)
             size += 1;
         }
         return objs;
@@ -100,10 +95,6 @@ const EmployeesCards = (props) => {
     const totalCompanyRequiredModules = assignedModulesCount.map((assignedModulesCount) => {
         return assignedModulesCount.totalAssignedModules
     })
-
-    console.log(employees);
-    console.log(assignedModulesCount);
-    console.log(userCompletedModules);
 
     return (
         <>

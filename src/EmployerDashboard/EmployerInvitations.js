@@ -21,7 +21,6 @@ const EmployerInvitations = (props) => {
     useEffect(() => {
         if (Number.isInteger(props.companyId)) {
             setLoading(false)
-            console.log("Valid companyid")
         }
     }, [props.companyId])
 
@@ -43,7 +42,7 @@ const EmployerInvitations = (props) => {
             if (response.data === true)
             {
                 console.log("A new invitation!")
-                window.location.reload(false);
+                props.setReload(true)
             }
             else if (response.data === false)
             {
