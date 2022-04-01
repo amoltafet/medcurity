@@ -22,22 +22,21 @@ const LearningManagerCard = (props) => {
      */
     function removeModule(moduleId, companyId) {
         console.log('Removing Module: ', moduleId)
-        Axios.post("http://localhost:3002/users/assignModulesToCompany",
+        Axios.post("http://localhost:3002/users/removeModuleFromCompany",
         { 
-        learningmodid: moduleId,
+        learningModId: moduleId,
         companyid: companyId
         }).then((response) => 
         {
         console.log("response.data =", response.data)
         if (response.data === true)
         {
-            console.log("Adding module!")
-            //window.location.reload(false);
+            console.log("Removing module!")
+            props.setReload(true)
             
         }
         else if (response.data === false)
         {
-            console.log("Already added!")
             setMessage('This has already been removed. Please refresh the page.')
         }
         });

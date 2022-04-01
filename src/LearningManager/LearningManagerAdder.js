@@ -17,6 +17,7 @@ const LearningModuleAdder = (props) => {
     const [modules, setModules] = useState("");
     const [learningModule, setLearningModule] = useState(0);
     const [isLoading, setLoading] = useState(true)
+    
 
     useEffect(() => {
         if (Number.isInteger(props.companyId)) {
@@ -43,7 +44,7 @@ const LearningModuleAdder = (props) => {
                     setLearningModule(Object.values(response.data)[0].ID)
             });
         }
-	}, [isLoading])
+	}, [isLoading, props.reload])
 
     /**
      * This function creates a new basic user account.
@@ -62,6 +63,7 @@ const LearningModuleAdder = (props) => {
         if (response.data === true)
         {
             console.log("Adding module!")
+            props.setReload(true)
         }
         else if (response.data === false)
         {

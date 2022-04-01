@@ -20,6 +20,12 @@ const LearningManagerDashboardPage = () => {
     const [session, setSession] = useState([]);
     const [companyId, setCompanyId] = useState('');
     const [isLoading, setLoading] = useState(true)
+    const [reload, setReload] = useState(false);
+
+    // Resets reload so will trigger later
+    useEffect(() => {
+        setReload(false)
+    }, [reload]);
 
     useEffect(() => {
         Axios.get("http://localhost:3002/users/login").then((response) => {
@@ -51,9 +57,9 @@ const LearningManagerDashboardPage = () => {
         <MenuBar></MenuBar>
         <CardDeck className="dashTopPanel" style={{display: 'flex', flexDirection: 'row'}}>
           <WelcomePanel user={session} subtitle={'to the Learning Manager Page'}/>
-          <LearningModuleAdder companyId={companyId}/>
+          <LearningModuleAdder companyId={companyId} reload={reload} setReload={setReload} />
         </CardDeck>
-        <LearningManagerCards companyId={companyId}/>
+        <LearningManagerCards companyId={companyId} reload={reload} setReload={setReload} />
         
     </>
   );

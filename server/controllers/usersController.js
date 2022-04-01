@@ -275,7 +275,7 @@ const userModuleCompleted = (req, res) => {
         db.query(`SELECT * FROM Users WHERE userid = '${userid}'`, (err,result) => {
             logger.log('info', `User-'${userid}' completed Module '${categoryId}', on: "${today}"`);
             req.session.userSession = result;
-            res.send({success: true, message: `Completed Module & Removed from the Assigned`});
+            res.send({success: true, message: `Completed Module`});
         })
     })   
 }
@@ -344,7 +344,7 @@ const assignModulesToCompany = (req,res) =>
 
     db.query((`SELECT EXISTS(SELECT * FROM CompanyLearningModules ` +
         `WHERE CompanyLearningModules.LearningModID = '${learningmodid}' and CompanyLearningModules.CompanyID = '${companyid}') AS doesExist`), (err, result) => {
-        if (result[0].doesExist == 0)
+        if (result[0].doesExist == 1)
         {
             if (err) console.log(err);
 
