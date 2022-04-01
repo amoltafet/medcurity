@@ -26,7 +26,6 @@ const LearningModuleDirectories = () => {
      * @returns 
      */
     const DirectoryPanel = (props) => {
-        console.log("e", props.title)
         return (
             <>
             <Card className="LearningModuleDirectoriesCard uvs-right uvs-left">
@@ -46,17 +45,12 @@ const LearningModuleDirectories = () => {
         for (let index in modules) { 
             var module = modules[index]
             objs.push(<DirectoryPanel title={module.Title} link={module.ID} />)
-           
         }
         return objs;
     }
 
     return (
         <>
-        <Container className=" LearningModulesDirectories">
-            
-            <h2 className="text-center LearningModulesDirectoriesFont">Learning Module Directories</h2>
-        </Container>
         <Row className="LearningModulesDirectoriesDashboard" >
             {createDirectoriesCards(directories)}
         </Row>

@@ -46,7 +46,7 @@ const LearningModulesCards = (props) => {
             <>
             <Card className="LearningModuleCard uvs-right uvs-left">
                 <Card.Body>
-                   <Card.Link className="font" href={"/learning-module/" + props.link} >{props.title}</Card.Link>
+                   <Card.Link className="font" stretched-link href={"/learning-module/" + props.link} >{props.title}</Card.Link>
                    <Card.Text className="dueDateRequiredModule">Due At: {dueDate.toDateString()}</Card.Text>
                 </Card.Body> 
             </Card>
@@ -82,7 +82,7 @@ const LearningModulesCards = (props) => {
         //objs.push(<h2>Required Learning Modules</h2>);
 
         objs.push(
-            <h2 className="text-center requiredModulesRow"> Required Learning Modules: &nbsp;  
+            <h2 className="text-center requiredModulesRow">&nbsp;  
                 <Button
                     id="select-more-modules"
                     href='learning-directory'

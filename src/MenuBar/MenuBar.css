@@ -25,9 +25,11 @@
 
 .logo {
     border: white;
-    margin-left: 1%;
+    padding-left: 40%;
 }
 
 .pillz {
-    border: white;
+    border: none;
+    background: none;
+    padding-right: 7.7%;
 }
