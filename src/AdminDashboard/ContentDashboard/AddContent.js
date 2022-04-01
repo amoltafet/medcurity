@@ -71,7 +71,7 @@ const  AddContent = () => {
         console.log(response)
         }).catch(error => console.error(`Error ${error}`));
 
-        var moduleIndex = learningModules[learningModules.length - 1].ID + 1;
+        var moduleIndex = learningModules[learningModules.length - 1].ID;
         console.log("Index", moduleIndex)
 
         for (var i = 0; i < question.length; i++) {

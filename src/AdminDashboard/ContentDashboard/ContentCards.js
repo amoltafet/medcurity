@@ -51,8 +51,8 @@ const ContentsCards = (props) => {
 
     return (
         <>
-        <Container className="EmployerJoinRequests uvs-right">
-            <h2>Current Learning Modules</h2>      
+        <Container className="Content-container uvs-right">
+            <h2 id="content-title">Current Learning Modules</h2>      
             <Card className="ContentCardHeader uvs-right uvs-left" style={{display: 'flex', flexDirection: 'row' }}>
                 <Col sm>
                     <div className="ContentCardValues">Learning Module Name</div>

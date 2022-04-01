@@ -102,12 +102,13 @@ const AdminInvitations = () => {
                         <Form.Text className="registerMessage">{message}</Form.Text>
 
                     </Form>
+                    <Button className="createButton" variant="secondary" type="button" onClick={invite} href='/admin-dash'>Invite</Button>
                 </Col>
                 <Col>
                     <label htmlFor="company-list" id='company-label'>
                         Company List:
                     </label>
-                    <select id="company-list" multiple={false}
+                    <select id="company-list" size={5} multiple={false}
                         onChange={ (e) => 
                         {
                             setUserCompany(e.target.value)
@@ -117,7 +118,6 @@ const AdminInvitations = () => {
                     </select>
                 </Col>
             </Container>
-            <Button className="createButton" variant="secondary" type="button" onClick={invite} href='/admin-dash'>Invite</Button>
         </Container>
     );
 }

@@ -15,12 +15,21 @@ const DeleteCompany = () => {
 
     const [message, setMessage] = useState("")
     const [company, setCompany] = useState("");
+    const [companies, setCompanies] = useState("")
     const navigate = useNavigate();
+
+    useEffect(() => {
+        Axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `SELECT * FROM Companies ` } }).then((response) => {
+            setCompanies(response.data)
+            console.log("Companies from Admin invitations:", response.data)
+            }).catch(error => console.error(`Error ${error}`));
+        },[])
+
 
     const deleteCompany = () =>
     {
         if(company != "") {
-            Axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `DELETE FROM Companies WHERE name = '${company}'` } }).then((response) => {
+            Axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `DELETE FROM Companies WHERE companyid = '${company}'` } }).then((response) => {
             console.log(response)
             }).catch(error => console.error(`Error ${error}`));
             console.log("We Deleteed")
@@ -56,29 +65,31 @@ const DeleteCompany = () => {
     const login = () => {
         navigate('/');
     };
+
+    function createDropDownOptions() {
+        const dropdownList = [];
+        for (let index in companies) {
+            let item = companies[index];
+            dropdownList.push(<option className="companyList" value={item.companyid}>{item.name}</option>); 
+        }
+        return dropdownList;
+    }
   
     return (
         <Container className="EmployerInviteRequestCard uvs-right">
 
                 
-                    <h2 className="registerHeader">Delete a New Company</h2>
-                    <div className="InviteSubtitle font">Type in a company name to delete a company from the list of available companies. </div>
-                    <Form className="email Invite">
-                    <Form.Group className="company" id="delete-company" controlId="formCompany">
-                        <Form.Control 
-                        type="company" 
-                        id ="companyTextBox"
-                        placeholder="Company Name" 
-                        onChange={ (e) => 
-                        {
-                            setCompany(e.target.value);
-                        }}/>
-                        
-                    </Form.Group>
-                    <Form.Text className="registerMessage">{message}</Form.Text>
-                    <Button className="addButton" variant="secondary" type="button" href='/admin-dash' onClick={deleteCompany}>Delete Company</Button>
-
-            </Form>
+            <h2 className="registerHeader">Delete a Company</h2>
+            <div className="InviteSubtitle font">Type in a company name to delete a company from the list of available companies. </div>
+            <select id="company-list" size={5}  multiple={false}
+                onChange={ (e) => 
+                {
+                    setCompany(e.target.value)
+                    console.log(e.target.value);
+                }}>
+                {createDropDownOptions()}
+            </select>
+            <Button className="deleteButton" variant="secondary" type="button" href='/admin-dash' onClick={deleteCompany}>Delete Company</Button>
         </Container>
     );
 }

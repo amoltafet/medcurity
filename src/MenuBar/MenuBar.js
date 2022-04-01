@@ -121,7 +121,10 @@ const Menubar = () => {
                     <Nav className="justify-content-end" variant="pills" defaultActiveKey="/dashboard">
                         {get_employer_buttons()}
                         <Nav.Item className="navPills uvs-left uvs-right">
-                            <Nav.Link className="menubarFont" href="/admin-content">AdminPage</Nav.Link>
+                            <Nav.Link className="menubarFont" href="/admin-content">Edit Content</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item className="navPills uvs-left uvs-right">
+                            <Nav.Link className="menubarFont" href="/admin-dash">View Employers</Nav.Link>
                         </Nav.Item>
                         <Nav.Item className="navPills uvs-left uvs-right">
                             <Nav.Link className="menubarFont" href="/settings">Settings</Nav.Link>
