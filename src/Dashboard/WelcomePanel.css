@@ -10,13 +10,6 @@
     height: 14vmax;
 }
 
-@media screen and (min-width: 100px) {
-    .WelcomePanelCard {
-    background-color: #cc3333 !important;
- 
-    }
-  }
-
 .WelcomePanelImage {
     margin-right: 1%;
     margin-bottom: 1%;

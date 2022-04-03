@@ -114,9 +114,12 @@ const Menubar = () => {
         <Row>
             <Col xs={2} md={2}>
                 <Card className="logo">
+                <div className="content_img">
                     <a href="/dash">
                         <CardImg className="MedcurityLogo" variant="top" src="/Medcurity_Logo.png" alt="" />
                     </a>
+                    <div>Back to Main Dash</div>
+                </div>
                 </Card>
             </Col>
             <Col xs={10} md={10}>

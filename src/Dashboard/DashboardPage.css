@@ -5,8 +5,7 @@ html {
 .dashboard {
   margin-bottom: 1%;
   margin-top: 1%;
-  margin-left: 2%;
-  margin-right: 2%;
+  margin-left: .5%;
 
 }
 
@@ -155,6 +154,10 @@ html {
   color: white;
   text-shadow: 2px 2px 5px black;
   text-align: right;
+}
+
+.go_to_leader_board_bttn{
+  margin-bottom: 1%;
 }
 
 @keyframes dash_fadeIn { 

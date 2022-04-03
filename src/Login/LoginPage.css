@@ -1,11 +1,33 @@
 .loginbg {
-    background-image: url("loginbg.png");
+    background-image: url("loginbg_small.png");
     height: 100vh;
     width: 100%;
     background-position: center;
     background-repeat: no-repeat;
     position: fixed;
 }
+
+@media screen and (min-width: 1000px) {
+    .loginbg {
+        background-image: url("loginbg_medium.png");
+        height: 100vh;
+        width: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        position: fixed;
+    }
+  }
+
+@media screen and (min-width: 1400px) {
+    .loginbg {
+        background-image: url("loginbg.png");
+        height: 100vh;
+        width: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        position: fixed;
+    }
+  }
 
 .login_pageHeader {
     margin-top: 7%;

@@ -68,10 +68,10 @@ ReactDOM.render(
         <Route path="" element={<LearningModules />} />
         <Route path=":slug" element={<LearningModule />} />
       </Route>
-      <Route path="/learning-directory" element={<LearningDirectory />}>
+      {/* <Route path="/learning-directory" element={<LearningDirectory />}>
         <Route path="" element={<LearningDirectoryRequiredPage />}/>
         <Route path=":slug" element={<LearningDirectoryPage />} />
-      </Route>
+      </Route> */}
       <Route path="/leaderboard" element={<Leaderboard />} />
     </Routes>
   </Router>,

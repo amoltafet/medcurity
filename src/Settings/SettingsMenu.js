@@ -33,11 +33,10 @@ const SettingsMenu = () => {
                 { params: { the_query: 'SELECT * FROM Companies WHERE companyid = ' + session.companyid} 
             }).then((response) => {
                 console.log(session)
-                if (session.profilepicture !== null) {
-                  
+                if (session.profilepicture !== null && session.profilepicture.data !== null) {
                     try {     
                         console.log("grabbed image: ", session.profilepicture.data)
-                        var photo = URL.createObjectURL(session.profilepicture.data);  
+                        var photo = URL.createObjectURL(session.profilepicture);  
                         console.log("converted image: ",photo )
                           setConvertedProfilePicture(photo);
                         
@@ -60,7 +59,7 @@ const SettingsMenu = () => {
 
     useEffect(() => {
         if (saveData === true) {
-            console.log("profilepic to bee saved: ", convertedProfilePhoto)
+            console.log("profilepic to be saved: ", convertedProfilePhoto)
             axios.post("http://localhost:3002/users/changeProfilePicture", {
                 profilepicture: convertedProfilePhoto,
                 id: session.userid
@@ -68,13 +67,15 @@ const SettingsMenu = () => {
                 console.log("response", response.data);
                 
             }).catch(error => console.log(`Error ${error}`));
-            axios.post("http://localhost:3002/users/changeUserName", {
-                username: newUserName,
-                id: session.userid
-            }).then((response) => {
-                console.log("response", response.data);
-                
-            }).catch(error => console.log(`Error ${error}`));
+            if (newUserName !== "") {
+                axios.post("http://localhost:3002/users/changeUserName", {
+                    username: newUserName,
+                    id: session.userid
+                }).then((response) => {
+                    console.log("response", response.data);
+                    
+                }).catch(error => console.log(`Error ${error}`));
+            }
             setSaveData(false);
             setShow(true);
         }

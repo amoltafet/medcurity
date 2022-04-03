@@ -20,6 +20,7 @@ const LearningModuleDirectories = () => {
     }, [])
 
 
+
     /**
      * Panel for directories
      * @param {} props 
@@ -28,11 +29,11 @@ const LearningModuleDirectories = () => {
     const DirectoryPanel = (props) => {
         return (
             <>
-            <Card className="LearningModuleDirectoriesCard uvs-right uvs-left">
+            <a href={"/learning-module/" + props.link} style={{ cursor: "pointer" }} className="LearningModuleDirectoriesCard uvs-right uvs-left">
                 <Card.Body>
-                   <Card.Link className="LearningModuleDirectoriesCardFont" href={"/learning-directory/" + props.link} >{props.title}</Card.Link>
+                   <Card.Text className="LearningModuleDirectoriesCardFont"  >{props.title}</Card.Text>
                 </Card.Body> 
-            </Card>
+            </a>
             </>
         );
     }

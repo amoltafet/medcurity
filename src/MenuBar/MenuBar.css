@@ -9,6 +9,37 @@
     
 }
 
+.content_img{
+    position: relative;
+    width: 200px;
+    height: 100px;
+    float: left;
+}
+
+.content_img div{
+    position: absolute;
+    top: 60%;
+    right: 3%;
+    background: black;
+    color: white;
+    margin-bottom: 5px;
+    font-family: sans-serif;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: visibility 0s, opacity 0.5s linear; 
+    transition: visibility 0s, opacity 0.5s linear;
+}
+   
+.content_img:hover{
+    cursor: pointer;
+}
+   
+.content_img:hover div{
+    width: 170px;
+    padding:  4px 15px;
+    visibility: visible;
+    opacity: 0.7; 
+}
 
 .menubarFont {
     color: white !important;
@@ -32,11 +63,9 @@
 
 .logo {
     border: white;
-    padding-left: 40%;
 }
 
 .pillz {
     border: none;
     background: none;
-    padding-right: 7.7%;
 }
