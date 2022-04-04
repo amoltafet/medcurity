@@ -31,8 +31,6 @@ const LearningModulesCards = (props) => {
         }
     }, [userId, isLoading])
 
-    
-   
     /**
      * Panel for Module cards
      * @param {} props 
@@ -44,12 +42,12 @@ const LearningModulesCards = (props) => {
         return (
            
             <>
-            <Card className="LearningModuleCard uvs-right uvs-left">
+            <a  stretched-link href={"/learning-module/" + props.link} style={{ cursor: "pointer" }} className="LearningModuleCard uvs-right uvs-left">
                 <Card.Body>
-                   <Card.Link className="font" stretched-link href={"/learning-module/" + props.link} >{props.title}</Card.Link>
+                   <Card.Title className="testPanelFont" stretched-link href={"/learning-module/" + props.link} >{props.title}</Card.Title>
                    <Card.Text className="dueDateRequiredModule">Due At: {dueDate.toDateString()}</Card.Text>
                 </Card.Body> 
-            </Card>
+            </a>
             </>
         );
     }

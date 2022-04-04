@@ -57,18 +57,16 @@ const DashboardPage = () => {
         <div className="dash_separatorBegin"></div>
         
         <div id="moduleDirectories" className='dash_moduleDirectories'>
-          <h1 className='dash_h1Style'>Learning Module Directories</h1>
-          <p className='dash_pStyle'>The quick brown fox jumps over the lazy dog.</p>
+          <h1 className='dash_h1Style'> Additional Learning Modules</h1>
           <LearningModulesDirectories user={session}/>  
         </div>
 
         <div className="dash_separatorEnd"></div>
 
-        <div id="leaderboard" class="dash_miniLeaderboard justify-center">
+        <div id="leaderboard" className="dash_miniLeaderboard justify-center">
           <h1 className='dash_h1Style'>Leaderboard</h1>
-          <p className='dash_pStyle'>The quick brown fox jumps over the lazy dog.</p>
           <Leaderboard user={session} ></Leaderboard>
-          <a href="/leaderboard" class="btn btn-primary">View Full Leaderboard</a>
+          <a className='go_to_leader_board_bttn btn btn-primary' href="/leaderboard">View Full Leaderboard</a>
         </div>
         <br></br>
     </Form>

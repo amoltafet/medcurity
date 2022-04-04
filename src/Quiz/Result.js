@@ -6,16 +6,16 @@ function Result(props) {
     if (props.correctIdx === props.index && props.correct) {
         return(
             <>  
-                <Row > 
-                    <Col className="checkmarkImage">
+                <Row> 
+                    <Col xs={1} md={1} className="checkmarkImage">
                         <Image src="/checkmark.png" className="checkmarkImage"  alt="checkmark" />
                     </Col >
-                    <Col className="justify-content-left">
+                    <Col className="">
                         <div
                             key={props.index} 
                             id={`result-${props.index}`}
                             value={props.rad.name}
-                            className="correctResults text-center">
+                            className="correctResults ">
                                 {`${props.rad.name}`}
                         </div>
                     </Col>
@@ -27,11 +27,11 @@ function Result(props) {
     else if (props.correctIdx === props.index && !props.correct) {
         return(
             <>
-                <Row >
-                    <Col className="x-markImage">
+                <Row>
+                    <Col xs={1} md={1} className=" x-markImage">
                         <Image src="/x-mark.png" className="x-markImage" alt="xmark" />
                     </Col>
-                    <Col   className="justify-content-left">
+                    <Col xs={10} md={10} className="">
                         <div 
                             key={props.index} 
                             id={`result-${props.index}`}
@@ -48,7 +48,7 @@ function Result(props) {
         return(
             <>
                 <Row 
-                    className="justify-content-center"
+                    className="justify-content-left"
                     key={props.index} 
                     id={`result-${props.index}`}
                     value={props.rad.name}

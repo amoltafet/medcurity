@@ -49,7 +49,7 @@ const  LearningModule = () => {
         <>
          <div className="learningModuleBg img-fluid ">
         {LearningModuleContent}
-        <div className="d-grid gap-2 ">
+        <div className="d-grid gap-2 justify-content-center">
             <Button variant="primary" className="goToQuizBttn uvs-left uvs-right" href={'/quiz/' + slug}>
                 Go to Quiz
             </Button>
