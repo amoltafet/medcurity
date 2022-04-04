@@ -31,11 +31,6 @@ const LearningModulesCards = (props) => {
         }
     }, [userId, isLoading])
 
-    
-   function GoToLearningModule() {
-       
-   }
-
     /**
      * Panel for Module cards
      * @param {} props 
