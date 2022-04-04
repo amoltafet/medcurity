@@ -110,15 +110,15 @@ const SettingsMenu = () => {
 
     return (
         <>
-            <Tab.Container className="settingsRow" id="left-tabs-example" defaultActiveKey="first" style={{ display: 'flex' }}>
+            <Tab.Container className="settingsRow justify-content-center" id="left-tabs-example" defaultActiveKey="first" style={{ display: 'flex' }}>
                 <Row className="settingsRow">
-                    <Col className=" shadowTab justify-content-center uvs-left uvs-right" sm={2}>
+                    <Col className=" shadowTab  uvs-left uvs-right" sm={2}>
                         <Nav variant="pills" className="flex-column marginTop">
-                            <Nav.Item className="selectedSetting ">
-                                <Nav.Link eventKey="first">User Profile Settings</Nav.Link>
+                            <Nav.Item className=" justify-content-center">
+                                <Nav.Link className='justify-content-center selectedSetting' eventKey="first">User Profile Settings</Nav.Link>
                             </Nav.Item>
-                            <Nav.Item className="unselectedSetting">
-                                <Nav.Link eventKey="second">Organization Information</Nav.Link>
+                            <Nav.Item className="justify-content-center">
+                                <Nav.Link className='unselectedSetting justify-content-center' eventKey="second">Organization Information</Nav.Link>
                             </Nav.Item>
                         </Nav>
                     </Col>

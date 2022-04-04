@@ -77,8 +77,15 @@
 }
 
 .login_forgotPass{
-    width: 75%;
     color: white;
+    background-color: #cc3333;
+    font-family: Lato,sans-serif;
+    font-size: 1.3vmax;
+    text-align: center;
+    width: 72%;
+    height: 20%;
+    margin-bottom: 5%;
+    transition: background-color 0.5s ease-out
 }
 
 .login_Form{
@@ -99,7 +106,7 @@
     text-align: center;
     width: 72%;
     height: 20%;
-    margin-bottom: 10%;
+    margin-bottom: 5%;
     transition: background-color 0.5s ease-out
 }
 

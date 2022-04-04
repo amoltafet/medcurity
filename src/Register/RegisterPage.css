@@ -1,6 +1,6 @@
 .registerbg {
     background-image: url("../Login/loginbg_small.png");
-    height: 100vh;
+    height: 120%;
     width: 100%;
     background-position: center;
     background-repeat: no-repeat;
@@ -11,7 +11,7 @@
 @media screen and (min-width: 1000px) {
     .registerbg {
         background-image: url("../Login/loginbg_medium.png");
-        height: 100vh;
+        height: 120%;
         width: 100%;
         background-position: center;
         background-repeat: no-repeat;
@@ -19,10 +19,10 @@
     }
   }
 
-@media screen and (min-width: 1400px) {
+@media screen and (min-width: 1500px) {
     .registerbg {
         background-image: url("../Login/loginbg.png");
-        height: 100vh;
+        height: 100%;
         width: 100%;
         background-position: center;
         background-repeat: no-repeat;

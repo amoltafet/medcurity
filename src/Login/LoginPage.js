@@ -83,9 +83,9 @@ export default function LoginPage()
                   <Form.Group className="login_Form" controlId="formEmail"> <Form.Control type="email" placeholder="Email" onChange={ (e) => {setEmail(e.target.value); }}/> </Form.Group>
                   <p></p>
                   <Form.Group className="login_Form" controlId="formPassword"> <Form.Control type="password" placeholder="Password" onChange={ (e) => {setPassword(e.target.value); }}/> </Form.Group>
-                  <a class="login_forgotPass" href="/">Forgot password?</a>
                   <p class="login_loginResponse">{message}</p>
-                  <Button className="login_formButton" onClick={login} variant="secondary" type="button">Login with Existing Account</Button>
+                  <Button className="login_formButton" onClick={login} variant="secondary" type="button">Login with Existing Account</Button>    
+                  <Button className="login_forgotPass" href="/resetPassword" variant="secondary" type="button">Forgot password?</Button>
                 </div>
               </div>
               <div class="col-xs-5 col-md-5">

@@ -42,7 +42,15 @@
 
 .rightArrow {
     width: 5vmax;
+   
 }
+
+@media screen and (min-width: 1000px) {
+    .rightArrow {
+        width: 3.5vmax; 
+    }    
+}
+
 
 .rightQuestionBttnRemoved {
     background-color: none;
@@ -59,7 +67,16 @@
 
 .resultAnswers {
     margin-bottom: 2%;
-    margin-top: 3%;
+    margin-top: 3%; 
+    width: 80%;
+}
+
+@media screen and (min-width: 1000px) {
+    .resultAnswers {
+        margin-bottom: 2%;
+        margin-top: 3%;
+       
+    }
 }
 
 .quizResultsHeader {

@@ -2,7 +2,7 @@ import React from 'react';
 import './MenuBar.css';
 import '../Layout.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { Nav, CardImg, Card, CardGroup, Row, Col } from 'react-bootstrap'
+import { Nav, CardImg, Card, Row, Col, OverlayTrigger, Tooltip } from 'react-bootstrap'
 import { useEffect, useState } from "react";
 import Axios from 'axios'
 import { useNavigate } from 'react-router-dom';
@@ -105,6 +105,16 @@ const Menubar = () => {
     }
 
     /**
+    * Lets the user know the logo is the button to go back to the dash 
+    * @param props 
+    */
+    const renderTooltip = (props) => (
+        <Tooltip id="button-tooltip" {...props}>
+          Back to Main Dash
+        </Tooltip>
+    );
+
+    /**
     * Sets the buttons in each MenuBar based on which page the user is on. 
     * @return {GetPage} 
     */
@@ -113,14 +123,16 @@ const Menubar = () => {
         <>
         <Row>
             <Col xs={2} md={2}>
+            <OverlayTrigger
+            placement="right"
+            delay={{ show: 250, hide: 400 }}
+            overlay={renderTooltip}>
                 <Card className="logo">
-                <div className="content_img">
                     <a href="/dash">
                         <CardImg className="MedcurityLogo" variant="top" src="/Medcurity_Logo.png" alt="" />
                     </a>
-                    <div>Back to Main Dash</div>
-                </div>
                 </Card>
+                </OverlayTrigger>
             </Col>
             <Col xs={10} md={10}>
                 <Card className="pillz">
