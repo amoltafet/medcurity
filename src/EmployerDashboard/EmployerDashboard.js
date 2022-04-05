@@ -59,7 +59,7 @@ const EmployerDashboardPage = () => {
           <WelcomePanel user={session} subtitle={'to the Administration Page'}/>
           <EmployerInvitations companyId={companyId} reload={reload} setReload={setReload} />
         </CardDeck>
-        <EmployeeCards user={session} reload={reload} setReload={setReload} />
+        <EmployeeCards user={session} companyId={companyId} reload={reload} setReload={setReload} />
         
     </>
   );

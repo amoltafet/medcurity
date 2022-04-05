@@ -17,21 +17,20 @@ const EmployeesCards = (props) => {
     const [isLoading, setLoading] = useState(true)
 
     useEffect(() => {
-        if (Number.isInteger(props.user.userid)) {
+        if (Number.isInteger(props.companyId)) {
             setLoading(false)
         }
-    }, [props.user])
+    }, [props.companyId])
 
     // Get all of the employees that are employed at the company the user is an
     // admin of. Then selects their email, name
     useEffect(() => {
         if(!isLoading) {
             axios.get('http://localhost:3002/api/getQuery', 
-                { params: { the_query: 'SELECT Users.username, Users.email, Users.userid as UserId, Users.active, CompanyAdmins.CompanyID as CompanyId ' + 
+                { params: { the_query: 'SELECT Users.username, Users.email, Users.userid as UserId, Users.active, AffiliatedUsers.CompanyID as CompanyId ' + 
                 'FROM AffiliatedUsers ' + 
                     'JOIN Users ON AffiliatedUsers.UserID = Users.userid ' + 
-                    'JOIN CompanyAdmins ON CompanyAdmins.CompanyID = AffiliatedUsers.CompanyID ' +
-                'WHERE CompanyAdmins.UserID = ' + userId + ' ' +
+                'WHERE AffiliatedUsers.CompanyID = ' + props.companyId + ' ' +
                 'ORDER BY Users.email'} 
                 }).then((response) => {
                     setEmployees(Object.values(response.data))
@@ -46,28 +45,30 @@ const EmployeesCards = (props) => {
             axios.get('http://localhost:3002/api/getQuery', 
                 { params: { the_query: 'SELECT COUNT(CompanyLearningModules.LearningModID) as totalAssignedModules ' + 
                 'FROM CompanyLearningModules ' + 
-                    'JOIN CompanyAdmins ON CompanyAdmins.CompanyID = CompanyLearningModules.CompanyID ' +
-                'WHERE CompanyAdmins.UserID = ' + userId} 
+                'WHERE CompanyLearningModules.CompanyID = ' + props.companyId} 
                 }).then((response) => {
                     setAssignedModulesCount(Object.values(response.data))
             });
         }
     }, [isLoading, props.reload])
 
-    // Get a count of how many modules each user associated with the company
-    // of the current user has completed
+    // Get a count of how many modules of the company are completed for
+    // each user associated with the company
+    // COUNT(CompletedModules.LearningModID), AffiliatedUsers.UserId
     useEffect(() => {
         if(!isLoading) {
             axios.get('http://localhost:3002/api/getQuery', 
-                { params: { the_query: 'SELECT COUNT(CompletedModules.LearningModID), AffiliatedUsers.UserId ' + 
+                { params: { the_query: 'SELECT COUNT(CompletedModules.LearningModID) AS completedModules, AffiliatedUsers.UserId ' + 
                 'FROM AffiliatedUsers ' + 
                     'JOIN CompletedModules ON AffiliatedUsers.UserID = CompletedModules.UserID ' + 
-                    'JOIN CompanyAdmins ON CompanyAdmins.CompanyID = AffiliatedUsers.CompanyID ' +
-                    'JOIN CompanyLearningModules ON CompanyAdmins.CompanyID = CompanyLearningModules.CompanyID ' +
-                'WHERE CompanyAdmins.UserID = ' + userId + ' ' +
+                    'JOIN CompanyLearningModules ON CompletedModules.LearningModID = CompanyLearningModules.LearningModID ' +
+                'WHERE CompanyLearningModules.CompanyID = ' + props.companyId + ' ' +
                 'GROUP BY AffiliatedUsers.UserId'} 
                 }).then((response) => {
+                    console.log("Printing modules")
+                    console.log(response.data)
                     setUserCompletedModules(Object.values(response.data))
+                    console.log(userCompletedModules)
             });
         }
     }, [isLoading, props.reload])
