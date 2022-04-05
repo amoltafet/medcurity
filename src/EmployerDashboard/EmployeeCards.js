@@ -83,6 +83,8 @@ const EmployeesCards = (props) => {
         let size = 0
         for (let index in modules) {
             if (size === maxLength) { break; }
+            //TODO If find userid in userCompletedModules, then use their number of completed modules
+            // Otherwise use 0
             module = modules[index]
             objs.push(<EmployeeCard email={module.email} name={module.username} 
                 progress={'0/' + String(totalCompanyRequiredModules)} userId={module.UserId} 

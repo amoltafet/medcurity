@@ -347,16 +347,24 @@ const assignModulesToCompany = (req,res) =>
         `WHERE CompanyLearningModules.LearningModID = '${learningmodid}' and CompanyLearningModules.CompanyID = '${companyid}') AS doesExist`), (err, result) => {
         if (result[0].doesExist == 1)
         {
-            if (err) console.log(err);
+            if (err) logger.log('error', { methodName: '/removeModuleFromCompany', errorBody: err }, { service: 'user-service' });
 
             db.query(`DELETE FROM CompanyLearningModules WHERE CompanyLearningModules.LearningModID = '${learningmodid}' and CompanyLearningModules.CompanyID = '${companyid}'`, (err, result) => {
+                logger.log('info', `Deleted CompanyLearningModule with companyID: "${companyid}" and learningModID: "${learningmodid}" Fields: ${result}`, { service: 'user-service' })
                 db.query(`SELECT AffiliatedUsers.UserID ` + 
                     `FROM AffiliatedUsers ` +
                     `WHERE AffiliatedUsers.CompanyID = '${companyid}'`, (err, company_users) => {
-                    console.log(company_users)
+                        logger.log('info', `Queried User ids affiliated with company: "${companyid}" Fields: ${result}`, { service: 'user-service' })
                     for (index in company_users) {
-                        db.query(`DELETE FROM CompletedModules WHERE CompletedModules.LearningModID = '${learningmodid}' and CompletedModules.CompanyID = '${user.userid}'`, (err, result) => {});
-                    }
+                        db.query(`DELETE FROM CompletedModules WHERE CompletedModules.LearningModID = ` +
+                            `'${learningmodid}' and CompletedModules.UserID = '${company_users[index].UserID}'`, 
+                            (err, result) => {
+                                if(!err && result.affectedRows > 0) deletionStatus = true;
+                                else deletionStatus = false;
+                                logger.log('info', `Attempted deletion of CompletedModules record learningModID: "${learningmodid}" and UserID: "${company_users[index].UserID}." Successfully deleted if true: "${deletionStatus}" Fields: ${result}`, { service: 'user-service' })    
+                            });
+
+                                             }
                     res.send(true)
                 });
             });
