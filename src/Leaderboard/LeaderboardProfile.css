@@ -45,6 +45,8 @@
     margin-top: 5%;
 }
 
+
+
 .scoreLabelLeaderboard {
     font-family: Lato,sans-serif;
     font-size: 70%;
@@ -62,7 +64,7 @@
 
 .leaderboardBreak {
     width: 100%;
-    height: .01vmax;
+    height: .1rem;
     margin-bottom: 2%;
 }
 .category {

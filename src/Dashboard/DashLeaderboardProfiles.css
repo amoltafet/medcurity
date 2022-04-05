@@ -7,39 +7,83 @@
 
 .dashLeaderNumberPosition {
     color: #1e5b88;
-    font-size: 90%;
-    margin-top: 8%;
+    font-size: 140%;
+    margin-top: 12%;
+}
+
+@media screen and (min-width: 1000px) {
+    .dashLeaderNumberPosition {
+        color: #1e5b88;
+        font-size: 150%;
+        margin-top: 4%;
+    }
 }
 
 .profileImageDash {    
     height: 70%;
-    margin-top: 5%;
+    margin-top: 4%;
+}
+
+@media screen and (min-width: 1000px) {
+    .profileImageDash {    
+        height: 70%;
+        margin-top: 3%;
+    }
 }
 
 .userTextDash {
     color: #1e5b88;
-    font-size: 70%;
     font-family: Lato,sans-serif;
+    font-size: 100%;
     text-overflow: ellipsis;
-    margin-top: 10%;
+    margin-top: 20%;
+}
+
+@media screen and (min-width: 1000px) {
+    .userTextDash {
+        color: #1e5b88;
+        font-family: Lato,sans-serif;
+        font-size: 120%;
+        text-overflow: ellipsis;
+        margin-top: 5%;
+    }
 }
 
 .scoreTextDash {
     color: #127ebf;
     font-family: Lato,sans-serif;
-    font-size: 70%;
+    font-size: 100%;
     text-overflow: ellipsis;
-    margin-top: 10%;
+    margin-top: 20%;
+}
+
+@media screen and (min-width: 1000px) {
+    .scoreTextDash {
+        color: #127ebf;
+        font-family: Lato,sans-serif;
+        font-size: 120%;
+        text-overflow: ellipsis;
+        margin-top: 5%;
+    }
 }
 
 .pointsDash {
     color: #93c2ec;
     font-family: Lato,sans-serif;
-    font-size: 70% ;
+    font-size: 100%;
     text-overflow: ellipsis;
-    margin-top: 10%;
+    margin-top: 20%;
 }
 
+@media screen and (min-width: 1000px) {
+    .pointsDash {
+        color: #93c2ec;
+        font-family: Lato,sans-serif;
+        font-size: 120%;
+        text-overflow: ellipsis;
+        margin-top: 5%;
+    }
+}
 
 .statusImageDash {
     width: 10%;

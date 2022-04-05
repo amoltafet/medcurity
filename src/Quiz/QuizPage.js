@@ -462,13 +462,13 @@ const QuizPage = () => {
   function UserDidNotCompleteModuleOnTime() {
     if (showUserDidNotCompleteOnTime) {
       return (
-        <Alert variant="light" show={showUserDidNotCompleteOnTime}>
+        <Alert variant="danger" show={showUserDidNotCompleteOnTime}>
           <Alert.Heading>You Did Not Complete the Module on Time.</Alert.Heading>
           <p>
             You did not complete this module by its due date. -${notCompleteOnTime} points.
           </p>
           <div className="d-flex justify-content-end">
-          <Button onClick={() => setShowUserDidNotCompleteOnTime(false)} variant="outline-light">
+          <Button onClick={() => setShowUserDidNotCompleteOnTime(false)} variant="outline-danger">
             X
           </Button>
           </div>

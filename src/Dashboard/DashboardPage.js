@@ -30,43 +30,38 @@ const DashboardPage = () => {
     <>
     <Form className="dash_page">
       <MenuBar></MenuBar>
-        <div class="col dash_topBackdrop justif">
-          <div class="dash_welcomeDiv">
+        <div className="col dash_topBackdrop justif">
+          <div className="dash_welcomeDiv">
             <Image className="dash_profilePicture" variant="top" src="/user.png" alt="" roundedCircle />
             <div>
-              <h1 class="dash_welcomeMessageP1">Welcome back, {session?.username || "... "}!</h1>
-              <h1 class="dash_welcomeMessageP3">Logged in as: {session?.email || "..."}</h1>
-              <div class="dash_navDiv">
-                <div class="dash_navButtons">
-                  <a href="#requiredModules" class="btn dash_navButton">Required Learning Modules</a>
+              <h1 className="dash_welcomeMessageP1">Welcome back, {session?.username || "... "}!</h1>
+              <h1 className="dash_welcomeMessageP3">Logged in as: {session?.email || "..."}</h1>
+              <div className="dash_navDiv">
+                <div className="dash_navButtons">
+                  <a href="#requiredModules" className="uvs-left btn dash_navButton">Required Learning Modules</a>
                   <br></br>
-                  <a href="#moduleDirectories" class="btn dash_navButton">Learning Module Directories</a>
+                  <a href="#moduleDirectories" className="uvs-left btn dash_navButton">Learning Module Directories</a>
                   <br></br>
-                  <a href="#leaderboard" class="btn dash_navButton">Leaderboard</a>
+                  <a href="#leaderboard" className="uvs-left btn dash_navButton">Leaderboard</a>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
         <div id="requiredModules" className="dash_requiredModules">
           <h1 className='dash_h1Style'>Required Learning Modules</h1> 
           <LearningModulesCards user={session} />
         </div>
-
         <div className="dash_separatorBegin"></div>
-        
         <div id="moduleDirectories" className='dash_moduleDirectories'>
           <h1 className='dash_h1Style'> Additional Learning Modules</h1>
           <LearningModulesDirectories user={session}/>  
         </div>
-
         <div className="dash_separatorEnd"></div>
-
         <div id="leaderboard" className="dash_miniLeaderboard justify-center">
           <h1 className='dash_h1Style'>Leaderboard</h1>
           <Leaderboard user={session} ></Leaderboard>
-          <a className='go_to_leader_board_bttn btn btn-primary' href="/leaderboard">View Full Leaderboard</a>
+          <a className='uvs-left go_to_leader_board_bttn btn' href="/leaderboard">View Full Leaderboard</a>
         </div>
         <br></br>
     </Form>
@@ -75,8 +70,3 @@ const DashboardPage = () => {
 }
 
 export default DashboardPage;
-
-/*
-          <WelcomePanel user={session} ></WelcomePanel> 
-          <Leaderboard user={session} ></Leaderboard>
-*/

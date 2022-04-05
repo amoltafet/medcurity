@@ -132,21 +132,23 @@ function LeaderboardProfile( props) {
                     <Accordion className="displayLeaderboardInfo" defaultActiveKey="0">
                         <Accordion.Toggle eventKey="1" className="accordianToggel">
                             <Card className="cardHeaderAccordian" style={{ flexDirection: 'row' }}>
-                                <Col sm>
+                                <Row>
+                                <Col>
                                     <div className="leaderboardRank">{props.index}.</div>
                                 </Col>
                                 <Col>
                                     <Image className={props.className[1]} src="/user.png" alt="" roundedCircle />
                                 </Col>
-                                <Col sm>
+                                <Col>
                                     <Card.Text className="userNameTitle">{props.name}</Card.Text>
                                 </Col>
-                                <Col sm>
+                                <Col>
                                     <div className="scoreLabelLeaderboard" >Total Score</div>
                                 </Col>
                                 <Col>
                                     <div className="userPointsLeaderboard">{totalScore}</div>
                                 </Col>
+                                </Row>
                             </Card>
                         </Accordion.Toggle>
                     </Accordion>
