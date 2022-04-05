@@ -53,7 +53,9 @@ const LearningManagerCard = (props) => {
                 <OverlayTrigger trigger="click" rootClose placement="left" 
                 overlay={
                     <Popover id="popover-basic" className="LearningManagerPopup">
-                        <div className="LearningManagerCardValues">Please confirm that you want to remove the module '{props.learningModuleName}' from your assigned list of modules: </div> 
+                        <div className="LearningManagerCardValues">Please confirm that you want to remove the 
+                            module '{props.learningModuleName}' from your assigned list of modules. Note that 
+                            all users will have to redo this learning module if you delete and re-add it: </div> 
                         <div>{message}</div>
                         <Button className="LearningManagerInRowButton uvs-right" 
                             variant="success" 

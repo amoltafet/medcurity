@@ -336,7 +336,8 @@ const assignModulesToCompany = (req,res) =>
 
 /**
  * Removes assigned learning module from a company
- * TODO remove all completed modules
+ * Also removes all completed module records for that learning module
+ * from all users in the company
  */
  const removeModuleFromCompany = (req, res) => {
     const learningmodid = req.body.learningModId
@@ -349,7 +350,15 @@ const assignModulesToCompany = (req,res) =>
             if (err) console.log(err);
 
             db.query(`DELETE FROM CompanyLearningModules WHERE CompanyLearningModules.LearningModID = '${learningmodid}' and CompanyLearningModules.CompanyID = '${companyid}'`, (err, result) => {
-            res.send(true)
+                db.query(`SELECT AffiliatedUsers.UserID ` + 
+                    `FROM AffiliatedUsers ` +
+                    `WHERE AffiliatedUsers.CompanyID = '${companyid}'`, (err, company_users) => {
+                    console.log(company_users)
+                    for (index in company_users) {
+                        db.query(`DELETE FROM CompletedModules WHERE CompletedModules.LearningModID = '${learningmodid}' and CompletedModules.CompanyID = '${user.userid}'`, (err, result) => {});
+                    }
+                    res.send(true)
+                });
             });
         }
         else
