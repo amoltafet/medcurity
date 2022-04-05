@@ -83,6 +83,7 @@ const queryModuleBanner = (req,res)=>{
 const queryUploadBanner = (req, res) => {
     if (req.file)
     {
+        db.query("UPDATE Users SET profilepicture = ?", [req.file.filename], (err, result) => { })
         logger.log('info', { methodName: '/postModuleBanner', body: `Uploaded "${req.file.filename}" to "assets/images/banners"` }, { service: 'query-service' })
         res.send(true)
     }
@@ -93,10 +94,27 @@ const queryUploadBanner = (req, res) => {
     }
 }
 
+/**
+ * Logs image handling for uploading profile pictures.
+ */
+ const queryUploadProfile = (req, res) => {
+    if (req.file)
+    {
+        logger.log('info', { methodName: '/postProfilePicture', body: `Uploaded "${req.file.filename}" to "assets/images/profiles"` }, { service: 'query-service' })
+        res.send(true)
+    }
+    else
+    {
+        logger.log('error', { methodName: '/queryUploadProfile', body: `Failed to upload ${req?.file?.filename || 'a profile picture'}` }, { service: 'query-service' })
+        res.send(false)
+    }
+}
+
 module.exports = 
 {
     getQuery,
     queryUploadBanner,
+    queryUploadProfile,
     queryModuleBanner,
     queryModuleInfo,
     queryModuleQuestions,
