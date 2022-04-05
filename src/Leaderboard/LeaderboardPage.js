@@ -160,7 +160,7 @@ const LeaderboardPage = () => {
             <Tab.Container  id="left-tabs-example" defaultActiveKey="first" style={{ display: 'flex' }}>
                 <Row className="justify-content-center ">
                     <Col className="shadowTab_leaderboard uvs-left uvs-right" sm={2}>
-                        <Nav variant="pills" className="selection_leaderbaord_container justify-content-center ">
+                        <Nav variant="pills" className="selection_leaderbaord_container text-left">
                             <Nav.Item className="orginization_selection_tab">
                                 <Nav.Link className="leaderbaord_pill_font" eventKey="first">{companyName[0].name} Users</Nav.Link>
                             </Nav.Item>

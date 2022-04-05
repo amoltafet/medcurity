@@ -1,6 +1,6 @@
 .leaderboardbg {
     background-image: url("leaderboard_medium.png");
-    height: 120%;
+    height: 105%;
     width: 100%;
     background-position: center;
     background-repeat: no-repeat;
@@ -8,7 +8,7 @@
 }
 
 
-.leaderboardContainer{
+.leaderboardContainer {
     margin-left: 5%;
     margin-top: 2%;
     margin-bottom: 3%;
@@ -22,14 +22,95 @@
 }
 
 
-@media screen and (min-width: 1000px) {
+
+@media screen and (min-width: 576px) {
+    .leaderboardContainer{
+        margin-left: 3%;
+        margin-right: 1%;
+        margin-bottom: 3%;
+        margin-top: 20%;
+        height: 130vmin;
+        width: 103%;
+        background-color: white;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        scrollbar-color:  #1e5b88 rgba(255, 0, 0, 0);
+    
+    }
+}
+
+@media screen and (min-width: 629px) {
+    .leaderboardContainer{
+        margin-left: 3%;
+        margin-right: 1%;
+        margin-bottom: 3%;
+        margin-top: 15%;
+        height: 120vmin;
+        width: 103%;
+        background-color: white;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        scrollbar-color:  #1e5b88 rgba(255, 0, 0, 0);
+    
+    }
+}
+
+@media screen and (min-width: 700px) {
+    .leaderboardContainer{
+        margin-left: 5%;
+        margin-right: 1%;
+        margin-bottom: 3%;
+        margin-top: 15%;
+        height: 110vmin;
+        width: 98%;
+        background-color: white;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        scrollbar-color:  #1e5b88 rgba(255, 0, 0, 0);
+    
+    }
+}
+
+@media screen and (min-width: 760px) {
+    .leaderboardContainer {
+        margin-left: 5%;
+        margin-right: 1%;
+        margin-bottom: 3%;
+        margin-top: 15%;
+        height: 90vmin;
+        width: 98%;
+        background-color: white;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        scrollbar-color:  #1e5b88 rgba(255, 0, 0, 0);
+    
+    }
+}
+
+@media screen and (min-width: 900px) {
     .leaderboardContainer{
         margin-left: 10%;
-        margin-right: 5%;
+        margin-right: 1%;
         margin-bottom: 3%;
-        margin-top: 14%;
-        height: 72vmin;
-        width: 60%;
+        margin-top: 15%;
+        height: 75vmin;
+        width: 98%;
+        background-color: white;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        scrollbar-color:  #1e5b88 rgba(255, 0, 0, 0);
+    
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .leaderboardContainer{
+        margin-left: 5%;
+        margin-right: 1%;
+        margin-bottom: 3%;
+        margin-top: 10%;
+        height: 75vmin;
+        width: 98%;
         background-color: white;
         overflow-y: scroll;
         overflow-x: hidden;
@@ -39,9 +120,9 @@
 }
 
 .shadowTab_leaderboard {
-    margin-top: 10%;
+    margin-top: 12%;
     margin-bottom: 2%;
-    margin-left: -15%;
+    margin-left: -7%;
     width: 40%;
     height: 25.5vmin;
     background-color:  white;
@@ -51,20 +132,90 @@
 
 
 
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 576px) {
     .shadowTab_leaderboard {
         margin-top: 15%;
         margin-bottom: 2%;
-        margin-left: 10%;
-        width: 30vmin;
-        height: 14.5vmin;
+        margin-left: -2%;
+        width: 30%;
+        height: 25.5vmin;
+        background-color:  white;
+     
+    }
+}
+
+@media screen and (min-width: 629px) {
+    .shadowTab_leaderboard {
+        margin-top: 15%;
+        margin-bottom: 2%;
+        margin-left: -2%;
+        width: 30%;
+        height: 20.5vmin;
+        background-color:  white;
+     
+    }
+}
+
+@media screen and (min-width: 700px) {
+    .shadowTab_leaderboard {
+        margin-top: 15%;
+        margin-bottom: 2%;
+        margin-left: -2%;
+        width: 30%;
+        height: 17.5vmin;
+        background-color:  white;
+     
+    }
+}
+
+@media screen and (min-width: 780px) {
+    .shadowTab_leaderboard {
+        margin-top: 15%;
+        margin-bottom: 2%;
+        margin-left: -2%;
+        width: 28%;
+        height: 15.5vmin;
         background-color:  white;
      
     }
 }
 
 
+@media screen and (min-width: 900px) {
+    .shadowTab_leaderboard {
+        margin-top: 15%;
+        margin-bottom: 2%;
+        margin-left: -4%;
+        width: 25%;
+        height: 13.5vmin;
+        background-color:  white;
+     
+    }
+}
 
+@media screen and (min-width: 1200px) {
+    .shadowTab_leaderboard {
+        margin-top: 15%;
+        margin-bottom: 2%;
+        margin-left: -4%;
+        width: 16%;
+        height: 13.5vmin;
+        background-color:  white;
+     
+    }
+}
+
+@media screen and (min-width: 1400px) {
+    .shadowTab_leaderboard {
+        margin-top: 15%;
+        margin-bottom: 2%;
+        margin-left: -4%;
+        width: 13%;
+        height: 13.5vmin;
+        background-color:  white;
+     
+    }
+}
 
 
 .selection_leaderbaord_container  {

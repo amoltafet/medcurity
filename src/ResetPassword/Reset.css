@@ -1,6 +1,6 @@
 .reset_passwordbg {
     background-image: url("../Login/loginbg_small.png");
-    height: 120%;
+    height: 100%;
     width: 100%;
     background-position: center;
     background-repeat: no-repeat;
@@ -11,7 +11,7 @@
 @media screen and (min-width: 1000px) {
     .reset_passwordbg {
         background-image: url("../Login/loginbg_medium.png");
-        height: 120%;
+        height: 100%;
         width: 100%;
         background-position: center;
         background-repeat: no-repeat;
