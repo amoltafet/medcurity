@@ -8,6 +8,14 @@
 
 }
 
+.userRow {
+    margin-top: 1%;
+    margin-left: 1%;
+    margin-right: .5%;
+    margin-bottom: 1%;
+    width: 100%;
+}
+
 .companiesPanel {
     margin-top: 1%;
     margin-left: 1%;
@@ -42,7 +50,7 @@
     font-size: 70%;
     font-weight: bold; 
     color: white;
-    margin-top: 5%;
+    margin-top: 3%;
 }
 
 

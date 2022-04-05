@@ -130,7 +130,8 @@ const LeaderboardPage = () => {
                 name={userProfile.username} 
                 index={index}
                 className={className}
-                userColor={className[0]}
+                userColor={className[4]}
+                companyColor={className[0]}
                 scores={[userProfile.category1, userProfile.category2, userProfile.category3, userProfile.category4,  userProfile.category5, userProfile.category6]}
                 percents={[userProfile.percentage1, userProfile.percentage2, userProfile.percentage3, userProfile.percentage4,  userProfile.percentage5, userProfile.percentage6]}/>
         );
@@ -146,7 +147,8 @@ const LeaderboardPage = () => {
                   name={userProfile.username} 
                   index={company_index}
                   className={className}
-                  userColor={className[4]}
+                  userColor={className[0]}
+                  companyColor={className[4]}
                   scores={[userProfile.category1, userProfile.category2, userProfile.category3, userProfile.category4,  userProfile.category5, userProfile.category6]}
                   percents={[userProfile.percentage1, userProfile.percentage2, userProfile.percentage3, userProfile.percentage4,  userProfile.percentage5, userProfile.percentage6]}/>
           );
