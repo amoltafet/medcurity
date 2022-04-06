@@ -3,9 +3,18 @@
     margin-left: 1%;
     margin-right: .5%;
     margin-bottom: .5%;
-    background-color: #cc3333;
+    background-color: #1e5b88;
     width: 98%;
 
+}
+
+.companiesPanel {
+    margin-top: 1%;
+    margin-left: 1%;
+    margin-right: .5%;
+    margin-bottom: .5%;
+    background-color: #127ebf;
+    width: 98%;
 }
 
 .displayLeaderboardInfo {

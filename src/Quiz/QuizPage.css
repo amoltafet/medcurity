@@ -41,7 +41,22 @@
 }
 
 .rightArrow {
-    width: 50%;
+    width: 5vmax;
+   
+}
+
+@media screen and (min-width: 1000px) {
+    .rightArrow {
+        width: 3.5vmax; 
+    }    
+}
+
+
+.rightQuestionBttnRemoved {
+    background-color: none;
+    color: none;
+    border: none;
+    display: none;
 }
 
 
@@ -52,11 +67,19 @@
 
 .resultAnswers {
     margin-bottom: 2%;
-    margin-top: 3%;
+    margin-top: 3%; 
+    width: 80%;
+}
+
+@media screen and (min-width: 1000px) {
+    .resultAnswers {
+        margin-bottom: 2%;
+        margin-top: 3%;
+       
+    }
 }
 
 .quizResultsHeader {
-    align-items: center;
     color: #c33333;
     font-family: Lato,sans-serif;
     font-size: 190%;
