@@ -18,12 +18,9 @@ const SettingsMenu = () => {
     const [isLoaded, setLoaded] = useState(false);
     const [company, setCompany] = useState([]);
     const [dueDate, setDueDate] = useState([]);
-<<<<<<< HEAD
     const [newPassword, setPassword] = useState("");
     const [repeatPassword, setRepeatPassword] = useState("");
-=======
     const [convertedProfilePhoto, setConvertedProfilePicture] = useState("/user.png");
->>>>>>> main
 
     useEffect(() => {
         axios.get("http://localhost:3002/users/login").then((response) => {
@@ -166,7 +163,6 @@ const SettingsMenu = () => {
                                         <Form.Text className="emailText">Change Password</Form.Text>
                                         <Form.Control></Form.Control>
                                 </Form.Group>
-<<<<<<< HEAD
                                 <h3>Change Password</h3>
                                 <Form.Group className="passwordInput" controlId="formPlaintextEmail">
                                     <Form.Text className="passwordText">New Password</Form.Text>
@@ -184,8 +180,6 @@ const SettingsMenu = () => {
                                         }}
                                     ></Form.Control>
                                 </Form.Group>
-=======
->>>>>>> main
                             </Form>
                                <OverlayTrigger delay={{ show: 5000, hide: 4000 }} show={show} placement="bottom" overlay={popover}>
                                             <Button
