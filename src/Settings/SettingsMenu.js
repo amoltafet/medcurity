@@ -19,6 +19,9 @@ const SettingsMenu = () => {
     const [company, setCompany] = useState([]);
     const [dueDate, setDueDate] = useState([]);
     const [convertedProfilePhoto, setConvertedProfilePicture] = useState("/user.png");
+    const [profilePic, setProfilePic] = useState("")
+
+    useEffect(() => { if (session.userid) axios.get("http://localhost:3002/api/getProfilePicture", { params: { id: session.userid }} ).then((response) => { setProfilePic(response.data.profileImage) }); })
 
     useEffect(() => {
         axios.get("http://localhost:3002/users/login").then((response) => {
@@ -91,7 +94,7 @@ const SettingsMenu = () => {
         //TODO ... THEN call API method to store the image from (banner)
         var data = new FormData();
         data.append("profileImage", userPhoto);
-        axios.post("http://localhost:3002/api/postProfilePicture", data, { headers: { 'Content-Type': 'multipart/form-data' } })
+        axios.post("http://localhost:3002/api/postProfilePicture", data, { params: { userid: session.userid } , headers: { 'Content-Type': 'multipart/form-data' } })
 
     }
   
@@ -127,7 +130,7 @@ const SettingsMenu = () => {
                         <Tab.Pane eventKey="first">
                             <Form>
                                 <Form.Group>
-                                    <Image className="settingsProfilePicture" variant="top" src={'https://www.kindpng.com/picc/m/21-214439_free-high-quality-person-icon-default-profile-picture.png'} alt="" roundedCircle></Image>
+                                    <Image className="dash_profilePicture" variant="top" src={`data:image/png;base64,${profilePic}`} alt="" roundedCircle></Image>
                                 <Form.File 
                                     className="userProfilePhotoInput"
                                     onChange={(e) => uploadUserPhoto((e.target.files[0]))}
