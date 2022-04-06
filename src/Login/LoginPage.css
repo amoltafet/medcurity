@@ -1,11 +1,34 @@
 .loginbg {
-    background-image: url("loginbg.png");
-    height: 100vh;
+    background-image: url("loginbg_small.png");
+    height: 120%;
     width: 100%;
     background-position: center;
     background-repeat: no-repeat;
     position: fixed;
 }
+
+@media screen and (min-width: 1000px) {
+    .loginbg {
+        background-image: url("loginbg_medium.png");
+        height: 120%;
+        width: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        position: fixed;
+    }
+  }
+
+@media screen and (min-width: 1500px) {
+    .loginbg {
+        background-image: url("loginbg.png");
+        height: 100%;
+        width: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        position: fixed;
+    }
+}
+
 
 .login_pageHeader {
     margin-top: 7%;
@@ -54,8 +77,15 @@
 }
 
 .login_forgotPass{
-    width: 75%;
     color: white;
+    background-color: #cc3333;
+    font-family: Lato,sans-serif;
+    font-size: 1.3vmax;
+    text-align: center;
+    width: 72%;
+    height: 20%;
+    margin-bottom: 5%;
+    transition: background-color 0.5s ease-out
 }
 
 .login_Form{
@@ -76,7 +106,7 @@
     text-align: center;
     width: 72%;
     height: 20%;
-    margin-bottom: 10%;
+    margin-bottom: 5%;
     transition: background-color 0.5s ease-out
 }
 

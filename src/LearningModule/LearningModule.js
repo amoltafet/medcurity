@@ -24,7 +24,7 @@ const  LearningModule = () => {
         }).catch(error => console.error(`Error ${error}`));
     }, [slug])
 
-    useEffect(() => { axios.get("http://localhost:3002/api/getModuleBanner", { id: slug} ).then((response) => { setBanner(response.data.bannerImage) }); })
+    useEffect(() => { axios.get("http://localhost:3002/api/getModuleBanner", { params: { id: slug }} ).then((response) => { setBanner(response.data.bannerImage) }); })
 
     const LearningModuleContent = content.map((module) => {
         return ([
@@ -49,7 +49,7 @@ const  LearningModule = () => {
         <>
          <div className="learningModuleBg img-fluid ">
         {LearningModuleContent}
-        <div className="d-grid gap-2 ">
+        <div className="d-grid gap-2 justify-content-center">
             <Button variant="primary" className="goToQuizBttn uvs-left uvs-right" href={'/quiz/' + slug}>
                 Go to Quiz
             </Button>

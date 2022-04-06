@@ -1,4 +1,4 @@
-.registerbg {
+.reset_passwordbg {
     background-image: url("../Login/loginbg_small.png");
     height: 120%;
     width: 100%;
@@ -9,7 +9,7 @@
 }
 
 @media screen and (min-width: 1000px) {
-    .registerbg {
+    .reset_passwordbg {
         background-image: url("../Login/loginbg_medium.png");
         height: 120%;
         width: 100%;
@@ -20,7 +20,7 @@
   }
 
 @media screen and (min-width: 1500px) {
-    .registerbg {
+    .reset_passwordbg {
         background-image: url("../Login/loginbg.png");
         height: 100%;
         width: 100%;
@@ -30,39 +30,39 @@
     }
   }
 
-.register_registerCard {
+.reset_password_registerCard {
     border: white;
     background-color: transparent;
     width: 70%;
 }
 
-.register_pageHeaderText {
+.reset_password_pageHeaderText {
     color: white;
     text-shadow: 2px 2px 5px black;
     font-size: 3vmax;
 }
 
-.register_columnDivder {
+.reset_password_columnDivder {
     margin-top: 10%;
     animation: register_upwardsFadeIn 0.5s linear;
 }
 
 
-.register_formColumn {
+.reset_password_formColumn {
     border-radius: 25px;
     padding-top: 2%;
     padding-bottom: 2%;
     
 }
 
-.register_formColumn:hover {
+.reset_password_formColumn:hover {
     padding-top: 2%;
     padding-bottom: 2%;
     animation: register_hoverFade 0.5s linear;
     background-color: #ffffff1f; 
 }
 
-.register_h3{
+.reset_password_h3{
     color: white;
     text-align: center;
     width: 75%;
@@ -70,13 +70,13 @@
     text-shadow: 2px 2px 2px black;
 }
 
-.register_p{
+.reset_password_p{
     color: white;
     text-align: center;
     width: 75%;
 }
 
-.register_registerResponse {
+.reset_password_registerResponse {
     margin-top: 2%;
     font-family: Lato,sans-serif;
     font-size: 1vmax;
@@ -85,11 +85,11 @@
     background-color: #0000003f;
 }
 
-.register_Form{
+.reset_password_Form{
     width: 75%;
 }
 
-.register_button {
+.reset_password_button {
     color: white;
     background-color: #cc3333;
     font-family: Lato,sans-serif;
@@ -100,21 +100,42 @@
     margin-bottom: 3%;
 }
 
-.register_button:hover {
-    animation: register_buttonHover .3s linear
+.reset_password_button:hover {
+    animation: reset_password_buttonHover .3s linear
 }
 
-@keyframes register_hoverFade { 
+@keyframes reset_password_hoverFade { 
     from { background-color: #ffffff00; } 
     to { background-color: #ffffff1f; }
 }
 
-@keyframes register_upwardsFadeIn { 
+@keyframes reset_password_upwardsFadeIn { 
     from { margin-top:15%; opacity:0; } 
     to { margin-top:10%; opacity:1; } 
 }
 
-@keyframes register_buttonHover { 
+@keyframes reset_password_buttonHover { 
+    0% { font-size: 1.3vmax; } 
+    50% { font-size: 1.32vmax; } 
+    0% { font-size: 1.3vmax; } 
+}
+
+.send_code_button {
+    color: white;
+    background-color: #cc3333;
+    font-family: Lato,sans-serif;
+    font-size: 1.3vmax;
+    text-align: center;
+    width: 72%;
+    height: 20%;
+    margin-bottom: 3%;
+}
+
+.send_code_button:hover {
+    animation: reset_passwordHover .3s linear
+}
+
+@keyframes send_code_buttonHover { 
     0% { font-size: 1.3vmax; } 
     50% { font-size: 1.32vmax; } 
     0% { font-size: 1.3vmax; } 

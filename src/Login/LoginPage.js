@@ -1,6 +1,6 @@
 import {Button, Image, Form, Card} from 'react-bootstrap'
 import React from 'react';
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import Axios from "axios"
 import './LoginPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -17,7 +17,21 @@ export default function LoginPage()
   const [message, setMessage] = useState("")
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [mobileView, setMobileView] = useState(false);
+  const [dimensions, setDimensions] = React.useState({ 
+    height: window.innerHeight,
+    width: window.innerWidth
+  });
   const navigate = useNavigate();
+
+  useEffect(() => {
+    function handleResize() {
+      setDimensions({
+        height: window.innerHeight,
+        width: window.innerWidth
+      });
+    }
+  },[])
 
   const login = () => {    
 
@@ -48,7 +62,11 @@ export default function LoginPage()
   const register = () => {
     navigate('/register');
   };
-
+ 
+  if (mobileView) {
+    return 
+  }
+ 
   return (
       <>
       <Form className="loginbg img-fluid">
@@ -65,9 +83,9 @@ export default function LoginPage()
                   <Form.Group className="login_Form" controlId="formEmail"> <Form.Control type="email" placeholder="Email" onChange={ (e) => {setEmail(e.target.value); }}/> </Form.Group>
                   <p></p>
                   <Form.Group className="login_Form" controlId="formPassword"> <Form.Control type="password" placeholder="Password" onChange={ (e) => {setPassword(e.target.value); }}/> </Form.Group>
-                  <a class="login_forgotPass" href="/">Forgot password?</a>
                   <p class="login_loginResponse">{message}</p>
-                  <Button className="login_formButton" onClick={login} variant="secondary" type="button">Login with Existing Account</Button>
+                  <Button className="login_formButton" onClick={login} variant="secondary" type="button">Login with Existing Account</Button>    
+                  <Button className="login_forgotPass" href="/resetPassword" variant="secondary" type="button">Forgot password?</Button>
                 </div>
               </div>
               <div class="col-xs-5 col-md-5">

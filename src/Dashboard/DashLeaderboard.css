@@ -1,15 +1,16 @@
+.dashlb_viewFullButton {
+    width: 75%;
+    height: auto;
+}
+
 .LeaderboardCard {
-    font-size: 1.6vmax;
+    font-size: 1.3vmax;
     text-align: center;
-    color: white;
-    margin-top: .5%;
-    margin-left: .5%;
-    margin-right: 7%;
-    background-color: #93c2ec !important;
-    width: 10%;
-    height: 20vmax;
+    color: rgb(255, 255, 255);
+    height: 16vmax;
     overflow-y: hidden;
     overflow-x: hidden;
+    padding-bottom: 40px;
 }
 
 .userProfilesDash { 

@@ -1,4 +1,4 @@
-import { Nav, Row, Form, Tab, Col, Container, Button, Popover, OverlayTrigger } from 'react-bootstrap';
+import { Nav, Row, Form, Tab, Col, Container, Button, Popover, OverlayTrigger, Image } from 'react-bootstrap';
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import React from 'react';
@@ -18,13 +18,16 @@ const SettingsMenu = () => {
     const [isLoaded, setLoaded] = useState(false);
     const [company, setCompany] = useState([]);
     const [dueDate, setDueDate] = useState([]);
+<<<<<<< HEAD
     const [newPassword, setPassword] = useState("");
     const [repeatPassword, setRepeatPassword] = useState("");
+=======
+    const [convertedProfilePhoto, setConvertedProfilePicture] = useState("/user.png");
+>>>>>>> main
 
     useEffect(() => {
         axios.get("http://localhost:3002/users/login").then((response) => {
-            setSession(response.data.user[0])
-           
+            setSession(response.data.user[0]);
         }).catch(error => console.error(`Error ${error}`));
         setLoaded(true)
     }, []);
@@ -34,14 +37,25 @@ const SettingsMenu = () => {
             axios.get('http://localhost:3002/api/getQuery', 
                 { params: { the_query: 'SELECT * FROM Companies WHERE companyid = ' + session.companyid} 
             }).then((response) => {
-              
-               if (response.data[0].datejoined !== null) { 
-                setCompany(response.data[0]);
-                var date = new Date(response.data[0].datejoined);
-                setDueDate(date.toDateString()); 
-                console.log("e", dueDate)
+                console.log(session)
+                if (session.profilepicture !== null && session.profilepicture.data !== null) {
+                    try {     
+                        console.log("grabbed image: ", session.profilepicture.data)
+                        var photo = URL.createObjectURL(session.profilepicture);  
+                        console.log("converted image: ",photo )
+                          setConvertedProfilePicture(photo);
+                        
+                    } catch (error) {
+                        console.log(error)
+                    }
+                  
                 }
-
+                if (response.data[0].datejoined !== null) { 
+                    setCompany(response.data[0]);
+                    var date = new Date(response.data[0].datejoined);
+                    setDueDate(date.toDateString()); 
+                
+                }
             }).catch(error => console.error(`Error ${error}`));
         }
     },[session, dueDate, isLoaded])
@@ -50,13 +64,23 @@ const SettingsMenu = () => {
 
     useEffect(() => {
         if (saveData === true) {
-            axios.post("http://localhost:3002/users/settings", {
-                username: newUserName,
+            console.log("profilepic to be saved: ", convertedProfilePhoto)
+            axios.post("http://localhost:3002/users/changeProfilePicture", {
+                profilepicture: convertedProfilePhoto,
                 id: session.userid
             }).then((response) => {
                 console.log("response", response.data);
                 
             }).catch(error => console.log(`Error ${error}`));
+            if (newUserName !== "") {
+                axios.post("http://localhost:3002/users/changeUserName", {
+                    username: newUserName,
+                    id: session.userid
+                }).then((response) => {
+                    console.log("response", response.data);
+                    
+                }).catch(error => console.log(`Error ${error}`));
+            }
             setSaveData(false);
             setShow(true);
         }
@@ -66,6 +90,16 @@ const SettingsMenu = () => {
     setTimeout(() =>{
         setShow(false)
     }, 9000)
+
+   
+
+    function uploadUserPhoto (userPhoto) {
+        console.log("unconverted photo", userPhoto)
+        var convertedPhoto = URL.createObjectURL(userPhoto);
+        console.log("convertedPhoto: ", convertedPhoto)
+        setConvertedProfilePicture(convertedPhoto);
+
+    }
   
     
     function SaveUpdatedUserInfo() {
@@ -89,18 +123,17 @@ const SettingsMenu = () => {
     );
 
 
-
     return (
         <>
-            <Tab.Container className="settingsRow" id="left-tabs-example" defaultActiveKey="first" style={{ display: 'flex' }}>
+            <Tab.Container className="settingsRow justify-content-center" id="left-tabs-example" defaultActiveKey="first" style={{ display: 'flex' }}>
                 <Row className="settingsRow">
-                    <Col className=" shadowTab justify-content-center uvs-left uvs-right" sm={2}>
+                    <Col className=" shadowTab  uvs-left uvs-right" sm={2}>
                         <Nav variant="pills" className="flex-column marginTop">
-                            <Nav.Item className="selectedSetting ">
-                                <Nav.Link eventKey="first">User Profile Settings</Nav.Link>
+                            <Nav.Item className=" justify-content-center">
+                                <Nav.Link className='justify-content-center selectedSetting' eventKey="first">User Profile Settings</Nav.Link>
                             </Nav.Item>
-                            <Nav.Item className="unselectedSetting">
-                                <Nav.Link eventKey="second">Organization Information</Nav.Link>
+                            <Nav.Item className="justify-content-center">
+                                <Nav.Link className='unselectedSetting justify-content-center' eventKey="second">Organization Information</Nav.Link>
                             </Nav.Item>
                         </Nav>
                     </Col>
@@ -109,19 +142,31 @@ const SettingsMenu = () => {
                         <Tab.Content>
                         <Tab.Pane eventKey="first">
                             <Form>
+                                <Form.Group>
+                                    <Image className="settingsProfilePicture" variant="top" src={convertedProfilePhoto} alt="" roundedCircle></Image>
+                                <Form.File 
+                                    className="userProfilePhotoInput"
+                                    onChange={(e) => uploadUserPhoto((e.target.files[0]))}
+                                    accept=".png,.jpg,.jpeg"/>
+                                </Form.Group>
+                                <Form.Group className="emailInput" controlId="formPlaintextEmail">
+                                        <Form.Text className="emailText">Email</Form.Text>
+                                        <Form.Control disabled defaultValue={session.email}></Form.Control>
+                                </Form.Group>
                                 <Form.Group className="usernameInput" controlId="formPlaintextEmail">
                                     <Form.Text className="usernameText">UserName</Form.Text>
                                     <Form.Control
                                         defaultValue={session.username}
                                         onChange={(e) => {
                                             setUsername(e.target.value);
-                                        }}
-                                    ></Form.Control>
+                                        }}>
+                                    </Form.Control>
                                 </Form.Group>
                                 <Form.Group className="emailInput" controlId="formPlaintextEmail">
-                                        <Form.Text className="emailText">Email</Form.Text>
-                                        <Form.Control disabled defaultValue={session.email}></Form.Control>
+                                        <Form.Text className="emailText">Change Password</Form.Text>
+                                        <Form.Control></Form.Control>
                                 </Form.Group>
+<<<<<<< HEAD
                                 <h3>Change Password</h3>
                                 <Form.Group className="passwordInput" controlId="formPlaintextEmail">
                                     <Form.Text className="passwordText">New Password</Form.Text>
@@ -139,6 +184,8 @@ const SettingsMenu = () => {
                                         }}
                                     ></Form.Control>
                                 </Form.Group>
+=======
+>>>>>>> main
                             </Form>
                                <OverlayTrigger delay={{ show: 5000, hide: 4000 }} show={show} placement="bottom" overlay={popover}>
                                             <Button
