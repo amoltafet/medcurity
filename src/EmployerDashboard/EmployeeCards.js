@@ -54,7 +54,6 @@ const EmployeesCards = (props) => {
 
     // Get a count of how many modules of the company are completed for
     // each user associated with the company
-    // COUNT(CompletedModules.LearningModID), AffiliatedUsers.UserId
     useEffect(() => {
         if(!isLoading) {
             axios.get('http://localhost:3002/api/getQuery', 
@@ -67,14 +66,42 @@ const EmployeesCards = (props) => {
                 }).then((response) => {
                     console.log("Printing modules")
                     console.log(response.data)
+                    // let completedModules = []
+                    // for (let record in Object.values(response.data)) {
+
+                    //     completedModules.push({'UserId': record[0].UserId})
+                    // }
+                    // console.log(completedModules)
                     setUserCompletedModules(Object.values(response.data))
                     console.log(userCompletedModules)
             });
         }
     }, [isLoading, props.reload])
+    
 
     /**
-     * Create directory cards from modules
+     * This function finds a record in an array of dictionaries
+     * @param {list of dict} array 
+     * @param {str} key 
+     * @param {obj} value 
+     * @returns 
+     */
+    function findValueInArrayOfDict(array, value) {
+        console.log(value)
+        for (let index in array) {
+            console.log(array[index].UserId)
+            if (array[index].UserId == value) {
+                return array[index].completedModules
+            }
+        }
+        return false
+    }
+
+    /**
+     * Create directory cards from modules. If the maxlength is reached, stops.
+     * Calculates the completed modules number for every user by searching for
+     * it in userCompletedModules. If this fails returns 0. Then makes pushes a card
+     * on.
      * @param {modules} to create cards for
      * @param {max_length} to limit max card number created
      */
@@ -82,12 +109,15 @@ const EmployeesCards = (props) => {
         const objs = [];
         let size = 0
         for (let index in modules) {
-            if (size === maxLength) { break; }
-            //TODO If find userid in userCompletedModules, then use their number of completed modules
-            // Otherwise use 0
+            if (size === maxLength) { break; } 
             module = modules[index]
+            let completedModulesNum = 0
+            let completedMods = findValueInArrayOfDict(userCompletedModules, module.UserId)
+            if (completedMods) {
+                completedModulesNum = completedMods
+            }
             objs.push(<EmployeeCard email={module.email} name={module.username} 
-                progress={'0/' + String(totalCompanyRequiredModules)} userId={module.UserId} 
+                progress={String(completedModulesNum) +'/' + String(totalCompanyRequiredModules)} userId={module.UserId} 
                 activeStatus={module.active} companyId={module.CompanyId} 
                 setReload={props.setReload} />)
             size += 1;
