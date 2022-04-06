@@ -20,11 +20,16 @@ import Axios from 'axios';
 const DashboardPage = () => {
     Axios.defaults.withCredentials = true;
     const [session, setSession] = useState([]);
+    const [profilePic, setProfilePic] = useState("")
+
 
     useEffect(() => {
         Axios.get("http://localhost:3002/users/login").then((response) => {
           setSession(response.data.user[0])
         }).catch(error => console.error(`Error ${error}`)); }, []);
+
+    useEffect(() => { if (session.userid) Axios.get("http://localhost:3002/api/getProfilePicture", { params: { id: session.userid }} ).then((response) => { setProfilePic(response.data.profileImage) }); })
+
     
   return (
     <>
@@ -32,7 +37,7 @@ const DashboardPage = () => {
       <MenuBar></MenuBar>
         <div class="col dash_topBackdrop justif">
           <div class="dash_welcomeDiv">
-            <Image className="dash_profilePicture" variant="top" src="/user.png" alt="" roundedCircle />
+            <Image className="dash_profilePicture" variant="top" src={`data:image/png;base64,${profilePic}`} alt="" roundedCircle />
             <div>
               <h1 class="dash_welcomeMessageP1">Welcome back, {session?.username || "... "}!</h1>
               <h1 class="dash_welcomeMessageP3">Logged in as: {session?.email || "..."}</h1>

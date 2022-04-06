@@ -78,6 +78,23 @@ const queryModuleBanner = (req,res)=>{
 }
 
 /**
+ * Queries the data base for a user's profile picture (base64)
+ */
+ const queryProfilePicture = (req,res)=>{
+    db.query(`SELECT userid, profilepicture FROM Users WHERE userid = ${req.query.id}`, (err,result) => {
+        if (err) logger.log('error', { methodName: '/queryProfilePicture', body: err }, { service: 'query-service' })
+        try {
+            let image = fs.readFileSync(path.join(__dirname, `../assets/images/profiles/${result[0].profilepicture}`));
+            res.send({ profileImage: new Buffer.from(image).toString('base64') })
+        }
+        catch (error) {
+            let image = fs.readFileSync(path.join(__dirname, `../assets/images/profiles/profile-default.png`));
+            res.send({ profileImage: new Buffer.from(image).toString('base64') })
+        }
+    })
+}
+
+/**
  * Logs image handling for uploading banners.
  */
 const queryUploadBanner = (req, res) => {
@@ -93,11 +110,31 @@ const queryUploadBanner = (req, res) => {
     }
 }
 
+/**
+ * Logs image handling for uploading profile pictures.
+ */
+ const queryUploadProfile = (req, res) => {
+    if (req.file)
+    {
+        console.log('from queryUploadProfile:', req.query)
+        db.query("UPDATE Users SET profilepicture = ? WHERE userid = ?", [req.file.filename, req.query.userid], (err, result) => { })
+        logger.log('info', { methodName: '/postProfilePicture', body: `Uploaded "${req.file.filename}" to "assets/images/profiles"` }, { service: 'query-service' })
+        res.send(true)
+    }
+    else
+    {
+        logger.log('error', { methodName: '/queryUploadProfile', body: `Failed to upload ${req?.file?.filename || 'a profile picture'}` }, { service: 'query-service' })
+        res.send(false)
+    }
+}
+
 module.exports = 
 {
     getQuery,
     queryUploadBanner,
+    queryUploadProfile,
     queryModuleBanner,
+    queryProfilePicture,
     queryModuleInfo,
     queryModuleQuestions,
     queryModuleDirectoryInfo,

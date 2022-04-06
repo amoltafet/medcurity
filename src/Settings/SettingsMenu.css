@@ -1,7 +1,10 @@
 .settingsProfilePicture {
     margin-top: 1%;
     margin-bottom: 1%;
-    width: 15%;
+    width: 20%;
+    height: 20%;
+    object-fit: cover;
+
 }
 
 .settingsRow {
