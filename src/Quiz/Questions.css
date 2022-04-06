@@ -13,6 +13,7 @@
 .answerQuizSelection {
     font-family: Lato,sans-serif;
     margin-top: 0%;
+    width: 90%;
 }
 
 .individualQuestions {
@@ -24,13 +25,14 @@
 /* RESULTS CSS */
 
 .questionNumbersWrong {
-    color: #c33333;
+    color: #1e5b88;
     margin-top: 2%;
 }
 
 .questionDesciptionWrong {
-    color: #cc3333;
-    margin-bottom: .5%;
+    color: #127ebf; 
+    margin-bottom: 1%;
+    margin-left: -2%;
 }
 
 .questionNumbersRight {
@@ -40,6 +42,8 @@
 
 .questionDesciptionRight {
     color: #127ebf; 
+    margin-bottom: 1%;
+    margin-left: -2%;
 }
 
 

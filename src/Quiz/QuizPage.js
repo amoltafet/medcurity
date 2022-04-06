@@ -18,9 +18,9 @@ import Results from './Results';
 const QuizPage = () => {
   axios.defaults.withCredentials = true;
   const quizClassNames = [
-    ["questionNumbers text-center", "questionDesciption"],
-    ["questionNumbersWrong text-center", "questionDesciptionWrong"],
-    ["questionNumbersRight text-center", "questionDesciptionRight"]
+    ["questionNumbers", "questionDesciption"],
+    ["questionNumbersWrong text-left", "questionDesciptionWrong "],
+    ["questionNumbersRight text-left", "questionDesciptionRight "]
   ];
   const [session, setSession] = useState([]);
   const [isLoading, setLoading] = useState(true);
@@ -262,6 +262,8 @@ const QuizPage = () => {
         }
         if (newIndex === (content.length - 1)) {
           document.getElementById("submitBtn").className = "quizSubmitBttn uvs-left";
+          document.getElementById("rightQuestionBttn").className = "rightQuestionBttnRemoved"
+
         }
       }
     }
@@ -460,13 +462,13 @@ const QuizPage = () => {
   function UserDidNotCompleteModuleOnTime() {
     if (showUserDidNotCompleteOnTime) {
       return (
-        <Alert variant="info" show={showUserDidNotCompleteOnTime}>
+        <Alert variant="light" show={showUserDidNotCompleteOnTime}>
           <Alert.Heading>You Did Not Complete the Module on Time.</Alert.Heading>
           <p>
             You did not complete this module by its due date. -${notCompleteOnTime} points.
           </p>
           <div className="d-flex justify-content-end">
-          <Button onClick={() => setShowUserDidNotCompleteOnTime(false)} variant="outline-info">
+          <Button onClick={() => setShowUserDidNotCompleteOnTime(false)} variant="outline-light">
             X
           </Button>
           </div>
@@ -497,16 +499,16 @@ const QuizPage = () => {
         );
       } else {
         return (
-          <Alert variant="warning" show={showPassedPopup}>
+          <Alert variant="dark" show={showPassedPopup}>
             <Alert.Heading>Try again</Alert.Heading>
             <p>
               Sorry you did not pass the Module. You need higher than a 60 to pass.
             </p>
             <div className="d-flex justify-content-end">
-            <Button href={`/quiz/${slug}`} variant="outline-warning">
+            <Button href={`/quiz/${slug}`} variant="outline-dark">
               Try Again
             </Button>
-            <Button onClick={() => setShowPassedPopup(false)} variant="outline-warning">
+            <Button onClick={() => setShowPassedPopup(false)} variant="outline-dark">
               X
             </Button>
             </div>

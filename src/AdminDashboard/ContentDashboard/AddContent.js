@@ -1,11 +1,14 @@
 import { Form , Card, Button, Container, Col} from 'react-bootstrap';
-import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css'
-import { useEffect, useState } from "react";
-import { useParams } from "react-router";
-import "./EditContent.css"
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import React from 'react';
+import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import "./EditContent.css"
+
+/*import multer from 'multer';
+const bannerStorage = multer.diskStorage({ destination: function (req, file, cb) { cb(null, path.join(__dirname, serverConfig.BANNER_UPLOAD_PATH)) } })
+const bannerUploader = multer({ storage: bannerStorage })*/
 
 /**
 * Creates and displays the learning page for each test category. 
@@ -15,6 +18,8 @@ const  AddContent = () => {
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
     const [subtitle, setSubtitle] = useState("")
+    const [banner, setBanner] = useState([])
+    const [bannerName, setBannerName] = useState("")
     const [learningModules, setLearningModules] = useState([])
 
     const [question, setQuestion] = useState([])
@@ -67,9 +72,14 @@ const  AddContent = () => {
 
 
     function submitData() {
-        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `INSERT INTO LearningModules (Title, Subtitle, Description, Banner) VALUES ('${title}', '${subtitle}', '${description}', '')` } }).then((response) => {
+        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `INSERT INTO LearningModules (Title, Subtitle, Description, Banner) VALUES ('${title}', '${subtitle}', '${description}', '${banner[0].name}')` } }).then((response) => {
         console.log(response)
         }).catch(error => console.error(`Error ${error}`));
+
+        //TODO ... THEN call API method to store the image from (banner)
+        var data = new FormData();
+        data.append("bannerImage", banner[0]);
+        axios.post("http://localhost:3002/api/postModuleBanner", data, { headers: { 'Content-Type': 'multipart/form-data' } })
 
         var moduleIndex = learningModules[learningModules.length - 1].ID + 1;
         console.log("Index", moduleIndex)
@@ -172,6 +182,8 @@ const  AddContent = () => {
                             {
                                 setDescription(e.target.value);
                             }}></textarea><br></br>
+                <label htmlFor="banner">Module Banner Image:</label><br></br>
+                <input type="file" name="myImage" accept="image/png, image/jpeg" onChange={ (e) => {setBanner(e.target.files); }}/>
             </form>
             {ModuleContent}
         <div className="d-grid gap-2 ">

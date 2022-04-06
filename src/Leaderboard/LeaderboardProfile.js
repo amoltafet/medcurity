@@ -88,26 +88,27 @@ function LeaderboardProfile( props) {
     if (props.name === session.username) {
         return (
             <>
-                <Card className={`uvs-left uvs-right ${props.className[0]}`} style={{ flexDirection: 'row' }}>
+                <Card className={`uvs-left uvs-right ${props.userColor}`} style={{ flexDirection: 'row' }}>
                     <Accordion className="displayLeaderboardInfo" defaultActiveKey="0">
                         <Accordion.Toggle eventKey="1" className="accordianToggel">
                             <Card className="cardHeaderAccordian" style={{ flexDirection: 'row' }}>
-                                <Col sm>
-                                    <div className="leaderboardRank">{props.index}.</div>
-                                </Col>
-                                <Col>
-                                    <Image className={props.className[1]} src="/user.png" alt="" roundedCircle />
-                                </Col>
-                                <Col sm>
-                                    <Card.Text className="userNameTitle">{props.name}</Card.Text>
-                                </Col>
-                                <Col sm>
-                                    <div className="scoreLabelLeaderboard" >Total Score</div>
-                                </Col>
-                                <Col>
-                                    <div className="userPointsLeaderboard">{totalScore}</div>
-                                </Col>
-
+                                <Row>
+                                    <Col >
+                                        <div className="leaderboardRank">{props.index}.</div>
+                                    </Col>
+                                    <Col>
+                                        <Image className={props.className[1]} src="/user.png" alt="" roundedCircle />
+                                    </Col>
+                                    <Col >
+                                        <Card.Text className="userNameTitle">{props.name}</Card.Text>
+                                    </Col>
+                                    <Col>
+                                        <div className="scoreLabelLeaderboard" >Total Score</div>
+                                    </Col>
+                                    <Col>
+                                        <div className="userPointsLeaderboard">{totalScore}</div>
+                                    </Col>
+                                </Row>
                             </Card>
 
                         </Accordion.Toggle>

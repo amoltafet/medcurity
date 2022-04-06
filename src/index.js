@@ -29,6 +29,7 @@ import EditQuestionBackground from "./AdminDashboard/ContentDashboard/EditQuesti
 import EditQuestionSlug from "./AdminDashboard/ContentDashboard/EditQuestionSlug"
 import EditQuestion from "./AdminDashboard/ContentDashboard/EditQuestion";
 import AddContent from "./AdminDashboard/ContentDashboard/AddContent";
+import ResetPasswordPage from "./ResetPassword/Reset";
 
 import Axios from 'axios';
 
@@ -41,11 +42,10 @@ ReactDOM.render(
   <Router>
     <Routes>
       <Route path="*" element={<InvalidPage />}/>
-      <Route path="/" element={<LoginPage />}/>
+      <Route path="/" element={<LoginPage />}/>  
+      <Route path="/resetPassword" element={<ResetPasswordPage/>}/>
       <Route path="/register" element={<RegisterPage />}/>
-
       {<Route path="/dash" element={<DashboardPage />} />}
-
       <Route path="/employer-dash" element={<EmployerDashboard />} />
       <Route path="/admin-dash" element={<AdminDashboardPage />} />
       <Route path="/admin-content" element={<AdminContentPage />} />
@@ -68,10 +68,10 @@ ReactDOM.render(
         <Route path="" element={<LearningModules />} />
         <Route path=":slug" element={<LearningModule />} />
       </Route>
-      <Route path="/learning-directory" element={<LearningDirectory />}>
+      {/* <Route path="/learning-directory" element={<LearningDirectory />}>
         <Route path="" element={<LearningDirectoryRequiredPage />}/>
         <Route path=":slug" element={<LearningDirectoryPage />} />
-      </Route>
+      </Route> */}
       <Route path="/leaderboard" element={<Leaderboard />} />
     </Routes>
   </Router>,

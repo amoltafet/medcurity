@@ -75,7 +75,7 @@ const  LearningDirectoryPage = () => {
     })
 
     return(
-        <LearningDirectoryPageContent directoryTitle={directoryTitle +  'Learning Modules Directory'} modules={modules} />
+        <LearningDirectoryPageContent directoryTitle={directoryTitle +  ' Learning Modules Directory'} modules={modules} />
     );
 
 

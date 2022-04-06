@@ -1,10 +1,171 @@
+html {
+  scroll-behavior: smooth;
+}
+
 .dashboard {
   margin-bottom: 1%;
   margin-top: 1%;
-  margin-left: 2%;
-  margin-right: 2%;
+  margin-left: .5%;
 
 }
-.dashTopPanel {
-  height: 38%;
+
+.dash_page {
+  background-color: rgb(255, 255, 255);
+}
+
+.dash_requiredModules {
+  background-color: rgb(255, 255, 255);
+}
+
+.dash_moduleDirectories {
+  background-color: rgb(219, 224, 237);
+}
+
+.dash_topBackdrop {
+  background-image: url("dash_welcomebg.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  justify-content: center;
+  width: auto;
+  height: 60vh;
+  padding-top: 1vh;
+  animation: dash_fadeIn 1s;
+}
+
+.dash_bottomBackdrop {
+  background-image: url("dash_welcomebg.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  justify-content: center;
+  padding-top: 55%;
+  transform: scaleY(-1);
+}
+
+
+.dash_welcomeDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-top: 18vh;
+  animation: dash_moveUpwards 1s;
+}
+
+.dash_navDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  color: white;
+}
+
+.dash_navButtons {
+  padding-top: 20px;
+  margin-left: 3%;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  text-align: center;
+}
+
+.dash_navButton {
+  background-color: #0D6EFD;
+  margin-left: 10px;
+  margin-right: 10px;
+  color: rgb(255, 255, 255);
+  font-size: 0.8vmax;
+  font-family: Verdana, sans-serif;
+  text-align: center;
+}
+
+.dash_profilePicture {
+  margin-right: 1%;
+  margin-bottom: 1%;
+  width: 20vmin;
+  height: 20vmin; 
+}
+
+.dash_separatorBegin {
+  background-image: url("dash_directoriesbg.png");
+  background-repeat: no-repeat;
+  background-position: 0% 100%;
+  width: auto;
+  height: 25vh;
+}
+
+.dash_separatorEnd {
+  background-image: url("dash_directoriesbg.png");
+  background-repeat: no-repeat;
+  background-position: 0% 100%;
+  width: auto;
+  height: 25vh;
+  margin-top: -20px;
+  transform: scaleY(-1);
+}
+
+.dash_miniLeaderboard {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: -120px;
+  width: 80%;
+  height: 300px;
+}
+
+.dash_welcomeMessageP1 {
+  color: white;
+  text-shadow: 2px 2px 5px black;
+  font-size: 3vmax;
+  margin-left: 25px;
+}
+
+.dash_welcomeMessageP2 {
+  color: white;
+  text-shadow: 2px 2px 5px black;
+  font-size: 3.5vmax;
+  margin-top: -15px;
+}
+
+.dash_welcomeMessageP3 {
+  color: white;
+  font-size: 0.8vmax;
+  font-style: italic;
+  margin-top: -5px;
+  margin-left: 5px;
+  margin-left: 30px;
+}
+
+.dash_h1Style {
+  color: rgb(23, 77, 125);
+  margin-left: 20%;
+  margin-right: 20%;
+  border-radius: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-size: 2.5vmax;
+  text-align: center;
+}
+
+.dash_pStyle {
+  color: rgb(0, 0, 0);
+  font-size: 1vmax;
+  text-align: center;
+}
+
+.dash_leaderboardLink {
+  color: white;
+  text-shadow: 2px 2px 5px black;
+  text-align: right;
+}
+
+.go_to_leader_board_bttn{
+  margin-bottom: 1%;
+}
+
+@keyframes dash_fadeIn { 
+  from { opacity:0; } 
+  to { opacity:1; } 
+}
+
+@keyframes dash_moveUpwards {
+  from { padding-top: 24vh; } 
+  to { padding-top: 18vh; }   
 }
