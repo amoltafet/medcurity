@@ -28,6 +28,8 @@ const  AddContent = () => {
     const [answer3, setAnswer3] = useState([])
     const [answer4, setAnswer4] = useState([])
     const [questionAdded, setAdded] = useState(false)
+    
+    const [moduleIndex, setIndex] = useState(-1)
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -35,6 +37,7 @@ const  AddContent = () => {
             setLearningModules(response.data)
             console.log("Modules:", response.data)
             }).catch(error => console.error(`Error ${error}`));
+          
         },[])
 
     useEffect(() => {
@@ -70,19 +73,24 @@ const  AddContent = () => {
         }
     }, [questionAdded])
 
-
     function submitData() {
-        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `INSERT INTO LearningModules (Title, Subtitle, Description, Banner) VALUES ('${title}', '${subtitle}', '${description}', '${banner[0].name}')` } }).then((response) => {
-        console.log(response)
-        }).catch(error => console.error(`Error ${error}`));
+        // axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `INSERT INTO LearningModules (Title, Subtitle, Description, Banner) VALUES ('${title}', '${subtitle}', '${description}', '${banner[0].name}')` } }).then((response) => {
+        // console.log(response)
+        // }).catch(error => console.error(`Error ${error}`));
+        axios.post("http://localhost:3002/api/addModule", {
+            title: title, 
+            subtitle: subtitle,
+            description: description,
+            banner: banner[0].name
+          }).then((response) => {
+            console.log("response from new query", response.data["result"][0]["ID"]);
+            setIndex(response.data["result"][0]["ID"])
+          }).catch(error => console.log(`Error ${error}`));
 
         //TODO ... THEN call API method to store the image from (banner)
         var data = new FormData();
         data.append("bannerImage", banner[0]);
         axios.post("http://localhost:3002/api/postModuleBanner", data, { headers: { 'Content-Type': 'multipart/form-data' } })
-
-        var moduleIndex = learningModules[learningModules.length - 1].ID + 1;
-        console.log("Index", moduleIndex)
 
         for (var i = 0; i < question.length; i++) {
             axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `INSERT INTO Questions (question, solution, a2, a3, a4, module) VALUES ('${question[i]}', '${solution[i]}', '${answer2[i]}', '${answer3[i]}', '${answer4[i]}', '${moduleIndex}')` } }).then((response) => {

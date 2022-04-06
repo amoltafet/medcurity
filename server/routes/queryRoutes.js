@@ -17,5 +17,6 @@ router.get('/getModuleBanner', queryControllers.queryModuleBanner);
 router.get('/getModuleQuestions', queryControllers.queryModuleQuestions);
 router.get('/getModuleDirectoryInfo', queryControllers.queryModuleDirectoryInfo);
 router.get('/getDirectoryModulesInfo', queryControllers.queryDirectoryModulesInfo);
+router.post('/addModule', queryControllers.addModule);
 
 module.exports = router
