@@ -116,7 +116,6 @@ const queryUploadBanner = (req, res) => {
  const queryUploadProfile = (req, res) => {
     if (req.file)
     {
-        console.log('from queryUploadProfile:', req.query)
         db.query("UPDATE Users SET profilepicture = ? WHERE userid = ?", [req.file.filename, req.query.userid], (err, result) => { })
         logger.log('info', { methodName: '/postProfilePicture', body: `Uploaded "${req.file.filename}" to "assets/images/profiles"` }, { service: 'query-service' })
         res.send(true)
