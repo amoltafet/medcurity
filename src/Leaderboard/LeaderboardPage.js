@@ -164,7 +164,7 @@ const LeaderboardPage = () => {
                     <Col className="shadowTab_leaderboard uvs-left uvs-right" sm={2}>
                         <Nav variant="pills" className="selection_leaderbaord_container text-left">
                             <Nav.Item className="orginization_selection_tab">
-                                <Nav.Link className="leaderbaord_pill_font" eventKey="first">{companyName[0].name} Users</Nav.Link>
+                                <Nav.Link className="leaderbaord_pill_font" eventKey="first">{companyName.name} Users</Nav.Link>
                             </Nav.Item>
                             <Nav.Item className="all_leaderboard_selection ">
                                 <Nav.Link  className="leaderbaord_pill_font" eventKey="second">Meducrity Learn Security Users</Nav.Link>

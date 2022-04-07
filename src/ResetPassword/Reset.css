@@ -1,5 +1,5 @@
 .reset_passwordbg {
-    background-image: url("../Login/loginbg_small.png");
+    background-image: url("../Login/loginbg.png");
     height: 100%;
     width: 100%;
     background-position: center;
@@ -8,27 +8,6 @@
     
 }
 
-@media screen and (min-width: 1000px) {
-    .reset_passwordbg {
-        background-image: url("../Login/loginbg_medium.png");
-        height: 100%;
-        width: 100%;
-        background-position: center;
-        background-repeat: no-repeat;
-        position: fixed;
-    }
-  }
-
-@media screen and (min-width: 1500px) {
-    .reset_passwordbg {
-        background-image: url("../Login/loginbg.png");
-        height: 100%;
-        width: 100%;
-        background-position: center;
-        background-repeat: no-repeat;
-        position: fixed;
-    }
-  }
 
 .reset_password_registerCard {
     border: white;

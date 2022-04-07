@@ -70,7 +70,7 @@ export default function LoginPage()
   return (
       <>
       <Form className="loginbg img-fluid">
-        <Image className="MedcurityLogo justify-content-bottom" variant="top" src="/Medcurity_Logo.png" alt="" />
+        <Image className="MedcurityLogo_login justify-content-bottom" variant="top" src="/triangle_logo.png" alt="" />
         <div class="login_pageHeader">
           <h1 class="login_pageHeaderText">Welcome to Medcurity Learn Security</h1>
         </div>

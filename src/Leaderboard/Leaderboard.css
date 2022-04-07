@@ -1,10 +1,21 @@
 .leaderboardbg {
     background-image: url("leaderboard_medium.png");
-    height: 105%;
+    height: 100%;
     width: 100%;
     background-position: center;
     background-repeat: no-repeat;
     position: fixed;
+}
+
+@media screen and (max-height: 764px) {
+    .leaderboardbg {
+        background-image: url("leaderboard_medium.png");
+        height: 140%;
+        width: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        position: fixed;
+    }
 }
 
 
@@ -132,6 +143,7 @@
 
 
 
+
 @media screen and (min-width: 576px) {
     .shadowTab_leaderboard {
         margin-top: 15%;
@@ -211,6 +223,31 @@
         margin-bottom: 2%;
         margin-left: -4%;
         width: 13%;
+        height: 13.5vmin;
+        background-color:  white;
+     
+    }
+}
+
+@media screen and (max-height: 670px) {
+    .shadowTab_leaderboard {
+        margin-top: 15%;
+        margin-bottom: 2%;
+        margin-left: -4%;
+        width: 500%;
+        height: 13.5vmin;
+        background-color:  white;
+     
+    }
+}
+
+
+@media screen and (max-height: 764px) {
+    .shadowTab_leaderboard {
+        margin-top: 15%;
+        margin-bottom: 2%;
+        margin-left: -4%;
+        width: 20%;
         height: 13.5vmin;
         background-color:  white;
      

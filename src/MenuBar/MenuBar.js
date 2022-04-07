@@ -121,7 +121,7 @@ const Menubar = () => {
 
     return (
         <>
-        <Row>
+        <Row className="menubar_bg">
             <Col xs={2} md={2}>
             <OverlayTrigger
             placement="right"
@@ -151,6 +151,7 @@ const Menubar = () => {
                 </Card>
             </Col>
         </Row>
+     
         </>
     );
 
