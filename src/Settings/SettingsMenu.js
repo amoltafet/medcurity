@@ -159,10 +159,6 @@ const SettingsMenu = () => {
                                         }}>
                                     </Form.Control>
                                 </Form.Group>
-                                <Form.Group className="emailInput" controlId="formPlaintextEmail">
-                                        <Form.Text className="emailText">Change Password</Form.Text>
-                                        <Form.Control></Form.Control>
-                                </Form.Group>
                                 <h3>Change Password</h3>
                                 <Form.Group className="passwordInput" controlId="formPlaintextEmail">
                                     <Form.Text className="passwordText">New Password</Form.Text>
