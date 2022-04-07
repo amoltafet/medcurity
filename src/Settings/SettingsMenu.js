@@ -1,5 +1,6 @@
 import { Nav, Row, Form, Tab, Col, Container, Button, Popover, OverlayTrigger, Image } from 'react-bootstrap';
 import { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import React from 'react';
 import './SettingsMenu.css';
@@ -20,6 +21,7 @@ const SettingsMenu = () => {
     const [dueDate, setDueDate] = useState([]);
     const [convertedProfilePhoto, setConvertedProfilePicture] = useState("/user.png");
     const [profilePic, setProfilePic] = useState("")
+    const navigate = useNavigate();
 
     useEffect(() => { if (session.userid) axios.get("http://localhost:3002/api/getProfilePicture", { params: { id: session.userid }} ).then((response) => { setProfilePic(response.data.profileImage) }); })
 
@@ -103,6 +105,10 @@ const SettingsMenu = () => {
         setSaveData(true);
     }
 
+    const NavToDash = () => {
+        navigate('/dash');
+      };
+
     const popover = (
         <Popover id="popover-basic">
             <Popover.Title as="h3">Saved!</Popover.Title>
@@ -112,25 +118,25 @@ const SettingsMenu = () => {
 
     return (
         <>
-            <Tab.Container className="settingsRow justify-content-center" id="left-tabs-example" defaultActiveKey="first" style={{ display: 'flex' }}>
-                <Row className="settingsRow">
-                    <Col className=" shadowTab  uvs-left uvs-right" sm={2}>
-                        <Nav variant="pills" className="flex-column marginTop">
-                            <Nav.Item className=" justify-content-center">
-                                <Nav.Link className='justify-content-center selectedSetting' eventKey="first">User Profile Settings</Nav.Link>
+            <Tab.Container className="justify-content-center" defaultActiveKey="first" style={{ display: 'flex' }}>
+                <Col className="settingsRow uvs-left uvs-right">
+                    <Row className="dropShadow justify-content-center">
+                        <Nav variant="pills selectionBox" className="selectionBox justify-content-center uvs-left uvs-right">
+                            <Nav.Item className="justify-content-center settingSpacing">
+                                <Nav.Link className=' justify-content-center selectedSetting' eventKey="first">Profile Settings</Nav.Link>
                             </Nav.Item>
-                            <Nav.Item className="justify-content-center">
-                                <Nav.Link className='unselectedSetting justify-content-center' eventKey="second">Organization Information</Nav.Link>
+                            <Nav.Item className="justify-content-center settingSpacing">
+                                <Nav.Link className=' unselectedSetting justify-content-center' eventKey="second">Company Info</Nav.Link>
                             </Nav.Item>
                         </Nav>
-                    </Col>
-                    <Col className="dropShadow justify-content-center uvs-left uvs-right" sm={8}>
+                    </Row>
+                    <Row className="dropShadow justify-content-center">
                         <Container className="settingsContentPaneContainer">
                         <Tab.Content>
                         <Tab.Pane eventKey="first">
                             <Form>
                                 <Form.Group>
-                                    <Image className="dash_profilePicture" variant="top" src={`data:image/png;base64,${profilePic}`} alt="" roundedCircle></Image>
+                                    <Image className="settingsProfilePicture" variant="top" src={`data:image/png;base64,${profilePic}`} alt="" roundedCircle></Image>
                                 <Form.File 
                                     className="userProfilePhotoInput"
                                     onChange={(e) => uploadUserPhoto((e.target.files[0]))}
@@ -141,7 +147,7 @@ const SettingsMenu = () => {
                                         <Form.Control disabled defaultValue={session.email}></Form.Control>
                                 </Form.Group>
                                 <Form.Group className="usernameInput" controlId="formPlaintextEmail">
-                                    <Form.Text className="usernameText">UserName</Form.Text>
+                                    <Form.Text className="usernameText">Username</Form.Text>
                                     <Form.Control
                                         defaultValue={session.username}
                                         onChange={(e) => {
@@ -155,12 +161,17 @@ const SettingsMenu = () => {
                                 </Form.Group>
                             </Form>
                                <OverlayTrigger delay={{ show: 5000, hide: 4000 }} show={show} placement="bottom" overlay={popover}>
-                                            <Button
-                                                className="settingsSaveButton"
-                                                onClick={() => SaveUpdatedUserInfo()}>
-                                                Save
-                                            </Button>
-                                        </OverlayTrigger>
+                                        <Button
+                                            className="settingsWideButton"
+                                            onClick={() => SaveUpdatedUserInfo()}>
+                                            Save
+                                        </Button>
+                                    </OverlayTrigger>
+                                        <Button
+                                            className="settingsWideButton"
+                                            onClick={NavToDash}>
+                                            Back to Dashboard
+                                        </Button>
                                    
                                 </Tab.Pane>
                                 <Tab.Pane eventKey="second">
@@ -177,8 +188,8 @@ const SettingsMenu = () => {
                                 </Tab.Pane>
                             </Tab.Content>
                         </Container>
-                    </Col>
-                </Row>
+                    </Row>
+                </Col>
             </Tab.Container>
         </>
     );
