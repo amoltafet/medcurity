@@ -3,7 +3,7 @@ import { Form , Card, Button, Container, Col} from 'react-bootstrap';
 import { useEffect, useState, Link} from "react";
 import { useParams } from "react-router";
 import { useNavigate } from 'react-router-dom';
-import './EmployerCard.css'
+import './AdminInvitations.css'
 import Axios from 'axios';
 
 /**
@@ -84,12 +84,12 @@ const AdminInvitations = () => {
 
     return (
         <Container className="EmployerInviteRequestCard uvs-right" >
-            <div className="registerHeader">Employer Invitations</div>
+            <h2 className="registerHeader">Employer Invitations</h2>
             <div className="InviteSubtitle font">Type in an email to create an empty account for a prospective Employer. They will be able to register using that email.</div>
             <Container className='EmployerInviteContent' style={{display: 'flex', flexDirection: 'row' }}>
                 <Col>
                     <Form className="emailInvite">
-                        <Form.Group className="email" controlId="formEmail">
+                        <Form.Group className="email"  id="email-invite" controlId="formPlaintextEmail">
                             <Form.Control 
                             type="email" 
                             id ="emailTextBox"
@@ -102,10 +102,13 @@ const AdminInvitations = () => {
                         <Form.Text className="registerMessage">{message}</Form.Text>
 
                     </Form>
+                    <Button className="createButton" variant="secondary" type="button" onClick={invite} href='/admin-dash'>Invite</Button>
                 </Col>
-                <label htmlFor="company-list">
-                    Company List:
-                    <select className="learningModule" multiple={false}
+                <Col>
+                    <label htmlFor="company-list" id='company-label'>
+                        Company List:
+                    </label>
+                    <select id="company-list" size={5} multiple={false}
                         onChange={ (e) => 
                         {
                             setUserCompany(e.target.value)
@@ -113,9 +116,8 @@ const AdminInvitations = () => {
                         }}>
                         {createDropDownOptions()}
                     </select>
-                </label>
+                </Col>
             </Container>
-            <Button className="createButton" variant="secondary" type="button" onClick={invite} href='/admin-dash'>Invite</Button>
         </Container>
     );
 }

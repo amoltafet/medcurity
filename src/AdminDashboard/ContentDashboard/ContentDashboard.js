@@ -60,7 +60,6 @@ const AdminContentPage = () => {
         <MenuBar></MenuBar>
         <CardDeck className="dashTopPanel" style={{display: 'flex', flexDirection: 'row'}}>
           <WelcomePanel user={session} subtitle={'to the Learning Manager Page'}/>
-          <Button href="/admin-dash">Press to add Employers</Button>
         </CardDeck>
         <LearningManagerCards companyId={companyId}/>
         

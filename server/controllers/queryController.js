@@ -2,6 +2,7 @@ const db = require('../dbConfig')
 const logger = require('../logger').log
 const fs = require('fs')
 const path = require('path')
+const { doesNotMatch } = require('assert')
 
 /**
  * Queries the database with any given mySQL query. 
@@ -46,6 +47,20 @@ const queryModuleDirectoryInfo = (req,res)=>{
         if (err) logger.log('error', { methodName: '/queryModuleDirectoryInfo', body: err }, { service: 'query-service' })
         logger.log('info', `Queried LearningModulesDirectories with ModuleID: "${req.query.id}" Fields: ${result}`, { service: 'query-service' })
         res.send(result)
+    })
+}
+
+const addModule = (req, res)=>{
+    const title = req.body.title
+    const subtitle = req.body.subtitle
+    const description = req.body.description
+    const banner = req.body.banner
+
+    db.query("INSERT INTO LearningModules (Title, Subtitle, Description, Banner)  VALUES (?,?,?, ?)", [title, subtitle, description, banner], (err,result) => {
+        logger.log('info', `New Learning Module: "${result}"`);
+        db.query(`SELECT ID FROM LearningModules WHERE Title = '${title}'`, (err,result) => {
+            res.send({result:result, success: true, message: `ID for added module: `});
+        })
     })
 }
 
@@ -138,4 +153,5 @@ module.exports =
     queryModuleQuestions,
     queryModuleDirectoryInfo,
     queryDirectoryModulesInfo,
+    addModule,
 };
