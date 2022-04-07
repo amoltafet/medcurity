@@ -121,7 +121,7 @@ const SettingsMenu = () => {
             <Tab.Container className="justify-content-center" defaultActiveKey="first" style={{ display: 'flex' }}>
                 <Col className="settingsRow uvs-left uvs-right">
                     <Row className="dropShadow justify-content-center">
-                        <Nav variant="pills selectionBox" className="selectionBox justify-content-center uvs-left uvs-right">
+                        <Nav variant="pills selectionBox" className="selectionBox justify-content-center">
                             <Nav.Item className="justify-content-center settingSpacing">
                                 <Nav.Link className=' justify-content-center selectedSetting' eventKey="first">Profile Settings</Nav.Link>
                             </Nav.Item>
