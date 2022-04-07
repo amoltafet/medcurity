@@ -76,9 +76,21 @@ const SettingsMenu = () => {
                     
                 }).catch(error => console.log(`Error ${error}`));
             }
+            if(newPassword !== "") {
+                axios.post("http://localhost:3002/users/changeUserPassword", {
+                    userid: session.userid,
+                    newPassword: newPassword,
+                    retypedPassword: repeatPassword
+                }).then((response) => {
+                    console.log("response", response.data);
+                    
+                }).catch(error => console.log(`Error ${error}`));
+            }
 
             setSaveData(false);
             setShow(true);
+            navigate('/settings');
+
         }
        
     }, [saveData, newUserName, session.userid])
@@ -168,7 +180,7 @@ const SettingsMenu = () => {
                                 </Form.Group>
                                 <h3>Change Password</h3>
                                 <Form.Group className="passwordInput" controlId="formPlaintextEmail">
-                                    <Form.Text className="passwordText">New Password</Form.Text>
+                                    <Form.Text className="passwordText" id="newPasswordText">New Password</Form.Text>
                                     <Form.Control
                                         onChange={(e) => {
                                             setPassword(e.target.value);
@@ -176,7 +188,7 @@ const SettingsMenu = () => {
                                     ></Form.Control>
                                 </Form.Group>
                                 <Form.Group className="passwordInput" controlId="formPlaintextEmail">
-                                    <Form.Text className="passwordText">Retype Password</Form.Text>
+                                    <Form.Text className="passwordText" id="repeatPasswordText">Retype Password</Form.Text>
                                     <Form.Control
                                         onChange={(e) => {
                                             setRepeatPassword(e.target.value);
