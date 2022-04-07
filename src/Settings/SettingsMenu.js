@@ -135,7 +135,7 @@ const SettingsMenu = () => {
                         <Tab.Content>
                         <Tab.Pane eventKey="first">
                             <Form>
-                                <Form.Group>
+                                <Form.Group className="justify-content-center">
                                     <Image className="settingsProfilePicture" variant="top" src={`data:image/png;base64,${profilePic}`} alt="" roundedCircle></Image>
                                 <Form.File 
                                     className="userProfilePhotoInput"
