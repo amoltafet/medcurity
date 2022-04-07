@@ -63,7 +63,7 @@ export default function RegisterPage()
                   <p class="register_p">All you need is an email and password to create an account.</p>
                   <Form.Group className="register_Form" controlId="formEmail"> <Form.Control type="email" placeholder="Email" onChange={ (e) => {setEmail(e.target.value); }}/> </Form.Group>
                   <p></p>
-                  <Form.Group className="register_Form" controlId="formPassword"> <Form.Control type="password" placeholder="Password" onChange={ (e) => {setEmail(e.target.value); }}/> </Form.Group>
+                  <Form.Group className="register_Form" controlId="formPassword"> <Form.Control type="password" placeholder="Password" onChange={ (e) => {setPassword(e.target.value); }}/> </Form.Group>
                   <p class="register_registerResponse">{message}</p>
                   <Button className="register_button" onClick={register} variant="secondary" type="button">Create Account</Button>
                   <Button className="register_button" onClick={login} variant="secondary" type="button">Back to Login Page</Button>
