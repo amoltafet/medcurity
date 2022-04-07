@@ -65,16 +65,19 @@ const Leaderboard = (props) => {
             if (users[users.length-1].username === props.user.username) {
                 return ([
                     <DashLeaderboardProfiles
+                        userid={users[users.length - 3].userid}
                         name={users[users.length - 3].username}
                         index={users.length - 3}
                         className={className}
                         score={users[users.length - 3].category1 + users[users.length - 3].category2 + users[users.length - 3].category3 + users[users.length - 3].category4 + users[users.length - 3].category5} />,
                     <DashLeaderboardProfiles
+                        userid={users[users.length - 2].userid}
                         name={users[users.length - 2].username}
                         index={users.length - 2}
                         className={className} 
                         score={users[users.length - 2].category1 + users[users.length - 2].category2 + users[users.length - 2].category3 + users[users.length - 2].category4 + users[users.length - 2].category5}/>,
                     <DashLeaderboardProfiles
+                        userid={props.user.userid}
                         name={props.user.username}
                         index={users.length - 1}
                         className={className}
@@ -85,16 +88,19 @@ const Leaderboard = (props) => {
             else if (users[0].username === props.user.username) {
                 return ([
                     <DashLeaderboardProfiles
+                        userid={props.user.userid}
                         name={props.user.username}
                         index={1}
                         className={className} 
                         score={(props.user.category1 + props.user.category2 + props.user.category3 + props.user.category4 + props.user.category5)}/>,
                     <DashLeaderboardProfiles
+                        userid={users[1].userid}
                         name={users[1].username}
                         index={2}
                         className={className} 
                         score={(users[1].category1 + users[1].category2 + users[1].category3 + users[1].category4 + users[1].category5)}/>,
                     <DashLeaderboardProfiles
+                        userid={users[2].userid}
                         name={users[2].username}
                         index={3}
                         className={className} 
@@ -104,16 +110,19 @@ const Leaderboard = (props) => {
             else if (users[users.length - 1].username !== props.user.username && otherUsers[1] !== undefined) {
                 return ([
                     <DashLeaderboardProfiles
+                        userid={otherUsers[0].userid}
                         name={otherUsers[0].username}
                         index={index}
                         className={className} 
                         score={otherUsers[0].category1 + otherUsers[0].category2 + otherUsers[0].category3 + otherUsers[0].category4 +  otherUsers[0].category5}/>,
                     <DashLeaderboardProfiles
+                        userid={props.user.userid}
                         name={props.user.username}
                         index={index + 1}
                         className={className} 
                         score={props.user.category1 + props.user.category2 + props.user.category3 + props.user.category4 +  props.user.category5}/>,
                     <DashLeaderboardProfiles
+                        userid={otherUsers[1].userid}
                         name={otherUsers[1].username}
                         index={index + 2}
                         className={className} 

@@ -1,13 +1,13 @@
 const multer  = require('multer')
-const serverConfig = require('./serverConfig.json')
+const serverConfig = require('../serverConfig.json')
 const path = require('path')
 
-module.exports = class BannerUploader {
+module.exports = class ProfileUploader {
 
     constructor() {
 		this.storage = multer.diskStorage(
             { 
-                destination: function (req, file, cb) { cb(null, path.join(__dirname, serverConfig.server.BANNER_UPLOAD_PATH)) }, 
+                destination: function (req, file, cb) { cb(null, path.join(__dirname, serverConfig.server.PROFILE_UPLOAD_PATH)) }, 
                 filename: function (req, file, cb) 
                 {
                     cb(null, `${file.originalname}`);
