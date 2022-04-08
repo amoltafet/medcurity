@@ -160,22 +160,26 @@ const userLogin = (req,res) =>
     const email = req.body.email
     const password = req.body.password
 
-    db.query(`SELECT EXISTS(SELECT * FROM Users WHERE email = '${email}') AS doesExist`, (err,result) => {
-        if (result[0].doesExist == 1)
+    db.query(`SELECT EXISTS(SELECT * FROM Users WHERE email = '${email}') AS doesExist`, (err,userExists) => {
+        if (userExists[0].doesExist == 1)
         {
-            db.query(`SELECT * FROM Users WHERE email = '${email}'`, (err,result) => {
-                bcrypt.compare(password, result[0].password, (error, response) => {
-                    if (response) 
-                    {
-                        req.session.userSession = result;
-                        logger.log('info', `Existing user "${email}" logged in.`, { service: 'user-service' })
-                        res.send({ result: result, success: true, message: "Logging in!" });
-                    } 
-                    else 
-                    {
-                        res.send({ success: false, message: "Wrong username/password combination!" });
-                    }
-                });
+            db.query(`SELECT * FROM Users WHERE email = '${email}'`, (err,userData) => {
+                db.query(`SELECT Users.userid, AffiliatedUsers.CompanyID FROM Users INNER JOIN AffiliatedUsers ON Users.userid=AffiliatedUsers.UserID WHERE Users.userid = '${userData[0].userid}'`, (err,userCompanyID) => {
+                    bcrypt.compare(password, userData[0].password, (error, response) => {
+                        if (response) 
+                        {
+                            userData[0].password  = null;
+                            userData[0].companyid = userCompanyID[0]?.CompanyID || 0
+                            req.session.userSession = userData;
+                            logger.log('info', `Existing user "${email}" logged in.`, { service: 'user-service' })
+                            res.send({ result: userData, success: true, message: "Logging in!" });
+                        } 
+                        else 
+                        {
+                            res.send({ success: false, message: "Wrong username/password combination!" });
+                        }
+                    });
+                })
             })
         }
         else
