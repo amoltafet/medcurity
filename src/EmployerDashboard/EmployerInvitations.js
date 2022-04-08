@@ -10,12 +10,19 @@ import Axios from 'axios';
  * This class allows employers to enter in future user emails.
  * Inputs are validated, then new users are added
  */
-const EmployerInvitations = () => {
+const EmployerInvitations = (props) => {
     Axios.defaults.withCredentials = true;
 
     const [message, setMessage] = useState("")
     const [email, setEmail] = useState("");
+    const [isLoading, setLoading] = useState(true)
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (Number.isInteger(props.companyId)) {
+            setLoading(false)
+        }
+    }, [props.companyId])
 
     /**
      * This function creates a new basic user account.
@@ -23,28 +30,27 @@ const EmployerInvitations = () => {
      * 
      */
     const invite = () => {
-        console.log('INVITING', email)
-        Axios.post("http://localhost:3002/users/register",
-        { 
-        email: email,
-        }).then((response) => 
-        {
-        console.log("response.data =", response.data)
-        if (response.data === true)
-        {
-            console.log("A new invitation!")
-            navigate('/employer-dash');
+        if (!isLoading) {
+            console.log('INVITING', email)
+            Axios.post("http://localhost:3002/users/registerEmpty",
+            { 
+            email: email,
+            companyid: String(props.companyId),
+            }).then((response) => 
+            {
+            console.log("response.data =", response.data)
+            if (response.data === true)
+            {
+                console.log("A new invitation!")
+                props.setReload(true)
+            }
+            else if (response.data === false)
+            {
+                console.log("Already has account!")
+                setMessage('This email is already associated with an account! Please try a different email.')
+            }
+            });
         }
-        else if (response.data === false)
-        {
-            console.log("Already has account!")
-            setMessage('This email is already associated with an account! Please try a different email.')
-        }
-        });
-    };
-
-    const login = () => {
-        navigate('/');
     };
   
     return (

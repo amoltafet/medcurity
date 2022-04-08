@@ -27,13 +27,20 @@ const EmployerCard = (props) => {
      */
     function removeEmployer() {
         console.log("Removing Employer from company");
-            axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `DELETE FROM CompanyAdmins WHERE UserID = '${props.userId}'` } }).then((response) => {
-            }).catch(error => console.error(`Error ${error}`));
+        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `DELETE FROM CompanyAdmins WHERE UserID = '${props.userId}'` } }).then((response) => {
+        }).catch(error => console.error(`Error ${error}`));
         
         axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `DELETE FROM Users WHERE userid = '${props.userId}'` } }).then((response) => {
         }).catch(error => console.error(`Error ${error}`));
-        
 
+        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `DELETE FROM AffiliatedUsers WHERE UserID = '${props.userId}'` } }).then((response) => {
+        }).catch(error => console.error(`Error ${error}`));
+
+        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `DELETE FROM AssignedLearningModules WHERE UserID = '${props.userId}'` } }).then((response) => {
+        }).catch(error => console.error(`Error ${error}`));
+
+        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `DELETE FROM CompletedModules WHERE UserID = '${props.userId}'` } }).then((response) => {
+        }).catch(error => console.error(`Error ${error}`));
     }
 
     // function removeModule() {

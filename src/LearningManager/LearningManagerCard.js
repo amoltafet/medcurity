@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { Card, Col, Button, OverlayTrigger, Popover } from 'react-bootstrap';
 import './LearningManager.css';
 import { useState} from "react";
+import Axios from 'axios';
 
 //TODO
 // Connect button to remove user functionality
@@ -13,15 +14,32 @@ import { useState} from "react";
  * @returns 
  */
 const LearningManagerCard = (props) => {
-    const [isOpen, setIsOpen] = useState(false);
+    const [message, setMessage] = useState('');
  
-
     /**
      * Removes a user from the selected company
      * @param {int} userId 
      */
-    function removeModule(userId, companyId) {
-        console.log("Removing LearningModule from company");
+    function removeModule(moduleId, companyId) {
+        console.log('Removing Module: ', moduleId)
+        Axios.post("http://localhost:3002/users/removeModuleFromCompany",
+        { 
+        learningModId: moduleId,
+        companyid: companyId
+        }).then((response) => 
+        {
+        console.log("response.data =", response.data)
+        if (response.data === true)
+        {
+            console.log("Removing module!")
+            props.setReload(true)
+            
+        }
+        else if (response.data === false)
+        {
+            setMessage('This has already been removed. Please refresh the page.')
+        }
+        });
     }
 
 
@@ -32,10 +50,13 @@ const LearningManagerCard = (props) => {
                 <div className="LearningManagerCardValues">{props.learningModuleName}</div>
             </Col>
             <Col sm>
-                <OverlayTrigger trigger="click" placement="left" 
+                <OverlayTrigger trigger="click" rootClose placement="left" 
                 overlay={
                     <Popover id="popover-basic" className="LearningManagerPopup">
-                        <div className="LearningManagerCardValues">Please confirm that you want to remove the module '{props.learningModuleName}' from your assigned list of modules: </div> 
+                        <div className="LearningManagerCardValues">Please confirm that you want to remove the 
+                            module '{props.learningModuleName}' from your assigned list of modules. Note that 
+                            all users will have to redo this learning module if you delete and re-add it: </div> 
+                        <div>{message}</div>
                         <Button className="LearningManagerInRowButton uvs-right" 
                             variant="success" 
                             onClick={() => removeModule(props.moduleId, props.companyId)}> 

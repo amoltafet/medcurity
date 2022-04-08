@@ -4,7 +4,7 @@
     margin-right: .5%;
     margin-bottom: .1%;
     border-radius: 10px 10px 10px 10px;
-    background-color: #c33333;
+    background-color: #d8dae3;
     width: 98%;
     text-align: left;
 
@@ -20,7 +20,7 @@
     margin-right: .5%;
     margin-bottom: .5%;
     border-radius: 10px 10px 10px 10px;
-    background-color: #4933c3;
+    background-color: #1e5b88;
     width: 33%;
     text-align: left;
 
@@ -49,6 +49,7 @@
 .EmployerInRowButton {
     margin-top: 1%;
     margin-bottom: 1%;
+    background-color: #127ebf
 }
 
 .EmployerCardValues {
@@ -56,6 +57,7 @@
     margin-bottom: 1%;
     margin-left: 2%;
     margin-right: .5%;
+    color:black
 }
 
 .EmployerPopup {
@@ -76,4 +78,12 @@
     margin-top: 10%;
     width: 100%;
     margin-bottom: 0%;
+}
+
+#employer-header {
+    color:white
+}
+
+.Employer-container {
+    background-color: #93c2ec;
 }

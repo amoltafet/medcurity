@@ -14,11 +14,14 @@ import './LeaderboardProfile.css'
 * @param {user} user the user grabed from the dashboard.
 * @return {GetPage}
 */
-function LeaderboardProfile( props) {
+function LeaderboardProfile(props) {
     const [directories, setDirectories] = useState([]);
     axios.defaults.withCredentials = true;
     const [session, setSession] = useState([]);
+    const [profilePic, setProfilePic] = useState("")
     const totalScore = props.scores[0] + props.scores[1] + props.scores[2] + props.scores[3] + props.scores[4] + props.scores[5]; 
+
+    //console.log(props.userid)
 
     /**
     * Creates and displays each users leaderboard profile. 
@@ -45,6 +48,8 @@ function LeaderboardProfile( props) {
             setDirectories(Object.values(response.data))
         }).catch(error => console.error(`Error ${error}`));
     }, [])
+
+    useEffect(() => { if (props.userid) axios.get("http://localhost:3002/api/getProfilePicture", { params: { id: props.userid }} ).then((response) => { setProfilePic(response.data.profileImage) }); })
 
     const GetCurrentModule = () => {
         var categoryData = []
@@ -134,7 +139,7 @@ function LeaderboardProfile( props) {
                         <div className="leaderboardRank">{props.index}.</div>
                     </Col>
                     <Col xs={2} md={2}>
-                        <Image className={props.className[1]} src="/user.png" alt="" roundedCircle />
+                    <Image className={props.className[1]} src={`data:image/png;base64,${profilePic}`} alt="" roundedCircle />
                     </Col>
                     <Col xs={4} md={4}>
                         <Card.Text className="userNameTitle">{props.name}</Card.Text>

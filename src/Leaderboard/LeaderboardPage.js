@@ -127,6 +127,7 @@ const LeaderboardPage = () => {
       index++;
       return (
             <LeaderboardProfile 
+                userid={userProfile.userid} 
                 name={userProfile.username} 
                 index={index}
                 className={className}
@@ -144,6 +145,7 @@ const LeaderboardPage = () => {
         company_index++;
         return (
               <LeaderboardProfile 
+                  userid={userProfile.userid} 
                   name={userProfile.username} 
                   index={company_index}
                   className={className}

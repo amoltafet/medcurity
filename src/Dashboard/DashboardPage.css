@@ -105,8 +105,9 @@ html {
 .dash_profilePicture {
   margin-right: 1%;
   margin-bottom: 1%;
-  width: 20vmin;
-  height: 20vmin; 
+  width: 200px;
+  height: 200px; 
+  object-fit: cover;
 }
 
 .dash_separatorBegin {

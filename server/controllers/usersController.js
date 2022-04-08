@@ -10,38 +10,7 @@ const logger = require('../logger').log
  * Queries the database to register a new user. Passwords are hashed + salted using bcrypt.
  */
 const userRegister = (req,res) => 
-{
-    const checkEmail = (emailString) => 
-    {
-      if (emailValidator.validate(emailString))
-      {
-        return { result: true, message: null}
-      }
-      else
-      {
-        return { result: false, message: `That's not a valid email address!`}
-      }
-    }
-  
-    const checkPassword = (passwordString) => 
-    {
-      if (passwordStrength(passwordString).contains.length === 4)
-      {
-        if (passwordStrength(passwordString).id > 1)
-        {
-          return { result: true, message: null}
-        }
-        else
-        {
-          return { result: false, message: `Your password is too weak! Please enter a stronger password.` }
-        }
-      }
-      else
-      {
-        return { result: false, message: `Your password must contain the following: lowercase letter, uppercase letter, symbol, number` }
-      }
-    }
-    
+{   
     const email = req.body.email
     const password = req.body.password
     const username = email.substring(0, email.indexOf("@"));
@@ -97,21 +66,57 @@ const userRegister = (req,res) =>
 }
 
 /**
+ * Queries the database to update a user's password.
+ */
+const userChangePassword = async (req,res) => 
+{    
+    const userid          = req.body.userid
+    const newPassword     = req.body.newPassword
+    const retypedPassword = req.body.retypedPassword
+
+    let validPass = checkPassword(newPassword)
+    let passwordsMatch = (newPassword === retypedPassword)
+    
+    if (validPass.result)
+    {
+        if (passwordsMatch)
+        {
+            updateUserPassword(userid, newPassword)
+            res.send({result: true, message: 'You changed your password successfully!'})
+        }
+        else
+        {
+            // retyped pass does not match new pass
+            console.log('no match')
+            res.send({result: false, message: 'Your retyped password does not match your new password!'})
+        }
+    }
+    else
+    {
+        // password strength bad
+        console.log(validPass.message)
+        res.send({result: false, message: validPass.message})
+    }
+}
+
+/**
  * Queries the database to register an inactive user.
  */
 const userRegisterEmpty = (req,res) => 
 {
-
     const email = req.body.email
     const username = email.substring(0, email.indexOf("@"));
+    const companyid = req.body.companyid
 
     db.query(`SELECT EXISTS(SELECT * FROM Users WHERE email = '${email}') AS doesExist`, (err,result) => {
         if (result[0].doesExist == 0)
         {
             db.query("INSERT INTO Users (username, email, active) VALUES (?,?,?)", [username, email, false], (err, result) => {
-                db.query(`SELECT * FROM Users WHERE email = '${email}'`, (err,result) => {
-                    res.send(true)
-                })
+                db.query(`SELECT * FROM Users WHERE email = '${email}'`, (err,user) => {
+                    db.query("INSERT INTO AffiliatedUsers (UserID, CompanyID) VALUES (?,?)", [user[0].userid, companyid], (err, result) => {
+                        res.send(true)
+                    });
+                });
             });
         }
         else
@@ -120,6 +125,7 @@ const userRegisterEmpty = (req,res) =>
         }
     })
 }
+
 
 /**
  * Queries the database to register an inactive company admin assigned to a company.
@@ -222,7 +228,7 @@ const userLogout = (req, res) =>
 /**
  * Updates the users settings - only username for now.
  */
-const changeUserName = (req, res) => {
+const userChangeUsername = (req, res) => {
     const newUserName = req.body.username;
     const userId = req.body.id;
 
@@ -247,8 +253,6 @@ const userPoints = (req, res) => {
     const length = req.body.lengths;
     const userid = req.body.userid;
 
-   
-
     db.query(`UPDATE Users SET ${categoryName} = '${points}', ${percentName} = "${length}" WHERE userid = '${userid}'`, (err,result) => {
         db.query(`SELECT * FROM Users WHERE userid = '${userid}'`, (err,result) => {
             logger.log('info', `Updated User-"${userid}" points to: "${points}"`);
@@ -259,7 +263,7 @@ const userPoints = (req, res) => {
 }
 
 /**
- * Moves the assigned module to be a completed module.
+ * Store a learning module as completed.
  */
 const userModuleCompleted = (req, res) => {
     var today = new Date();
@@ -268,34 +272,152 @@ const userModuleCompleted = (req, res) => {
     const userid = req.body.userid;   
 
     db.query(`INSERT INTO CompletedModules (UserID, LearningModID, DateCompleted)  VALUES (?,?,?)`, [userid, categoryId, today], (err,result) => {
-        db.query(`DELETE FROM AssignedLearningModules WHERE LearningModID = "${categoryId}" AND UserID = "${userid}"`, (err,result) => {
-            db.query(`SELECT * FROM Users WHERE userid = '${userid}'`, (err,result) => {
-                logger.log('info', `User-'${userid}' completed Module '${categoryId}', on: "${today}"`);
-                req.session.userSession = result;
-                res.send({success: true, message: `Completed Module & Removed from the Assigned`});
-            })
-        }) 
+        db.query(`SELECT * FROM Users WHERE userid = '${userid}'`, (err,result) => {
+            logger.log('info', `User-'${userid}' completed Module '${categoryId}', on: "${today}"`);
+            req.session.userSession = result;
+            res.send({success: true, message: `Completed Module`});
+        })
     })   
 }
 
 /**
- * Changes the users profile picture.
+ * Removes a user from the site
+ * Involves removing the user from Users table, AffiliatedUsers,
+ * CompanyAdmins, CompletedModules
  */
- const changeProfilePicture = (req, res) => {
-    const newProfilePicture = req.body.profilepicture;
-    const userId = req.body.id;
+const deleteUser = (req,res) => 
+{
+    const userid = req.body.userid
 
-    logger.log('info', ` profile picture  "${newProfilePicture}"`);
-    logger.log('info', `id "${userId}"`);
-    db.query(`UPDATE Users SET profilepicture = "${newProfilePicture}" WHERE userid = "${userId}"`, (err,result) => {
-        db.query(`SELECT * FROM Users WHERE userid = '${userId}'`, (err,result) => {
-            req.session.userSession = result;
-            logger.log('info', `Updated profile picture to "${newProfilePicture}"`);
-            res.send({ result: result, success: true, message: "Updated profile picture!" });
-        })
-    }) 
+    db.query((`SELECT EXISTS(SELECT * FROM Users ` +
+        `WHERE Users.userid = '${userid}') AS doesExist`), (err, result) => {
+        if (result[0].doesExist == 1)
+        {
+            if (err) console.log(err);
+
+            db.query(`DELETE FROM AffiliatedUsers WHERE AffiliatedUsers.UserID = '${userid}'`, (err, result) => {});
+            db.query(`DELETE FROM Users WHERE Users.userid = '${userid}'`, (err, result) => {});
+            db.query(`DELETE FROM CompanyAdmins WHERE CompanyAdmins.UserID = '${userid}'`, (err, result) => {});
+            db.query(`DELETE FROM CompletedModules WHERE CompletedModules.UserID = '${userid}'`, (err, result) => {});
+            res.send(true)
+        }
+        else
+        {
+            res.send(false)
+        }
+    })
+
+    
 }
 
+/**
+ * Assign a learning module to a company if it is not already assigned
+ * TODO assign date
+*/
+const assignModulesToCompany = (req,res) => 
+{
+    const learningmodid = req.body.learningModId
+    const companyid = req.body.companyid
+
+    db.query(`SELECT EXISTS(SELECT * FROM CompanyLearningModules as CLM ` +
+    `WHERE CLM.LearningModId = '${learningmodid}' and CLM.CompanyID = '${companyid}') AS doesExist`, (err,result) => {
+        if (result[0].doesExist == 0)
+        {
+            db.query("INSERT INTO CompanyLearningModules (LearningModID, CompanyID) VALUES (?,?)", [learningmodid, companyid], (err, result) => {
+            res.send(true)
+            });
+        }
+        else
+        {
+            res.send(false)
+        }
+    })
+ }
+
+/**
+ * Removes assigned learning module from a company
+ * Also removes all completed module records for that learning module
+ * from all users in the company
+ */
+ const removeModuleFromCompany = (req, res) => {
+    const learningmodid = req.body.learningModId
+    const companyid = req.body.companyid
+
+    db.query((`SELECT EXISTS(SELECT * FROM CompanyLearningModules ` +
+        `WHERE CompanyLearningModules.LearningModID = '${learningmodid}' and CompanyLearningModules.CompanyID = '${companyid}') AS doesExist`), (err, result) => {
+        if (result[0].doesExist == 1)
+        {
+            if (err) logger.log('error', { methodName: '/removeModuleFromCompany', errorBody: err }, { service: 'user-service' });
+
+            db.query(`DELETE FROM CompanyLearningModules WHERE CompanyLearningModules.LearningModID = '${learningmodid}' and CompanyLearningModules.CompanyID = '${companyid}'`, (err, result) => {
+                logger.log('info', `Deleted CompanyLearningModule with companyID: "${companyid}" and learningModID: "${learningmodid}" Fields: ${result}`, { service: 'user-service' })
+                db.query(`SELECT AffiliatedUsers.UserID ` + 
+                    `FROM AffiliatedUsers ` +
+                    `WHERE AffiliatedUsers.CompanyID = '${companyid}'`, (err, company_users) => {
+                        logger.log('info', `Queried User ids affiliated with company: "${companyid}" Fields: ${result}`, { service: 'user-service' })
+                    for (index in company_users) {
+                        db.query(`DELETE FROM CompletedModules WHERE CompletedModules.LearningModID = ` +
+                            `'${learningmodid}' and CompletedModules.UserID = '${company_users[index].UserID}'`, 
+                            (err, result) => {
+                                if(!err && result.affectedRows > 0) deletionStatus = true;
+                                else deletionStatus = false;
+                                logger.log('info', `Attempted deletion of CompletedModules record learningModID: "${learningmodid}" and UserID: "${company_users[index].UserID}." Successfully deleted if true: "${deletionStatus}" Fields: ${result}`, { service: 'user-service' })    
+                            });
+
+                                             }
+                    res.send(true)
+                });
+            });
+        }
+        else
+        {
+            res.send(false)
+        }
+    })
+}
+
+/**
+ * Changes the users profile picture.
+ * Below are helper functions!
+ */
+
+const checkEmail = (emailString) => 
+{
+  if (emailValidator.validate(emailString))
+  {
+    return { result: true, message: null}
+  }
+  else
+  {
+    return { result: false, message: `That's not a valid email address!`}
+  }
+}
+
+const checkPassword = (passwordString) => 
+{
+  if (passwordStrength(passwordString).contains.length === 4)
+  {
+    if (passwordStrength(passwordString).id > 1)
+    {
+      return { result: true, message: null}
+    }
+    else
+    {
+      return { result: false, message: `Your password is too weak! Please enter a stronger password.` }
+    }
+  }
+  else
+  {
+    return { result: false, message: `Your password must contain the following: lowercase letter, uppercase letter, symbol, number` }
+  }
+}
+
+const updateUserPassword = async (userid, newPassword) => {
+    let hash = await bcrypt.hash(newPassword, saltRounds)
+    db.query(`UPDATE Users SET password = ? WHERE userid = ?`, [hash, userid], (err, result) => { 
+        //TODO Logging
+    })
+}
 
 
 module.exports = 
@@ -306,8 +428,12 @@ module.exports =
     userRegisterCompanyAdmin,
     userLoginSession,
     userLogout,
-    changeUserName,
+    userChangeUsername,
+    userChangePassword,
     userPoints,
     userModuleCompleted,
-    changeProfilePicture,
+    deleteUser,
+    assignModulesToCompany,
+    removeModuleFromCompany,
+    userModuleCompleted,
 };

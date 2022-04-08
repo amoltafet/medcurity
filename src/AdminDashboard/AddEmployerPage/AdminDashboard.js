@@ -35,8 +35,8 @@ const AdminDashboardPage = () => {
     <>
         <MenuBar></MenuBar>
         <CardDeck className="dashTopPanel" style={{display: 'flex', flexDirection: 'row'}}>
-          <AdminInvitations />
           <AddCompany />
+          <AdminInvitations />
           <DeleteCompany />
         </CardDeck>
         <EmployerCards />

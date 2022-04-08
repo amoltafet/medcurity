@@ -17,13 +17,39 @@ import Axios from 'axios';
 const EmployerDashboardPage = () => {
     Axios.defaults.withCredentials = true;
     const [session, setSession] = useState([]);
+    const [companyId, setCompanyId] = useState('');
+    const [isLoading, setLoading] = useState(true)
+    const [reload, setReload] = useState(false);
+
+    // Resets reload after it has been triggered
+    useEffect(() => {
+        setReload(false)
+    }, [reload]);
 
     useEffect(() => {
         Axios.get("http://localhost:3002/users/login").then((response) => {
-          console.log('user: ', response.data.user)
           setSession(response.data.user[0])
         });
-      }, []);
+	}, []);
+
+    useEffect(() => {
+        if (session.userid != undefined) {
+            setLoading(false)
+        }
+    }, [session])
+
+    // Query for getting companyid of associated user
+    useEffect(() => {
+        if (!isLoading) {
+            Axios.get('http://localhost:3002/api/getQuery', 
+                { params: { the_query: 'SELECT CompanyAdmins.CompanyID ' +
+                'FROM CompanyAdmins ' +
+                'WHERE CompanyAdmins.UserID = ' + String(session.userid)} 
+                }).then((response) => {
+                    setCompanyId(Object.values(response.data)[0].CompanyID)
+            });            
+        }
+    }, [isLoading])
 
 
     return (
@@ -31,9 +57,9 @@ const EmployerDashboardPage = () => {
         <MenuBar></MenuBar>
         <CardDeck className="dashTopPanel" style={{display: 'flex', flexDirection: 'row'}}>
           <WelcomePanel user={session} subtitle={'to the Administration Page'}/>
-          <EmployerInvitations />
+          <EmployerInvitations companyId={companyId} reload={reload} setReload={setReload} />
         </CardDeck>
-        <EmployeeCards user={session} />
+        <EmployeeCards user={session} companyId={companyId} reload={reload} setReload={setReload} />
         
     </>
   );

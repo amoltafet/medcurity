@@ -1,0 +1,25 @@
+#add-company-text {
+    margin-top: 1%;
+}
+
+.addButton {
+    margin-top: 5%;
+    background-color: #c33333;
+}
+
+#delete-company {
+    margin-top: 1%;
+}
+
+.deleteButton {
+    margin-top: 1%;
+    background-color: #c33333;
+    width: 100%;
+    margin-left: 0%;
+    margin-bottom: 1%;
+}
+
+#company-list {
+    width: 60%;
+    margin-left: 20%
+}
