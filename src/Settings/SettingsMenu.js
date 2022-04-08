@@ -35,9 +35,9 @@ const SettingsMenu = () => {
     useEffect(() => {
         if (isLoaded) {
             axios.get('http://localhost:3002/api/getQuery', 
-                { params: { the_query: 'SELECT * FROM Companies WHERE companyid = ' + session.companyid} 
+                { params: { the_query: 'SELECT * FROM AffiliatedUsers WHERE user = ' + session.userid} 
             }).then((response) => {
-                console.log(session)
+                console.log("companyid", response)
                 if (session.profilepicture !== null && session.profilepicture.data !== null) {
                     try {     
                         console.log("grabbed image: ", session.profilepicture.data)

@@ -139,7 +139,7 @@ function LeaderboardProfile(props) {
                         <div className="leaderboardRank">{props.index}.</div>
                     </Col>
                     <Col xs={2} md={2}>
-                    <Image className={props.className[1]} src={`data:image/png;base64,${profilePic}`} alt="" roundedCircle />
+                        <Image className={props.className[1]} src={`data:image/png;base64,${profilePic}`} alt="" roundedCircle />
                     </Col>
                     <Col xs={4} md={4}>
                         <Card.Text className="userNameTitle">{props.name}</Card.Text>

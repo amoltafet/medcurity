@@ -161,9 +161,9 @@ const LeaderboardPage = () => {
         <>
             <Menubar></Menubar>  
             <div className="leaderboardbg">
-            <Tab.Container  id="left-tabs-example" defaultActiveKey="first" style={{ display: 'flex' }}>
-                <Row className="justify-content-center ">
-                    <Col className="shadowTab_leaderboard uvs-left uvs-right" sm={2}>
+            <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+                    <Row className="justify-content-center">
+                        <Col sm={1} className="shadowTab_leaderboard uvs-left">
                         <Nav variant="pills" className="selection_leaderbaord_container text-left">
                             <Nav.Item className="orginization_selection_tab">
                                 <Nav.Link className="leaderbaord_pill_font" eventKey="first">{companyName.name} Users</Nav.Link>
@@ -172,22 +172,28 @@ const LeaderboardPage = () => {
                                 <Nav.Link  className="leaderbaord_pill_font" eventKey="second">Meducrity Learn Security Users</Nav.Link>
                             </Nav.Item>
                         </Nav>
-                    </Col>
-                    <Col className="justify-content-center " sm={7}>
+                        </Col>
+                    </Row>
+                    <Row className="justify-content-center">
+                        <Col sm={7}>
                         <Tab.Content>
-                            <Tab.Pane eventKey="first">
-                                <Card className="leaderboardContainer uvs-left uvs-right">    
+                            <Tab.Pane  eventKey="first">
+                                <Col className="justify-content-center">
+                                <Card className="leaderboardContainer  uvs-left uvs-right">    
                                    {CompanyUsersProfileArray}
                                 </Card>
+                                </Col>
                             </Tab.Pane>
                             <Tab.Pane eventKey="second">
+                                <Col className="justify-content-center">
                                 <Card className="leaderboardContainer uvs-left uvs-right">    
                                     {AllUsersProfileArray}
                                 </Card>
+                                </Col>
                             </Tab.Pane>
                         </Tab.Content>
-                    </Col>
-                </Row>
+                        </Col>
+                    </Row>
             </Tab.Container>
             </div>
         </>

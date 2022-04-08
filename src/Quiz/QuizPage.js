@@ -106,17 +106,22 @@ const QuizPage = () => {
 			setModuleName(response.data); 
 			console.log("ModuleName: ", response.data);
 		});
+    axios.get('http://localhost:3002/api/getQuery',{
+			params: { the_query: 'SELECT * FROM AffiliatedUsers'}
+		}).then((response) => {
+			console.log("Company Users: ", response.data);
+		});
+
+    axios.get('http://localhost:3002/api/getQuery',{
+			params: { the_query: 'SELECT * FROM CompanyLearningModules'}
+		}).then((response) => {
+			console.log("Assigned Modules: ", response.data);
+		})
 
 		content.forEach(element => {
 			console.log(element.solution)
 		});
 		
-    axios.get('http://localhost:3002/api/getQuery',{
-			params: { the_query: 'SELECT * FROM Companies'}
-		}).then((response) => {
-			console.log("Companies", response.data);
-		});
-
 
       // KEEP FOR TESTING!!
 
@@ -131,9 +136,9 @@ const QuizPage = () => {
       //assigns modules
 
       // axios.post("http://localhost:3002/testing/assignModules", {
-      //     userid: session.userid, 
-      //     modulenum: 1,
-      //     daysaway: 3,
+      //     companyid: 24, 
+      //     modulenum: 5,
+      //     daysaway: 7,
       //   }).then((response) => {
       //     console.log("response", response);
       //   }).catch(error => console.log(`Error ${error}`));
@@ -144,6 +149,15 @@ const QuizPage = () => {
       //   userid: session.userid,
       //   modulenum: 3,
       //   daysaway: 2,
+      // }).then((response) => {
+      //   console.log("response", response);
+      // }).catch(error => console.log(`Error ${error}`));
+
+      //assigns company 
+
+      // axios.post("http://localhost:3002/testing/addCompany", {
+      //   userid: session.userid,
+      //   companyid: 24,
       // }).then((response) => {
       //   console.log("response", response);
       // }).catch(error => console.log(`Error ${error}`));
