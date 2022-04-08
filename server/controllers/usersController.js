@@ -433,9 +433,7 @@ module.exports =
     userPoints,
     userModuleCompleted,
     deleteUser,
-    changeProfilePicture,
     assignModulesToCompany,
     removeModuleFromCompany,
-
-    userModuleCompleted
+    userModuleCompleted,
 };
