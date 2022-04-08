@@ -7,7 +7,8 @@ import './InvalidPage.css';
 import { useNavigate } from 'react-router-dom';
 
 /**
-* Creates and displays the main login page. 
+* Creates a page notifying the user that access to a certain page
+* is denied or invalid.
 * @return {InvalidPage}
 */
 
@@ -17,7 +18,7 @@ export default function InvalidPage(props)
   const navigate = useNavigate();
 
   const navToLogin = () => {
-    navigate(props.redirectPage);
+    navigate(props?.redirectPage || "/");
   };
 
   return (
@@ -29,9 +30,9 @@ export default function InvalidPage(props)
             <Image className="invalid_lockImg" src="/invalid_lock.png" variant="top" alt="" />
             <h2 className='invalid_h1'>Oops! We're not sure how you got here, but...</h2>
             <div className="invalid_messageDiv">
-              <h5 className='invalid_h5'>{props.reason}</h5>
+              <h5 className='invalid_h5'>{props?.reason || "This page does not exist."}</h5>
             </div>
-            <Button className="invalid_redirectButton" onClick={navToLogin} variant="secondary" type="button" >{props.btnMessage}</Button>
+            <Button className="invalid_redirectButton" onClick={navToLogin} variant="secondary" type="button" >{props?.btnMessage || "Back to Medcurity Learn Security"}</Button>
           </Row>
         </Col>
       </Form>
