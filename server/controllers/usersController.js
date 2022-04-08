@@ -10,38 +10,7 @@ const logger = require('../logger').log
  * Queries the database to register a new user. Passwords are hashed + salted using bcrypt.
  */
 const userRegister = (req,res) => 
-{
-    const checkEmail = (emailString) => 
-    {
-      if (emailValidator.validate(emailString))
-      {
-        return { result: true, message: null}
-      }
-      else
-      {
-        return { result: false, message: `That's not a valid email address!`}
-      }
-    }
-  
-    const checkPassword = (passwordString) => 
-    {
-      if (passwordStrength(passwordString).contains.length === 4)
-      {
-        if (passwordStrength(passwordString).id > 1)
-        {
-          return { result: true, message: null}
-        }
-        else
-        {
-          return { result: false, message: `Your password is too weak! Please enter a stronger password.` }
-        }
-      }
-      else
-      {
-        return { result: false, message: `Your password must contain the following: lowercase letter, uppercase letter, symbol, number` }
-      }
-    }
-    
+{   
     const email = req.body.email
     const password = req.body.password
     const username = email.substring(0, email.indexOf("@"));
@@ -97,11 +66,44 @@ const userRegister = (req,res) =>
 }
 
 /**
+ * Queries the database to update a user's password.
+ */
+const userChangePassword = async (req,res) => 
+{    
+    const userid          = req.body.userid
+    const newPassword     = req.body.newPassword
+    const retypedPassword = req.body.retypedPassword
+
+    let validPass = checkPassword(newPassword)
+    let passwordsMatch = (newPassword === retypedPassword)
+    
+    if (validPass.result)
+    {
+        if (passwordsMatch)
+        {
+            updateUserPassword(userid, newPassword)
+            res.send({result: true, message: 'You changed your password successfully!'})
+        }
+        else
+        {
+            // retyped pass does not match new pass
+            console.log('no match')
+            res.send({result: false, message: 'Your retyped password does not match your new password!'})
+        }
+    }
+    else
+    {
+        // password strength bad
+        console.log(validPass.message)
+        res.send({result: false, message: validPass.message})
+    }
+}
+
+/**
  * Queries the database to register an inactive user.
  */
 const userRegisterEmpty = (req,res) => 
 {
-
     const email = req.body.email
     const username = email.substring(0, email.indexOf("@"));
     const companyid = req.body.companyid
@@ -226,7 +228,7 @@ const userLogout = (req, res) =>
 /**
  * Updates the users settings - only username for now.
  */
-const changeUserName = (req, res) => {
+const userChangeUsername = (req, res) => {
     const newUserName = req.body.username;
     const userId = req.body.id;
 
@@ -250,8 +252,6 @@ const userPoints = (req, res) => {
     const percentName = req.body.percentName;
     const length = req.body.lengths;
     const userid = req.body.userid;
-
-   
 
     db.query(`UPDATE Users SET ${categoryName} = '${points}', ${percentName} = "${length}" WHERE userid = '${userid}'`, (err,result) => {
         db.query(`SELECT * FROM Users WHERE userid = '${userid}'`, (err,result) => {
@@ -378,22 +378,46 @@ const assignModulesToCompany = (req,res) =>
 
 /**
  * Changes the users profile picture.
+ * Below are helper functions!
  */
- const changeProfilePicture = (req, res) => {
-    const newProfilePicture = req.body.profilepicture;
-    const userId = req.body.id;
 
-    logger.log('info', ` profile picture  "${newProfilePicture}"`);
-    logger.log('info', `id "${userId}"`);
-    db.query(`UPDATE Users SET profilepicture = "${newProfilePicture}" WHERE userid = "${userId}"`, (err,result) => {
-        db.query(`SELECT * FROM Users WHERE userid = '${userId}'`, (err,result) => {
-            req.session.userSession = result;
-            logger.log('info', `Updated profile picture to "${newProfilePicture}"`);
-            res.send({ result: result, success: true, message: "Updated profile picture!" });
-        })
-    }) 
+const checkEmail = (emailString) => 
+{
+  if (emailValidator.validate(emailString))
+  {
+    return { result: true, message: null}
+  }
+  else
+  {
+    return { result: false, message: `That's not a valid email address!`}
+  }
 }
 
+const checkPassword = (passwordString) => 
+{
+  if (passwordStrength(passwordString).contains.length === 4)
+  {
+    if (passwordStrength(passwordString).id > 1)
+    {
+      return { result: true, message: null}
+    }
+    else
+    {
+      return { result: false, message: `Your password is too weak! Please enter a stronger password.` }
+    }
+  }
+  else
+  {
+    return { result: false, message: `Your password must contain the following: lowercase letter, uppercase letter, symbol, number` }
+  }
+}
+
+const updateUserPassword = async (userid, newPassword) => {
+    let hash = await bcrypt.hash(newPassword, saltRounds)
+    db.query(`UPDATE Users SET password = ? WHERE userid = ?`, [hash, userid], (err, result) => { 
+        //TODO Logging
+    })
+}
 
 
 module.exports = 
@@ -404,12 +428,17 @@ module.exports =
     userRegisterCompanyAdmin,
     userLoginSession,
     userLogout,
-    changeUserName,
+    userChangeUsername,
+    userChangePassword,
     userPoints,
+<<<<<<< HEAD
     userModuleCompleted,
     deleteUser,
     changeProfilePicture,
     assignModulesToCompany,
     removeModuleFromCompany,
 
+=======
+    userModuleCompleted
+>>>>>>> main
 };

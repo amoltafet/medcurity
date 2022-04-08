@@ -39,7 +39,7 @@ const ContentCard = (props) => {
         <>
         <Card className="ContentCard uvs-right uvs-left" style={{ flexDirection: 'row' }}>
             <Col sm>
-                <div className="ContentCardValues">{props.learningModuleName}</div>
+                <div className="ContentCardValues" id="content-name">{props.learningModuleName}</div>
             </Col>
             <Col sm>
                 <Button className="ContentInRowButton uvs-right" 

@@ -4,7 +4,7 @@
     margin-right: .5%;
     margin-bottom: .1%;
     border-radius: 10px 10px 10px 10px;
-    background-color: #1e5b88;
+    background-color: #d8dae3;
     width: 98%;
     text-align: left;
 
@@ -49,6 +49,7 @@
 .ContentInRowButton {
     margin-top: 1%;
     margin-bottom: 1%;
+    background-color:#127ebf
 }
 
 .ContentCardValues {
@@ -65,4 +66,20 @@
 
 .InviteSubtitle {
     font-size: 1vmax;
+}
+
+.Content-container {
+    background-color: #93c2ec;
+}
+
+#content-name {
+    color:black
+}
+
+#content-title {
+    color:white
+}
+
+.add-btn {
+    background-color: #1e5b88
 }

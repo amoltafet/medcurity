@@ -64,8 +64,8 @@ const EmployersCards = () => {
 
     return (
         <>
-        <Container className="EmployerJoinRequests uvs-right">
-            <h2>Employers</h2>      
+        <Container className="Employer-container uvs-right">
+            <h2 id="employer-header">Employers</h2>      
             <Card className="EmployerCardHeader uvs-right uvs-left" style={{display: 'flex', flexDirection: 'row' }}>
                 <Col sm>
                     <div className="EmployerCardValues">Employer Email</div>
