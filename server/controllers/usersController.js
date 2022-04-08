@@ -431,14 +431,11 @@ module.exports =
     userChangeUsername,
     userChangePassword,
     userPoints,
-<<<<<<< HEAD
     userModuleCompleted,
     deleteUser,
     changeProfilePicture,
     assignModulesToCompany,
     removeModuleFromCompany,
 
-=======
     userModuleCompleted
->>>>>>> main
 };
