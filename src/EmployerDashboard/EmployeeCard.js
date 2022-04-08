@@ -2,6 +2,8 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Card, Col, Button, OverlayTrigger, Popover } from 'react-bootstrap';
 import './EmployeeCard.css';
+import { useEffect, useState} from "react";
+import axios from 'axios';
 
 //TODO
 // Connect button to remove user functionality
@@ -12,7 +14,7 @@ import './EmployeeCard.css';
  * @returns 
  */
 const EmployeeCard = (props) => {
- 
+    const [message, setMessage] = useState('');
 
     /**
      * Removes a user from the selected company
@@ -20,6 +22,21 @@ const EmployeeCard = (props) => {
      */
     function removeUser(userId, companyId) {
         console.log("Removing user from company");
+        axios.post("http://localhost:3002/users/deleteUser", {
+            userid: userId,
+        }).then((response) => {
+            console.log("response.data =", response.data)
+            if (response.data === true)
+            {
+                console.log("Deleted!")
+                props.setReload(true)
+            }
+            else if (response.data === false)
+            {
+                console.log("Already deleted!")
+                setMessage('This user has already been removed. Please Refresh the page.')
+            }
+        });
     }
 
  
@@ -39,10 +56,11 @@ const EmployeeCard = (props) => {
                 <div className="EmployeeCardValues">{props.progress}</div>
             </Col>
             <Col sm>
-                <OverlayTrigger trigger="click" placement="left" 
+                <OverlayTrigger trigger="click" rootClose placement="left" 
                 overlay={
                     <Popover id="popover-basic" className="EmployeePopup">
                         <div className="EmployeeCardValues">Please confirm that you want to delete the user '{props.name}': </div> 
+                        <div>{message}</div>
                         <Button className="EmployeeInRowButton uvs-right" 
                             variant="success" 
                             onClick={() => removeUser(props.userId, props.companyId)}> 

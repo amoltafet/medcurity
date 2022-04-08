@@ -93,6 +93,21 @@ const queryModuleBanner = (req,res)=>{
 }
 
 /**
+ * Queries all learning modules assigned to a given user
+ * Param: userid
+ */
+ const queryAllUserRequiredModules = (req,res)=>{
+    db.query(`SELECT * ` +
+        `FROM AffiliatedUsers JOIN CompanyLearningModules ` +
+            `ON AffiliatedUsers.CompanyID = CompanyLearningModules.CompanyID ` +
+            `JOIN LearningModules ON LearningModules.ID = CompanyLearningModules.LearningModID ` +
+        `WHERE AffiliatedUsers.UserID = '${req.query.userid}'`, (err,result) => {
+        if (err) logger.log('error', { methodName: '/queryAllUserRequiredModules', errorBody: err }, { service: 'query-service' })
+        logger.log('info', `Queried CompanyLearning Modules joined with AffiliatedUsers with ID: "${req.query.userid}" Fields: ${result}`, { service: 'query-service' })
+        res.send(result)
+    })
+ }
+ /**
  * Queries the data base for a user's profile picture (base64)
  */
  const queryProfilePicture = (req,res)=>{
@@ -153,5 +168,9 @@ module.exports =
     queryModuleQuestions,
     queryModuleDirectoryInfo,
     queryDirectoryModulesInfo,
+<<<<<<< HEAD
+    queryAllUserRequiredModules,
+=======
     addModule,
+>>>>>>> main
 };

@@ -26,17 +26,13 @@ const LearningDirectoryRequiredPage = () => {
     // Query for getting user's required learning modules
     useEffect(() => {
         if (!isLoading) {
-            Axios.get('http://localhost:3002/api/getQuery', 
-                { params: { the_query: 'SELECT * ' +
-                'FROM LearningModules JOIN AssignedLearningModules ON LearningModules.ID = AssignedLearningModules.LearningModID ' +
-                'WHERE AssignedLearningModules.UserID = ' + String(session.userid)} 
+            Axios.get('http://localhost:3002/api/getAllUserRequiredModules', 
+                { params: { userid: session.userid }
                 }).then((response) => {
                     setLearningModules(Object.values(response.data))
-            });
-            
+            }).catch(error => console.error(`Error ${error}`));
         }
-    }, [isLoading, session.userid])
-
+    }, [session.userid, isLoading])
 
     return(
         <LearningDirectoryPageContent directoryTitle="Required Modules Directory" modules={learningModules} />
