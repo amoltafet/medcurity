@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './LearningModulesCards.css'
-import { Card,  Button, Container, CardDeck } from 'react-bootstrap';
+import { Card,  Button, Container, CardDeck, Row } from 'react-bootstrap';
 import { useEffect, useState } from "react";
 import axios from 'axios';
 
@@ -98,9 +98,9 @@ const LearningModulesCards = (props) => {
             <Container className="LearningModulesCards">                
                 {createModuleCardHeader(learningModules)}
             </Container>
-            <CardDeck className="dashboard" style={{display: 'flex', flexDirection: 'row'}}>
+            <Row className="dashboard" style={{display: 'flex', flexDirection: 'row'}}>
                 {createModuleCards(learningModules, 5)}
-            </CardDeck>
+            </Row>
             <div className="d-grid gap-2">
             </div>
         </>

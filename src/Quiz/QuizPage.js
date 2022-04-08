@@ -111,6 +111,12 @@ const QuizPage = () => {
 			console.log(element.solution)
 		});
 		
+    axios.get('http://localhost:3002/api/getQuery',{
+			params: { the_query: 'SELECT * FROM Companies'}
+		}).then((response) => {
+			console.log("Companies", response.data);
+		});
+
 
       // KEEP FOR TESTING!!
 

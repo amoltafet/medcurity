@@ -30,6 +30,7 @@ html {
   height: 60vh;
   padding-top: 1vh;
   animation: dash_fadeIn 1s;
+  margin-bottom: 2%;
 }
 
 .dash_bottomBackdrop {
@@ -58,8 +59,8 @@ html {
 }
 
 .dash_navButtons {
-  margin-left: -25.5%;
-  margin-top: 10%;
+  margin-left: -57.5%;
+  margin-top: 20%;
   width: 140%;
   display: flex;
   flex-direction: row;
@@ -104,10 +105,22 @@ html {
 
 .dash_profilePicture {
   margin-right: 1%;
-  margin-bottom: 1%;
+  margin-top: -5%;
+  margin-left: 10%;
+  width: 150px;
+  height: 150px; 
+  object-fit: cover;
+}
+
+@media screen and (min-width: 700px) {
+.dash_profilePicture {
+  margin-right: 1%;
+  margin-top: -2%;
+  margin-left: 0%;
   width: 200px;
   height: 200px; 
   object-fit: cover;
+}
 }
 
 .dash_separatorBegin {
@@ -142,7 +155,7 @@ html {
   text-shadow: 2px 2px 5px black;
   font-size: 3vmax;
   margin-left: 25px;
-  margin-top: 5%;
+  margin-top: 0%;
 }
 
 @media screen and (min-width: 1600px) {
