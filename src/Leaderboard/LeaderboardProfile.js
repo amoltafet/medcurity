@@ -44,10 +44,10 @@ function LeaderboardProfile(props) {
     */
     // Query for getting LearningDirectories Directory info
     useEffect(() => {
-        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: "SELECT * FROM LearningModulesDirectory" } }).then((response) => {
+        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: "SELECT * FROM AffiliatedUsers WHERE UserID = " + session.userid } }).then((response) => {
             setDirectories(Object.values(response.data))
         }).catch(error => console.error(`Error ${error}`));
-    }, [])
+    }, [session])
 
     useEffect(() => { if (props.userid) axios.get("http://localhost:3002/api/getProfilePicture", { params: { id: props.userid }} ).then((response) => { setProfilePic(response.data.profileImage) }); })
 
