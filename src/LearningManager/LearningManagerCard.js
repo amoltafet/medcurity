@@ -4,9 +4,7 @@ import { Card, Col, Button, OverlayTrigger, Popover } from 'react-bootstrap';
 import './LearningManager.css';
 import { useState} from "react";
 import Axios from 'axios';
-
-//TODO
-// Connect button to remove user functionality
+import Calendar from 'react-calendar';
 
 /**
  * Panel for Module cards
@@ -49,6 +47,11 @@ const LearningManagerCard = (props) => {
             <Col sm>
                 <div className="LearningManagerCardValues">{props.learningModuleName}</div>
             </Col>
+            <Col sm>
+                <div> Date </div>
+
+            </Col>
+
             <Col sm>
                 <OverlayTrigger trigger="click" rootClose placement="left" 
                 overlay={

@@ -68,6 +68,9 @@ const LearningManagersCards = (props) => {
                     <div className="LearningManagerCardValues">Learning Module Name</div>
                 </Col>
                 <Col sm>
+                    <div className="Date Due"></div>
+                </Col>
+                <Col sm>
                     <div className="RemoveButton"></div>
                 </Col>
             </Card>
