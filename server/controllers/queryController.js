@@ -168,9 +168,6 @@ module.exports =
     queryModuleQuestions,
     queryModuleDirectoryInfo,
     queryDirectoryModulesInfo,
-<<<<<<< HEAD
     queryAllUserRequiredModules,
-=======
     addModule,
->>>>>>> main
 };
