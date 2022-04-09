@@ -185,7 +185,6 @@ const userLogin = (req,res) =>
                                     
                                     userData[0].loggedInAt = Date()
                                     req.session.userSession = userData;
-                                    console.log('from UserController again:\n', req.session.userSession)
                                     logger.log('info', `Existing user "${email}" logged in.`, { service: 'user-service' })
                                     res.send({ result: userData, success: true, message: "Logging in!" });
                                 } 
