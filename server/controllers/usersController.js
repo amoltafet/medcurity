@@ -161,7 +161,7 @@ const userLogin = (req,res) =>
     const password = req.body.password
 
     db.query(`SELECT EXISTS(SELECT * FROM Users WHERE email = '${email}') AS doesExist`, (err,userExists) => {
-        if (userExists[0].doesExist == 1)
+        if (userExists[0]?.doesExist == 1)
         {
             db.query(`SELECT * FROM Users WHERE email = '${email}'`, (err,userData) => {
                 db.query(`SELECT Users.userid, AffiliatedUsers.CompanyID FROM Users INNER JOIN AffiliatedUsers ON Users.userid=AffiliatedUsers.UserID WHERE Users.userid = '${userData[0].userid}'`, (err,userCompanyID) => {

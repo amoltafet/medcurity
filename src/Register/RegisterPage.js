@@ -60,7 +60,8 @@ export default function RegisterPage()
               <div class="col-xs-5 col-md-5">
                 <div class="register_formColumn row justify-content-center">
                   <h3 class="register_h3">Create an Account</h3>
-                  <p class="register_p">All you need is an email and password to create an account.</p>
+                  <p class="register_p">All you need is an email and password to create an account. 
+                                        If you recieved an invitation, please use the same email you receieved it.</p>
                   <Form.Group className="register_Form" controlId="formEmail"> <Form.Control type="email" placeholder="Email" onChange={ (e) => {setEmail(e.target.value); }}/> </Form.Group>
                   <p></p>
                   <Form.Group className="register_Form" controlId="formPassword"> <Form.Control type="password" placeholder="Password" onChange={ (e) => {setPassword(e.target.value); }}/> </Form.Group>

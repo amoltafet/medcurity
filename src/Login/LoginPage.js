@@ -112,7 +112,7 @@ export default function LoginPage()
               </div>
               <div class="col-xs-5 col-md-5">
                <div class="login_formColumn row justify-content-center">
-                  <h3 class="login_h3">Need an account?</h3>
+                  <h3 class="login_h3">Need an account? Got an invitation?</h3>
                   <p class="login_p">Creating a new account is quick and easy. Get started here!</p>
                   <Button className="login_formButton" onClick={register} variant="secondary" type="button">Register a New Account</Button>
                 </div>

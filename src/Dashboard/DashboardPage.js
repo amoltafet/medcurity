@@ -85,8 +85,8 @@ const DashboardPage = () => {
       <>
         <InvalidPage 
           redirectPage={'/'} 
-          reason={"You need to be logged in to use the dashboard."}
-          btnMessage={"Back to Login"}>
+          reason={"You need to be logged in to view your dashboard."}
+          btnMessage={"Back to Login Page"}>
         </InvalidPage>
       </>
     )

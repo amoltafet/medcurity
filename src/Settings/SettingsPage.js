@@ -48,7 +48,7 @@ const SettingsPage = () => {
               <InvalidPage 
                 redirectPage={'/'} 
                 reason={"You need to be logged in to modify your user settings."}
-                btnMessage={"Back to Login"}>
+                btnMessage={"Back to Login Page"}>
               </InvalidPage>
             </>
           )
