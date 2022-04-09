@@ -165,20 +165,33 @@ const userLogin = (req,res) =>
         {
             db.query(`SELECT * FROM Users WHERE email = '${email}'`, (err,userData) => {
                 db.query(`SELECT Users.userid, AffiliatedUsers.CompanyID FROM Users INNER JOIN AffiliatedUsers ON Users.userid=AffiliatedUsers.UserID WHERE Users.userid = '${userData[0].userid}'`, (err,userCompanyID) => {
-                    bcrypt.compare(password, userData[0].password, (error, response) => {
-                        if (response) 
-                        {
-                            userData[0].password  = null;
-                            userData[0].companyid = userCompanyID[0]?.CompanyID || 0
-                            req.session.userSession = userData;
-                            logger.log('info', `Existing user "${email}" logged in.`, { service: 'user-service' })
-                            res.send({ result: userData, success: true, message: "Logging in!" });
-                        } 
-                        else 
-                        {
-                            res.send({ success: false, message: "Wrong username/password combination!" });
-                        }
-                    });
+                    db.query(`SELECT Users.userid, CompanyAdmins.CompanyID FROM Users INNER JOIN CompanyAdmins ON Users.userid=CompanyAdmins.UserID WHERE Users.userid = '${userData[0].userid}'`, (err,userIsCompanyAdmin) => {
+                        db.query(`SELECT Users.userid FROM Users INNER JOIN WebsiteAdmins ON Users.userid=WebsiteAdmins.UserID WHERE Users.userid = '${userData[0].userid}'`, (err,userIsWebsiteAdmin) => {
+                            bcrypt.compare(password, userData[0].password, (error, response) => {
+                                if (response) 
+                                {
+                                    // do not attach the password to the user session
+                                    delete userData[0].password
+
+                                    // attach roles to user session
+                                    userData[0].type = (userIsCompanyAdmin.length > 0) ? 'companyAdmin' : 'user'
+                                    if (userData[0].type != 'user') userData[0].type = (userIsWebsiteAdmin.length > 0) ? 'websiteAdmin' : 'companyAdmin'
+
+                                    userData[0].companyid = userCompanyID[0]?.CompanyID || 0
+                                    
+                                    userData[0].loggedInAt = Date()
+                                    req.session.userSession = userData;
+                                    console.log('from UserController again:\n', req.session.userSession)
+                                    logger.log('info', `Existing user "${email}" logged in.`, { service: 'user-service' })
+                                    res.send({ result: userData, success: true, message: "Logging in!" });
+                                } 
+                                else 
+                                {
+                                    res.send({ success: false, message: "Wrong username/password combination!" });
+                                }
+                            });
+                        })
+                    })
                 })
             })
         }
@@ -211,7 +224,7 @@ const userLoginSession = (req, res) =>
  */
 const userLogout = (req, res) =>
 {   
-    if (req.session.userSession)
+    if (req?.session?.userSession)
     {
         logger.log('info', `Successfully logged out user "${req.session.userSession[0].username}"`, { service: 'user-service' })
         req.session.destroy()
@@ -219,9 +232,9 @@ const userLogout = (req, res) =>
     } 
     else 
     {
-        logger.log('info', `Failing logged out user. User most likely logged out without a session.`, { service: 'user-service' })
-        res.end()
+        logger.log('info', `Failed logging out a user. User most likely logged out without a session.`, { service: 'user-service' })
         res.send({ success: false, message: "Could not log out..." });
+        res.end()
     }
 }
 
