@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './LearningModulesCards.css'
-import { Card,  Button, Container, CardDeck, Row } from 'react-bootstrap';
+import { Card,  Button, Container, Row } from 'react-bootstrap';
 import { useEffect, useState } from "react";
 import axios from 'axios';
 
@@ -10,12 +10,13 @@ import axios from 'axios';
  * @returns 
  */
 const LearningModulesCards = (props) => {
-    const userId = String(props.user.userid)
-    const [isLoading, setLoading] = useState(true)
-    const [learningModules, setLearningModules] = useState([])
+    const userId = String(props.user.userid);
+    const [isLoading, setLoading] = useState(true);
+    const [learningModules, setLearningModules] = useState([]);
+    const [completedModules, setCompletedModules] = useState([])
 
     useEffect(() => {
-        if (props.user != undefined) {
+        if (props.user !== undefined) {
             setLoading(false)
         }
     }, [props.user])
@@ -28,8 +29,26 @@ const LearningModulesCards = (props) => {
                 }).then((response) => {
                     setLearningModules(Object.values(response.data))
             }).catch(error => console.error(`Error ${error}`));
+            axios.get('http://localhost:3002/api/getQuery',{
+			params: { the_query: `SELECT * FROM CompletedModules WHERE UserID = '${userId}'`}
+		}).then((response) => {
+            setCompletedModules(Object.values(response.data));
+		})
+        
         }
     }, [userId, isLoading])
+
+    useEffect(() => {
+        if (completedModules.length !== 0 && learningModules !== null) {
+            for (let i = 0; i < completedModules.length; i++) {
+                for (let j = 0; j < learningModules.length; j++) {
+                    if (completedModules[i].LearningModID === learningModules[j].LearningModID && completedModules[i].UserID !== userId) {
+                       learningModules.splice(j,1);    
+                    }
+                }
+            }
+        }
+    }, [learningModules, completedModules, userId])
 
     /**
      * Panel for Module cards
@@ -38,13 +57,12 @@ const LearningModulesCards = (props) => {
      */
     const ModulePanel = (props) => {
         var dueDate = new Date(props.dueDate); 
-        console.log("duedate: ", dueDate)
         return (
            
             <>
-            <a  stretched-link href={"/learning-module/" + props.link} style={{ cursor: "pointer" }} className="LearningModuleCard uvs-right uvs-left">
+            <a href={"/learning-module/" + props.link} style={{ cursor: "pointer" }} className="LearningModuleCard uvs-right uvs-left">
                 <Card.Body>
-                   <Card.Title className="testPanelFont" stretched-link href={"/learning-module/" + props.link} >{props.title}</Card.Title>
+                   <Card.Title className="testPanelFont" href={"/learning-module/" + props.link} >{props.title}</Card.Title>
                    <Card.Text className="dueDateRequiredModule">Due At: {dueDate.toDateString()}</Card.Text>
                 </Card.Body> 
             </a>
@@ -57,16 +75,14 @@ const LearningModulesCards = (props) => {
      * @param {modules} to create cards for
      * @param {max_length} to limit max card number created
      */
-    function createModuleCards(modules, maxLength=5) {
+    function createModuleCards(modules, maxLength) {
         const objs = [];
         let size = 0
         for (let index in modules) {
             if (size === maxLength) { break; }
-            module = modules[index]
-            console.log(module)
-            objs.push(<ModulePanel title={module.Title} link={module.ID} dueDate={module.DueDate} />)
+            var newModule = modules[index]
+            objs.push(<ModulePanel title={newModule.Title} link={newModule.ID} dueDate={newModule.DueDate} />)
             size += 1;
-            console.log(module)
         }
         return objs;
     }
@@ -75,7 +91,7 @@ const LearningModulesCards = (props) => {
      * This function returns a header for module cards
      * @param {obj} modules 
      */
-    function createModuleCardHeader(modules) {
+    function createModuleCardHeader() {
         const objs = [];
         //objs.push(<h2>Required Learning Modules</h2>);
 
@@ -85,7 +101,7 @@ const LearningModulesCards = (props) => {
                     id="select-more-modules"
                     href='learning-directory'
                     className="moduleCardHeaderButton font uvs-left">
-                    {modules.length} remaining required modules
+                    {learningModules.length} remaining required modules
                 </Button>
             </h2>
             
@@ -96,7 +112,7 @@ const LearningModulesCards = (props) => {
     return (
         <>
             <Container className="LearningModulesCards">                
-                {createModuleCardHeader(learningModules)}
+                {createModuleCardHeader()}
             </Container>
             <Row className="dashboard" style={{display: 'flex', flexDirection: 'row'}}>
                 {createModuleCards(learningModules, 5)}

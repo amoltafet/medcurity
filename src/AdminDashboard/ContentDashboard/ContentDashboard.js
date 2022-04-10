@@ -1,14 +1,11 @@
 import React from 'react';
-import { Form , Card, Button, Container, Col} from 'react-bootstrap';
 import './../../Dashboard/DashboardPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { CardDeck } from 'react-bootstrap';
 import MenuBar from '../../MenuBar/MenuBar';               
 import LearningManagerCards from './ContentCards';
 import WelcomePanel from '../../Dashboard/WelcomePanel';
-import LearningModuleAdder from './ContentAdder';
-import { useEffect, useState, Link} from "react";
-import { useParams } from "react-router";
+import { useEffect, useState } from "react";
 import Axios from 'axios';
 
 
@@ -18,15 +15,15 @@ import Axios from 'axios';
 */
 const AdminContentPage = () => {
     //Axios.defaults.withCredentials = true;
-    const [session, setSession] = useState([]);
-    const [companyId, setCompanyId] = useState('');
+    const [currentUser, setCurrentUser] = useState([]);
+    const [companyId/*, setCompanyId*/] = useState('');
 
   Axios.defaults.withCredentials = true;
 
   useEffect(() => {
       Axios.get("http://localhost:3002/users/login").then((response) => {
         console.log('aaahhh', response.data.user)
-        setSession(response.data.user[0])
+        setCurrentUser(response.data.user[0])
       }).catch(error => console.error(`Error ${error}`));
     }, []);
 
@@ -40,7 +37,7 @@ const AdminContentPage = () => {
     //     if (session.userid != undefined) {
     //         setLoading(false)
     //     }
-    // }, [session])
+    // }, [currentUser])
 
     // // Query for getting user's required learning modules
     // useEffect(() => {
@@ -59,7 +56,7 @@ const AdminContentPage = () => {
     <>
         <MenuBar></MenuBar>
         <CardDeck className="dashTopPanel" style={{display: 'flex', flexDirection: 'row'}}>
-          <WelcomePanel user={session} subtitle={'to the Learning Manager Page'}/>
+          <WelcomePanel user={currentUser} subtitle={'to the Learning Manager Page'}/>
         </CardDeck>
         <LearningManagerCards companyId={companyId}/>
         

@@ -1,5 +1,3 @@
-
-
 .navPills {
     background-color: #127ebf;
     color: white;
@@ -7,8 +5,7 @@
     margin-left: 0vmax;
     margin-top: .5vmax;
     margin-bottom: .5vmax;
-    font-size: 1vmax;
-    
+    font-size: 1vmax; 
 }
 
 .content_img{
@@ -18,65 +15,7 @@
     float: left;
 }
 
-.content_img div{
-    position: absolute;
-    top: 40%;
-    left: 0;
-    right: 10%;
-    background: black;
-    color: white;
-    margin-bottom: 5px;
-    font-family: sans-serif;
-    font-size: 50%;
-    opacity: 0;
-    visibility: hidden;
-    -webkit-transition: visibility 0s, opacity 0.5s linear; 
-    transition: visibility 0s, opacity 0.5s linear;
-}
-
-@media screen and (min-width: 1000px) {
-    .content_img div{
-        position: absolute;
-        top: 60%;
-        right: 3%;
-        left: 5%;
-        background: black;
-        color: white;
-        margin-bottom: 5px;
-        font-family: sans-serif;
-        font-size: 80%;
-        opacity: 0;
-        visibility: hidden;
-        -webkit-transition: visibility 0s, opacity 0.5s linear; 
-        transition: visibility 0s, opacity 0.5s linear;
-    }
-  }
-   
-.content_img:hover{
-    cursor: pointer;
-}
-.content_img:hover div{
-    width: 100px;
-    padding:  4px 15px;
-    visibility: visible;
-    opacity: 0.7; 
-}  
-
-@media screen and (min-width: 1000px) {
-    .content_img:hover div{
-        width: 170px;
-        padding:  4px 15px;
-        visibility: visible;
-        opacity: 0.7; 
-    }
-}
-
 .menubarFont {
-    color: white !important;
-    font-family: Lato,sans-serif;
-}
-
-.menubarFontSpecial {
     color: white !important;
     font-family: Lato,sans-serif;
 }

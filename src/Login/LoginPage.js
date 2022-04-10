@@ -71,27 +71,27 @@ export default function LoginPage()
       <>
       <Form className="loginbg img-fluid">
         <Image className="MedcurityLogo_login justify-content-bottom" variant="top" src="/triangle_logo.png" alt="" />
-        <div class="login_pageHeader">
-          <h1 class="login_pageHeaderText">Welcome to Medcurity Learn Security</h1>
+        <div className="login_pageHeader">
+          <h1 className="login_pageHeaderText">Welcome to Medcurity Learn Security</h1>
         </div>
         <Form className="login_columnDivder"> 
-            <div class="row justify-content-md-center">
-              <div class="col-xs-5 col-md-5">
-                <div class="login_formColumn row justify-content-center">
-                  <h3 class="login_h3">Login to your account.</h3>
-                  <p class="login_p">To access your Medcurity Learn Security Dashboard, please enter your login credentials.</p>
+            <div className="row justify-content-md-center">
+              <div className="col-xs-5 col-md-5">
+                <div className="login_formColumn row justify-content-center">
+                  <h3 className="login_h3">Login to your account.</h3>
+                  <p className="login_p">To access your Medcurity Learn Security Dashboard, please enter your login credentials.</p>
                   <Form.Group className="login_Form" controlId="formEmail"> <Form.Control type="email" placeholder="Email" onChange={ (e) => {setEmail(e.target.value); }}/> </Form.Group>
                   <p></p>
                   <Form.Group className="login_Form" controlId="formPassword"> <Form.Control type="password" placeholder="Password" onChange={ (e) => {setPassword(e.target.value); }}/> </Form.Group>
-                  <p class="login_loginResponse">{message}</p>
+                  <p className="login_loginResponse">{message}</p>
                   <Button className="login_formButton" onClick={login} variant="secondary" type="button">Login with Existing Account</Button>    
                   <Button className="login_forgotPass" href="/resetPassword" variant="secondary" type="button">Forgot password?</Button>
                 </div>
               </div>
-              <div class="col-xs-5 col-md-5">
-               <div class="login_formColumn row justify-content-center">
-                  <h3 class="login_h3">Need an account?</h3>
-                  <p class="login_p">Creating a new account is quick and easy. Get started here!</p>
+              <div className="col-xs-5 col-md-5">
+               <div className="login_formColumn row justify-content-center">
+                  <h3 className="login_h3">Need an account?</h3>
+                  <p className="login_p">Creating a new account is quick and easy. Get started here!</p>
                   <Button className="login_formButton" onClick={register} variant="secondary" type="button">Register a New Account</Button>
                 </div>
               </div>

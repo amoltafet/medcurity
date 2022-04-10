@@ -12,22 +12,21 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 */
 const SettingsMenu = () => {
     axios.defaults.withCredentials = true;
-    const [session, setSession] = useState([]);
+    const [currentUser, setCurrentUser] = useState([]);
     const [newUserName, setUsername] = useState("");
     const [saveData, setSaveData] = useState(false);
     const [show, setShow] = useState(false);
     const [isLoaded, setLoaded] = useState(false);
     const [company, setCompany] = useState([]);
     const [dueDate, setDueDate] = useState([]);
-    const [convertedProfilePhoto, setConvertedProfilePicture] = useState("/user.png");
-    const [profilePic, setProfilePic] = useState("")
+    const [profilePic, setProfilePic] = useState("/user.png")
     const navigate = useNavigate();
 
-    useEffect(() => { if (session.userid) axios.get("http://localhost:3002/api/getProfilePicture", { params: { id: session.userid }} ).then((response) => { setProfilePic(response.data.profileImage) }); })
+    useEffect(() => { if (currentUser.userid) axios.get("http://localhost:3002/api/getProfilePicture", { params: { id: currentUser.userid }} ).then((response) => { setProfilePic(response.data.profileImage) }); })
 
     useEffect(() => {
         axios.get("http://localhost:3002/users/login").then((response) => {
-            setSession(response.data.user[0]);
+            setCurrentUser(response.data.user[0]);
         }).catch(error => console.error(`Error ${error}`));
         setLoaded(true)
     }, []);
@@ -35,21 +34,8 @@ const SettingsMenu = () => {
     useEffect(() => {
         if (isLoaded) {
             axios.get('http://localhost:3002/api/getQuery', 
-                { params: { the_query: 'SELECT * FROM AffiliatedUsers WHERE user = ' + session.userid} 
+                { params: { the_query: 'SELECT * FROM AffiliatedUsers WHERE UserID = ' + currentUser.userid} 
             }).then((response) => {
-                console.log("companyid", response)
-                if (session.profilepicture !== null && session.profilepicture.data !== null) {
-                    try {     
-                        console.log("grabbed image: ", session.profilepicture.data)
-                        var photo = URL.createObjectURL(session.profilepicture);  
-                        console.log("converted image: ",photo )
-                          setConvertedProfilePicture(photo);
-                        
-                    } catch (error) {
-                        console.log(error)
-                    }
-                  
-                }
                 if (response.data[0].datejoined !== null) { 
                     setCompany(response.data[0]);
                     var date = new Date(response.data[0].datejoined);
@@ -58,7 +44,7 @@ const SettingsMenu = () => {
                 }
             }).catch(error => console.error(`Error ${error}`));
         }
-    },[session, dueDate, isLoaded])
+    },[currentUser, dueDate, isLoaded])
 
  
 
@@ -68,7 +54,7 @@ const SettingsMenu = () => {
             if (newUserName !== "") {
                 axios.post("http://localhost:3002/users/changeUserName", {
                     username: newUserName,
-                    id: session.userid
+                    id: currentUser.userid
                 }).then((response) => {
                     console.log("response", response.data);
                     
@@ -79,7 +65,7 @@ const SettingsMenu = () => {
             setShow(true);
         }
        
-    }, [saveData, newUserName, session.userid])
+    }, [saveData, newUserName, currentUser.userid])
 
     setTimeout(() =>{
         setShow(false)
@@ -96,7 +82,7 @@ const SettingsMenu = () => {
         //TODO ... THEN call API method to store the image from (banner)
         var data = new FormData();
         data.append("profileImage", userPhoto);
-        axios.post("http://localhost:3002/api/postProfilePicture", data, { params: { userid: session.userid } , headers: { 'Content-Type': 'multipart/form-data' } })
+        axios.post("http://localhost:3002/api/postProfilePicture", data, { params: { userid: currentUser.userid } , headers: { 'Content-Type': 'multipart/form-data' } })
 
     }
   
@@ -144,12 +130,12 @@ const SettingsMenu = () => {
                                 </Form.Group>
                                 <Form.Group className="emailInput" controlId="formPlaintextEmail">
                                         <Form.Text className="emailText">Email</Form.Text>
-                                        <Form.Control disabled defaultValue={session.email}></Form.Control>
+                                        <Form.Control disabled defaultValue={currentUser.email}></Form.Control>
                                 </Form.Group>
                                 <Form.Group className="usernameInput" controlId="formPlaintextEmail">
                                     <Form.Text className="usernameText">Username</Form.Text>
                                     <Form.Control
-                                        defaultValue={session.username}
+                                        defaultValue={currentUser.username}
                                         onChange={(e) => {
                                             setUsername(e.target.value);
                                         }}>

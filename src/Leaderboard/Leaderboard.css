@@ -20,11 +20,11 @@
 
 
 .leaderboardContainer {
-    margin-top: 5%;
-    margin-bottom: 3%;
-    margin-left: 3%;
-    height: 80vmax;
-    width: 90%;
+    margin-top: 20px;
+    margin-bottom: 3px;
+    margin-left: 2%;
+    height: 746px;
+    width: 96%;
     background-color: white;
     overflow-y: scroll;
     overflow-x: hidden;
@@ -32,11 +32,13 @@
 
 }
 
+
 @media screen and (min-width: 1000px) {
     .leaderboardContainer {
-        margin-top: 2%;
-        margin-bottom: 3%;
-        height: 38vmax;
+        margin-top: 20px;
+        margin-bottom: 3px;
+        margin-left: 1%;
+        height: 720px;
         width: 100%;
         background-color: white;
         overflow-y: scroll;
@@ -47,12 +49,28 @@
 }
 
 
+@media screen and (max-height: 500px) {
+    .leaderboardContainer {
+        margin-top: 20px;
+        margin-bottom: 3px;
+        margin-left: 2%;
+        height: 520px;
+        width: 96%;
+        background-color: white;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        scrollbar-color:  #1e5b88 rgba(255, 0, 0, 0);
+    
+    }
+}
+
+
 .shadowTab_leaderboard {
-    margin-top: 5%;
-    width: 380px;
-    height: 80px;
+    margin-top: 3%;
+    width: 320px;
+    height: 70px;
     background-color:  white;
- 
+    font-size: 80%;
 }
 
 
@@ -63,7 +81,7 @@
         width: 380px;
         height: 80px;
         background-color:  white;
-    
+        font-size: 100%;
     }
 }
 

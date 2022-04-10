@@ -1,10 +1,9 @@
 import React from 'react';
-import { Form , Card, Button, Container} from 'react-bootstrap';
-import { useEffect, useState, Link} from "react";
-import { useParams } from "react-router";
-import { useNavigate } from 'react-router-dom';
-import './AddCompany.css'
 import Axios from 'axios';
+import { Form, Button, Container} from 'react-bootstrap';
+import { useState} from "react";
+import './AddCompany.css';
+
 
 /**
  * This class allows Admins to enter in future user emails.
@@ -12,14 +11,12 @@ import Axios from 'axios';
  */
 const AddCompany = () => {
     Axios.defaults.withCredentials = true;
-
-    const [message, setMessage] = useState("")
+    const [message/*, setMessage*/] = useState("")
     const [company, setCompany] = useState("");
-    const navigate = useNavigate();
 
     const addCompany = () =>
     {
-        if(company != "") {
+        if(company !== "") {
             Axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `INSERT INTO Companies (name) VALUES ('${company}')` } }).then((response) => {
             console.log(response)
             }).catch(error => console.error(`Error ${error}`));
@@ -53,9 +50,7 @@ const AddCompany = () => {
     //     });
     // };
 
-    const login = () => {
-        navigate('/');
-    };
+  
   
     return (
         <Container className="EmployerInviteRequestCard uvs-right">

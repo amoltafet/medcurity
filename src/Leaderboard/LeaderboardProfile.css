@@ -8,22 +8,47 @@
 
 }
 
+@media screen and (min-width: 700px) {
+    .userPanel {
+        margin-top: .5%;
+        margin-left: .5%;
+        margin-right: .5%;
+        margin-bottom: .2%;
+        background-color: #1e5b88;
+        width: 99%;
+    }
+}
+
 .userRow {
-    margin-top: 1%;
-    margin-left: 1%;
-    margin-right: .5%;
-    margin-bottom: 1%;
     width: 100%;
+    height: 100%;
+}
+
+.currentUserRow {
+    width: 100%;
+    height: 100%;
 }
 
 .companiesPanel {
     margin-top: 1%;
     margin-left: 1%;
     margin-right: .5%;
-    margin-bottom: .5%;
+    margin-bottom: .3%;
     background-color: #127ebf;
     width: 98%;
 }
+
+@media screen and (min-width: 700px) {
+    .companiesPanel {
+        margin-top: .5%;
+        margin-left: .5%;
+        margin-right: .5%;
+        margin-bottom: .2%;
+        background-color: #127ebf;
+        width: 99%;
+    }
+}
+
 
 .displayLeaderboardInfo {
     width: 100%;
@@ -31,43 +56,70 @@
 
 .leaderboardRank {
     font-family: Lato,sans-serif;
-    font-size: 130%;
+    font-size: 70%;
     font-weight: bold;
     color: white;
     margin-top: 10%;
 }
 
-.userProfile {
-    width: 40%;
-    align-content: left;
-    margin-left: -5%;
+@media screen and (min-width: 700px) {
+    .leaderboardRank {
+        font-family: Lato,sans-serif;
+        font-size: 100%;
+        font-weight: bold;
+        color: white;
+        margin-top: 8.5%;
+    }
 }
 
+.userProfile {
+    width: 60%;
+    align-content: left;
+}
 
+@media screen and (min-width: 700px) {
+    .userProfile {
+        width: 50px;
+        align-content: left;
+    }
+}
 
 .userNameTitle {
     font-family: Lato,sans-serif;
-    font-size: 110%;
+    font-size: 70%;
     font-weight: bold; 
     color: white;
     margin-top: 5%;
+    width: 100%;
+    overflow:hidden !important;
+    white-space: nowrap; /* Don't forget this one */
+    text-overflow: ellipsis;
 }
 
-
-
-.scoreLabelLeaderboard {
-    font-family: Lato,sans-serif;
-    font-size: 100%;
-    font-weight: bold; 
-    color: white;
-    margin-top: 10%;
+@media screen and (min-width: 700px) {
+    .userNameTitle {
+        font-family: Lato,sans-serif;
+        font-size: 100%;
+        font-weight: bold; 
+        color: white;
+        margin-top: 2.5%;
+    }
 }
 
 .userPointsLeaderboard {
     font-family: Lato,sans-serif;
-    font-size: 100%;
+    font-size: 70%;
     color: white;
-    margin-top: 10%;
+    margin-top: 3%;
+}
+
+@media screen and (min-width: 700px) {
+    .userPointsLeaderboard {
+        font-family: Lato,sans-serif;
+        font-size: 100%;
+        color: white;
+        margin-top: 3%;
+    }
 }
 
 .leaderboardBreak {
@@ -75,6 +127,7 @@
     height: .1rem;
     margin-bottom: 2%;
 }
+
 .category {
     font-family: Lato,sans-serif;
     font-size: 90%;
@@ -83,19 +136,34 @@
     margin-bottom: 5%;
 }
 
-.CircularProgressbar-text {
-    margin-top: 1%;
-    font-size: 120%;
-}
-
 .progressBar {
-    width: 5vmin;
+    width: 10vmin;
     margin: auto;
     margin-bottom: 10%;
     display: flex;
     flex: column;
     justify-content: center;
 }
+
+@media screen and (min-width: 700px) {
+    .progressBar {
+        width: 8vmin;
+        margin: auto;
+        margin-bottom: 10%;
+        display: flex;
+        flex: column;
+        justify-content: center;
+    }
+}
+
+.score_accordian_text {
+    font-family: Lato,sans-serif;
+    font-size: 90%;
+    text-align: center;
+    color: white;
+    margin-bottom: 5% !important;
+}
+
 .accordian {
     border-color: transparent;
     background-color: transparent;

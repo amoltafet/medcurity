@@ -4,11 +4,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { CardDeck } from 'react-bootstrap';
 import MenuBar from '../../MenuBar/MenuBar';               
 import EmployerCards from './EmployerCards';
-import WelcomePanel from '../../Dashboard/WelcomePanel';
 import AdminInvitations from './AdminInvitations';
-import { useEffect, useState, Link} from "react";
+import { useEffect, useState } from "react";
 import AddCompany from './AddCompany';
-import { useParams } from "react-router";
 import Axios from 'axios';
 import DeleteCompany from './DeleteCompany';
 
@@ -19,16 +17,16 @@ import DeleteCompany from './DeleteCompany';
 */
 const AdminDashboardPage = () => {
     Axios.defaults.withCredentials = true;
-    const [session, setSession] = useState([]);
+    const [currentUser, setCurrentUser] = useState([]);
 
     useEffect(() => {
         Axios.get("http://localhost:3002/users/login").then((response) => {
           console.log('aaahhh', response.data.user)
-          setSession(response.data.user[0])
+          setCurrentUser(response.data.user[0])
         });
       }, []);
 
-    console.log(session)
+    console.log(currentUser)
 
 
     return (

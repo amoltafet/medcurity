@@ -94,10 +94,29 @@ const addAssociatedCompany = (req, res) => {
     })
 }
 
+/**
+ * Makes the current user account an admin type.
+ */
+ const makeUserAdmin = (req, res) => {
+    const userid = req.body.userid;
+    const companyid = req.body.companyid;
+  
+    logger.log('info', `userid: "${userid}"`);
+    logger.log('info', `companyid: "${companyid}"`);
+
+    db.query("INSERT INTO CompanyAdmins (UserID, CompanyID) VALUES (?,?)", [userid, companyid], (err,result) => {
+        logger.log('info', `Made user admin!: "${result}"`);
+        db.query(`SELECT * FROM CompanyAdmins WHERE UserID = '${userid}'`, (err,result) => {
+            res.send({result:result, success: true, message: `Company Admins: `});
+        })
+    })
+}
+
 module.exports = 
 {
     resetUserStats,
     assignModulesTest,
     addFakeCompletedModules,
     addAssociatedCompany,
+    makeUserAdmin,
 };

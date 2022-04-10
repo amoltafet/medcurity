@@ -16,7 +16,7 @@ import Axios from 'axios';
 */
 const EmployerDashboardPage = () => {
     Axios.defaults.withCredentials = true;
-    const [session, setSession] = useState([]);
+    const [currentUser, setCurrentUser] = useState([]);
     const [companyId, setCompanyId] = useState('');
     const [isLoading, setLoading] = useState(true)
     const [reload, setReload] = useState(false);
@@ -28,15 +28,15 @@ const EmployerDashboardPage = () => {
 
     useEffect(() => {
         Axios.get("http://localhost:3002/users/login").then((response) => {
-          setSession(response.data.user[0])
+          setCurrentUser(response.data.user[0])
         });
 	}, []);
 
     useEffect(() => {
-        if (session.userid != undefined) {
+        if (currentUser.userid !== undefined) {
             setLoading(false)
         }
-    }, [session])
+    }, [currentUser, currentUser.userid])
 
     // Query for getting companyid of associated user
     useEffect(() => {
@@ -44,22 +44,22 @@ const EmployerDashboardPage = () => {
             Axios.get('http://localhost:3002/api/getQuery', 
                 { params: { the_query: 'SELECT CompanyAdmins.CompanyID ' +
                 'FROM CompanyAdmins ' +
-                'WHERE CompanyAdmins.UserID = ' + String(session.userid)} 
+                'WHERE CompanyAdmins.UserID = ' + String(currentUser.userid)} 
                 }).then((response) => {
                     setCompanyId(Object.values(response.data)[0].CompanyID)
             });            
         }
-    }, [isLoading])
+    }, [isLoading, currentUser.userid])
 
 
     return (
     <>
         <MenuBar></MenuBar>
         <CardDeck className="dashTopPanel" style={{display: 'flex', flexDirection: 'row'}}>
-          <WelcomePanel user={session} subtitle={'to the Administration Page'}/>
+          <WelcomePanel user={currentUser} subtitle={'to the Administration Page'}/>
           <EmployerInvitations companyId={companyId} reload={reload} setReload={setReload} />
         </CardDeck>
-        <EmployeeCards user={session} companyId={companyId} reload={reload} setReload={setReload} />
+        <EmployeeCards user={currentUser} companyId={companyId} reload={reload} setReload={setReload} />
         
     </>
   );

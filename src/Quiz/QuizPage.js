@@ -22,7 +22,7 @@ const QuizPage = () => {
     ["questionNumbersWrong text-left", "questionDesciptionWrong "],
     ["questionNumbersRight text-left", "questionDesciptionRight "]
   ];
-  const [session, setSession] = useState([]);
+  const [currentUser, setCurrentUser] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [content, setContent] = useState([]);
   const [currentQuestion, setQuestion] = useState([]);
@@ -41,7 +41,6 @@ const QuizPage = () => {
   const [showPassedPopup, setShowPassedPopup] = useState(true);
   const [showUserDidNotCompleteOnTime, setShowUserDidNotCompleteOnTime] = useState(false);
   const [moduleNotAssigned, setModuleNotAssigned] = useState(false);
-
   const [moduleName, setModuleName] = useState("");
   var points = 0;
   var numCorrect = 0;
@@ -70,16 +69,14 @@ const QuizPage = () => {
     { answer: "", correct: false },
   ]);
 
-
   /**
    *  grabs user session to store points 
    */
   useEffect(() => {
     axios.get("http://localhost:3002/users/login").then((response) => {
-      setSession(response.data.user[0])
+      setCurrentUser(response.data.user[0])
     }).catch(error => console.error(`Error ${error}`));
   }, []);
-
 
   let { slug } = useParams();
 
@@ -87,15 +84,15 @@ const QuizPage = () => {
    *  gets all of users module info
    */
   useEffect(() => {
-    if (!isLoading && session.userid != null) {
+    if (!isLoading && currentUser.userid != null) {
 		axios.get('http://localhost:3002/api/getQuery',{
-			params: { the_query: 'SELECT * FROM CompletedModules WHERE UserID = ' + session.userid }
+			params: { the_query: 'SELECT * FROM CompletedModules WHERE UserID = ' + currentUser.userid }
 		}).then((response) => {
 			setUserCompletedModules(response.data);
 			console.log("Completed", response.data);
 		});
 		axios.get('http://localhost:3002/api/getAllUserRequiredModules', 
-			{ params: { userid: session.userid }
+			{ params: { userid: currentUser.userid }
 		}).then((response) => {
 			setUserAssignedModules(response.data)
 			console.log("Assigned: ", response.data);
@@ -105,30 +102,26 @@ const QuizPage = () => {
 		}).then((response) => {
 			setModuleName(response.data); 
 			console.log("ModuleName: ", response.data);
-		});
+		});	
+    
     axios.get('http://localhost:3002/api/getQuery',{
-			params: { the_query: 'SELECT * FROM AffiliatedUsers'}
+			params: { the_query: 'SELECT * FROM CompanyAdmins' }
 		}).then((response) => {
-			console.log("Company Users: ", response.data);
-		});
-
-    axios.get('http://localhost:3002/api/getQuery',{
-			params: { the_query: 'SELECT * FROM CompanyLearningModules'}
-		}).then((response) => {
-			console.log("Assigned Modules: ", response.data);
-		})
-
-		content.forEach(element => {
-			console.log(element.solution)
-		});
-		
+			console.log("Admins: ", response.data);
+		});	
 
       // KEEP FOR TESTING!!
+
+      // Quiz Answers 
+
+      // content.forEach(element => {
+      // 	console.log(element.solution)
+      // });
 
       //rests users stats
 
       // axios.post("http://localhost:3002/testing/resetUser", {
-      //   userid: session.userid,
+      //   userid: currentUser.userid,
       // }).then((response) => {
       //   console.log("response", response);
       // }).catch(error => console.log(`Error ${error}`));
@@ -146,7 +139,7 @@ const QuizPage = () => {
       //adds completed modules 
 
       // axios.post("http://localhost:3002/testing/fillCompletedModules", {
-      //   userid: session.userid,
+      //   userid: currentUser.userid,
       //   modulenum: 3,
       //   daysaway: 2,
       // }).then((response) => {
@@ -156,15 +149,23 @@ const QuizPage = () => {
       //assigns company 
 
       // axios.post("http://localhost:3002/testing/addCompany", {
-      //   userid: session.userid,
+      //   userid: currentUser.userid,
       //   companyid: 24,
       // }).then((response) => {
       //   console.log("response", response);
       // }).catch(error => console.log(`Error ${error}`));
-    }
-   
 
-  }, [isLoading, session.userid])
+      //makes user an admin
+      // axios.post("http://localhost:3002/testing/makeAdmin", {
+      //   userid: currentUser.userid,
+      //   companyid: currentUser.companyid,
+      // }).then((response) => {
+      //   console.log("response", response);
+      // }).catch(error => console.log(`Error ${error}`));
+    
+
+    }
+  }, [isLoading, currentUser.userid, slug])
 
   /**
    *  grabs content and sets loading to false 
@@ -205,20 +206,20 @@ const QuizPage = () => {
           points: totalPoints,
           percentName: percentName,
           lengths: (percent),
-          userid: session.userid,
+          userid: currentUser.userid,
         }).then((response) => {
           console.log("response", response);
         }).catch(error => console.log(`Error ${error}`));
         axios.post("http://localhost:3002/users/moduleCompleted", {
           categoryId: slug,
-          userid: session.userid,
+          userid: currentUser.userid,
         }).then((response) => {
           console.log("response", response.data);
         }).catch(error => console.log(`Error ${error}`));
         setPassed(true)
       }
     }
-  }, [points, numCorrect, isSubmitted])
+  }, [points, numCorrect, isSubmitted, content.length, currentUser.userid, earlyCompletion, isLoading, moduleNotAssigned, notCompleteOnTime, slug, spaceLearning])
 
   /**
    *  shuffles the question answers

@@ -17,7 +17,6 @@ const Leaderboard = (props) => {
     useEffect(() => {
         Axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 'SELECT * FROM Users' } }).then((response) => {
             setUsers(Object.values(response.data));
-            console.log("leaderboard: ", response.data)
         }).catch(error => console.error(`Error ${error}`));
     }, [])
 

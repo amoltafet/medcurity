@@ -15,14 +15,14 @@ const LeaderboardPage = () => {
     const [allUsers, setAllUsers] = useState([]);
     const [companyUsers, setCompanyUsers] = useState([]);
     const [companyName, setCompanyName] = useState("Company");
-    const [user, setUser] = useState([]);
+    const [currentUser, setCurrentUser] = useState([]);
 
     /**
     * grabs current user.  
     */
     useEffect(() => {
         axios.get("http://localhost:3002/users/login").then((response) => {
-          setUser(response.data.user[0]) 
+          setCurrentUser(response.data.user[0]) 
           console.log("userId:", response.data.user[0].companyid)
         }).catch(error => console.error(`Error ${error}`));
       }, []);
@@ -41,24 +41,24 @@ const LeaderboardPage = () => {
     * Grabs company name. 
     */
      useEffect(() => {
-        if (user.companyid !== undefined) { 
-            axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 'SELECT * FROM Companies WHERE companyid = ' + user.companyid} }).then((response) => {
+        if (currentUser.companyid !== undefined) { 
+            axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 'SELECT * FROM Companies WHERE companyid = ' + currentUser.companyid} }).then((response) => {
                 setCompanyName(Object.values(response.data));
                
             }).catch(error => console.error(`Error ${error}`));
         }
-    }, [user])
+    }, [currentUser])
     /**
     * Grabs all of the users in the same company as the logged in user for the leaderboard. 
     */
      useEffect(() => {
-         if (user.companyid !== undefined) { 
-            axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 'SELECT * FROM Users WHERE companyid = ' + user.companyid} }).then((response) => {
+         if (currentUser.companyid !== undefined) { 
+            axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 'SELECT * FROM Users WHERE companyid = ' + currentUser.companyid} }).then((response) => {
                 setCompanyUsers(Object.values(response.data));
                 console.log("company users", response.data)
             }).catch(error => console.error(`Error ${error}`));
         }
-    }, [user])
+    }, [currentUser])
 
 
 
@@ -163,7 +163,7 @@ const LeaderboardPage = () => {
             <div className="leaderboardbg">
             <Tab.Container id="left-tabs-example" defaultActiveKey="first">
                     <Row className="justify-content-center">
-                        <Col sm={1} className="shadowTab_leaderboard uvs-left">
+                        <Col xs={1} md={1} lg={1} className="shadowTab_leaderboard uvs-left">
                         <Nav variant="pills" className="selection_leaderbaord_container text-left">
                             <Nav.Item className="orginization_selection_tab">
                                 <Nav.Link className="leaderbaord_pill_font" eventKey="first">{companyName.name} Users</Nav.Link>
@@ -175,7 +175,7 @@ const LeaderboardPage = () => {
                         </Col>
                     </Row>
                     <Row className="justify-content-center">
-                        <Col sm={7}>
+                        <Col xs={12} md={12} lg={7}>
                         <Tab.Content>
                             <Tab.Pane  eventKey="first">
                                 <Col className="justify-content-center">

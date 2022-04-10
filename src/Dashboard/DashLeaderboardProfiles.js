@@ -15,28 +15,25 @@ function DashLeaderboardProfiles (props) {
     const [profilePic, setProfilePic] = useState("")
 
     Axios.defaults.withCredentials = true;
-    console.log('from DashLBProfiles:', props)
 
     useEffect(() => { if (props.userid) Axios.get("http://localhost:3002/api/getProfilePicture", { params: { id: props.userid }} ).then((response) => { setProfilePic(response.data.profileImage) }); })
 
     return (
         <>
             <Card className="cardBackgroundDash" style={{ flexDirection: 'row' }}>
-                <Col>
+                <Col xs={2} lg>
                     <div className="dashLeaderNumberPosition">{props.index}.</div>
                 </Col>
-                <Col>
+                <Col xs={2} lg>
                     <Image className="profileImageDash" src={`data:image/png;base64,${profilePic}`} alt="" roundedCircle />
                 </Col>
-                <Col>
+                <Col xs={4} lg>
                     <div className="userTextDash">{props.name}</div>
                 </Col>
-                <Col>
-                 <div className="scoreTextDash">Score</ div>
-                </Col>
-                <Col>
-                    <div body className="pointsDash">{props.score}</div> 
-                </Col>   
+                <Col xs={3} lg> 
+                    <div body className="pointsDash">points: {props.score}</div> 
+                 </Col>   
+               
             </Card>
         </>
     );
