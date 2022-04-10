@@ -10,14 +10,15 @@ import 'bootstrap/dist/css/bootstrap.min.css'
  * @returns Card object with the relevant information
  */
 const LearningModulePanel = (props) => {
+    var dueDate = new Date(props.dueDate); 
     return (
         <>
-        <Card className="LearningModulePanelCard uvs-right uvs-left">
+        <a href={"/learning-module/" + props.link} style={{ cursor: "pointer" }}className="LearningModulePanelCard uvs-right uvs-left">
             <Card.Body>
-               <Card.Link className="font" href={"/learning-module/" + props.link} >{props.title}</Card.Link>
-               <Card.Text></Card.Text> 
+               <Card.Title className="testPanelFont" href={"/learning-module/" + props.link} >{props.title}</Card.Title>
+               <Card.Text className="dueDateRequiredModule">Due At: {dueDate.toDateString()}</Card.Text> 
             </Card.Body> 
-        </Card>
+        </a>
         </>
     );
 }

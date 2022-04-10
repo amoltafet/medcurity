@@ -89,13 +89,13 @@ const QuizPage = () => {
 			params: { the_query: 'SELECT * FROM CompletedModules WHERE UserID = ' + currentUser.userid }
 		}).then((response) => {
 			setUserCompletedModules(response.data);
-			console.log("Completed", response.data);
+			console.log("user Completed", response.data);
 		});
 		axios.get('http://localhost:3002/api/getAllUserRequiredModules', 
 			{ params: { userid: currentUser.userid }
 		}).then((response) => {
 			setUserAssignedModules(response.data)
-			console.log("Assigned: ", response.data);
+			console.log("user Assigned: ", response.data);
 		}).catch(error => console.error(`Error ${error}`));
 		axios.get('http://localhost:3002/api/getQuery',{
 			params: { the_query: 'SELECT * FROM LearningModules WHERE ID = ' + slug }
@@ -104,10 +104,17 @@ const QuizPage = () => {
 			console.log("ModuleName: ", response.data);
 		});	
     
+
     axios.get('http://localhost:3002/api/getQuery',{
-			params: { the_query: 'SELECT * FROM CompanyAdmins' }
+			params: { the_query: 'SELECT * FROM CompletedModules' }
 		}).then((response) => {
-			console.log("Admins: ", response.data);
+			console.log("all copleted modules : ", response.data);
+		});	
+
+    axios.get('http://localhost:3002/api/getQuery',{
+			params: { the_query: 'SELECT * FROM CompletedModules JOIN Users on CompletedModules.UserID = Users.userid' }
+		}).then((response) => {
+			console.log("Join try: ", response.data);
 		});	
 
       // KEEP FOR TESTING!!
@@ -128,13 +135,13 @@ const QuizPage = () => {
 
       //assigns modules
 
-      // axios.post("http://localhost:3002/testing/assignModules", {
-      //     companyid: 24, 
-      //     modulenum: 5,
-      //     daysaway: 7,
-      //   }).then((response) => {
-      //     console.log("response", response);
-      //   }).catch(error => console.log(`Error ${error}`));
+      axios.post("http://localhost:3002/testing/assignModules", {
+          companyid: 24, 
+          modulenum: 85,
+          daysaway: 7,
+        }).then((response) => {
+          console.log("response", response);
+        }).catch(error => console.log(`Error ${error}`));
 
       //adds completed modules 
 

@@ -1,4 +1,4 @@
-import { CardDeck,  Container } from 'react-bootstrap'
+import { Row,  Container } from 'react-bootstrap'
 import React from 'react';
 import './LearningDirectoryPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -20,10 +20,11 @@ const LearningDirectoryPageContent = (props) => {
      * Create directory cards from modules
      */
     function createDirectoryCards(modules) {
+        var dueDate = new Date(props.dueDate); 
         const objs = []
         for (let index in modules) {
-            module = modules[index]
-            objs.push(<LearningModulePanel title={module.Title} link={module.ID} />)
+            var newModule = modules[index]
+            objs.push(<LearningModulePanel title={newModule.Title} link={newModule.ID} dueDate={newModule.DueDate}/>)
         }
         return objs;
     }
@@ -34,9 +35,9 @@ const LearningDirectoryPageContent = (props) => {
             
             <h1>{props.directoryTitle}</h1>
         </Container>
-        <CardDeck className="dashboard" style={{display: 'flex', flexDirection: 'row'}}>
+        <Row className="dashboard" style={{display: 'flex', flexDirection: 'row'}}>
             {createDirectoryCards(props.modules)}
-        </CardDeck>
+        </Row>
         <div className="d-grid gap-2">
         </div>
         </>
