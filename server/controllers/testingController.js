@@ -25,11 +25,17 @@ const logger = require('../logger').log
 
 /**
  * Assigns user specific module & due date.
+ * NOTE: AssignedLearningModules no longer exists. 
+ * Instead assign a learning module to a company and/or delete a user's 
+ * completed progress on the module
+ * 
  */
 const assignModulesTest = (req, res) => {   
     const userid = req.body.userid;
     const moduleNum = req.body.modulenum;
     const dateDue = req.body.daysaway;
+    // This function no longer functions
+    res.send(false)
     
     var today = new Date();
     today.setDate((today.getDate() + dateDue)-1);

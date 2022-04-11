@@ -18,11 +18,27 @@ export default function LoginPage()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [mobileView, setMobileView] = useState(false);
+  const [session, setSession] = useState([]);
   const [dimensions, setDimensions] = React.useState({ 
     height: window.innerHeight,
     width: window.innerWidth
   });
   const navigate = useNavigate();
+  
+  // get the user's session to see if they're already logged in. If so,
+  // redirect them to their dashboard.
+  useEffect(() => {
+    Axios.get("http://localhost:3002/users/login").then((response) => {
+      //setSession(response.data.user[0])
+      if (response.data.user)
+      {
+        setSession(response.data.user[0])
+      }
+      else
+      {
+        setSession(null)
+      }
+    }).catch(error => console.error(`Error ${error}`)); }, []);
 
   useEffect(() => {
     function handleResize() {
@@ -62,12 +78,18 @@ export default function LoginPage()
   const register = () => {
     navigate('/register');
   };
+
+  const dashRedirect = () => {
+    navigate('/dash');
+  };
  
   if (mobileView) {
     return 
   }
  
-  return (
+  if (!session)
+  {
+    return (
       <>
       <Form className="loginbg img-fluid">
         <Image className="MedcurityLogo justify-content-bottom" variant="top" src="/Medcurity_Logo.png" alt="" />
@@ -90,7 +112,7 @@ export default function LoginPage()
               </div>
               <div class="col-xs-5 col-md-5">
                <div class="login_formColumn row justify-content-center">
-                  <h3 class="login_h3">Need an account?</h3>
+                  <h3 class="login_h3">Need an account? Got an invitation?</h3>
                   <p class="login_p">Creating a new account is quick and easy. Get started here!</p>
                   <Button className="login_formButton" onClick={register} variant="secondary" type="button">Register a New Account</Button>
                 </div>
@@ -100,5 +122,17 @@ export default function LoginPage()
       </Form>
       </>
   );
+  }
+  else
+  {
+    return (
+      <>
+        <body onLoad={dashRedirect()}>
+          <p>Redirecting...</p>
+        </body>
+      </>
+    )
+
+  }
 }
 

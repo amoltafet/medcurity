@@ -88,29 +88,29 @@ const QuizPage = () => {
    */
   useEffect(() => {
     if (!isLoading && session.userid != null) {
-      axios.get('http://localhost:3002/api/getQuery',{
-        params: { the_query: 'SELECT * FROM CompletedModules WHERE UserID = ' + session.userid }
-      }).then((response) => {
-        setUserCompletedModules(response.data);
-        console.log("Completed", response.data);
-      });
-      axios.get('http://localhost:3002/api/getQuery',{
-        params: { the_query: 'SELECT * FROM AssignedLearningModules WHERE UserID = ' + session.userid }
-      }).then((response) => {
-        setUserAssignedModules(response.data); 
-        console.log("Assigned: ", response.data);
-      });
-      axios.get('http://localhost:3002/api/getQuery',{
-        params: { the_query: 'SELECT * FROM LearningModules WHERE ID = ' + slug }
-      }).then((response) => {
-        setModuleName(response.data); 
-        console.log("ModuleName: ", response.data);
-      });
+		axios.get('http://localhost:3002/api/getQuery',{
+			params: { the_query: 'SELECT * FROM CompletedModules WHERE UserID = ' + session.userid }
+		}).then((response) => {
+			setUserCompletedModules(response.data);
+			console.log("Completed", response.data);
+		});
+		axios.get('http://localhost:3002/api/getAllUserRequiredModules', 
+			{ params: { userid: session.userid }
+		}).then((response) => {
+			setUserAssignedModules(response.data)
+			console.log("Assigned: ", response.data);
+		}).catch(error => console.error(`Error ${error}`));
+		axios.get('http://localhost:3002/api/getQuery',{
+			params: { the_query: 'SELECT * FROM LearningModules WHERE ID = ' + slug }
+		}).then((response) => {
+			setModuleName(response.data); 
+			console.log("ModuleName: ", response.data);
+		});
 
-      content.forEach(element => {
-         console.log(element.solution)
-      });
-     
+		content.forEach(element => {
+			console.log(element.solution)
+		});
+		
 
       // KEEP FOR TESTING!!
 

@@ -17,6 +17,9 @@ router.post('/changeUserName', userControllers.userChangeUsername);
 router.post('/changeUserPassword', userControllers.userChangePassword);
 router.post('/quiz', userControllers.userPoints);
 router.post('/moduleCompleted', userControllers.userModuleCompleted);
+router.post('/deleteUser', userControllers.deleteUser);
+router.post('/assignModulesToCompany', userControllers.assignModulesToCompany);
+router.post('/removeModuleFromCompany', userControllers.removeModuleFromCompany);
 
 
 module.exports = router

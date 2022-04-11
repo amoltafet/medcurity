@@ -106,14 +106,17 @@ const userRegisterEmpty = (req,res) =>
 {
     const email = req.body.email
     const username = email.substring(0, email.indexOf("@"));
+    const companyid = req.body.companyid
 
     db.query(`SELECT EXISTS(SELECT * FROM Users WHERE email = '${email}') AS doesExist`, (err,result) => {
         if (result[0].doesExist == 0)
         {
             db.query("INSERT INTO Users (username, email, active) VALUES (?,?,?)", [username, email, false], (err, result) => {
-                db.query(`SELECT * FROM Users WHERE email = '${email}'`, (err,result) => {
-                    res.send(true)
-                })
+                db.query(`SELECT * FROM Users WHERE email = '${email}'`, (err,user) => {
+                    db.query("INSERT INTO AffiliatedUsers (UserID, CompanyID) VALUES (?,?)", [user[0].userid, companyid], (err, result) => {
+                        res.send(true)
+                    });
+                });
             });
         }
         else
@@ -122,6 +125,7 @@ const userRegisterEmpty = (req,res) =>
         }
     })
 }
+
 
 /**
  * Queries the database to register an inactive company admin assigned to a company.
@@ -160,22 +164,38 @@ const userLogin = (req,res) =>
     const email = req.body.email
     const password = req.body.password
 
-    db.query(`SELECT EXISTS(SELECT * FROM Users WHERE email = '${email}') AS doesExist`, (err,result) => {
-        if (result[0].doesExist == 1)
+    db.query(`SELECT EXISTS(SELECT * FROM Users WHERE email = '${email}') AS doesExist`, (err,userExists) => {
+        if (userExists[0]?.doesExist == 1)
         {
-            db.query(`SELECT * FROM Users WHERE email = '${email}'`, (err,result) => {
-                bcrypt.compare(password, result[0].password, (error, response) => {
-                    if (response) 
-                    {
-                        req.session.userSession = result;
-                        logger.log('info', `Existing user "${email}" logged in.`, { service: 'user-service' })
-                        res.send({ result: result, success: true, message: "Logging in!" });
-                    } 
-                    else 
-                    {
-                        res.send({ success: false, message: "Wrong username/password combination!" });
-                    }
-                });
+            db.query(`SELECT * FROM Users WHERE email = '${email}'`, (err,userData) => {
+                db.query(`SELECT Users.userid, AffiliatedUsers.CompanyID FROM Users INNER JOIN AffiliatedUsers ON Users.userid=AffiliatedUsers.UserID WHERE Users.userid = '${userData[0].userid}'`, (err,userCompanyID) => {
+                    db.query(`SELECT Users.userid, CompanyAdmins.CompanyID FROM Users INNER JOIN CompanyAdmins ON Users.userid=CompanyAdmins.UserID WHERE Users.userid = '${userData[0].userid}'`, (err,userIsCompanyAdmin) => {
+                        db.query(`SELECT Users.userid FROM Users INNER JOIN WebsiteAdmins ON Users.userid=WebsiteAdmins.UserID WHERE Users.userid = '${userData[0].userid}'`, (err,userIsWebsiteAdmin) => {
+                            bcrypt.compare(password, userData[0].password, (error, response) => {
+                                if (response) 
+                                {
+                                    // do not attach the password to the user session
+                                    delete userData[0].password
+
+                                    // attach roles to user session
+                                    userData[0].type = (userIsCompanyAdmin.length > 0) ? 'companyAdmin' : 'user'
+                                    if (userData[0].type != 'user') userData[0].type = (userIsWebsiteAdmin.length > 0) ? 'websiteAdmin' : 'companyAdmin'
+
+                                    userData[0].companyid = userCompanyID[0]?.CompanyID || 0
+                                    
+                                    userData[0].loggedInAt = Date()
+                                    req.session.userSession = userData;
+                                    logger.log('info', `Existing user "${email}" logged in.`, { service: 'user-service' })
+                                    res.send({ result: userData, success: true, message: "Logging in!" });
+                                } 
+                                else 
+                                {
+                                    res.send({ success: false, message: "Wrong username/password combination!" });
+                                }
+                            });
+                        })
+                    })
+                })
             })
         }
         else
@@ -207,7 +227,7 @@ const userLoginSession = (req, res) =>
  */
 const userLogout = (req, res) =>
 {   
-    if (req.session.userSession)
+    if (req?.session?.userSession)
     {
         logger.log('info', `Successfully logged out user "${req.session.userSession[0].username}"`, { service: 'user-service' })
         req.session.destroy()
@@ -215,9 +235,9 @@ const userLogout = (req, res) =>
     } 
     else 
     {
-        logger.log('info', `Failing logged out user. User most likely logged out without a session.`, { service: 'user-service' })
-        res.end()
+        logger.log('info', `Failed logging out a user. User most likely logged out without a session.`, { service: 'user-service' })
         res.send({ success: false, message: "Could not log out..." });
+        res.end()
     }
 }
 
@@ -259,7 +279,7 @@ const userPoints = (req, res) => {
 }
 
 /**
- * Moves the assigned module to be a completed module.
+ * Store a learning module as completed.
  */
 const userModuleCompleted = (req, res) => {
     var today = new Date();
@@ -268,17 +288,112 @@ const userModuleCompleted = (req, res) => {
     const userid = req.body.userid;   
 
     db.query(`INSERT INTO CompletedModules (UserID, LearningModID, DateCompleted)  VALUES (?,?,?)`, [userid, categoryId, today], (err,result) => {
-        db.query(`DELETE FROM AssignedLearningModules WHERE LearningModID = "${categoryId}" AND UserID = "${userid}"`, (err,result) => {
-            db.query(`SELECT * FROM Users WHERE userid = '${userid}'`, (err,result) => {
-                logger.log('info', `User-'${userid}' completed Module '${categoryId}', on: "${today}"`);
-                req.session.userSession = result;
-                res.send({success: true, message: `Completed Module & Removed from the Assigned`});
-            })
-        }) 
+        db.query(`SELECT * FROM Users WHERE userid = '${userid}'`, (err,result) => {
+            logger.log('info', `User-'${userid}' completed Module '${categoryId}', on: "${today}"`);
+            req.session.userSession = result;
+            res.send({success: true, message: `Completed Module`});
+        })
     })   
 }
 
 /**
+ * Removes a user from the site
+ * Involves removing the user from Users table, AffiliatedUsers,
+ * CompanyAdmins, CompletedModules
+ */
+const deleteUser = (req,res) => 
+{
+    const userid = req.body.userid
+
+    db.query((`SELECT EXISTS(SELECT * FROM Users ` +
+        `WHERE Users.userid = '${userid}') AS doesExist`), (err, result) => {
+        if (result[0].doesExist == 1)
+        {
+            if (err) console.log(err);
+
+            db.query(`DELETE FROM AffiliatedUsers WHERE AffiliatedUsers.UserID = '${userid}'`, (err, result) => {});
+            db.query(`DELETE FROM Users WHERE Users.userid = '${userid}'`, (err, result) => {});
+            db.query(`DELETE FROM CompanyAdmins WHERE CompanyAdmins.UserID = '${userid}'`, (err, result) => {});
+            db.query(`DELETE FROM CompletedModules WHERE CompletedModules.UserID = '${userid}'`, (err, result) => {});
+            res.send(true)
+        }
+        else
+        {
+            res.send(false)
+        }
+    })
+
+    
+}
+
+/**
+ * Assign a learning module to a company if it is not already assigned
+ * TODO assign date
+*/
+const assignModulesToCompany = (req,res) => 
+{
+    const learningmodid = req.body.learningModId
+    const companyid = req.body.companyid
+
+    db.query(`SELECT EXISTS(SELECT * FROM CompanyLearningModules as CLM ` +
+    `WHERE CLM.LearningModId = '${learningmodid}' and CLM.CompanyID = '${companyid}') AS doesExist`, (err,result) => {
+        if (result[0].doesExist == 0)
+        {
+            db.query("INSERT INTO CompanyLearningModules (LearningModID, CompanyID) VALUES (?,?)", [learningmodid, companyid], (err, result) => {
+            res.send(true)
+            });
+        }
+        else
+        {
+            res.send(false)
+        }
+    })
+ }
+
+/**
+ * Removes assigned learning module from a company
+ * Also removes all completed module records for that learning module
+ * from all users in the company
+ */
+ const removeModuleFromCompany = (req, res) => {
+    const learningmodid = req.body.learningModId
+    const companyid = req.body.companyid
+
+    db.query((`SELECT EXISTS(SELECT * FROM CompanyLearningModules ` +
+        `WHERE CompanyLearningModules.LearningModID = '${learningmodid}' and CompanyLearningModules.CompanyID = '${companyid}') AS doesExist`), (err, result) => {
+        if (result[0].doesExist == 1)
+        {
+            if (err) logger.log('error', { methodName: '/removeModuleFromCompany', errorBody: err }, { service: 'user-service' });
+
+            db.query(`DELETE FROM CompanyLearningModules WHERE CompanyLearningModules.LearningModID = '${learningmodid}' and CompanyLearningModules.CompanyID = '${companyid}'`, (err, result) => {
+                logger.log('info', `Deleted CompanyLearningModule with companyID: "${companyid}" and learningModID: "${learningmodid}" Fields: ${result}`, { service: 'user-service' })
+                db.query(`SELECT AffiliatedUsers.UserID ` + 
+                    `FROM AffiliatedUsers ` +
+                    `WHERE AffiliatedUsers.CompanyID = '${companyid}'`, (err, company_users) => {
+                        logger.log('info', `Queried User ids affiliated with company: "${companyid}" Fields: ${result}`, { service: 'user-service' })
+                    for (index in company_users) {
+                        db.query(`DELETE FROM CompletedModules WHERE CompletedModules.LearningModID = ` +
+                            `'${learningmodid}' and CompletedModules.UserID = '${company_users[index].UserID}'`, 
+                            (err, result) => {
+                                if(!err && result.affectedRows > 0) deletionStatus = true;
+                                else deletionStatus = false;
+                                logger.log('info', `Attempted deletion of CompletedModules record learningModID: "${learningmodid}" and UserID: "${company_users[index].UserID}." Successfully deleted if true: "${deletionStatus}" Fields: ${result}`, { service: 'user-service' })    
+                            });
+
+                                             }
+                    res.send(true)
+                });
+            });
+        }
+        else
+        {
+            res.send(false)
+        }
+    })
+}
+
+/**
+ * Changes the users profile picture.
  * Below are helper functions!
  */
 
@@ -332,5 +447,9 @@ module.exports =
     userChangeUsername,
     userChangePassword,
     userPoints,
-    userModuleCompleted
+    userModuleCompleted,
+    deleteUser,
+    assignModulesToCompany,
+    removeModuleFromCompany,
+    userModuleCompleted,
 };

@@ -21,6 +21,7 @@ router.get('/getProfilePicture', queryControllers.queryProfilePicture);
 router.get('/getModuleQuestions', queryControllers.queryModuleQuestions);
 router.get('/getModuleDirectoryInfo', queryControllers.queryModuleDirectoryInfo);
 router.get('/getDirectoryModulesInfo', queryControllers.queryDirectoryModulesInfo);
+router.get('/getAllUserRequiredModules', queryControllers.queryAllUserRequiredModules);
 router.post('/addModule', queryControllers.addModule);
 
 module.exports = router

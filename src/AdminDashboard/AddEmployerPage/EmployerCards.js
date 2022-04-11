@@ -11,8 +11,6 @@ import EmployerCard from './EmployerCard'
  * @returns 
  */
 const EmployersCards = () => {
-    const userId = 100
-    // const [Employers, setEmployers] = useState([])
     const [employers, setEmployers] = useState("")
     const [companies, setCompanies] = useState("")
     useEffect(() => {

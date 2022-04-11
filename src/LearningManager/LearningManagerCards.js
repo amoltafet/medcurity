@@ -39,7 +39,7 @@ const LearningManagersCards = (props) => {
                     setLearningModules(Object.values(response.data))
             });
         }
-    }, [isLoading])
+    }, [isLoading, props.reload])
 
     /**
      * Create directory cards from modules
@@ -53,7 +53,7 @@ const LearningManagersCards = (props) => {
         for (let index in modules) {
             if (size == maxLength) { break; }
             module = modules[index]
-            objs.push(<LearningManagerCard learningModuleName={module.Title} moduleId={module.ID} companyId={module.CompanyID} />)
+            objs.push(<LearningManagerCard learningModuleName={module.Title} moduleId={module.ID} companyId={module.CompanyID} setReload={props.setReload}/>)
             size += 1;
         }
         return objs;

@@ -11,41 +11,33 @@ import EmployeeCard from './EmployeeCard'
  */
 const EmployeesCards = (props) => {
     const userId = String(props.user.userid)
-    // Test account details
-    // id 159
-    // email bobbytables@gmail.com
-    // 1234
     const [employees, setEmployees] = useState([])
     const [assignedModulesCount, setAssignedModulesCount] = useState([])
     const [userCompletedModules, setUserCompletedModules] = useState([])
     const [isLoading, setLoading] = useState(true)
-    // let employees = [
-    //     {Name:"John", Email:"j@gmail.com", Progress:1},
-    //     {Name:"Jack", Email:"ja@gmail.com", Progress:1},
-    //     {Name:"Jen", Email:"je@gmail.com", Progress:21}
-    // ]
+
     useEffect(() => {
-        if (Number.isInteger(props.user.userid)) {
+        if (Number.isInteger(props.companyId)) {
             setLoading(false)
         }
-    }, [props.user])
+    }, [props.companyId])
 
     // Get all of the employees that are employed at the company the user is an
     // admin of. Then selects their email, name
     useEffect(() => {
         if(!isLoading) {
             axios.get('http://localhost:3002/api/getQuery', 
-                { params: { the_query: 'SELECT Users.username, Users.email, Users.userid as UserId, Users.active, CompanyAdmins.CompanyID as CompanyId ' + 
+                { params: { the_query: 'SELECT Users.username, Users.email, Users.userid as UserId, Users.active, AffiliatedUsers.CompanyID as CompanyId ' + 
                 'FROM AffiliatedUsers ' + 
                     'JOIN Users ON AffiliatedUsers.UserID = Users.userid ' + 
-                    'JOIN CompanyAdmins ON CompanyAdmins.CompanyID = AffiliatedUsers.CompanyID ' +
-                'WHERE CompanyAdmins.UserID = ' + userId + ' ' +
+                'WHERE AffiliatedUsers.CompanyID = ' + props.companyId + ' ' +
                 'ORDER BY Users.email'} 
                 }).then((response) => {
                     setEmployees(Object.values(response.data))
+                    console.log("Got employees")
             });
         }
-    }, [isLoading])
+    }, [isLoading, props.reload])
 
     // Get each companies assigned modules
     useEffect(() => {
@@ -53,34 +45,63 @@ const EmployeesCards = (props) => {
             axios.get('http://localhost:3002/api/getQuery', 
                 { params: { the_query: 'SELECT COUNT(CompanyLearningModules.LearningModID) as totalAssignedModules ' + 
                 'FROM CompanyLearningModules ' + 
-                    'JOIN CompanyAdmins ON CompanyAdmins.CompanyID = CompanyLearningModules.CompanyID ' +
-                'WHERE CompanyAdmins.UserID = ' + userId} 
+                'WHERE CompanyLearningModules.CompanyID = ' + props.companyId} 
                 }).then((response) => {
                     setAssignedModulesCount(Object.values(response.data))
             });
         }
-    }, [isLoading])
+    }, [isLoading, props.reload])
 
-    // Get a count of how many modules each user associated with the company
-    // of the current user has completed
+    // Get a count of how many modules of the company are completed for
+    // each user associated with the company
     useEffect(() => {
         if(!isLoading) {
             axios.get('http://localhost:3002/api/getQuery', 
-                { params: { the_query: 'SELECT COUNT(CompletedModules.LearningModID), AffiliatedUsers.UserId ' + 
+                { params: { the_query: 'SELECT COUNT(CompletedModules.LearningModID) AS completedModules, AffiliatedUsers.UserId ' + 
                 'FROM AffiliatedUsers ' + 
                     'JOIN CompletedModules ON AffiliatedUsers.UserID = CompletedModules.UserID ' + 
-                    'JOIN CompanyAdmins ON CompanyAdmins.CompanyID = AffiliatedUsers.CompanyID ' +
-                    'JOIN CompanyLearningModules ON CompanyAdmins.CompanyID = CompanyLearningModules.CompanyID ' +
-                'WHERE CompanyAdmins.UserID = ' + userId + ' ' +
+                    'JOIN CompanyLearningModules ON CompletedModules.LearningModID = CompanyLearningModules.LearningModID ' +
+                'WHERE CompanyLearningModules.CompanyID = ' + props.companyId + ' ' +
                 'GROUP BY AffiliatedUsers.UserId'} 
                 }).then((response) => {
+                    console.log("Printing modules")
+                    console.log(response.data)
+                    // let completedModules = []
+                    // for (let record in Object.values(response.data)) {
+
+                    //     completedModules.push({'UserId': record[0].UserId})
+                    // }
+                    // console.log(completedModules)
                     setUserCompletedModules(Object.values(response.data))
+                    console.log(userCompletedModules)
             });
         }
-    }, [isLoading])
+    }, [isLoading, props.reload])
+    
 
     /**
-     * Create directory cards from modules
+     * This function finds a record in an array of dictionaries
+     * @param {list of dict} array 
+     * @param {str} key 
+     * @param {obj} value 
+     * @returns 
+     */
+    function findValueInArrayOfDict(array, value) {
+        console.log(value)
+        for (let index in array) {
+            console.log(array[index].UserId)
+            if (array[index].UserId == value) {
+                return array[index].completedModules
+            }
+        }
+        return false
+    }
+
+    /**
+     * Create directory cards from modules. If the maxlength is reached, stops.
+     * Calculates the completed modules number for every user by searching for
+     * it in userCompletedModules. If this fails returns 0. Then makes pushes a card
+     * on.
      * @param {modules} to create cards for
      * @param {max_length} to limit max card number created
      */
@@ -88,9 +109,17 @@ const EmployeesCards = (props) => {
         const objs = [];
         let size = 0
         for (let index in modules) {
-            if (size === maxLength) { break; }
+            if (size === maxLength) { break; } 
             module = modules[index]
-            objs.push(<EmployeeCard email={module.email} name={module.username} progress={'0/' + String(totalCompanyRequiredModules)} userId={module.UserId} activeStatus={module.active} companyId={module.CompanyId} />)
+            let completedModulesNum = 0
+            let completedMods = findValueInArrayOfDict(userCompletedModules, module.UserId)
+            if (completedMods) {
+                completedModulesNum = completedMods
+            }
+            objs.push(<EmployeeCard email={module.email} name={module.username} 
+                progress={String(completedModulesNum) +'/' + String(totalCompanyRequiredModules)} userId={module.UserId} 
+                activeStatus={module.active} companyId={module.CompanyId} 
+                setReload={props.setReload} />)
             size += 1;
         }
         return objs;
@@ -99,10 +128,6 @@ const EmployeesCards = (props) => {
     const totalCompanyRequiredModules = assignedModulesCount.map((assignedModulesCount) => {
         return assignedModulesCount.totalAssignedModules
     })
-
-    console.log(employees);
-    console.log(assignedModulesCount);
-    console.log(userCompletedModules);
 
     return (
         <>
