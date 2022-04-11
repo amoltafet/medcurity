@@ -104,6 +104,28 @@ const Menubar = () => {
         return objs;
     }
 
+     /**
+     * Returns buttons for accessing admin pages if the user is a medcurity
+     * admin
+     */
+    //   function get_admin_buttons() {
+    //     let objs = [];
+      
+    //     if (Number.isInteger(companyId)) {
+    //         objs.push(
+    //             <Nav.Item className="navPills uvs-left uvs-right">
+    //                 <Nav.Link className="menubarFontSpecial" href="/employer-dash">Employer Dashboard</Nav.Link>
+    //             </Nav.Item>
+    //         )
+    //         objs.push(
+    //             <Nav.Item className="navPills uvs-left uvs-right">
+    //                 <Nav.Link className="menubarFontSpecial" href="/learning-manager">Learning Module Manager</Nav.Link>
+    //             </Nav.Item>
+    //         )
+    //     }
+    //     return objs;
+    // }
+
     /**
     * Lets the user know the logo is the button to go back to the dash 
     * @param props 

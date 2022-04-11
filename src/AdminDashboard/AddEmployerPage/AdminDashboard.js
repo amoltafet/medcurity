@@ -11,6 +11,7 @@ import AddCompany from './AddCompany';
 import { useParams } from "react-router";
 import Axios from 'axios';
 import DeleteCompany from './DeleteCompany';
+import InvalidPage from '../../InvalidPage/InvalidPage';
 
 
 /**
@@ -30,19 +31,32 @@ const AdminDashboardPage = () => {
 
     console.log(session)
 
-
-    return (
-    <>
-        <MenuBar></MenuBar>
-        <CardDeck className="dashTopPanel" style={{display: 'flex', flexDirection: 'row'}}>
-          <AddCompany />
-          <AdminInvitations />
-          <DeleteCompany />
-        </CardDeck>
-        <EmployerCards />
-        
-    </>
-  );
+    if(session?.id) {
+      return (
+      <>
+          <MenuBar></MenuBar>
+          <CardDeck className="dashTopPanel" style={{display: 'flex', flexDirection: 'row'}}>
+            <AddCompany />
+            <AdminInvitations />
+            <DeleteCompany />
+          </CardDeck>
+          <EmployerCards />
+          
+      </>
+      );
+    }
+    else
+    {
+      return (
+        <>
+          <InvalidPage 
+            redirectPage={'/'} 
+            reason={"You need to be logged in to view your dashboard."}
+            btnMessage={"Back to Login Page"}>
+          </InvalidPage>
+        </>
+      )
+    }
 }
 /*
 <CardDeck className="EmployerDashTopPanel" style={{display: 'flex', flexDirection: 'row'}}>
