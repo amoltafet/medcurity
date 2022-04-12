@@ -23,7 +23,9 @@ const SettingsMenu = () => {
     const [repeatPassword, setRepeatPassword] = useState("");
     const [convertedProfilePhoto, setConvertedProfilePicture] = useState("/user.png");
     const [profilePic, setProfilePic] = useState("")
+    const [message, setMessage] = useState("Saved!")
     const navigate = useNavigate();
+
 
     useEffect(() => { if (session.userid) axios.get("http://localhost:3002/api/getProfilePicture", { params: { id: session.userid }} ).then((response) => { setProfilePic(response.data.profileImage) }); })
 
@@ -83,6 +85,8 @@ const SettingsMenu = () => {
                     retypedPassword: repeatPassword
                 }).then((response) => {
                     console.log("response", response.data);
+                    setMessage(response.data["message"])
+                    console.log("Message:", message)
                     
                 }).catch(error => console.log(`Error ${error}`));
             }
@@ -119,22 +123,13 @@ const SettingsMenu = () => {
         setSaveData(true);
     }
 
-    function checkPassword() {
-        if (newPassword != "" && repeatPassword != "") {
-            // TODO: Ask Ethan how to check password for needed characters
-            return true
-        }
-        else {
-            return false
-        }  
-    }
     const NavToDash = () => {
         navigate('/dash');
       };
 
     const popover = (
         <Popover id="popover-basic">
-            <Popover.Title as="h3">Saved!</Popover.Title>
+            <Popover.Title as="h3">{message}</Popover.Title>
         </Popover>
     );
 
@@ -182,6 +177,7 @@ const SettingsMenu = () => {
                                 <Form.Group className="passwordInput" controlId="formPlaintextEmail">
                                     <Form.Text className="passwordText" id="newPasswordText">New Password</Form.Text>
                                     <Form.Control
+                                        type="password"
                                         onChange={(e) => {
                                             setPassword(e.target.value);
                                         }}
@@ -190,6 +186,7 @@ const SettingsMenu = () => {
                                 <Form.Group className="passwordInput" controlId="formPlaintextEmail">
                                     <Form.Text className="passwordText" id="repeatPasswordText">Retype Password</Form.Text>
                                     <Form.Control
+                                        type="password"
                                         onChange={(e) => {
                                             setRepeatPassword(e.target.value);
                                         }}
