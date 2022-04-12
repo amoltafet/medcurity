@@ -42,20 +42,20 @@ const EmployeeCard = (props) => {
  
     return (
         <>
-        <Card className="EmployeeCard uvs-right uvs-left" style={{ flexDirection: 'row' }}>
-            <Col sm>
+        <Card className="EmployeeCard_dash uvs-right uvs-left justify-content-center" style={{ flexDirection: 'row' }}>
+            <Col xs={2} md={2} lg={2}>
                 <div className="EmployeeCardValues">{props.email}</div>
             </Col>
-            <Col sm>
-                <div className="EmployeeCardValues">{props.name}</div>
+            <Col xs={3} md={2} lg={2}>
+                <div className="EmployeeCardValues text-center">{props.name}</div>
             </Col>
-            <Col sm>
-                <div className="EmployeeCardValues">{String(Boolean(props.activeStatus))}</div>
+            <Col xs={2} md={2} lg={2}>
+                <div className="EmployeeCardValues text-center">{String(Boolean(props.activeStatus))}</div>
             </Col>
-            <Col sm>
-                <div className="EmployeeCardValues">{props.progress}</div>
+            <Col xs={2} md={2} lg={2}>
+                <div className="EmployeeCardValues text-center">{props.progress}</div>
             </Col>
-            <Col sm>
+            <Col xs={2} md={2} lg={2}>
                 <OverlayTrigger trigger="click" rootClose placement="left" 
                 overlay={
                     <Popover id="popover-basic" className="EmployeePopup">
@@ -72,7 +72,7 @@ const EmployeeCard = (props) => {
                     <Button className="EmployeeInRowButton uvs-right" 
                     size="sm" 
                     variant="danger"> 
-                    Remove User </Button>
+                    Remove</Button>
                 </OverlayTrigger>
             </Col>
         </Card>

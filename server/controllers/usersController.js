@@ -244,38 +244,27 @@ const userChangeUsername = (req, res) => {
 }
 
 /**
- * Updates the users points from the quiz.
- */
-const userPoints = (req, res) => {
-    const categoryName = req.body.categoryName;
-    const points = req.body.points;
-    const percentName = req.body.percentName;
-    const length = req.body.lengths;
-    const userid = req.body.userid;
-
-    db.query(`UPDATE Users SET ${categoryName} = '${points}', ${percentName} = "${length}" WHERE userid = '${userid}'`, (err,result) => {
-        db.query(`SELECT * FROM Users WHERE userid = '${userid}'`, (err,result) => {
-            logger.log('info', `Updated User-"${userid}" points to: "${points}"`);
-            req.session.userSession = result;
-            res.send({ result: result, success: true, message: `Updated user points to ${points}!` });
-        })
-    })   
-}
-
-/**
  * Store a learning module as completed.
  */
 const userModuleCompleted = (req, res) => {
     var today = new Date();
-    today.setDate(today.getDate() - 1);
+    today.setDate(today.getDate());
     const categoryId = req.body.categoryId;
     const userid = req.body.userid;   
+    const points = req.body.points;
+    const percentage = req.body.percentage;
 
-    db.query(`INSERT INTO CompletedModules (UserID, LearningModID, DateCompleted)  VALUES (?,?,?)`, [userid, categoryId, today], (err,result) => {
-        db.query(`SELECT * FROM Users WHERE userid = '${userid}'`, (err,result) => {
-            logger.log('info', `User-'${userid}' completed Module '${categoryId}', on: "${today}"`);
-            req.session.userSession = result;
-            res.send({success: true, message: `Completed Module`});
+
+    logger.log('info', `points "${points}"`);
+    logger.log('info', `percentage "${percentage}"`);
+
+    db.query(`INSERT INTO CompletedModules (UserID, LearningModID, DateCompleted, Points, Percentage)  VALUES (?,?,?,?,?)`, [userid, categoryId, today, points, percentage], (err,result) => {
+        if(err) {
+            logger.log('error', { methodName: '/moduleCompleted', errorBody: err }, { service: 'user-service' });
+        }
+        db.query(`SELECT * FROM CompletedModules WHERE userid = '${userid}'`, (err,result) => {
+            logger.log('info', `User-${userid} completed Module ${categoryId}, on: ${today} and scored ${points} points.`);
+            res.send({success: true, data: result, message: `Completed Module`});
         })
     })   
 }
@@ -430,7 +419,6 @@ module.exports =
     userLogout,
     userChangeUsername,
     userChangePassword,
-    userPoints,
     userModuleCompleted,
     deleteUser,
     assignModulesToCompany,

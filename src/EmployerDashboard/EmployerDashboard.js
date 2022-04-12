@@ -1,10 +1,10 @@
 import React from 'react';
-import './../Dashboard/DashboardPage.css';
+import '../Dashboard/DashboardPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { CardDeck } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import MenuBar from '../MenuBar/MenuBar';               
 import EmployeeCards from './EmployeeCards';
-import WelcomePanel from './../Dashboard/WelcomePanel';
+import WelcomePanel from '../Dashboard/WelcomePanel';
 import EmployerInvitations from './EmployerInvitations';
 import { useEffect, useState} from "react";
 import Axios from 'axios';
@@ -55,12 +55,19 @@ const EmployerDashboardPage = () => {
     return (
     <>
         <MenuBar></MenuBar>
-        <CardDeck className="dashTopPanel" style={{display: 'flex', flexDirection: 'row'}}>
-          <WelcomePanel user={currentUser} subtitle={'to the Administration Page'}/>
-          <EmployerInvitations companyId={companyId} reload={reload} setReload={setReload} />
-        </CardDeck>
-        <EmployeeCards user={currentUser} companyId={companyId} reload={reload} setReload={setReload} />
-        
+        <Row className="justify-content-center">
+            <Col xs={11} md={7} lg={7} className="margin_bottom_employer">
+                <WelcomePanel user={currentUser}/>
+            </Col>
+            <Col xs={11} md={4} lg={4} className="margin_bottom_employer">
+                <EmployerInvitations companyId={companyId} reload={reload} setReload={setReload} />
+            </Col>
+        </Row>
+        <Row className="justify-content-center">
+            <Col xs={11} md={11} lg={11} className="margin_bottom_employer">
+                <EmployeeCards user={currentUser} companyId={companyId} reload={reload} setReload={setReload} />
+            </Col>
+        </Row>
     </>
   );
 }

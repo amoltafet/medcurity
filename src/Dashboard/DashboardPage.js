@@ -23,7 +23,13 @@ const DashboardPage = () => {
     useEffect(() => {
         Axios.get("http://localhost:3002/users/login").then((response) => {
           setCurrentUser(response.data.user[0])
-        }).catch(error => console.error(`Error ${error}`)); }, []);
+        }).catch(error => console.error(`Error ${error}`)); 
+        Axios.get('http://localhost:3002/api/getQuery',{
+			  params: { the_query: `SELECT * FROM CompletedModules`}
+            }).then((response) => {
+                console.log(response.data);
+            })
+    }, []);
 
     useEffect(() => { if (currentUser.userid) Axios.get("http://localhost:3002/api/getProfilePicture", { params: { id: currentUser.userid }} ).then((response) => { setProfilePic(response.data.profileImage) }); })
 
@@ -34,7 +40,7 @@ const DashboardPage = () => {
       <MenuBar></MenuBar>
         <div className="col dash_topBackdrop justif">
           <div className="dash_welcomeDiv">
-            <Image className="dash_profilePicture" variant="top" src={`data:image/png;base64,${profilePic}`} alt="" roundedCircle />
+            <Image className="dash_profilePicture uvs-left" variant="top" src={`data:image/png;base64,${profilePic}`} alt="" roundedCircle />
             <div>
               <h1 className="dash_welcomeMessageP1">Welcome back, {currentUser?.username || "... "}!</h1>
               <h1 className="dash_welcomeMessageP3">Logged in as: {currentUser?.email || "..."}</h1>

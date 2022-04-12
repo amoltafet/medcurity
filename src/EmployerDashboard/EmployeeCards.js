@@ -2,6 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'   
 import { Card, Container, CardDeck, Col } from 'react-bootstrap';
 import { useEffect, useState} from "react";
+import './EmployeeCard.css';
 import axios from 'axios';
 import EmployeeCard from './EmployeeCard'
 
@@ -131,31 +132,33 @@ const EmployeesCards = (props) => {
 
     return (
         <>
-        <Container className="EmployerJoinRequests uvs-right">
-            <h2>Employees</h2>      
-            <Card className="EmployeeCardHeader uvs-right uvs-left" style={{display: 'flex', flexDirection: 'row' }}>
-                <Col sm>
-                    <div className="EmployeeCardValues">User Email</div>
+        <Card className="EmployerJoinRequests uvs-right">
+            <Card.Title className="employee_remove_card_header">Employees</Card.Title>    
+            <CardDeck style={{display: 'flex', flexDirection: 'column'}}>  
+            <Card className="EmployeeCardHeader justify-content-center uvs-right uvs-left" style={{display: 'flex', flexDirection: 'row' }}>
+                <Col xs={2} md={2} lg={2}>
+                    <div className="employee_remove_email text-center"><b>User Email</b></div>
                 </Col>
-                <Col sm>
-                    <div className="EmployeeCardValues">User Name</div>
+                <Col xs={2} md={2} lg={2}>
+                    <div className="employee_remove_username text-center"><b>User Name</b></div>
                 </Col>
-                <Col sm>
-                    <div className="EmployeeCardValues">User is Active</div>
+                <Col xs={3} md={2} lg={2}>
+                    <div className="employee_remove_active text-center"><b>User is Active</b></div>
                 </Col>
-                <Col sm>
-                    <div className="EmployeeCardValues">User Progress</div>
+                <Col xs={3} md={2} lg={2}>
+                    <div className="employee_remove_progress text-center"><b>User Progress</b></div>
                 </Col>
-                <Col sm>
-                    <div className="RemoveButton"></div>
+                <Col xs={2} md={2} lg={2}>
+                    <div className="employee_remove_bttn text-center"><b>Remove User</b></div>
                 </Col>
             </Card>
+            </CardDeck>
         
             <CardDeck className="dashboard" style={{display: 'flex', flexDirection: 'column'}}>
                 {createEmployeeCards(employees)}
             </CardDeck>
 
-        </Container>
+        </Card>
         </>
     );
 }

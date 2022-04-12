@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'   
-import { Card, Image, Button, Container, CardDeck, Col } from 'react-bootstrap';
+import { Card, Row, Button, Container, CardDeck, Col } from 'react-bootstrap';
 import { useEffect, useState, Link} from "react";
 import { useParams } from "react-router";
 import axios from 'axios';
@@ -14,13 +14,7 @@ import ContentCard from './ContentCard'
  */
 const ContentsCards = (props) => {
     const [learningModules, setLearningModules] = useState([])
-    const [isLoading, setLoading] = useState(true)
 
-    // useEffect(() => {
-    //     if (Number.isInteger(props.companyId)) {
-    //         setLoading(false)
-    //     }
-    // }, [props.companyId])
 
     // Get all of the learningModules
     useEffect(() => {
@@ -51,28 +45,24 @@ const ContentsCards = (props) => {
 
     return (
         <>
-        <Container className="Content-container uvs-right">
-            <h2 id="content-title">Current Learning Modules</h2>      
-            <Card className="ContentCardHeader uvs-right uvs-left" style={{display: 'flex', flexDirection: 'row' }}>
-                <Col sm>
-                    <div className="ContentCardValues">Learning Module Name</div>
-                </Col>
-                <Col sm>
-                    <div className="editContentButton"></div>
-                </Col>
-                <Col sm>
-                    <div className="editQuestionsButton"></div>
-                </Col>
-                <Col sm>
-                    <div className="RemoveButton"></div>
-                </Col>
+        <Container >
+            <Card className="Content-container uvs-right">
+                <Row xs={18} md={12} lg={12}>
+                    <Col xs={7} lg={10}>
+                <Card.Title className="ContentCardHeader" id="content-title">Current Learning Modules</Card.Title>  
+                 </Col>
+                 <Col xs={5} lg={2} className="justify-content-right" >
+                    <Button className='uvs-left add-btn' href="/add-content">Add Module</Button>  
+                 
+                 </Col>
+                 </Row>   
+                <CardDeck className="dashboard" style={{display: 'flex', flexDirection: 'column'}}>
+                    {createContentCards(learningModules)}
+                </CardDeck>  
+              
             </Card>
-        
-            <CardDeck className="dashboard" style={{display: 'flex', flexDirection: 'column'}}>
-                {createContentCards(learningModules)}
-            </CardDeck>
 
-            <Button className='add-btn' href="/add-content"> Add Module</Button>
+          
 
         </Container>
         </>

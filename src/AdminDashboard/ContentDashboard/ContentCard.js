@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { Card, Col, Button, OverlayTrigger, Popover } from 'react-bootstrap';
+import { Card, Col, Row, Button, OverlayTrigger, Popover } from 'react-bootstrap';
 import './ContentDashboard.css';
 import { useEffect, useState } from "react";
 import axios from 'axios';
@@ -37,25 +37,26 @@ const ContentCard = (props) => {
 
     return (
         <>
-        <Card className="ContentCard uvs-right uvs-left" style={{ flexDirection: 'row' }}>
-            <Col sm>
+        <Card className="ContentCard  uvs-right uvs-left" style={{ flexDirection: 'row' }}>
+            <Row className="userRow">
+            <Col xs={3} md={3} lg={3}>
                 <div className="ContentCardValues" id="content-name">{props.learningModuleName}</div>
             </Col>
-            <Col sm>
+            <Col xs={3} md='auto' lg={3}>
                 <Button className="ContentInRowButton uvs-right" 
                         size="sm" 
-                        variant="danger"
+                        variant="primary"
                         href={"/edit-content/" + props.moduleId}> 
                         Edit Content </Button>
             </Col>
-            <Col sm>
+            <Col  xs={3} md='auto' lg={3}>
                 <Button className="ContentInRowButton uvs-right" 
                         size="sm" 
-                        variant="danger"
+                        variant="primary"
                         href={"/edit-questions/" + props.moduleId}> 
-                        Edit Questions </Button>
+                        Add Questions </Button>
                 </Col>
-            <Col sm>
+            <Col  xs={3}  md='auto' lg={3}>
                 <OverlayTrigger trigger="click" placement="left" 
                 overlay={
                     <Popover id="popover-basic" data-trigger="focus" className="ContentPopup">
@@ -77,6 +78,7 @@ const ContentCard = (props) => {
                     Remove Module </Button>
                 </OverlayTrigger>
             </Col>
+            </Row>
         </Card>
 
         </>

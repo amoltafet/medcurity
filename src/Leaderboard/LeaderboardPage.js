@@ -13,8 +13,7 @@ import './Leaderboard.css';
 const LeaderboardPage = () => {
     axios.defaults.withCredentials = true;
     const [allUsers, setAllUsers] = useState([]);
-    const [companyUsers, setCompanyUsers] = useState([]);
-    const [companyName, setCompanyName] = useState("Company");
+    const [companyUsers, setCompanyUsers] = useState("Company");
     const [currentUser, setCurrentUser] = useState([]);
 
     /**
@@ -41,25 +40,12 @@ const LeaderboardPage = () => {
     * Grabs company name. 
     */
      useEffect(() => {
-        if (currentUser.companyid !== undefined) { 
-            axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 'SELECT * FROM Companies WHERE companyid = ' + currentUser.companyid} }).then((response) => {
-                setCompanyName(Object.values(response.data));
-               
-            }).catch(error => console.error(`Error ${error}`));
-        }
-    }, [currentUser])
-    /**
-    * Grabs all of the users in the same company as the logged in user for the leaderboard. 
-    */
-     useEffect(() => {
-         if (currentUser.companyid !== undefined) { 
-            axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 'SELECT * FROM Users WHERE companyid = ' + currentUser.companyid} }).then((response) => {
-                setCompanyUsers(Object.values(response.data));
-                console.log("company users", response.data)
-            }).catch(error => console.error(`Error ${error}`));
-        }
-    }, [currentUser])
-
+        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 'SELECT * FROM AffiliatedUsers WHERE CompanyID = ' + currentUser.companyid } }).then((response) => {
+            setCompanyUsers(Object.values(response.data));
+            console.log("all users", response.data)
+        }).catch(error => console.error(`Error ${error}`));
+    }, [])
+    
 
 
     // classes for the accordian
@@ -96,31 +82,31 @@ const LeaderboardPage = () => {
         }
     }
 
-    function sortCompanyUsers() {
-        if (companyUsers !== undefined) {
-            companyUsers.sort(function (a, b) {
-                return b.value - a.value;
-            });
+    // function sortCompanyUsers() {
+    //     if (companyUsers !== undefined) {
+    //         companyUsers.sort(function (a, b) {
+    //             return b.value - a.value;
+    //         });
               
-              // sort by name
-              companyUsers.sort(function(a, b) {
-                const pointsA = a.category1 + a.category2 + a.category3 + a.category4 + a.category5; // ignore upper and lowercase
-                const pointsB = b.category1 + b.category2 + b.category3 + b.category4 + b.category5; // ignore upper and lowercase
-                if (pointsA > pointsB) {
-                  return -1;
-                }
-                if (pointsA < pointsB) {
-                  return 1;
-                }
-                // names must be equal
-                return 0;
-              });
-        }
-    }
+    //           // sort by name
+    //           companyUsers.sort(function(a, b) {
+    //             const pointsA = a.category1 + a.category2 + a.category3 + a.category4 + a.category5; // ignore upper and lowercase
+    //             const pointsB = b.category1 + b.category2 + b.category3 + b.category4 + b.category5; // ignore upper and lowercase
+    //             if (pointsA > pointsB) {
+    //               return -1;
+    //             }
+    //             if (pointsA < pointsB) {
+    //               return 1;
+    //             }
+    //             // names must be equal
+    //             return 0;
+    //           });
+    //     }
+    // }
     
 
     
-    sortUsers()
+    //sortUsers()
     var index = 0;
     const AllUsersProfileArray = allUsers.map((userProfile) => {
        

@@ -1,5 +1,5 @@
 import React from 'react';
-import './../../Dashboard/DashboardPage.css';
+import '../../Dashboard/DashboardPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { CardDeck } from 'react-bootstrap';
 import MenuBar from '../../MenuBar/MenuBar';               

@@ -106,24 +106,30 @@ const QuizPage = () => {
     
 
     axios.get('http://localhost:3002/api/getQuery',{
-			params: { the_query: 'SELECT * FROM CompletedModules' }
+			params: { the_query: `SELECT * FROM sys.columns WHERE object_id = OBJECT_ID('dbo.hipaagames')` }
 		}).then((response) => {
-			console.log("all copleted modules : ", response.data);
+			console.log("database : ", response.data);
 		});	
 
-    axios.get('http://localhost:3002/api/getQuery',{
-			params: { the_query: 'SELECT * FROM CompletedModules JOIN Users on CompletedModules.UserID = Users.userid' }
-		}).then((response) => {
-			console.log("Join try: ", response.data);
-		});	
+    // axios.get('http://localhost:3002/api/getQuery',{
+		// 	params: { the_query: `SELECT * ` +
+    //   `FROM AffiliatedUsers ` +
+    //   `JOIN CompanyLearningModules ` +
+    //   `ON AffiliatedUsers.CompanyID = CompanyLearningModules.CompanyID ` +
+    //   `JOIN LearningModules ON LearningModules.ID = CompanyLearningModules.LearningModID ` +   
+    //   `OUTER JOIN CompletedModules ON CompletedModules.LearningModID = CompanyLearningModules.LearningModID ` +
+    //   `WHERE AffiliatedUsers.UserID = '${currentUser.userid}'` }
+		// }).then((response) => {
+		// 	console.log("Join try: ", response.data);
+		// }).catch(error => console.error(`Error ${error}`));	
 
       // KEEP FOR TESTING!!
 
       // Quiz Answers 
 
-      // content.forEach(element => {
-      // 	console.log(element.solution)
-      // });
+      content.forEach(element => {
+      	console.log(element.solution)
+      });
 
       //rests users stats
 
@@ -135,13 +141,13 @@ const QuizPage = () => {
 
       //assigns modules
 
-      axios.post("http://localhost:3002/testing/assignModules", {
-          companyid: 24, 
-          modulenum: 85,
-          daysaway: 7,
-        }).then((response) => {
-          console.log("response", response);
-        }).catch(error => console.log(`Error ${error}`));
+      // axios.post("http://localhost:3002/testing/assignModules", {
+      //     companyid: 24, 
+      //     modulenum: 85,
+      //     daysaway: 7,
+      //   }).then((response) => {
+      //     console.log("response", response);
+      //   }).catch(error => console.log(`Error ${error}`));
 
       //adds completed modules 
 
@@ -202,24 +208,15 @@ const QuizPage = () => {
   useEffect(() => {
     if (!isLoading && isSubmitted && points !== 0) {
       var totalPoints = points + earlyCompletion + notCompleteOnTime + spaceLearning;
-      var categoryName = "category" + slug;
-      var percentName = "percentage" + slug;
       var percent = numCorrect / content.length;
       if ((percent * 100) >= 60 && !moduleNotAssigned) {
         console.log("percent: ", percent);
         console.log("points: ", totalPoints);
-        axios.post("http://localhost:3002/users/quiz", {
-          categoryName: categoryName,
-          points: totalPoints,
-          percentName: percentName,
-          lengths: (percent),
-          userid: currentUser.userid,
-        }).then((response) => {
-          console.log("response", response);
-        }).catch(error => console.log(`Error ${error}`));
         axios.post("http://localhost:3002/users/moduleCompleted", {
           categoryId: slug,
           userid: currentUser.userid,
+          points: totalPoints,
+          percentage: percent,
         }).then((response) => {
           console.log("response", response.data);
         }).catch(error => console.log(`Error ${error}`));
@@ -345,7 +342,7 @@ const QuizPage = () => {
     var moduleDueDate;
     try {
       moduleDueDate = new Date(currentModule.DueDate);
-      moduleDueDate.setDate(moduleDueDate.getDate() + 1)
+      moduleDueDate.setDate(moduleDueDate.getDate())
       if (today > moduleDueDate) {
         setNoCompleteOnTime(-200);
         console.log("Boo complete your module on time: -", 200);
@@ -370,8 +367,8 @@ const QuizPage = () => {
     var today = new Date(); 
     var twoDaysEarly = new Date(currentModule.DueDate);
     var oneDayEarly = new Date(currentModule.DueDate);
-    twoDaysEarly.setDate(twoDaysEarly.getDate() - 3);
-    oneDayEarly.setDate(oneDayEarly.getDate() - 2);
+    twoDaysEarly.setDate(twoDaysEarly.getDate() - 2);
+    oneDayEarly.setDate(oneDayEarly.getDate() - 1);
 
         console.log("due date for module: ", currentModule.DueDate);
         console.log("two days early: ", twoDaysEarly);

@@ -1,9 +1,8 @@
 import React from 'react';
-import { Form , Card, Button, Container} from 'react-bootstrap';
-import { useEffect, useState, Link} from "react";
-import { useParams } from "react-router";
+import { Form, Card, Button, Row, Col } from 'react-bootstrap';
+import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import './EmployeeCard.css'
+import './EmployerInvitations.css'
 import Axios from 'axios';
 
 /**
@@ -33,47 +32,49 @@ const EmployerInvitations = (props) => {
         if (!isLoading) {
             console.log('INVITING', email)
             Axios.post("http://localhost:3002/users/registerEmpty",
-            { 
-            email: email,
-            companyid: String(props.companyId),
-            }).then((response) => 
-            {
-            console.log("response.data =", response.data)
-            if (response.data === true)
-            {
-                console.log("A new invitation!")
-                props.setReload(true)
-            }
-            else if (response.data === false)
-            {
-                console.log("Already has account!")
-                setMessage('This email is already associated with an account! Please try a different email.')
-            }
-            });
+                {
+                    email: email,
+                    companyid: String(props.companyId),
+                }).then((response) => {
+                    console.log("response.data =", response.data)
+                    if (response.data === true) {
+                        console.log("A new invitation!")
+                        props.setReload(true)
+                    }
+                    else if (response.data === false) {
+                        console.log("Already has account!")
+                        setMessage('This email is already associated with an account! Please try a different email.')
+                    }
+                });
         }
     };
-  
+
     return (
-        <Container className="EmployeeInviteRequestCard uvs-right">
-
-                
-                    <div className="registerHeader">Employee Invitations</div>
-                    <div className="InviteSubtitle font">Type in an email to create an empty account for a prospective employee. They will be able to register using that email.</div>
-                    <Form className="email Invite">
-                    <Form.Group className="email" controlId="formEmail">
-                        <Form.Control 
-                        type="email" 
-                        placeholder="Email" 
-                        onChange={ (e) => 
-                        {
-                            setEmail(e.target.value);
-                        }}/>
-                    </Form.Group>
-                    <Form.Text className="registerMessage">{message}</Form.Text>
-                    <Button className="createButton" variant="secondary" type="button" onClick={invite}>Invite</Button>
-
-            </Form>
-        </Container>
+        <Card className="Employee_Invite_Request_Card uvs-right">
+                <Row xs={7} md={12} lg={12}> 
+                    <Card.Title className="register_employee_header"><b>Employee Invitations</b></Card.Title>
+                </Row>
+                <Row xs={7} md={7} lg={7}>
+                    <Card.Subtitle className="empolyee_invite_subtitle">Type in an email to create an empty account for a prospective employee. They will be able to register using that email.</Card.Subtitle>
+                </Row>
+                <Row xs={2} md={7} lg={7}  className="justify-content-center">
+                    <Form className="email_employee_invite">
+                        <Form.Group controlId="formEmail">
+                            <Form.Control
+                                type="email"
+                                placeholder="Email"
+                                className="uvs-left"
+                                onChange={(e) => {
+                                    setEmail(e.target.value);
+                                }} />
+                        </Form.Group>
+                        <Form.Text className="register_employee_message">{message}</Form.Text>
+                    </Form>
+                </Row>
+                <Row xs={2} md={7} lg={7} className="justify-content-center">
+                    <Button className="invite_employees_bttn uvs-left" onClick={invite}>Invite</Button>
+                </Row>
+        </Card>
     );
 }
 

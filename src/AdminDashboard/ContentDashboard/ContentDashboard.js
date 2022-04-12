@@ -1,10 +1,9 @@
 import React from 'react';
-import './../../Dashboard/DashboardPage.css';
+import '../../Dashboard/DashboardPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { CardDeck } from 'react-bootstrap';
+import { Image } from 'react-bootstrap';
 import MenuBar from '../../MenuBar/MenuBar';               
 import LearningManagerCards from './ContentCards';
-import WelcomePanel from '../../Dashboard/WelcomePanel';
 import { useEffect, useState } from "react";
 import Axios from 'axios';
 
@@ -17,6 +16,7 @@ const AdminContentPage = () => {
     //Axios.defaults.withCredentials = true;
     const [currentUser, setCurrentUser] = useState([]);
     const [companyId/*, setCompanyId*/] = useState('');
+    const [profilePic, setProfilePic] = useState("/user.png");
 
   Axios.defaults.withCredentials = true;
 
@@ -26,6 +26,7 @@ const AdminContentPage = () => {
         setCurrentUser(response.data.user[0])
       }).catch(error => console.error(`Error ${error}`));
     }, []);
+    useEffect(() => { if (currentUser.userid) Axios.get("http://localhost:3002/api/getProfilePicture", { params: { id: currentUser.userid }} ).then((response) => { setProfilePic(response.data.profileImage) }); })
 
     // useEffect(() => {
     //     Axios.get("http://localhost:3002/users/login").then((response) => {
@@ -55,9 +56,17 @@ const AdminContentPage = () => {
     return (
     <>
         <MenuBar></MenuBar>
-        <CardDeck className="dashTopPanel" style={{display: 'flex', flexDirection: 'row'}}>
-          <WelcomePanel user={currentUser} subtitle={'to the Learning Manager Page'}/>
-        </CardDeck>
+        <div className="col dash_topBackdrop justif">
+          <div className="dash_welcomeDiv">
+            <Image className="dash_profilePicture" variant="top" src={`data:image/png;base64,${profilePic}`} alt="" roundedCircle />
+            <div>
+              <h1 className="dash_welcomeMessageP1">Welcome Back, Admin {currentUser?.username || "... "}!</h1>
+              <h1 className="dash_welcomeMessageP3">Logged in as: {currentUser?.email || "..."}</h1>
+              <div className="dash_navDiv">
+              </div>
+            </div>
+          </div>
+        </div>
         <LearningManagerCards companyId={companyId}/>
         
     </>

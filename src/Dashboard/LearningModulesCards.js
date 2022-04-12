@@ -13,15 +13,20 @@ const LearningModulesCards = (props) => {
     const userId = String(props.user.userid);
     const [isLoading, setLoading] = useState(true);
     const [learningModules, setLearningModules] = useState([]);
-    const [completedModules, setCompletedModules] = useState([])
+    const [completedModules, setCompletedModules] = useState([]);
 
+    /**
+     * Makes sure user data is loaded
+     */
     useEffect(() => {
         if (props.user !== undefined) {
             setLoading(false)
         }
     }, [props.user])
 
-    // Query for getting user's required learning modules
+    /**
+     *  Query for getting user's required learning modules
+     */ 
     useEffect(() => {
         if (!isLoading && userId !== undefined) {
             axios.get('http://localhost:3002/api/getAllUserRequiredModules', 
@@ -31,24 +36,26 @@ const LearningModulesCards = (props) => {
             }).catch(error => console.error(`Error ${error}`));
             axios.get('http://localhost:3002/api/getQuery',{
 			params: { the_query: `SELECT * FROM CompletedModules WHERE UserID = '${userId}'`}
-		}).then((response) => {
-            setCompletedModules(Object.values(response.data));
-		})
-        
+            }).then((response) => {
+                setCompletedModules(Object.values(response.data));
+            })
         }
     }, [userId, isLoading])
 
+    /**
+     * Removes compled modules from assigned  
+     */
     useEffect(() => {
         if (completedModules.length !== 0 && learningModules !== null) {
             for (let i = 0; i < completedModules.length; i++) {
                 for (let j = 0; j < learningModules.length; j++) {
                     if (completedModules[i].LearningModID === learningModules[j].LearningModID && completedModules[i].UserID !== userId) {
-                       learningModules.splice(j,1);    
+                        setCompletedModules(learningModules.splice(j,1)); 
                     }
                 }
             }
         }
-    }, [learningModules, completedModules, userId])
+    }, [learningModules, completedModules, userId, isLoading])
 
     /**
      * Panel for Module cards
