@@ -14,11 +14,6 @@ import LearningManagerCard from './LearningManagerCard'
  */
 const LearningManagersCards = (props) => {
     const [learningModules, setLearningModules] = useState([])
-    // let learningModules = [
-    //     {Name:"Privacy", Email:"j@gmail.com", Progress:1},
-    //     {Name:"bio", Email:"ja@gmail.com", Progress:1},
-    //     {Name:"jerseys", Email:"je@gmail.com", Progress:21}
-    // ]
     const [isLoading, setLoading] = useState(true)
 
     useEffect(() => {
@@ -68,13 +63,12 @@ const LearningManagersCards = (props) => {
                     <div className="LearningManagerCardValues">Learning Module Name</div>
                 </Col>
                 <Col sm>
-                    <div className="Date Due"></div>
+                    <div className="LearningManagerCardValues">Date Due (PST)</div>
                 </Col>
                 <Col sm>
                     <div className="RemoveButton"></div>
                 </Col>
             </Card>
-        
             <CardDeck className="dashboard" style={{display: 'flex', flexDirection: 'column'}}>
                 {createLearningManagerCards(learningModules)}
             </CardDeck>

@@ -2,9 +2,9 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Card, Col, Button, OverlayTrigger, Popover } from 'react-bootstrap';
 import './LearningManager.css';
-import { useState} from "react";
+import { useState, useEffect} from "react";
 import Axios from 'axios';
-import Calendar from 'react-calendar';
+import DatePicker from 'react-date-picker';
 
 /**
  * Panel for Module cards
@@ -13,6 +13,12 @@ import Calendar from 'react-calendar';
  */
 const LearningManagerCard = (props) => {
     const [message, setMessage] = useState('');
+    const [dateDue, setDateDue] = useState(new Date());
+
+    // Updates the due date whenever it changes
+    useEffect(() => {
+        
+    }, [dateDue])
  
     /**
      * Removes a user from the selected company
@@ -48,8 +54,7 @@ const LearningManagerCard = (props) => {
                 <div className="LearningManagerCardValues">{props.learningModuleName}</div>
             </Col>
             <Col sm>
-                <div> Date </div>
-
+                <div><DatePicker onChange={setDateDue} value={dateDue}></DatePicker></div>
             </Col>
 
             <Col sm>

@@ -364,7 +364,7 @@ const assignModulesToCompany = (req,res) =>
                                 logger.log('info', `Attempted deletion of CompletedModules record learningModID: "${learningmodid}" and UserID: "${company_users[index].UserID}." Successfully deleted if true: "${deletionStatus}" Fields: ${result}`, { service: 'user-service' })    
                             });
 
-                                             }
+                        }
                     res.send(true)
                 });
             });
@@ -374,6 +374,25 @@ const assignModulesToCompany = (req,res) =>
             res.send(false)
         }
     })
+}
+
+/**
+ * Store a learning module as completed.
+ */
+ const updateCompanyModuleDueDate = (req, res) => {
+    var today = new Date();
+    today.setDate(today.getDate() - 1);
+    const categoryId = req.body.categoryId;
+    const userid = req.body.userid;   
+
+    db.query(`UPDATE Users SET password = ? WHERE userid = ?`, [hash, userid]
+    `INSERT INTO CompletedModules (UserID, LearningModID, DateCompleted)  VALUES (?,?,?)`, [userid, categoryId, today], (err,result) => {
+        db.query(`SELECT * FROM Users WHERE userid = '${userid}'`, (err,result) => {
+            logger.log('info', `User-'${userid}' completed Module '${categoryId}', on: "${today}"`);
+            req.session.userSession = result;
+            res.send({success: true, message: `Completed Module`});
+        })
+    })   
 }
 
 /**
