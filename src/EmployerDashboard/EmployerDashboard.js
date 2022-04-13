@@ -7,7 +7,7 @@ import EmployeeCards from './EmployeeCards';
 import WelcomePanel from './../Dashboard/WelcomePanel';
 import EmployerInvitations from './EmployerInvitations';
 import { useEffect, useState} from "react";
-import Axios from 'axios';
+import axios from 'axios';
 
 
 /**
@@ -15,7 +15,7 @@ import Axios from 'axios';
 * @return {EmployerDashboardPage}
 */
 const EmployerDashboardPage = () => {
-    Axios.defaults.withCredentials = true;
+    axios.defaults.withCredentials = true;
     const [session, setSession] = useState([]);
     const [companyId, setCompanyId] = useState('');
     const [isLoading, setLoading] = useState(true)
@@ -27,7 +27,7 @@ const EmployerDashboardPage = () => {
     }, [reload]);
 
     useEffect(() => {
-        Axios.get("http://localhost:3002/users/login").then((response) => {
+        axios.get("http://localhost:3002/users/login").then((response) => {
           setSession(response.data.user[0])
         });
 	}, []);
@@ -41,7 +41,7 @@ const EmployerDashboardPage = () => {
     // Query for getting companyid of associated user
     useEffect(() => {
         if (!isLoading) {
-            Axios.get('http://localhost:3002/api/getQuery', 
+            axios.get('http://localhost:3002/api/getQuery', 
                 { params: { the_query: 'SELECT CompanyAdmins.CompanyID ' +
                 'FROM CompanyAdmins ' +
                 'WHERE CompanyAdmins.UserID = ' + String(session.userid)} 

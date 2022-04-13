@@ -2,7 +2,7 @@ import { Card, Button} from 'react-bootstrap'
 import React from 'react';
 import DashLeaderboardProfiles from './DashLeaderboardProfiles';
 import { useEffect, useState } from "react";
-import Axios from 'axios';
+import axios from 'axios';
 import './DashLeaderboard.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
@@ -11,11 +11,11 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 * @return {Leaderboard}
 */
 const Leaderboard = (props) => {
-    Axios.defaults.withCredentials = true;
+    axios.defaults.withCredentials = true;
     const [users, setUsers] = useState([])
     // Fetch User Data
     useEffect(() => {
-        Axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 'SELECT * FROM Users' } }).then((response) => {
+        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 'SELECT * FROM Users' } }).then((response) => {
             setUsers(Object.values(response.data));
             console.log("leaderboard: ", response.data)
         }).catch(error => console.error(`Error ${error}`));

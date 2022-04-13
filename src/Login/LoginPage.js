@@ -1,7 +1,7 @@
 import {Button, Image, Form, Card} from 'react-bootstrap'
 import React from 'react';
 import { useState, useEffect} from "react";
-import Axios from "axios"
+import axios from "axios"
 import './LoginPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useNavigate } from 'react-router-dom';
@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function LoginPage()
 {
-  Axios.defaults.withCredentials = true;
+  axios.defaults.withCredentials = true;
   const [message, setMessage] = useState("")
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,7 +28,7 @@ export default function LoginPage()
   // get the user's session to see if they're already logged in. If so,
   // redirect them to their dashboard.
   useEffect(() => {
-    Axios.get("http://localhost:3002/users/login").then((response) => {
+    axios.get("http://localhost:3002/users/login").then((response) => {
       //setSession(response.data.user[0])
       if (response.data.user)
       {
@@ -53,7 +53,7 @@ export default function LoginPage()
 
     if (email.length > 0 || password.length > 0)
     {
-      Axios.post("http://localhost:3002/users/login", { email: email, password: password }).then((response) => 
+      axios.post("http://localhost:3002/users/login", { email: email, password: password }).then((response) => 
       {
         if (response.data.success === true)
         {

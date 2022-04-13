@@ -1,7 +1,7 @@
 import {Button, Image, Form, Card} from 'react-bootstrap'
 import React from 'react';
 import { useState } from "react";
-import Axios from "axios"
+import axios from "axios"
 import './RegisterPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useNavigate } from 'react-router-dom';
@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router-dom';
 export default function RegisterPage()
 {
 
-  Axios.defaults.withCredentials = true;
+  axios.defaults.withCredentials = true;
   const [message, setMessage] = useState("")
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -29,7 +29,7 @@ export default function RegisterPage()
     if (email.length > 0 || password.length > 0)
     {
       console.log("REGISTER CALLED")
-      Axios.post("http://localhost:3002/users/register", { email: email, password: password }).then((response) => 
+      axios.post("http://localhost:3002/users/register", { email: email, password: password }).then((response) => 
       {
         if (response.data.result === true)
         {

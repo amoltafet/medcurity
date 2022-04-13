@@ -2,17 +2,17 @@ import React from 'react';
 import './LearningDirectoryPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useEffect, useState } from "react";
-import Axios from 'axios';
+import axios from 'axios';
 import { LearningDirectoryPageContent } from './LearningDirectoryPage';
 
 const LearningDirectoryRequiredPage = () => {
     const [learningModules, setLearningModules] = useState([])
-    Axios.defaults.withCredentials = true;
+    axios.defaults.withCredentials = true;
     const [session, setSession] = useState([]);
     const [isLoading, setLoading] = useState(true)
 
     useEffect(() => {
-        Axios.get("http://localhost:3002/users/login").then((response) => {
+        axios.get("http://localhost:3002/users/login").then((response) => {
           setSession(response.data.user[0])
         });
       }, []);
@@ -26,7 +26,7 @@ const LearningDirectoryRequiredPage = () => {
     // Query for getting user's required learning modules
     useEffect(() => {
         if (!isLoading) {
-            Axios.get('http://localhost:3002/api/getAllUserRequiredModules', 
+            axios.get('http://localhost:3002/api/getAllUserRequiredModules', 
                 { params: { userid: session.userid }
                 }).then((response) => {
                     setLearningModules(Object.values(response.data))

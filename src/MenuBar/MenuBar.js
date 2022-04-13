@@ -4,7 +4,7 @@ import '../Layout.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Nav, CardImg, Card, Row, Col, OverlayTrigger, Tooltip } from 'react-bootstrap'
 import { useEffect, useState } from "react";
-import Axios from 'axios'
+import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 
 /**
@@ -15,14 +15,14 @@ const Menubar = () => {
     const navigate = useNavigate();
     const [companyId, setCompanyId] = useState('')
     const [company, setCompany] = useState([])
-    Axios.defaults.withCredentials = true;
+    axios.defaults.withCredentials = true;
     const [session, setSession] = useState([]);
     const [isLoggedIn, setIsLoggedIn] = useState([]);
     const [isLoading, setLoading] = useState(true)
     const [isCompanyLoading, setCompanyLoading] = useState(true)
 
     useEffect(() => {
-        Axios.get("http://localhost:3002/users/login").then((response) => {
+        axios.get("http://localhost:3002/users/login").then((response) => {
           setSession(response.data.user[0])
           setIsLoggedIn(response.data.loggedIn)
         });
@@ -44,7 +44,7 @@ const Menubar = () => {
     // Query for getting user's required learning modules
     useEffect(() => {
         if (!isLoading) {
-            Axios.get('http://localhost:3002/api/getQuery', 
+            axios.get('http://localhost:3002/api/getQuery', 
                 { params: { the_query: 'SELECT CompanyAdmins.CompanyID ' +
                 'FROM CompanyAdmins ' +
                 'WHERE CompanyAdmins.UserID = ' + String(session.userid)} 
@@ -67,7 +67,7 @@ const Menubar = () => {
     }, [isCompanyLoading])
 
     const logout = () => {
-        Axios.post("http://localhost:3002/users/logout").then((response) => 
+        axios.post("http://localhost:3002/users/logout").then((response) => 
         {
           if (response.data.success === true)
           {

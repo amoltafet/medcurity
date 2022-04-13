@@ -3,7 +3,7 @@ import React from 'react';
 import './WelcomePanel.css';
 import './../Layout.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import Axios from "axios"
+import axios from "axios"
 import { useEffect, useState } from "react";
 
 /**

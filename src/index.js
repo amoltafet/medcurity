@@ -31,9 +31,9 @@ import EditQuestion from "./AdminDashboard/ContentDashboard/EditQuestion";
 import AddContent from "./AdminDashboard/ContentDashboard/AddContent";
 import ResetPasswordPage from "./ResetPassword/Reset";
 
-import Axios from 'axios';
+import axios from 'axios';
 
-Axios.get("http://localhost:3002/users/login").then((response) => {
+axios.get("http://localhost:3002/users/login").then((response) => {
   //console.log('is working???', response.data.user) 
 })
 

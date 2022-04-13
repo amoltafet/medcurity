@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { Card, Col, Button, OverlayTrigger, Popover } from 'react-bootstrap';
 import './LearningManager.css';
 import { useState, useEffect} from "react";
-import Axios from 'axios';
+import axios from 'axios';
 import DatePicker from 'react-date-picker';
 
 /**
@@ -14,6 +14,27 @@ import DatePicker from 'react-date-picker';
 const LearningManagerCard = (props) => {
     const [message, setMessage] = useState('');
     const [dateDue, setDateDue] = useState(new Date());
+    const [isLoading, setLoading] = useState(true)
+
+    useEffect(() => {
+        if (Number.isInteger(props.companyId)) {
+            setLoading(false)
+        }
+    }, [props.companyId])
+
+    // Updates the current due date
+    useEffect(() => {
+        // if (!isLoading) {
+        //     axios.get('http://localhost:3002/api/getQuery', 
+        //         { params: { the_query: 'SELECT * ' +
+        //         'FROM CompanyLearningModules ' + 
+        //             'JOIN LearningModules ON LearningModules.ID = CompanyLearningModules.LearningModID ' + 
+        //         'WHERE CompanyLearningModules.CompanyID = ' + String(props.companyId)  
+        //         }}).then((response) => {
+        //             setLearningModules(Object.values(response.data))
+        //     });
+        // }
+    }, [props.companyId, props.moduleId])
 
     // Updates the due date whenever it changes
     useEffect(() => {
@@ -26,7 +47,7 @@ const LearningManagerCard = (props) => {
      */
     function removeModule(moduleId, companyId) {
         console.log('Removing Module: ', moduleId)
-        Axios.post("http://localhost:3002/users/removeModuleFromCompany",
+        axios.post("http://localhost:3002/users/removeModuleFromCompany",
         { 
         learningModId: moduleId,
         companyid: companyId

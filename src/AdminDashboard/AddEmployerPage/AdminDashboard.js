@@ -9,7 +9,7 @@ import AdminInvitations from './AdminInvitations';
 import { useEffect, useState, Link} from "react";
 import AddCompany from './AddCompany';
 import { useParams } from "react-router";
-import Axios from 'axios';
+import axios from 'axios';
 import DeleteCompany from './DeleteCompany';
 
 
@@ -18,11 +18,11 @@ import DeleteCompany from './DeleteCompany';
 * @return {AdminDashboardPage}
 */
 const AdminDashboardPage = () => {
-    Axios.defaults.withCredentials = true;
+    axios.defaults.withCredentials = true;
     const [session, setSession] = useState([]);
 
     useEffect(() => {
-        Axios.get("http://localhost:3002/users/login").then((response) => {
+        axios.get("http://localhost:3002/users/login").then((response) => {
           console.log('aaahhh', response.data.user)
           setSession(response.data.user[0])
         });

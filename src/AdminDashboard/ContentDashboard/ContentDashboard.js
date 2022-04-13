@@ -9,7 +9,7 @@ import WelcomePanel from '../../Dashboard/WelcomePanel';
 import LearningModuleAdder from './ContentAdder';
 import { useEffect, useState, Link} from "react";
 import { useParams } from "react-router";
-import Axios from 'axios';
+import axios from 'axios';
 
 
 /**
@@ -21,17 +21,17 @@ const AdminContentPage = () => {
     const [session, setSession] = useState([]);
     const [companyId, setCompanyId] = useState('');
 
-  Axios.defaults.withCredentials = true;
+  axios.defaults.withCredentials = true;
 
   useEffect(() => {
-      Axios.get("http://localhost:3002/users/login").then((response) => {
+      axios.get("http://localhost:3002/users/login").then((response) => {
         console.log('aaahhh', response.data.user)
         setSession(response.data.user[0])
       }).catch(error => console.error(`Error ${error}`));
     }, []);
 
     // useEffect(() => {
-    //     Axios.get("http://localhost:3002/users/login").then((response) => {
+    //     axios.get("http://localhost:3002/users/login").then((response) => {
     //       setSession(response.data.user[0])
     //     });
 	// }, []);
@@ -45,7 +45,7 @@ const AdminContentPage = () => {
     // // Query for getting user's required learning modules
     // useEffect(() => {
     //     if (!isLoading) {
-    //         Axios.get('http://localhost:3002/api/getQuery', 
+    //         axios.get('http://localhost:3002/api/getQuery', 
     //             { params: { the_query: 'SELECT CompanyAdmins.CompanyID ' +
     //             'FROM CompanyAdmins ' +
     //             'WHERE CompanyAdmins.UserID = ' + String(session.userid)} 

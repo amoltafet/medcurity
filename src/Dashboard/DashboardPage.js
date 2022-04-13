@@ -11,24 +11,24 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LearningModulesCards from './LearningModulesCards';
 import LearningModulesDirectories from './LearningModuleDirectories';
-import Axios from 'axios';
+import axios from 'axios';
 
 /**
 * Creates and holds all of the componets for the Dashboard. 
 * @return {DashboardPage}
 */
 const DashboardPage = () => {
-  Axios.defaults.withCredentials = true;
+  axios.defaults.withCredentials = true;
   const [session, setSession] = useState([]);
   const [profilePic, setProfilePic] = useState("")
   const navigate = useNavigate();
 
   useEffect(() => {
-      Axios.get("http://localhost:3002/users/login").then((response) => {
+      axios.get("http://localhost:3002/users/login").then((response) => {
         setSession(response.data.user[0])
       }).catch(error => console.error(`Error ${error}`)); }, []);
 
-  useEffect(() => { if (session.userid) Axios.get("http://localhost:3002/api/getProfilePicture", { params: { id: session.userid }} ).then((response) => { setProfilePic(response.data.profileImage) }); })
+  useEffect(() => { if (session.userid) axios.get("http://localhost:3002/api/getProfilePicture", { params: { id: session.userid }} ).then((response) => { setProfilePic(response.data.profileImage) }); })
 
   if (session?.userid)
   {

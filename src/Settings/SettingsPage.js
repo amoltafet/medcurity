@@ -1,7 +1,7 @@
 import {Container} from 'react-bootstrap'
 import { useEffect, useState } from 'react';
 import React from 'react';
-import Axios from 'axios';
+import axios from 'axios';
 import './SettingsPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import MenuBar from '../MenuBar/MenuBar';
@@ -18,7 +18,7 @@ const SettingsPage = () => {
     // get the user's session if any to determine if they can
     // access their settings page
     useEffect(() => {
-        Axios.get("http://localhost:3002/users/login").then((response) => {
+        axios.get("http://localhost:3002/users/login").then((response) => {
         //setSession(response.data.user[0])
         if (response.data.user)
         {
