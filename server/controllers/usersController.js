@@ -395,19 +395,20 @@ const assignModulesToCompany = (req,res) =>
 /**
  * Store a learning module as completed.
  */
- const updateCompanyModuleDueDate = (req, res) => {
-    var today = new Date();
-    today.setDate(today.getDate() - 1);
-    const categoryId = req.body.categoryId;
-    const userid = req.body.userid;   
+const updateCompanyModuleDueDate = (req, res) => {
+    var newDate = new Date();
+    //today.setDate(today.getDate() - 1);
+    const learningmodid = req.body.learningModId
+    const companyid = req.body.companyid
 
-    db.query(`UPDATE Users SET password = ? WHERE userid = ?`, [hash, userid]
-    `INSERT INTO CompletedModules (UserID, LearningModID, DateCompleted)  VALUES (?,?,?)`, [userid, categoryId, today], (err,result) => {
-        db.query(`SELECT * FROM Users WHERE userid = '${userid}'`, (err,result) => {
-            logger.log('info', `User-'${userid}' completed Module '${categoryId}', on: "${today}"`);
-            req.session.userSession = result;
-            res.send({success: true, message: `Completed Module`});
-        })
+
+    db.query(`UPDATE CompanyLearningModules SET DueDate = ? WHERE CompanyID = ? AND LearningModID = ?`, [newDate, companyid, learningmodid], (err,result) => {
+        if (err) {
+            logger.log('error', { methodName: '/updateCompanyModuleDueDate', errorBody: err }, { service: 'user-service' });
+            res.send(false)
+        }
+        logger.log('info', `Updated CompanyLearningModule with companyID: "${companyid}" and learningModID: "${learningmodid}" to date: "${newDate}" Fields: ${result}`, { service: 'user-service' })
+        res.send(true)
     })   
 }
 
@@ -471,4 +472,5 @@ module.exports =
     assignModulesToCompany,
     removeModuleFromCompany,
     userModuleCompleted,
+    updateCompanyModuleDueDate,
 };

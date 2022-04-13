@@ -20,6 +20,7 @@ router.post('/moduleCompleted', userControllers.userModuleCompleted);
 router.post('/deleteUser', userControllers.deleteUser);
 router.post('/assignModulesToCompany', userControllers.assignModulesToCompany);
 router.post('/removeModuleFromCompany', userControllers.removeModuleFromCompany);
+router.post('/updateCompanyModuleDueDate', userControllers.updateCompanyModuleDueDate);
 
 
 module.exports = router

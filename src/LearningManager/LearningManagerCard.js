@@ -13,7 +13,7 @@ import DatePicker from 'react-date-picker';
  */
 const LearningManagerCard = (props) => {
     const [message, setMessage] = useState('');
-    const [dateDue, setDateDue] = useState(new Date());
+    const [dateDue, setDateDue] = useState();
     const [isLoading, setLoading] = useState(true)
 
     useEffect(() => {
@@ -22,23 +22,40 @@ const LearningManagerCard = (props) => {
         }
     }, [props.companyId])
 
-    // Updates the current due date
+    // Updates the current due date from the database
     useEffect(() => {
-        // if (!isLoading) {
-        //     axios.get('http://localhost:3002/api/getQuery', 
-        //         { params: { the_query: 'SELECT * ' +
-        //         'FROM CompanyLearningModules ' + 
-        //             'JOIN LearningModules ON LearningModules.ID = CompanyLearningModules.LearningModID ' + 
-        //         'WHERE CompanyLearningModules.CompanyID = ' + String(props.companyId)  
-        //         }}).then((response) => {
-        //             setLearningModules(Object.values(response.data))
-        //     });
-        // }
+        if (!isLoading) {
+            axios.get('http://localhost:3002/api/getQuery', 
+                { params: { the_query: 'SELECT CompanyLearningModules.DueDate ' +
+                'FROM CompanyLearningModules ' + 
+                'WHERE CompanyLearningModules.CompanyID = ' + String(props.companyId) + ' ' +
+                'AND CompanyLearningModules.LearningModID = ' + String(props.learningModId) 
+                }}).then((response) => {
+                    setDateDue(Object.values(response.data))
+            });
+        }
     }, [props.companyId, props.moduleId])
 
     // Updates the due date whenever it changes
     useEffect(() => {
-        
+        console.log('Updating module date: ', props.moduleId)
+        axios.post("http://localhost:3002/users/removeModuleFromCompany",
+        { 
+        learningModId: props.moduleId,
+        companyid: props.companyId
+        }).then((response) => 
+        {
+        console.log("response.data =", response.data)
+        if (response.data === true)
+        {
+            console.log("Updating module!")
+            setDateDue()
+        }
+        else if (response.data === false)
+        {
+            console.log("Error, module failed to update")
+        }
+        });
     }, [dateDue])
  
     /**
