@@ -45,14 +45,14 @@ const LearningManagerCard = (props) => {
 
     return (
         <>
-        <Card className="LearningManagerCard uvs-right uvs-left" style={{ flexDirection: 'row' }}>
-            <Col sm>
-                <div className="LearningManagerCardValues">{props.learningModuleName}</div>
+        <Card className="learning_manager_card uvs-right uvs-left text-center" style={{ flexDirection: 'row' }}>
+            <Col xs={6} md={6} lg={6}>
+                <div className="Learning_Manager_Card_Values_mini">{props.learningModuleName}</div>
             </Col>
-            <Col sm>
+            <Col xs={6} md={6} lg={6}>
                 <OverlayTrigger trigger="click" rootClose placement="left" 
                 overlay={
-                    <Popover id="popover-basic" className="LearningManagerPopup">
+                    <Popover id="popover-basic" className="Learning_Manager_Popup">
                         <div className="LearningManagerCardValues">Please confirm that you want to remove the 
                             module '{props.learningModuleName}' from your assigned list of modules. Note that 
                             all users will have to redo this learning module if you delete and re-add it: </div> 

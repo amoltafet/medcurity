@@ -1,7 +1,7 @@
 import React from 'react';
 import '../Dashboard/DashboardPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { CardDeck } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import MenuBar from '../MenuBar/MenuBar';               
 import LearningManagerCards from './LearningManagerCards';
 import WelcomePanel from '../Dashboard/WelcomePanel';
@@ -54,11 +54,19 @@ const LearningManagerDashboardPage = () => {
     return (
     <>
         <MenuBar></MenuBar>
-        <CardDeck className="dashTopPanel" style={{display: 'flex', flexDirection: 'row'}}>
-          <WelcomePanel user={currentUser} subtitle={'to the Learning Manager Page'}/>
-          <LearningModuleAdder companyId={companyId} reload={reload} setReload={setReload} />
-        </CardDeck>
-        <LearningManagerCards companyId={companyId} reload={reload} setReload={setReload} />
+        <Row className="justify-content-center">
+            <Col xs={11} md={7} lg={7} className="margin_bottom_learning_manager">
+                <WelcomePanel user={currentUser}/>
+            </Col>
+            <Col xs={11} md={4} lg={4} className="margin_bottom_learning_manager">
+                <LearningModuleAdder companyId={companyId} reload={reload} setReload={setReload} />
+            </Col>
+        </Row>
+        <Row className="justify-content-center">
+            <Col xs={11} md={11} lg={11} className="margin_bottom_learning_manager">
+                <LearningManagerCards companyId={companyId} reload={reload} setReload={setReload} />
+            </Col>
+        </Row>
         
     </>
   );

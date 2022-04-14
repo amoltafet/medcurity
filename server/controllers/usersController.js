@@ -232,7 +232,7 @@ const userChangeUsername = (req, res) => {
     const newUserName = req.body.username;
     const userId = req.body.id;
 
-    logger.log('info', ` username  "${newUserName}"`);
+    logger.log('info', `username "${newUserName}"`);
     logger.log('info', `id "${userId}"`);
     db.query(`UPDATE Users SET username = "${newUserName}" WHERE userid = "${userId}"`, (err,result) => {
         db.query(`SELECT * FROM Users WHERE userid = '${userId}'`, (err,result) => {
@@ -353,7 +353,7 @@ const assignModulesToCompany = (req,res) =>
                                 logger.log('info', `Attempted deletion of CompletedModules record learningModID: "${learningmodid}" and UserID: "${company_users[index].UserID}." Successfully deleted if true: "${deletionStatus}" Fields: ${result}`, { service: 'user-service' })    
                             });
 
-                                             }
+                    }
                     res.send(true)
                 });
             });

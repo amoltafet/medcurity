@@ -23,19 +23,11 @@ function LeaderboardProfile(props) {
 
     //console.log(props.userid)
 
-    /**
-    * Creates and displays each users leaderboard profile. 
-    * @param {Array} className the css style to display. 
-    * @param {user} user the user grabed from the dashboard.
-    * @return {GetPage}
-    */
     useEffect(() => {
-        axios.get("http://localhost:3002/users/login").then((response) => {
-          setCurrentUser(response.data.user[0])
-        }).catch(error => console.error(`Error ${error}`));
-      }, []);
+        setCurrentUser(props.currentUser);
+    },[])
 
-
+  
     /**
     * Creates and displays each users leaderboard profile. 
     * @param {Array} className the css style to display. 
@@ -43,6 +35,15 @@ function LeaderboardProfile(props) {
     * @return {GetPage}
     */
     // Query for getting LearningDirectories Directory info
+    useEffect(() => {
+        axios.get('http://localhost:3002/api/getAllUserRequiredModules', 
+        { params: { userid: currentUser.userid }
+        }).then((response) => {
+            setDirectories(Object.values(response.data))
+        }).catch(error => console.error(`Error ${error}`));
+    }, [currentUser])
+
+
     useEffect(() => {
         axios.get('http://localhost:3002/api/getAllUserRequiredModules', 
         { params: { userid: currentUser.userid }
@@ -62,8 +63,8 @@ function LeaderboardProfile(props) {
                             <Card.Text className={props.className[2]}><b>{directories[i].Title}</b></Card.Text>
                             <CircularProgressbar
                                 className={props.className[3]}
-                                value={props.percents[i] * 100}
-                                text={`${Math.round(((props.percents[i] * 100) + Number.EPSILON) * 100) / 100}%`}
+                                value={directories[i].Percentage * 100}
+                                text={`${Math.round(((directories[i].Percentage * 100) + Number.EPSILON) * 100) / 100}%`}
                                 styles={{
                                     path: {
                                         stroke: "#cc3333",
@@ -75,7 +76,7 @@ function LeaderboardProfile(props) {
                                         fill: "white",
                                         textAnchor: "middle",
                                     }}}/>   
-                            <Card.Text className="score_accordian_text">Score: {props.scores[i]}</Card.Text>
+                            <Card.Text className="score_accordian_text">Score: {directories[i].Points}</Card.Text>
                         </Col> 
                     </>)
         } 
