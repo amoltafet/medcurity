@@ -31,7 +31,7 @@ const AdminDashboardPage = () => {
 
     console.log(session)
 
-    if(session?.id) {
+    if(session?.id && setSession.type == "systemAdmin") {
       return (
       <>
           <MenuBar></MenuBar>

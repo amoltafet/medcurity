@@ -108,23 +108,22 @@ const Menubar = () => {
      * Returns buttons for accessing admin pages if the user is a medcurity
      * admin
      */
-    //   function get_admin_buttons() {
-    //     let objs = [];
-      
-    //     if (Number.isInteger(companyId)) {
-    //         objs.push(
-    //             <Nav.Item className="navPills uvs-left uvs-right">
-    //                 <Nav.Link className="menubarFontSpecial" href="/employer-dash">Employer Dashboard</Nav.Link>
-    //             </Nav.Item>
-    //         )
-    //         objs.push(
-    //             <Nav.Item className="navPills uvs-left uvs-right">
-    //                 <Nav.Link className="menubarFontSpecial" href="/learning-manager">Learning Module Manager</Nav.Link>
-    //             </Nav.Item>
-    //         )
-    //     }
-    //     return objs;
-    // }
+      function get_admin_buttons() {
+        let objs = [];
+        if (session.type == "systemAdmin") {
+            objs.push(
+                <Nav.Item className="navPills uvs-left uvs-right">
+                    <Nav.Link className="menubarFont" href="/admin-content">Edit Content</Nav.Link>
+                </Nav.Item>
+            )
+            objs.push(
+                <Nav.Item className="navPills uvs-left uvs-right">
+                    <Nav.Link className="menubarFont" href="/admin-dash">View Employers</Nav.Link>
+                </Nav.Item>
+            )
+        }
+        return objs;
+    }
 
     /**
     * Lets the user know the logo is the button to go back to the dash 
@@ -160,12 +159,7 @@ const Menubar = () => {
                 <Card className="pillz">
                     <Nav className="justify-content-end" variant="pills" defaultActiveKey="/dashboard">
                         {get_employer_buttons()}
-                        <Nav.Item className="navPills uvs-left uvs-right">
-                            <Nav.Link className="menubarFont" href="/admin-content">Edit Content</Nav.Link>
-                        </Nav.Item>
-                        <Nav.Item className="navPills uvs-left uvs-right">
-                            <Nav.Link className="menubarFont" href="/admin-dash">View Employers</Nav.Link>
-                        </Nav.Item>
+                        {get_admin_buttons()}
                         <Nav.Item className="navPills uvs-left uvs-right">
                             <Nav.Link className="menubarFont" href="/settings">Settings</Nav.Link>
                         </Nav.Item>

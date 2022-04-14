@@ -56,7 +56,7 @@ const AdminContentPage = () => {
     //     }
     // }, [isLoading])
 
-    if(session?.id) {
+    if(session?.id && session.type == "systemAdmin") {
 
       return (
       <>
