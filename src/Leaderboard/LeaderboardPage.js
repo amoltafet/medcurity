@@ -89,30 +89,30 @@ const LeaderboardPage = () => {
         "companiesPanel",
     ];
 
-    /**
-    * Sorts the users by points 
-    */
-    function sortUsers() {
-        if (allUsers !== undefined) {
-            allUsers.sort(function (a, b) {
-                return b.value - a.value;
-              });
+    // /**
+    // * Sorts the users by points 
+    // */
+    // function sortUsers() {
+    //     if (allUsers !== undefined) {
+    //         allUsers.sort(function (a, b) {
+    //             return b.value - a.value;
+    //           });
               
-              // sort by name
-              allUsers.sort(function(a, b) {
-                const pointsA = a.category1 + a.category2 + a.category3 + a.category4 + a.category5; // ignore upper and lowercase
-                const pointsB = b.category1 + b.category2 + b.category3 + b.category4 + b.category5; // ignore upper and lowercase
-                if (pointsA > pointsB) {
-                  return -1;
-                }
-                if (pointsA < pointsB) {
-                  return 1;
-                }
-                // names must be equal
-                return 0;
-              });
-        }
-    }
+    //           // sort by name
+    //           allUsers.sort(function(a, b) {
+    //             const pointsA = a.category1 + a.category2 + a.category3 + a.category4 + a.category5; // ignore upper and lowercase
+    //             const pointsB = b.category1 + b.category2 + b.category3 + b.category4 + b.category5; // ignore upper and lowercase
+    //             if (pointsA > pointsB) {
+    //               return -1;
+    //             }
+    //             if (pointsA < pointsB) {
+    //               return 1;
+    //             }
+    //             // names must be equal
+    //             return 0;
+    //           });
+    //     }
+    // }
 
     // function sortCompanyUsers() {
     //     if (companyUsers !== undefined) {
