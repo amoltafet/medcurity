@@ -20,6 +20,7 @@ const  LearningModule = () => {
     useEffect(() => {
         axios.get('http://localhost:3002/api/getModuleInfo', { params: { id: slug } }).then((response) => 
         { 
+          console.log(response.data)
           setContent(Object.values(response.data)) 
         }).catch(error => console.error(`Error ${error}`));
     }, [slug])
@@ -30,7 +31,7 @@ const  LearningModule = () => {
         return ([
           <>
             <h1 className="text-center moduleName">
-              Learning Modules: {module.Title} Module
+              Learning Modules: {module.Title}
             </h1>
             <div className="d-flex justify-content-center">
               <img src={`data:image/png;base64,${banner}`} className="img-fluid rounded mx-auto d-block moduleImage uvs-left uvs-right" alt={module.Title} />
@@ -38,7 +39,7 @@ const  LearningModule = () => {
             <h6 className="text-center mt-2 moduleSubtitle">
               {module.Subtitle}
             </h6>
-            <h4 className="text-center mt-3 moduleDescription">
+            <h4 className="mt-3 moduleDescription">
               {module.Description}
             </h4>
             </>
@@ -51,7 +52,7 @@ const  LearningModule = () => {
         {LearningModuleContent}
         <div className="d-grid gap-2 justify-content-center">
             <Button variant="primary" className="goToQuizBttn uvs-left uvs-right" href={'/quiz/' + slug}>
-                Go to Quiz
+                Start {content[0]?.Title || ""} Quiz
             </Button>
           </div>
         </div>
