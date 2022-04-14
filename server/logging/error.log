@@ -166,3 +166,18 @@
 {"level":"error","message":{"body":{"fatal":true},"methodName":"/queryProfilePicture"},"service":"query-service","timestamp":"2022-04-14T00:30:31.481Z"}
 {"level":"error","message":{"body":{"fatal":true},"methodName":"/queryProfilePicture"},"service":"query-service","timestamp":"2022-04-14T00:30:31.488Z"}
 {"level":"error","message":{"body":{"code":"ER_NO_SUCH_TABLE","errno":1146,"sql":"SELECT * FROM sys.columns WHERE object_id = OBJECT_ID('dbo.hipaagames')","sqlMessage":"Table 'sys.columns' doesn't exist","sqlState":"42S02"},"methodName":"/geQuery"},"service":"query-service","timestamp":"2022-04-14T00:34:02.592Z"}
+{"level":"error","message":{"body":{"code":"EADDRNOTAVAIL","errno":-49,"fatal":true,"syscall":"read"},"methodName":"/geQuery"},"service":"query-service","timestamp":"2022-04-14T23:03:05.795Z"}
+{"level":"error","message":{"body":{"code":"EADDRNOTAVAIL","errno":-49,"fatal":true,"syscall":"read"},"methodName":"/geQuery"},"service":"query-service","timestamp":"2022-04-14T23:03:05.796Z"}
+{"level":"error","message":{"body":{"code":"EADDRNOTAVAIL","errno":-49,"fatal":true,"syscall":"read"},"methodName":"/geQuery"},"service":"query-service","timestamp":"2022-04-14T23:03:05.796Z"}
+{"level":"error","message":{"body":{"code":"EADDRNOTAVAIL","errno":-49,"fatal":true,"syscall":"read"},"methodName":"/geQuery"},"service":"query-service","timestamp":"2022-04-14T23:03:05.796Z"}
+{"level":"error","message":{"errorBody":{"code":"EADDRNOTAVAIL","errno":-49,"fatal":true,"syscall":"read"},"methodName":"/queryAllUserRequiredModules"},"service":"query-service","timestamp":"2022-04-14T23:03:05.797Z"}
+{"level":"error","message":{"body":{"code":"EADDRNOTAVAIL","errno":-49,"fatal":true,"syscall":"read"},"methodName":"/geQuery"},"service":"query-service","timestamp":"2022-04-14T23:03:05.797Z"}
+{"level":"error","message":{"errorBody":{"fatal":true},"methodName":"/queryAllUserRequiredModules"},"service":"query-service","timestamp":"2022-04-14T23:03:05.803Z"}
+{"level":"error","message":{"body":{"fatal":true},"methodName":"/geQuery"},"service":"query-service","timestamp":"2022-04-14T23:03:05.803Z"}
+{"level":"error","message":{"body":{"fatal":true},"methodName":"/queryProfilePicture"},"service":"query-service","timestamp":"2022-04-14T23:03:05.804Z"}
+{"level":"error","message":{"body":{"fatal":true},"methodName":"/queryProfilePicture"},"service":"query-service","timestamp":"2022-04-14T23:03:05.823Z"}
+{"level":"error","message":{"body":{"code":"ETIMEDOUT","errorno":"ETIMEDOUT","fatal":true,"syscall":"connect"},"methodName":"/geQuery"},"service":"query-service","timestamp":"2022-04-14T23:04:02.348Z"}
+{"level":"error","message":{"body":{"code":"ETIMEDOUT","errorno":"ETIMEDOUT","fatal":true,"syscall":"connect"},"methodName":"/geQuery"},"service":"query-service","timestamp":"2022-04-14T23:04:02.349Z"}
+{"level":"error","message":{"body":{"code":"ETIMEDOUT","errorno":"ETIMEDOUT","fatal":true,"syscall":"connect"},"methodName":"/geQuery"},"service":"query-service","timestamp":"2022-04-14T23:04:02.350Z"}
+{"level":"error","message":{"errorBody":{"code":"ETIMEDOUT","errorno":"ETIMEDOUT","fatal":true,"syscall":"connect"},"methodName":"/queryAllUserRequiredModules"},"service":"query-service","timestamp":"2022-04-14T23:04:02.351Z"}
+{"level":"error","message":{"body":{"code":"ETIMEDOUT","errorno":"ETIMEDOUT","fatal":true,"syscall":"connect"},"methodName":"/geQuery"},"service":"query-service","timestamp":"2022-04-14T23:04:02.351Z"}

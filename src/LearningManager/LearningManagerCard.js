@@ -68,7 +68,7 @@ const LearningManagerCard = (props) => {
                     <Button className="LearningManagerInRowButton uvs-right" 
                     size="sm" 
                     variant="danger"> 
-                    Remove Module </Button>
+                    <b>Remove Module</b></Button>
                 </OverlayTrigger>
             </Col>
         </Card>

@@ -2,6 +2,11 @@
     margin-bottom: 3.5%;
 
 }
+@media screen and (min-width: 700px) {
+    .margin_bottom_learning_manager {
+        margin-bottom: 1.5%;
+    }
+}
 
 .Employer_Join_Requests_Learning_Manager {
     background-color: #93c2ec;
@@ -9,6 +14,25 @@
     width: 100%;
     margin-top: .5%;
     margin-bottom: .5%;
+}
+
+
+.employee_learning_modules_manager_title {
+    margin-top: 1%;
+    margin-bottom: 1%;
+    margin-left: 2.5%;
+    font-size: 130%;
+    text-shadow: 2px 2px 5px black;
+}
+
+@media screen and (min-width: 700px) {
+    .employee_learning_modules_manager_title {
+        margin-top: .5%;
+        margin-bottom: .5%;
+        margin-left: 1.5%;
+        font-size: 200%;
+        text-shadow: 2px 2px 5px black;
+    }
 }
 
 @media screen and (min-width: 700px) {
@@ -32,11 +56,11 @@
 
 
 .Learning_Manager_Card_Values_learning_manager {
-
+    font-size: 120%;
 }
 
 .Remove_Button_learning_manager_col {
-
+    font-size: 120%;
 }
 
 .learning_manager_card {
@@ -45,7 +69,7 @@
     margin-right: .5%;
     margin-bottom: .1%;
     border-radius: 10px 10px 10px 10px;
-    background-color: #1e5b88;
+    background-color: #d8dae3;
     width: 98%;
     text-align: left;
 
@@ -56,11 +80,27 @@
 }
 
 .Learning_Manager_Card_Values_mini {
-
+    margin-top: 2%;
+    margin-left: 10%;
+    margin-bottom: 1;
+    font-size: 90%;
+    width: 100%;
+    overflow:hidden !important;
+    white-space: nowrap; /* Don't forget this one */
+    text-overflow: ellipsis;
+    color: black;
 }
 
-.Learning_Manager_Popup {
-
+@media screen and (min-width: 1000px) {
+    .Learning_Manager_Card_Values_mini {
+        margin-top: 1%;
+        margin-bottom: 1;
+        font-size: 120%;
+        margin-left: 10%;
+        width: 100%;
+        overflow:hidden !important;
+        white-space: nowrap; /* Don't forget this one */
+        text-overflow: ellipsis;
+        color: black;
+    }
 }
-
-

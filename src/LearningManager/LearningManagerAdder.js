@@ -85,7 +85,7 @@ const LearningModuleAdder = (props) => {
     return (
         <Card className="Learning_Manager_Invite_Request_Card uvs-right">
              <Row xs={7} md={12} lg={12}> 
-                <Card.Title className="register_header_add"><b>Add a Learning Module: </b></Card.Title>
+                <Card.Title className="register_header_add_learning_module"><b>Add a Learning Module: </b></Card.Title>
             </Row>
             <Row xs={7} md={12} lg={12}> 
                 <Card.Subtitle className="invite_subtitle_learning_manager">Choose a learning module to assign it to all your employees.</Card.Subtitle>

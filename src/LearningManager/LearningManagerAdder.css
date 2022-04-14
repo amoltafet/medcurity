@@ -20,6 +20,42 @@
     text-shadow: 2px 2px 5px gray;
 }
 
+.register_header_add_learning_module {
+    margin-top: 3%;
+    margin-left: 3%;
+    font-size: 130%;
+    text-shadow: 2px 2px 5px gray;
+}
+
+
+@media screen and (min-width: 700px) {
+    .register_header_add_learning_module {
+        margin-top: 3%;
+        margin-left: 3%;
+        font-size: 200%;
+        text-shadow: 2px 2px 5px gray;
+    }
+}
+
+.empolyee_invite_subtitle {
+    margin-top: .1%;
+    margin-left: 3%;
+    margin-right: 3%;
+    font-size: 100%;
+    width: 90%;
+}
+
+@media screen and (min-width: 700px) {
+    .empolyee_invite_subtitle {
+        margin-top: .1%;
+        margin-left: 3%;
+        margin-right: 3%;
+        font-size: 130%;
+        width: 96%;
+    }
+}
+
+
 .invite_subtitle_learning_manager {
     margin-top: 2%;
     margin-left: 3%;

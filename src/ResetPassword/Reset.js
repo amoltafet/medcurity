@@ -27,7 +27,7 @@ export default function ReseetPasswordPage()
   return (
       <>
       <Form className="reset_passwordbg img-fluid">
-      <Image className="MedcurityLogo justify-content-bottom" variant="top" src="/Medcurity_Logo.png" alt="" />
+      <Image className="medcurity_logo justify-content-bottom" variant="top" src="/triangle_logo.png" alt="" />
       <Form className="reset_password_columnDivder"> 
             <div className="row justify-content-md-center">
               <div className="col-xs-5 col-md-5">
