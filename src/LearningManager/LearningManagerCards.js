@@ -30,7 +30,8 @@ const LearningManagersCards = (props) => {
                 'FROM CompanyLearningModules ' + 
                     'JOIN LearningModules ON LearningModules.ID = CompanyLearningModules.LearningModID ' + 
                 'WHERE CompanyLearningModules.CompanyID = ' + String(props.companyId)  
-                }}).then((response) => {
+                }}).then((err, response) => {
+                    console.log(err)
                     setLearningModules(Object.values(response.data))
             });
         }

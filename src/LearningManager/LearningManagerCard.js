@@ -14,9 +14,12 @@ import DatePicker from 'react-date-picker';
 const LearningManagerCard = (props) => {
     const [message, setMessage] = useState('');
     const [dateDue, setDateDue] = useState();
+    const [dbQueried, setdbQueried] = useState(false) // Indicates if the database has been queried or not
+    // If it hasn't, then sets it so updates do not trigger updating the database
     const [isLoading, setLoading] = useState(true)
 
     useEffect(() => {
+        setdbQueried(false)
         if (Number.isInteger(props.companyId)) {
             setLoading(false)
         }
@@ -32,30 +35,33 @@ const LearningManagerCard = (props) => {
                 'AND CompanyLearningModules.LearningModID = ' + String(props.learningModId) 
                 }}).then((response) => {
                     setDateDue(Object.values(response.data))
+                    setdbQueried(true)
             });
         }
     }, [props.companyId, props.moduleId])
 
     // Updates the due date whenever it changes
     useEffect(() => {
-        console.log('Updating module date: ', props.moduleId)
-        axios.post("http://localhost:3002/users/removeModuleFromCompany",
-        { 
-        learningModId: props.moduleId,
-        companyid: props.companyId
-        }).then((response) => 
-        {
-        console.log("response.data =", response.data)
-        if (response.data === true)
-        {
-            console.log("Updating module!")
-            setDateDue()
+        if (dbQueried) {
+            console.log('Updating module date: ', props.moduleId, ' to ', dateDue )
+            axios.post("http://localhost:3002/users/removeModuleFromCompany",
+            { 
+            learningModId: props.moduleId,
+            companyid: props.companyId
+            }).then((response) => 
+            {
+            console.log("response.data =", response.data)
+            if (response.data === true)
+            {
+                console.log("Updating module!")
+                setDateDue()
+            }
+            else if (response.data === false)
+            {
+                console.log("Error, module failed to update")
+            }
+            });
         }
-        else if (response.data === false)
-        {
-            console.log("Error, module failed to update")
-        }
-        });
     }, [dateDue])
  
     /**
