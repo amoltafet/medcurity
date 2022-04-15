@@ -110,7 +110,7 @@ const Menubar = () => {
      */
       function get_admin_buttons() {
         let objs = [];
-        if (session.type == "systemAdmin") {
+        if (session.type == "websiteAdmin") {
             objs.push(
                 <Nav.Item className="navPills uvs-left uvs-right">
                     <Nav.Link className="menubarFont" href="/admin-content">Edit Content</Nav.Link>
