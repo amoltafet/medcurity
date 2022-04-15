@@ -66,12 +66,6 @@ const EmployeesCards = (props) => {
                 }).then((response) => {
                     console.log("Printing modules")
                     console.log(response.data)
-                    // let completedModules = []
-                    // for (let record in Object.values(response.data)) {
-
-                    //     completedModules.push({'UserId': record[0].UserId})
-                    // }
-                    // console.log(completedModules)
                     setUserCompletedModules(Object.values(response.data))
                     console.log(userCompletedModules)
             });

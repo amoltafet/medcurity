@@ -13,7 +13,7 @@ import DatePicker from 'react-date-picker';
  */
 const LearningManagerCard = (props) => {
     const [message, setMessage] = useState('');
-    const [dateDue, setDateDue] = useState();
+    const [dateDue, setDateDue] = useState(new Date());
     const [dbQueried, setdbQueried] = useState(false) // Indicates if the database has been queried or not
     // If it hasn't, then sets it so updates do not trigger updating the database
     const [isLoading, setLoading] = useState(true)
@@ -28,20 +28,26 @@ const LearningManagerCard = (props) => {
     // Updates the current due date from the database
     useEffect(() => {
         if (!isLoading) {
+            setdbQueried(true)
             axios.get('http://localhost:3002/api/getQuery', 
                 { params: { the_query: 'SELECT CompanyLearningModules.DueDate ' +
                 'FROM CompanyLearningModules ' + 
                 'WHERE CompanyLearningModules.CompanyID = ' + String(props.companyId) + ' ' +
                 'AND CompanyLearningModules.LearningModID = ' + String(props.learningModId) 
                 }}).then((response) => {
+                    console.log("Did stuff")
+                    
                     setDateDue(Object.values(response.data))
-                    setdbQueried(true)
+                    console.log("Did stuff")
+                    
             });
         }
     }, [props.companyId, props.moduleId])
 
     // Updates the due date whenever it changes
     useEffect(() => {
+        console.log("testing")
+        console.log(dbQueried)
         if (dbQueried) {
             console.log('Updating module date: ', props.moduleId, ' to ', dateDue )
             axios.post("http://localhost:3002/users/removeModuleFromCompany",
@@ -54,7 +60,6 @@ const LearningManagerCard = (props) => {
             if (response.data === true)
             {
                 console.log("Updating module!")
-                setDateDue()
             }
             else if (response.data === false)
             {
