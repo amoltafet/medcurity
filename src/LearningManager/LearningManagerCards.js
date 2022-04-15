@@ -32,6 +32,7 @@ const LearningManagersCards = (props) => {
                 'WHERE CompanyLearningModules.CompanyID = ' + String(props.companyId)  
                 }}).then((err, response) => {
                     console.log(err)
+                    console.log(response)
                     setLearningModules(Object.values(response.data))
             });
         }
