@@ -45,29 +45,27 @@ const LearningManagerCard = (props) => {
     }, [props.companyId, props.moduleId])
 
     // Updates the due date whenever it changes
-    useEffect(() => {
-        console.log("testing")
-        console.log(dbQueried)
-        if (dbQueried) {
-            console.log('Updating module date: ', props.moduleId, ' to ', dateDue )
-            axios.post("http://localhost:3002/users/removeModuleFromCompany",
-            { 
-            learningModId: props.moduleId,
-            companyid: props.companyId
-            }).then((response) => 
-            {
-            console.log("response.data =", response.data)
-            if (response.data === true)
-            {
-                console.log("Updating module!")
-            }
-            else if (response.data === false)
-            {
-                console.log("Error, module failed to update")
-            }
-            });
+    function updateModuleDate(dateDue) {
+        setDateDue(dateDue)
+        console.log('Updating module date: ', props.moduleId, ' to ', dateDue )
+        axios.post("http://localhost:3002/users/removeModuleFromCompany",
+        { 
+        learningModId: props.moduleId,
+        companyid: props.companyId
+        }).then((response) => 
+        {
+        console.log("response.data =", response.data)
+        if (response.data === true)
+        {
+            console.log("Updating module!")
         }
-    }, [dateDue])
+        else if (response.data === false)
+        {
+            console.log("Error, module failed to update")
+        }
+        });
+    
+    }
  
     /**
      * Removes a user from the selected company
@@ -103,7 +101,7 @@ const LearningManagerCard = (props) => {
                 <div className="LearningManagerCardValues">{props.learningModuleName}</div>
             </Col>
             <Col sm>
-                <div><DatePicker onChange={setDateDue} value={dateDue}></DatePicker></div>
+                <div><DatePicker onChange={(value) => updateModuleDate(value)} value={dateDue}></DatePicker></div>
             </Col>
 
             <Col sm>
