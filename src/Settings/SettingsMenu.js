@@ -92,8 +92,9 @@ const SettingsMenu = () => {
             }
 
             setSaveData(false);
+            setPassword("")
+            setRepeatPassword("")
             setShow(true);
-            navigate('/settings');
 
         }
        
@@ -178,6 +179,7 @@ const SettingsMenu = () => {
                                     <Form.Text className="passwordText" id="newPasswordText">New Password</Form.Text>
                                     <Form.Control
                                         type="password"
+                                        value = {newPassword}
                                         onChange={(e) => {
                                             setPassword(e.target.value);
                                         }}
@@ -187,6 +189,7 @@ const SettingsMenu = () => {
                                     <Form.Text className="passwordText" id="repeatPasswordText">Retype Password</Form.Text>
                                     <Form.Control
                                         type="password"
+                                        value = {repeatPassword}
                                         onChange={(e) => {
                                             setRepeatPassword(e.target.value);
                                         }}
