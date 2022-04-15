@@ -6,12 +6,11 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    position: fixed;
 }
 
 .moduleName {
     color: #1e5b88;
-    font-family: Lato,sans-serif;
+    font-family: 'Segoe UI', sans-serif;
     font-size: 250%;
 }
 
@@ -22,22 +21,32 @@
 
 .moduleSubtitle {
     color: #127ebf;
-    font-family: Lato,sans-serif;
+    font-family: 'Segoe UI', sans-serif;
     font-size: 150%;
+    padding-bottom: 15px;
 }
 
 .moduleDescription {
     color: black;
-    margin-left: 7%;
-    margin-right: 6%;
-    font-family: Lato,sans-serif;
-    font-size: 100%;
-    margin-top: 2%;
+    border-radius: 25px;
+    background-color: rgba(240, 255, 255, 0.495);
+    margin-left: 13%;
+    margin-right: 13%;
+    font-family: Lato, sans-serif;
+    font-size: 130%;
+    padding: 1.5%;
+    line-height: 1.8
 }
 
 .goToQuizBttn {
-    width: 120%;
-    margin-top: 2%;
+    width: auto;
+    height: auto;
+    font-size: 160%;
+    margin-top: 1%;
+    margin-right: 50px;
+    margin-left: 50px;
+    padding-left: 50px;
+    padding-right: 50px;
     background-color: #127ebf;
     font-family: Lato,sans-serif;
 }

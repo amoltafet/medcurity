@@ -10,6 +10,7 @@ import LearningModuleAdder from './ContentAdder';
 import { useEffect, useState, Link} from "react";
 import { useParams } from "react-router";
 import Axios from 'axios';
+import InvalidPage from '../../InvalidPage/InvalidPage';
 
 
 /**
@@ -55,16 +56,31 @@ const AdminContentPage = () => {
     //     }
     // }, [isLoading])
 
-    return (
-    <>
-        <MenuBar></MenuBar>
-        <CardDeck className="dashTopPanel" style={{display: 'flex', flexDirection: 'row'}}>
-          <WelcomePanel user={session} subtitle={'to the Learning Manager Page'}/>
-        </CardDeck>
-        <LearningManagerCards companyId={companyId}/>
-        
-    </>
-  );
+    if(session?.id && session.type == "websiteAdmin") {
+
+      return (
+      <>
+          <MenuBar></MenuBar>
+          <CardDeck className="dashTopPanel" style={{display: 'flex', flexDirection: 'row'}}>
+            <WelcomePanel user={session} subtitle={'to the Learning Manager Page'}/>
+          </CardDeck>
+          <LearningManagerCards companyId={companyId}/>
+          
+      </>
+      );
+    }
+    else
+    {
+      return (
+        <>
+          <InvalidPage 
+            redirectPage={'/'} 
+            reason={"You need to be logged in to view your dashboard."}
+            btnMessage={"Back to Login Page"}>
+          </InvalidPage>
+        </>
+      )
+    }
 }
 /*
 <CardDeck className="LearningManagerDashTopPanel" style={{display: 'flex', flexDirection: 'row'}}>
