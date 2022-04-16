@@ -111,3 +111,8 @@
         text-overflow: ellipsis;
     }
 }
+
+.LearningManagerInRowButton_confirm {
+    margin-top: 2%;
+}
+

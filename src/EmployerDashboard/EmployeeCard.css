@@ -154,11 +154,10 @@
     }
 }
 
-.EmployeePopup {
-    margin-top: 3%;
-    text-align: center;
-}
-
 .InviteSubtitle {
     font-size: 1vmax;
+}
+
+.EmployeeInRowButton_confirm  {
+    margin-top: 2%;
 }

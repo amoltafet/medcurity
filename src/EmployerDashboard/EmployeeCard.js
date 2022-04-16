@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { Card, Col, Button, OverlayTrigger, Popover } from 'react-bootstrap';
+import { Card, Col, Row, Button, OverlayTrigger, Popover } from 'react-bootstrap';
 import './EmployeeCard.css';
 import { useEffect, useState} from "react";
 import axios from 'axios';
@@ -56,20 +56,26 @@ const EmployeeCard = (props) => {
                 <div className="EmployeeCardValues text-center">{props.progress}</div>
             </Col>
             <Col xs={2} md={2} lg={2}>
-                <OverlayTrigger trigger="click" rootClose placement="left" 
+                <OverlayTrigger trigger="click" rootClose placement="bottom" 
                 overlay={
-                    <Popover id="popover-basic" className="EmployeePopup">
-                        <div className="EmployeeCardValues">Please confirm that you want to delete the user '{props.name}': </div> 
-                        <div>{message}</div>
-                        <Button className="EmployeeInRowButton uvs-right" 
-                            variant="success" 
-                            onClick={() => removeUser(props.userId, props.companyId)}> 
-                            Confirm 
-                        </Button>
+                    <Popover id="popover-basic">
+                        <Popover.Content>
+                            <Row>
+                                <div>Please confirm that you want to delete the user '{props.name}': </div> 
+                                <div>{message}</div>
+                            </Row>
+                            <Row>
+                                <Button className="EmployeeInRowButton_confirm uvs-right" 
+                                    variant="success" 
+                                    onClick={() => removeUser(props.userId, props.companyId)}> 
+                                    Confirm 
+                                </Button>
+                            </Row>
+                        </Popover.Content>
                     </Popover>
                 }>
         
-                    <Button className="EmployeeInRowButton uvs-right" 
+                    <Button className="uvs-right" 
                     size="sm" 
                     variant="danger"> 
                     Remove</Button>

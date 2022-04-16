@@ -106,6 +106,20 @@ const QuizPage = () => {
 
       // KEEP FOR TESTING!!
 
+      axios.get('http://localhost:3002/api/getQuery',{
+        params: { the_query: 'SELECT * FROM UserPoints '}
+      }).then((response) => {
+     
+        console.log("Points: ", response.data);
+      });	
+
+      axios.get('http://localhost:3002/api/getQuery',{
+        params: { the_query: 'SELECT * FROM CompletedModules '}
+      }).then((response) => {
+     
+        console.log("All completed Modules: ", response.data);
+      });	
+
       // Quiz Answers 
 
       content.forEach(element => {
