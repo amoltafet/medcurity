@@ -31,7 +31,7 @@ const AdminDashboardPage = () => {
 
     console.log(session)
 
-    if(session?.id && setSession.type == "websiteAdmin") {
+    if (session?.type == "websiteAdmin") {
       return (
       <>
           <MenuBar></MenuBar>
@@ -51,8 +51,8 @@ const AdminDashboardPage = () => {
         <>
           <InvalidPage 
             redirectPage={'/'} 
-            reason={"You need to be logged in to view your dashboard."}
-            btnMessage={"Back to Login Page"}>
+            reason={"Only website admins can access this page."}
+            btnMessage={"Back to Medcurity Learn Security"}>
           </InvalidPage>
         </>
       )

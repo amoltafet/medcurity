@@ -56,7 +56,7 @@ const AdminContentPage = () => {
     //     }
     // }, [isLoading])
 
-    if(session?.id && session.type == "websiteAdmin") {
+    if (session?.type == "websiteAdmin") {
 
       return (
       <>
@@ -75,8 +75,8 @@ const AdminContentPage = () => {
         <>
           <InvalidPage 
             redirectPage={'/'} 
-            reason={"You need to be logged in to view your dashboard."}
-            btnMessage={"Back to Login Page"}>
+            reason={"Only website admins can access this page."}
+            btnMessage={"Back to Medcurity Learn Security"}>
           </InvalidPage>
         </>
       )

@@ -6,6 +6,7 @@ import MenuBar from '../MenuBar/MenuBar';
 import EmployeeCards from './EmployeeCards';
 import WelcomePanel from './../Dashboard/WelcomePanel';
 import EmployerInvitations from './EmployerInvitations';
+import InvalidPage from '../InvalidPage/InvalidPage';
 import { useEffect, useState} from "react";
 import Axios from 'axios';
 
@@ -51,18 +52,30 @@ const EmployerDashboardPage = () => {
         }
     }, [isLoading])
 
-
-    return (
-    <>
-        <MenuBar></MenuBar>
-        <CardDeck className="dashTopPanel" style={{display: 'flex', flexDirection: 'row'}}>
-          <WelcomePanel user={session} subtitle={'to the Administration Page'}/>
-          <EmployerInvitations companyId={companyId} reload={reload} setReload={setReload} />
-        </CardDeck>
-        <EmployeeCards user={session} companyId={companyId} reload={reload} setReload={setReload} />
-        
-    </>
-  );
+    if (session?.type == 'companyAdmin')
+    {
+        return (
+        <>
+            <MenuBar></MenuBar>
+            <CardDeck className="dashTopPanel" style={{display: 'flex', flexDirection: 'row'}}>
+            <WelcomePanel user={session} subtitle={'to the Company Administration Page'}/>
+            <EmployerInvitations companyId={companyId} reload={reload} setReload={setReload} />
+            </CardDeck>
+            <EmployeeCards user={session} companyId={companyId} reload={reload} setReload={setReload} />
+        </> );
+    }
+    else
+    {
+        return (
+            <>
+              <InvalidPage 
+                redirectPage={'/'} 
+                reason={"Only company admins can access this page."}
+                btnMessage={"Back to Medcurity Learn Security"}>
+              </InvalidPage>
+            </>
+          )
+    }
 }
 
 export default EmployerDashboardPage;

@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { CardDeck } from 'react-bootstrap';
 import MenuBar from '../MenuBar/MenuBar';               
 import LearningManagerCards from './LearningManagerCards';
+import InvalidPage from '../InvalidPage/InvalidPage';
 import WelcomePanel from '../Dashboard/WelcomePanel';
 import LearningModuleAdder from './LearningManagerAdder';
 import { useEffect, useState, Link} from "react";
@@ -52,17 +53,31 @@ const LearningManagerDashboardPage = () => {
         }
     }, [isLoading])
 
-    return (
-    <>
-        <MenuBar></MenuBar>
-        <CardDeck className="dashTopPanel" style={{display: 'flex', flexDirection: 'row'}}>
-          <WelcomePanel user={session} subtitle={'to the Learning Manager Page'}/>
-          <LearningModuleAdder companyId={companyId} reload={reload} setReload={setReload} />
-        </CardDeck>
-        <LearningManagerCards companyId={companyId} reload={reload} setReload={setReload} />
-        
-    </>
-  );
+    if (session?.type == 'companyAdmin')
+    {
+        return (
+        <>
+            <MenuBar></MenuBar>
+            <CardDeck className="dashTopPanel" style={{display: 'flex', flexDirection: 'row'}}>
+            <WelcomePanel user={session} subtitle={'to the Learning Manager Page'}/>
+            <LearningModuleAdder companyId={companyId} reload={reload} setReload={setReload} />
+            </CardDeck>
+            <LearningManagerCards companyId={companyId} reload={reload} setReload={setReload} />
+        </>
+        );
+    }
+    else
+    {
+        return (
+            <>
+              <InvalidPage 
+                redirectPage={'/'} 
+                reason={"Only company admins can access this page."}
+                btnMessage={"Back to Medcurity Learn Security"}>
+              </InvalidPage>
+            </>
+          )        
+    }
 }
 /*
 <CardDeck className="LearningManagerDashTopPanel" style={{display: 'flex', flexDirection: 'row'}}>

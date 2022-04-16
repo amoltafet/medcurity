@@ -1,6 +1,7 @@
 import React from 'react';
 import Menubar from '../MenuBar/MenuBar';
 import LeaderboardProfile from './LeaderboardProfile';
+import InvalidPage from '../InvalidPage/InvalidPage';
 import { Card, Col, Row, Tab, Nav } from 'react-bootstrap';
 import { useEffect, useState } from "react";
 import axios from 'axios';
@@ -154,42 +155,56 @@ const LeaderboardPage = () => {
           );
     })
      
-    
-    return (
-        <>
-            <Menubar></Menubar>  
-            <div className="leaderboardbg">
-            <Tab.Container  id="left-tabs-example" defaultActiveKey="first" style={{ display: 'flex' }}>
-                <Row className="justify-content-center ">
-                    <Col className="shadowTab_leaderboard uvs-left uvs-right" sm={2}>
-                        <Nav variant="pills" className="selection_leaderbaord_container justify-content-center ">
-                            <Nav.Item className="orginization_selection_tab">
-                                <Nav.Link className="leaderbaord_pill_font" eventKey="first">{companyName[0].name} Users</Nav.Link>
-                            </Nav.Item>
-                            <Nav.Item className="all_leaderboard_selection ">
-                                <Nav.Link  className="leaderbaord_pill_font" eventKey="second">Meducrity Learn Security Users</Nav.Link>
-                            </Nav.Item>
-                        </Nav>
-                    </Col>
-                    <Col className="justify-content-center " sm={7}>
-                        <Tab.Content>
-                            <Tab.Pane eventKey="first">
-                                <Card className="leaderboardContainer uvs-left uvs-right">    
-                                   {CompanyUsersProfileArray}
-                                </Card>
-                            </Tab.Pane>
-                            <Tab.Pane eventKey="second">
-                                <Card className="leaderboardContainer uvs-left uvs-right">    
-                                    {AllUsersProfileArray}
-                                </Card>
-                            </Tab.Pane>
-                        </Tab.Content>
-                    </Col>
-                </Row>
-            </Tab.Container>
-            </div>
-        </>
-    );
+    if (user?.userid)
+    {
+        return (
+            <>
+                <Menubar></Menubar>  
+                <div className="leaderboardbg">
+                <Tab.Container  id="left-tabs-example" defaultActiveKey="first" style={{ display: 'flex' }}>
+                    <Row className="justify-content-center ">
+                        <Col className="shadowTab_leaderboard uvs-left uvs-right" sm={2}>
+                            <Nav variant="pills" className="selection_leaderbaord_container justify-content-center ">
+                                <Nav.Item className="orginization_selection_tab">
+                                    <Nav.Link className="leaderbaord_pill_font" eventKey="first">{companyName[0].name} Users</Nav.Link>
+                                </Nav.Item>
+                                <Nav.Item className="all_leaderboard_selection ">
+                                    <Nav.Link  className="leaderbaord_pill_font" eventKey="second">Meducrity Learn Security Users</Nav.Link>
+                                </Nav.Item>
+                            </Nav>
+                        </Col>
+                        <Col className="justify-content-center " sm={7}>
+                            <Tab.Content>
+                                <Tab.Pane eventKey="first">
+                                    <Card className="leaderboardContainer uvs-left uvs-right">    
+                                    {CompanyUsersProfileArray}
+                                    </Card>
+                                </Tab.Pane>
+                                <Tab.Pane eventKey="second">
+                                    <Card className="leaderboardContainer uvs-left uvs-right">    
+                                        {AllUsersProfileArray}
+                                    </Card>
+                                </Tab.Pane>
+                            </Tab.Content>
+                        </Col>
+                    </Row>
+                </Tab.Container>
+                </div>
+            </>
+        );
+    }
+    else
+    {
+        return (
+            <>
+              <InvalidPage 
+                redirectPage={'/'} 
+                reason={"You need to be logged in to view the leaderboard."}
+                btnMessage={"Back to Login Page"}>
+              </InvalidPage>
+            </>
+          )       
+    }
 }
 
 export default LeaderboardPage
