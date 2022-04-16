@@ -19,8 +19,13 @@ const SettingsMenu = () => {
     const [isLoaded, setLoaded] = useState(false);
     const [company, setCompany] = useState([]);
     const [dueDate, setDueDate] = useState([]);
-    const [profilePic, setProfilePic] = useState("/user.png")
+    const [newPassword, setPassword] = useState("");
+    const [repeatPassword, setRepeatPassword] = useState("");
+    const [convertedProfilePhoto, setConvertedProfilePicture] = useState("/user.png");
+    const [profilePic, setProfilePic] = useState("")
+    const [message, setMessage] = useState("Saved!")
     const navigate = useNavigate();
+
 
     useEffect(() => { if (currentUser.userid) axios.get("http://localhost:3002/api/getProfilePicture", { params: { id: currentUser.userid }} ).then((response) => { setProfilePic(response.data.profileImage) }); })
 
@@ -60,9 +65,24 @@ const SettingsMenu = () => {
                     
                 }).catch(error => console.log(`Error ${error}`));
             }
+            if(newPassword !== "") {
+                axios.post("http://localhost:3002/users/changeUserPassword", {
+                    userid: currentUser.userid,
+                    newPassword: newPassword,
+                    retypedPassword: repeatPassword
+                }).then((response) => {
+                    console.log("response", response.data);
+                    setMessage(response.data["message"])
+                    console.log("Message:", message)
+                    
+                }).catch(error => console.log(`Error ${error}`));
+            }
 
             setSaveData(false);
+            setPassword("")
+            setRepeatPassword("")
             setShow(true);
+
         }
        
     }, [saveData, newUserName, currentUser.userid])
@@ -97,7 +117,7 @@ const SettingsMenu = () => {
 
     const popover = (
         <Popover id="popover-basic">
-            <Popover.Title as="h3">Saved!</Popover.Title>
+            <Popover.Title as="h3">{message}</Popover.Title>
         </Popover>
     );
 
@@ -141,9 +161,26 @@ const SettingsMenu = () => {
                                         }}>
                                     </Form.Control>
                                 </Form.Group>
-                                <Form.Group className="emailInput" controlId="formPlaintextEmail">
-                                        <Form.Text className="emailText">Change Password</Form.Text>
-                                        <Form.Control></Form.Control>
+                                <h3>Change Password</h3>
+                                <Form.Group className="passwordInput" controlId="formPlaintextEmail">
+                                    <Form.Text className="passwordText" id="newPasswordText">New Password</Form.Text>
+                                    <Form.Control
+                                        type="password"
+                                        value = {newPassword}
+                                        onChange={(e) => {
+                                            setPassword(e.target.value);
+                                        }}
+                                    ></Form.Control>
+                                </Form.Group>
+                                <Form.Group className="passwordInput" controlId="formPlaintextEmail">
+                                    <Form.Text className="passwordText" id="repeatPasswordText">Retype Password</Form.Text>
+                                    <Form.Control
+                                        type="password"
+                                        value = {repeatPassword}
+                                        onChange={(e) => {
+                                            setRepeatPassword(e.target.value);
+                                        }}
+                                    ></Form.Control>
                                 </Form.Group>
                             </Form>
                                <OverlayTrigger delay={{ show: 5000, hide: 4000 }} show={show} placement="bottom" overlay={popover}>

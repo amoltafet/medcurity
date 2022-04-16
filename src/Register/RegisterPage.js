@@ -56,11 +56,12 @@ export default function RegisterPage()
       <Form className="registerbg img-fluid">
       <Image className="medcurity_logo justify-content-bottom" variant="top" src="/triangle_logo.png" alt="" />
       <Form className="register_columnDivder"> 
-            <div className="row justify-content-md-center">
-              <div className="col-xs-5 col-md-5">
-                <div className="register_formColumn row justify-content-center">
-                  <h3 className="register_h3">Create an Account</h3>
-                  <p className="register_p">All you need is an email and password to create an account.</p>
+            <div class="row justify-content-md-center">
+              <div class="col-xs-5 col-md-5">
+                <div class="register_formColumn row justify-content-center">
+                  <h3 class="register_h3">Create an Account</h3>
+                  <p class="register_p">All you need is an email and password to create an account. 
+                                        If you recieved an invitation, please use the same email you receieved it.</p>
                   <Form.Group className="register_Form" controlId="formEmail"> <Form.Control type="email" placeholder="Email" onChange={ (e) => {setEmail(e.target.value); }}/> </Form.Group>
                   <p></p>
                   <Form.Group className="register_Form" controlId="formPassword"> <Form.Control type="password" placeholder="Password" onChange={ (e) => {setPassword(e.target.value); }}/> </Form.Group>

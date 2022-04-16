@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import AddCompany from './AddCompany';
 import Axios from 'axios';
 import DeleteCompany from './DeleteCompany';
+import InvalidPage from '../../InvalidPage/InvalidPage';
 
 
 /**
@@ -28,19 +29,32 @@ const AdminDashboardPage = () => {
 
     console.log(currentUser)
 
-
-    return (
-    <>
-        <MenuBar></MenuBar>
-        <CardDeck className="dashTopPanel" style={{display: 'flex', flexDirection: 'row'}}>
-          <AddCompany />
-          <AdminInvitations />
-          <DeleteCompany />
-        </CardDeck>
-        <EmployerCards />
-        
-    </>
-  );
+    if(currentUser?.id && setCurrentUser.type == "websiteAdmin") {
+      return (
+      <>
+          <MenuBar></MenuBar>
+          <CardDeck className="dashTopPanel" style={{display: 'flex', flexDirection: 'row'}}>
+            <AddCompany />
+            <AdminInvitations />
+            <DeleteCompany />
+          </CardDeck>
+          <EmployerCards />
+          
+      </>
+      );
+    }
+    else
+    {
+      return (
+        <>
+          <InvalidPage 
+            redirectPage={'/'} 
+            reason={"You need to be logged in to view your dashboard."}
+            btnMessage={"Back to Login Page"}>
+          </InvalidPage>
+        </>
+      )
+    }
 }
 /*
 <CardDeck className="EmployerDashTopPanel" style={{display: 'flex', flexDirection: 'row'}}>
