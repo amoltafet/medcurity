@@ -103,25 +103,6 @@ const QuizPage = () => {
 			setModuleName(response.data); 
 			console.log("ModuleName: ", response.data);
 		});	
-    
-
-    axios.get('http://localhost:3002/api/getQuery',{
-			params: { the_query: `SELECT * FROM sys.columns WHERE object_id = OBJECT_ID('dbo.hipaagames')` }
-		}).then((response) => {
-			console.log("database : ", response.data);
-		});	
-
-    // axios.get('http://localhost:3002/api/getQuery',{
-		// 	params: { the_query: `SELECT * ` +
-    //   `FROM AffiliatedUsers ` +
-    //   `JOIN CompanyLearningModules ` +
-    //   `ON AffiliatedUsers.CompanyID = CompanyLearningModules.CompanyID ` +
-    //   `JOIN LearningModules ON LearningModules.ID = CompanyLearningModules.LearningModID ` +   
-    //   `OUTER JOIN CompletedModules ON CompletedModules.LearningModID = CompanyLearningModules.LearningModID ` +
-    //   `WHERE AffiliatedUsers.UserID = '${currentUser.userid}'` }
-		// }).then((response) => {
-		// 	console.log("Join try: ", response.data);
-		// }).catch(error => console.error(`Error ${error}`));	
 
       // KEEP FOR TESTING!!
 

@@ -22,7 +22,7 @@ const WelcomePanel = (props) => {
         <Card className="WelcomePanelCard uvs-left" style={{flexDirection: 'row'}}>
         <Image className="WelcomePanelImage uvs-left" variant="top" src={`data:image/png;base64,${profilePic}`} alt="" roundedCircle />
             <Card.Body className="cardSize">
-               <Card.Title className="titleFont" >Welcome Back, {props.user.username} to the Employer Dashboard!</Card.Title>
+               <Card.Title className="titleFont" >Welcome Back, {props.user.username} to the {props.pageTitle}!</Card.Title>
             </Card.Body> 
         </Card>
         </>

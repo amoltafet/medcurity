@@ -61,7 +61,7 @@ const LearningManagersCards = (props) => {
 
     return (
         <>
-        <Card className="Employer_Join_Requests_Learning_Manager uvs-right">
+        <Card className="Current_Modules_Learning_Manager uvs-right">
             <Card.Title className="employee_learning_modules_manager_title">Current Learning Modules</Card.Title>      
             <CardDeck style={{display: 'flex', flexDirection: 'column'}}> 
             <Card className="Learning_Manager_Card_Header uvs-right uvs-left" style={{display: 'flex', flexDirection: 'row' }}>

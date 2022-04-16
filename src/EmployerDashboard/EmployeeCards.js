@@ -133,7 +133,7 @@ const EmployeesCards = (props) => {
     return (
         <>
         <Card className="EmployerJoinRequests uvs-right">
-            <Card.Title className="employee_remove_card_header">Employees</Card.Title>    
+            <Card.Title className="employee_remove_card_header"><b>Employees</b></Card.Title>    
             <CardDeck style={{display: 'flex', flexDirection: 'column'}}>  
             <Card className="EmployeeCardHeader justify-content-center uvs-right uvs-left" style={{display: 'flex', flexDirection: 'row' }}>
                 <Col xs={2} md={2} lg={2}>

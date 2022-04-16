@@ -103,7 +103,7 @@ function LeaderboardProfile(props) {
                                         <Card.Text className="userNameTitle"><u>{props.name}</u></Card.Text>
                                     </Col>
                                     <Col xs={4} md={5} lg={4}>
-                                        <div className="userPointsLeaderboard"><b>Total Points:</b>  {totalScore}</div>
+                                        <div className="userPointsLeaderboard"><b>Total Points:</b> {totalScore}</div>
                                     </Col>
                                 </Row>
                             </Card>

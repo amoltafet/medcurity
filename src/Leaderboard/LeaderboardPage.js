@@ -30,18 +30,11 @@ const LeaderboardPage = () => {
     /**
     * Grabs all of the user data for leaderboard. 
     */
-    useEffect(() => {
-        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 'SELECT * FROM Users' } }).then((response) => {
-            console.log("trying to not quit senior design this instance: ", response.data)
-        }).catch(error => console.error(`Error ${error}`));  
+    useEffect(() => { 
         axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 'SELECT * FROM Users' } }).then((response) => {
             setAllUsers(Object.values(response.data));
             console.log("all users", response.data)
         }).catch(error => console.error(`Error ${error}`));  
-        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 'SELECT * FROM Companies WHERE CompanyID = ' + currentUser.companyid } }).then((response) => {
-            setCompany(Object.values(response.data[0].name));
-            console.log("company ", response.data[0].name)
-        }).catch(error => console.error(`Error ${error}`));
     }, [currentUser])
 
      /**
@@ -52,30 +45,9 @@ const LeaderboardPage = () => {
             setCompanyUsers(Object.values(response.data));
             console.log("company users", response.data)
         }).catch(error => console.error(`Error ${error}`));
-        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 'SELECT * FROM CompletedModules'} }).then((response) => {
-            console.log("completed", Object.values(response.data));
-            allUsers.forEach(element => {
-                response.data.forEach(element2 => {
-                    if (element.userid === element2.UserID) {
-                        element.push(element2);
-                        console.log("e")
-                        setAllUsers(allUsers);
-                    }
-                });
-            });
-            companyUsers.forEach(element => {
-                response.data.forEach(element2 => {
-                    if (element.UserID === element2.UserID) {
-                        element.push(element2);
-                        console.log("e");
-                        setCompanyUsers(companyUsers);
-                    }
-                });
-            });
+    
             
 
-
-        }).catch(error => console.error(`Error ${error}`));
     }, [company, currentUser])
     
 

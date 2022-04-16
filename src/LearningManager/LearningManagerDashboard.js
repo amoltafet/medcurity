@@ -56,7 +56,7 @@ const LearningManagerDashboardPage = () => {
         <MenuBar></MenuBar>
         <Row className="justify-content-center">
             <Col xs={11} md={7} lg={7} className="margin_bottom_learning_manager">
-                <WelcomePanel user={currentUser}/>
+                <WelcomePanel user={currentUser} pageTitle={"Learning Module Manager"}/>
             </Col>
             <Col xs={11} md={4} lg={4} className="margin_bottom_learning_manager">
                 <LearningModuleAdder companyId={companyId} reload={reload} setReload={setReload} />

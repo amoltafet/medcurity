@@ -6,8 +6,8 @@
 }
 
 .EmployerJoinRequests {
-    background-color: #93c2ec;
-    color: white;
+    background-color: #d8dae3;
+    color: black;
     width: 100%;
     margin-top: .5%;
     margin-bottom: .5%;
@@ -15,8 +15,8 @@
 
 @media screen and (min-width: 700px) {
     .EmployerJoinRequests {
-        background-color: #93c2ec;
-        color: white;
+        background-color: #d8dae3;
+        color: black;
         width: 100%;
         margin-top: 0%;
         margin-bottom: .5%;
@@ -29,12 +29,12 @@
     margin-right: .5%;
     margin-bottom: 1%;
     border-radius: 10px 10px 10px 10px;
-    background-color: #d8dae3;
+    background-color: #1e5b88;
     width: 95%;
     text-align: left;
     font-family: Lato,sans-serif;
     font-size: 90%;
-    color: black;
+    color: white;
 }
 
 .employee_remove_card_header {
@@ -42,7 +42,7 @@
     margin-bottom: 1%;
     margin-left: 2.5%;
     font-size: 130%;
-    text-shadow: 2px 2px 5px black;
+    text-shadow: 2px 2px 5px gray;
 }
 
 @media screen and (min-width: 700px) {
@@ -51,7 +51,7 @@
         margin-bottom: .5%;
         margin-left: 1.5%;
         font-size: 200%;
-        text-shadow: 2px 2px 5px black;
+        text-shadow: 2px 2px 5px gray;
     }
 }
 

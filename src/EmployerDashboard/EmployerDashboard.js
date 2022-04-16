@@ -57,7 +57,7 @@ const EmployerDashboardPage = () => {
         <MenuBar></MenuBar>
         <Row className="justify-content-center">
             <Col xs={11} md={7} lg={7} className="margin_bottom_employer">
-                <WelcomePanel user={currentUser}/>
+                <WelcomePanel user={currentUser} pageTitle={"Employer Dashboard"}/>
             </Col>
             <Col xs={11} md={4} lg={4} className="margin_bottom_employer">
                 <EmployerInvitations companyId={companyId} reload={reload} setReload={setReload} />

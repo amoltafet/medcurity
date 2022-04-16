@@ -8,9 +8,9 @@
     }
 }
 
-.Employer_Join_Requests_Learning_Manager {
-    background-color: #93c2ec;
-    color: white;
+.Current_Modules_Learning_Manager {
+    background-color: #d8dae3;
+    color: black;
     width: 100%;
     margin-top: .5%;
     margin-bottom: .5%;
@@ -22,7 +22,7 @@
     margin-bottom: 1%;
     margin-left: 2.5%;
     font-size: 130%;
-    text-shadow: 2px 2px 5px black;
+    text-shadow: 2px 2px 5px gray;
 }
 
 @media screen and (min-width: 700px) {
@@ -31,14 +31,14 @@
         margin-bottom: .5%;
         margin-left: 1.5%;
         font-size: 200%;
-        text-shadow: 2px 2px 5px black;
+        text-shadow: 2px 2px 5px gray;
     }
 }
 
 @media screen and (min-width: 700px) {
-    .Employer_Join_Requests_Learning_Manager  {
-        background-color: #93c2ec;
-        color: white;
+    .Current_Modules_Learning_Manager  {
+        background-color: #d8dae3;
+        color: black;
         width: 100%;
         margin-top: 0%;
         margin-bottom: .5%;
@@ -54,13 +54,24 @@
     color: black;
 }
 
-
 .Learning_Manager_Card_Values_learning_manager {
-    font-size: 120%;
+    font-size: 80%;
+}
+
+@media screen and (min-width: 700px) { 
+    .Learning_Manager_Card_Values_learning_manager {
+        font-size: 120%;
+    }
 }
 
 .Remove_Button_learning_manager_col {
-    font-size: 120%;
+    font-size: 80%;
+}
+
+@media screen and (min-width: 700px) { 
+    .Remove_Button_learning_manager_col {
+        font-size: 120%;
+    }
 }
 
 .learning_manager_card {
@@ -69,14 +80,12 @@
     margin-right: .5%;
     margin-bottom: .1%;
     border-radius: 10px 10px 10px 10px;
-    background-color: #d8dae3;
+    background-color: #1e5b88;
     width: 98%;
     text-align: left;
-
     font-family: Lato,sans-serif;
     font-size: 90%;
-
-    color: white;
+    color: white !important;
 }
 
 .Learning_Manager_Card_Values_mini {
@@ -88,12 +97,11 @@
     overflow:hidden !important;
     white-space: nowrap; /* Don't forget this one */
     text-overflow: ellipsis;
-    color: black;
 }
 
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 700px) {
     .Learning_Manager_Card_Values_mini {
-        margin-top: 1%;
+        margin-top: .5%;
         margin-bottom: 1;
         font-size: 120%;
         margin-left: 10%;
@@ -101,6 +109,5 @@
         overflow:hidden !important;
         white-space: nowrap; /* Don't forget this one */
         text-overflow: ellipsis;
-        color: black;
     }
 }
