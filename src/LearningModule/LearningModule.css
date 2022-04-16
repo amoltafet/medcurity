@@ -1,11 +1,30 @@
 .learningModuleBg {
     background-image: url("learningModuleBg.png");
-    height: 90vh;
-    width: 100%;
-    margin-top: 1%;
-    background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-attachment: fixed;
+    background-position:  center -20px;  
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover; 
+    animation: dash_fadeIn 1s;
+    height: 120vh;
+    
+}
+
+@media screen and (min-width: 1000px) {
+    .learningModuleBg {
+        background-image: url("learningModuleBg.png");
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position:  center -50px;  
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover; 
+        animation: dash_fadeIn 1s;
+        height: 90vh;
+    }
 }
 
 .moduleName {
@@ -30,27 +49,46 @@
     color: black;
     border-radius: 25px;
     background-color: rgba(240, 255, 255, 0.495);
-    margin-left: 13%;
-    margin-right: 13%;
+    margin-left: 3%;
+    margin-right: 3%;
     font-family: Lato, sans-serif;
-    font-size: 130%;
+    font-size: 100%;
     padding: 1.5%;
     line-height: 1.8
 }
 
+@media screen and (min-width: 700px) {
+    .moduleDescription {
+        color: black;
+        border-radius: 25px;
+        background-color: rgba(240, 255, 255, 0.495);
+        margin-left: 13%;
+        margin-right: 13%;
+        font-family: Lato, sans-serif;
+        font-size: 130%;
+        padding: 1.5%;
+        line-height: 1.8
+    }
+}
+
 .goToQuizBttn {
-    width: auto;
-    height: auto;
-    font-size: 160%;
+    width: 100%;
+    font-size: 100%;
     margin-top: 1%;
-    margin-right: 50px;
-    margin-left: 50px;
-    padding-left: 50px;
-    padding-right: 50px;
+    margin-bottom: 4%;
     background-color: #127ebf;
     font-family: Lato,sans-serif;
 }
 
+@media screen and (min-width: 700px) {
+    .goToQuizBttn {
+        width: 100%;
+        font-size: 150%;
+        margin-top: 1%;
+        background-color: #127ebf;
+        font-family: Lato,sans-serif;
+    }
+}
 .goToQuizBttn:hover {
     color: #d8dae3;
     background-color: #127ebf;

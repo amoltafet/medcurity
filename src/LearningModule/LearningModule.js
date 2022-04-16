@@ -1,4 +1,4 @@
-import { Button, Row } from 'react-bootstrap'
+import { Button, Row, Col } from 'react-bootstrap'
 import React from 'react';
 import './LearningModule.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -51,13 +51,17 @@ const  LearningModule = () => {
         <>
         <div className="learningModuleBg img-fluid ">
           {LearningModuleContent}
-          <Row className="justify-content-center">
+          <Row  xs={10} md={10} lg={10} className="justify-content-center">
+            <Col xs={8} md={3} lg={3}>
             <Button variant="primary" className="goToQuizBttn uvs-left uvs-right" href={'/dash'}>
                 Back to Dashboard
             </Button>
+            </Col>
+            <Col xs={8} md={3} lg={3}>
             <Button variant="primary" className="goToQuizBttn uvs-left uvs-right" href={'/quiz/' + slug}>
                 Start {content[0]?.Title || ""} Quiz
             </Button>
+            </Col>
           </Row>
         </div>
         </>
