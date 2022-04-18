@@ -263,9 +263,12 @@ const userChangeUsername = (req, res) => {
     const newUserName = req.body.username;
     const userId = req.body.id;
 
-    logger.log('info', ` username  "${newUserName}"`);
+    logger.log('info', `username "${newUserName}"`);
     logger.log('info', `id "${userId}"`);
     db.query(`UPDATE Users SET username = "${newUserName}" WHERE userid = "${userId}"`, (err,result) => {
+        if (err) {
+            logger.log('error', { methodName: '/userChangeUsername', body: `Failed to change user-${userId}'s username: ${err}.` }, { service: 'query-service' });
+        }
         db.query(`SELECT * FROM Users WHERE userid = '${userId}'`, (err,result) => {
             req.session.userSession = result;
             logger.log('info', `Updated username to "${newUserName}"`);
@@ -275,38 +278,36 @@ const userChangeUsername = (req, res) => {
 }
 
 /**
- * Updates the users points from the quiz.
- */
-const userPoints = (req, res) => {
-    const categoryName = req.body.categoryName;
-    const points = req.body.points;
-    const percentName = req.body.percentName;
-    const length = req.body.lengths;
-    const userid = req.body.userid;
-
-    db.query(`UPDATE Users SET ${categoryName} = '${points}', ${percentName} = "${length}" WHERE userid = '${userid}'`, (err,result) => {
-        db.query(`SELECT * FROM Users WHERE userid = '${userid}'`, (err,result) => {
-            logger.log('info', `Updated User-"${userid}" points to: "${points}"`);
-            req.session.userSession = result;
-            res.send({ result: result, success: true, message: `Updated user points to ${points}!` });
-        })
-    })   
-}
-
-/**
  * Store a learning module as completed.
  */
 const userModuleCompleted = (req, res) => {
     var today = new Date();
-    today.setDate(today.getDate() - 1);
+    today.setDate(today.getDate());
     const categoryId = req.body.categoryId;
     const userid = req.body.userid;   
+    const points = req.body.points;
+    const percentage = req.body.percentage;
+    const moduleNum = req.body.modulenum;
+    const companyid = req.body.companyid;
 
-    db.query(`INSERT INTO CompletedModules (UserID, LearningModID, DateCompleted)  VALUES (?,?,?)`, [userid, categoryId, today], (err,result) => {
-        db.query(`SELECT * FROM Users WHERE userid = '${userid}'`, (err,result) => {
-            logger.log('info', `User-'${userid}' completed Module '${categoryId}', on: "${today}"`);
-            req.session.userSession = result;
-            res.send({success: true, message: `Completed Module`});
+
+    logger.log('info', `points "${points}"`);
+    logger.log('info', `percentage "${percentage}"`);
+    logger.log('info', `module num "${moduleNum}"`);
+    logger.log('info', `companyid "${percentage}"`);
+
+    db.query(`INSERT INTO CompletedModules (UserID, LearningModID, DateCompleted, Points, Percentage)  VALUES (?,?,?,?,?)`, [userid, categoryId, today, points, percentage], (err,result) => {
+        if(err) {
+            logger.log('error', { methodName: '/moduleCompleted', errorBody: err }, { service: 'user-service' });
+        }
+        db.query("INSERT INTO UserPoints (PointsID, UserID, CompanyID) VALUES (?,?,?)", [moduleNum, userid, companyid], (err,result) => {
+            if(err) {
+                logger.log('error', { methodName: '/moduleCompleted', errorBody: err }, { service: 'user-service' });
+            }
+            db.query(`SELECT * FROM CompletedModules JOIN UserPoints WHERE userid = '${userid}'`, (err,result) => {
+                logger.log('info', `User-${userid} completed Module ${categoryId}, on: ${today} and scored ${points} points.`);
+                res.send({success: true, data: result, message: `Completed Module`});
+            })
         })
     })   
 }
@@ -395,7 +396,7 @@ const assignModulesToCompany = (req,res) =>
                                 logger.log('info', `Attempted deletion of CompletedModules record learningModID: "${learningmodid}" and UserID: "${company_users[index].UserID}." Successfully deleted if true: "${deletionStatus}" Fields: ${result}`, { service: 'user-service' })    
                             });
 
-                                             }
+                    }
                     res.send(true)
                 });
             });
@@ -461,7 +462,6 @@ module.exports =
     userLogout,
     userChangeUsername,
     userChangePassword,
-    userPoints,
     userModuleCompleted,
     deleteUser,
     assignModulesToCompany,

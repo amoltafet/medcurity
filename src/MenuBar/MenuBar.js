@@ -16,23 +16,21 @@ const Menubar = () => {
     const [companyId, setCompanyId] = useState('')
     const [company, setCompany] = useState([])
     Axios.defaults.withCredentials = true;
-    const [session, setSession] = useState([]);
-    const [isLoggedIn, setIsLoggedIn] = useState([]);
+    const [currentUser, setCurrentUser] = useState([]);
     const [isLoading, setLoading] = useState(true)
     const [isCompanyLoading, setCompanyLoading] = useState(true)
 
     useEffect(() => {
         Axios.get("http://localhost:3002/users/login").then((response) => {
-          setSession(response.data.user[0])
-          setIsLoggedIn(response.data.loggedIn)
+          setCurrentUser(response.data.user[0])
         });
       }, []);
 
     useEffect(() => {
-        if (session.userid != undefined) {
+        if (currentUser.userid !== undefined) {
             setLoading(false)
         }
-    }, [session])
+    }, [currentUser])
 
     // useEffect(() => {
 
@@ -47,15 +45,15 @@ const Menubar = () => {
             Axios.get('http://localhost:3002/api/getQuery', 
                 { params: { the_query: 'SELECT CompanyAdmins.CompanyID ' +
                 'FROM CompanyAdmins ' +
-                'WHERE CompanyAdmins.UserID = ' + String(session.userid)} 
+                'WHERE CompanyAdmins.UserID = ' + String(currentUser.userid)} 
                 }).then((response) => {
                     setCompany(Object.values(response.data))
             });
         }
-    }, [isLoading])
+    }, [isLoading, currentUser.userid])
 
     useEffect(() => {
-        if (company.length != 0) {
+        if (company.length !== 0) {
             setCompanyLoading(false)
         }
     }, [company])
@@ -64,7 +62,7 @@ const Menubar = () => {
         if (!isCompanyLoading) {
             setCompanyId(company[0].CompanyID)
         }
-    }, [isCompanyLoading])
+    }, [isCompanyLoading, company])
 
     const logout = () => {
         Axios.post("http://localhost:3002/users/logout").then((response) => 
@@ -92,12 +90,12 @@ const Menubar = () => {
         if (!isCompanyLoading && Number.isInteger(companyId)) {
             objs.push(
                 <Nav.Item className="navPills uvs-left uvs-right">
-                    <Nav.Link className="menubarFontSpecial" href="/employer-dash">Employer Dashboard</Nav.Link>
+                    <Nav.Link className="menubarFont" href="/employer-dash">Employer Dashboard</Nav.Link>
                 </Nav.Item>
             )
             objs.push(
                 <Nav.Item className="navPills uvs-left uvs-right">
-                    <Nav.Link className="menubarFontSpecial" href="/learning-manager">Learning Module Manager</Nav.Link>
+                    <Nav.Link className="menubarFont" href="/learning-manager">Learning Module Manager</Nav.Link>
                 </Nav.Item>
             )
         }
@@ -110,7 +108,7 @@ const Menubar = () => {
      */
       function get_admin_buttons() {
         let objs = [];
-        if (session.type == "websiteAdmin") {
+        if (currentUser.type == "websiteAdmin") {
             objs.push(
                 <Nav.Item className="navPills uvs-left uvs-right">
                     <Nav.Link className="menubarFont" href="/admin-content">Edit Content</Nav.Link>
@@ -155,7 +153,7 @@ const Menubar = () => {
                 </Card>
                 </OverlayTrigger>
             </Col>
-            <Col xs={10} md={10}>
+            <Col xs={15} md={10} lg={10}>
                 <Card className="pillz">
                     <Nav className="justify-content-end" variant="pills" defaultActiveKey="/dashboard">
                         {get_employer_buttons()}
@@ -170,6 +168,7 @@ const Menubar = () => {
                 </Card>
             </Col>
         </Row>
+     
         </>
     );
 

@@ -13,24 +13,23 @@ import InvalidPage from '../InvalidPage/InvalidPage'
 * @return {SettingsPage}
 */
 const SettingsPage = () => {
-    const [session, setSession] = useState([]);
+    const [currentUser, setCurrentUser] = useState([]);
 
     // get the user's session if any to determine if they can
     // access their settings page
     useEffect(() => {
         Axios.get("http://localhost:3002/users/login").then((response) => {
-        //setSession(response.data.user[0])
         if (response.data.user)
         {
-            setSession(response.data.user[0])
+            setCurrentUser(response.data.user[0])
         }
         else
         {
-            setSession(null)
+            setCurrentUser(null)
         }
         }).catch(error => console.error(`Error ${error}`)); }, []);
 
-    if (session)
+    if (currentUser)
     {
         return (
             <>

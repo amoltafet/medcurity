@@ -1,14 +1,10 @@
 import React from 'react';
-import { Form , Card, Button, Container, Col} from 'react-bootstrap';
-import './../../Dashboard/DashboardPage.css';
+import '../../Dashboard/DashboardPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { CardDeck } from 'react-bootstrap';
-import MenuBar from '../../MenuBar/MenuBar';               
+import { Image } from 'react-bootstrap';
+import MenuBar from '../../MenuBar/MenuBar';
 import LearningManagerCards from './ContentCards';
-import WelcomePanel from '../../Dashboard/WelcomePanel';
-import LearningModuleAdder from './ContentAdder';
-import { useEffect, useState, Link} from "react";
-import { useParams } from "react-router";
+import { useEffect, useState } from "react";
 import Axios from 'axios';
 import InvalidPage from '../../InvalidPage/InvalidPage';
 
@@ -18,59 +14,45 @@ import InvalidPage from '../../InvalidPage/InvalidPage';
 * @return {AdminContentPage}
 */
 const AdminContentPage = () => {
-    //Axios.defaults.withCredentials = true;
-    const [session, setSession] = useState([]);
-    const [companyId, setCompanyId] = useState('');
+  //Axios.defaults.withCredentials = true;
+  const [currentUser, setCurrentUser] = useState([]);
+  const [companyId/*, setCompanyId*/] = useState('');
+  const [profilePic, setProfilePic] = useState("/user.png");
 
   Axios.defaults.withCredentials = true;
 
   useEffect(() => {
-      Axios.get("http://localhost:3002/users/login").then((response) => {
-        console.log('aaahhh', response.data.user)
-        setSession(response.data.user[0])
-      }).catch(error => console.error(`Error ${error}`));
-    }, []);
+    Axios.get("http://localhost:3002/users/login").then((response) => {
+      console.log('aaahhh', response.data.user)
+      setCurrentUser(response.data.user[0])
+    }).catch(error => console.error(`Error ${error}`));
+  }, []);
+  useEffect(() => { if (currentUser.userid) Axios.get("http://localhost:3002/api/getProfilePicture", { params: { id: currentUser.userid } }).then((response) => { setProfilePic(response.data.profileImage) }); })
 
-    // useEffect(() => {
-    //     Axios.get("http://localhost:3002/users/login").then((response) => {
-    //       setSession(response.data.user[0])
-    //     });
-	// }, []);
 
-    // useEffect(() => {
-    //     if (session.userid != undefined) {
-    //         setLoading(false)
-    //     }
-    // }, [session])
-
-    // // Query for getting user's required learning modules
-    // useEffect(() => {
-    //     if (!isLoading) {
-    //         Axios.get('http://localhost:3002/api/getQuery', 
-    //             { params: { the_query: 'SELECT CompanyAdmins.CompanyID ' +
-    //             'FROM CompanyAdmins ' +
-    //             'WHERE CompanyAdmins.UserID = ' + String(session.userid)} 
-    //             }).then((response) => {
-    //                 setCompanyId(Object.values(response.data)[0].CompanyID)
-    //         });            
-    //     }
-    // }, [isLoading])
-
-    if (session?.type == "websiteAdmin") {
-
+    if (currentUser?.type === "websiteAdmin") {
       return (
-      <>
-          <MenuBar></MenuBar>
-          <CardDeck className="dashTopPanel" style={{display: 'flex', flexDirection: 'row'}}>
-            <WelcomePanel user={session} subtitle={'to the Learning Manager Page'}/>
-          </CardDeck>
-          <LearningManagerCards companyId={companyId}/>
-          
+      <>   
+      <MenuBar></MenuBar>
+      <div className="col dash_topBackdrop justif">
+        <div className="dash_welcomeDiv">
+          <Image className="dash_profilePicture" variant="top" src={`data:image/png;base64,${profilePic}`} alt="" roundedCircle />
+          <div>
+            <h1 className="dash_welcomeMessageP1">Welcome Back, Admin {currentUser?.username || "... "}!</h1>
+            <h1 className="dash_welcomeMessageP3">Logged in as: {currentUser?.email || "..."}</h1>
+            <div className="dash_navDiv">
+            </div>
+          </div>
+        </div>
+      </div>
+      <LearningManagerCards companyId={companyId} />
       </>
       );
-    }
-    else
-    {
+  }
+  else {
+  
+ 
+
       return (
         <>
           <InvalidPage 
@@ -82,11 +64,4 @@ const AdminContentPage = () => {
       )
     }
 }
-/*
-<CardDeck className="LearningManagerDashTopPanel" style={{display: 'flex', flexDirection: 'row'}}>
-          <HelloLearningManager></HelloLearningManager>
-        </CardDeck>
-        <LearningManagerCards></LearningManagerCards>
-*/
-
 export default AdminContentPage;

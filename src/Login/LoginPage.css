@@ -1,34 +1,15 @@
 .loginbg {
-    background-image: url("loginbg_small.png");
-    height: 120%;
+    background-image: url("loginbg.png");
     width: 100%;
+    height: 100%;
     background-position: center;
-    background-repeat: no-repeat;
-    position: fixed;
+    position: absolute;
 }
 
-@media screen and (min-width: 1000px) {
-    .loginbg {
-        background-image: url("loginbg_medium.png");
-        height: 120%;
-        width: 100%;
-        background-position: center;
-        background-repeat: no-repeat;
-        position: fixed;
-    }
-  }
-
-@media screen and (min-width: 1500px) {
-    .loginbg {
-        background-image: url("loginbg.png");
-        height: 100%;
-        width: 100%;
-        background-position: center;
-        background-repeat: no-repeat;
-        position: fixed;
-    }
+.MedcurityLogo_login {
+    width: 25vmax;
+    
 }
-
 
 .login_pageHeader {
     margin-top: 7%;
@@ -56,7 +37,7 @@
     background-color: #ffffff1f; 
 }
 
-.login_h3{
+.login_h3 {
     color: white;
     width: 75%;
     text-shadow: 2px 2px 2px black;
@@ -106,7 +87,7 @@
     text-align: center;
     width: 72%;
     height: 20%;
-    margin-bottom: 5%;
+    margin-bottom: 3%;
     transition: background-color 0.5s ease-out
 }
 

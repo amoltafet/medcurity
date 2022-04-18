@@ -22,7 +22,7 @@ const QuizPage = () => {
     ["questionNumbersWrong text-left", "questionDesciptionWrong "],
     ["questionNumbersRight text-left", "questionDesciptionRight "]
   ];
-  const [session, setSession] = useState([]);
+  const [currentUser, setCurrentUser] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [content, setContent] = useState([]);
   const [currentQuestion, setQuestion] = useState([]);
@@ -41,8 +41,8 @@ const QuizPage = () => {
   const [showPassedPopup, setShowPassedPopup] = useState(true);
   const [showUserDidNotCompleteOnTime, setShowUserDidNotCompleteOnTime] = useState(false);
   const [moduleNotAssigned, setModuleNotAssigned] = useState(false);
-
   const [moduleName, setModuleName] = useState("");
+  const [companyid, setCompanyID] = useState([]);
   var points = 0;
   var numCorrect = 0;
   // data array that holds question information using state
@@ -70,16 +70,14 @@ const QuizPage = () => {
     { answer: "", correct: false },
   ]);
 
-
   /**
    *  grabs user session to store points 
    */
   useEffect(() => {
     axios.get("http://localhost:3002/users/login").then((response) => {
-      setSession(response.data.user[0])
+      setCurrentUser(response.data.user[0])
     }).catch(error => console.error(`Error ${error}`));
   }, []);
-
 
   let { slug } = useParams();
 
@@ -87,37 +85,41 @@ const QuizPage = () => {
    *  gets all of users module info
    */
   useEffect(() => {
-    if (!isLoading && session.userid != null) {
+    if (!isLoading && currentUser.userid != null) {
 		axios.get('http://localhost:3002/api/getQuery',{
-			params: { the_query: 'SELECT * FROM CompletedModules WHERE UserID = ' + session.userid }
+			params: { the_query: 'SELECT * FROM CompletedModules WHERE UserID = ' + currentUser.userid }
 		}).then((response) => {
 			setUserCompletedModules(response.data);
-			console.log("Completed", response.data);
 		});
 		axios.get('http://localhost:3002/api/getAllUserRequiredModules', 
-			{ params: { userid: session.userid }
+			{ params: { userid: currentUser.userid }
 		}).then((response) => {
 			setUserAssignedModules(response.data)
-			console.log("Assigned: ", response.data);
 		}).catch(error => console.error(`Error ${error}`));
 		axios.get('http://localhost:3002/api/getQuery',{
 			params: { the_query: 'SELECT * FROM LearningModules WHERE ID = ' + slug }
 		}).then((response) => {
 			setModuleName(response.data); 
-			console.log("ModuleName: ", response.data);
-		});
-
-		content.forEach(element => {
-			console.log(element.solution)
-		});
-		
+		});	
+    axios.get('http://localhost:3002/api/getQuery',{
+			params: { the_query: 'SELECT * FROM AffiliatedUsers WHERE UserID = ' + currentUser.userid }
+		}).then((response) => {
+			setCompanyID(response.data[0]); 
+		});	
 
       // KEEP FOR TESTING!!
+
+
+      // Quiz Answers 
+
+      // content.forEach(element => {
+      // 	console.log(element.solution)
+      // });
 
       //rests users stats
 
       // axios.post("http://localhost:3002/testing/resetUser", {
-      //   userid: session.userid,
+      //   userid: currentUser.userid,
       // }).then((response) => {
       //   console.log("response", response);
       // }).catch(error => console.log(`Error ${error}`));
@@ -125,9 +127,9 @@ const QuizPage = () => {
       //assigns modules
 
       // axios.post("http://localhost:3002/testing/assignModules", {
-      //     userid: session.userid, 
-      //     modulenum: 1,
-      //     daysaway: 3,
+      //     companyid: 24, 
+      //     modulenum: 4,
+      //     daysaway: 4,
       //   }).then((response) => {
       //     console.log("response", response);
       //   }).catch(error => console.log(`Error ${error}`));
@@ -135,16 +137,37 @@ const QuizPage = () => {
       //adds completed modules 
 
       // axios.post("http://localhost:3002/testing/fillCompletedModules", {
-      //   userid: session.userid,
-      //   modulenum: 3,
+      //   userid: currentUser.userid,
+      //   modulenum: 2,
       //   daysaway: 2,
+      //   points: 800, 
+      //   percentage: 1,
+      //   companyid: 24,
       // }).then((response) => {
       //   console.log("response", response);
       // }).catch(error => console.log(`Error ${error}`));
-    }
-   
 
-  }, [isLoading, session.userid])
+      //assigns company 
+
+      // axios.post("http://localhost:3002/testing/addCompany", {
+      //   userid: currentUser.userid,
+      //   companyid: 24,
+      // }).then((response) => {
+      //   console.log("response", response);
+      // }).catch(error => console.log(`Error ${error}`));
+
+      //makes user an admin
+
+      // axios.post("http://localhost:3002/testing/makeAdmin", {
+      //   userid: currentUser.userid,
+      //   companyid: 24,
+      // }).then((response) => {
+      //   console.log("response", response);
+      // }).catch(error => console.log(`Error ${error}`));
+    
+
+    }
+  }, [isLoading, currentUser.userid, slug])
 
   /**
    *  grabs content and sets loading to false 
@@ -174,31 +197,22 @@ const QuizPage = () => {
   useEffect(() => {
     if (!isLoading && isSubmitted && points !== 0) {
       var totalPoints = points + earlyCompletion + notCompleteOnTime + spaceLearning;
-      var categoryName = "category" + slug;
-      var percentName = "percentage" + slug;
       var percent = numCorrect / content.length;
       if ((percent * 100) >= 60 && !moduleNotAssigned) {
-        console.log("percent: ", percent);
-        console.log("points: ", totalPoints);
-        axios.post("http://localhost:3002/users/quiz", {
-          categoryName: categoryName,
-          points: totalPoints,
-          percentName: percentName,
-          lengths: (percent),
-          userid: session.userid,
-        }).then((response) => {
-          console.log("response", response);
-        }).catch(error => console.log(`Error ${error}`));
         axios.post("http://localhost:3002/users/moduleCompleted", {
           categoryId: slug,
-          userid: session.userid,
+          userid: currentUser.userid,
+          points: totalPoints,
+          percentage: percent,
+          modulenum: slug, 
+          companyid: companyid.CompanyID,
         }).then((response) => {
           console.log("response", response.data);
         }).catch(error => console.log(`Error ${error}`));
         setPassed(true)
       }
     }
-  }, [points, numCorrect, isSubmitted])
+  }, [points, numCorrect, isSubmitted, content.length, currentUser.userid, earlyCompletion, isLoading, moduleNotAssigned, notCompleteOnTime, slug, spaceLearning])
 
   /**
    *  shuffles the question answers
@@ -317,17 +331,15 @@ const QuizPage = () => {
     var moduleDueDate;
     try {
       moduleDueDate = new Date(currentModule.DueDate);
-      moduleDueDate.setDate(moduleDueDate.getDate() + 1)
+      moduleDueDate.setDate(moduleDueDate.getDate() + 1);
       if (today > moduleDueDate) {
         setNoCompleteOnTime(-200);
-        console.log("Boo complete your module on time: -", 200);
         setShowUserDidNotCompleteOnTime(true);
         return false;
       }
       return true;
     }
     catch (e){
-      console.log("Module not assigned: ", e);
       setModuleNotAssigned(true);
       return false;
     }
@@ -342,24 +354,18 @@ const QuizPage = () => {
     var today = new Date(); 
     var twoDaysEarly = new Date(currentModule.DueDate);
     var oneDayEarly = new Date(currentModule.DueDate);
-    twoDaysEarly.setDate(twoDaysEarly.getDate() - 3);
-    oneDayEarly.setDate(oneDayEarly.getDate() - 2);
-
-        console.log("due date for module: ", currentModule.DueDate);
-        console.log("two days early: ", twoDaysEarly);
-        console.log("one day early: ", oneDayEarly);
+    twoDaysEarly.setDate(twoDaysEarly.getDate() - 1);
+    oneDayEarly.setDate(oneDayEarly.getDate());
 
         const msBetweenOneDay = Math.abs(today.getTime() - oneDayEarly.getTime());
         const hoursBetweenOneDay = msBetweenOneDay / (60 * 60 * 1000);
 
     if (today <= twoDaysEarly) {
       setEarlyCompletion(200);
-      console.log("yay early completion 2x early+: ", 200);
       setShowEarlyCompletionPopup(true);
     }
     else if ((today <= oneDayEarly || hoursBetweenOneDay < 24) && earlyCompletion === 0  ) {
       setEarlyCompletion(100);
-      console.log("yay early completion 1x early+:", 100);
       setShowEarlyCompletionPopup(true);
     }         
   }
@@ -376,18 +382,15 @@ const QuizPage = () => {
       lastCompletedModule = (lastCompletedModule.DateCompleted);
       var lastCompletedModuleDate = new Date(lastCompletedModule);
       lastCompletedModuleDate.setDate(lastCompletedModuleDate.getDate() + 1);
-      console.log("last completed module date converted: ", lastCompletedModuleDate);
       
       var spacedLearningDate = new Date(lastCompletedModuleDate);
       spacedLearningDate.setDate(spacedLearningDate.getDate() + 2);
-      console.log("spaced learning date: ", spacedLearningDate);
 
       const msBetweenDates = Math.abs(today.getTime() - spacedLearningDate.getTime());
       const hoursBetweenDates = msBetweenDates / (60 * 60 * 1000);
       
       if (hoursBetweenDates < 24 && hoursBetweenDates < 1) {
         setSpacedLearning(300);
-        console.log("yay spaced learning+:", 300);
         setShowSpacedLearningPopup(true);
       }
     }
@@ -406,7 +409,6 @@ const QuizPage = () => {
     
     });
   
-    console.log("CurrentModule", currentModule);
     if (checkIfUserCompletedModuleOnTime(currentModule)) {
         checkIfUserGotEarlyCompletion(currentModule);
         checkIfUserGotSpacedLearning();
@@ -462,13 +464,13 @@ const QuizPage = () => {
   function UserDidNotCompleteModuleOnTime() {
     if (showUserDidNotCompleteOnTime) {
       return (
-        <Alert variant="light" show={showUserDidNotCompleteOnTime}>
+        <Alert variant="danger" show={showUserDidNotCompleteOnTime}>
           <Alert.Heading>You Did Not Complete the Module on Time.</Alert.Heading>
           <p>
             You did not complete this module by its due date. -${notCompleteOnTime} points.
           </p>
           <div className="d-flex justify-content-end">
-          <Button onClick={() => setShowUserDidNotCompleteOnTime(false)} variant="outline-light">
+          <Button onClick={() => setShowUserDidNotCompleteOnTime(false)} variant="outline-danger">
             X
           </Button>
           </div>
@@ -481,7 +483,6 @@ const QuizPage = () => {
    *  shows popup to tell user if they passed the module or neeed to retake it. 
    */
   function Passed () {
-    console.log("module not assigned:", moduleNotAssigned)
     if (!moduleNotAssigned){
       if (passed) {
         return (

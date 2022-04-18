@@ -14,113 +14,115 @@ import './LeaderboardProfile.css'
 * @param {user} user the user grabed from the dashboard.
 * @return {GetPage}
 */
-function LeaderboardProfile(props) {
+function LeaderboardProfile (props) {
     const [directories, setDirectories] = useState([]);
     axios.defaults.withCredentials = true;
-    const [session, setSession] = useState([]);
+    const [currentUser, setCurrentUser] = useState([]);
     const [profilePic, setProfilePic] = useState("")
-    const totalScore = props.scores[0] + props.scores[1] + props.scores[2] + props.scores[3] + props.scores[4] + props.scores[5]; 
 
-    //console.log(props.userid)
-
-    /**
-    * Creates and displays each users leaderboard profile. 
-    * @param {Array} className the css style to display. 
-    * @param {user} user the user grabed from the dashboard.
-    * @return {GetPage}
+   /**
+    * grabs current user.  
     */
     useEffect(() => {
         axios.get("http://localhost:3002/users/login").then((response) => {
-          setSession(response.data.user[0])
+          setCurrentUser(response.data.user[0]); 
         }).catch(error => console.error(`Error ${error}`));
       }, []);
-
-
     /**
     * Creates and displays each users leaderboard profile. 
     * @param {Array} className the css style to display. 
     * @param {user} user the user grabed from the dashboard.
     * @return {GetPage}
     */
-    // Query for getting LearningDirectories Directory info
-    useEffect(() => {
-        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: "SELECT * FROM LearningModulesDirectory" } }).then((response) => {
-            setDirectories(Object.values(response.data))
-        }).catch(error => console.error(`Error ${error}`));
-    }, [])
 
-    useEffect(() => { if (props.userid) axios.get("http://localhost:3002/api/getProfilePicture", { params: { id: props.userid }} ).then((response) => { setProfilePic(response.data.profileImage) }); })
+   /**
+    * grabs users assigned modules info.  
+    */
+    useEffect(() => {
+        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 
+        // `SELECT * ` +
+        // `FROM AffiliatedUsers JOIN CompanyLearningModules ` +
+        // `ON AffiliatedUsers.CompanyID = CompanyLearningModules.CompanyID ` +
+        // `JOIN LearningModules ON LearningModules.ID = CompanyLearningModules.LearningModID ` +
+        // `JOIN UserPoints ON UserPoints.PointsID = CompanyLearningModules.LearningModID ` +
+        // `RIGHT JOIN CompletedModules ON UserPoints.PointsID = CompletedModules.LearningModID ` +
+        // `WHERE AffiliatedUsers.UserID = '${currentUser.userid}'`
+        `SELECT * ` +
+        `FROM AffiliatedUsers  ` +
+        `JOIN CompletedModules ON AffiliatedUsers.UserID = CompletedModules.UserID ` +
+        `JOIN LearningModules ON LearningModules.ID = CompletedModules.LearningModID ` +
+        `WHERE AffiliatedUsers.UserID = '${currentUser.userid}'` 
+        } }).then((response) => {
+            setDirectories(Object.values(response.data));
+        }).catch(error => console.error(`Error ${error}`));  
+    }, [currentUser])
+
+    useEffect(() => { 
+        if (props.userid) {
+            axios.get("http://localhost:3002/api/getProfilePicture", { params: { id: props.userid }} ).then((response) => { 
+                setProfilePic(response.data.profileImage) 
+            }); 
+        }
+    }, [])
 
     const GetCurrentModule = () => {
         var categoryData = []
         if (directories !== null) {
         for (var i = 0; i < directories.length; i++) {
             categoryData.push( <>
-                <Row>
-                    <Col >
-                    <Card.Text className={props.className[2]}>{directories[i].Title}</Card.Text>
-                    <CircularProgressbar
-                        className={props.className[3]}
-                        value={props.percents[i] * 100}
-                        text={`${Math.round(((props.percents[i] * 100) + Number.EPSILON) * 100) / 100}%`}
-                        styles={{
-                            path: {
-                                stroke: "#1e5b88",
-                            },
-                            trail: {
-                                stroke: "#d8dae3",
-                            },
-                            text: {
-                                fill: "white",
-                                textAnchor: "middle",
-                            }
-                        }} />
-                        </Col>
                         <Col>
-                    <Card.Text className={props.className[2]}>Score</Card.Text>
-                    <Card.Text className={props.className[2]}>{props.scores[i]}</Card.Text>
-                    </Col>
-                </Row> 
-               
-            </>)
-           
+                            <Card.Text className={props.className[2]}><b>{directories[i].Title}</b></Card.Text>
+                            <CircularProgressbar
+                                className={props.className[3]}
+                                value={directories[i].Percentage * 100}
+                                text={`${Math.round(((directories[i].Percentage * 100) + Number.EPSILON) * 100) / 100}%`}
+                                styles={{
+                                    path: {
+                                        stroke: "#cc3333",
+                                    },
+                                    trail: {
+                                        stroke: "#d8dae3",
+                                    },
+                                    text: {
+                                        fill: "white",
+                                        textAnchor: "middle",
+                                    }}}/>   
+                            <Card.Text className="score_accordian_text">Score: {directories[i].Points}</Card.Text>
+                        </Col> 
+                    </>)
         } 
         return (categoryData)
         }
     }
 
 
-    if (props.name === session.username) {
+    if (props.name === currentUser.username) {
         return (
             <>
-                <Card className={`uvs-left uvs-right ${props.userColor}`} style={{ flexDirection: 'row' }}>
+                <Card className={`uvs-left uvs-right justify-content-center ${props.userColor}`} style={{ flexDirection: 'row' }}>
                     <Accordion className="displayLeaderboardInfo" defaultActiveKey="0">
                         <Accordion.Toggle eventKey="1" className="accordianToggel">
                             <Card className="cardHeaderAccordian" style={{ flexDirection: 'row' }}>
-                                <Row>
-                                    <Col >
+                                <Row className="userRow text-center">
+                                    <Col xs={2} md={2} lg={2}>
                                         <div className="leaderboardRank">{props.index}.</div>
                                     </Col>
-                                    <Col>
+                                    <Col xs={2} md={2} lg={2}>
                                         <Image className={props.className[1]} src={`data:image/png;base64,${profilePic}`} alt="" roundedCircle />
                                     </Col>
-                                    <Col >
-                                        <Card.Text className="userNameTitle">{props.name}</Card.Text>
+                                    <Col xs={4} md={3} lg={3}>
+                                        <Card.Text className="userNameTitle"><u>{props.name}</u></Card.Text>
                                     </Col>
-                                    <Col>
-                                        <div className="scoreLabelLeaderboard" >Total Score</div>
-                                    </Col>
-                                    <Col>
-                                        <div className="userPointsLeaderboard">{totalScore}</div>
+                                    <Col xs={4} md={5} lg={4}>
+                                        <div className="userPointsLeaderboard"><b>Total Points:</b> {props.score}</div>
                                     </Col>
                                 </Row>
                             </Card>
 
                         </Accordion.Toggle>
                         <Accordion.Collapse className="accordianCollapse" eventKey="1">
-                            <Row className="categorgiesLeaderboardRow">
-
-                            <Image className="leaderboardBreak" src="/line.png" alt=""></Image>
+                            <Row xs={3} md={3} lg={6} className="categorgiesLeaderboardRow">
+                                <Image className="leaderboardBreak" src="/line.png" alt=""></Image>
                                 {GetCurrentModule()}
                             </Row>
 
@@ -133,29 +135,31 @@ function LeaderboardProfile(props) {
     else {
         return (
             <>
-                <Card className={`uvs-left uvs-right ${props.className[0]}`} style={{ flexDirection: 'row' }}>
-                    <Accordion className="displayLeaderboardInfo" defaultActiveKey="0">
-                        <Accordion.Toggle eventKey="1" className="accordianToggel">
-                            <Card className="cardHeaderAccordian" style={{ flexDirection: 'row' }}>
-                                <Col sm>
-                                    <div className="leaderboardRank">{props.index}.</div>
-                                </Col>
-                                <Col>
-                                    <Image className={props.className[1]} src={`data:image/png;base64,${profilePic}`} alt="" roundedCircle />
-                                </Col>
-                                <Col sm>
-                                    <Card.Text className="userNameTitle">{props.name}</Card.Text>
-                                </Col>
-                                <Col sm>
-                                    <div className="scoreLabelLeaderboard" >Total Score</div>
-                                </Col>
-                                <Col>
-                                    <div className="userPointsLeaderboard">{totalScore}</div>
-                                </Col>
-                            </Card>
-                        </Accordion.Toggle>
-                    </Accordion>
-                </Card>
+        <Card className={`uvs-left uvs-right justify-content-center ${props.companyColor}`} style={{ flexDirection: 'row' }}>
+        <Accordion className="displayLeaderboardInfo" defaultActiveKey="0">
+        <Accordion.Toggle eventKey="1" className="accordianToggel">
+        <Card className="cardHeaderAccordian" style={{ flexDirection: 'row' }}>
+                <Row className="userRow text-center">
+                    <Col xs={2} md={2} lg={2}>
+                        <div className="leaderboardRank">{props.index}.</div>
+                    </Col>
+                    <Col xs={2} md={2} lg={2}>
+                        <Image className={props.className[1]} src={`data:image/png;base64,${profilePic}`} alt="" roundedCircle />
+                    </Col>
+                    <Col xs={4} md={3} lg={3}>
+                        <Card.Text className="userNameTitle"><u>{props.name}</u></Card.Text>
+                    </Col>
+                    <Col xs={4} md={5} lg={4}>
+                        <div className="userPointsLeaderboard"><b>Total Points:</b>  {props.score} </div>
+                    </Col>
+                </Row>
+            </Card>
+           
+
+</Accordion.Toggle> 
+</Accordion>
+</Card>
+
             </>
         );
     }

@@ -10,5 +10,7 @@ const router = express.Router();
 router.post('/resetUser', testingControllers.resetUserStats);
 router.post('/assignModules', testingControllers.assignModulesTest);
 router.post('/fillCompletedModules', testingControllers.addFakeCompletedModules);
+router.post('/addCompany', testingControllers.addAssociatedCompany);
+router.post('/makeAdmin', testingControllers.makeUserAdmin);
 
 module.exports = router
