@@ -30,7 +30,6 @@ const AdminDashboardPage = () => {
 
     if (currentUser?.type === "websiteAdmin") {
 
-      console.log("yes")
       return (
       <>
           <MenuBar></MenuBar>
