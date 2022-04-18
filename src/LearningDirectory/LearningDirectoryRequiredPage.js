@@ -1,10 +1,8 @@
-import './LearningDirectoryPage.css';
-import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { useEffect, useState } from "react";
-import { LearningDirectoryPageContent } from './LearningDirectoryPage';
 import React from 'react';
-import '../Dashboard/LearningModulesCards.css'
-import { Card,  Button, Container, Row } from 'react-bootstrap';
+import { Card,  Row } from 'react-bootstrap';
+
 import axios from 'axios';
 
 
@@ -75,6 +73,7 @@ const LearningDirectoryRequiredPage = () => {
      */
     const ModulePanel = (props) => {
         var dueDate = new Date(props.dueDate); 
+        dueDate.setDate((dueDate.getDate() + 1));
         return (
            
             <>
@@ -105,7 +104,7 @@ const LearningDirectoryRequiredPage = () => {
     }
 
     return (
-        <>
+        <><div className="all_reuired_modules_header ">All Required Modules</div>
             <Row className="dashboard" style={{display: 'flex', flexDirection: 'row'}}>
                 {createModuleCards(learningModules)}
             </Row>

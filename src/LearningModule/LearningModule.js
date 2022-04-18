@@ -20,7 +20,6 @@ const  LearningModule = () => {
     useEffect(() => {
         axios.get('http://localhost:3002/api/getModuleInfo', { params: { id: slug } }).then((response) => 
         { 
-          console.log(response.data)
           setContent(Object.values(response.data)) 
         }).catch(error => console.error(`Error ${error}`));
     }, [slug])

@@ -42,6 +42,7 @@ const QuizPage = () => {
   const [showUserDidNotCompleteOnTime, setShowUserDidNotCompleteOnTime] = useState(false);
   const [moduleNotAssigned, setModuleNotAssigned] = useState(false);
   const [moduleName, setModuleName] = useState("");
+  const [companyid, setCompanyID] = useState([]);
   var points = 0;
   var numCorrect = 0;
   // data array that holds question information using state
@@ -89,42 +90,31 @@ const QuizPage = () => {
 			params: { the_query: 'SELECT * FROM CompletedModules WHERE UserID = ' + currentUser.userid }
 		}).then((response) => {
 			setUserCompletedModules(response.data);
-			console.log("user Completed", response.data);
 		});
 		axios.get('http://localhost:3002/api/getAllUserRequiredModules', 
 			{ params: { userid: currentUser.userid }
 		}).then((response) => {
 			setUserAssignedModules(response.data)
-			console.log("user Assigned: ", response.data);
 		}).catch(error => console.error(`Error ${error}`));
 		axios.get('http://localhost:3002/api/getQuery',{
 			params: { the_query: 'SELECT * FROM LearningModules WHERE ID = ' + slug }
 		}).then((response) => {
 			setModuleName(response.data); 
-			console.log("ModuleName: ", response.data);
+		});	
+    axios.get('http://localhost:3002/api/getQuery',{
+			params: { the_query: 'SELECT * FROM AffiliatedUsers WHERE UserID = ' + currentUser.userid }
+		}).then((response) => {
+			setCompanyID(response.data[0]); 
 		});	
 
       // KEEP FOR TESTING!!
 
-      axios.get('http://localhost:3002/api/getQuery',{
-        params: { the_query: 'SELECT * FROM UserPoints '}
-      }).then((response) => {
-     
-        console.log("Points: ", response.data);
-      });	
-
-      axios.get('http://localhost:3002/api/getQuery',{
-        params: { the_query: 'SELECT * FROM CompletedModules '}
-      }).then((response) => {
-     
-        console.log("All completed Modules: ", response.data);
-      });	
 
       // Quiz Answers 
 
-      content.forEach(element => {
-      	console.log(element.solution)
-      });
+      // content.forEach(element => {
+      // 	console.log(element.solution)
+      // });
 
       //rests users stats
 
@@ -138,8 +128,8 @@ const QuizPage = () => {
 
       // axios.post("http://localhost:3002/testing/assignModules", {
       //     companyid: 24, 
-      //     modulenum: 85,
-      //     daysaway: 7,
+      //     modulenum: 4,
+      //     daysaway: 4,
       //   }).then((response) => {
       //     console.log("response", response);
       //   }).catch(error => console.log(`Error ${error}`));
@@ -148,8 +138,11 @@ const QuizPage = () => {
 
       // axios.post("http://localhost:3002/testing/fillCompletedModules", {
       //   userid: currentUser.userid,
-      //   modulenum: 3,
+      //   modulenum: 2,
       //   daysaway: 2,
+      //   points: 800, 
+      //   percentage: 1,
+      //   companyid: 24,
       // }).then((response) => {
       //   console.log("response", response);
       // }).catch(error => console.log(`Error ${error}`));
@@ -164,9 +157,10 @@ const QuizPage = () => {
       // }).catch(error => console.log(`Error ${error}`));
 
       //makes user an admin
+
       // axios.post("http://localhost:3002/testing/makeAdmin", {
       //   userid: currentUser.userid,
-      //   companyid: currentUser.companyid,
+      //   companyid: 24,
       // }).then((response) => {
       //   console.log("response", response);
       // }).catch(error => console.log(`Error ${error}`));
@@ -205,13 +199,13 @@ const QuizPage = () => {
       var totalPoints = points + earlyCompletion + notCompleteOnTime + spaceLearning;
       var percent = numCorrect / content.length;
       if ((percent * 100) >= 60 && !moduleNotAssigned) {
-        console.log("percent: ", percent);
-        console.log("points: ", totalPoints);
         axios.post("http://localhost:3002/users/moduleCompleted", {
           categoryId: slug,
           userid: currentUser.userid,
           points: totalPoints,
           percentage: percent,
+          modulenum: slug, 
+          companyid: companyid.CompanyID,
         }).then((response) => {
           console.log("response", response.data);
         }).catch(error => console.log(`Error ${error}`));
@@ -337,17 +331,15 @@ const QuizPage = () => {
     var moduleDueDate;
     try {
       moduleDueDate = new Date(currentModule.DueDate);
-      moduleDueDate.setDate(moduleDueDate.getDate())
+      moduleDueDate.setDate(moduleDueDate.getDate() + 1);
       if (today > moduleDueDate) {
         setNoCompleteOnTime(-200);
-        console.log("Boo complete your module on time: -", 200);
         setShowUserDidNotCompleteOnTime(true);
         return false;
       }
       return true;
     }
     catch (e){
-      console.log("Module not assigned: ", e);
       setModuleNotAssigned(true);
       return false;
     }
@@ -362,24 +354,18 @@ const QuizPage = () => {
     var today = new Date(); 
     var twoDaysEarly = new Date(currentModule.DueDate);
     var oneDayEarly = new Date(currentModule.DueDate);
-    twoDaysEarly.setDate(twoDaysEarly.getDate() - 2);
-    oneDayEarly.setDate(oneDayEarly.getDate() - 1);
-
-        console.log("due date for module: ", currentModule.DueDate);
-        console.log("two days early: ", twoDaysEarly);
-        console.log("one day early: ", oneDayEarly);
+    twoDaysEarly.setDate(twoDaysEarly.getDate() - 1);
+    oneDayEarly.setDate(oneDayEarly.getDate());
 
         const msBetweenOneDay = Math.abs(today.getTime() - oneDayEarly.getTime());
         const hoursBetweenOneDay = msBetweenOneDay / (60 * 60 * 1000);
 
     if (today <= twoDaysEarly) {
       setEarlyCompletion(200);
-      console.log("yay early completion 2x early+: ", 200);
       setShowEarlyCompletionPopup(true);
     }
     else if ((today <= oneDayEarly || hoursBetweenOneDay < 24) && earlyCompletion === 0  ) {
       setEarlyCompletion(100);
-      console.log("yay early completion 1x early+:", 100);
       setShowEarlyCompletionPopup(true);
     }         
   }
@@ -396,18 +382,15 @@ const QuizPage = () => {
       lastCompletedModule = (lastCompletedModule.DateCompleted);
       var lastCompletedModuleDate = new Date(lastCompletedModule);
       lastCompletedModuleDate.setDate(lastCompletedModuleDate.getDate() + 1);
-      console.log("last completed module date converted: ", lastCompletedModuleDate);
       
       var spacedLearningDate = new Date(lastCompletedModuleDate);
       spacedLearningDate.setDate(spacedLearningDate.getDate() + 2);
-      console.log("spaced learning date: ", spacedLearningDate);
 
       const msBetweenDates = Math.abs(today.getTime() - spacedLearningDate.getTime());
       const hoursBetweenDates = msBetweenDates / (60 * 60 * 1000);
       
       if (hoursBetweenDates < 24 && hoursBetweenDates < 1) {
         setSpacedLearning(300);
-        console.log("yay spaced learning+:", 300);
         setShowSpacedLearningPopup(true);
       }
     }
@@ -426,7 +409,6 @@ const QuizPage = () => {
     
     });
   
-    console.log("CurrentModule", currentModule);
     if (checkIfUserCompletedModuleOnTime(currentModule)) {
         checkIfUserGotEarlyCompletion(currentModule);
         checkIfUserGotSpacedLearning();
@@ -501,7 +483,6 @@ const QuizPage = () => {
    *  shows popup to tell user if they passed the module or neeed to retake it. 
    */
   function Passed () {
-    console.log("module not assigned:", moduleNotAssigned)
     if (!moduleNotAssigned){
       if (passed) {
         return (

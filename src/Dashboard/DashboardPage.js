@@ -23,11 +23,6 @@ const DashboardPage = () => {
     Axios.get("http://localhost:3002/users/login").then((response) => {
       setCurrentUser(response.data.user[0])
     }).catch(error => console.error(`Error ${error}`));
-    Axios.get('http://localhost:3002/api/getQuery', {
-      params: { the_query: `SELECT * FROM CompletedModules` }
-    }).then((response) => {
-      console.log(response.data);
-    })
   }, []);
 
   useEffect(() => { if (currentUser.userid) Axios.get("http://localhost:3002/api/getProfilePicture", { params: { id: currentUser.userid } }).then((response) => { setProfilePic(response.data.profileImage) }); })

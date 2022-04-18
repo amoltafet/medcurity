@@ -14,45 +14,56 @@ import './LeaderboardProfile.css'
 * @param {user} user the user grabed from the dashboard.
 * @return {GetPage}
 */
-function LeaderboardProfile(props) {
+function LeaderboardProfile (props) {
     const [directories, setDirectories] = useState([]);
     axios.defaults.withCredentials = true;
     const [currentUser, setCurrentUser] = useState([]);
     const [profilePic, setProfilePic] = useState("")
-    const totalScore = props.scores[0] + props.scores[1] + props.scores[2] + props.scores[3] + props.scores[4] + props.scores[5]; 
 
-    //console.log(props.userid)
-
+   /**
+    * grabs current user.  
+    */
     useEffect(() => {
-        setCurrentUser(props.currentUser);
-    },[])
-
-  
+        axios.get("http://localhost:3002/users/login").then((response) => {
+          setCurrentUser(response.data.user[0]); 
+        }).catch(error => console.error(`Error ${error}`));
+      }, []);
     /**
     * Creates and displays each users leaderboard profile. 
     * @param {Array} className the css style to display. 
     * @param {user} user the user grabed from the dashboard.
     * @return {GetPage}
     */
-    // Query for getting LearningDirectories Directory info
+
+   /**
+    * grabs users assigned modules info.  
+    */
     useEffect(() => {
-        axios.get('http://localhost:3002/api/getAllUserRequiredModules', 
-        { params: { userid: currentUser.userid }
-        }).then((response) => {
-            setDirectories(Object.values(response.data))
-        }).catch(error => console.error(`Error ${error}`));
+        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 
+        // `SELECT * ` +
+        // `FROM AffiliatedUsers JOIN CompanyLearningModules ` +
+        // `ON AffiliatedUsers.CompanyID = CompanyLearningModules.CompanyID ` +
+        // `JOIN LearningModules ON LearningModules.ID = CompanyLearningModules.LearningModID ` +
+        // `JOIN UserPoints ON UserPoints.PointsID = CompanyLearningModules.LearningModID ` +
+        // `RIGHT JOIN CompletedModules ON UserPoints.PointsID = CompletedModules.LearningModID ` +
+        // `WHERE AffiliatedUsers.UserID = '${currentUser.userid}'`
+        `SELECT * ` +
+        `FROM AffiliatedUsers  ` +
+        `JOIN CompletedModules ON AffiliatedUsers.UserID = CompletedModules.UserID ` +
+        `JOIN LearningModules ON LearningModules.ID = CompletedModules.LearningModID ` +
+        `WHERE AffiliatedUsers.UserID = '${currentUser.userid}'` 
+        } }).then((response) => {
+            setDirectories(Object.values(response.data));
+        }).catch(error => console.error(`Error ${error}`));  
     }, [currentUser])
 
-
-    useEffect(() => {
-        axios.get('http://localhost:3002/api/getAllUserRequiredModules', 
-        { params: { userid: currentUser.userid }
-        }).then((response) => {
-            setDirectories(Object.values(response.data))
-        }).catch(error => console.error(`Error ${error}`));
-    }, [currentUser])
-
-    useEffect(() => { if (props.userid) axios.get("http://localhost:3002/api/getProfilePicture", { params: { id: props.userid }} ).then((response) => { setProfilePic(response.data.profileImage) }); })
+    useEffect(() => { 
+        if (props.userid) {
+            axios.get("http://localhost:3002/api/getProfilePicture", { params: { id: props.userid }} ).then((response) => { 
+                setProfilePic(response.data.profileImage) 
+            }); 
+        }
+    }, [])
 
     const GetCurrentModule = () => {
         var categoryData = []
@@ -103,7 +114,7 @@ function LeaderboardProfile(props) {
                                         <Card.Text className="userNameTitle"><u>{props.name}</u></Card.Text>
                                     </Col>
                                     <Col xs={4} md={5} lg={4}>
-                                        <div className="userPointsLeaderboard"><b>Total Points:</b> {totalScore}</div>
+                                        <div className="userPointsLeaderboard"><b>Total Points:</b> {props.score}</div>
                                     </Col>
                                 </Row>
                             </Card>
@@ -139,7 +150,7 @@ function LeaderboardProfile(props) {
                         <Card.Text className="userNameTitle"><u>{props.name}</u></Card.Text>
                     </Col>
                     <Col xs={4} md={5} lg={4}>
-                        <div className="userPointsLeaderboard"><b>Total Points:</b>  {totalScore}</div>
+                        <div className="userPointsLeaderboard"><b>Total Points:</b>  {props.score} </div>
                     </Col>
                 </Row>
             </Card>

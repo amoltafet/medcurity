@@ -4,3 +4,12 @@
     margin-top: 2rem;
     margin-bottom: 2rem;
 }
+
+.all_reuired_modules_header {
+    font-size: 250%;
+    font-family: Lato,sans-serif; 
+    font-weight: bold;
+    text-shadow: 2px 2px 5px gray;
+    margin-left: 5%;
+    margin-top: -1%;
+}

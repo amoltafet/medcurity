@@ -13,12 +13,26 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 const Leaderboard = (props) => {
     Axios.defaults.withCredentials = true;
     const [users, setUsers] = useState([])
-    // Fetch User Data
-    useEffect(() => {
-        Axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 'SELECT * FROM Users' } }).then((response) => {
-            setUsers(Object.values(response.data));
-        }).catch(error => console.error(`Error ${error}`));
-    }, [])
+   
+    /**
+    * Grabs all of the user data for leaderboard. 
+    */
+        useEffect(() => {    
+            Axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 
+            'SELECT Users.userid, Users.username, Users.companyid, Users.profilepicture, SUM(Points) AS Points FROM CompletedModules ' +
+            'JOIN UserPoints ON UserPoints.PointsID = CompletedModules.LearningModID ' +
+            'RIGHT JOIN Users ON Users.userid = CompletedModules.UserID ' + 
+            'GROUP BY Users.userid' } }).then((response) => {
+                console.log("all users", response.data)
+                response.data.forEach(element => {
+                    if (element.Points === null) {
+                        element.Points = 0;
+                    }
+                });
+                setUsers(Object.values(response.data));
+            }).catch(error => console.error(`Error ${error}`));  
+        }, [])
+    
 
   
  
@@ -32,24 +46,23 @@ const Leaderboard = (props) => {
     ];
 
 
+    /**
+    * Sorts the users by points 
+    */
+     function sortUsers() {
+        if (users !== undefined) {
+            function sorter(a, b){
+                return b.Points - a.Points;
+              }
+              
+              users.sort(sorter);
+        }
+    }
+
+
+    sortUsers();
     const ProfileArray = () => {
-        users.sort(function (a, b) {
-            return b.value - a.value;
-          });
-          
-          // sort by name
-          users.sort(function(a, b) {
-            const pointsA = a.category1 + a.category2 + a.category3 + a.category4 + a.category5; // ignore upper and lowercase
-            const pointsB = b.category1 + b.category2 + b.category3 + b.category4 + b.category5; // ignore upper and lowercase
-            if (pointsA > pointsB) {
-              return -1;
-            }
-            if (pointsA < pointsB) {
-              return 1;
-            }
-            // names must be equal
-            return 0;
-          });
+      
         var index = 0;
         var otherUsers = [];
         if (users !== undefined && users.length !== 0) {
@@ -68,19 +81,19 @@ const Leaderboard = (props) => {
                         name={users[users.length - 3].username}
                         index={users.length - 3}
                         className={className}
-                        score={users[users.length - 3].category1 + users[users.length - 3].category2 + users[users.length - 3].category3 + users[users.length - 3].category4 + users[users.length - 3].category5} />,
+                        score={users[users.length - 3].Points} />,
                     <DashLeaderboardProfiles
                         userid={users[users.length - 2].userid}
                         name={users[users.length - 2].username}
                         index={users.length - 2}
                         className={className} 
-                        score={users[users.length - 2].category1 + users[users.length - 2].category2 + users[users.length - 2].category3 + users[users.length - 2].category4 + users[users.length - 2].category5}/>,
+                        score={users[users.length - 2].Points}/>,
                     <DashLeaderboardProfiles
                         userid={props.user.userid}
                         name={props.user.username}
                         index={users.length - 1}
                         className={className}
-                        score={users[users.length - 1].category1 + users[users.length - 1].category2 + users[users.length - 1].category3 + users[users.length - 1].category4 + users[users.length - 1].category5} />
+                        score={users[users.length - 1].Points} />
                 ]);
             }
             // user is in the first position 
@@ -91,19 +104,19 @@ const Leaderboard = (props) => {
                         name={props.user.username}
                         index={1}
                         className={className} 
-                        score={(props.user.category1 + props.user.category2 + props.user.category3 + props.user.category4 + props.user.category5)}/>,
+                        score={users[0].Points}/>,
                     <DashLeaderboardProfiles
                         userid={users[1].userid}
                         name={users[1].username}
                         index={2}
                         className={className} 
-                        score={(users[1].category1 + users[1].category2 + users[1].category3 + users[1].category4 + users[1].category5)}/>,
+                        score={(users[1].Points)}/>,
                     <DashLeaderboardProfiles
                         userid={users[2].userid}
                         name={users[2].username}
                         index={3}
                         className={className} 
-                        score={users[2].category1 + users[2].category2 + users[2].category3 + users[2].category4 + users[2].category5}/>,
+                        score={users[2].Points}/>,
                 ]);
             }
             else if (users[users.length - 1].username !== props.user.username && otherUsers[1] !== undefined) {
@@ -113,19 +126,19 @@ const Leaderboard = (props) => {
                         name={otherUsers[0].username}
                         index={index}
                         className={className} 
-                        score={otherUsers[0].category1 + otherUsers[0].category2 + otherUsers[0].category3 + otherUsers[0].category4 +  otherUsers[0].category5}/>,
+                        score={otherUsers[0].Points}/>,
                     <DashLeaderboardProfiles
                         userid={props.user.userid}
                         name={props.user.username}
                         index={index + 1}
                         className={className} 
-                        score={props.user.category1 + props.user.category2 + props.user.category3 + props.user.category4 +  props.user.category5}/>,
+                        score={users[index].Points}/>,
                     <DashLeaderboardProfiles
                         userid={otherUsers[1].userid}
                         name={otherUsers[1].username}
                         index={index + 2}
                         className={className} 
-                        score={otherUsers[1].category1 + otherUsers[1].category2 + otherUsers[1].category3 + otherUsers[1].category4 +  otherUsers[1].category5}/>
+                        score={otherUsers[1].Points}/>
                 ]);
             }
         }

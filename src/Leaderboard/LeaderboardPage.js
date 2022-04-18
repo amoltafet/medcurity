@@ -30,25 +30,54 @@ const LeaderboardPage = () => {
     /**
     * Grabs all of the user data for leaderboard. 
     */
-    useEffect(() => { 
-        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 'SELECT * FROM Users' } }).then((response) => {
-            setAllUsers(Object.values(response.data));
+    useEffect(() => {    
+        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 
+        'SELECT Users.userid, Users.username, AffiliatedUsers.CompanyID, Users.profilepicture, SUM(Points) AS Points FROM CompletedModules ' +
+        'JOIN UserPoints ON UserPoints.PointsID = CompletedModules.LearningModID ' +
+        'RIGHT JOIN Users ON Users.userid = CompletedModules.UserID ' + 
+        'LEFT JOIN AffiliatedUsers ON AffiliatedUsers.UserID = Users.userid ' +
+        'GROUP BY Users.userid' } }).then((response) => {
             console.log("all users", response.data)
+            response.data.forEach(element => {
+                if (element.Points === null) {
+                    element.Points = 0;
+                }
+            });
+            setAllUsers(Object.values(response.data));
         }).catch(error => console.error(`Error ${error}`));  
-    }, [currentUser])
+    }, [])
 
      /**
-    * Grabs company name. 
+    * Grabs company users. 
     */
       useEffect(() => {
-        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 'SELECT * FROM AffiliatedUsers JOIN Users ON AffiliatedUsers.UserID = Users.userid WHERE AffiliatedUsers.CompanyID = ' + currentUser.companyid } }).then((response) => {
+        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 
+        'SELECT Users.userid, Users.username, Users.companyid, Users.profilepicture, SUM(Points) AS Points FROM CompletedModules ' +
+        'JOIN UserPoints ON UserPoints.PointsID = CompletedModules.LearningModID '+ 
+        'RIGHT JOIN Users ON Users.userid = CompletedModules.UserID ' +
+        'JOIN AffiliatedUsers ON AffiliatedUsers.UserID = Users.userid WHERE AffiliatedUsers.CompanyID = ' + currentUser.companyid + ' ' +
+        'GROUP BY Users.userid '} }).then((response) => {
+            response.data.forEach(element => {
+                if (element.Points === null) {
+                    element.Points = 0;
+                }
+            });
             setCompanyUsers(Object.values(response.data));
-            console.log("company users", response.data)
+        }).catch(error => console.error(`Error ${error}`));   
+    }, [currentUser])
+
+    /**
+    * Grabs company name. 
+    */
+     useEffect(() => {
+        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 
+        'SELECT * FROM Companies WHERE companyid = ' + currentUser.companyid} }).then((response) => {
+          setCompany(Object.values(response.data[0].name))
         }).catch(error => console.error(`Error ${error}`));
     
             
 
-    }, [company, currentUser])
+    }, [currentUser])
     
 
 
@@ -61,56 +90,37 @@ const LeaderboardPage = () => {
         "companiesPanel",
     ];
 
-    // /**
-    // * Sorts the users by points 
-    // */
-    // function sortUsers() {
-    //     if (allUsers !== undefined) {
-    //         allUsers.sort(function (a, b) {
-    //             return b.value - a.value;
-    //           });
-              
-    //           // sort by name
-    //           allUsers.sort(function(a, b) {
-    //             const pointsA = a.category1 + a.category2 + a.category3 + a.category4 + a.category5; // ignore upper and lowercase
-    //             const pointsB = b.category1 + b.category2 + b.category3 + b.category4 + b.category5; // ignore upper and lowercase
-    //             if (pointsA > pointsB) {
-    //               return -1;
-    //             }
-    //             if (pointsA < pointsB) {
-    //               return 1;
-    //             }
-    //             // names must be equal
-    //             return 0;
-    //           });
-    //     }
-    // }
 
-    // function sortCompanyUsers() {
-    //     if (companyUsers !== undefined) {
-    //         companyUsers.sort(function (a, b) {
-    //             return b.value - a.value;
-    //         });
-              
-    //           // sort by name
-    //           companyUsers.sort(function(a, b) {
-    //             const pointsA = a.category1 + a.category2 + a.category3 + a.category4 + a.category5; // ignore upper and lowercase
-    //             const pointsB = b.category1 + b.category2 + b.category3 + b.category4 + b.category5; // ignore upper and lowercase
-    //             if (pointsA > pointsB) {
-    //               return -1;
-    //             }
-    //             if (pointsA < pointsB) {
-    //               return 1;
-    //             }
-    //             // names must be equal
-    //             return 0;
-    //           });
-    //     }
-    // }
-    
 
+    /**
+    * Sorts the users by points 
+    */
+    function sortUsers() {
+        if (allUsers !== undefined) {
+            function sorter(a, b){
+                return b.Points - a.Points;
+              }
+              
+              allUsers.sort(sorter);
+        }
+    }
+
+    /**
+    * Sorts the company users by points 
+    */
+    function sortCompanyUsers() {
+        if (companyUsers !== undefined) {
+            function sorter(a, b){
+                return b.Points - a.Points;
+              }
+            companyUsers.sort(sorter);
+        }
+    }
     
-    //sortUsers()
+    /**
+    * Maps each user out to their leaderboard profile. 
+    */
+    sortUsers()
     var index = 0;
     const AllUsersProfileArray = allUsers.map((userProfile) => {
        
@@ -123,14 +133,15 @@ const LeaderboardPage = () => {
                 className={className}
                 userColor={className[4]}
                 companyColor={className[0]}
-                scores={[userProfile.category1, userProfile.category2, userProfile.category3, userProfile.category4,  userProfile.category5, userProfile.category6]}
-                percents={[userProfile.percentage1, userProfile.percentage2, userProfile.percentage3, userProfile.percentage4,  userProfile.percentage5, userProfile.percentage6]}
-                currentUser={currentUser}/>
+                score={userProfile.Points}/>
         );
     })
 
+    /**
+    * Sorts the users by points 
+    */
     var company_index = 0;
-    //sortCompanyUsers();
+    sortCompanyUsers();
     const CompanyUsersProfileArray = companyUsers.map((userProfile) => {
        
         company_index++;
@@ -142,9 +153,7 @@ const LeaderboardPage = () => {
                   className={className}
                   userColor={className[0]}
                   companyColor={className[4]}
-                  scores={[userProfile.category1, userProfile.category2, userProfile.category3, userProfile.category4,  userProfile.category5, userProfile.category6]}
-                  percents={[userProfile.percentage1, userProfile.percentage2, userProfile.percentage3, userProfile.percentage4,  userProfile.percentage5, userProfile.percentage6]}
-                  currentUser={currentUser}/>
+                  score={userProfile.Points}/>
           );
     })
      

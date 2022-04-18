@@ -27,7 +27,7 @@ const SettingsMenu = () => {
     const navigate = useNavigate();
 
 
-    useEffect(() => { if (currentUser.userid) axios.get("http://localhost:3002/api/getProfilePicture", { params: { id: currentUser.userid }} ).then((response) => { setProfilePic(response.data.profileImage) }); })
+    useEffect(() => { if (currentUser.userid) axios.get("http://localhost:3002/api/getProfilePicture", { params: { id: currentUser.userid }} ).then((response) => { setProfilePic(response.data.profileImage) }); },[currentUser, profilePic])
 
     useEffect(() => {
         axios.get("http://localhost:3002/users/login").then((response) => {
@@ -91,6 +91,8 @@ const SettingsMenu = () => {
         setShow(false)
     }, 9000)
 
+
+
    
 
     function uploadUserPhoto (userPhoto) {
@@ -103,6 +105,7 @@ const SettingsMenu = () => {
         var data = new FormData();
         data.append("profileImage", userPhoto);
         axios.post("http://localhost:3002/api/postProfilePicture", data, { params: { userid: currentUser.userid } , headers: { 'Content-Type': 'multipart/form-data' } })
+        setProfilePic(userPhoto);
 
     }
   

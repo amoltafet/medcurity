@@ -1,11 +1,11 @@
 import { Row,  Container } from 'react-bootstrap'
 import React from 'react';
-import './LearningDirectoryPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import axios from 'axios';
 import LearningModulePanel from './LearningModulePanel';
+import './LearningDirectory.css'
 
 
 /**
@@ -31,10 +31,7 @@ const LearningDirectoryPageContent = (props) => {
 
     return (
         <>
-        <Container className=" LearningDirectoryPageContainer">
-            
-            <h1>{props.directoryTitle}</h1>
-        </Container>
+
         <Row className="dashboard" style={{display: 'flex', flexDirection: 'row'}}>
             {createDirectoryCards(props.modules)}
         </Row>

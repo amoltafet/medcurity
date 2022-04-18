@@ -47,7 +47,6 @@ const LearningManagersCards = (props) => {
      * @param {max_length} to limit max card number created
      */
     function createLearningManagerCards(modules, maxLength=-1) {
-        console.log(modules)
         const objs = [];
         let size = 0
         for (let index in modules) {

@@ -266,6 +266,9 @@ const userChangeUsername = (req, res) => {
     logger.log('info', `username "${newUserName}"`);
     logger.log('info', `id "${userId}"`);
     db.query(`UPDATE Users SET username = "${newUserName}" WHERE userid = "${userId}"`, (err,result) => {
+        if (err) {
+            logger.log('error', { methodName: '/userChangeUsername', body: `Failed to change user-${userId}'s username: ${err}.` }, { service: 'query-service' });
+        }
         db.query(`SELECT * FROM Users WHERE userid = '${userId}'`, (err,result) => {
             req.session.userSession = result;
             logger.log('info', `Updated username to "${newUserName}"`);
@@ -284,18 +287,27 @@ const userModuleCompleted = (req, res) => {
     const userid = req.body.userid;   
     const points = req.body.points;
     const percentage = req.body.percentage;
+    const moduleNum = req.body.modulenum;
+    const companyid = req.body.companyid;
 
 
     logger.log('info', `points "${points}"`);
     logger.log('info', `percentage "${percentage}"`);
+    logger.log('info', `module num "${moduleNum}"`);
+    logger.log('info', `companyid "${percentage}"`);
 
     db.query(`INSERT INTO CompletedModules (UserID, LearningModID, DateCompleted, Points, Percentage)  VALUES (?,?,?,?,?)`, [userid, categoryId, today, points, percentage], (err,result) => {
         if(err) {
             logger.log('error', { methodName: '/moduleCompleted', errorBody: err }, { service: 'user-service' });
         }
-        db.query(`SELECT * FROM CompletedModules WHERE userid = '${userid}'`, (err,result) => {
-            logger.log('info', `User-${userid} completed Module ${categoryId}, on: ${today} and scored ${points} points.`);
-            res.send({success: true, data: result, message: `Completed Module`});
+        db.query("INSERT INTO UserPoints (PointsID, UserID, CompanyID) VALUES (?,?,?)", [moduleNum, userid, companyid], (err,result) => {
+            if(err) {
+                logger.log('error', { methodName: '/moduleCompleted', errorBody: err }, { service: 'user-service' });
+            }
+            db.query(`SELECT * FROM CompletedModules JOIN UserPoints WHERE userid = '${userid}'`, (err,result) => {
+                logger.log('info', `User-${userid} completed Module ${categoryId}, on: ${today} and scored ${points} points.`);
+                res.send({success: true, data: result, message: `Completed Module`});
+            })
         })
     })   
 }
