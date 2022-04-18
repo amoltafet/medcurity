@@ -55,7 +55,7 @@ const EmployerDashboardPage = () => {
         }
     }, [isLoading, currentUser.userid])
 
-    if (currentUser?.type == 'companyAdmin') {
+    if (currentUser?.type == 'companyAdmin' || currentUser?.type === 'websiteAdmin') {
         return (
             <>
                 <MenuBar></MenuBar>

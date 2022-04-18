@@ -30,8 +30,8 @@ const AdminContentPage = () => {
   useEffect(() => { if (currentUser.userid) Axios.get("http://localhost:3002/api/getProfilePicture", { params: { id: currentUser.userid } }).then((response) => { setProfilePic(response.data.profileImage) }); })
 
 
-    if (currentUser?.type == "websiteAdmin") {
-
+    if (currentUser?.type === "websiteAdmin") {
+      return (
       <>   
       <MenuBar></MenuBar>
       <div className="col dash_topBackdrop justif">
@@ -47,6 +47,7 @@ const AdminContentPage = () => {
       </div>
       <LearningManagerCards companyId={companyId} />
       </>
+      );
   }
   else {
   

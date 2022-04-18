@@ -27,9 +27,10 @@ const AdminDashboardPage = () => {
         });
       }, []);
 
-    console.log(currentUser)
 
-    if (currentUser?.type == "websiteAdmin") {
+    if (currentUser?.type === "websiteAdmin") {
+
+      console.log("yes")
       return (
       <>
           <MenuBar></MenuBar>
