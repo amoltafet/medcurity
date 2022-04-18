@@ -30,38 +30,37 @@ const AdminContentPage = () => {
   useEffect(() => { if (currentUser.userid) Axios.get("http://localhost:3002/api/getProfilePicture", { params: { id: currentUser.userid } }).then((response) => { setProfilePic(response.data.profileImage) }); })
 
 
+    if (currentUser?.type == "websiteAdmin") {
 
-  if (currentUser?.id && currentUser.type == "websiteAdmin") {
-
-    return (
-      <>
-        <MenuBar></MenuBar>
-        <div className="col dash_topBackdrop justif">
-          <div className="dash_welcomeDiv">
-            <Image className="dash_profilePicture" variant="top" src={`data:image/png;base64,${profilePic}`} alt="" roundedCircle />
-            <div>
-              <h1 className="dash_welcomeMessageP1">Welcome Back, Admin {currentUser?.username || "... "}!</h1>
-              <h1 className="dash_welcomeMessageP3">Logged in as: {currentUser?.email || "..."}</h1>
-              <div className="dash_navDiv">
-              </div>
+      <>   
+      <MenuBar></MenuBar>
+      <div className="col dash_topBackdrop justif">
+        <div className="dash_welcomeDiv">
+          <Image className="dash_profilePicture" variant="top" src={`data:image/png;base64,${profilePic}`} alt="" roundedCircle />
+          <div>
+            <h1 className="dash_welcomeMessageP1">Welcome Back, Admin {currentUser?.username || "... "}!</h1>
+            <h1 className="dash_welcomeMessageP3">Logged in as: {currentUser?.email || "..."}</h1>
+            <div className="dash_navDiv">
             </div>
           </div>
         </div>
-        <LearningManagerCards companyId={companyId} />
-
+      </div>
+      <LearningManagerCards companyId={companyId} />
       </>
-    );
   }
   else {
-    return (
-      <>
-        <InvalidPage
-          redirectPage={'/'}
-          reason={"You need to be logged in to view your dashboard."}
-          btnMessage={"Back to Login Page"}>
-        </InvalidPage>
-      </>
-    )
-  }
+  
+ 
+
+      return (
+        <>
+          <InvalidPage 
+            redirectPage={'/'} 
+            reason={"Only website admins can access this page."}
+            btnMessage={"Back to Medcurity Learn Security"}>
+          </InvalidPage>
+        </>
+      )
+    }
 }
 export default AdminContentPage;
