@@ -170,7 +170,7 @@ const LeaderboardPage = () => {
         );
     })
 
-    if (user?.userid) {
+    if (currentUser?.userid) {
         return (
             <>
                 <Menubar></Menubar>

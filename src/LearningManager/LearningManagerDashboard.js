@@ -55,7 +55,7 @@ const LearningManagerDashboardPage = () => {
         }
     }, [isLoading, currentUser.userid])
 
-    if (session?.type == 'companyAdmin') {
+    if (currentUser?.type == 'companyAdmin') {
         return (
             <>
                 <MenuBar></MenuBar>
