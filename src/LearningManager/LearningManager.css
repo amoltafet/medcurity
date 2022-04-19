@@ -64,6 +64,46 @@
     }
 }
 
+.learning_module_date_picker {
+    background-color: white !important; 
+    color: black !important;
+    border: none !important;
+}
+
+.react-date-picker__wrapper {
+    border: none !important;
+}
+
+.react-date-picker__clear-button svg {
+    stroke: #cc3333 !important;
+}
+
+.react-date-picker__clear-button svg:hover {
+    stroke: #c33333 !important;
+}
+
+.react-date-picker__calendar-button svg {
+    stroke: #0b5ed7 !important;
+}
+
+
+.react-date-picker__inputGroup__input {
+    color: black !important; 
+    border: none;
+    font-family: Lato,sans-serif;
+}
+
+.date_picker_learning_manager_col {
+    font-size: 80%;
+}
+
+@media screen and (min-width: 700px) { 
+    .date_picker_learning_manager_col {
+        font-size: 120%;
+    }
+}
+
+
 .Remove_Button_learning_manager_col {
     font-size: 80%;
 }

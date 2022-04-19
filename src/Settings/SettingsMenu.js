@@ -73,7 +73,7 @@ const SettingsMenu = () => {
                 }).then((response) => {
                     console.log("response", response.data);
                     setMessage(response.data["message"])
-                    console.log("Message:", message)
+              console.log("Message:", message)
                     
                 }).catch(error => console.log(`Error ${error}`));
             }
