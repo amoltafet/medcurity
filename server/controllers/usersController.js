@@ -408,21 +408,25 @@ const assignModulesToCompany = (req,res) =>
 }
 
 /**
- * Store a learning module as completed.
+ * Here we update a module to have a new date due
+ * To start the process off we need to construct a sql accepted 
+ * date string
  */
 const updateCompanyModuleDueDate = (req, res) => {
-    var newDate = new Date();
     //today.setDate(today.getDate() - 1);
     const learningmodid = req.body.learningModId
     const companyid = req.body.companyid
+    const dateDue = new Date(req.body.dateDue)
+    dateDue.setDate(dateDue.getDate())
+    dateDue.setHours(23, 59)
+        
 
-
-    db.query(`UPDATE CompanyLearningModules SET DueDate = ? WHERE CompanyID = ? AND LearningModID = ?`, [newDate, companyid, learningmodid], (err,result) => {
+    db.query(`UPDATE CompanyLearningModules SET DueDate = ? WHERE CompanyID = ? AND LearningModID = ?`, [dateDue, companyid, learningmodid], (err,result) => {
         if (err) {
             logger.log('error', { methodName: '/updateCompanyModuleDueDate', errorBody: err }, { service: 'user-service' });
             res.send(false)
         }
-        logger.log('info', `Updated CompanyLearningModule with companyID: "${companyid}" and learningModID: "${learningmodid}" to date: "${newDate}" Fields: ${result}`, { service: 'user-service' })
+        logger.log('info', `Updated CompanyLearningModule with companyID: "${companyid}" and learningModID: "${learningmodid}" to date: "${dateDue}" Fields: ${result}`, { service: 'user-service' })
         res.send(true)
     })   
 }

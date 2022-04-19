@@ -13,13 +13,11 @@ import DatePicker from 'react-date-picker';
  */
 const LearningManagerCard = (props) => {
     const [message, setMessage] = useState('');
-    const [dateDue, setDateDue] = useState(new Date());
-    const [dbQueried, setdbQueried] = useState(false) // Indicates if the database has been queried or not
+    const [dateDue, setDateDue] = useState();
     // If it hasn't, then sets it so updates do not trigger updating the database
     const [isLoading, setLoading] = useState(true)
 
     useEffect(() => {
-        setdbQueried(false)
         if (Number.isInteger(props.companyId)) {
             setLoading(false)
         }
@@ -27,31 +25,22 @@ const LearningManagerCard = (props) => {
 
     // Updates the current due date from the database
     useEffect(() => {
-        if (!isLoading) {
-            setdbQueried(true)
-            axios.get('http://localhost:3002/api/getQuery', 
-                { params: { the_query: 'SELECT CompanyLearningModules.DueDate ' +
-                'FROM CompanyLearningModules ' + 
-                'WHERE CompanyLearningModules.CompanyID = ' + String(props.companyId) + ' ' +
-                'AND CompanyLearningModules.LearningModID = ' + String(props.learningModId) 
-                }}).then((response) => {
-                    console.log("Did stuff")
-                    
-                    setDateDue(Object.values(response.data))
-                    console.log("Did stuff")
-                    
-            });
+        if (props.dueDate != undefined) {
+            console.log("New due date: ", props.dueDate)
+            setDateDue(new Date(props.dueDate))
         }
-    }, [props.companyId, props.moduleId])
+    }, [props.dueDate])
 
     // Updates the due date whenever it changes
     function updateModuleDate(dateDue) {
+       
         setDateDue(dateDue)
         console.log('Updating module date: ', props.moduleId, ' to ', dateDue )
-        axios.post("http://localhost:3002/users/removeModuleFromCompany",
+        axios.post("http://localhost:3002/users/updateCompanyModuleDueDate",
         { 
         learningModId: props.moduleId,
-        companyid: props.companyId
+        companyid: props.companyId,
+        dateDue: dateDue
         }).then((response) => 
         {
         console.log("response.data =", response.data)

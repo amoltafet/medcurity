@@ -48,7 +48,7 @@ const LearningManagersCards = (props) => {
         for (let index in modules) {
             if (size == maxLength) { break; }
             module = modules[index]
-            objs.push(<LearningManagerCard learningModuleName={module.Title} moduleId={module.ID} companyId={module.CompanyID} setReload={props.setReload}/>)
+            objs.push(<LearningManagerCard learningModuleName={module.Title} moduleId={module.ID} companyId={module.CompanyID} dueDate={module.DueDate} setReload={props.setReload}/>)
             size += 1;
         }
         return objs;
