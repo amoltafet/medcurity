@@ -7,7 +7,8 @@ import EmployerCards from './EmployerCards';
 import AdminInvitations from './AdminInvitations';
 import { useEffect, useState } from "react";
 import AddCompany from './AddCompany';
-import Axios from 'axios';
+import { useParams } from "react-router";
+import axios from 'axios';
 import DeleteCompany from './DeleteCompany';
 import InvalidPage from '../../InvalidPage/InvalidPage';
 
@@ -17,11 +18,11 @@ import InvalidPage from '../../InvalidPage/InvalidPage';
 * @return {AdminDashboardPage}
 */
 const AdminDashboardPage = () => {
-    Axios.defaults.withCredentials = true;
+     axios.defaults.withCredentials = true;
     const [currentUser, setCurrentUser] = useState([]);
 
     useEffect(() => {
-        Axios.get("http://localhost:3002/users/login").then((response) => {
+        axios.get("http://localhost:3002/users/login").then((response) => {
           console.log('aaahhh', response.data.user)
           setCurrentUser(response.data.user[0])
         });

@@ -2,7 +2,7 @@ import { Card, Button} from 'react-bootstrap'
 import React from 'react';
 import DashLeaderboardProfiles from './DashLeaderboardProfiles';
 import { useEffect, useState } from "react";
-import Axios from 'axios';
+import axios from 'axios';
 import './DashLeaderboard.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
@@ -11,14 +11,14 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 * @return {Leaderboard}
 */
 const Leaderboard = (props) => {
-    Axios.defaults.withCredentials = true;
+    axios.defaults.withCredentials = true;
     const [users, setUsers] = useState([])
    
     /**
     * Grabs all of the user data for leaderboard. 
     */
         useEffect(() => {    
-            Axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 
+            axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 
             'SELECT Users.userid, Users.username, Users.companyid, Users.profilepicture, SUM(Points) AS Points FROM CompletedModules ' +
             'JOIN UserPoints ON UserPoints.PointsID = CompletedModules.LearningModID ' +
             'RIGHT JOIN Users ON Users.userid = CompletedModules.UserID ' + 

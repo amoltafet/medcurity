@@ -1,7 +1,7 @@
 import {Button, Image, Form, Card} from 'react-bootstrap'
 import React from 'react';
 import { useState } from "react";
-import Axios from "axios"
+import axios from "axios"
 import './Reset.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useNavigate } from 'react-router-dom';
@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router-dom';
 export default function ReseetPasswordPage()
 {
 
-  Axios.defaults.withCredentials = true;
+  axios.defaults.withCredentials = true;
   const [message, setMessage] = useState("")
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
