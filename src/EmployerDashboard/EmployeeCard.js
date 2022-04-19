@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { Card, Col, Button, OverlayTrigger, Popover } from 'react-bootstrap';
+import { Card, Col, Row, Button, OverlayTrigger, Popover } from 'react-bootstrap';
 import './EmployeeCard.css';
 import { useEffect, useState} from "react";
 import axios from 'axios';
@@ -42,37 +42,43 @@ const EmployeeCard = (props) => {
  
     return (
         <>
-        <Card className="EmployeeCard uvs-right uvs-left" style={{ flexDirection: 'row' }}>
-            <Col sm>
+        <Card className="EmployeeCard_dash uvs-right uvs-left justify-content-center" style={{ flexDirection: 'row' }}>
+            <Col xs={2} md={2} lg={2}>
                 <div className="EmployeeCardValues">{props.email}</div>
             </Col>
-            <Col sm>
-                <div className="EmployeeCardValues">{props.name}</div>
+            <Col xs={3} md={2} lg={2}>
+                <div className="EmployeeCardValues text-center">{props.name}</div>
             </Col>
-            <Col sm>
-                <div className="EmployeeCardValues">{String(Boolean(props.activeStatus))}</div>
+            <Col xs={2} md={2} lg={2}>
+                <div className="EmployeeCardValues text-center">{String(Boolean(props.activeStatus))}</div>
             </Col>
-            <Col sm>
-                <div className="EmployeeCardValues">{props.progress}</div>
+            <Col xs={2} md={2} lg={2}>
+                <div className="EmployeeCardValues text-center">{props.progress}</div>
             </Col>
-            <Col sm>
-                <OverlayTrigger trigger="click" rootClose placement="left" 
+            <Col xs={2} md={2} lg={2}>
+                <OverlayTrigger trigger="click" rootClose placement="bottom" 
                 overlay={
-                    <Popover id="popover-basic" className="EmployeePopup">
-                        <div className="EmployeeCardValues">Please confirm that you want to delete the user '{props.name}': </div> 
-                        <div>{message}</div>
-                        <Button className="EmployeeInRowButton uvs-right" 
-                            variant="success" 
-                            onClick={() => removeUser(props.userId, props.companyId)}> 
-                            Confirm 
-                        </Button>
+                    <Popover id="popover-basic">
+                        <Popover.Content>
+                            <Row>
+                                <div>Please confirm that you want to delete the user '{props.name}': </div> 
+                                <div>{message}</div>
+                            </Row>
+                            <Row>
+                                <Button className="EmployeeInRowButton_confirm uvs-right" 
+                                    variant="success" 
+                                    onClick={() => removeUser(props.userId, props.companyId)}> 
+                                    Confirm 
+                                </Button>
+                            </Row>
+                        </Popover.Content>
                     </Popover>
                 }>
         
-                    <Button className="EmployeeInRowButton uvs-right" 
+                    <Button className="uvs-right" 
                     size="sm" 
                     variant="danger"> 
-                    Remove User </Button>
+                    Remove</Button>
                 </OverlayTrigger>
             </Col>
         </Card>

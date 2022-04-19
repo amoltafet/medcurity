@@ -40,7 +40,7 @@ function Questions (props) {
                 {props.question} 
             </Container>
             
-            <ToggleButtonGroup id={quizToggleId} className="answerQuizSelection" vertical name={quizToggleId}>
+            <ToggleButtonGroup id={quizToggleId} className="answerQuizSelection uvs-left" vertical name={quizToggleId}>
                 {myanswers.map((radio, idx) => (
                 <ToggleButton 
                     key={idx}

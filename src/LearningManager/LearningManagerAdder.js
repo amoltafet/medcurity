@@ -1,9 +1,9 @@
 import React from 'react';
-import { Form , Card, Button, Container, Dropdown, Item} from 'react-bootstrap';
+import { Form , Card, Button, Container, Dropdown, Item, Row} from 'react-bootstrap';
 import { useEffect, useState, Link} from "react";
 import { useParams } from "react-router";
 import { useNavigate } from 'react-router-dom';
-import './LearningManager.css'
+import './LearningManagerAdder.css'
 import axios from 'axios';
 
 /**
@@ -83,27 +83,35 @@ const LearningModuleAdder = (props) => {
     }
 
     return (
-        <Container className="LearningManagerInviteRequestCard uvs-right">
-            <div className="registerHeader">Add a Learning Module: </div>
-            <div className="InviteSubtitle font">Choose a learning module to assign it to all your employees.</div>
-            <form onSubmit={addModule}>
-                <label>
-                  
-                    <select className="learningModule" value={learningModule} 
-                        onChange={ (e) => 
-                        {
-                            setLearningModule(e.target.value);
-                            console.log(e.target.value);
-                        }}>
-                        {createDropDownOptions(modules)}
-                    </select>
-                </label>
-                <input className="createButton" type="button" value="Submit" onClick={addModule} />
-            </form>
-            <div className="InviteSubtitle font">{message}</div>
+        <Card className="Learning_Manager_Invite_Request_Card uvs-right">
+             <Row xs={7} md={12} lg={12}> 
+                <Card.Title className="register_header_add_learning_module"><b>Add a Learning Module: </b></Card.Title>
+            </Row>
+            <Row xs={7} md={12} lg={12}> 
+                <Card.Subtitle className="invite_subtitle_learning_manager">Choose a learning module to assign it to all your employees.</Card.Subtitle>
+            </Row>
+            <Row xs={2} md={7} lg={12}  className="justify-content-center text-center">
+                <form className="learningModule_add_module_form_container" onSubmit={addModule}>
+                    <label className="learningModule_add_module_form">
+                    
+                        <select className="learningModule_add_module_form" value={learningModule} 
+                            onChange={ (e) => 
+                            {
+                                setLearningModule(e.target.value);
+                                console.log(e.target.value);
+                            }}>
+                            {createDropDownOptions(modules)}
+                        </select>
+                    </label>
+                </form>
+                <div className="invite_subtitle_learning_manager">{message}</div>
+            </Row>
+            <Row xs={2} md={7} lg={7} className="justify-content-center">
+                <Button className="create_button_learning_manager uvs-left" onClick={addModule}>Submit</Button>
+            </Row>
                 
              
-        </Container>
+        </Card>
     );
 }
 

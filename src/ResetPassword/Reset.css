@@ -1,6 +1,6 @@
 .reset_passwordbg {
-    background-image: url("../Login/loginbg_small.png");
-    height: 120%;
+    background-image: url("../Login/loginbg.png");
+    height: 100%;
     width: 100%;
     background-position: center;
     background-repeat: no-repeat;
@@ -8,27 +8,10 @@
     
 }
 
-@media screen and (min-width: 1000px) {
-    .reset_passwordbg {
-        background-image: url("../Login/loginbg_medium.png");
-        height: 120%;
-        width: 100%;
-        background-position: center;
-        background-repeat: no-repeat;
-        position: fixed;
-    }
-  }
+.medcurity_logo {
+    width: 25vmax;
+}
 
-@media screen and (min-width: 1500px) {
-    .reset_passwordbg {
-        background-image: url("../Login/loginbg.png");
-        height: 100%;
-        width: 100%;
-        background-position: center;
-        background-repeat: no-repeat;
-        position: fixed;
-    }
-  }
 
 .reset_password_registerCard {
     border: white;

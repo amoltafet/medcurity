@@ -1,12 +1,11 @@
 import React from 'react';
-import './../../Dashboard/DashboardPage.css';
+import '../../Dashboard/DashboardPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { CardDeck } from 'react-bootstrap';
 import MenuBar from '../../MenuBar/MenuBar';               
 import EmployerCards from './EmployerCards';
-import WelcomePanel from '../../Dashboard/WelcomePanel';
 import AdminInvitations from './AdminInvitations';
-import { useEffect, useState, Link} from "react";
+import { useEffect, useState } from "react";
 import AddCompany from './AddCompany';
 import { useParams } from "react-router";
 import axios from 'axios';
@@ -19,19 +18,19 @@ import InvalidPage from '../../InvalidPage/InvalidPage';
 * @return {AdminDashboardPage}
 */
 const AdminDashboardPage = () => {
-    axios.defaults.withCredentials = true;
-    const [session, setSession] = useState([]);
+     axios.defaults.withCredentials = true;
+    const [currentUser, setCurrentUser] = useState([]);
 
     useEffect(() => {
         axios.get("http://localhost:3002/users/login").then((response) => {
           console.log('aaahhh', response.data.user)
-          setSession(response.data.user[0])
+          setCurrentUser(response.data.user[0])
         });
       }, []);
 
-    console.log(session)
 
-    if(session?.id && setSession.type == "websiteAdmin") {
+    if (currentUser?.type === "websiteAdmin") {
+
       return (
       <>
           <MenuBar></MenuBar>
@@ -51,8 +50,8 @@ const AdminDashboardPage = () => {
         <>
           <InvalidPage 
             redirectPage={'/'} 
-            reason={"You need to be logged in to view your dashboard."}
-            btnMessage={"Back to Login Page"}>
+            reason={"Only website admins can access this page."}
+            btnMessage={"Back to Medcurity Learn Security"}>
           </InvalidPage>
         </>
       )

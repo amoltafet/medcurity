@@ -1,7 +1,7 @@
 // <div>Icons made by <a href="https://www.flaticon.com/authors/kliwir-art" title="kliwir art">kliwir art</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { Card, Image,  Col } from 'react-bootstrap';
+import { Card, Image,  Col, Row } from 'react-bootstrap';
 import axios from 'axios';
 import { useEffect, useState } from "react";
 import './DashLeaderboardProfiles.css'
@@ -15,28 +15,25 @@ function DashLeaderboardProfiles (props) {
     const [profilePic, setProfilePic] = useState("")
 
     axios.defaults.withCredentials = true;
-    console.log('from DashLBProfiles:', props)
 
     useEffect(() => { if (props.userid) axios.get("http://localhost:3002/api/getProfilePicture", { params: { id: props.userid }} ).then((response) => { setProfilePic(response.data.profileImage) }); })
 
     return (
         <>
             <Card className="cardBackgroundDash" style={{ flexDirection: 'row' }}>
-                <Col sm>
+                <Col xs={2} lg>
                     <div className="dashLeaderNumberPosition">{props.index}.</div>
                 </Col>
-                <Col sm>
+                <Col xs={2} lg>
                     <Image className="profileImageDash" src={`data:image/png;base64,${profilePic}`} alt="" roundedCircle />
                 </Col>
-                <Col sm>
+                <Col xs={4} lg>
                     <div className="userTextDash">{props.name}</div>
                 </Col>
-                <Col sm>
-                 <div className="scoreTextDash">Score</ div>
-                </Col>
-                <Col sm>
-                    <div body className="pointsDash">{props.score}</div> 
-                </Col>   
+                <Col xs={3} lg> 
+                    <div body className="pointsDash">points: {props.score}</div> 
+                 </Col>   
+               
             </Card>
         </>
     );

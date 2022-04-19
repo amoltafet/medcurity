@@ -7,7 +7,7 @@ import React from "react";
 function QuizModules() {
   return (
     <div className="home">
-      <div class="container">
+      <div className="container">
 
       </div>
     </div>

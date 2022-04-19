@@ -39,8 +39,13 @@
     },
     {
       "src": "checkmark.png",
-      "sizes": "640×524",
+      "sizes": "640x524",
       "type": "image/png"
+    },
+    {
+      "src": "triangle_logo.png",
+      "sizes": "2453x720",
+      "type": "image/png"      
     }
   ],
   "props":[

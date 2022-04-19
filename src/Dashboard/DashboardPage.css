@@ -30,6 +30,7 @@ html {
   height: 60vh;
   padding-top: 1vh;
   animation: dash_fadeIn 1s;
+  margin-bottom: 2%;
 }
 
 .dash_bottomBackdrop {
@@ -58,30 +59,68 @@ html {
 }
 
 .dash_navButtons {
-  padding-top: 20px;
-  margin-left: 3%;
+  margin-left: -57.5%;
+  margin-top: 20%;
+  width: 140%;
   display: flex;
   flex-direction: row;
   justify-content: left;
   text-align: center;
 }
 
+@media screen and (min-width: 700px) {
+  .dash_navButtons {
+    padding-top: 20px;
+    margin-top: 0%;
+    margin-left: 3%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    text-align: center;
+  }
+}
+
 .dash_navButton {
   background-color: #0D6EFD;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
   color: rgb(255, 255, 255);
-  font-size: 0.8vmax;
+  font-size: 1.2vmax;
   font-family: Verdana, sans-serif;
   text-align: center;
 }
 
+@media screen and (min-width: 1600px) {
+  .dash_navButton {
+    background-color: #0D6EFD;
+    margin-left: 10px;
+    margin-right: 10px;
+    color: rgb(255, 255, 255);
+    font-size: 0.8vmax;
+    font-family: Verdana, sans-serif;
+    text-align: center;
+  }
+}
+
 .dash_profilePicture {
   margin-right: 1%;
-  margin-bottom: 1%;
-  width: 200px;
-  height: 200px; 
+  margin-top: -5%;
+  margin-left: 10%;
+  width: 150px;
+  height: 150px; 
   object-fit: cover;
+}
+
+@media screen and (min-width: 700px) {
+  .dash_profilePicture {
+    margin-right: 1%;
+    margin-top: -2%;
+    margin-left: 0%;
+    width: 200px;
+    height: 200px; 
+    object-fit: cover;
+  }
 }
 
 .dash_separatorBegin {
@@ -116,6 +155,16 @@ html {
   text-shadow: 2px 2px 5px black;
   font-size: 3vmax;
   margin-left: 25px;
+  margin-top: 0%;
+}
+
+@media screen and (min-width: 1600px) {
+  .dash_welcomeMessageP1 {
+    color: white;
+    text-shadow: 2px 2px 5px black;
+    font-size: 3vmax;
+    margin-left: 25px;
+  }
 }
 
 .dash_welcomeMessageP2 {
@@ -127,13 +176,23 @@ html {
 
 .dash_welcomeMessageP3 {
   color: white;
-  font-size: 0.8vmax;
+  font-size: 100%;
   font-style: italic;
   margin-top: -5px;
   margin-left: 5px;
   margin-left: 30px;
 }
 
+@media screen and (min-width: 1600px) {
+  .dash_welcomeMessageP3 {
+    color: white;
+    font-size: 100%;
+    font-style: italic;
+    margin-top: -5px;
+    margin-left: 5px;
+    margin-left: 30px;
+  }
+}
 .dash_h1Style {
   color: rgb(23, 77, 125);
   margin-left: 20%;
@@ -157,8 +216,22 @@ html {
   text-align: right;
 }
 
-.go_to_leader_board_bttn{
-  margin-bottom: 1%;
+.go_to_leader_board_bttn {
+  margin-top: 3%;
+  margin-bottom: 5%;
+  background-color: #0D6EFD;
+  color: rgb(255, 255, 255);
+}
+
+
+@media screen and (min-width: 1600px) {
+  .go_to_leader_board_bttn {
+    margin-top: 0%;
+    margin-bottom: 3%;
+    background-color: #0D6EFD;
+    color: rgb(255, 255, 255);
+  }
+  
 }
 
 @keyframes dash_fadeIn { 
