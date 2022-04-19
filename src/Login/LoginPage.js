@@ -5,6 +5,7 @@ import Axios from "axios"
 import './LoginPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useNavigate } from 'react-router-dom';
+import env from "react-dotenv";
 
 /**
 * Creates and displays the main login page. 
@@ -24,11 +25,13 @@ export default function LoginPage()
     width: window.innerWidth
   });
   const navigate = useNavigate();
+
+//console.log("FROM LOGIN PAGE:", env.BASE_URL)
   
   // get the user's session to see if they're already logged in. If so,
-  // redirect them to their dashboard.
+  // redirect them to their dashboard...
   useEffect(() => {
-    Axios.get("http://localhost:3002/users/login").then((response) => {
+    Axios.get(`${env.BASE_URL}/users/login`).then((response) => {
       if (response.data.user)
       {
         setCurrentUser(response.data.user[0])
@@ -52,7 +55,7 @@ export default function LoginPage()
 
     if (email.length > 0 || password.length > 0)
     {
-      Axios.post("http://localhost:3002/users/login", { email: email, password: password }).then((response) => 
+      Axios.post(`${env.BASE_URL}/users/login`, { email: email, password: password }).then((response) => 
       {
         if (response.data.success === true)
         {
