@@ -29,7 +29,7 @@ const LearningModuleAdder = (props) => {
     // Assigns learningModule to the first module returned if the list is greater than 0
 	useEffect(() => {
         if (!isLoading) {
-            axios.get('http://localhost:3002/api/getQuery', { params: { the_query:'SELECT * ' +
+            axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 'SELECT * ' +
                 'FROM LearningModules ' +
                 'WHERE NOT EXISTS ( ' +
                     'SELECT lm.* ' +

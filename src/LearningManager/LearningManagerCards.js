@@ -59,14 +59,14 @@ const LearningManagersCards = (props) => {
             <Card.Title className="employee_learning_modules_manager_title">Current Learning Modules</Card.Title>      
             <CardDeck style={{display: 'flex', flexDirection: 'column'}}> 
             <Card className="Learning_Manager_Card_Header uvs-right uvs-left" style={{display: 'flex', flexDirection: 'row' }}>
-                <Col xs={6} md={6} lg={6}>
+                <Col xs={4} md={4} lg={4}>
                     <div className="Learning_Manager_Card_Values_learning_manager text-center"><b>Learning Module Name</b></div>
                 </Col>
-                <Col sm>
-                    <div className="LearningManagerCardValues">Date Due (PST)</div>
+                <Col xs={4} md={4} lg={4}>
+                    <div className="date_picker_learning_manager_col text-center"><b>Date Due (PST)</b></div>
                 </Col>
 
-                <Col xs={6} md={6} lg={6}>
+                <Col xs={4} md={4} lg={4}>
                     <div className="Remove_Button_learning_manager_col text-center"><b>Remove Module</b></div>
                 </Col>
             </Card>

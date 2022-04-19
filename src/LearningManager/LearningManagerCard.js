@@ -86,13 +86,13 @@ const LearningManagerCard = (props) => {
     return (
         <>
         <Card className="learning_manager_card uvs-right uvs-left text-center" style={{ flexDirection: 'row' }}>
-            <Col xs={6} md={6} lg={6}>
+            <Col xs={4} md={4} lg={4}>
                 <div className="Learning_Manager_Card_Values_mini">{props.learningModuleName}</div>
             </Col>
-            <Col sm>
-                <div><DatePicker onChange={(value) => updateModuleDate(value)} value={dateDue}></DatePicker></div>
+            <Col  xs={4} md={4} lg={4}>
+                <div><DatePicker className=" uvs-left learning_module_date_picker" onChange={(value) => updateModuleDate(value)} value={dateDue}></DatePicker></div>
             </Col>
-            <Col xs={6} md={6} lg={6}>
+            <Col xs={4} md={4} lg={4}>
                 <OverlayTrigger trigger="click" rootClose placement="bottom" 
                 overlay={
                     <Popover id="popover-basic">
