@@ -1,7 +1,7 @@
 import { Nav, Row, Form, Tab, Col, Container, Button, Popover, OverlayTrigger, Image } from 'react-bootstrap';
 import React from 'react';
 import { useState } from "react";
-import Axios from "axios"
+import axios from "axios"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './InvalidPage.css';
 import { useNavigate } from 'react-router-dom';
@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function InvalidPage(props)
 {
-  Axios.defaults.withCredentials = true;
+  axios.defaults.withCredentials = true;
   const navigate = useNavigate();
 
   const navToLogin = () => {

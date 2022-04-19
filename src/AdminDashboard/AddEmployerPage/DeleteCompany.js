@@ -4,14 +4,14 @@ import { useEffect, useState, Link} from "react";
 import { useParams } from "react-router";
 import { useNavigate } from 'react-router-dom';
 import './AddCompany.css'
-import Axios from 'axios';
+import axios from 'axios';
 
 /**
  * This class allows Admins to enter in future user emails.
  * Inputs are validated, then new users are Deleteed
  */
 const DeleteCompany = () => {
-    Axios.defaults.withCredentials = true;
+    axios.defaults.withCredentials = true;
 
     const [message, setMessage] = useState("")
     const [company, setCompany] = useState("");
@@ -19,7 +19,7 @@ const DeleteCompany = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        Axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `SELECT * FROM Companies ` } }).then((response) => {
+        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `SELECT * FROM Companies ` } }).then((response) => {
             setCompanies(response.data)
             console.log("Companies from Admin invitations:", response.data)
             }).catch(error => console.error(`Error ${error}`));
@@ -29,7 +29,7 @@ const DeleteCompany = () => {
     const deleteCompany = () =>
     {
         if(company != "") {
-            Axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `DELETE FROM Companies WHERE companyid = '${company}'` } }).then((response) => {
+            axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `DELETE FROM Companies WHERE companyid = '${company}'` } }).then((response) => {
             console.log(response)
             }).catch(error => console.error(`Error ${error}`));
             console.log("We Deleteed")
@@ -43,7 +43,7 @@ const DeleteCompany = () => {
      */
     // const invite = () => {
     //     console.log('INVITING', email)
-    //     Axios.post("http://localhost:3002/users/register",
+    //     axios.post("http://localhost:3002/users/register",
     //     { 
     //     email: email,
     //     }).then((response) => 

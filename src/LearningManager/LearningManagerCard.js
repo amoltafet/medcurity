@@ -2,11 +2,9 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Card, Col, Row, Button, OverlayTrigger, Popover } from 'react-bootstrap';
 import './LearningManager.css';
-import { useState} from "react";
-import Axios from 'axios';
-
-//TODO
-// Connect button to remove user functionality
+import { useState, useEffect} from "react";
+import axios from 'axios';
+import DatePicker from 'react-date-picker';
 
 /**
  * Panel for Module cards
@@ -15,6 +13,48 @@ import Axios from 'axios';
  */
 const LearningManagerCard = (props) => {
     const [message, setMessage] = useState('');
+    const [dateDue, setDateDue] = useState();
+    // If it hasn't, then sets it so updates do not trigger updating the database
+    const [isLoading, setLoading] = useState(true)
+
+    useEffect(() => {
+        if (Number.isInteger(props.companyId)) {
+            setLoading(false)
+        }
+    }, [props.companyId])
+
+    // Updates the current due date from the database
+    useEffect(() => {
+        if (props.dueDate != undefined) {
+            console.log("New due date: ", props.dueDate)
+            setDateDue(new Date(props.dueDate))
+        }
+    }, [props.dueDate])
+
+    // Updates the due date whenever it changes
+    function updateModuleDate(dateDue) {
+       
+        setDateDue(dateDue)
+        console.log('Updating module date: ', props.moduleId, ' to ', dateDue )
+        axios.post("http://localhost:3002/users/updateCompanyModuleDueDate",
+        { 
+        learningModId: props.moduleId,
+        companyid: props.companyId,
+        dateDue: dateDue
+        }).then((response) => 
+        {
+        console.log("response.data =", response.data)
+        if (response.data === true)
+        {
+            console.log("Updating module!")
+        }
+        else if (response.data === false)
+        {
+            console.log("Error, module failed to update")
+        }
+        });
+    
+    }
  
     /**
      * Removes a user from the selected company
@@ -22,7 +62,7 @@ const LearningManagerCard = (props) => {
      */
     function removeModule(moduleId, companyId) {
         console.log('Removing Module: ', moduleId)
-        Axios.post("http://localhost:3002/users/removeModuleFromCompany",
+        axios.post("http://localhost:3002/users/removeModuleFromCompany",
         { 
         learningModId: moduleId,
         companyid: companyId
@@ -46,10 +86,13 @@ const LearningManagerCard = (props) => {
     return (
         <>
         <Card className="learning_manager_card uvs-right uvs-left text-center" style={{ flexDirection: 'row' }}>
-            <Col xs={6} md={6} lg={6}>
+            <Col xs={4} md={4} lg={4}>
                 <div className="Learning_Manager_Card_Values_mini">{props.learningModuleName}</div>
             </Col>
-            <Col xs={6} md={6} lg={6}>
+            <Col  xs={4} md={4} lg={4}>
+                <div><DatePicker className=" uvs-left learning_module_date_picker" onChange={(value) => updateModuleDate(value)} value={dateDue}></DatePicker></div>
+            </Col>
+            <Col xs={4} md={4} lg={4}>
                 <OverlayTrigger trigger="click" rootClose placement="bottom" 
                 overlay={
                     <Popover id="popover-basic">

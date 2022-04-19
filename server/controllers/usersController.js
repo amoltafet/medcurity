@@ -409,6 +409,30 @@ const assignModulesToCompany = (req,res) =>
 }
 
 /**
+ * Here we update a module to have a new date due
+ * To start the process off we need to construct a sql accepted 
+ * date string
+ */
+const updateCompanyModuleDueDate = (req, res) => {
+    //today.setDate(today.getDate() - 1);
+    const learningmodid = req.body.learningModId
+    const companyid = req.body.companyid
+    const dateDue = new Date(req.body.dateDue)
+    dateDue.setDate(dateDue.getDate())
+    dateDue.setHours(23, 59)
+        
+
+    db.query(`UPDATE CompanyLearningModules SET DueDate = ? WHERE CompanyID = ? AND LearningModID = ?`, [dateDue, companyid, learningmodid], (err,result) => {
+        if (err) {
+            logger.log('error', { methodName: '/updateCompanyModuleDueDate', errorBody: err }, { service: 'user-service' });
+            res.send(false)
+        }
+        logger.log('info', `Updated CompanyLearningModule with companyID: "${companyid}" and learningModID: "${learningmodid}" to date: "${dateDue}" Fields: ${result}`, { service: 'user-service' })
+        res.send(true)
+    })   
+}
+
+/**
  * Changes the users profile picture.
  * Below are helper functions!
  */
@@ -467,4 +491,5 @@ module.exports =
     assignModulesToCompany,
     removeModuleFromCompany,
     userModuleCompleted,
+    updateCompanyModuleDueDate,
 };

@@ -4,14 +4,14 @@ import { useEffect, useState, Link} from "react";
 import { useParams } from "react-router";
 import { useNavigate } from 'react-router-dom';
 import './ContentDashboard.css'
-import Axios from 'axios';
+import axios from 'axios';
 
 /**
  * This class allows employers to enter in future user learningModules.
  * Inputs are validated, then new users are added
  */
 const LearningModuleAdder = (props) => {
-    Axios.defaults.withCredentials = true;
+    axios.defaults.withCredentials = true;
 
     const [message, setMessage] = useState("");
     const [modules, setModules] = useState("");
@@ -31,7 +31,7 @@ const LearningModuleAdder = (props) => {
     // Query for Learning Modules not included in the company already
 	// useEffect(() => {
     //     if (!isLoading) {
-    //         Axios.get('http://localhost:3002/api/getQuery', { params: { the_query:'SELECT * ' +
+    //         axios.get('http://localhost:3002/api/getQuery', { params: { the_query:'SELECT * ' +
     //             'FROM LearningModules ' +
     //                 'WHERE NOT EXISTS ( ' +
     //                     'SELECT * ' +
@@ -52,7 +52,7 @@ const LearningModuleAdder = (props) => {
      */
     const addModule = () => {
         console.log('Adding', learningModule)
-        Axios.post("http://localhost:3002/users/register",
+        axios.post("http://localhost:3002/users/register",
         { 
         learningModule: learningModule,
         }).then((response) => 

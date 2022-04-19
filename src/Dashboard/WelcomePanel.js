@@ -3,7 +3,7 @@ import React from 'react';
 import './WelcomePanel.css';
 import './../Layout.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import Axios from "axios"
+import axios from "axios"
 import { useEffect, useState } from "react";
 
 /**
@@ -11,9 +11,9 @@ import { useEffect, useState } from "react";
 * @return {WelcomePanel}
 */
 const WelcomePanel = (props) => {
-    Axios.defaults.withCredentials = true;
+     axios.defaults.withCredentials = true;
     const [profilePic, setProfilePic] = useState("")
-    useEffect(() => { if (props.user.userid) Axios.get("http://localhost:3002/api/getProfilePicture", { params: { id: props.user.userid }} ).then((response) => { setProfilePic(response.data.profileImage) }); })
+    useEffect(() => { if (props.user.userid)  axios.get("http://localhost:3002/api/getProfilePicture", { params: { id: props.user.userid }} ).then((response) => { setProfilePic(response.data.profileImage) }); })
 
     
 

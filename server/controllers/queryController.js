@@ -12,7 +12,7 @@ const getQuery = (req,res) =>
 {
     db.query(`${req.query.the_query}`, (err,result) => {
         if (err) logger.log('error', { methodName: '/geQuery', body: err }, { service: 'query-service' })
-        logger.log('info', `Custom Query: "${req.query.the_query}"`, { service: 'query-service' })
+        logger.log('info', `Custom Query: "${req.query.the_query}"`, { service: 'query-service' } )
         return res.send(result)
     })
 }

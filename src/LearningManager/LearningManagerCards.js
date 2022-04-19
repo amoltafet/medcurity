@@ -14,11 +14,6 @@ import LearningManagerCard from './LearningManagerCard'
  */
 const LearningManagersCards = (props) => {
     const [learningModules, setLearningModules] = useState([])
-    // let learningModules = [
-    //     {Name:"Privacy", Email:"j@gmail.com", Progress:1},
-    //     {Name:"bio", Email:"ja@gmail.com", Progress:1},
-    //     {Name:"jerseys", Email:"je@gmail.com", Progress:21}
-    // ]
     const [isLoading, setLoading] = useState(true)
 
     useEffect(() => {
@@ -52,7 +47,7 @@ const LearningManagersCards = (props) => {
         for (let index in modules) {
             if (size == maxLength) { break; }
             module = modules[index]
-            objs.push(<LearningManagerCard learningModuleName={module.Title} moduleId={module.ID} companyId={module.CompanyID} setReload={props.setReload}/>)
+            objs.push(<LearningManagerCard learningModuleName={module.Title} moduleId={module.ID} companyId={module.CompanyID} dueDate={module.DueDate} setReload={props.setReload}/>)
             size += 1;
         }
         return objs;
@@ -64,10 +59,14 @@ const LearningManagersCards = (props) => {
             <Card.Title className="employee_learning_modules_manager_title">Current Learning Modules</Card.Title>      
             <CardDeck style={{display: 'flex', flexDirection: 'column'}}> 
             <Card className="Learning_Manager_Card_Header uvs-right uvs-left" style={{display: 'flex', flexDirection: 'row' }}>
-                <Col xs={6} md={6} lg={6}>
+                <Col xs={4} md={4} lg={4}>
                     <div className="Learning_Manager_Card_Values_learning_manager text-center"><b>Learning Module Name</b></div>
                 </Col>
-                <Col xs={6} md={6} lg={6}>
+                <Col xs={4} md={4} lg={4}>
+                    <div className="date_picker_learning_manager_col text-center"><b>Date Due (PST)</b></div>
+                </Col>
+
+                <Col xs={4} md={4} lg={4}>
                     <div className="Remove_Button_learning_manager_col text-center"><b>Remove Module</b></div>
                 </Col>
             </Card>
