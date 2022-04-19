@@ -7,8 +7,9 @@ import LearningManagerCards from './LearningManagerCards';
 import InvalidPage from '../InvalidPage/InvalidPage';
 import WelcomePanel from '../Dashboard/WelcomePanel';
 import LearningModuleAdder from './LearningManagerAdder';
-import { useEffect, useState } from "react";
-import Axios from 'axios';
+import { useEffect, useState, Link} from "react";
+import { useParams } from "react-router";
+import axios from 'axios';
 
 
 /**
@@ -16,7 +17,7 @@ import Axios from 'axios';
 * @return {LearningManagerDashboardPage}
 */
 const LearningManagerDashboardPage = () => {
-    Axios.defaults.withCredentials = true;
+    axios.defaults.withCredentials = true;
     const [currentUser, setCurrentUser] = useState([]);
     const [companyId, setCompanyId] = useState('');
     const [isLoading, setLoading] = useState(true)
@@ -28,7 +29,7 @@ const LearningManagerDashboardPage = () => {
     }, [reload]);
 
     useEffect(() => {
-        Axios.get("http://localhost:3002/users/login").then((response) => {
+        axios.get("http://localhost:3002/users/login").then((response) => {
             setCurrentUser(response.data.user[0])
         });
     }, []);
@@ -42,7 +43,7 @@ const LearningManagerDashboardPage = () => {
     // Query for getting companyid of associated user
     useEffect(() => {
         if (!isLoading) {
-            Axios.get('http://localhost:3002/api/getQuery',
+            axios.get('http://localhost:3002/api/getQuery',
                 {
                     params: {
                         the_query: 'SELECT CompanyAdmins.CompanyID ' +
@@ -87,11 +88,5 @@ const LearningManagerDashboardPage = () => {
         )
     }
 }
-/*
-<CardDeck className="LearningManagerDashTopPanel" style={{display: 'flex', flexDirection: 'row'}}>
-          <HelloLearningManager></HelloLearningManager>
-        </CardDeck>
-        <LearningManagerCards></LearningManagerCards>
-*/
 
 export default LearningManagerDashboardPage;

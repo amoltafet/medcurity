@@ -8,24 +8,24 @@ import MenuBar from '../MenuBar/MenuBar';
 import { useEffect, useState } from 'react';
 import LearningModulesCards from './LearningModulesCards';
 import LearningModulesDirectories from './LearningModuleDirectories';
-import Axios from 'axios';
+import axios from 'axios';
 
 /**
 * Creates and holds all of the componets for the Dashboard. 
 * @return {DashboardPage}
 */
 const DashboardPage = () => {
-  Axios.defaults.withCredentials = true;
+  axios.defaults.withCredentials = true;
   const [currentUser, setCurrentUser] = useState([]);
   const [profilePic, setProfilePic] = useState("");
 
   useEffect(() => {
-    Axios.get("http://localhost:3002/users/login").then((response) => {
+    axios.get("http://localhost:3002/users/login").then((response) => {
       setCurrentUser(response.data.user[0])
     }).catch(error => console.error(`Error ${error}`));
   }, []);
 
-  useEffect(() => { if (currentUser.userid) Axios.get("http://localhost:3002/api/getProfilePicture", { params: { id: currentUser.userid } }).then((response) => { setProfilePic(response.data.profileImage) }); })
+  useEffect(() => { if (currentUser.userid)  axios.get("http://localhost:3002/api/getProfilePicture", { params: { id: currentUser.userid } }).then((response) => { setProfilePic(response.data.profileImage) }); })
 
   if (currentUser?.userid) {
 

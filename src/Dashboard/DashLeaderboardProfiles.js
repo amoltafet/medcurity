@@ -2,7 +2,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Card, Image,  Col, Row } from 'react-bootstrap';
-import Axios from 'axios';
+import axios from 'axios';
 import { useEffect, useState } from "react";
 import './DashLeaderboardProfiles.css'
 
@@ -14,9 +14,9 @@ import './DashLeaderboardProfiles.css'
 function DashLeaderboardProfiles (props) {
     const [profilePic, setProfilePic] = useState("")
 
-    Axios.defaults.withCredentials = true;
+    axios.defaults.withCredentials = true;
 
-    useEffect(() => { if (props.userid) Axios.get("http://localhost:3002/api/getProfilePicture", { params: { id: props.userid }} ).then((response) => { setProfilePic(response.data.profileImage) }); })
+    useEffect(() => { if (props.userid) axios.get("http://localhost:3002/api/getProfilePicture", { params: { id: props.userid }} ).then((response) => { setProfilePic(response.data.profileImage) }); })
 
     return (
         <>

@@ -3,14 +3,14 @@ import { Form, Card, Button, Row, Col } from 'react-bootstrap';
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import './EmployerInvitations.css'
-import Axios from 'axios';
+import axios from 'axios';
 
 /**
  * This class allows employers to enter in future user emails.
  * Inputs are validated, then new users are added
  */
 const EmployerInvitations = (props) => {
-    Axios.defaults.withCredentials = true;
+    axios.defaults.withCredentials = true;
 
     const [message, setMessage] = useState("")
     const [email, setEmail] = useState("");
@@ -31,7 +31,7 @@ const EmployerInvitations = (props) => {
     const invite = () => {
         if (!isLoading) {
             console.log('INVITING', email)
-            Axios.post("http://localhost:3002/users/registerEmpty",
+            axios.post("http://localhost:3002/users/registerEmpty",
                 {
                     email: email,
                     companyid: String(props.companyId),

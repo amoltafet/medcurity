@@ -1,5 +1,5 @@
 import React from 'react';
-import Axios from 'axios';
+import  axios from 'axios';
 import { Form, Button, Container} from 'react-bootstrap';
 import { useState} from "react";
 import './AddCompany.css';
@@ -10,14 +10,14 @@ import './AddCompany.css';
  * Inputs are validated, then new users are added
  */
 const AddCompany = () => {
-    Axios.defaults.withCredentials = true;
+     axios.defaults.withCredentials = true;
     const [message/*, setMessage*/] = useState("")
     const [company, setCompany] = useState("");
 
     const addCompany = () =>
     {
         if(company !== "") {
-            Axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `INSERT INTO Companies (name) VALUES ('${company}')` } }).then((response) => {
+             axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `INSERT INTO Companies (name) VALUES ('${company}')` } }).then((response) => {
             console.log(response)
             }).catch(error => console.error(`Error ${error}`));
             console.log("We added")
@@ -31,7 +31,7 @@ const AddCompany = () => {
      */
     // const invite = () => {
     //     console.log('INVITING', email)
-    //     Axios.post("http://localhost:3002/users/register",
+    //     axios.post("http://localhost:3002/users/register",
     //     { 
     //     email: email,
     //     }).then((response) => 
