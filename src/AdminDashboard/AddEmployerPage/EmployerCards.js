@@ -5,6 +5,7 @@ import { useEffect, useState, Link} from "react";
 import { useParams } from "react-router";
 import axios from 'axios';
 import EmployerCard from './EmployerCard'
+import env from "react-dotenv";
 
 /**
  * Returns Panels of the Employers Cards 
@@ -14,14 +15,14 @@ const EmployersCards = () => {
     const [employers, setEmployers] = useState("")
     const [companies, setCompanies] = useState("")
     useEffect(() => {
-        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `SELECT * FROM CompanyAdmins LEFT JOIN Users ON CompanyAdmins.UserID = Users.userid` } }).then((response) => {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `SELECT * FROM CompanyAdmins LEFT JOIN Users ON CompanyAdmins.UserID = Users.userid` } }).then((response) => {
             setEmployers(response.data)
             // console.log("We added", response.data)
             }).catch(error => console.error(`Error ${error}`));
         },[])
 
     useEffect(() => {
-        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `SELECT * FROM Companies ` } }).then((response) => {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `SELECT * FROM Companies ` } }).then((response) => {
             setCompanies(response.data)
             // console.log("Companies:", companies)
             }).catch(error => console.error(`Error ${error}`));
@@ -30,7 +31,7 @@ const EmployersCards = () => {
     // Get all of the Employers that are employed at the company the user is an
     // admin of. Then selects their email, name, completed modules
     // useEffect(() => {
-    //     axios.get('http://localhost:3002/api/getQuery', 
+    //     axios.get('${process.env.REACT_APP_BASE_URL}/api/getQuery', 
     //         { params: { the_query: 'SELECT Users.username, Users.email, Users.userid as UserId, CompanyAdmins.CompanyID as CompanyId ' + 
     //         'FROM AffiliatedUsers ' + 
     //             'JOIN Users ON AffiliatedUsers.UserID = Users.ID ' + 

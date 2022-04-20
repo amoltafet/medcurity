@@ -5,6 +5,7 @@ import { useParams } from "react-router";
 import { useNavigate } from 'react-router-dom';
 import './AdminInvitations.css'
 import axios from 'axios';
+import env from "react-dotenv";
 
 /**
  * This class allows Admins to enter in future user emails.
@@ -20,7 +21,7 @@ const AdminInvitations = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `SELECT * FROM Companies ` } }).then((response) => {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `SELECT * FROM Companies ` } }).then((response) => {
             setCompanies(response.data)
             console.log("Companies from Admin invitations:", response.data)
             }).catch(error => console.error(`Error ${error}`));
@@ -33,7 +34,7 @@ const AdminInvitations = () => {
      */
     const invite = () => {
         // console.log('INVITING', email)
-        // axios.post("http://localhost:3002/users/register",
+        // axios.post("${process.env.REACT_APP_BASE_URL}/users/register",
         // { 
         // email: email,
         // }).then((response) => 
@@ -58,7 +59,7 @@ const AdminInvitations = () => {
         // }
         // const addCompany = () =>
         // {
-        //     axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `INSERT INTO Companies (name) VALUES ('${company}')` } }).then((response) => {
+        //     axios.get('${process.env.REACT_APP_BASE_URL}/api/getQuery', { params: { the_query: `INSERT INTO Companies (name) VALUES ('${company}')` } }).then((response) => {
         //     console.log(response)
         //     }).catch(error => console.error(`Error ${error}`));
         //     console.log("We added")
@@ -66,7 +67,7 @@ const AdminInvitations = () => {
         console.log("Email:", email)
         console.log("")
         if(email != "") {
-            axios.post("http://localhost:3002/users/registerCompanyAdmin", { email: email, companyid: userCompany }).then((response) =>
+            axios.post(`${process.env.REACT_APP_BASE_URL}/users/registerCompanyAdmin`, { email: email, companyid: userCompany }).then((response) =>
             {
                 console.log("Reponding from invite", response)
             })

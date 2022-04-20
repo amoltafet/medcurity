@@ -5,6 +5,7 @@ import { useEffect, useState, Link} from "react";
 import { useParams } from "react-router";
 import axios from 'axios';
 import LearningManagerCard from './LearningManagerCard'
+import env from "react-dotenv";
 
 /**
  * Returns Panels of the LearningManager Cards. These show basic
@@ -25,7 +26,7 @@ const LearningManagersCards = (props) => {
     // Get all of the learningModules in a company
     useEffect(() => {
         if (!isLoading) {
-            axios.get('http://localhost:3002/api/getQuery', 
+            axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, 
                 { params: { the_query: 'SELECT * ' +
                 'FROM CompanyLearningModules ' + 
                     'JOIN LearningModules ON LearningModules.ID = CompanyLearningModules.LearningModID ' + 

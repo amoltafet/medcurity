@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useEffect, useState } from "react";
 import React from 'react';
 import { Card,  Row } from 'react-bootstrap';
-
+import env from "react-dotenv";
 import axios from 'axios';
 
 
@@ -17,7 +17,7 @@ const LearningDirectoryRequiredPage = () => {
    *  grabs user session to store points 
    */
     useEffect(() => {
-        axios.get("http://localhost:3002/users/login").then((response) => {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/users/login`).then((response) => {
         setCurrentUser(response.data.user[0])
         }).catch(error => console.error(`Error ${error}`));
     }, []);
@@ -38,12 +38,12 @@ const LearningDirectoryRequiredPage = () => {
      */ 
      useEffect(() => {
         if (!isLoading && currentUser.userid !== undefined) {
-            axios.get('http://localhost:3002/api/getAllUserRequiredModules', 
+            axios.get(`${process.env.REACT_APP_BASE_URL}/api/getAllUserRequiredModules`, 
                 { params: { userid: currentUser.userid }
                 }).then((response) => {
                     setLearningModules(Object.values(response.data))
             }).catch(error => console.error(`Error ${error}`));
-            axios.get('http://localhost:3002/api/getQuery',{
+            axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`,{
 			params: { the_query: `SELECT * FROM CompletedModules WHERE UserID = '${currentUser.userid}'`}
             }).then((response) => {
                 setCompletedModules(Object.values(response.data));

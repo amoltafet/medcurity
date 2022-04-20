@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import LearningModulesCards from './LearningModulesCards';
 import LearningModulesDirectories from './LearningModuleDirectories';
 import axios from 'axios';
+import env from "react-dotenv";
 
 /**
 * Creates and holds all of the componets for the Dashboard. 
@@ -20,17 +21,18 @@ const DashboardPage = () => {
   const [profilePic, setProfilePic] = useState("");
 
   useEffect(() => {
-    axios.get("http://localhost:3002/users/login").then((response) => {
+    axios.get(`${process.env.REACT_APP_BASE_URL}/users/login`).then((response) => {
       setCurrentUser(response.data.user[0])
     }).catch(error => console.error(`Error ${error}`));
   }, []);
 
-  useEffect(() => { if (currentUser.userid)  axios.get("http://localhost:3002/api/getProfilePicture", { params: { id: currentUser.userid } }).then((response) => { setProfilePic(response.data.profileImage) }); })
+  useEffect(() => { if (currentUser.userid)  axios.get(`${process.env.REACT_APP_BASE_URL}/api/getProfilePicture`, { params: { id: currentUser.userid } }).then((response) => { setProfilePic(response.data.profileImage) }); })
 
   if (currentUser?.userid) {
 
     return (
       <>
+        <title>{currentUser?.username}'s Dashboard</title>
         <Form className="dash_page">
           <MenuBar></MenuBar>
           <div className="col dash_topBackdrop justif">
