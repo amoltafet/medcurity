@@ -6,6 +6,7 @@ import MenuBar from '../MenuBar/MenuBar';
 import EmployeeCards from './EmployeeCards';
 import WelcomePanel from '../Dashboard/WelcomePanel';
 import EmployerInvitations from './EmployerInvitations';
+import EmployerResetUsersStats from './EmployerResetUsersStats';
 import InvalidPage from '../InvalidPage/InvalidPage';
 import { useEffect, useState } from "react";
 import axios from 'axios';
@@ -65,6 +66,11 @@ const EmployerDashboardPage = () => {
                     </Col>
                     <Col xs={11} md={4} lg={4} className="margin_bottom_employer">
                         <EmployerInvitations companyId={companyId} reload={reload} setReload={setReload} />
+                    </Col>
+                </Row>
+                <Row className="justify-content-center">
+                    <Col xs={11} md={11} lg={11} className="margin_bottom_employer">
+                        <EmployerResetUsersStats companyId={companyId} setReload={setReload}></EmployerResetUsersStats>
                     </Col>
                 </Row>
                 <Row className="justify-content-center">
