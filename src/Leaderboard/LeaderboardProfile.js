@@ -39,22 +39,23 @@ function LeaderboardProfile (props) {
     * grabs users assigned modules info.  
     */
     useEffect(() => {
-        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 
-        // `SELECT * ` +
-        // `FROM AffiliatedUsers JOIN CompanyLearningModules ` +
-        // `ON AffiliatedUsers.CompanyID = CompanyLearningModules.CompanyID ` +
-        // `JOIN LearningModules ON LearningModules.ID = CompanyLearningModules.LearningModID ` +
-        // `JOIN UserPoints ON UserPoints.PointsID = CompanyLearningModules.LearningModID ` +
-        // `RIGHT JOIN CompletedModules ON UserPoints.PointsID = CompletedModules.LearningModID ` +
-        // `WHERE AffiliatedUsers.UserID = '${currentUser.userid}'`
-        `SELECT * ` +
-        `FROM AffiliatedUsers  ` +
-        `JOIN CompletedModules ON AffiliatedUsers.UserID = CompletedModules.UserID ` +
-        `JOIN LearningModules ON LearningModules.ID = CompletedModules.LearningModID ` +
-        `WHERE AffiliatedUsers.UserID = '${currentUser.userid}'` 
-        } }).then((response) => {
-            setDirectories(Object.values(response.data));
-        }).catch(error => console.error(`Error ${error}`));  
+        if (props.userid === currentUser.userid) {
+            axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 
+            `SELECT * ` +
+            `FROM UserPoints JOIN LearningModules ` +
+            `ON LearningModules.ID = UserPoints.PointsID ` +
+            `JOIN CompletedModules ON UserPoints.PointsID = CompletedModules.LearningModID ` +
+            `WHERE UserPoints.UserID = '${currentUser.userid}'`
+            // `SELECT * ` +
+            // `FROM AffiliatedUsers  ` +
+            // `JOIN CompletedModules ON AffiliatedUsers.UserID = CompletedModules.UserID ` +
+            // `JOIN LearningModules ON LearningModules.ID = CompletedModules.LearningModID ` +
+            // `WHERE AffiliatedUsers.UserID = '${currentUser.userid}'` 
+            } }).then((response) => {
+                console.log(Object.values(response.data))
+                setDirectories(Object.values(response.data));
+            }).catch(error => console.error(`Error ${error}`));  
+        }
     }, [currentUser])
 
     useEffect(() => { 
