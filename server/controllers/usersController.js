@@ -21,8 +21,6 @@ const userRegister = (req,res) =>
     if (isValidPass.result && isValidEmail.result)
     {
         db.query(`SELECT EXISTS(SELECT email FROM Users WHERE email = '${email}') AS doesExist`, (err,result) => {
-            console.log(result[0])
-
             if (result[0].doesExist == 0)
             {
                 bcrypt.hash(password, saltRounds, (err, hash) => {
@@ -177,8 +175,6 @@ const userLogin = (req,res) =>
                                     // do not attach the password to the user session
                                     delete userData[0].password
 
-                                    console.log(userIsCompanyAdmin)
-
                                     // attach roles to user session
                                     //userData[0].type = (userIsCompanyAdmin.length > 0) ? 'companyAdmin' : 'user'
                                     //if (userData[0].type != 'user') userData[0].type = (userIsWebsiteAdmin.length > 0) ? 'websiteAdmin' : 'companyAdmin'
@@ -200,7 +196,6 @@ const userLogin = (req,res) =>
                                     req.session.userSession = userData;
                                     logger.log('info', `Existing user "${email}" logged in.`, { service: 'user-service' })
 
-                                    console.log(userData[0].type)
                                     res.send({ result: userData, success: true, message: "Logging in!" });
                                 } 
                                 else 

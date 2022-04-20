@@ -2,13 +2,11 @@
     "server":
     {
         "BASE_URL": "http://localhost:",
-        "METHODS": ["GET", "POST"],
         "LISTEN_PORT": 3002, 
         "ORIGIN_PORT": 3000,
         "STATIC_PATH": "../build",
         "BANNER_UPLOAD_PATH": "../assets/images/banners",
-        "PROFILE_UPLOAD_PATH": "../assets/images/profiles",
-        "SECRET": "9ed335ccb831728208b84c29dec7ddbc"
+        "PROFILE_UPLOAD_PATH": "../assets/images/profiles"
     },
     "database":
     {
