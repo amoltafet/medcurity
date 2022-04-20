@@ -13,17 +13,23 @@ import { useNavigate } from 'react-router-dom';
 */
 const  EditContent = () => {
     let { slug } = useParams();
+    const [currentUser, setCurrentUser] = useState([]);
     const [content, setContent] = useState([])
     const [title, setTitle] = useState([])
     const [description, setDescription] = useState([])
     const [subtitle, setSubtitle] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const navigate = useNavigate();
-    
 
     useEffect(() => {
       // Fetch post using the postSlug
     }, [slug]);
+
+    useEffect(() => {
+        axios.get("http://localhost:3002/users/login").then((response) => {
+          setCurrentUser(response.data.user[0])
+        }).catch(error => console.error(`Error ${error}`));
+    }, []);
 
     useEffect(() => {
         axios.get('http://localhost:3002/api/getModuleInfo', { params: { id: slug } }).then((response) => {
