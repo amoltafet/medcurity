@@ -19,6 +19,7 @@ const EmployeeCard = (props) => {
     /**
      * Removes a user from the selected company
      * @param {int} userId 
+     * @param {int} companyId
      */
     function removeUser(userId, companyId) {
         console.log("Removing user from company");
