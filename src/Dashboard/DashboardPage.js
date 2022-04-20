@@ -32,7 +32,6 @@ const DashboardPage = () => {
 
     return (
       <>
-        <title>{currentUser?.username}'s Dashboard</title>
         <Form className="dash_page">
           <MenuBar></MenuBar>
           <div className="col dash_topBackdrop justif">
