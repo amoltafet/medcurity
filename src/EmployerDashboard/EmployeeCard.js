@@ -2,9 +2,9 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Card, Col, Row, Button, OverlayTrigger, Popover } from 'react-bootstrap';
 import './EmployeeCard.css';
-import { useEffect, useState} from "react";
+import {  useState} from "react";
 import axios from 'axios';
-import env from "react-dotenv";
+// import env from "react-dotenv";
 
 //TODO
 // Connect button to remove user functionality

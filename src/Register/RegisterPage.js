@@ -1,11 +1,11 @@
-import {Button, Image, Form, Card} from 'react-bootstrap'
+import {Button, Image, Form} from 'react-bootstrap'
 import React from 'react';
 import { useState } from "react";
 import axios from "axios"
 import './RegisterPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useNavigate } from 'react-router-dom';
-import env from "react-dotenv";
+// import env from "react-dotenv";
 
 /**
 * Creates and displays the main registration page. 

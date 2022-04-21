@@ -1,11 +1,10 @@
 import React from 'react';
-import { Form , Card, Button, Container} from 'react-bootstrap';
-import { useEffect, useState, Link} from "react";
-import { useParams } from "react-router";
+import {Button, Container} from 'react-bootstrap';
+import { useEffect, useState} from "react";
 import { useNavigate } from 'react-router-dom';
 import './AddCompany.css'
 import axios from 'axios';
-import env from "react-dotenv";
+// import env from "react-dotenv";
 
 /**
  * This class allows Admins to enter in future user emails.
@@ -14,7 +13,6 @@ import env from "react-dotenv";
 const DeleteCompany = () => {
     axios.defaults.withCredentials = true;
 
-    const [message, setMessage] = useState("")
     const [company, setCompany] = useState("");
     const [companies, setCompanies] = useState("")
     const navigate = useNavigate();
@@ -28,7 +26,7 @@ const DeleteCompany = () => {
 
     const deleteCompany = () =>
     {
-        if(company != "") {
+        if(company !== "") {
             axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `DELETE FROM Companies WHERE companyid = '${company}'` } }).then((response) => {
             }).catch(error => console.error(`Error ${error}`));
         }

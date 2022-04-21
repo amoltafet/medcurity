@@ -8,7 +8,7 @@ import MenuBar from '../MenuBar/MenuBar';
 import Questions from './Questions'
 import axios from 'axios';
 import Results from './Results';
-import env from "react-dotenv";
+// import env from "react-dotenv";
 
 /**
 * Handles main logic for quiz page. 

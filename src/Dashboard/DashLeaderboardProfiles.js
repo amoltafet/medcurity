@@ -1,11 +1,11 @@
 // <div>Icons made by <a href="https://www.flaticon.com/authors/kliwir-art" title="kliwir art">kliwir art</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { Card, Image,  Col, Row } from 'react-bootstrap';
+import { Card, Image,  Col } from 'react-bootstrap';
 import axios from 'axios';
 import { useEffect, useState } from "react";
 import './DashLeaderboardProfiles.css'
-import env from "react-dotenv";
+// import env from "react-dotenv";
 
  /**
     * Creates each profile displayed on the dashboard.

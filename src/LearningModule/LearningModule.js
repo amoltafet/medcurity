@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import axios from 'axios';
-import env from "react-dotenv";
+// import env from "react-dotenv";
 
 /**
 * Creates and displays the learning page for each test category. 

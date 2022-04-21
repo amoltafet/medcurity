@@ -1,10 +1,10 @@
 import React from 'react';
-import { Form, Card, Button, Row, Col } from 'react-bootstrap';
+import { Form, Card, Button, Row } from 'react-bootstrap';
 import { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import './EmployerInvitations.css'
 import axios from 'axios';
-import env from "react-dotenv";
+// import env from "react-dotenv";
 
 /**
  * This class allows employers to enter in future user emails.
@@ -16,7 +16,7 @@ const EmployerInvitations = (props) => {
     const [message, setMessage] = useState("")
     const [email, setEmail] = useState("");
     const [isLoading, setLoading] = useState(true)
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     useEffect(() => {
         if (Number.isInteger(props.companyId)) {

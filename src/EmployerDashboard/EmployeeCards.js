@@ -1,11 +1,11 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'   
-import { Card, Container, CardDeck, Col } from 'react-bootstrap';
+import { Card, CardDeck, Col } from 'react-bootstrap';
 import { useEffect, useState} from "react";
 import './EmployeeCard.css';
 import axios from 'axios';
 import EmployeeCard from './EmployeeCard'
-import env from "react-dotenv";
+// import env from "react-dotenv";
 
 /**
  * Returns Panels of the Employees Cards 
@@ -86,7 +86,7 @@ const EmployeesCards = (props) => {
         // console.log(value)
         for (let index in array) {
             // console.log(array[index].UserId)
-            if (array[index].UserId == value) {
+            if (array[index].UserId === value) {
                 return array[index].completedModules
             }
         }

@@ -3,7 +3,7 @@ import  axios from 'axios';
 import { Form, Button, Container} from 'react-bootstrap';
 import { useState} from "react";
 import './AddCompany.css';
-import env from "react-dotenv";
+// import env from "react-dotenv";
 
 
 /**

@@ -7,11 +7,10 @@ import EmployerCards from './EmployerCards';
 import AdminInvitations from './AdminInvitations';
 import { useEffect, useState } from "react";
 import AddCompany from './AddCompany';
-import { useParams } from "react-router";
 import axios from 'axios';
 import DeleteCompany from './DeleteCompany';
 import InvalidPage from '../../InvalidPage/InvalidPage';
-import env from "react-dotenv";
+// import env from "react-dotenv";
 
 /**
 * Creates and holds all of the componets for the Admin Dashboard. 

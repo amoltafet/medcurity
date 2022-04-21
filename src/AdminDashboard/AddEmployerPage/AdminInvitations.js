@@ -1,11 +1,9 @@
 import React from 'react';
-import { Form , Card, Button, Container, Col} from 'react-bootstrap';
-import { useEffect, useState, Link} from "react";
-import { useParams } from "react-router";
-import { useNavigate } from 'react-router-dom';
+import { Form, Button, Container, Col} from 'react-bootstrap';
+import { useEffect, useState} from "react";
 import './AdminInvitations.css'
 import axios from 'axios';
-import env from "react-dotenv";
+// import env from "react-dotenv";
 
 /**
  * This class allows Admins to enter in future user emails.
@@ -18,7 +16,7 @@ const AdminInvitations = () => {
     const [email, setEmail] = useState("");
     const [companies, setCompanies] = useState("")
     const [userCompany, setUserCompany] = useState(1)
-    const navigate = useNavigate();
+    
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `SELECT * FROM Companies ` } }).then((response) => {
@@ -66,7 +64,7 @@ const AdminInvitations = () => {
         // }
         // console.log("Email:", email)
         // console.log("")
-        if(email != "") {
+        if(email !== "") {
             axios.post(`${process.env.REACT_APP_BASE_URL}/users/registerCompanyAdmin`, { email: email, companyid: userCompany }).then((response) =>
             {
             })

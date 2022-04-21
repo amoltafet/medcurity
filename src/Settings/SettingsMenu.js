@@ -5,7 +5,7 @@ import axios from 'axios';
 import React from 'react';
 import './SettingsMenu.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import env from "react-dotenv";
+// import env from "react-dotenv";
 
 /**
 * Creates and displays the Settings menu allows the user to toggle between diffrent settings. 
@@ -22,7 +22,6 @@ const SettingsMenu = () => {
     const [dueDate, setDueDate] = useState([]);
     const [newPassword, setPassword] = useState("");
     const [repeatPassword, setRepeatPassword] = useState("");
-    const [convertedProfilePhoto, setConvertedProfilePicture] = useState("/user.png");
     const [profilePic, setProfilePic] = useState("")
     const [message, setMessage] = useState("Saved!")
     const navigate = useNavigate();

@@ -1,11 +1,10 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'   
-import { Card, Image, Button, Container, CardDeck, Col } from 'react-bootstrap';
-import { useEffect, useState, Link} from "react";
-import { useParams } from "react-router";
+import { Card, CardDeck, Col } from 'react-bootstrap';
+import { useEffect, useState} from "react";
 import axios from 'axios';
 import LearningManagerCard from './LearningManagerCard'
-import env from "react-dotenv";
+// import env from "react-dotenv";
 
 /**
  * Returns Panels of the LearningManager Cards. These show basic
@@ -46,7 +45,7 @@ const LearningManagersCards = (props) => {
         const objs = [];
         let size = 0
         for (let index in modules) {
-            if (size == maxLength) { break; }
+            if (size === maxLength) { break; }
             module = modules[index]
             objs.push(<LearningManagerCard learningModuleName={module.Title} moduleId={module.ID} companyId={module.CompanyID} dueDate={module.DueDate} setReload={props.setReload}/>)
             size += 1;

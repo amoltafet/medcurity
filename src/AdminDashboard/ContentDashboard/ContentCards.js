@@ -1,11 +1,10 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'   
 import { Card, Row, Button, Container, CardDeck, Col } from 'react-bootstrap';
-import { useEffect, useState, Link} from "react";
-import { useParams } from "react-router";
+import { useEffect, useState} from "react";
 import axios from 'axios';
 import ContentCard from './ContentCard'
-import env from "react-dotenv";
+// import env from "react-dotenv";
 
 /**
  * Returns Panels of the Content Cards. These show basic
@@ -36,7 +35,7 @@ const ContentsCards = (props) => {
         const objs = [];
         let size = 0
         for (let index in modules) {
-            if (size == maxLength) { break; }
+            if (size === maxLength) { break; }
             module = modules[index]
             objs.push(<ContentCard learningModuleName={module.Title} moduleId={module.ID} />)
             size += 1;

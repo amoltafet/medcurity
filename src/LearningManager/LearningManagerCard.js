@@ -5,7 +5,7 @@ import './LearningManager.css';
 import { useState, useEffect} from "react";
 import axios from 'axios';
 import DatePicker from 'react-date-picker';
-import env from "react-dotenv";
+// import env from "react-dotenv";
 
 /**
  * Panel for Module cards
@@ -26,7 +26,7 @@ const LearningManagerCard = (props) => {
 
     // Updates the current due date from the database
     useEffect(() => {
-        if (props.dueDate != undefined) {
+        if (props.dueDate !== undefined) {
             // console.log("New due date: ", props.dueDate)
             setDateDue(new Date(props.dueDate))
         }

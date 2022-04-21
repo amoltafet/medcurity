@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 import LearningModulesCards from './LearningModulesCards';
 import LearningModulesDirectories from './LearningModuleDirectories';
 import axios from 'axios';
-import env from "react-dotenv";
+// import env from "react-dotenv";
 
 /**
 * Creates and holds all of the componets for the Dashboard. 

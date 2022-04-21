@@ -1,11 +1,11 @@
-import {Button, Image, Form, Card} from 'react-bootstrap'
+import {Button, Image, Form} from 'react-bootstrap'
 import React from 'react';
 import { useState, useEffect} from "react";
 import axios from "axios"
 import './LoginPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useNavigate } from 'react-router-dom';
-import env from "react-dotenv";
+// import env from "react-dotenv";
 
 /**
 * Creates and displays the main login page. 

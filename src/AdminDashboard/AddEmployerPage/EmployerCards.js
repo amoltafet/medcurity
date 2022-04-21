@@ -1,11 +1,10 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'   
-import { Card, Image, Button, Container, CardDeck, Col } from 'react-bootstrap';
-import { useEffect, useState, Link} from "react";
-import { useParams } from "react-router";
+import { Card, Container, CardDeck, Col } from 'react-bootstrap';
+import { useEffect, useState} from "react";
 import axios from 'axios';
 import EmployerCard from './EmployerCard'
-import env from "react-dotenv";
+// import env from "react-dotenv";
 
 /**
  * Returns Panels of the Employers Cards 
@@ -55,7 +54,7 @@ const EmployersCards = () => {
         const objs = [];
         let size = 0
         for (let index in employers) {
-            if (size == maxLength) { break; }
+            if (size === maxLength) { break; }
             var employer = employers[index]
             objs.push(<EmployerCard companyNames={companies} email={employer.email} name={employer.username} company={employer.CompanyID} userId={employer.UserID} companyId={employer.CompanyId} status={employer.active} />)
             size += 1;

@@ -6,7 +6,7 @@ import { Nav, CardImg, Card, Row, Col, OverlayTrigger, Tooltip } from 'react-boo
 import { useEffect, useState } from "react";
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
-import env from "react-dotenv";
+// import env from "react-dotenv";
 
 /**
  * Creates the MenuBar and selects what buttons to show depending on the page. 
@@ -109,7 +109,7 @@ const Menubar = () => {
      */
       function get_admin_buttons() {
         let objs = [];
-        if (currentUser.type == "websiteAdmin") {
+        if (currentUser.type === "websiteAdmin") {
             objs.push(
                 <Nav.Item className="navPills uvs-left uvs-right">
                     <Nav.Link className="menubarFont" href="/admin-content">Edit Content</Nav.Link>

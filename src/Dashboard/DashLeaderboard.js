@@ -1,11 +1,10 @@
-import { Card, Button} from 'react-bootstrap'
 import React from 'react';
 import DashLeaderboardProfiles from './DashLeaderboardProfiles';
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import './DashLeaderboard.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import env from "react-dotenv";
+// import env from "react-dotenv";
 
 /**
 * Creates and displays the leaderboard on the main dashboard. 

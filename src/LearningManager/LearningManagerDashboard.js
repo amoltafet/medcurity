@@ -7,10 +7,9 @@ import LearningManagerCards from './LearningManagerCards';
 import InvalidPage from '../InvalidPage/InvalidPage';
 import WelcomePanel from '../Dashboard/WelcomePanel';
 import LearningModuleAdder from './LearningManagerAdder';
-import { useEffect, useState, Link} from "react";
-import { useParams } from "react-router";
+import { useEffect, useState} from "react";
 import axios from 'axios';
-import env from "react-dotenv";
+// import env from "react-dotenv";
 
 /**
 * Creates and holds all of the componets for the LearningManager Dashboard. 
@@ -56,7 +55,7 @@ const LearningManagerDashboardPage = () => {
         }
     }, [isLoading, currentUser.userid])
 
-    if (currentUser?.type == 'companyAdmin' || currentUser?.type === 'websiteAdmin') {
+    if (currentUser?.type === 'companyAdmin' || currentUser?.type === 'websiteAdmin') {
         return (
             <>
                 <MenuBar></MenuBar>

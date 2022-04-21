@@ -4,7 +4,7 @@ import './LearningModulesCards.css'
 import { Card,  Button, Container, Row } from 'react-bootstrap';
 import { useEffect, useState } from "react";
 import axios from 'axios';
-import env from "react-dotenv";
+// import env from "react-dotenv";
 
 /**
  * Returns Panels of the Learning Module Cards 

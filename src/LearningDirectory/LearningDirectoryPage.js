@@ -1,4 +1,4 @@
-import { Row,  Container } from 'react-bootstrap'
+import { Row} from 'react-bootstrap'
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useEffect, useState } from "react";
@@ -6,7 +6,7 @@ import { useParams } from "react-router";
 import axios from 'axios';
 import LearningModulePanel from './LearningModulePanel';
 import './LearningDirectory.css'
-import env from "react-dotenv";
+// import env from "react-dotenv";
 
 /**
  * Constructs the content for the Learning Directory Page

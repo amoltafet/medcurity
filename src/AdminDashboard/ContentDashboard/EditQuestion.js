@@ -1,4 +1,4 @@
-import { Form , Card, Button, Container, Col} from 'react-bootstrap';
+import {Button} from 'react-bootstrap';
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useEffect, useState } from "react";
@@ -6,8 +6,8 @@ import { useParams } from "react-router";
 import "./EditContent.css"
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import Questions from '../../Quiz/Questions';
-import env from "react-dotenv";
+// import env from "react-dotenv";
+
 
 /**
 * Creates and displays the learning page for each test category. 
@@ -110,7 +110,7 @@ const  EditQuestion = () => {
             }).catch(error => console.error(`Error ${error}`));
         }
 
-        for(var i = content.length; i < question.length; i++) {
+        for(i = content.length; i < question.length; i++) {
             axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `INSERT INTO Questions (question, solution, a2, a3, a4, module) VALUES ('${question[i]}', '${solution[i]}', '${answer2[i]}', '${answer3[i]}', '${answer4[i]}', '${slug}')` } }).then((response) => {
             // // console.log(response)
             }).catch(error => console.error(`Error ${error}`));

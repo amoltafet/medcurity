@@ -4,7 +4,7 @@ import { Card, Col, Button, OverlayTrigger, Popover } from 'react-bootstrap';
 import './EmployerCard.css';
 import { useState} from "react";
 import axios from 'axios';
-import env from "react-dotenv";
+// import env from "react-dotenv";
 
 //TODO
 // Connect button to remove user functionality
@@ -17,10 +17,6 @@ import env from "react-dotenv";
 const EmployerCard = (props) => {
     const [isOpen, setIsOpen] = useState(false);
  
-    const togglePopup = () => {
-      setIsOpen(!isOpen);
-
-    }
 
     /**
      * Removes a user from the selected company
@@ -56,10 +52,10 @@ const EmployerCard = (props) => {
     // }
 
     var userStatus;
-    if(props.status == 0) {
+    if(props.status === 0) {
         userStatus = "Inactive"
     }
-    else if (props.status == 1) {
+    else if (props.status === 1) {
         userStatus = "Active"
     }
     var companyName;

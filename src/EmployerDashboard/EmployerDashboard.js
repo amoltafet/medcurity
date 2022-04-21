@@ -10,7 +10,7 @@ import EmployerResetUsersStats from './EmployerResetUsersStats';
 import InvalidPage from '../InvalidPage/InvalidPage';
 import { useEffect, useState } from "react";
 import axios from 'axios';
-import env from "react-dotenv";
+// import env from "react-dotenv";
 
 /**
 * Creates and holds all of the componets for the employer Dashboard. 
@@ -56,7 +56,7 @@ const EmployerDashboardPage = () => {
         }
     }, [isLoading, currentUser.userid])
 
-    if (currentUser?.type == 'companyAdmin' || currentUser?.type === 'websiteAdmin') {
+    if (currentUser?.type === 'companyAdmin' || currentUser?.type === 'websiteAdmin') {
         return (
             <>
                 <MenuBar></MenuBar>

@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import MenuBar from '../MenuBar/MenuBar';
 import SettingsMenu from './SettingsMenu';
 import InvalidPage from '../InvalidPage/InvalidPage'
-import env from "react-dotenv";
+// import env from "react-dotenv";
 
 /**
 * Creates and displays each the main settings page. 

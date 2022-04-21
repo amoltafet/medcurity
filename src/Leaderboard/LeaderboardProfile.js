@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { CircularProgressbar } from 'react-circular-progressbar';
 import axios from 'axios';
 import './LeaderboardProfile.css'
-import env from "react-dotenv";
+// import env from "react-dotenv";
 
 /**
 * Creates and displays each users leaderboard profile. 

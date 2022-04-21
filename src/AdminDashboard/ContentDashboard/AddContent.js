@@ -1,11 +1,12 @@
-import { Form , Card, Button, Container, Col} from 'react-bootstrap';
+import {  Button} from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import React from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import "./EditContent.css"
-import env from "react-dotenv";
+// import env from "react-dotenv";
+
 
 /*import multer from 'multer';
 const bannerStorage = multer.diskStorage({ destination: function (req, file, cb) { cb(null, path.join(__dirname, serverConfig.BANNER_UPLOAD_PATH)) } })
@@ -20,8 +21,7 @@ const  AddContent = () => {
     const [description, setDescription] = useState("")
     const [subtitle, setSubtitle] = useState("")
     const [banner, setBanner] = useState([])
-    const [bannerName, setBannerName] = useState("")
-    const [learningModules, setLearningModules] = useState([])
+    
 
     const [question, setQuestion] = useState([])
     const [solution, setSolution] = useState([])
@@ -32,14 +32,6 @@ const  AddContent = () => {
     
     const [moduleIndex, setIndex] = useState(-1)
     const navigate = useNavigate();
-
-    useEffect(() => {
-        axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `SELECT * FROM LearningModules` } }).then((response) => {
-            setLearningModules(response.data)
-            // console.log("Modules:", response.data)
-            }).catch(error => console.error(`Error ${error}`));
-          
-        },[])
 
     useEffect(() => {
         if(questionAdded) {

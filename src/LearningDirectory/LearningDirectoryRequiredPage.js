@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useEffect, useState } from "react";
 import React from 'react';
 import { Card,  Row } from 'react-bootstrap';
-import env from "react-dotenv";
+// import env from "react-dotenv";
 import axios from 'axios';
 
 

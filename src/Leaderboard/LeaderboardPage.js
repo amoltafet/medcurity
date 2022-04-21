@@ -6,7 +6,7 @@ import { Card, Col, Row, Tab, Nav } from 'react-bootstrap';
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import './Leaderboard.css';
-import env from "react-dotenv";
+// import env from "react-dotenv";
 
 /**
 * Creates the main container for the leaderboard. 
