@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import axios from 'axios';
+import env from "react-dotenv";
 
 /**
 * Creates and displays the learning page for a given learning module
@@ -19,14 +20,13 @@ const  LearningModule = () => {
 
     // Get the information for the module
     useEffect(() => {
-        axios.get('http://localhost:3002/api/getModuleInfo', { params: { id: slug } }).then((response) => 
+        axios.get(`${process.env.REACT_APP_BASE_URL}/api/getModuleInfo`, { params: { id: slug } }).then((response) => 
         { 
           setContent(Object.values(response.data)) 
         }).catch(error => console.error(`Error ${error}`));
     }, [slug])
 
-    // Get the banner
-    useEffect(() => { axios.get("http://localhost:3002/api/getModuleBanner", { params: { id: slug }} ).then((response) => { setBanner(response.data.bannerImage) }); })
+    useEffect(() => { axios.get(`${process.env.REACT_APP_BASE_URL}/api/getModuleBanner`, { params: { id: slug }} ).then((response) => { setBanner(response.data.bannerImage) }); })
 
     // Creates the content, complete with image and description
     const LearningModuleContent = content.map((module) => {

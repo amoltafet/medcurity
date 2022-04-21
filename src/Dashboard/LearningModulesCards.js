@@ -4,6 +4,7 @@ import './LearningModulesCards.css'
 import { Card,  Button, Container, Row } from 'react-bootstrap';
 import { useEffect, useState } from "react";
 import axios from 'axios';
+import env from "react-dotenv";
 
 /**
  * Returns Panels of the Learning Module Cards 
@@ -30,12 +31,12 @@ const LearningModulesCards = (props) => {
      */ 
     useEffect(() => {
         if (!isLoading && userId !== undefined) {
-            axios.get('http://localhost:3002/api/getAllUserRequiredModules', 
+            axios.get(`${process.env.REACT_APP_BASE_URL}/api/getAllUserRequiredModules`, 
                 { params: { userid: userId }
                 }).then((response) => {
                     setLearningModules(Object.values(response.data))
             }).catch(error => console.error(`Error ${error}`));
-            axios.get('http://localhost:3002/api/getQuery',{
+            axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`,{
 			params: { the_query: `SELECT * FROM CompletedModules WHERE UserID = '${userId}'`}
             }).then((response) => {
                 setCompletedModules(Object.values(response.data));

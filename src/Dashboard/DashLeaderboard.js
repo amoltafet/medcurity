@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import axios from 'axios';
 import './DashLeaderboard.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import env from "react-dotenv";
 
 /**
 * Creates and displays the leaderboard on the main dashboard. 
@@ -18,7 +19,7 @@ const Leaderboard = (props) => {
     * Grabs all of the user data for leaderboard. 
     */
         useEffect(() => {    
-            axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 
+            axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: 
             'SELECT Users.userid, Users.username, Users.companyid, Users.profilepicture, SUM(Points) AS Points FROM CompletedModules ' +
             'JOIN UserPoints ON UserPoints.PointsID = CompletedModules.LearningModID ' +
             'RIGHT JOIN Users ON Users.userid = CompletedModules.UserID ' + 

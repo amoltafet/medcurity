@@ -5,6 +5,7 @@ import './LearningManager.css';
 import { useState, useEffect} from "react";
 import axios from 'axios';
 import DatePicker from 'react-date-picker';
+import env from "react-dotenv";
 
 /**
  * Panel for learning Module cards
@@ -31,7 +32,7 @@ const LearningManagerCard = (props) => {
        
         setDateDue(dateDue)
         console.log('Updating module date: ', props.moduleId, ' to ', dateDue )
-        axios.post("http://localhost:3002/users/updateCompanyModuleDueDate",
+        axios.post(`${process.env.REACT_APP_BASE_URL}/users/updateCompanyModuleDueDate`,
         { 
         learningModId: props.moduleId,
         companyid: props.companyId,
@@ -57,7 +58,7 @@ const LearningManagerCard = (props) => {
      */
     function removeModule(moduleId, companyId) {
         console.log('Removing Module: ', moduleId)
-        axios.post("http://localhost:3002/users/removeModuleFromCompany",
+        axios.post(`${process.env.REACT_APP_BASE_URL}/users/removeModuleFromCompany`,
         { 
         learningModId: moduleId,
         companyid: companyId

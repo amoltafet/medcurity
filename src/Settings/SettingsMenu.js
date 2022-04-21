@@ -5,6 +5,7 @@ import axios from 'axios';
 import React from 'react';
 import './SettingsMenu.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import env from "react-dotenv";
 
 /**
 * Creates and displays the Settings menu allows the user to toggle between diffrent settings. 
@@ -27,10 +28,10 @@ const SettingsMenu = () => {
     const navigate = useNavigate();
 
 
-    useEffect(() => { if (currentUser.userid) axios.get("http://localhost:3002/api/getProfilePicture", { params: { id: currentUser.userid }} ).then((response) => { setProfilePic(response.data.profileImage) }); },[currentUser, profilePic])
+    useEffect(() => { if (currentUser.userid) axios.get(`${process.env.REACT_APP_BASE_URL}/api/getProfilePicture`, { params: { id: currentUser.userid }} ).then((response) => { setProfilePic(response.data.profileImage) }); },[currentUser, profilePic])
 
     useEffect(() => {
-        axios.get("http://localhost:3002/users/login").then((response) => {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/users/login`).then((response) => {
             setCurrentUser(response.data.user[0]);
         }).catch(error => console.error(`Error ${error}`));
         setLoaded(true)
@@ -38,7 +39,7 @@ const SettingsMenu = () => {
 
     useEffect(() => {
         if (isLoaded) {
-            axios.get('http://localhost:3002/api/getQuery', 
+            axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, 
                 { params: { the_query: 'SELECT * FROM AffiliatedUsers WHERE UserID = ' + currentUser.userid} 
             }).then((response) => {
                 if (response.data[0].datejoined !== null) { 
@@ -57,7 +58,7 @@ const SettingsMenu = () => {
         if (saveData === true) 
         {
             if (newUserName !== "") {
-                axios.post("http://localhost:3002/users/changeUserName", {
+                axios.post(`${process.env.REACT_APP_BASE_URL}/users/changeUserName`, {
                     username: newUserName,
                     id: currentUser.userid
                 }).then((response) => {
@@ -66,7 +67,7 @@ const SettingsMenu = () => {
                 }).catch(error => console.log(`Error ${error}`));
             }
             if(newPassword !== "") {
-                axios.post("http://localhost:3002/users/changeUserPassword", {
+                axios.post(`${process.env.REACT_APP_BASE_URL}/users/changeUserPassword`, {
                     userid: currentUser.userid,
                     newPassword: newPassword,
                     retypedPassword: repeatPassword
@@ -104,7 +105,7 @@ const SettingsMenu = () => {
         //TODO ... THEN call API method to store the image from (banner)
         var data = new FormData();
         data.append("profileImage", userPhoto);
-        axios.post("http://localhost:3002/api/postProfilePicture", data, { params: { userid: currentUser.userid } , headers: { 'Content-Type': 'multipart/form-data' } })
+        axios.post(`${process.env.REACT_APP_BASE_URL}/api/postProfilePicture`, data, { params: { userid: currentUser.userid } , headers: { 'Content-Type': 'multipart/form-data' } })
         setProfilePic(userPhoto);
 
     }

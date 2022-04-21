@@ -4,6 +4,7 @@ import { Card, Col, Button, OverlayTrigger, Popover } from 'react-bootstrap';
 import './EmployerCard.css';
 import { useState} from "react";
 import axios from 'axios';
+import env from "react-dotenv";
 
 //TODO
 // Connect button to remove user functionality
@@ -18,7 +19,7 @@ const EmployerCard = (props) => {
  
     const togglePopup = () => {
       setIsOpen(!isOpen);
-      console.log("Toggling")
+
     }
 
     /**
@@ -27,29 +28,29 @@ const EmployerCard = (props) => {
      */
     function removeEmployer() {
         console.log("Removing Employer from company");
-        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `DELETE FROM CompanyAdmins WHERE UserID = '${props.userId}'` } }).then((response) => {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `DELETE FROM CompanyAdmins WHERE UserID = '${props.userId}'` } }).then((response) => {
         }).catch(error => console.error(`Error ${error}`));
         
-        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `DELETE FROM Users WHERE userid = '${props.userId}'` } }).then((response) => {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `DELETE FROM Users WHERE userid = '${props.userId}'` } }).then((response) => {
         }).catch(error => console.error(`Error ${error}`));
 
-        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `DELETE FROM AffiliatedUsers WHERE UserID = '${props.userId}'` } }).then((response) => {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `DELETE FROM AffiliatedUsers WHERE UserID = '${props.userId}'` } }).then((response) => {
         }).catch(error => console.error(`Error ${error}`));
 
-        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `DELETE FROM AssignedLearningModules WHERE UserID = '${props.userId}'` } }).then((response) => {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `DELETE FROM AssignedLearningModules WHERE UserID = '${props.userId}'` } }).then((response) => {
         }).catch(error => console.error(`Error ${error}`));
 
-        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `DELETE FROM CompletedModules WHERE UserID = '${props.userId}'` } }).then((response) => {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `DELETE FROM CompletedModules WHERE UserID = '${props.userId}'` } }).then((response) => {
         }).catch(error => console.error(`Error ${error}`));
     }
 
     // function removeModule() {
     //     console.log("Removing LearningModule from company");
-    //     axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `DELETE FROM Questions WHERE module = '${props.moduleId}'` } }).then((response) => {
+    //     axios.get('${process.env.REACT_APP_BASE_URL}/api/getQuery', { params: { the_query: `DELETE FROM Questions WHERE module = '${props.moduleId}'` } }).then((response) => {
     //         console.log("Removing Questions for", props.moduleId)
     //         }).catch(error => console.error(`Error ${error}`));
         
-    //     axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `DELETE FROM LearningModules WHERE ID = '${props.moduleId}'` } }).then((response) => {
+    //     axios.get('${process.env.REACT_APP_BASE_URL}/api/getQuery', { params: { the_query: `DELETE FROM LearningModules WHERE ID = '${props.moduleId}'` } }).then((response) => {
     //         console.log("Removing Questions for", props.moduleId)
     //         }).catch(error => console.error(`Error ${error}`));
     // }

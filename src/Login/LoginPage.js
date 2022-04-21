@@ -26,12 +26,12 @@ export default function LoginPage()
   });
   const navigate = useNavigate();
 
-//console.log("FROM LOGIN PAGE:", env.BASE_URL)
+//console.log("FROM LOGIN PAGE:", process.env.REACT_APP_BASE_URL)
   
   // get the user's session to see if they're already logged in. If so,
   // redirect them to their dashboard...
   useEffect(() => {
-    axios.get(`${env.BASE_URL}/users/login`).then((response) => {
+    axios.get(`${process.env.REACT_APP_BASE_URL}/users/login`).then((response) => {
       if (response.data.user)
       {
         setCurrentUser(response.data.user[0])
@@ -55,7 +55,7 @@ export default function LoginPage()
 
     if (email.length > 0 || password.length > 0)
     {
-      axios.post(`${env.BASE_URL}/users/login`, { email: email, password: password }).then((response) => 
+      axios.post(`${process.env.REACT_APP_BASE_URL}/users/login`, { email: email, password: password }).then((response) => 
       {
         if (response.data.success === true)
         {

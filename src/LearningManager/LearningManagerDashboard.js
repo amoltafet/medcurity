@@ -10,7 +10,7 @@ import LearningModuleAdder from './LearningManagerAdder';
 import { useEffect, useState, Link} from "react";
 import { useParams } from "react-router";
 import axios from 'axios';
-
+import env from "react-dotenv";
 
 /**
 * Creates and holds all of the componets for the LearningManager Dashboard. 
@@ -30,7 +30,7 @@ const LearningManagerDashboardPage = () => {
     }, [reload]);
 
     useEffect(() => {
-        axios.get("http://localhost:3002/users/login").then((response) => {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/users/login`).then((response) => {
             setCurrentUser(response.data.user[0])
         });
     }, []);
@@ -44,7 +44,7 @@ const LearningManagerDashboardPage = () => {
     // Query for getting companyid of associated user
     useEffect(() => {
         if (!isLoading) {
-            axios.get('http://localhost:3002/api/getQuery',
+            axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`,
                 {
                     params: {
                         the_query: 'SELECT CompanyAdmins.CompanyID ' +
