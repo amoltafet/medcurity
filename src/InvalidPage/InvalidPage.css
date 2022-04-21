@@ -5,6 +5,7 @@
     right:0px;
     bottom:0px;
     left:0px;
+    animation: invalid_delay 1s linear
 }
 
 .invalid_bodyCol {
@@ -61,4 +62,10 @@
 .invalid_h5 {
     margin-top: 10px;
     font-size: 150%;
+}
+
+@keyframes invalid_delay { 
+    0% { opacity: 0%; } 
+    70% { opacity: 0%; }
+    100% { opacity: 100%; }
 }

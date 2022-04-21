@@ -21,8 +21,6 @@ const userRegister = (req,res) =>
     if (isValidPass.result && isValidEmail.result)
     {
         db.query(`SELECT EXISTS(SELECT email FROM Users WHERE email = '${email}') AS doesExist`, (err,result) => {
-            console.log(result[0])
-
             if (result[0].doesExist == 0)
             {
                 bcrypt.hash(password, saltRounds, (err, hash) => {
@@ -177,8 +175,6 @@ const userLogin = (req,res) =>
                                     // do not attach the password to the user session
                                     delete userData[0].password
 
-                                    console.log(userIsCompanyAdmin)
-
                                     // attach roles to user session
                                     //userData[0].type = (userIsCompanyAdmin.length > 0) ? 'companyAdmin' : 'user'
                                     //if (userData[0].type != 'user') userData[0].type = (userIsWebsiteAdmin.length > 0) ? 'websiteAdmin' : 'companyAdmin'
@@ -200,7 +196,6 @@ const userLogin = (req,res) =>
                                     req.session.userSession = userData;
                                     logger.log('info', `Existing user "${email}" logged in.`, { service: 'user-service' })
 
-                                    console.log(userData[0].type)
                                     res.send({ result: userData, success: true, message: "Logging in!" });
                                 } 
                                 else 
@@ -344,7 +339,6 @@ const deleteUser = (req,res) =>
 
 /**
  * Assign a learning module to a company if it is not already assigned
- * TODO assign date
 */
 const assignModulesToCompany = (req,res) => 
 {
@@ -369,7 +363,8 @@ const assignModulesToCompany = (req,res) =>
 /**
  * Removes assigned learning module from a company
  * Also removes all completed module records for that learning module
- * from all users in the company
+ * from all users in the company, by querying all users in the company then
+ * going through and deleting all of their completed modules
  */
  const removeModuleFromCompany = (req, res) => {
     const learningmodid = req.body.learningModId
@@ -433,6 +428,42 @@ const updateCompanyModuleDueDate = (req, res) => {
 }
 
 /**
+ * Reset user stats for the leaderboard and learning modules. 
+ * Does this by finding all users affiliated with a company. 
+ * Then deletes all of a user's progress in completedModules and Points
+ */
+ const resetUserStats = (req, res) => {
+    const companyid = req.body.companyId;
+
+    db.query(`SELECT AffiliatedUsers.UserID ` + 
+        `FROM AffiliatedUsers ` +
+        `WHERE AffiliatedUsers.CompanyID = '${companyid}'`, (err, company_users) => {
+        logger.log('info', `Queried User ids affiliated with company: "${companyid}"`, { service: 'user-service' })
+        for (index in company_users) {
+            const userid = company_users[index].UserID
+            db.query(`DELETE FROM CompletedModules WHERE UserID = '${userid}'`, (err,result) => {
+                if (err) {
+                    logger.log('error', { methodName: '/resetUserStats', body: `Failed to clear user-${userid} completed modules: ${err}.` }, { service: 'query-service' })
+                } else {
+                    logger.log('info', `Deleted Completed Modules for user-"${userid}" : "${result}"`);
+                }
+                db.query(`DELETE FROM UserPoints WHERE UserID = '${userid}'`, (err,result) => {
+                    if (err) {
+                        logger.log('error', { methodName: '/resetUserStats', body: `Failed to clear user-${userid} pointss: ${err}.` }, { service: 'query-service' })
+                    } else {
+                        logger.log('info', `Deleted points for user-"${userid}" : "${result}"`);
+                    }
+                    db.query(`SELECT * FROM Users WHERE userid = "${userid}"`, (err,result) => {
+                        logger.log('info', `Reset user stats to zero for user: "${result}"`);
+                    })
+                })
+            })
+        }
+        res.send(true)
+    })
+}
+
+/**
  * Changes the users profile picture.
  * Below are helper functions!
  */
@@ -490,6 +521,7 @@ module.exports =
     deleteUser,
     assignModulesToCompany,
     removeModuleFromCompany,
+    resetUserStats,
     userModuleCompleted,
     updateCompanyModuleDueDate,
 };

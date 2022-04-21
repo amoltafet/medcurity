@@ -15,8 +15,6 @@ const session = require("express-session");
 */
 
 const LISTEN_PORT = process.env.LISTEN_PORT || 3002
-const METHODS = serverConfig.server.METHODS
-const SECRET = serverConfig.server.SECRET
 
 // only use cookies when in production, because it makes sessions not work on localhost
 const cookieSettings = (process.env.ENVIRONMENT == 'production') ? { httpOnly: true, secure: false, maxAge: 1000 * 60 * 60 * 48, sameSite: 'none' } : null
@@ -25,8 +23,8 @@ app.use(
   express.json(),
   cookieParser(),
   bodyParser.urlencoded({ extended: true }),
-  cors({ origin: true, methods: METHODS, credentials: true }),
-  session({ resave: false, saveUninitialized: true, secret: SECRET, cookie: cookieSettings })
+  cors({ origin: true, methods: ["GET", "POST"], credentials: true }),
+  session({ resave: false, saveUninitialized: true, secret: process.env.SECRET, cookie: cookieSettings })
 );
 
 var usersRouter = require('./routes/usersRoutes');
@@ -45,7 +43,7 @@ app.listen(LISTEN_PORT, (err) => {
 
     console.log(`-- ENVIRONMENT: ${process.env.ENVIRONMENT} --`)
     console.log(`API is running on PORT: ${LISTEN_PORT}`)
-    console.log(`BASE_URL is: ${process.env.BASE_URL}`)
+    console.log(`API is accessible at is: ${process.env.BASE_URL}`)
 
 })
 
