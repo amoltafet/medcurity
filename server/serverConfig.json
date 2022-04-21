@@ -1,19 +1,8 @@
 {
     "server":
     {
-        "BASE_URL": "http://localhost:",
-        "LISTEN_PORT": 3002, 
-        "ORIGIN_PORT": 3000,
-        "STATIC_PATH": "../build",
         "BANNER_UPLOAD_PATH": "../assets/images/banners",
         "PROFILE_UPLOAD_PATH": "../assets/images/profiles"
-    },
-    "database":
-    {
-        "host": "gamemekanics.com", 
-        "user": "testing",
-        "password": "testingsql123",
-        "database": "hipaagames"
     },
     "bcrypt":
     {
