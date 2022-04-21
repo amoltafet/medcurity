@@ -110,15 +110,9 @@ const  EditQuestion = () => {
             }).catch(error => console.error(`Error ${error}`));
         }
 
-<<<<<<< HEAD
         for(i = content.length; i < question.length; i++) {
             axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `INSERT INTO Questions (question, solution, a2, a3, a4, module) VALUES ('${question[i]}', '${solution[i]}', '${answer2[i]}', '${answer3[i]}', '${answer4[i]}', '${slug}')` } }).then((response) => {
             // // console.log(response)
-=======
-        for(var i = content.length; i < question.length; i++) {
-            axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `INSERT INTO Questions (question, solution, a2, a3, a4, module) VALUES ('${question[i]}', '${solution[i]}', '${answer2[i]}', '${answer3[i]}', '${answer4[i]}', '${slug}')` } }).then((response) => {
-            console.log(response)
->>>>>>> main
             }).catch(error => console.error(`Error ${error}`));
         }
 
