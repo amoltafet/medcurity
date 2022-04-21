@@ -8,21 +8,16 @@ import DatePicker from 'react-date-picker';
 import env from "react-dotenv";
 
 /**
- * Panel for Module cards
- * @param {} props 
+ * Panel for learning Module cards
+ * @param {int} moduleId
+ * @param {int} companyId 
+ * @param {function} setReload
+ * @param {str} learningModuleName
  * @returns 
  */
 const LearningManagerCard = (props) => {
     const [message, setMessage] = useState('');
     const [dateDue, setDateDue] = useState();
-    // If it hasn't, then sets it so updates do not trigger updating the database
-    const [isLoading, setLoading] = useState(true)
-
-    useEffect(() => {
-        if (Number.isInteger(props.companyId)) {
-            setLoading(false)
-        }
-    }, [props.companyId])
 
     // Updates the current due date from the database
     useEffect(() => {
@@ -74,7 +69,6 @@ const LearningManagerCard = (props) => {
         {
             console.log("Removing module!")
             props.setReload(true)
-            
         }
         else if (response.data === false)
         {

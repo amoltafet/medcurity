@@ -9,15 +9,17 @@ import env from "react-dotenv";
 
 /**
  * Returns Panels of the Employees Cards 
- * @returns 
+ * @param {int} companyId
+ * @param {bool} reload
+ * @param {function} setReload
  */
 const EmployeesCards = (props) => {
-    const userId = String(props.user.userid)
     const [employees, setEmployees] = useState([])
     const [assignedModulesCount, setAssignedModulesCount] = useState([])
     const [userCompletedModules, setUserCompletedModules] = useState([])
     const [isLoading, setLoading] = useState(true)
 
+    // Set loading state for latter queries
     useEffect(() => {
         if (Number.isInteger(props.companyId)) {
             setLoading(false)
@@ -25,7 +27,7 @@ const EmployeesCards = (props) => {
     }, [props.companyId])
 
     // Get all of the employees that are employed at the company the user is an
-    // admin of. Then selects their email, name
+    // admin of. 
     useEffect(() => {
         if(!isLoading) {
             axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, 
@@ -41,7 +43,7 @@ const EmployeesCards = (props) => {
         }
     }, [isLoading, props.reload])
 
-    // Get each companies assigned modules
+    // Get each company's assigned modules
     useEffect(() => {
         if(!isLoading) {
             axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, 
@@ -98,8 +100,8 @@ const EmployeesCards = (props) => {
      * Calculates the completed modules number for every user by searching for
      * it in userCompletedModules. If this fails returns 0. Then makes pushes a card
      * on.
-     * @param {modules} to create cards for
-     * @param {max_length} to limit max card number created
+     * @param {array} modules to create cards for
+     * @param {int} max_length to limit max card number created
      */
     function createEmployeeCards(modules, maxLength=-1) {
         const objs = [];

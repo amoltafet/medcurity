@@ -1,13 +1,14 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './LearningModuleDirectories.css'
-import { Card, Container, Row } from 'react-bootstrap';
+import { Card, Row } from 'react-bootstrap';
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import env from "react-dotenv";
 
 /**
  * Returns Panels of the Learning Module Directories 
+ * NOTE: Not in use as of 4/20/2022
  * @returns 
  */
 const LearningModuleDirectories = () => {

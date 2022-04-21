@@ -1,8 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'   
-import { Card, Image, Button, Container, CardDeck, Col } from 'react-bootstrap';
+import { Card, CardDeck, Col } from 'react-bootstrap';
 import { useEffect, useState, Link} from "react";
-import { useParams } from "react-router";
 import axios from 'axios';
 import LearningManagerCard from './LearningManagerCard'
 import env from "react-dotenv";
@@ -11,12 +10,14 @@ import env from "react-dotenv";
  * Returns Panels of the LearningManager Cards. These show basic
  * Learning Module information, and contain a button that allows
  * Employers to remove the given learning module
+ * @param {int} companyId
  * @returns 
  */
 const LearningManagersCards = (props) => {
     const [learningModules, setLearningModules] = useState([])
     const [isLoading, setLoading] = useState(true)
 
+    // Manage the loading state for later useEffects
     useEffect(() => {
         if (Number.isInteger(props.companyId)) {
             setLoading(false)
@@ -39,8 +40,8 @@ const LearningManagersCards = (props) => {
 
     /**
      * Create directory cards from modules
-     * @param {modules} to create cards for
-     * @param {max_length} to limit max card number created
+     * @param {array} modules to create cards for
+     * @param {int} max_length to limit max card number created
      */
     function createLearningManagerCards(modules, maxLength=-1) {
         const objs = [];

@@ -7,8 +7,11 @@ import axios from 'axios';
 import env from "react-dotenv";
 
 /**
- * This class allows employers to enter in future user emails.
+ * This class allows employers to register empty user accounts
+ * that employees can register into
  * Inputs are validated, then new users are added
+ * @param {int} companyId
+ * @param {function} setReload()
  */
 const EmployerInvitations = (props) => {
     axios.defaults.withCredentials = true;
@@ -16,7 +19,6 @@ const EmployerInvitations = (props) => {
     const [message, setMessage] = useState("")
     const [email, setEmail] = useState("");
     const [isLoading, setLoading] = useState(true)
-    const navigate = useNavigate();
 
     useEffect(() => {
         if (Number.isInteger(props.companyId)) {
@@ -26,7 +28,9 @@ const EmployerInvitations = (props) => {
 
     /**
      * This function creates a new basic user account.
-     * First it trys to register a user, then it 
+     * First it trys to register a user, if this fails then
+     * it will print out the error message. If it succeeds 
+     * it will trigger a reload of page data
      * 
      */
     const invite = () => {
@@ -37,14 +41,15 @@ const EmployerInvitations = (props) => {
                     email: email,
                     companyid: String(props.companyId),
                 }).then((response) => {
-                    console.log("response.data =", response.data)
-                    if (response.data === true) {
+                    console.log("response.data =", response.data.result)
+                    if (response.data.result === true) {
                         console.log("A new invitation!")
+                        setMessage('')
                         props.setReload(true)
                     }
-                    else if (response.data === false) {
+                    else {
                         console.log("Already has account!")
-                        setMessage('This email is already associated with an account! Please try a different email.')
+                        setMessage(response.data.message)
                     }
                 });
         }

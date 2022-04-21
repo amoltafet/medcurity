@@ -2,16 +2,18 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Card, Col, Row, Button, OverlayTrigger, Popover } from 'react-bootstrap';
 import './EmployeeCard.css';
-import { useEffect, useState} from "react";
+import { useState} from "react";
 import axios from 'axios';
 import env from "react-dotenv";
 
-//TODO
-// Connect button to remove user functionality
-
 /**
  * Panel for Module cards
- * @param {} props 
+ * @param {int} userId 
+ * @param {int} companyId
+ * @param {str} email
+ * @param {str} name
+ * @param {str} progress
+ * @param {bool} activeStatus
  * @returns 
  */
 const EmployeeCard = (props) => {
