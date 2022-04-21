@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import MenuBar from '../MenuBar/MenuBar';
 import SettingsMenu from './SettingsMenu';
 import InvalidPage from '../InvalidPage/InvalidPage'
+import env from "react-dotenv";
 
 /**
 * Creates and displays each the main settings page. 
@@ -18,7 +19,7 @@ const SettingsPage = () => {
     // get the user's session if any to determine if they can
     // access their settings page
     useEffect(() => {
-        axios.get("http://localhost:3002/users/login").then((response) => {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/users/login`).then((response) => {
         if (response.data.user)
         {
             setCurrentUser(response.data.user[0])

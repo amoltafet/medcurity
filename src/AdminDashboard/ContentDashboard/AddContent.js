@@ -5,6 +5,7 @@ import React from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import "./EditContent.css"
+import env from "react-dotenv";
 
 /*import multer from 'multer';
 const bannerStorage = multer.diskStorage({ destination: function (req, file, cb) { cb(null, path.join(__dirname, serverConfig.BANNER_UPLOAD_PATH)) } })
@@ -33,7 +34,7 @@ const  AddContent = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `SELECT * FROM LearningModules` } }).then((response) => {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `SELECT * FROM LearningModules` } }).then((response) => {
             setLearningModules(response.data)
             console.log("Modules:", response.data)
             }).catch(error => console.error(`Error ${error}`));
@@ -74,10 +75,10 @@ const  AddContent = () => {
     }, [questionAdded])
 
     function submitData() {
-        // axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `INSERT INTO LearningModules (Title, Subtitle, Description, Banner) VALUES ('${title}', '${subtitle}', '${description}', '${banner[0].name}')` } }).then((response) => {
+        // axios.get('${process.env.REACT_APP_BASE_URL}/api/getQuery', { params: { the_query: `INSERT INTO LearningModules (Title, Subtitle, Description, Banner) VALUES ('${title}', '${subtitle}', '${description}', '${banner[0].name}')` } }).then((response) => {
         // console.log(response)
         // }).catch(error => console.error(`Error ${error}`));
-        axios.post("http://localhost:3002/api/addModule", {
+        axios.post(`${process.env.REACT_APP_BASE_URL}/api/addModule`, {
             title: title, 
             subtitle: subtitle,
             description: description,
@@ -90,7 +91,7 @@ const  AddContent = () => {
         //TODO ... THEN call API method to store the image from (banner)
         var data = new FormData();
         data.append("bannerImage", banner[0]);
-        axios.post("http://localhost:3002/api/postModuleBanner", data, { headers: { 'Content-Type': 'multipart/form-data' } })
+        axios.post(`${process.env.REACT_APP_BASE_URL}/api/postModuleBanner`, data, { headers: { 'Content-Type': 'multipart/form-data' } })
 
         for (var i = 0; i < question.length; i++) {
             axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `INSERT INTO Questions (question, solution, a2, a3, a4, module) VALUES ('${question[i]}', '${solution[i]}', '${answer2[i]}', '${answer3[i]}', '${answer4[i]}', '${moduleIndex}')` } }).then((response) => {

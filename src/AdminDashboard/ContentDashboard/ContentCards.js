@@ -5,6 +5,7 @@ import { useEffect, useState, Link} from "react";
 import { useParams } from "react-router";
 import axios from 'axios';
 import ContentCard from './ContentCard'
+import env from "react-dotenv";
 
 /**
  * Returns Panels of the Content Cards. These show basic
@@ -18,7 +19,7 @@ const ContentsCards = (props) => {
 
     // Get all of the learningModules
     useEffect(() => {
-        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `SELECT * FROM LearningModules` } }).then((response) => {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `SELECT * FROM LearningModules` } }).then((response) => {
             setLearningModules(response.data)
             // console.log("Modules:", response.data)
             }).catch(error => console.error(`Error ${error}`));

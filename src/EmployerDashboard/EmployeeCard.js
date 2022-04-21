@@ -4,6 +4,7 @@ import { Card, Col, Row, Button, OverlayTrigger, Popover } from 'react-bootstrap
 import './EmployeeCard.css';
 import { useEffect, useState} from "react";
 import axios from 'axios';
+import env from "react-dotenv";
 
 //TODO
 // Connect button to remove user functionality
@@ -23,7 +24,7 @@ const EmployeeCard = (props) => {
      */
     function removeUser(userId, companyId) {
         console.log("Removing user from company");
-        axios.post("http://localhost:3002/users/deleteUser", {
+        axios.post(`${process.env.REACT_APP_BASE_URL}/users/deleteUser`, {
             userid: userId,
         }).then((response) => {
             console.log("response.data =", response.data)

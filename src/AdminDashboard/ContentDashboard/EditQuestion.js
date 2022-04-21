@@ -7,6 +7,7 @@ import "./EditContent.css"
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Questions from '../../Quiz/Questions';
+import env from "react-dotenv";
 
 /**
 * Creates and displays the learning page for each test category. 
@@ -32,7 +33,7 @@ const  EditQuestion = () => {
     }, [slug]);
 
     useEffect(() => {
-        axios.get('http://localhost:3002/api/getModuleQuestions', { params: { id: slug } }).then((response) => {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/api/getModuleQuestions`, { params: { id: slug } }).then((response) => {
           setContent(Object.values(response.data));
           setIsLoading(false)
         //   console.log(content)
@@ -103,15 +104,20 @@ const  EditQuestion = () => {
 
     function submitData() {
         for(var i = 0; i < content.length; i++) {
-            axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `UPDATE  Questions SET question = '${question[i]}', solution = '${solution[i]}', 
+            axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `UPDATE  Questions SET question = '${question[i]}', solution = '${solution[i]}', 
             a2 = '${answer2[i]}', a3 = '${answer3[i]}', a4 = '${answer4[i]}' WHERE questionid = '${content[i].questionid}'` } }).then((response) => {
             // console.log(response)
             }).catch(error => console.error(`Error ${error}`));
         }
 
         for(var i = content.length; i < question.length; i++) {
+<<<<<<< HEAD
             axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `INSERT INTO Questions (question, solution, a2, a3, a4, module) VALUES ('${question[i]}', '${solution[i]}', '${answer2[i]}', '${answer3[i]}', '${answer4[i]}', '${slug}')` } }).then((response) => {
             // console.log(response)
+=======
+            axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `INSERT INTO Questions (question, solution, a2, a3, a4, module) VALUES ('${question[i]}', '${solution[i]}', '${answer2[i]}', '${answer3[i]}', '${answer4[i]}', '${slug}')` } }).then((response) => {
+            console.log(response)
+>>>>>>> 1edbf08f02463535731d1c06d4f1f00d9801bc8b
             }).catch(error => console.error(`Error ${error}`));
         }
 

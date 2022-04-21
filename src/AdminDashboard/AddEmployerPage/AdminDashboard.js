@@ -11,14 +11,14 @@ import { useParams } from "react-router";
 import axios from 'axios';
 import DeleteCompany from './DeleteCompany';
 import InvalidPage from '../../InvalidPage/InvalidPage';
-
+import env from "react-dotenv";
 
 /**
 * Creates and holds all of the componets for the Admin Dashboard. 
 * @return {AdminDashboardPage}
 */
 const AdminDashboardPage = () => {
-     axios.defaults.withCredentials = true;
+    axios.defaults.withCredentials = true;
     const [currentUser, setCurrentUser] = useState([]);
 
     useEffect(() => {

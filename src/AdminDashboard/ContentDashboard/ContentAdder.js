@@ -5,6 +5,7 @@ import { useParams } from "react-router";
 import { useNavigate } from 'react-router-dom';
 import './ContentDashboard.css'
 import axios from 'axios';
+import env from "react-dotenv";
 
 /**
  * This class allows employers to enter in future user learningModules.
@@ -31,7 +32,7 @@ const LearningModuleAdder = (props) => {
     // Query for Learning Modules not included in the company already
 	// useEffect(() => {
     //     if (!isLoading) {
-    //         axios.get('http://localhost:3002/api/getQuery', { params: { the_query:'SELECT * ' +
+    //         axios.get('${process.env.REACT_APP_BASE_URL}/api/getQuery', { params: { the_query:'SELECT * ' +
     //             'FROM LearningModules ' +
     //                 'WHERE NOT EXISTS ( ' +
     //                     'SELECT * ' +

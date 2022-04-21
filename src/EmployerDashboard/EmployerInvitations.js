@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import './EmployerInvitations.css'
 import axios from 'axios';
+import env from "react-dotenv";
 
 /**
  * This class allows employers to enter in future user emails.
@@ -31,7 +32,7 @@ const EmployerInvitations = (props) => {
     const invite = () => {
         if (!isLoading) {
             console.log('INVITING', email)
-            axios.post("http://localhost:3002/users/registerEmpty",
+            axios.post(`${process.env.REACT_APP_BASE_URL}/users/registerEmpty`,
                 {
                     email: email,
                     companyid: String(props.companyId),

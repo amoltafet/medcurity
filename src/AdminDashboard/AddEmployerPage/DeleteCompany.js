@@ -5,6 +5,7 @@ import { useParams } from "react-router";
 import { useNavigate } from 'react-router-dom';
 import './AddCompany.css'
 import axios from 'axios';
+import env from "react-dotenv";
 
 /**
  * This class allows Admins to enter in future user emails.
@@ -19,7 +20,7 @@ const DeleteCompany = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `SELECT * FROM Companies ` } }).then((response) => {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `SELECT * FROM Companies ` } }).then((response) => {
             setCompanies(response.data)
             }).catch(error => console.error(`Error ${error}`));
         },[])
@@ -40,7 +41,7 @@ const DeleteCompany = () => {
      */
     // const invite = () => {
     //     console.log('INVITING', email)
-    //     axios.post("http://localhost:3002/users/register",
+    //     axios.post("${process.env.REACT_APP_BASE_URL}/users/register",
     //     { 
     //     email: email,
     //     }).then((response) => 

@@ -5,6 +5,7 @@ import { Card, Image,  Col, Row } from 'react-bootstrap';
 import axios from 'axios';
 import { useEffect, useState } from "react";
 import './DashLeaderboardProfiles.css'
+import env from "react-dotenv";
 
  /**
     * Creates each profile displayed on the dashboard.
@@ -16,7 +17,7 @@ function DashLeaderboardProfiles (props) {
 
     axios.defaults.withCredentials = true;
 
-    useEffect(() => { if (props.userid) axios.get("http://localhost:3002/api/getProfilePicture", { params: { id: props.userid }} ).then((response) => { setProfilePic(response.data.profileImage) }); })
+    useEffect(() => { if (props.userid) axios.get(`${process.env.REACT_APP_BASE_URL}/api/getProfilePicture`, { params: { id: props.userid }} ).then((response) => { setProfilePic(response.data.profileImage) }); })
 
     return (
         <>

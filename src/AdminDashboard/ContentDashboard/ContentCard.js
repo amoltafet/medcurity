@@ -4,6 +4,7 @@ import { Card, Col, Row, Button, OverlayTrigger, Popover } from 'react-bootstrap
 import './ContentDashboard.css';
 import { useEffect, useState } from "react";
 import axios from 'axios';
+import env from "react-dotenv";
 
 //TODO
 // Connect button to remove user functionality

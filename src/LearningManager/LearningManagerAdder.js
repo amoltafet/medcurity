@@ -5,6 +5,7 @@ import { useParams } from "react-router";
 import { useNavigate } from 'react-router-dom';
 import './LearningManagerAdder.css'
 import axios from 'axios';
+import env from "react-dotenv";
 
 /**
  * This class allows employers to enter in future user learningModules.
@@ -29,7 +30,7 @@ const LearningModuleAdder = (props) => {
     // Assigns learningModule to the first module returned if the list is greater than 0
 	useEffect(() => {
         if (!isLoading) {
-            axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 'SELECT * ' +
+            axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: 'SELECT * ' +
                 'FROM LearningModules ' +
                 'WHERE NOT EXISTS ( ' +
                     'SELECT lm.* ' +
@@ -53,7 +54,7 @@ const LearningModuleAdder = (props) => {
      */
     const addModule = () => {
         console.log('Adding module: ', learningModule)
-        axios.post("http://localhost:3002/users/assignModulesToCompany",
+        axios.post(`${process.env.REACT_APP_BASE_URL}/users/assignModulesToCompany`,
         { 
         learningModId: learningModule,
         companyid: props.companyId
