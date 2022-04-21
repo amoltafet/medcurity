@@ -3,6 +3,7 @@ import  axios from 'axios';
 import { Form, Button, Container} from 'react-bootstrap';
 import { useState} from "react";
 import './AddCompany.css';
+import env from "react-dotenv";
 
 
 /**
@@ -17,7 +18,7 @@ const AddCompany = () => {
     const addCompany = () =>
     {
         if(company !== "") {
-             axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `INSERT INTO Companies (name) VALUES ('${company}')` } }).then((response) => {
+             axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `INSERT INTO Companies (name) VALUES ('${company}')` } }).then((response) => {
             console.log(response)
             }).catch(error => console.error(`Error ${error}`));
             console.log("We added")
@@ -31,7 +32,7 @@ const AddCompany = () => {
      */
     // const invite = () => {
     //     console.log('INVITING', email)
-    //     axios.post("http://localhost:3002/users/register",
+    //     axios.post("${process.env.REACT_APP_BASE_URL}/users/register",
     //     { 
     //     email: email,
     //     }).then((response) => 

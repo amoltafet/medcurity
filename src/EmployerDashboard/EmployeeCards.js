@@ -5,6 +5,7 @@ import { useEffect, useState} from "react";
 import './EmployeeCard.css';
 import axios from 'axios';
 import EmployeeCard from './EmployeeCard'
+import env from "react-dotenv";
 
 /**
  * Returns Panels of the Employees Cards 
@@ -27,7 +28,7 @@ const EmployeesCards = (props) => {
     // admin of. Then selects their email, name
     useEffect(() => {
         if(!isLoading) {
-            axios.get('http://localhost:3002/api/getQuery', 
+            axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, 
                 { params: { the_query: 'SELECT Users.username, Users.email, Users.userid as UserId, Users.active, AffiliatedUsers.CompanyID as CompanyId ' + 
                 'FROM AffiliatedUsers ' + 
                     'JOIN Users ON AffiliatedUsers.UserID = Users.userid ' + 
@@ -43,7 +44,7 @@ const EmployeesCards = (props) => {
     // Get each companies assigned modules
     useEffect(() => {
         if(!isLoading) {
-            axios.get('http://localhost:3002/api/getQuery', 
+            axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, 
                 { params: { the_query: 'SELECT COUNT(CompanyLearningModules.LearningModID) as totalAssignedModules ' + 
                 'FROM CompanyLearningModules ' + 
                 'WHERE CompanyLearningModules.CompanyID = ' + props.companyId} 
@@ -57,7 +58,7 @@ const EmployeesCards = (props) => {
     // each user associated with the company
     useEffect(() => {
         if(!isLoading) {
-            axios.get('http://localhost:3002/api/getQuery', 
+            axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, 
                 { params: { the_query: 'SELECT COUNT(CompletedModules.LearningModID) AS completedModules, AffiliatedUsers.UserId ' + 
                 'FROM AffiliatedUsers ' + 
                     'JOIN CompletedModules ON AffiliatedUsers.UserID = CompletedModules.UserID ' + 

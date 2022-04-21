@@ -4,6 +4,7 @@ import { Card, Col, Row, Button, OverlayTrigger, Popover } from 'react-bootstrap
 import './EmployeeCard.css';
 import { useEffect, useState} from "react";
 import axios from 'axios';
+import env from "react-dotenv";
 
 /**
  * Panel for Module cards
@@ -17,7 +18,7 @@ const EmployeeResetUsersStats = (props) => {
      */
     function resetUsers() {
         console.log("Resetting all user progress");
-        axios.post("http://localhost:3002/users/resetUserStats", {
+        axios.post(`${process.env.REACT_APP_BASE_URL}/users/resetUserStats`, {
             companyId: props.companyId
         }).then((response) => {
             console.log("response.data =", response.data)

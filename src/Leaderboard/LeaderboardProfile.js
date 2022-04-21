@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { CircularProgressbar } from 'react-circular-progressbar';
 import axios from 'axios';
 import './LeaderboardProfile.css'
-
+import env from "react-dotenv";
 
 /**
 * Creates and displays each users leaderboard profile. 
@@ -24,7 +24,7 @@ function LeaderboardProfile (props) {
     * grabs current user.  
     */
     useEffect(() => {
-        axios.get("http://localhost:3002/users/login").then((response) => {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/users/login`).then((response) => {
           setCurrentUser(response.data.user[0]); 
         }).catch(error => console.error(`Error ${error}`));
       }, []);
@@ -39,7 +39,7 @@ function LeaderboardProfile (props) {
     * grabs users assigned modules info.  
     */
     useEffect(() => {
-        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 
+        axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: 
         // `SELECT * ` +
         // `FROM AffiliatedUsers JOIN CompanyLearningModules ` +
         // `ON AffiliatedUsers.CompanyID = CompanyLearningModules.CompanyID ` +
@@ -59,7 +59,7 @@ function LeaderboardProfile (props) {
 
     useEffect(() => { 
         if (props.userid) {
-            axios.get("http://localhost:3002/api/getProfilePicture", { params: { id: props.userid }} ).then((response) => { 
+            axios.get(`${process.env.REACT_APP_BASE_URL}/api/getProfilePicture`, { params: { id: props.userid }} ).then((response) => { 
                 setProfilePic(response.data.profileImage) 
             }); 
         }

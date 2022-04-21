@@ -6,6 +6,7 @@ import { useParams } from "react-router";
 import "./EditContent.css"
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import env from "react-dotenv";
 
 /**
 * Creates and displays the learning page for each test category. 
@@ -26,13 +27,13 @@ const  EditContent = () => {
     }, [slug]);
 
     useEffect(() => {
-        axios.get("http://localhost:3002/users/login").then((response) => {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/users/login`).then((response) => {
           setCurrentUser(response.data.user[0])
         }).catch(error => console.error(`Error ${error}`));
     }, []);
 
     useEffect(() => {
-        axios.get('http://localhost:3002/api/getModuleInfo', { params: { id: slug } }).then((response) => {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/api/getModuleInfo`, { params: { id: slug } }).then((response) => {
               setContent(Object.values(response.data))
               setIsLoading(false)
           }).catch(error => console.error(`Error ${error}`));
@@ -51,7 +52,7 @@ const  EditContent = () => {
 
 
     function submitData() {
-        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `UPDATE  LearningModules SET Title = '${title}', Subtitle = '${subtitle}', Description = '${description}' WHERE ID = '${slug}'` } }).then((response) => {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `UPDATE  LearningModules SET Title = '${title}', Subtitle = '${subtitle}', Description = '${description}' WHERE ID = '${slug}'` } }).then((response) => {
         console.log(response)
         }).catch(error => console.error(`Error ${error}`));
         console.log("We added")

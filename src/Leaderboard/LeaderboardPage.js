@@ -6,6 +6,7 @@ import { Card, Col, Row, Tab, Nav } from 'react-bootstrap';
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import './Leaderboard.css';
+import env from "react-dotenv";
 
 /**
 * Creates the main container for the leaderboard. 
@@ -22,7 +23,7 @@ const LeaderboardPage = () => {
     * grabs current user.  
     */
     useEffect(() => {
-        axios.get("http://localhost:3002/users/login").then((response) => {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/users/login`).then((response) => {
             setCurrentUser(response.data.user[0])
             console.log("userId:", response.data.user[0].companyid)
         }).catch(error => console.error(`Error ${error}`));
@@ -32,7 +33,7 @@ const LeaderboardPage = () => {
     * Grabs all of the user data for leaderboard. 
     */
     useEffect(() => {
-        axios.get('http://localhost:3002/api/getQuery', {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, {
             params: {
                 the_query:
                     'SELECT Users.userid, Users.username, AffiliatedUsers.CompanyID, Users.profilepicture, SUM(Points) AS Points FROM CompletedModules ' +
@@ -56,7 +57,7 @@ const LeaderboardPage = () => {
    * Grabs company users. 
    */
     useEffect(() => {
-        axios.get('http://localhost:3002/api/getQuery', {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, {
             params: {
                 the_query:
                     'SELECT Users.userid, Users.username, Users.companyid, Users.profilepicture, SUM(Points) AS Points FROM CompletedModules ' +
@@ -79,7 +80,7 @@ const LeaderboardPage = () => {
     * Grabs company name. 
     */
     useEffect(() => {
-        axios.get('http://localhost:3002/api/getQuery', {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, {
             params: {
                 the_query:
                     'SELECT * FROM Companies WHERE companyid = ' + currentUser.companyid
