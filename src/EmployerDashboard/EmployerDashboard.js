@@ -28,12 +28,14 @@ const EmployerDashboardPage = () => {
         setReload(false)
     }, [reload]);
 
+    // Get user data
     useEffect(() => {
         axios.get("http://localhost:3002/users/login").then((response) => {
             setCurrentUser(response.data.user[0])
         });
     }, []);
 
+    // Sets loading state for latter use effects
     useEffect(() => {
         if (currentUser.userid !== undefined) {
             setLoading(false)

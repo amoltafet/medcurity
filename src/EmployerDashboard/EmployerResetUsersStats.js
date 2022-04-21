@@ -6,8 +6,8 @@ import { useEffect, useState} from "react";
 import axios from 'axios';
 
 /**
- * Panel for Module cards
- * @param {} props 
+ * A card containing a button for resetting user stats
+ * @param {int} companyId 
  * @returns 
  */
 const EmployeeResetUsersStats = (props) => {
