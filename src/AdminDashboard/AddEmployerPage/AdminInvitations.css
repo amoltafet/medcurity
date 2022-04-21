@@ -1,26 +1,54 @@
+.EmployerInviteRequestCard {
+    margin-top: 3%;
+    margin-left: 5%;
+    margin-right: 5%;
+    background-color: #242e47;
+    font-family: Lato,sans-serif;
+    font-size: 90%;
+    text-shadow: 2px 2px 5px black;
+    color: white;
+    height: 100%;
+}
+
+@media screen and (min-width: 1000px) {
+    .EmployerInviteRequestCard {
+        margin: 0%;
+        background-color: #242e47;
+        font-family: Lato,sans-serif;
+        font-size: 90%;
+        text-shadow: 2px 2px 5px black;
+        color: white;
+        height: 100%;
+    }
+}
+
+
 .createButton {
     margin-top: 10%;
-    margin-left: -7%;
-    width: 120%;
+    width: 100%;
     background-color: #1e5b88;
     text-shadow: none;
     
 }
 
-.delete_list_drop_down {
-    width: 90%;
-    margin-top: -3%;
-    overflow-y: scroll !important;
-}
-
-.form_height_employer_invitation {
-    height: 3vmax !important;
-}
-
-#email-invite {
+.email_form_admin {
     margin-top: 5%;
-    margin-left: -8%;
-    margin-right: -13%;
-   
+    width: 100%;
+    background-color: #1e5b88;
+    text-shadow: none;
+    
 }
 
+.companyList {
+
+}
+
+.list_text_companies {
+
+}
+
+
+.EmployerPopup {
+    margin-top: 3%;
+    text-align: center;
+}

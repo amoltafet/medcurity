@@ -33,8 +33,8 @@ const AdminDashboardPage = () => {
       return (
       <>
           <MenuBar></MenuBar>
-          <CardDeck className="" style={{display: 'flex', flexDirection: 'row'}}>
-            <Row>
+          <CardDeck className="justify-content-center" style={{display: 'flex', flexDirection: 'row'}}>
+            <Row lg={12}>
               <Col xs={12} lg={4}>
                 <AddCompany />
               </Col>

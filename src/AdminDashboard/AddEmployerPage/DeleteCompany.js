@@ -3,7 +3,7 @@ import { Form , Card, Button, Container} from 'react-bootstrap';
 import { useEffect, useState, Link} from "react";
 import { useParams } from "react-router";
 import { useNavigate } from 'react-router-dom';
-import './AddCompany.css'
+import './DeleteCompany.css'
 import axios from 'axios';
 
 /**

@@ -66,7 +66,7 @@ const EmployersCards = () => {
         <>
         <Container className="Employer-container uvs-right text-center">
             <h2 className="employer-header_admin_dash">Employers</h2>      
-            <Card className="EmployerCardHeader uvs-right uvs-left" style={{display: 'flex', flexDirection: 'row' }}>
+            <Card className="uvs-right uvs-left" style={{display: 'flex', flexDirection: 'row' }}>
                 <Col sm>
                     <div className="EmployerCardValues"><b>Employer Email</b></div>
                 </Col>
@@ -84,7 +84,7 @@ const EmployersCards = () => {
                 </Col>
             </Card>
         
-            <CardDeck className="dashboard" style={{display: 'flex', flexDirection: 'column'}}>
+            <CardDeck style={{display: 'flex', flexDirection: 'column'}}>
                 {createEmployerCards(employers)}
             </CardDeck>
 

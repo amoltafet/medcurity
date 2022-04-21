@@ -99,7 +99,7 @@ const EmployerCard = (props) => {
                     </Popover>
                 }>
         
-                    <Button className="EmployerInRowButton uvs-right" 
+                    <Button className="EmployerInRowButton_admin_remove_user uvs-right" 
                     size="sm" 
                     variant="danger"> 
                     Remove User </Button>

@@ -86,12 +86,12 @@ const AdminInvitations = () => {
         <Card className="EmployerInviteRequestCard uvs-right text-center" >
             <Card.Title className="registerHeader_admin_dash"><b>Employer Invitations</b></Card.Title>
             <Card.Subtitle className="InviteSubtitle font">Type in an email to create an empty account for a prospective Employer. They will be able to register using that email.</Card.Subtitle>
-            <Container className='EmployerInviteContent' style={{display: 'flex', flexDirection: 'row' }}>
-                <Col>
-                    <Form className="emailInvite">
-                        <Form.Group className="email"  id="email-invite" controlId="formPlaintextEmail">
+            <Row className="justify-content-center" style={{display: 'flex', flexDirection: 'row' }}>
+                <Col xs={4} lg={5} className="justify-content-center">
+                    <Form className="">
+                        <Form.Group className="email_form_admin" id="email-invite" controlId="formPlaintextEmail">
                             <Form.Control
-                            className="uvs-left form_height_employer_invitation" 
+                            className="uvs-left" 
                             type="email" 
                             id ="emailTextBox"
                             placeholder="Email" 
@@ -100,13 +100,13 @@ const AdminInvitations = () => {
                                 setEmail(e.target.value);
                             }}/>
                         </Form.Group>
-                        <Form.Text className="registerMessage">{message}</Form.Text>
+                        <Form.Text className="">{message}</Form.Text>
 
                     </Form>
                     <Button className="createButton uvs-left" type="button" onClick={invite} href='/admin-dash'>Invite</Button>
                 </Col>
-                <Col>
-                    <label htmlFor="company-list" id='company-label'>
+                <Col xs={3} lg={5} className="justify-content-center">
+                    <label className="list_text_companies" htmlFor="company-list" id='company-label'>
                         Company List:
                     </label>
                     <select id="company-list" size={5} multiple={false}
@@ -118,7 +118,7 @@ const AdminInvitations = () => {
                         {createDropDownOptions()}
                     </select>
                 </Col>
-            </Container>
+            </Row>
         </Card>
     );
 }

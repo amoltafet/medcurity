@@ -1,0 +1,41 @@
+
+
+.EmployerInviteRequestCard_delete {
+    background-color: #242e47;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 5%;
+    font-family: Lato,sans-serif;
+    font-size: 90%;
+    text-shadow: 2px 2px 5px black;
+    color: white;
+    height: 100%;
+}
+
+@media screen and (min-width: 1000px) {
+    .EmployerInviteRequestCard_delete {
+        margin-right: 5%;
+        margin-left: 0;
+        margin-top: 0;
+        background-color: #242e47;
+        font-family: Lato,sans-serif;
+        font-size: 90%;
+        text-shadow: 2px 2px 5px black;
+        color: white;
+        height: 100%;
+    }
+}
+
+
+.delete_list_drop_down {
+    width: 90%;
+    margin-top: -1%;
+    overflow-y: scroll !important;
+}
+
+.deleteButton {
+    background-color: #cc3333;
+    text-shadow: none;
+    width: 90%;
+    margin-top: 1%;
+}

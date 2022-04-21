@@ -43,7 +43,7 @@ function LeaderboardProfile (props) {
         axios.get('http://localhost:3002/api/getQuery',{
 			params: { the_query: 'SELECT * FROM CompletedModules WHERE UserID = ' + currentUser.userid }
 		}).then((response) => {
-			console.log(response.data);
+			console.log("completed modules for user: ", response.data);
 		});
       }, []);
 
@@ -54,10 +54,11 @@ function LeaderboardProfile (props) {
         if (props.userid === currentUser.userid) {
             axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 
             `SELECT * ` +
-            `FROM UserPoints JOIN LearningModules ` +
+            `FROM UserPoints LEFT JOIN LearningModules ` +
             `ON LearningModules.ID = UserPoints.PointsID ` +
-            `LEFT JOIN CompletedModules ON UserPoints.PointsID = CompletedModules.LearningModID ` + 
-            `WHERE UserPoints.UserID = '${currentUser.userid}' OR CompletedModules.UserID = '${currentUser.userid}'`
+            `LEFT JOIN CompletedModules ON UserPoints.PointsID = CompletedModules.LearningModID ` +
+            `AND UserPoints.UserID = CompletedModules.UserID ` + 
+            `WHERE UserPoints.UserID = '${currentUser.userid}'`
             // `SELECT * ` +
             // `FROM AffiliatedUsers  ` +
             // `JOIN CompletedModules ON AffiliatedUsers.UserID = CompletedModules.UserID ` +

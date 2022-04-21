@@ -1,3 +1,33 @@
+.Employer-container {
+    background-color: #93c2ec;
+    margin-top: 9%;
+    
+}
+
+
+@media screen and (min-width: 1000px) {
+    .Employer-container {
+        background-color: #93c2ec;
+        margin-top: 2%;
+        margin-bottom: 5%;
+    }
+}
+
+.employer-header_admin_dash {
+    color: white;
+    text-align: left !important;
+    text-shadow: 2px 2px 5px black;
+}
+
+.EmployerCardValues {
+    margin-top: 1%;
+    margin-bottom: 1%;
+    margin-left: 2%;
+    margin-right: .5%;
+    color:black;
+}
+
+
 .EmployerCard {
     margin-top: .7%;
     margin-left: 1%;
@@ -12,41 +42,6 @@
     color: white;
 }
 
-.EmployerInviteRequestCard_add {
-    background-color: #242e47;
-    margin-left: 5%;
-    margin-right: 5%;
-    font-family: Lato,sans-serif;
-    font-size: 90%;
-    text-shadow: 2px 2px 5px black;
-    color: white;
-    height: 100%;
-}
-
-.EmployerInviteRequestCard_delete {
-    background-color: #242e47;
-    margin-left: 5%;
-    margin-right: 5%;
-    margin-top: 6%;
-    font-family: Lato,sans-serif;
-    font-size: 90%;
-    text-shadow: 2px 2px 5px black;
-    color: white;
-    height: 100%;
-}
-
-
-.EmployerInviteRequestCard {
-    margin-top: 3%;
-    margin-left: 5%;
-    margin-right: 5%;
-    background-color: #242e47;
-    font-family: Lato,sans-serif;
-    font-size: 90%;
-    text-shadow: 2px 2px 5px black;
-    color: white;
-    height: 100%;
-}
 
 .EmployerCardValues_email {
     color: black;
@@ -58,16 +53,41 @@
     white-space: nowrap; /* Don't forget this one */
     text-overflow: ellipsis;
 }
+@media screen and (min-width: 1000px) {
+    .EmployerCardValues_email {
+        color: black;
+        margin-top: 2%;
+        margin-left: 20%;
+        font-size: 90%;
+        width: 100%;
+        overflow:hidden !important;
+        white-space: nowrap; /* Don't forget this one */
+        text-overflow: ellipsis;
+    }
+}
 
 .EmployerCardValues_username {
     color: black;
     margin-top: 2%;
-    margin-left: 0%;
+    margin-left: -10%;
     font-size: 90%;
     width: 100%;
     overflow:hidden !important;
     white-space: nowrap; /* Don't forget this one */
     text-overflow: ellipsis;
+}
+
+@media screen and (min-width: 1000px) {
+    .EmployerCardValues_username {
+        color: black;
+        margin-top: 2%;
+        margin-left: 0%;
+        font-size: 90%;
+        width: 100%;
+        overflow:hidden !important;
+        white-space: nowrap; /* Don't forget this one */
+        text-overflow: ellipsis;
+    }
 }
 
 .EmployerCardValues_company {
@@ -81,96 +101,6 @@
     text-overflow: ellipsis;
 }
 
-@media screen and (min-width: 1000px) {
-    .EmployerInviteRequestCard {
-        margin: 0%;
-        background-color: #242e47;
-        font-family: Lato,sans-serif;
-        font-size: 90%;
-        text-shadow: 2px 2px 5px black;
-        color: white;
-        height: 100%;
-    }
-}
-
-@media screen and (min-width: 1000px) {
-    .EmployerInviteRequestCard_add {
-        margin-left: 5%;
-        margin-right: 0;
-        margin-bottom: 0;
-        background-color: #242e47;
-        font-family: Lato,sans-serif;
-        font-size: 90%;
-        text-shadow: 2px 2px 5px black;
-        color: white;
-        height: 100%;
-    }
-}
-
-@media screen and (min-width: 1000px) {
-    .EmployerInviteRequestCard_delete {
-        margin-right: 5%;
-        margin-left: 0;
-        margin-top: 0;
-        background-color: #242e47;
-        font-family: Lato,sans-serif;
-        font-size: 90%;
-        text-shadow: 2px 2px 5px black;
-        color: white;
-        height: 100%;
-    }
-}
-
-.AdminInviteRequests {
-    margin-top: 2%;
-    margin-bottom: 2%;
-    margin-left: 5%;
-    margin-right: 14%;
-    width: 90%;
-}
-
-
-.EmployerInRowButton {
-    margin-top: 1%;
-    margin-bottom: 1%;
-    background-color: #127ebf
-}
-
-.EmployerCardValues {
-    margin-top: 1%;
-    margin-bottom: 1%;
-    margin-left: 2%;
-    margin-right: .5%;
-    color:black;
-}
-
-.EmployerPopup {
-    margin-top: 3%;
-    text-align: center;
-}
-
-.InviteSubtitle {
-    font-size: 100%;
-    text-shadow: none;
-    color: #d8dae3;
-    height: 22%;
-    margin-right: 2%;
-    margin-left: 2%;
-    text-align: left !important;
-}
-
-
-.Employer-container {
-    background-color: #93c2ec;
-    margin-top: 9%;
-    
-}
-
-
-@media screen and (min-width: 1000px) {
-    .Employer-container {
-        background-color: #93c2ec;
-        margin-top: 2%;
-        margin-bottom: 5%;
-    }
+.EmployerInRowButton_admin_remove_user {
+ background-color: #cc3333;
 }

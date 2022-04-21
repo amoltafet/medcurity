@@ -71,7 +71,7 @@ const AddCompany = () => {
                         }}/>
                         
                     </Form.Group>
-                    <Form.Text className="registerMessage">{message}</Form.Text></Row>
+                    <Form.Text className="">{message}</Form.Text></Row>
                     <Button className="addButton uvs-left" type="button" href="/admin-dash" onClick={addCompany}>Add Company</Button>
 
             </Form>
