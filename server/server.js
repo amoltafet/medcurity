@@ -37,11 +37,11 @@ app.use('/testing', testingRouter);
 
 app.listen(LISTEN_PORT, (err) => {
     
-    if (err) console.log('ERROR: ', err)
+    if (err) // console.log('ERROR: ', err)
 
-    console.log(`-- ENVIRONMENT: ${process.env.ENVIRONMENT} --`)
-    console.log(`API is running on PORT: ${LISTEN_PORT}`)
-    console.log(`API is accessible at is: ${process.env.BASE_URL}`)
-    console.log(cookieSettings ? 'Cookies are enabled' : 'Cookies are disabled.')
+    // console.log(`-- ENVIRONMENT: ${process.env.ENVIRONMENT} --`)
+    // console.log(`API is running on PORT: ${LISTEN_PORT}`)
+    // console.log(`API is accessible at is: ${process.env.BASE_URL}`)
+    // console.log(cookieSettings ? 'Cookies are enabled' : 'Cookies are disabled.')
 
 })

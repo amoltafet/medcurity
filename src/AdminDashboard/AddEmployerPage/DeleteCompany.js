@@ -40,21 +40,21 @@ const DeleteCompany = () => {
      * 
      */
     // const invite = () => {
-    //     console.log('INVITING', email)
+    //     // console.log('INVITING', email)
     //     axios.post("${process.env.REACT_APP_BASE_URL}/users/register",
     //     { 
     //     email: email,
     //     }).then((response) => 
     //     {
-    //     console.log("response.data =", response.data)
+    //     // console.log("response.data =", response.data)
     //     if (response.data === true)
     //     {
-    //         console.log("A new invitation!")
+    //         // console.log("A new invitation!")
     //         navigate('/admin-dash');
     //     }
     //     else if (response.data === false)
     //     {
-    //         console.log("Already has account!")
+    //         // console.log("Already has account!")
     //         setMessage('This email is already associated with an account! Please try a different email.')
     //     }
     //     });
@@ -83,7 +83,7 @@ const DeleteCompany = () => {
                 onChange={ (e) => 
                 {
                     setCompany(e.target.value)
-                    console.log(e.target.value);
+                    // console.log(e.target.value);
                 }}>
                 {createDropDownOptions()}
             </select>

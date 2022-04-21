@@ -62,9 +62,9 @@ const SettingsMenu = () => {
                     username: newUserName,
                     id: currentUser.userid
                 }).then((response) => {
-                    console.log("response", response.data);
+                    // console.log("response", response.data);
                     
-                }).catch(error => console.log(`Error ${error}`));
+                }).catch()
             }
             if(newPassword !== "") {
                 axios.post(`${process.env.REACT_APP_BASE_URL}/users/changeUserPassword`, {
@@ -72,11 +72,11 @@ const SettingsMenu = () => {
                     newPassword: newPassword,
                     retypedPassword: repeatPassword
                 }).then((response) => {
-                    console.log("response", response.data);
+                    // console.log("response", response.data);
                     setMessage(response.data["message"])
-              console.log("Message:", message)
+              // console.log("Message:", message)
                     
-                }).catch(error => console.log(`Error ${error}`));
+                }).catch();
             }
 
             setSaveData(false);
@@ -97,9 +97,9 @@ const SettingsMenu = () => {
    
 
     function uploadUserPhoto (userPhoto) {
-        /*console.log("unconverted photo", userPhoto)
+        /*// console.log("unconverted photo", userPhoto)
         var convertedPhoto = URL.createObjectURL(userPhoto);
-        console.log("convertedPhoto: ", convertedPhoto)
+        // console.log("convertedPhoto: ", convertedPhoto)
         setConvertedProfilePicture(convertedPhoto);*/
 
         //TODO ... THEN call API method to store the image from (banner)

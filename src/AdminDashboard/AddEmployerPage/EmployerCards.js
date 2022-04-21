@@ -17,14 +17,14 @@ const EmployersCards = () => {
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `SELECT * FROM CompanyAdmins LEFT JOIN Users ON CompanyAdmins.UserID = Users.userid` } }).then((response) => {
             setEmployers(response.data)
-            // console.log("We added", response.data)
+            // // console.log("We added", response.data)
             }).catch(error => console.error(`Error ${error}`));
         },[])
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `SELECT * FROM Companies ` } }).then((response) => {
             setCompanies(response.data)
-            // console.log("Companies:", companies)
+            // // console.log("Companies:", companies)
             }).catch(error => console.error(`Error ${error}`));
         },[])
 

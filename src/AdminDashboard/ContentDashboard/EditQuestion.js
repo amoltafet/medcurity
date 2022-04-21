@@ -36,7 +36,7 @@ const  EditQuestion = () => {
         axios.get(`${process.env.REACT_APP_BASE_URL}/api/getModuleQuestions`, { params: { id: slug } }).then((response) => {
           setContent(Object.values(response.data));
           setIsLoading(false)
-        //   console.log(content)
+        //   // console.log(content)
         }).catch(error => console.error(`Error ${error}`));
     
       }, [slug])
@@ -67,7 +67,7 @@ const  EditQuestion = () => {
 
     useEffect(() => {
         if(questionAdded && !isLoading2) {
-            // console.log("Adding question", questionAdded) 
+            // // console.log("Adding question", questionAdded) 
             var questionArray = question
             var solutionArray = solution
             var answer2Array = answer2
@@ -91,10 +91,10 @@ const  EditQuestion = () => {
     useEffect(() => {
         if(questionAdded) {
             setAdded(false)
-            // console.log("changing boolean", questionAdded) 
+            // // console.log("changing boolean", questionAdded) 
         }
         else {
-            // console.log("Hello from added", questionAdded)
+            // // console.log("Hello from added", questionAdded)
         }
     }, [questionAdded])
 
@@ -106,26 +106,21 @@ const  EditQuestion = () => {
         for(var i = 0; i < content.length; i++) {
             axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `UPDATE  Questions SET question = '${question[i]}', solution = '${solution[i]}', 
             a2 = '${answer2[i]}', a3 = '${answer3[i]}', a4 = '${answer4[i]}' WHERE questionid = '${content[i].questionid}'` } }).then((response) => {
-            // console.log(response)
+            // // console.log(response)
             }).catch(error => console.error(`Error ${error}`));
         }
 
         for(var i = content.length; i < question.length; i++) {
-<<<<<<< HEAD
             axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `INSERT INTO Questions (question, solution, a2, a3, a4, module) VALUES ('${question[i]}', '${solution[i]}', '${answer2[i]}', '${answer3[i]}', '${answer4[i]}', '${slug}')` } }).then((response) => {
-            // console.log(response)
-=======
-            axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `INSERT INTO Questions (question, solution, a2, a3, a4, module) VALUES ('${question[i]}', '${solution[i]}', '${answer2[i]}', '${answer3[i]}', '${answer4[i]}', '${slug}')` } }).then((response) => {
-            console.log(response)
->>>>>>> 1edbf08f02463535731d1c06d4f1f00d9801bc8b
+            // // console.log(response)
             }).catch(error => console.error(`Error ${error}`));
         }
 
-        // console.log("Question Array:", question)
-        // console.log("Solution Array:", solution)
-        // console.log("Answer2 Array:", answer2)
-        // console.log("Answer3 Array:", answer3)
-        // console.log("answer4 Array:", answer4)
+        // // console.log("Question Array:", question)
+        // // console.log("Solution Array:", solution)
+        // // console.log("Answer2 Array:", answer2)
+        // // console.log("Answer3 Array:", answer3)
+        // // console.log("answer4 Array:", answer4)
 
         navigate('/admin-content');
     }
@@ -135,7 +130,7 @@ const  EditQuestion = () => {
     }
 
     var ModuleContent = question.map((module, idx) => {
-        console.log("reloading")
+        // console.log("reloading")
         return ([
           <>
             <form className='text-center contentForm'>

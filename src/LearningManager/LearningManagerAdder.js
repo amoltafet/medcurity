@@ -53,22 +53,22 @@ const LearningModuleAdder = (props) => {
      * 
      */
     const addModule = () => {
-        console.log('Adding module: ', learningModule)
+        // console.log('Adding module: ', learningModule)
         axios.post(`${process.env.REACT_APP_BASE_URL}/users/assignModulesToCompany`,
         { 
         learningModId: learningModule,
         companyid: props.companyId
         }).then((response) => 
         {
-        console.log("response.data =", response.data)
+        // console.log("response.data =", response.data)
         if (response.data === true)
         {
-            console.log("Adding module!")
+            // console.log("Adding module!")
             props.setReload(true)
         }
         else if (response.data === false)
         {
-            console.log("Already added!")
+            // console.log("Already added!")
             setMessage('This learning Module is already assigned! Please try a different learningModule.')
         }
         });
@@ -99,7 +99,7 @@ const LearningModuleAdder = (props) => {
                             onChange={ (e) => 
                             {
                                 setLearningModule(e.target.value);
-                                console.log(e.target.value);
+                                // console.log(e.target.value);
                             }}>
                             {createDropDownOptions(modules)}
                         </select>

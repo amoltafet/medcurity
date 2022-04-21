@@ -52,21 +52,21 @@ const LearningModuleAdder = (props) => {
      * 
      */
     const addModule = () => {
-        // console.log('Adding', learningModule)
+        // // console.log('Adding', learningModule)
         axios.post("http://localhost:3002/users/register",
         { 
         learningModule: learningModule,
         }).then((response) => 
         {
-        console.log("response.data =", response.data)
+        // console.log("response.data =", response.data)
         if (response.data === true)
         {
-            // console.log("Adding!")
+            // // console.log("Adding!")
             
         }
         else if (response.data === false)
         {
-            // console.log("Already added!")
+            // // console.log("Already added!")
             setMessage('This learning Module is already assigned! Please try a different learningModule.')
         }
         });
@@ -112,7 +112,7 @@ const LearningModuleAdder = (props) => {
                         onChange={ (e) => 
                         {
                             setLearningModule(e.target.value);
-                            // console.log(e.target.value);
+                            // // console.log(e.target.value);
                         }}>
                         {createDropDownOptions(modules)}
                     </select>

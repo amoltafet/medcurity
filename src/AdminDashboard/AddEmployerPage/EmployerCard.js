@@ -27,7 +27,7 @@ const EmployerCard = (props) => {
      * @param {int} userId 
      */
     function removeEmployer() {
-        console.log("Removing Employer from company");
+        // console.log("Removing Employer from company");
         axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `DELETE FROM CompanyAdmins WHERE UserID = '${props.userId}'` } }).then((response) => {
         }).catch(error => console.error(`Error ${error}`));
         
@@ -45,13 +45,13 @@ const EmployerCard = (props) => {
     }
 
     // function removeModule() {
-    //     console.log("Removing LearningModule from company");
+    //     // console.log("Removing LearningModule from company");
     //     axios.get('${process.env.REACT_APP_BASE_URL}/api/getQuery', { params: { the_query: `DELETE FROM Questions WHERE module = '${props.moduleId}'` } }).then((response) => {
-    //         console.log("Removing Questions for", props.moduleId)
+    //         // console.log("Removing Questions for", props.moduleId)
     //         }).catch(error => console.error(`Error ${error}`));
         
     //     axios.get('${process.env.REACT_APP_BASE_URL}/api/getQuery', { params: { the_query: `DELETE FROM LearningModules WHERE ID = '${props.moduleId}'` } }).then((response) => {
-    //         console.log("Removing Questions for", props.moduleId)
+    //         // console.log("Removing Questions for", props.moduleId)
     //         }).catch(error => console.error(`Error ${error}`));
     // }
 

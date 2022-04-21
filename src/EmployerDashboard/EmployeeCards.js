@@ -36,7 +36,7 @@ const EmployeesCards = (props) => {
                 'ORDER BY Users.email'} 
                 }).then((response) => {
                     setEmployees(Object.values(response.data))
-                    console.log("Got employees")
+                    // console.log("Got employees")
             });
         }
     }, [isLoading, props.reload])
@@ -66,10 +66,10 @@ const EmployeesCards = (props) => {
                 'WHERE CompanyLearningModules.CompanyID = ' + props.companyId + ' ' +
                 'GROUP BY AffiliatedUsers.UserId'} 
                 }).then((response) => {
-                    console.log("Printing modules")
-                    console.log(response.data)
+                    // console.log("Printing modules")
+                    // console.log(response.data)
                     setUserCompletedModules(Object.values(response.data))
-                    console.log(userCompletedModules)
+                    // console.log(userCompletedModules)
             });
         }
     }, [isLoading, props.reload])
@@ -83,9 +83,9 @@ const EmployeesCards = (props) => {
      * @returns 
      */
     function findValueInArrayOfDict(array, value) {
-        console.log(value)
+        // console.log(value)
         for (let index in array) {
-            console.log(array[index].UserId)
+            // console.log(array[index].UserId)
             if (array[index].UserId == value) {
                 return array[index].completedModules
             }

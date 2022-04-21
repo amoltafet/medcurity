@@ -26,7 +26,7 @@ export default function LoginPage()
   });
   const navigate = useNavigate();
 
-//console.log("FROM LOGIN PAGE:", process.env.REACT_APP_BASE_URL)
+//// console.log("FROM LOGIN PAGE:", process.env.REACT_APP_BASE_URL)
   
   // get the user's session to see if they're already logged in. If so,
   // redirect them to their dashboard...

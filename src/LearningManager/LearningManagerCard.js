@@ -27,7 +27,7 @@ const LearningManagerCard = (props) => {
     // Updates the current due date from the database
     useEffect(() => {
         if (props.dueDate != undefined) {
-            console.log("New due date: ", props.dueDate)
+            // console.log("New due date: ", props.dueDate)
             setDateDue(new Date(props.dueDate))
         }
     }, [props.dueDate])
@@ -36,7 +36,7 @@ const LearningManagerCard = (props) => {
     function updateModuleDate(dateDue) {
        
         setDateDue(dateDue)
-        console.log('Updating module date: ', props.moduleId, ' to ', dateDue )
+        // console.log('Updating module date: ', props.moduleId, ' to ', dateDue )
         axios.post(`${process.env.REACT_APP_BASE_URL}/users/updateCompanyModuleDueDate`,
         { 
         learningModId: props.moduleId,
@@ -44,14 +44,14 @@ const LearningManagerCard = (props) => {
         dateDue: dateDue
         }).then((response) => 
         {
-        console.log("response.data =", response.data)
+        // console.log("response.data =", response.data)
         if (response.data === true)
         {
-            console.log("Updating module!")
+            // console.log("Updating module!")
         }
         else if (response.data === false)
         {
-            console.log("Error, module failed to update")
+            // console.log("Error, module failed to update")
         }
         });
     
@@ -62,17 +62,17 @@ const LearningManagerCard = (props) => {
      * @param {int} userId 
      */
     function removeModule(moduleId, companyId) {
-        console.log('Removing Module: ', moduleId)
+        // console.log('Removing Module: ', moduleId)
         axios.post(`${process.env.REACT_APP_BASE_URL}/users/removeModuleFromCompany`,
         { 
         learningModId: moduleId,
         companyid: companyId
         }).then((response) => 
         {
-        console.log("response.data =", response.data)
+        // console.log("response.data =", response.data)
         if (response.data === true)
         {
-            console.log("Removing module!")
+            // console.log("Removing module!")
             props.setReload(true)
             
         }

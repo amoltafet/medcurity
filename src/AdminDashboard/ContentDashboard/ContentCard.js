@@ -23,13 +23,13 @@ const ContentCard = (props) => {
      * @param {int} userId 
      */
     function removeModule() {
-        console.log("Removing LearningModule from company");
+        // console.log("Removing LearningModule from company");
         axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `DELETE FROM Questions WHERE module = '${props.moduleId}'` } }).then((response) => {
-            // console.log("Removing Questions for", props.moduleId)
+            // // console.log("Removing Questions for", props.moduleId)
             }).catch(error => console.error(`Error ${error}`));
         
         axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `DELETE FROM LearningModules WHERE ID = '${props.moduleId}'` } }).then((response) => {
-            // console.log("Removing Questions for", props.moduleId)
+            // // console.log("Removing Questions for", props.moduleId)
             }).catch(error => console.error(`Error ${error}`));
 
         

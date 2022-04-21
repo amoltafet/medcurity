@@ -24,7 +24,7 @@ const Leaderboard = (props) => {
             'JOIN UserPoints ON UserPoints.PointsID = CompletedModules.LearningModID ' +
             'RIGHT JOIN Users ON Users.userid = CompletedModules.UserID ' + 
             'GROUP BY Users.userid' } }).then((response) => {
-                console.log("all users", response.data)
+                // // console.log("all users", response.data)
                 response.data.forEach(element => {
                     if (element.Points === null) {
                         element.Points = 0;

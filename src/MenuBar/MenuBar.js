@@ -36,7 +36,7 @@ const Menubar = () => {
     // useEffect(() => {
 
     //     if (isLoggedIn == []) {
-    //         console.log("Log out")
+    //         // console.log("Log out")
     //     }
     // }, [isLoggedIn])
 
@@ -70,13 +70,13 @@ const Menubar = () => {
         {
           if (response.data.success === true)
           {
-            console.log('LOG OUT SUCCESS')
+            // console.log('LOG OUT SUCCESS')
             navigate('/');
           }
           else if (response.data.success === false)
           {
-            console.log(response.data.message)
-            console.log('LOG OUT FAILED')
+            // console.log(response.data.message)
+            // console.log('LOG OUT FAILED')
           }
         }).catch(error => console.error(`Error ${error}`));
     };

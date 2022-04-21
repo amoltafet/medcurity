@@ -21,7 +21,7 @@ const ContentsCards = (props) => {
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `SELECT * FROM LearningModules` } }).then((response) => {
             setLearningModules(response.data)
-            // console.log("Modules:", response.data)
+            // // console.log("Modules:", response.data)
             }).catch(error => console.error(`Error ${error}`));
         },[])
 
@@ -32,7 +32,7 @@ const ContentsCards = (props) => {
      * @param {max_length} to limit max card number created
      */
     function createContentCards(modules, maxLength=-1) {
-        // console.log(modules)
+        // // console.log(modules)
         const objs = [];
         let size = 0
         for (let index in modules) {

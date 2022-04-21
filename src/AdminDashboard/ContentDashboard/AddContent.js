@@ -36,14 +36,14 @@ const  AddContent = () => {
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `SELECT * FROM LearningModules` } }).then((response) => {
             setLearningModules(response.data)
-            console.log("Modules:", response.data)
+            // console.log("Modules:", response.data)
             }).catch(error => console.error(`Error ${error}`));
           
         },[])
 
     useEffect(() => {
         if(questionAdded) {
-            console.log("Adding question", questionAdded) 
+            // console.log("Adding question", questionAdded) 
             var questionArray = question
             var solutionArray = solution
             var answer2Array = answer2
@@ -67,16 +67,16 @@ const  AddContent = () => {
     useEffect(() => {
         if(questionAdded) {
             setAdded(false)
-            // console.log("changing boolean", questionAdded) 
+            // // console.log("changing boolean", questionAdded) 
         }
         else {
-            // console.log("Hello from added", questionAdded)
+            // // console.log("Hello from added", questionAdded)
         }
     }, [questionAdded])
 
     function submitData() {
         // axios.get('${process.env.REACT_APP_BASE_URL}/api/getQuery', { params: { the_query: `INSERT INTO LearningModules (Title, Subtitle, Description, Banner) VALUES ('${title}', '${subtitle}', '${description}', '${banner[0].name}')` } }).then((response) => {
-        // console.log(response)
+        // // console.log(response)
         // }).catch(error => console.error(`Error ${error}`));
         axios.post(`${process.env.REACT_APP_BASE_URL}/api/addModule`, {
             title: title, 
@@ -84,9 +84,9 @@ const  AddContent = () => {
             description: description,
             banner: banner[0].name
           }).then((response) => {
-            // console.log("response from new query", response.data["result"][0]["ID"]);
+            // // console.log("response from new query", response.data["result"][0]["ID"]);
             setIndex(response.data["result"][0]["ID"])
-          }).catch(error => console.log(`Error ${error}`));
+          }).catch();// console.log(`Error ${error}`));
 
         //TODO ... THEN call API method to store the image from (banner)
         var data = new FormData();
@@ -95,19 +95,19 @@ const  AddContent = () => {
 
         for (var i = 0; i < question.length; i++) {
             axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `INSERT INTO Questions (question, solution, a2, a3, a4, module) VALUES ('${question[i]}', '${solution[i]}', '${answer2[i]}', '${answer3[i]}', '${answer4[i]}', '${moduleIndex}')` } }).then((response) => {
-            // console.log(response)
+            // // console.log(response)
             }).catch(error => console.error(`Error ${error}`));
         }
 
-        console.log("Title:", title)
-        console.log("Subtitle:", subtitle)
-        console.log("Description:", description)
+        // console.log("Title:", title)
+        // console.log("Subtitle:", subtitle)
+        // console.log("Description:", description)
 
-        console.log("Question Array:", question)
-        console.log("Solution Array:", solution)
-        console.log("Answer2 Array:", answer2)
-        console.log("Answer3 Array:", answer3)
-        console.log("answer4 Array:", answer4)
+        // console.log("Question Array:", question)
+        // console.log("Solution Array:", solution)
+        // console.log("Answer2 Array:", answer2)
+        // console.log("Answer3 Array:", answer3)
+        // console.log("answer4 Array:", answer4)
 
         
         navigate('/admin-content');
@@ -119,7 +119,7 @@ const  AddContent = () => {
 
 
     var ModuleContent = question.map((module, idx) => {
-        // console.log("reloading")
+        // // console.log("reloading")
         return ([
           <>
             <form className='text-center contentForm'>

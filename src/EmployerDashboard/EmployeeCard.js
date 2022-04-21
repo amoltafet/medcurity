@@ -23,19 +23,19 @@ const EmployeeCard = (props) => {
      * @param {int} companyId
      */
     function removeUser(userId, companyId) {
-        console.log("Removing user from company");
+        // console.log("Removing user from company");
         axios.post(`${process.env.REACT_APP_BASE_URL}/users/deleteUser`, {
             userid: userId,
         }).then((response) => {
-            console.log("response.data =", response.data)
+            // // console.log("response.data =", response.data)
             if (response.data === true)
             {
-                console.log("Deleted!")
+                // // console.log("Deleted!")
                 props.setReload(true)
             }
             else if (response.data === false)
             {
-                console.log("Already deleted!")
+                // // console.log("Already deleted!")
                 setMessage('This user has already been removed. Please Refresh the page.')
             }
         });

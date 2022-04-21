@@ -112,7 +112,7 @@ const QuizPage = () => {
       // Quiz Answers 
 
       // content.forEach(element => {
-      // 	console.log(element.solution)
+      // 	// console.log(element.solution)
       // });
 
       //rests users stats
@@ -120,8 +120,8 @@ const QuizPage = () => {
       // axios.post("${process.env.REACT_APP_BASE_URL}/testing/resetUser", {
       //   userid: currentUser.userid,
       // }).then((response) => {
-      //   console.log("response", response);
-      // }).catch(error => console.log(`Error ${error}`));
+      //   // console.log("response", response);
+      // }).catch(error => // console.log(`Error ${error}`));
 
       //assigns modules
 
@@ -130,8 +130,8 @@ const QuizPage = () => {
       //     modulenum: 85,
       //     daysaway: 4,
       //   }).then((response) => {
-      //     console.log("response", response);
-      //   }).catch(error => console.log(`Error ${error}`));
+      //     // console.log("response", response);
+      //   }).catch(error => // console.log(`Error ${error}`));
 
       //adds completed modules 
 
@@ -143,8 +143,8 @@ const QuizPage = () => {
       //   percentage: 1,
       //   companyid: 24,
       // }).then((response) => {
-      //   console.log("response", response);
-      // }).catch(error => console.log(`Error ${error}`));
+      //   // console.log("response", response);
+      // }).catch(error => // console.log(`Error ${error}`));
 
       //assigns company 
 
@@ -152,8 +152,8 @@ const QuizPage = () => {
       //   userid: currentUser.userid,
       //   companyid: 24,
       // }).then((response) => {
-      //   console.log("response", response);
-      // }).catch(error => console.log(`Error ${error}`));
+      //   // console.log("response", response);
+      // }).catch(error => // console.log(`Error ${error}`));
 
       //makes user an admin
 
@@ -161,8 +161,8 @@ const QuizPage = () => {
       //   userid: currentUser.userid,
       //   companyid: 24,
       // }).then((response) => {
-      //   console.log("response", response);
-      // }).catch(error => console.log(`Error ${error}`));
+      //   // console.log("response", response);
+      // }).catch(error => // console.log(`Error ${error}`));
     
 
     }
@@ -206,8 +206,8 @@ const QuizPage = () => {
           modulenum: slug, 
           companyid: companyid.CompanyID,
         }).then((response) => {
-          console.log("response", response.data);
-        }).catch(error => console.log(`Error ${error}`));
+          // console.log("response", response.data);
+        }).catch()// console.log(`Error ${error}`));
         setPassed(true)
       }
     }

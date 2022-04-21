@@ -17,20 +17,20 @@ const EmployeeResetUsersStats = (props) => {
      * Resets the points and module completed progress for all users
      */
     function resetUsers() {
-        console.log("Resetting all user progress");
+        // console.log("Resetting all user progress");
         axios.post(`${process.env.REACT_APP_BASE_URL}/users/resetUserStats`, {
             companyId: props.companyId
         }).then((response) => {
-            console.log("response.data =", response.data)
+            // // console.log("response.data =", response.data)
             if (response.data === true)
             {
-                console.log("Deleted!")
+                // // console.log("Deleted!")
                 props.setReload(true)
             }
-            else if (response.data === false)
-            {
-                console.log("Failed to reload")
-            }
+            // else if (response.data === false)
+            // {
+            //     // console.log("Failed to reload")
+            // }
         });
     }
 

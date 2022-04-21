@@ -29,7 +29,7 @@ export default function RegisterPage()
 
     if (email.length > 0 || password.length > 0)
     {
-      console.log("REGISTER CALLED")
+      // console.log("REGISTER CALLED")
       axios.post(`${process.env.REACT_APP_BASE_URL}/users/register`, { email: email, password: password }).then((response) => 
       {
         if (response.data.result === true)

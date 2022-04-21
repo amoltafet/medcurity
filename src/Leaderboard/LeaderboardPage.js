@@ -25,7 +25,7 @@ const LeaderboardPage = () => {
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_BASE_URL}/users/login`).then((response) => {
             setCurrentUser(response.data.user[0])
-            console.log("userId:", response.data.user[0].companyid)
+            // // console.log("userId:", response.data.user[0].companyid)
         }).catch(error => console.error(`Error ${error}`));
     }, []);
 
@@ -43,7 +43,7 @@ const LeaderboardPage = () => {
                     'GROUP BY Users.userid'
             }
         }).then((response) => {
-            console.log("all users", response.data)
+            // // console.log("all users", response.data)
             response.data.forEach(element => {
                 if (element.Points === null) {
                     element.Points = 0;
