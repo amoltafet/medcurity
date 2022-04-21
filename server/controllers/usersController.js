@@ -106,22 +106,32 @@ const userRegisterEmpty = (req,res) =>
     const username = email.substring(0, email.indexOf("@"));
     const companyid = req.body.companyid
 
-    db.query(`SELECT EXISTS(SELECT * FROM Users WHERE email = '${email}') AS doesExist`, (err,result) => {
-        if (result[0].doesExist == 0)
-        {
-            db.query("INSERT INTO Users (username, email, active) VALUES (?,?,?)", [username, email, false], (err, result) => {
-                db.query(`SELECT * FROM Users WHERE email = '${email}'`, (err,user) => {
-                    db.query("INSERT INTO AffiliatedUsers (UserID, CompanyID) VALUES (?,?)", [user[0].userid, companyid], (err, result) => {
-                        res.send(true)
+    let isValidEmail = checkEmail(email)
+    if (isValidEmail.result)
+    {
+        db.query(`SELECT EXISTS(SELECT * FROM Users WHERE email = '${email}') AS doesExist`, (err,result) => {
+            if (result[0].doesExist == 0)
+            {
+                db.query("INSERT INTO Users (username, email, active) VALUES (?,?,?)", [username, email, false], (err, result) => {
+                    db.query(`SELECT * FROM Users WHERE email = '${email}'`, (err,user) => {
+                        db.query("INSERT INTO AffiliatedUsers (UserID, CompanyID) VALUES (?,?)", [user[0].userid, companyid], (err, result) => {
+                            res.send({ result: true, message: `Added`})
+                            
+                        });
                     });
                 });
-            });
-        }
-        else
-        {
-            res.send(false)
-        }
-    })
+            }
+            else
+            {
+                res.send({ result: false, message: `User already exists`})
+            }
+        })
+    }
+    else
+    {
+        res.send(isValidEmail)
+    }
+
 }
 
 
