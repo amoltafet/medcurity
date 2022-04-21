@@ -15,7 +15,7 @@ const LearningModuleDirectories = () => {
 
     // Query for getting LearningDirectories Directory info
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: "SELECT * FROM LearningModulesDirectory"} }).then((response) => {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: "SELECT * FROM LearningModules"} }).then((response) => {
               setDirectories(Object.values(response.data))
         }).catch(error => console.error(`Error ${error}`));
     }, [])

@@ -44,7 +44,7 @@ const DashboardPage = () => {
                   <div className="dash_navButtons">
                     <a href="#requiredModules" className="uvs-left btn dash_navButton">Required Learning Modules</a>
                     <br></br>
-                    <a href="#moduleDirectories" className="uvs-left btn dash_navButton">Learning Module Directories</a>
+                    <a href="#moduleDirectories" className="uvs-left btn dash_navButton">Additional Learning Modules</a>
                     <br></br>
                     <a href="#leaderboard" className="uvs-left btn dash_navButton">Leaderboard</a>
                   </div>
