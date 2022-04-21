@@ -52,12 +52,12 @@ const  EditContent = () => {
 
     function submitData() {
         axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `UPDATE  LearningModules SET Title = '${title}', Subtitle = '${subtitle}', Description = '${description}' WHERE ID = '${slug}'` } }).then((response) => {
-        console.log(response)
+        // console.log(response)
         }).catch(error => console.error(`Error ${error}`));
-        console.log("We added")
-        console.log("Title:", title)
-        console.log("Subtitle:", subtitle)
-        console.log("Description:", description)
+        // console.log("We added")
+        // console.log("Title:", title)
+        // console.log("Subtitle:", subtitle)
+        // console.log("Description:", description)
 
         navigate('/admin-content');
     }

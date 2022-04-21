@@ -18,9 +18,7 @@ const AddCompany = () => {
     {
         if(company !== "") {
              axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `INSERT INTO Companies (name) VALUES ('${company}')` } }).then((response) => {
-            console.log(response)
             }).catch(error => console.error(`Error ${error}`));
-            console.log("We added")
         }
     }
 

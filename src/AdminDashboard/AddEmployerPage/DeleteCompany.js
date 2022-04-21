@@ -21,7 +21,6 @@ const DeleteCompany = () => {
     useEffect(() => {
         axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `SELECT * FROM Companies ` } }).then((response) => {
             setCompanies(response.data)
-            console.log("Companies from Admin invitations:", response.data)
             }).catch(error => console.error(`Error ${error}`));
         },[])
 
@@ -30,9 +29,7 @@ const DeleteCompany = () => {
     {
         if(company != "") {
             axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `DELETE FROM Companies WHERE companyid = '${company}'` } }).then((response) => {
-            console.log(response)
             }).catch(error => console.error(`Error ${error}`));
-            console.log("We Deleteed")
         }
     }
 

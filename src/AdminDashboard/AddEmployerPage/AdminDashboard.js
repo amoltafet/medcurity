@@ -23,7 +23,6 @@ const AdminDashboardPage = () => {
 
     useEffect(() => {
         axios.get("http://localhost:3002/users/login").then((response) => {
-          console.log('aaahhh', response.data.user)
           setCurrentUser(response.data.user[0])
         });
       }, []);

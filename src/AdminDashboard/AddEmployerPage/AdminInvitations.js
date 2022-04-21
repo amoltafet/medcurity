@@ -68,7 +68,6 @@ const AdminInvitations = () => {
         if(email != "") {
             axios.post("http://localhost:3002/users/registerCompanyAdmin", { email: email, companyid: userCompany }).then((response) =>
             {
-                console.log("Reponding from invite", response)
             })
         }   
     };
@@ -112,7 +111,6 @@ const AdminInvitations = () => {
                         onChange={ (e) => 
                         {
                             setUserCompany(e.target.value)
-                            console.log(e.target.value);
                         }}>
                         {createDropDownOptions()}
                     </select>

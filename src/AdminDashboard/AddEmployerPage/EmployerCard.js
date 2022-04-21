@@ -18,7 +18,7 @@ const EmployerCard = (props) => {
  
     const togglePopup = () => {
       setIsOpen(!isOpen);
-      console.log("Toggling")
+
     }
 
     /**

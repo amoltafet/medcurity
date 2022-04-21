@@ -66,10 +66,10 @@ const  AddContent = () => {
     useEffect(() => {
         if(questionAdded) {
             setAdded(false)
-            console.log("changing boolean", questionAdded) 
+            // console.log("changing boolean", questionAdded) 
         }
         else {
-            console.log("Hello from added", questionAdded)
+            // console.log("Hello from added", questionAdded)
         }
     }, [questionAdded])
 
@@ -83,7 +83,7 @@ const  AddContent = () => {
             description: description,
             banner: banner[0].name
           }).then((response) => {
-            console.log("response from new query", response.data["result"][0]["ID"]);
+            // console.log("response from new query", response.data["result"][0]["ID"]);
             setIndex(response.data["result"][0]["ID"])
           }).catch(error => console.log(`Error ${error}`));
 
@@ -94,7 +94,7 @@ const  AddContent = () => {
 
         for (var i = 0; i < question.length; i++) {
             axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `INSERT INTO Questions (question, solution, a2, a3, a4, module) VALUES ('${question[i]}', '${solution[i]}', '${answer2[i]}', '${answer3[i]}', '${answer4[i]}', '${moduleIndex}')` } }).then((response) => {
-            console.log(response)
+            // console.log(response)
             }).catch(error => console.error(`Error ${error}`));
         }
 
@@ -118,7 +118,7 @@ const  AddContent = () => {
 
 
     var ModuleContent = question.map((module, idx) => {
-        console.log("reloading")
+        // console.log("reloading")
         return ([
           <>
             <form className='text-center contentForm'>
