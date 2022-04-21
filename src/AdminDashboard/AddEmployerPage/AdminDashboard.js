@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../Dashboard/DashboardPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { CardDeck } from 'react-bootstrap';
+import { CardDeck, Col, Row } from 'react-bootstrap';
 import MenuBar from '../../MenuBar/MenuBar';               
 import EmployerCards from './EmployerCards';
 import AdminInvitations from './AdminInvitations';
@@ -32,10 +32,18 @@ const AdminDashboardPage = () => {
       return (
       <>
           <MenuBar></MenuBar>
-          <CardDeck className="dashTopPanel" style={{display: 'flex', flexDirection: 'row'}}>
-            <AddCompany />
-            <AdminInvitations />
-            <DeleteCompany />
+          <CardDeck className="justify-content-center" style={{display: 'flex', flexDirection: 'row'}}>
+            <Row lg={12}>
+              <Col xs={12} lg={4}>
+                <AddCompany />
+              </Col>
+              <Col xs={12} lg={4}>
+                <AdminInvitations />
+              </Col>
+              <Col xs={12} lg={4}> 
+                <DeleteCompany />
+              </Col>
+            </Row>
           </CardDeck>
           <EmployerCards />
           

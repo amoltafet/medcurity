@@ -39,36 +39,38 @@ const ContentCard = (props) => {
             <Col xs={3} md={3} lg={3}>
                 <div className="ContentCardValues" id="content-name">{props.learningModuleName}</div>
             </Col>
-            <Col xs={3} md='auto' lg={3}>
+            <Col xs={3} md={3} lg={3}>
                 <Button className="ContentInRowButton uvs-right" 
                         size="sm" 
                         variant="primary"
                         href={"/edit-content/" + props.moduleId}> 
                         Edit Content </Button>
             </Col>
-            <Col  xs={3} md='auto' lg={3}>
+            <Col  xs={3} md={3} lg={3}>
                 <Button className="ContentInRowButton uvs-right" 
                         size="sm" 
                         variant="primary"
                         href={"/edit-questions/" + props.moduleId}> 
                         Add Questions </Button>
                 </Col>
-            <Col  xs={3}  md='auto' lg={3}>
-                <OverlayTrigger trigger="click" placement="left" 
+            <Col  xs={3}  md={3} lg={3}>
+                <OverlayTrigger trigger="click" rootClose placement="bottom" className="uvs-left "
                 overlay={
-                    <Popover id="popover-basic" data-trigger="focus" className="ContentPopup">
-                        <div className="ContentCardValues">Please confirm that you want to remove the module '{props.learningModuleName}' from your assigned list of modules: </div> 
-                        <Button className="ContentInRowButton uvs-right" 
+                    <Popover id="popover-basic">
+                        <Popover.Content>
+                        <div>Please confirm that you want to remove the module '{props.learningModuleName}' from your assigned list of modules: </div> 
+                        <Button className="EmployeeInRowButton_confirm text-center uvs-right" 
                             variant="success" 
                             onClick={() => removeModule(props.moduleId)}
                             href='/admin-content'
                             > 
                             Confirm 
                         </Button>
+                        </Popover.Content>
                     </Popover>
                 }>
         
-                    <Button className="ContentInRowButton uvs-right" 
+                    <Button className="ContentInRowButton_remove uvs-right" 
                     size="sm" 
                     variant="danger"
                     > 

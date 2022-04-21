@@ -1,5 +1,5 @@
 
-.employee_row{
+.employee_row {
     width: 100%;
     height: 100%;
 
@@ -37,6 +37,22 @@
     color: white;
 }
 
+.titleFont_remove_users {
+    margin-top: 2%;
+    margin-bottom: 1%;
+    margin-left: 2.5%;
+    text-shadow: 2px 2px 5px black;
+}
+
+@media screen and (min-width: 700px) {
+    .titleFont_remove_users {
+        margin-top: 1%;
+        margin-bottom: 1%;
+        margin-left: 2.5%;
+        text-shadow: 2px 2px 5px black;
+    }
+}
+
 .employee_remove_card_header {
     margin-top: 1%;
     margin-bottom: 1%;
@@ -65,59 +81,63 @@
 }
 
 .employee_remove_email {
-    margin-left: 0%;
-    font-size: 70%;
+    width: 100%;
+    font-size: 60%;
 }
 
 .employee_remove_username {
+    width: 100%;
     margin-left: 0%;
-    font-size: 70%;
+    font-size: 60%;
 }
 
 .employee_remove_active {
+    width: 100%;
     margin-left: 0%;
-    font-size: 70%;
+    font-size: 60%;
 }
 
 .employee_remove_progress {
+    width: 100%;
     margin-left: 0%;
-    font-size: 70%;
+    font-size: 60%;
 }
 
 .employee_remove_bttn{
+    width: 100%;
+    font-size: 60%;
     margin-left: 0%;
-    font-size: 70%;
 }
 
 
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 700px) {
     .employee_remove_email {
         font-size: 120%;
     }
 }
 
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 700px) {
     .employee_remove_username {
         font-size: 120%;
         margin-left: 20%;
     }
 }
 
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 700px) {
     .employee_remove_active {
         font-size: 120%;
         margin-left: 20%;
     }
 }
 
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 700px) {
     .employee_remove_progress {
         margin-left: 10%;
         font-size: 120%;
     }
 }
 
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 700px) {
     .employee_remove_bttn {
         font-size: 120%;
     }
@@ -158,6 +178,12 @@
     font-size: 1vmax;
 }
 
+
 .EmployeeInRowButton_confirm  {
     margin-top: 2%;
+    width: 100%;
+}
+
+.EmployeeInRowButton_reset {
+    margin-left: 1%;
 }

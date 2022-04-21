@@ -35,6 +35,18 @@ function LeaderboardProfile (props) {
     * @return {GetPage}
     */
 
+
+      /**
+    * grabs current user.  
+    */
+    useEffect(() => {
+        axios.get('http://localhost:3002/api/getQuery',{
+			params: { the_query: 'SELECT * FROM CompletedModules WHERE UserID = ' + currentUser.userid }
+		}).then((response) => {
+			console.log("completed modules for user: ", response.data);
+		});
+      }, []);
+
    /**
     * grabs users assigned modules info.  
     */

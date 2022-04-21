@@ -1,25 +1,61 @@
-#add-company-text {
-    margin-top: 1%;
+
+/*
+Shared
+*/
+
+.registerHeader_admin_dash {
+    margin-top: 3%;
+}
+
+.InviteSubtitle {
+    font-size: 100%;
+    text-shadow: none;
+    color: #d8dae3;
+    height: 22%;
+    margin-right: 2%;
+    margin-left: 2%;
+    text-align: left !important;
+}
+
+/*
+Add Company Panel
+*/
+.EmployerInviteRequestCard_add {
+    background-color: #242e47;
+    margin-left: 5%;
+    margin-right: 5%;
+    font-family: Lato,sans-serif;
+    font-size: 90%;
+    text-shadow: 2px 2px 5px black;
+    color: white;
+    height: 100%;
+}
+
+@media screen and (min-width: 1000px) {
+    .EmployerInviteRequestCard_add {
+        margin-left: 5%;
+        margin-right: 0;
+        margin-bottom: 0;
+        background-color: #242e47;
+        font-family: Lato,sans-serif;
+        font-size: 90%;
+        text-shadow: 2px 2px 5px black;
+        color: white;
+        height: 100%;
+    }
+}
+
+.company_input_admin_dash {
+    width: 90%;
 }
 
 .addButton {
-    margin-top: 5%;
-    background-color: #c33333;
+    margin-top: 3%;
+    text-shadow: none;
+    width: 90%;
+    background-color: #1e5b88;
 }
 
-#delete-company {
-    margin-top: 1%;
-}
 
-.deleteButton {
-    margin-top: 1%;
-    background-color: #c33333;
-    width: 100%;
-    margin-left: 0%;
-    margin-bottom: 1%;
-}
 
-#company-list {
-    width: 60%;
-    margin-left: 20%
-}
+

@@ -1,55 +1,22 @@
-.EmployerCard {
-    margin-top: .7%;
-    margin-left: 1%;
-    margin-right: .5%;
-    margin-bottom: .1%;
-    border-radius: 10px 10px 10px 10px;
-    background-color: #d8dae3;
-    width: 98%;
-    text-align: left;
+.Employer-container {
+    background-color: #93c2ec;
+    margin-top: 9%;
+    
+}
 
-    font-family: Lato,sans-serif;
-    font-size: 90%;
 
+@media screen and (min-width: 1000px) {
+    .Employer-container {
+        background-color: #93c2ec;
+        margin-top: 2%;
+        margin-bottom: 5%;
+    }
+}
+
+.employer-header_admin_dash {
     color: white;
-}
-
-.EmployerInviteRequestCard {
-    margin-top: .3%;
-    margin-left: .5%;
-    margin-right: .5%;
-    margin-bottom: .5%;
-    border-radius: 10px 10px 10px 10px;
-    background-color: #1e5b88;
-    width: 33%;
-    text-align: left;
-
-    font-family: Lato,sans-serif;
-    font-size: 90%;
-
-    color: white;
-}
-
-.AdminInviteRequests {
-    margin-top: 2%;
-    margin-bottom: 2%;
-    margin-left: 5%;
-    margin-right: 14%;
-    width: 90%;
-}
-
-.EmployerCardHeader {
-    margin-top: .7%;
-    margin-left: 3%;
-    margin-right: 3%;
-    margin-bottom: .1%;
-    width: 94%;
-}
-
-.EmployerInRowButton {
-    margin-top: 1%;
-    margin-bottom: 1%;
-    background-color: #127ebf
+    text-align: left !important;
+    text-shadow: 2px 2px 5px black;
 }
 
 .EmployerCardValues {
@@ -57,33 +24,83 @@
     margin-bottom: 1%;
     margin-left: 2%;
     margin-right: .5%;
-    color:black
+    color:black;
 }
 
-.EmployerPopup {
-    margin-top: 3%;
-    text-align: center;
+
+.EmployerCard {
+    margin-top: .7%;
+    margin-left: 1%;
+    margin-right: .5%;
+    margin-bottom: .9%;
+    border-radius: 10px 10px 10px 10px;
+    background-color: #d8dae3;
+    width: 98%;
+    text-align: left;
+    font-family: Lato,sans-serif;
+    font-size: 90%;
+    color: white;
 }
 
-.InviteSubtitle {
-    font-size: 1vmax;
-}
 
-.createButton {
-    margin-left: 8%;
-    margin-bottom: 3%;
-}
-
-.addButton {
-    margin-top: 10%;
+.EmployerCardValues_email {
+    color: black;
+    margin-top: 2%;
+    margin-left: 0%;
+    font-size: 90%;
     width: 100%;
-    margin-bottom: 0%;
+    overflow:hidden !important;
+    white-space: nowrap; /* Don't forget this one */
+    text-overflow: ellipsis;
+}
+@media screen and (min-width: 1000px) {
+    .EmployerCardValues_email {
+        color: black;
+        margin-top: 2%;
+        margin-left: 20%;
+        font-size: 90%;
+        width: 100%;
+        overflow:hidden !important;
+        white-space: nowrap; /* Don't forget this one */
+        text-overflow: ellipsis;
+    }
 }
 
-#employer-header {
-    color:white
+.EmployerCardValues_username {
+    color: black;
+    margin-top: 2%;
+    margin-left: -10%;
+    font-size: 90%;
+    width: 100%;
+    overflow:hidden !important;
+    white-space: nowrap; /* Don't forget this one */
+    text-overflow: ellipsis;
 }
 
-.Employer-container {
-    background-color: #93c2ec;
+@media screen and (min-width: 1000px) {
+    .EmployerCardValues_username {
+        color: black;
+        margin-top: 2%;
+        margin-left: 0%;
+        font-size: 90%;
+        width: 100%;
+        overflow:hidden !important;
+        white-space: nowrap; /* Don't forget this one */
+        text-overflow: ellipsis;
+    }
+}
+
+.EmployerCardValues_company {
+    color: black;
+    margin-top: 2%;
+    margin-left: -20%;
+    font-size: 90%;
+    width: 100%;
+    overflow:hidden !important;
+    white-space: nowrap; /* Don't forget this one */
+    text-overflow: ellipsis;
+}
+
+.EmployerInRowButton_admin_remove_user {
+ background-color: #cc3333;
 }

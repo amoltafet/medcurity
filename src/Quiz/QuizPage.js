@@ -210,6 +210,8 @@ const QuizPage = () => {
         }).catch()// console.log(`Error ${error}`));
         setPassed(true)
       }
+      setEarlyCompletion(false);
+      setSpacedLearning(false);
     }
   }, [points, numCorrect, isSubmitted, content.length, currentUser.userid, earlyCompletion, isLoading, moduleNotAssigned, notCompleteOnTime, slug, spaceLearning])
 

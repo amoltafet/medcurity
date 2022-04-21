@@ -1,6 +1,8 @@
 import React from 'react';
-import { Form, Button, Container, Col} from 'react-bootstrap';
-import { useEffect, useState} from "react";
+import { Form , Card, Button, Row, Container, Col} from 'react-bootstrap';
+import { useEffect, useState, Link} from "react";
+import { useParams } from "react-router";
+import { useNavigate } from 'react-router-dom';
 import './AdminInvitations.css'
 import axios from 'axios';
 // import env from "react-dotenv";
@@ -81,14 +83,15 @@ const AdminInvitations = () => {
     }
 
     return (
-        <Container className="EmployerInviteRequestCard uvs-right" >
-            <h2 className="registerHeader">Employer Invitations</h2>
-            <div className="InviteSubtitle font">Type in an email to create an empty account for a prospective Employer. They will be able to register using that email.</div>
-            <Container className='EmployerInviteContent' style={{display: 'flex', flexDirection: 'row' }}>
-                <Col>
-                    <Form className="emailInvite">
-                        <Form.Group className="email"  id="email-invite" controlId="formPlaintextEmail">
-                            <Form.Control 
+        <Card className="EmployerInviteRequestCard uvs-right text-center" >
+            <Card.Title className="registerHeader_admin_dash"><b>Employer Invitations</b></Card.Title>
+            <Card.Subtitle className="InviteSubtitle font">Type in an email to create an empty account for a prospective Employer. They will be able to register using that email.</Card.Subtitle>
+            <Row className="justify-content-center" style={{display: 'flex', flexDirection: 'row' }}>
+                <Col xs={4} lg={5} className="justify-content-center">
+                    <Form className="">
+                        <Form.Group className="email_form_admin" id="email-invite" controlId="formPlaintextEmail">
+                            <Form.Control
+                            className="uvs-left" 
                             type="email" 
                             id ="emailTextBox"
                             placeholder="Email" 
@@ -97,13 +100,13 @@ const AdminInvitations = () => {
                                 setEmail(e.target.value);
                             }}/>
                         </Form.Group>
-                        <Form.Text className="registerMessage">{message}</Form.Text>
+                        <Form.Text className="">{message}</Form.Text>
 
                     </Form>
-                    <Button className="createButton" variant="secondary" type="button" onClick={invite} href='/admin-dash'>Invite</Button>
+                    <Button className="createButton uvs-left" type="button" onClick={invite} href='/admin-dash'>Invite</Button>
                 </Col>
-                <Col>
-                    <label htmlFor="company-list" id='company-label'>
+                <Col xs={3} lg={5} className="justify-content-center">
+                    <label className="list_text_companies" htmlFor="company-list" id='company-label'>
                         Company List:
                     </label>
                     <select id="company-list" size={5} multiple={false}
@@ -114,8 +117,8 @@ const AdminInvitations = () => {
                         {createDropDownOptions()}
                     </select>
                 </Col>
-            </Container>
-        </Container>
+            </Row>
+        </Card>
     );
 }
 

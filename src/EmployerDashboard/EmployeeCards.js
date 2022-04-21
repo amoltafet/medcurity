@@ -131,21 +131,21 @@ const EmployeesCards = (props) => {
         <>
         <Card className="EmployerJoinRequests uvs-right">
             <Card.Title className="employee_remove_card_header"><b>Employees</b></Card.Title>    
-            <CardDeck style={{display: 'flex', flexDirection: 'column'}}>  
-            <Card className="EmployeeCardHeader justify-content-center uvs-right uvs-left" style={{display: 'flex', flexDirection: 'row' }}>
-                <Col xs={2} md={2} lg={2}>
+            <CardDeck style={{flexDirection: 'column'}}>  
+            <Card className="EmployeeCardHeader justify-content-center uvs-right uvs-left" style={{flexDirection: 'row' }}>
+                <Col xs={2} md={2} lg={2} className="employee_remove_card_header_col">
                     <div className="employee_remove_email text-center"><b>User Email</b></div>
                 </Col>
-                <Col xs={2} md={2} lg={2}>
+                <Col xs={2} md={2} lg={2} className="employee_remove_card_header_col">
                     <div className="employee_remove_username text-center"><b>User Name</b></div>
                 </Col>
-                <Col xs={3} md={2} lg={2}>
+                <Col xs={2} md={2} lg={2} className="employee_remove_card_header_col">
                     <div className="employee_remove_active text-center"><b>User is Active</b></div>
                 </Col>
-                <Col xs={3} md={2} lg={2}>
+                <Col xs={2} md={2} lg={2} className="employee_remove_card_header_col">
                     <div className="employee_remove_progress text-center"><b>User Progress</b></div>
                 </Col>
-                <Col xs={2} md={2} lg={2}>
+                <Col xs={2} md={2} lg={2} className="employee_remove_card_header_col">
                     <div className="employee_remove_bttn text-center"><b>Remove User</b></div>
                 </Col>
             </Card>

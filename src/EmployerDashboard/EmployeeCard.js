@@ -59,22 +59,20 @@ const EmployeeCard = (props) => {
             <Col xs={2} md={2} lg={2}>
                 <div className="EmployeeCardValues text-center">{props.progress}</div>
             </Col>
-            <Col xs={2} md={2} lg={2}>
+            <Col xs={2} md={2} lg={2} className="text-center">
                 <OverlayTrigger trigger="click" rootClose placement="bottom" 
                 overlay={
                     <Popover id="popover-basic">
                         <Popover.Content>
-                            <Row>
+                   
                                 <div>Please confirm that you want to delete the user '{props.name}': </div> 
                                 <div>{message}</div>
-                            </Row>
-                            <Row>
-                                <Button className="EmployeeInRowButton_confirm uvs-right" 
+                   
+                                <Button className="EmployeeInRowButton_confirm uvs-right justify-content-center" 
                                     variant="success" 
                                     onClick={() => removeUser(props.userId, props.companyId)}> 
                                     Confirm 
                                 </Button>
-                            </Row>
                         </Popover.Content>
                     </Popover>
                 }>

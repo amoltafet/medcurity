@@ -36,9 +36,9 @@ const EmployeeResetUsersStats = (props) => {
  
     return (
         <>
+        <Row>
         <Card className="EmployeeCard_dash uvs-right uvs-left justify-content-center" style={{ flexDirection: 'row' }}>
-            <Card.Title className="employee_remove_card_header"><b>Reset All Users:     </b></Card.Title>
-           
+            <Card.Title className="titleFont_remove_users"><b>Reset All Users: </b></Card.Title>
             <OverlayTrigger trigger="click" rootClose placement="bottom" 
             overlay={
                 <Popover id="popover-basic">
@@ -58,13 +58,13 @@ const EmployeeResetUsersStats = (props) => {
                 </Popover>
             }>
     
-                <Button className="uvs-right" 
+                <Button className="uvs-right EmployeeInRowButton_reset text-center" 
                 size="lg" 
                 variant="danger"> 
                 Reset</Button>
             </OverlayTrigger>
         </Card>
-
+        </Row>
         </>
     );
 }
