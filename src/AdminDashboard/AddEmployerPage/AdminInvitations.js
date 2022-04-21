@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form , Card, Button, Container, Col} from 'react-bootstrap';
+import { Form , Card, Button, Row, Container, Col} from 'react-bootstrap';
 import { useEffect, useState, Link} from "react";
 import { useParams } from "react-router";
 import { useNavigate } from 'react-router-dom';
@@ -83,14 +83,15 @@ const AdminInvitations = () => {
     }
 
     return (
-        <Container className="EmployerInviteRequestCard uvs-right" >
-            <h2 className="registerHeader">Employer Invitations</h2>
-            <div className="InviteSubtitle font">Type in an email to create an empty account for a prospective Employer. They will be able to register using that email.</div>
+        <Card className="EmployerInviteRequestCard uvs-right text-center" >
+            <Card.Title className="registerHeader_admin_dash"><b>Employer Invitations</b></Card.Title>
+            <Card.Subtitle className="InviteSubtitle font">Type in an email to create an empty account for a prospective Employer. They will be able to register using that email.</Card.Subtitle>
             <Container className='EmployerInviteContent' style={{display: 'flex', flexDirection: 'row' }}>
                 <Col>
                     <Form className="emailInvite">
                         <Form.Group className="email"  id="email-invite" controlId="formPlaintextEmail">
-                            <Form.Control 
+                            <Form.Control
+                            className="uvs-left form_height_employer_invitation" 
                             type="email" 
                             id ="emailTextBox"
                             placeholder="Email" 
@@ -102,7 +103,7 @@ const AdminInvitations = () => {
                         <Form.Text className="registerMessage">{message}</Form.Text>
 
                     </Form>
-                    <Button className="createButton" variant="secondary" type="button" onClick={invite} href='/admin-dash'>Invite</Button>
+                    <Button className="createButton uvs-left" type="button" onClick={invite} href='/admin-dash'>Invite</Button>
                 </Col>
                 <Col>
                     <label htmlFor="company-list" id='company-label'>
@@ -118,7 +119,7 @@ const AdminInvitations = () => {
                     </select>
                 </Col>
             </Container>
-        </Container>
+        </Card>
     );
 }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import  axios from 'axios';
-import { Form, Button, Container} from 'react-bootstrap';
+import { Form, Button, Row, Card} from 'react-bootstrap';
 import { useState} from "react";
 import './AddCompany.css';
 
@@ -53,15 +53,16 @@ const AddCompany = () => {
   
   
     return (
-        <Container className="EmployerInviteRequestCard uvs-right">
-
-                
-                    <h2 className="registerHeader">Add a New Company</h2>
-                    <div className="InviteSubtitle font">Type in a company name to add a new company to the list of available companies. </div>
-                    <Form className="email Invite">
-                    <Form.Group className="company" id="add-company-text" controlId="formEmail">
+        <Card className="EmployerInviteRequestCard_add uvs-right  text-center">
+                    <Card.Title className="registerHeader_admin_dash"><b>Add a New Company</b></Card.Title>
+                    <Card.Subtitle className="InviteSubtitle font">Type in a company name to add a new company to the list of available companies. </Card.Subtitle>
+                    
+                    <Form className="justify-content-center">
+                        <Row className="justify-content-center">
+                    <Form.Group className="company_input_admin_dash justify-content-center" id="add-company-text" controlId="formEmail">
                         <Form.Control 
-                        type="company" 
+                        className="uvs-left"
+                        type="company"
                         id ="companyTextBox"
                         placeholder="Company Name" 
                         onChange={ (e) => 
@@ -70,11 +71,11 @@ const AddCompany = () => {
                         }}/>
                         
                     </Form.Group>
-                    <Form.Text className="registerMessage">{message}</Form.Text>
-                    <Button className="addButton" variant="secondary" type="button" href="/admin-dash" onClick={addCompany}>Add Company</Button>
+                    <Form.Text className="registerMessage">{message}</Form.Text></Row>
+                    <Button className="addButton uvs-left" type="button" href="/admin-dash" onClick={addCompany}>Add Company</Button>
 
             </Form>
-        </Container>
+        </Card>
     );
 }
 

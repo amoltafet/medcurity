@@ -1,25 +1,33 @@
+.registerHeader_admin_dash {
+    margin-top: 3%;
+}
+
+.employer-header_admin_dash {
+    color: white;
+    text-align: left !important;
+    text-shadow: 2px 2px 5px black;
+}
+
 #add-company-text {
     margin-top: 1%;
 }
 
 .addButton {
-    margin-top: 5%;
-    background-color: #c33333;
+    margin-top: 3%;
+    text-shadow: none;
+    width: 90%;
+    background-color: #1e5b88;
 }
 
-#delete-company {
-    margin-top: 1%;
-}
 
 .deleteButton {
-    margin-top: 1%;
-    background-color: #c33333;
-    width: 100%;
-    margin-left: 0%;
-    margin-bottom: 1%;
+    margin-top: 3%;
+    text-shadow: none;
+    width: 90%;
+    background-color: #cc3333;
 }
 
-#company-list {
-    width: 60%;
-    margin-left: 20%
+
+.company_input_admin_dash {
+    width: 90%;
 }

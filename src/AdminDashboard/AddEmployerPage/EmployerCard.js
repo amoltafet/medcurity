@@ -72,19 +72,19 @@ const EmployerCard = (props) => {
     return (
         <>
         <Card className="EmployerCard uvs-right uvs-left" style={{ flexDirection: 'row' }}>
-            <Col sm>
-                <div className="EmployerCardValues">{props.email}</div>
+            <Col xs={3} md={2} lg={3}>
+                <div className="EmployerCardValues_email">{props.email}</div>
             </Col>
-            <Col sm>
-                <div className="EmployerCardValues">{props.name}</div>
+            <Col  xs={3} md={2} lg={3}>
+                <div className="EmployerCardValues_username">{props.name}</div>
             </Col>
-            <Col sm>
-                <div className="EmployerCardValues">{companyName}</div>
+            <Col  xs={2} md={2} lg={2}>
+                <div className="EmployerCardValues_company">{companyName}</div>
             </Col>
-            <Col sm>
+            <Col  xs={2} md={2} lg={2}>
                 <div className="EmployerCardValues">{userStatus}</div>
             </Col>
-            <Col sm>
+            <Col  xs={2} md={2} lg={2}>
                 <OverlayTrigger trigger="click" placement="left" 
                 overlay={
                     <Popover id="popover-basic" className="EmployerPopup">

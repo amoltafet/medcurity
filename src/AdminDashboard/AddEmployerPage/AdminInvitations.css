@@ -2,24 +2,25 @@
     margin-top: 10%;
     margin-left: -7%;
     width: 120%;
-    background-color: #c33333;
+    background-color: #1e5b88;
+    text-shadow: none;
     
 }
 
-#company-label {
-    margin-left: 35%;
-}
-
-#company-list {
-    margin-left: 20%;
+.delete_list_drop_down {
     width: 90%;
-    margin-bottom: 0%;
+    margin-top: -3%;
     overflow-y: scroll !important;
 }
 
+.form_height_employer_invitation {
+    height: 3vmax !important;
+}
+
 #email-invite {
-    margin-top: 3%;
+    margin-top: 5%;
     margin-left: -8%;
-    margin-right: -13%
+    margin-right: -13%;
+   
 }
 

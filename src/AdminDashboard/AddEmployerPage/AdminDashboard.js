@@ -1,13 +1,12 @@
 import React from 'react';
 import '../../Dashboard/DashboardPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { CardDeck } from 'react-bootstrap';
+import { CardDeck, Col, Row } from 'react-bootstrap';
 import MenuBar from '../../MenuBar/MenuBar';               
 import EmployerCards from './EmployerCards';
 import AdminInvitations from './AdminInvitations';
 import { useEffect, useState } from "react";
 import AddCompany from './AddCompany';
-import { useParams } from "react-router";
 import axios from 'axios';
 import DeleteCompany from './DeleteCompany';
 import InvalidPage from '../../InvalidPage/InvalidPage';
@@ -34,10 +33,18 @@ const AdminDashboardPage = () => {
       return (
       <>
           <MenuBar></MenuBar>
-          <CardDeck className="dashTopPanel" style={{display: 'flex', flexDirection: 'row'}}>
-            <AddCompany />
-            <AdminInvitations />
-            <DeleteCompany />
+          <CardDeck className="" style={{display: 'flex', flexDirection: 'row'}}>
+            <Row>
+              <Col xs={12} lg={4}>
+                <AddCompany />
+              </Col>
+              <Col xs={12} lg={4}>
+                <AdminInvitations />
+              </Col>
+              <Col xs={12} lg={4}> 
+                <DeleteCompany />
+              </Col>
+            </Row>
           </CardDeck>
           <EmployerCards />
           

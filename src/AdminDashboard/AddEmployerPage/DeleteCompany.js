@@ -70,18 +70,19 @@ const DeleteCompany = () => {
         const dropdownList = [];
         for (let index in companies) {
             let item = companies[index];
-            dropdownList.push(<option className="companyList" value={item.companyid}>{item.name}</option>); 
+            dropdownList.push(<option className="" value={item.companyid}>{item.name}</option>); 
         }
         return dropdownList;
     }
   
     return (
-        <Container className="EmployerInviteRequestCard uvs-right">
+        <Card className="EmployerInviteRequestCard_delete  uvs-right text-center">
 
                 
-            <h2 className="registerHeader">Delete a Company</h2>
-            <div className="InviteSubtitle font">Type in a company name to delete a company from the list of available companies. </div>
-            <select id="company-list" size={5}  multiple={false}
+            <Card.Title className="registerHeader_admin_dash"><b>Delete a Company</b></Card.Title>
+            <Card.Subtitle className="InviteSubtitle font">Type in a company name to delete a company from the list of available companies. </Card.Subtitle>
+            <Card.Body>
+            <select className="delete_list_drop_down" id="company-list" size={5}  multiple={false}
                 onChange={ (e) => 
                 {
                     setCompany(e.target.value)
@@ -89,8 +90,9 @@ const DeleteCompany = () => {
                 }}>
                 {createDropDownOptions()}
             </select>
-            <Button className="deleteButton" variant="secondary" type="button" href='/admin-dash' onClick={deleteCompany}>Delete Company</Button>
-        </Container>
+            <Button className="deleteButton uvs-left text-center" type="button" href='/admin-dash' onClick={deleteCompany}>Delete Company</Button>
+        </Card.Body>
+        </Card>
     );
 }
 

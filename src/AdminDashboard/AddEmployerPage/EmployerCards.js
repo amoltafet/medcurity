@@ -64,23 +64,23 @@ const EmployersCards = () => {
 
     return (
         <>
-        <Container className="Employer-container uvs-right">
-            <h2 id="employer-header">Employers</h2>      
+        <Container className="Employer-container uvs-right text-center">
+            <h2 className="employer-header_admin_dash">Employers</h2>      
             <Card className="EmployerCardHeader uvs-right uvs-left" style={{display: 'flex', flexDirection: 'row' }}>
                 <Col sm>
-                    <div className="EmployerCardValues">Employer Email</div>
+                    <div className="EmployerCardValues"><b>Employer Email</b></div>
                 </Col>
                 <Col sm>
-                    <div className="EmployerCardValues">Employer Username</div>
+                    <div className="EmployerCardValues"><b>Employer Username</b></div>
                 </Col>
                 <Col sm>
-                    <div className="EmployerCardValues">Employer Company</div>
+                    <div className="EmployerCardValues"><b>Employer Company</b></div>
                 </Col>
                 <Col sm>
-                    <div className="EmployerCardValues">Employer Status</div>
+                    <div className="EmployerCardValues"><b>Employer Status</b></div>
                 </Col>
                 <Col sm>
-                    <div className="RemoveButton"></div>
+                    <div className="EmployerCardValues"><b>Remove Employer</b></div>
                 </Col>
             </Card>
         

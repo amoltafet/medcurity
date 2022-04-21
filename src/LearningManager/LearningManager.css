@@ -68,14 +68,34 @@
     background-color: white !important; 
     color: black !important;
     border: none !important;
+  
+}
+
+.react-date-picker, .react-date-picker *:before, .react-date-picker *:after {
+    width: 100%;
+}
+
+@media screen and (min-width: 700px) { 
+    .react-date-picker {
+        width: auto;
+    }
 }
 
 .react-date-picker__wrapper {
     border: none !important;
+    width: 100% !important;
 }
 
 .react-date-picker__clear-button svg {
     stroke: #cc3333 !important;
+    width: 100%;
+}
+
+@media screen and (min-width: 700px) { 
+    .react-date-picker__clear-button svg {
+        stroke: #cc3333 !important;
+        width: 100%;
+    }
 }
 
 .react-date-picker__clear-button svg:hover {
@@ -83,7 +103,15 @@
 }
 
 .react-date-picker__calendar-button svg {
+    width: 100%;
     stroke: #0b5ed7 !important;
+}
+
+@media screen and (min-width: 700px) { 
+    .react-date-picker__calendar-button svg {
+        stroke: #0b5ed7 !important;
+        width: 100%;
+    }
 }
 
 
@@ -118,7 +146,7 @@
     margin-top: .7%;
     margin-left: 1%;
     margin-right: .5%;
-    margin-bottom: .1%;
+    margin-bottom: .5%;
     border-radius: 10px 10px 10px 10px;
     background-color: #1e5b88;
     width: 98%;

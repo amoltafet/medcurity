@@ -2,32 +2,123 @@
     margin-top: .7%;
     margin-left: 1%;
     margin-right: .5%;
-    margin-bottom: .1%;
+    margin-bottom: .9%;
     border-radius: 10px 10px 10px 10px;
     background-color: #d8dae3;
     width: 98%;
     text-align: left;
-
     font-family: Lato,sans-serif;
     font-size: 90%;
-
     color: white;
 }
 
-.EmployerInviteRequestCard {
-    margin-top: .3%;
-    margin-left: .5%;
-    margin-right: .5%;
-    margin-bottom: .5%;
-    border-radius: 10px 10px 10px 10px;
-    background-color: #1e5b88;
-    width: 33%;
-    text-align: left;
-
+.EmployerInviteRequestCard_add {
+    background-color: #242e47;
+    margin-left: 5%;
+    margin-right: 5%;
     font-family: Lato,sans-serif;
     font-size: 90%;
-
+    text-shadow: 2px 2px 5px black;
     color: white;
+    height: 100%;
+}
+
+.EmployerInviteRequestCard_delete {
+    background-color: #242e47;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 6%;
+    font-family: Lato,sans-serif;
+    font-size: 90%;
+    text-shadow: 2px 2px 5px black;
+    color: white;
+    height: 100%;
+}
+
+
+.EmployerInviteRequestCard {
+    margin-top: 3%;
+    margin-left: 5%;
+    margin-right: 5%;
+    background-color: #242e47;
+    font-family: Lato,sans-serif;
+    font-size: 90%;
+    text-shadow: 2px 2px 5px black;
+    color: white;
+    height: 100%;
+}
+
+.EmployerCardValues_email {
+    color: black;
+    margin-top: 2%;
+    margin-left: 0%;
+    font-size: 90%;
+    width: 100%;
+    overflow:hidden !important;
+    white-space: nowrap; /* Don't forget this one */
+    text-overflow: ellipsis;
+}
+
+.EmployerCardValues_username {
+    color: black;
+    margin-top: 2%;
+    margin-left: 0%;
+    font-size: 90%;
+    width: 100%;
+    overflow:hidden !important;
+    white-space: nowrap; /* Don't forget this one */
+    text-overflow: ellipsis;
+}
+
+.EmployerCardValues_company {
+    color: black;
+    margin-top: 2%;
+    margin-left: -20%;
+    font-size: 90%;
+    width: 100%;
+    overflow:hidden !important;
+    white-space: nowrap; /* Don't forget this one */
+    text-overflow: ellipsis;
+}
+
+@media screen and (min-width: 1000px) {
+    .EmployerInviteRequestCard {
+        margin: 0%;
+        background-color: #242e47;
+        font-family: Lato,sans-serif;
+        font-size: 90%;
+        text-shadow: 2px 2px 5px black;
+        color: white;
+        height: 100%;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .EmployerInviteRequestCard_add {
+        margin-left: 5%;
+        margin-right: 0;
+        margin-bottom: 0;
+        background-color: #242e47;
+        font-family: Lato,sans-serif;
+        font-size: 90%;
+        text-shadow: 2px 2px 5px black;
+        color: white;
+        height: 100%;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .EmployerInviteRequestCard_delete {
+        margin-right: 5%;
+        margin-left: 0;
+        margin-top: 0;
+        background-color: #242e47;
+        font-family: Lato,sans-serif;
+        font-size: 90%;
+        text-shadow: 2px 2px 5px black;
+        color: white;
+        height: 100%;
+    }
 }
 
 .AdminInviteRequests {
@@ -38,13 +129,6 @@
     width: 90%;
 }
 
-.EmployerCardHeader {
-    margin-top: .7%;
-    margin-left: 3%;
-    margin-right: 3%;
-    margin-bottom: .1%;
-    width: 94%;
-}
 
 .EmployerInRowButton {
     margin-top: 1%;
@@ -57,7 +141,7 @@
     margin-bottom: 1%;
     margin-left: 2%;
     margin-right: .5%;
-    color:black
+    color:black;
 }
 
 .EmployerPopup {
@@ -66,24 +150,27 @@
 }
 
 .InviteSubtitle {
-    font-size: 1vmax;
+    font-size: 100%;
+    text-shadow: none;
+    color: #d8dae3;
+    height: 22%;
+    margin-right: 2%;
+    margin-left: 2%;
+    text-align: left !important;
 }
 
-.createButton {
-    margin-left: 8%;
-    margin-bottom: 3%;
-}
-
-.addButton {
-    margin-top: 10%;
-    width: 100%;
-    margin-bottom: 0%;
-}
-
-#employer-header {
-    color:white
-}
 
 .Employer-container {
     background-color: #93c2ec;
+    margin-top: 9%;
+    
+}
+
+
+@media screen and (min-width: 1000px) {
+    .Employer-container {
+        background-color: #93c2ec;
+        margin-top: 2%;
+        margin-bottom: 5%;
+    }
 }

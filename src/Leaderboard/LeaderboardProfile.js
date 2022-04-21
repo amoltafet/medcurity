@@ -35,6 +35,18 @@ function LeaderboardProfile (props) {
     * @return {GetPage}
     */
 
+
+      /**
+    * grabs current user.  
+    */
+    useEffect(() => {
+        axios.get('http://localhost:3002/api/getQuery',{
+			params: { the_query: 'SELECT * FROM CompletedModules WHERE UserID = ' + currentUser.userid }
+		}).then((response) => {
+			console.log(response.data);
+		});
+      }, []);
+
    /**
     * grabs users assigned modules info.  
     */
@@ -44,8 +56,8 @@ function LeaderboardProfile (props) {
             `SELECT * ` +
             `FROM UserPoints JOIN LearningModules ` +
             `ON LearningModules.ID = UserPoints.PointsID ` +
-            `JOIN CompletedModules ON UserPoints.PointsID = CompletedModules.LearningModID ` +
-            `WHERE UserPoints.UserID = '${currentUser.userid}'`
+            `LEFT JOIN CompletedModules ON UserPoints.PointsID = CompletedModules.LearningModID ` + 
+            `WHERE UserPoints.UserID = '${currentUser.userid}' OR CompletedModules.UserID = '${currentUser.userid}'`
             // `SELECT * ` +
             // `FROM AffiliatedUsers  ` +
             // `JOIN CompletedModules ON AffiliatedUsers.UserID = CompletedModules.UserID ` +
