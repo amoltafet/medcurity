@@ -8,6 +8,7 @@ import axios from 'axios';
 
 /**
  * Returns Panels of the Learning Module Directories 
+ * NOTE: Not in use as of 4/20/2022
  * @returns 
  */
 const LearningModuleDirectories = () => {

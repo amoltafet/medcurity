@@ -6,8 +6,10 @@ import axios from 'axios';
 // import env from "react-dotenv";
 
 /**
- * This class allows employers to enter in future user learningModules.
- * Inputs are validated, then new users are added
+ * This class allows employers to assign learningModules to their employees.
+ * @param {int} companyId
+ * @param {bool} reload
+ * @param {function} setReload
  */
 const LearningModuleAdder = (props) => {
     axios.defaults.withCredentials = true;
@@ -17,7 +19,7 @@ const LearningModuleAdder = (props) => {
     const [learningModule, setLearningModule] = useState(0);
     const [isLoading, setLoading] = useState(true)
     
-
+    // Manage the loading state for companyId
     useEffect(() => {
         if (Number.isInteger(props.companyId)) {
             setLoading(false)
@@ -25,7 +27,7 @@ const LearningModuleAdder = (props) => {
     }, [props.companyId])
 
     // Query for Learning Modules not included in the company already
-    // Assigns learningModule to the first module returned if the list is greater than 0
+    // Assigns learningModule with the first module returned if the list is greater than 0
 	useEffect(() => {
         if (!isLoading) {
             axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: 'SELECT * ' +
@@ -47,8 +49,9 @@ const LearningModuleAdder = (props) => {
 
     /**
      * This function creates a new basic user account.
-     * First it trys to register a user, then it 
-     * 
+     * First it trys to register a user, then reloads
+     * the page or gives and error message depending on
+     * if the use has been added 
      */
     const addModule = () => {
         // console.log('Adding module: ', learningModule)
@@ -72,6 +75,11 @@ const LearningModuleAdder = (props) => {
         });
     };
 
+    /**
+     * Create a html list of options
+     * @param {array} items 
+     * @returns 
+     */
     function createDropDownOptions(items) {
         const dropdownList = [];
         for (let index in items) {

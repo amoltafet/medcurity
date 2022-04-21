@@ -80,7 +80,7 @@ const  AddContent = () => {
             setIndex(response.data["result"][0]["ID"])
           }).catch();// console.log(`Error ${error}`));
 
-        //TODO ... THEN call API method to store the image from (banner)
+        //... THEN call API method to store the image from (banner)
         var data = new FormData();
         data.append("bannerImage", banner[0]);
         axios.post(`${process.env.REACT_APP_BASE_URL}/api/postModuleBanner`, data, { headers: { 'Content-Type': 'multipart/form-data' } })

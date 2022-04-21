@@ -6,8 +6,8 @@ import axios from 'axios';
 // import env from "react-dotenv";
 
 /**
- * Panel for Module cards
- * @param {} props 
+ * A card containing a button for resetting user stats
+ * @param {int} companyId 
  * @returns 
  */
 const EmployeeResetUsersStats = (props) => {

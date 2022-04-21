@@ -8,8 +8,8 @@ import axios from 'axios';
 // import env from "react-dotenv";
 
 /**
-* Creates and displays the learning page for each test category. 
-* @return { LearningModule }
+* Creates and displays the learning page for a given learning module
+* @return {  } LearningModule
 */
 const  LearningModule = () => {
     let { slug } = useParams();
@@ -18,6 +18,7 @@ const  LearningModule = () => {
 
     useEffect(() => { }, [slug]);
 
+    // Get the information for the module
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_BASE_URL}/api/getModuleInfo`, { params: { id: slug } }).then((response) => 
         { 
@@ -27,6 +28,7 @@ const  LearningModule = () => {
 
     useEffect(() => { axios.get(`${process.env.REACT_APP_BASE_URL}/api/getModuleBanner`, { params: { id: slug }} ).then((response) => { setBanner(response.data.bannerImage) }); })
 
+    // Creates the content, complete with image and description
     const LearningModuleContent = content.map((module) => {
         return ([
           <>

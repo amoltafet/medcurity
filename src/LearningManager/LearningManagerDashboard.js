@@ -13,7 +13,8 @@ import axios from 'axios';
 
 /**
 * Creates and holds all of the componets for the LearningManager Dashboard. 
-* @return {LearningManagerDashboardPage}
+* Gets current user info and passes to other components
+* @return {} LearningManagerDashboardPage
 */
 const LearningManagerDashboardPage = () => {
     axios.defaults.withCredentials = true;

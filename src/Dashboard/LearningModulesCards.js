@@ -8,6 +8,7 @@ import axios from 'axios';
 
 /**
  * Returns Panels of the Learning Module Cards 
+ * @param {obj} user
  * @returns 
  */
 const LearningModulesCards = (props) => {
@@ -81,8 +82,8 @@ const LearningModulesCards = (props) => {
 
     /**
      * Create directory cards from modules
-     * @param {modules} to create cards for
-     * @param {max_length} to limit max card number created
+     * @param {array} modules to create cards for
+     * @param {int} max_length to limit max card number created
      */
     function createModuleCards(modules, maxLength) {
         const objs = [];

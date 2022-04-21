@@ -21,7 +21,7 @@ const AdminDashboardPage = () => {
     const [currentUser, setCurrentUser] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:3002/users/login").then((response) => {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/users/login`).then((response) => {
           setCurrentUser(response.data.user[0])
         });
       }, []);
