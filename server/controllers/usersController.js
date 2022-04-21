@@ -275,7 +275,7 @@ const userChangeUsername = (req, res) => {
             logger.log('error', { methodName: '/userChangeUsername', body: `Failed to change user-${userId}'s username: ${err}.` }, { service: 'query-service' });
         }
         db.query(`SELECT * FROM Users WHERE userid = '${userId}'`, (err,result) => {
-            req.session.userSession = result;
+            req.session.userSession[0].username = result[0].username;
             logger.log('info', `Updated username to "${newUserName}"`);
             res.send({ result: result, success: true, message: "Updated username!" });
         })
