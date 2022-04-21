@@ -29,7 +29,7 @@ const DeleteCompany = () => {
     const deleteCompany = () =>
     {
         if(company != "") {
-            axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `DELETE FROM Companies WHERE companyid = '${company}'` } }).then((response) => {
+            axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `DELETE FROM Companies WHERE companyid = '${company}'` } }).then((response) => {
             }).catch(error => console.error(`Error ${error}`));
         }
     }

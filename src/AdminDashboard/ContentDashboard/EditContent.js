@@ -52,13 +52,8 @@ const  EditContent = () => {
 
 
     function submitData() {
-<<<<<<< HEAD
-        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `UPDATE  LearningModules SET Title = '${title}', Subtitle = '${subtitle}', Description = '${description}' WHERE ID = '${slug}'` } }).then((response) => {
-        // console.log(response)
-=======
         axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `UPDATE  LearningModules SET Title = '${title}', Subtitle = '${subtitle}', Description = '${description}' WHERE ID = '${slug}'` } }).then((response) => {
         console.log(response)
->>>>>>> 1edbf08f02463535731d1c06d4f1f00d9801bc8b
         }).catch(error => console.error(`Error ${error}`));
         // console.log("We added")
         // console.log("Title:", title)
