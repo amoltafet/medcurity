@@ -56,7 +56,7 @@ function LeaderboardProfile (props) {
             `SELECT * ` +
             `FROM UserPoints LEFT JOIN LearningModules ` +
             `ON LearningModules.ID = UserPoints.PointsID ` +
-            `LEFT JOIN CompletedModules ON UserPoints.PointsID = CompletedModules.LearningModID ` +
+            `RIGHT JOIN CompletedModules ON UserPoints.PointsID = CompletedModules.LearningModID ` +
             `AND UserPoints.UserID = CompletedModules.UserID ` + 
             `WHERE UserPoints.UserID = '${currentUser.userid}'`
             // `SELECT * ` +
