@@ -8,7 +8,7 @@ function LearningModules() {
   return (
     <div >
       <div >
-        <h1 className="text-center mt-5">Custom Learning Module page?</h1>
+        <h1 className="text-center mt-5">Empty Page. Go back</h1>
       </div>
     </div>
   );

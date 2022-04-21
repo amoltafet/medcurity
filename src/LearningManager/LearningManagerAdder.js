@@ -1,14 +1,15 @@
 import React from 'react';
-import { Form , Card, Button, Container, Dropdown, Item, Row} from 'react-bootstrap';
-import { useEffect, useState, Link} from "react";
-import { useParams } from "react-router";
-import { useNavigate } from 'react-router-dom';
+import {Card, Button, Row} from 'react-bootstrap';
+import { useEffect, useState} from "react";
 import './LearningManagerAdder.css'
 import axios from 'axios';
+// import env from "react-dotenv";
 
 /**
- * This class allows employers to enter in future user learningModules.
- * Inputs are validated, then new users are added
+ * This class allows employers to assign learningModules to their employees.
+ * @param {int} companyId
+ * @param {bool} reload
+ * @param {function} setReload
  */
 const LearningModuleAdder = (props) => {
     axios.defaults.withCredentials = true;
@@ -18,7 +19,7 @@ const LearningModuleAdder = (props) => {
     const [learningModule, setLearningModule] = useState(0);
     const [isLoading, setLoading] = useState(true)
     
-
+    // Manage the loading state for companyId
     useEffect(() => {
         if (Number.isInteger(props.companyId)) {
             setLoading(false)
@@ -26,10 +27,10 @@ const LearningModuleAdder = (props) => {
     }, [props.companyId])
 
     // Query for Learning Modules not included in the company already
-    // Assigns learningModule to the first module returned if the list is greater than 0
+    // Assigns learningModule with the first module returned if the list is greater than 0
 	useEffect(() => {
         if (!isLoading) {
-            axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 'SELECT * ' +
+            axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: 'SELECT * ' +
                 'FROM LearningModules ' +
                 'WHERE NOT EXISTS ( ' +
                     'SELECT lm.* ' +
@@ -48,31 +49,37 @@ const LearningModuleAdder = (props) => {
 
     /**
      * This function creates a new basic user account.
-     * First it trys to register a user, then it 
-     * 
+     * First it trys to register a user, then reloads
+     * the page or gives and error message depending on
+     * if the use has been added 
      */
     const addModule = () => {
-        console.log('Adding module: ', learningModule)
-        axios.post("http://localhost:3002/users/assignModulesToCompany",
+        // console.log('Adding module: ', learningModule)
+        axios.post(`${process.env.REACT_APP_BASE_URL}/users/assignModulesToCompany`,
         { 
         learningModId: learningModule,
         companyid: props.companyId
         }).then((response) => 
         {
-        console.log("response.data =", response.data)
+        // console.log("response.data =", response.data)
         if (response.data === true)
         {
-            console.log("Adding module!")
+            // console.log("Adding module!")
             props.setReload(true)
         }
         else if (response.data === false)
         {
-            console.log("Already added!")
+            // console.log("Already added!")
             setMessage('This learning Module is already assigned! Please try a different learningModule.')
         }
         });
     };
 
+    /**
+     * Create a html list of options
+     * @param {array} items 
+     * @returns 
+     */
     function createDropDownOptions(items) {
         const dropdownList = [];
         for (let index in items) {
@@ -98,7 +105,7 @@ const LearningModuleAdder = (props) => {
                             onChange={ (e) => 
                             {
                                 setLearningModule(e.target.value);
-                                console.log(e.target.value);
+                                // console.log(e.target.value);
                             }}>
                             {createDropDownOptions(modules)}
                         </select>

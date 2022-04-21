@@ -5,6 +5,7 @@ import './../Layout.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import axios from "axios"
 import { useEffect, useState } from "react";
+// import env from "react-dotenv";
 
 /**
 * Creates and displays the main welcome panel for the user. 
@@ -13,7 +14,7 @@ import { useEffect, useState } from "react";
 const WelcomePanel = (props) => {
      axios.defaults.withCredentials = true;
     const [profilePic, setProfilePic] = useState("")
-    useEffect(() => { if (props.user.userid)  axios.get("http://localhost:3002/api/getProfilePicture", { params: { id: props.user.userid }} ).then((response) => { setProfilePic(response.data.profileImage) }); })
+    useEffect(() => { if (props.user.userid)  axios.get(`${process.env.REACT_APP_BASE_URL}/api/getProfilePicture`, { params: { id: props.user.userid }} ).then((response) => { setProfilePic(response.data.profileImage) }); })
 
     
 

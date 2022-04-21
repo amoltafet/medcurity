@@ -1,10 +1,10 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'   
 import { Card, Row, Button, Container, CardDeck, Col } from 'react-bootstrap';
-import { useEffect, useState, Link} from "react";
-import { useParams } from "react-router";
+import { useEffect, useState} from "react";
 import axios from 'axios';
 import ContentCard from './ContentCard'
+// import env from "react-dotenv";
 
 /**
  * Returns Panels of the Content Cards. These show basic
@@ -18,9 +18,9 @@ const ContentsCards = (props) => {
 
     // Get all of the learningModules
     useEffect(() => {
-        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `SELECT * FROM LearningModules` } }).then((response) => {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `SELECT * FROM LearningModules` } }).then((response) => {
             setLearningModules(response.data)
-            console.log("Modules:", response.data)
+            // // console.log("Modules:", response.data)
             }).catch(error => console.error(`Error ${error}`));
         },[])
 
@@ -31,11 +31,11 @@ const ContentsCards = (props) => {
      * @param {max_length} to limit max card number created
      */
     function createContentCards(modules, maxLength=-1) {
-        console.log(modules)
+        // // console.log(modules)
         const objs = [];
         let size = 0
         for (let index in modules) {
-            if (size == maxLength) { break; }
+            if (size === maxLength) { break; }
             module = modules[index]
             objs.push(<ContentCard learningModuleName={module.Title} moduleId={module.ID} />)
             size += 1;

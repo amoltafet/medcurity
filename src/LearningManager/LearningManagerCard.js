@@ -5,28 +5,24 @@ import './LearningManager.css';
 import { useState, useEffect} from "react";
 import axios from 'axios';
 import DatePicker from 'react-date-picker';
+// import env from "react-dotenv";
 
 /**
- * Panel for Module cards
- * @param {} props 
+ * Panel for learning Module cards
+ * @param {int} moduleId
+ * @param {int} companyId 
+ * @param {function} setReload
+ * @param {str} learningModuleName
  * @returns 
  */
 const LearningManagerCard = (props) => {
     const [message, setMessage] = useState('');
     const [dateDue, setDateDue] = useState();
-    // If it hasn't, then sets it so updates do not trigger updating the database
-    const [isLoading, setLoading] = useState(true)
-
-    useEffect(() => {
-        if (Number.isInteger(props.companyId)) {
-            setLoading(false)
-        }
-    }, [props.companyId])
 
     // Updates the current due date from the database
     useEffect(() => {
-        if (props.dueDate != undefined) {
-            console.log("New due date: ", props.dueDate)
+        if (props.dueDate !== undefined) {
+            // console.log("New due date: ", props.dueDate)
             setDateDue(new Date(props.dueDate))
         }
     }, [props.dueDate])
@@ -35,22 +31,22 @@ const LearningManagerCard = (props) => {
     function updateModuleDate(dateDue) {
        
         setDateDue(dateDue)
-        console.log('Updating module date: ', props.moduleId, ' to ', dateDue )
-        axios.post("http://localhost:3002/users/updateCompanyModuleDueDate",
+        // console.log('Updating module date: ', props.moduleId, ' to ', dateDue )
+        axios.post(`${process.env.REACT_APP_BASE_URL}/users/updateCompanyModuleDueDate`,
         { 
         learningModId: props.moduleId,
         companyid: props.companyId,
         dateDue: dateDue
         }).then((response) => 
         {
-        console.log("response.data =", response.data)
+        // console.log("response.data =", response.data)
         if (response.data === true)
         {
-            console.log("Updating module!")
+            // console.log("Updating module!")
         }
         else if (response.data === false)
         {
-            console.log("Error, module failed to update")
+            // console.log("Error, module failed to update")
         }
         });
     
@@ -61,19 +57,18 @@ const LearningManagerCard = (props) => {
      * @param {int} userId 
      */
     function removeModule(moduleId, companyId) {
-        console.log('Removing Module: ', moduleId)
-        axios.post("http://localhost:3002/users/removeModuleFromCompany",
+        // console.log('Removing Module: ', moduleId)
+        axios.post(`${process.env.REACT_APP_BASE_URL}/users/removeModuleFromCompany`,
         { 
         learningModId: moduleId,
         companyid: companyId
         }).then((response) => 
         {
-        console.log("response.data =", response.data)
+        // console.log("response.data =", response.data)
         if (response.data === true)
         {
-            console.log("Removing module!")
+            // console.log("Removing module!")
             props.setReload(true)
-            
         }
         else if (response.data === false)
         {

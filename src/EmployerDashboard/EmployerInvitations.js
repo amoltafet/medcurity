@@ -1,13 +1,17 @@
 import React from 'react';
-import { Form, Card, Button, Row, Col } from 'react-bootstrap';
+import { Form, Card, Button, Row } from 'react-bootstrap';
 import { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import './EmployerInvitations.css'
 import axios from 'axios';
+// import env from "react-dotenv";
 
 /**
- * This class allows employers to enter in future user emails.
+ * This class allows employers to register empty user accounts
+ * that employees can register into
  * Inputs are validated, then new users are added
+ * @param {int} companyId
+ * @param {function} setReload()
  */
 const EmployerInvitations = (props) => {
     axios.defaults.withCredentials = true;
@@ -15,7 +19,6 @@ const EmployerInvitations = (props) => {
     const [message, setMessage] = useState("")
     const [email, setEmail] = useState("");
     const [isLoading, setLoading] = useState(true)
-    const navigate = useNavigate();
 
     useEffect(() => {
         if (Number.isInteger(props.companyId)) {
@@ -25,24 +28,26 @@ const EmployerInvitations = (props) => {
 
     /**
      * This function creates a new basic user account.
-     * First it trys to register a user, then it 
+     * First it trys to register a user, if this fails then
+     * it will print out the error message. If it succeeds 
+     * it will trigger a reload of page data
      * 
      */
     const invite = () => {
         if (!isLoading) {
-            console.log('INVITING', email)
-            axios.post("http://localhost:3002/users/registerEmpty",
+            // // console.log('INVITING', email)
+            axios.post(`${process.env.REACT_APP_BASE_URL}/users/registerEmpty`,
                 {
                     email: email,
                     companyid: String(props.companyId),
                 }).then((response) => {
-                    console.log("response.data =", response.data)
+                    // // console.log("response.data =", response.data)
                     if (response.data === true) {
-                        console.log("A new invitation!")
+                        // // console.log("A new invitation!")
                         props.setReload(true)
                     }
                     else if (response.data === false) {
-                        console.log("Already has account!")
+                        // // console.log("Already has account!")
                         setMessage('This email is already associated with an account! Please try a different email.')
                     }
                 });

@@ -24,7 +24,7 @@ const userRegister = (req,res) =>
             if (result[0].doesExist == 0)
             {
                 bcrypt.hash(password, saltRounds, (err, hash) => {
-                    if (err) console.log(err);
+                    if (err) // console.log(err);
                     db.query("INSERT INTO Users (username, email, password) VALUES (?,?,?)", [username, email, hash], (err, result) => {
                         db.query(`SELECT * FROM Users WHERE email = '${email}'`, (err,result) => {
                             req.session.userSession = result;
@@ -39,7 +39,7 @@ const userRegister = (req,res) =>
                     if (result[0].active == 0 && result[0].password == null)
                     {
                         bcrypt.hash(password, saltRounds, (err, hash) => {
-                            if (err) console.log(err);
+                            if (err) // console.log(err);
                             db.query("UPDATE Users SET password = ?, active = ? WHERE email = ?", [hash, 1, email], (err, result) => {
                                 db.query(`SELECT * FROM Users WHERE email = '${email}'`, (err,result) => {
                                     req.session.userSession = result;
@@ -50,7 +50,7 @@ const userRegister = (req,res) =>
                     }
                     else
                     {
-                        console.log("User already exists, returning false!")
+                        // console.log("User already exists, returning false!")
                         res.send(false)
                     }
                 });
@@ -85,14 +85,14 @@ const userChangePassword = async (req,res) =>
         else
         {
             // retyped pass does not match new pass
-            console.log('no match')
+            // console.log('no match')
             res.send({result: false, message: 'Your retyped password does not match your new password!'})
         }
     }
     else
     {
         // password strength bad
-        console.log(validPass.message)
+        // console.log(validPass.message)
         res.send({result: false, message: validPass.message})
     }
 }
@@ -106,22 +106,32 @@ const userRegisterEmpty = (req,res) =>
     const username = email.substring(0, email.indexOf("@"));
     const companyid = req.body.companyid
 
-    db.query(`SELECT EXISTS(SELECT * FROM Users WHERE email = '${email}') AS doesExist`, (err,result) => {
-        if (result[0].doesExist == 0)
-        {
-            db.query("INSERT INTO Users (username, email, active) VALUES (?,?,?)", [username, email, false], (err, result) => {
-                db.query(`SELECT * FROM Users WHERE email = '${email}'`, (err,user) => {
-                    db.query("INSERT INTO AffiliatedUsers (UserID, CompanyID) VALUES (?,?)", [user[0].userid, companyid], (err, result) => {
-                        res.send(true)
+    let isValidEmail = checkEmail(email)
+    if (isValidEmail.result)
+    {
+        db.query(`SELECT EXISTS(SELECT * FROM Users WHERE email = '${email}') AS doesExist`, (err,result) => {
+            if (result[0].doesExist == 0)
+            {
+                db.query("INSERT INTO Users (username, email, active) VALUES (?,?,?)", [username, email, false], (err, result) => {
+                    db.query(`SELECT * FROM Users WHERE email = '${email}'`, (err,user) => {
+                        db.query("INSERT INTO AffiliatedUsers (UserID, CompanyID) VALUES (?,?)", [user[0].userid, companyid], (err, result) => {
+                            res.send({ result: true, message: `Added`})
+                            
+                        });
                     });
                 });
-            });
-        }
-        else
-        {
-            res.send(false)
-        }
-    })
+            }
+            else
+            {
+                res.send({ result: false, message: `User already exists`})
+            }
+        })
+    }
+    else
+    {
+        res.send(isValidEmail)
+    }
+
 }
 
 
@@ -137,7 +147,7 @@ const userRegisterCompanyAdmin = (req,res) =>
     db.query(`SELECT EXISTS(SELECT * FROM Users WHERE email = '${email}') AS doesExist`, (err, result) => {
         if (result[0].doesExist == 0)
         {
-            if (err) console.log(err);
+            if (err) // console.log(err);
 
             db.query("INSERT INTO Users (username, email, active, companyid) VALUES (?,?,?,?)", [username, email, false, companyid], (err, result) => {
                 db.query(`SELECT * FROM Users WHERE email = '${email}'`, (err, user) => {
@@ -210,7 +220,7 @@ const userLogin = (req,res) =>
         }
         else
         {
-            console.log("User already exists, returning false!")
+            // console.log("User already exists, returning false!")
             res.send({ success: false, message: "Sorry, we can't find an account with this email address. Please try again." })
         }
     })
@@ -320,7 +330,7 @@ const deleteUser = (req,res) =>
         `WHERE Users.userid = '${userid}') AS doesExist`), (err, result) => {
         if (result[0].doesExist == 1)
         {
-            if (err) console.log(err);
+            if (err) // console.log(err);
 
             db.query(`DELETE FROM AffiliatedUsers WHERE AffiliatedUsers.UserID = '${userid}'`, (err, result) => {});
             db.query(`DELETE FROM Users WHERE Users.userid = '${userid}'`, (err, result) => {});

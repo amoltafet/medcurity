@@ -5,6 +5,7 @@ import { useParams } from "react-router";
 import { useNavigate } from 'react-router-dom';
 import './AdminInvitations.css'
 import axios from 'axios';
+// import env from "react-dotenv";
 
 /**
  * This class allows Admins to enter in future user emails.
@@ -17,12 +18,12 @@ const AdminInvitations = () => {
     const [email, setEmail] = useState("");
     const [companies, setCompanies] = useState("")
     const [userCompany, setUserCompany] = useState(1)
-    const navigate = useNavigate();
+    
 
     useEffect(() => {
-        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `SELECT * FROM Companies ` } }).then((response) => {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `SELECT * FROM Companies ` } }).then((response) => {
             setCompanies(response.data)
-            console.log("Companies from Admin invitations:", response.data)
+            // console.log("Companies from Admin invitations:", response.data)
             }).catch(error => console.error(`Error ${error}`));
         },[])
 
@@ -32,21 +33,21 @@ const AdminInvitations = () => {
      * 
      */
     const invite = () => {
-        // console.log('INVITING', email)
-        // axios.post("http://localhost:3002/users/register",
+        // // console.log('INVITING', email)
+        // axios.post("${process.env.REACT_APP_BASE_URL}/users/register",
         // { 
         // email: email,
         // }).then((response) => 
         // {
-        // console.log("response.data =", response.data)
+        // // console.log("response.data =", response.data)
         // if (response.data === true)
         // {
-        //     console.log("A new invitation!")
+        //     // console.log("A new invitation!")
         //     navigate('/admin-dash');
         // }
         // else if (response.data === false)
         // {
-        //     console.log("Already has account!")
+        //     // console.log("Already has account!")
         //     setMessage('This email is already associated with an account! Please try a different email.')
         // }
         // });
@@ -58,17 +59,16 @@ const AdminInvitations = () => {
         // }
         // const addCompany = () =>
         // {
-        //     axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `INSERT INTO Companies (name) VALUES ('${company}')` } }).then((response) => {
-        //     console.log(response)
+        //     axios.get('${process.env.REACT_APP_BASE_URL}/api/getQuery', { params: { the_query: `INSERT INTO Companies (name) VALUES ('${company}')` } }).then((response) => {
+        //     // console.log(response)
         //     }).catch(error => console.error(`Error ${error}`));
-        //     console.log("We added")
+        //     // console.log("We added")
         // }
-        console.log("Email:", email)
-        console.log("")
-        if(email != "") {
-            axios.post("http://localhost:3002/users/registerCompanyAdmin", { email: email, companyid: userCompany }).then((response) =>
+        // console.log("Email:", email)
+        // console.log("")
+        if(email !== "") {
+            axios.post(`${process.env.REACT_APP_BASE_URL}/users/registerCompanyAdmin`, { email: email, companyid: userCompany }).then((response) =>
             {
-                console.log("Reponding from invite", response)
             })
         }   
     };
@@ -113,7 +113,6 @@ const AdminInvitations = () => {
                         onChange={ (e) => 
                         {
                             setUserCompany(e.target.value)
-                            console.log(e.target.value);
                         }}>
                         {createDropDownOptions()}
                     </select>

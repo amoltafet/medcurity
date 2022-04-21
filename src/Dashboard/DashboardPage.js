@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import LearningModulesCards from './LearningModulesCards';
 import LearningModulesDirectories from './LearningModuleDirectories';
 import axios from 'axios';
+// import env from "react-dotenv";
 
 /**
 * Creates and holds all of the componets for the Dashboard. 
@@ -20,12 +21,12 @@ const DashboardPage = () => {
   const [profilePic, setProfilePic] = useState("");
 
   useEffect(() => {
-    axios.get("http://localhost:3002/users/login").then((response) => {
+    axios.get(`${process.env.REACT_APP_BASE_URL}/users/login`).then((response) => {
       setCurrentUser(response.data.user[0])
     }).catch(error => console.error(`Error ${error}`));
   }, []);
 
-  useEffect(() => { if (currentUser.userid)  axios.get("http://localhost:3002/api/getProfilePicture", { params: { id: currentUser.userid } }).then((response) => { setProfilePic(response.data.profileImage) }); })
+  useEffect(() => { if (currentUser.userid)  axios.get(`${process.env.REACT_APP_BASE_URL}/api/getProfilePicture`, { params: { id: currentUser.userid } }).then((response) => { setProfilePic(response.data.profileImage) }); })
 
   if (currentUser?.userid) {
 
@@ -43,7 +44,7 @@ const DashboardPage = () => {
                   <div className="dash_navButtons">
                     <a href="#requiredModules" className="uvs-left btn dash_navButton">Required Learning Modules</a>
                     <br></br>
-                    <a href="#moduleDirectories" className="uvs-left btn dash_navButton">Learning Module Directories</a>
+                    <a href="#moduleDirectories" className="uvs-left btn dash_navButton">Additional Learning Modules</a>
                     <br></br>
                     <a href="#leaderboard" className="uvs-left btn dash_navButton">Leaderboard</a>
                   </div>

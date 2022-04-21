@@ -30,12 +30,7 @@ import EditQuestionSlug from "./AdminDashboard/ContentDashboard/EditQuestionSlug
 import EditQuestion from "./AdminDashboard/ContentDashboard/EditQuestion";
 import AddContent from "./AdminDashboard/ContentDashboard/AddContent";
 import ResetPasswordPage from "./ResetPassword/Reset";
-
 import axios from 'axios';
-
-axios.get("http://localhost:3002/users/login").then((response) => {
-  //console.log('is working???', response.data.user) 
-})
 
 ReactDOM.render(
 
@@ -79,6 +74,6 @@ ReactDOM.render(
 );
 
 // If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
+// to log results (for example: reportWebVitals(// console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

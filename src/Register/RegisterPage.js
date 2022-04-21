@@ -1,10 +1,11 @@
-import {Button, Image, Form, Card} from 'react-bootstrap'
+import {Button, Image, Form} from 'react-bootstrap'
 import React from 'react';
 import { useState } from "react";
 import axios from "axios"
 import './RegisterPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useNavigate } from 'react-router-dom';
+// import env from "react-dotenv";
 
 /**
 * Creates and displays the main registration page. 
@@ -28,8 +29,8 @@ export default function RegisterPage()
 
     if (email.length > 0 || password.length > 0)
     {
-      console.log("REGISTER CALLED")
-      axios.post("http://localhost:3002/users/register", { email: email, password: password }).then((response) => 
+      // console.log("REGISTER CALLED")
+      axios.post(`${process.env.REACT_APP_BASE_URL}/users/register`, { email: email, password: password }).then((response) => 
       {
         if (response.data.result === true)
         {

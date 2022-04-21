@@ -2,11 +2,9 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Card, Col, Row, Button, OverlayTrigger, Popover } from 'react-bootstrap';
 import './ContentDashboard.css';
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import axios from 'axios';
-
-//TODO
-// Connect button to remove user functionality
+// import env from "react-dotenv";
 
 /**
  * Panel for Module cards
@@ -14,7 +12,6 @@ import axios from 'axios';
  * @returns 
  */
 const ContentCard = (props) => {
-    const [questions, setQuestions] = useState([])
  
 
     /**
@@ -22,13 +19,13 @@ const ContentCard = (props) => {
      * @param {int} userId 
      */
     function removeModule() {
-        console.log("Removing LearningModule from company");
+        // console.log("Removing LearningModule from company");
         axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `DELETE FROM Questions WHERE module = '${props.moduleId}'` } }).then((response) => {
-            console.log("Removing Questions for", props.moduleId)
+            // // console.log("Removing Questions for", props.moduleId)
             }).catch(error => console.error(`Error ${error}`));
         
         axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `DELETE FROM LearningModules WHERE ID = '${props.moduleId}'` } }).then((response) => {
-            console.log("Removing Questions for", props.moduleId)
+            // // console.log("Removing Questions for", props.moduleId)
             }).catch(error => console.error(`Error ${error}`));
 
         

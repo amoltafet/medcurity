@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { CircularProgressbar } from 'react-circular-progressbar';
 import axios from 'axios';
 import './LeaderboardProfile.css'
-
+// import env from "react-dotenv";
 
 /**
 * Creates and displays each users leaderboard profile. 
@@ -24,7 +24,7 @@ function LeaderboardProfile (props) {
     * grabs current user.  
     */
     useEffect(() => {
-        axios.get("http://localhost:3002/users/login").then((response) => {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/users/login`).then((response) => {
           setCurrentUser(response.data.user[0]); 
         }).catch(error => console.error(`Error ${error}`));
       }, []);
@@ -51,29 +51,27 @@ function LeaderboardProfile (props) {
     * grabs users assigned modules info.  
     */
     useEffect(() => {
-        if (props.userid === currentUser.userid) {
-            axios.get('http://localhost:3002/api/getQuery', { params: { the_query: 
-            `SELECT * ` +
-            `FROM UserPoints LEFT JOIN LearningModules ` +
-            `ON LearningModules.ID = UserPoints.PointsID ` +
-            `RIGHT JOIN CompletedModules ON UserPoints.PointsID = CompletedModules.LearningModID ` +
-            `AND UserPoints.UserID = CompletedModules.UserID ` + 
-            `WHERE UserPoints.UserID = '${currentUser.userid}'`
-            // `SELECT * ` +
-            // `FROM AffiliatedUsers  ` +
-            // `JOIN CompletedModules ON AffiliatedUsers.UserID = CompletedModules.UserID ` +
-            // `JOIN LearningModules ON LearningModules.ID = CompletedModules.LearningModID ` +
-            // `WHERE AffiliatedUsers.UserID = '${currentUser.userid}'` 
-            } }).then((response) => {
-                console.log(Object.values(response.data))
-                setDirectories(Object.values(response.data));
-            }).catch(error => console.error(`Error ${error}`));  
-        }
+        axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: 
+        // `SELECT * ` +
+        // `FROM AffiliatedUsers JOIN CompanyLearningModules ` +
+        // `ON AffiliatedUsers.CompanyID = CompanyLearningModules.CompanyID ` +
+        // `JOIN LearningModules ON LearningModules.ID = CompanyLearningModules.LearningModID ` +
+        // `JOIN UserPoints ON UserPoints.PointsID = CompanyLearningModules.LearningModID ` +
+        // `RIGHT JOIN CompletedModules ON UserPoints.PointsID = CompletedModules.LearningModID ` +
+        // `WHERE AffiliatedUsers.UserID = '${currentUser.userid}'`
+        `SELECT * ` +
+        `FROM AffiliatedUsers  ` +
+        `JOIN CompletedModules ON AffiliatedUsers.UserID = CompletedModules.UserID ` +
+        `JOIN LearningModules ON LearningModules.ID = CompletedModules.LearningModID ` +
+        `WHERE AffiliatedUsers.UserID = '${currentUser.userid}'` 
+        } }).then((response) => {
+            setDirectories(Object.values(response.data));
+        }).catch(error => console.error(`Error ${error}`));  
     }, [currentUser])
 
     useEffect(() => { 
         if (props.userid) {
-            axios.get("http://localhost:3002/api/getProfilePicture", { params: { id: props.userid }} ).then((response) => { 
+            axios.get(`${process.env.REACT_APP_BASE_URL}/api/getProfilePicture`, { params: { id: props.userid }} ).then((response) => { 
                 setProfilePic(response.data.profileImage) 
             }); 
         }

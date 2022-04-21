@@ -2,15 +2,18 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Card, Col, Row, Button, OverlayTrigger, Popover } from 'react-bootstrap';
 import './EmployeeCard.css';
-import { useEffect, useState} from "react";
+import { useState} from "react";
 import axios from 'axios';
-
-//TODO
-// Connect button to remove user functionality
+// import env from "react-dotenv";
 
 /**
  * Panel for Module cards
- * @param {} props 
+ * @param {int} userId 
+ * @param {int} companyId
+ * @param {str} email
+ * @param {str} name
+ * @param {str} progress
+ * @param {bool} activeStatus
  * @returns 
  */
 const EmployeeCard = (props) => {
@@ -22,19 +25,19 @@ const EmployeeCard = (props) => {
      * @param {int} companyId
      */
     function removeUser(userId, companyId) {
-        console.log("Removing user from company");
-        axios.post("http://localhost:3002/users/deleteUser", {
+        // console.log("Removing user from company");
+        axios.post(`${process.env.REACT_APP_BASE_URL}/users/deleteUser`, {
             userid: userId,
         }).then((response) => {
-            console.log("response.data =", response.data)
+            // // console.log("response.data =", response.data)
             if (response.data === true)
             {
-                console.log("Deleted!")
+                // // console.log("Deleted!")
                 props.setReload(true)
             }
             else if (response.data === false)
             {
-                console.log("Already deleted!")
+                // // console.log("Already deleted!")
                 setMessage('This user has already been removed. Please Refresh the page.')
             }
         });

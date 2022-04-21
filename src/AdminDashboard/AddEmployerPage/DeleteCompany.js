@@ -1,10 +1,10 @@
 import React from 'react';
-import { Form , Card, Button, Container} from 'react-bootstrap';
-import { useEffect, useState, Link} from "react";
-import { useParams } from "react-router";
+import {Button, Card} from 'react-bootstrap';
+import { useEffect, useState} from "react";
 import { useNavigate } from 'react-router-dom';
 import './DeleteCompany.css'
 import axios from 'axios';
+// import env from "react-dotenv";
 
 /**
  * This class allows Admins to enter in future user emails.
@@ -13,26 +13,22 @@ import axios from 'axios';
 const DeleteCompany = () => {
     axios.defaults.withCredentials = true;
 
-    const [message, setMessage] = useState("")
     const [company, setCompany] = useState("");
     const [companies, setCompanies] = useState("")
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `SELECT * FROM Companies ` } }).then((response) => {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `SELECT * FROM Companies ` } }).then((response) => {
             setCompanies(response.data)
-            console.log("Companies from Admin invitations:", response.data)
             }).catch(error => console.error(`Error ${error}`));
         },[])
 
 
     const deleteCompany = () =>
     {
-        if(company != "") {
+        if(company !== "") {
             axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `DELETE FROM Companies WHERE companyid = '${company}'` } }).then((response) => {
-            console.log(response)
             }).catch(error => console.error(`Error ${error}`));
-            console.log("We Deleteed")
         }
     }
 
@@ -42,21 +38,21 @@ const DeleteCompany = () => {
      * 
      */
     // const invite = () => {
-    //     console.log('INVITING', email)
-    //     axios.post("http://localhost:3002/users/register",
+    //     // console.log('INVITING', email)
+    //     axios.post("${process.env.REACT_APP_BASE_URL}/users/register",
     //     { 
     //     email: email,
     //     }).then((response) => 
     //     {
-    //     console.log("response.data =", response.data)
+    //     // console.log("response.data =", response.data)
     //     if (response.data === true)
     //     {
-    //         console.log("A new invitation!")
+    //         // console.log("A new invitation!")
     //         navigate('/admin-dash');
     //     }
     //     else if (response.data === false)
     //     {
-    //         console.log("Already has account!")
+    //         // console.log("Already has account!")
     //         setMessage('This email is already associated with an account! Please try a different email.')
     //     }
     //     });
@@ -86,7 +82,7 @@ const DeleteCompany = () => {
                 onChange={ (e) => 
                 {
                     setCompany(e.target.value)
-                    console.log(e.target.value);
+                    // console.log(e.target.value);
                 }}>
                 {createDropDownOptions()}
             </select>

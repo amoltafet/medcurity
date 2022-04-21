@@ -4,9 +4,11 @@ import './LearningModulesCards.css'
 import { Card,  Button, Container, Row } from 'react-bootstrap';
 import { useEffect, useState } from "react";
 import axios from 'axios';
+// import env from "react-dotenv";
 
 /**
  * Returns Panels of the Learning Module Cards 
+ * @param {obj} user
  * @returns 
  */
 const LearningModulesCards = (props) => {
@@ -29,12 +31,12 @@ const LearningModulesCards = (props) => {
      */ 
     useEffect(() => {
         if (!isLoading && userId !== undefined) {
-            axios.get('http://localhost:3002/api/getAllUserRequiredModules', 
+            axios.get(`${process.env.REACT_APP_BASE_URL}/api/getAllUserRequiredModules`, 
                 { params: { userid: userId }
                 }).then((response) => {
                     setLearningModules(Object.values(response.data))
             }).catch(error => console.error(`Error ${error}`));
-            axios.get('http://localhost:3002/api/getQuery',{
+            axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`,{
 			params: { the_query: `SELECT * FROM CompletedModules WHERE UserID = '${userId}'`}
             }).then((response) => {
                 setCompletedModules(Object.values(response.data));
@@ -80,8 +82,8 @@ const LearningModulesCards = (props) => {
 
     /**
      * Create directory cards from modules
-     * @param {modules} to create cards for
-     * @param {max_length} to limit max card number created
+     * @param {array} modules to create cards for
+     * @param {int} max_length to limit max card number created
      */
     function createModuleCards(modules, maxLength) {
         const objs = [];

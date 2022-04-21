@@ -10,19 +10,18 @@ import AddCompany from './AddCompany';
 import axios from 'axios';
 import DeleteCompany from './DeleteCompany';
 import InvalidPage from '../../InvalidPage/InvalidPage';
-
+// import env from "react-dotenv";
 
 /**
 * Creates and holds all of the componets for the Admin Dashboard. 
 * @return {AdminDashboardPage}
 */
 const AdminDashboardPage = () => {
-     axios.defaults.withCredentials = true;
+    axios.defaults.withCredentials = true;
     const [currentUser, setCurrentUser] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:3002/users/login").then((response) => {
-          console.log('aaahhh', response.data.user)
+        axios.get(`${process.env.REACT_APP_BASE_URL}/users/login`).then((response) => {
           setCurrentUser(response.data.user[0])
         });
       }, []);

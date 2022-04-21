@@ -1,4 +1,4 @@
-import { Row,  Container } from 'react-bootstrap'
+import { Row} from 'react-bootstrap'
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useEffect, useState } from "react";
@@ -6,7 +6,7 @@ import { useParams } from "react-router";
 import axios from 'axios';
 import LearningModulePanel from './LearningModulePanel';
 import './LearningDirectory.css'
-
+// import env from "react-dotenv";
 
 /**
  * Constructs the content for the Learning Directory Page
@@ -56,14 +56,14 @@ const  LearningDirectoryPage = () => {
 
     // Query for getting LearningModules Directory info
     useEffect(() => {
-        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: "SELECT * FROM LearningModulesDirectory WHERE ID = " + slug } }).then((response) => {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: "SELECT * FROM LearningModulesDirectory WHERE ID = " + slug } }).then((response) => {
               setDirectory(Object.values(response.data))
         }).catch(error => console.error(`Error ${error}`));
     }, [slug])
 
     // Query for getting info on learning modules associated with the directory
     useEffect(() => {
-        axios.get('http://localhost:3002/api/getQuery', { params: { the_query:"SELECT * FROM LearningModules WHERE DirID = " + slug} }).then((response) => {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query:"SELECT * FROM LearningModules WHERE DirID = " + slug} }).then((response) => {
             setModules(Object.values(response.data))
         }).catch(error => console.error(`Error ${error}`));
     }, [slug])

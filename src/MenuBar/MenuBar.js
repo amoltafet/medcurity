@@ -6,22 +6,23 @@ import { Nav, CardImg, Card, Row, Col, OverlayTrigger, Tooltip } from 'react-boo
 import { useEffect, useState } from "react";
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
+// import env from "react-dotenv";
 
 /**
  * Creates the MenuBar and selects what buttons to show depending on the page. 
  * @return {Menubar}
  */
 const Menubar = () => {
+    axios.defaults.withCredentials = true;
     const navigate = useNavigate();
     const [companyId, setCompanyId] = useState('')
     const [company, setCompany] = useState([])
-    axios.defaults.withCredentials = true;
     const [currentUser, setCurrentUser] = useState([]);
     const [isLoading, setLoading] = useState(true)
     const [isCompanyLoading, setCompanyLoading] = useState(true)
 
     useEffect(() => {
-        axios.get("http://localhost:3002/users/login").then((response) => {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/users/login`).then((response) => {
           setCurrentUser(response.data.user[0])
         });
       }, []);
@@ -35,14 +36,14 @@ const Menubar = () => {
     // useEffect(() => {
 
     //     if (isLoggedIn == []) {
-    //         console.log("Log out")
+    //         // console.log("Log out")
     //     }
     // }, [isLoggedIn])
 
     // Query for getting user's required learning modules
     useEffect(() => {
         if (!isLoading) {
-            axios.get('http://localhost:3002/api/getQuery', 
+            axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, 
                 { params: { the_query: 'SELECT CompanyAdmins.CompanyID ' +
                 'FROM CompanyAdmins ' +
                 'WHERE CompanyAdmins.UserID = ' + String(currentUser.userid)} 
@@ -65,17 +66,17 @@ const Menubar = () => {
     }, [isCompanyLoading, company])
 
     const logout = () => {
-        axios.post("http://localhost:3002/users/logout").then((response) => 
+        axios.post(`${process.env.REACT_APP_BASE_URL}/users/logout`).then((response) => 
         {
           if (response.data.success === true)
           {
-            console.log('LOG OUT SUCCESS')
+            // console.log('LOG OUT SUCCESS')
             navigate('/');
           }
           else if (response.data.success === false)
           {
-            console.log(response.data.message)
-            console.log('LOG OUT FAILED')
+            // console.log(response.data.message)
+            // console.log('LOG OUT FAILED')
           }
         }).catch(error => console.error(`Error ${error}`));
     };
@@ -108,7 +109,7 @@ const Menubar = () => {
      */
       function get_admin_buttons() {
         let objs = [];
-        if (currentUser.type == "websiteAdmin") {
+        if (currentUser.type === "websiteAdmin") {
             objs.push(
                 <Nav.Item className="navPills uvs-left uvs-right">
                     <Nav.Link className="menubarFont" href="/admin-content">Edit Content</Nav.Link>

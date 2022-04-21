@@ -2,21 +2,19 @@ require('dotenv').config();
 const logger = require('./logger').log;
 const express = require('express');
 const cors = require('cors');
-const path = require('path');
-const serverConfig = require('./serverConfig.json');
 const app = express();
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 
 /**
-* Launches the express server on the port specified in serverConfig.json.
-* Website is accessible through the port this server listens on.
+* Launches an Express server that hosts the website API.
+* This Express server is configured with the .env file in the root folder.
 */
 
 const LISTEN_PORT = process.env.LISTEN_PORT || 3002
 
-// only use cookies when in production, because it makes sessions not work on localhost
+// only use cookies when in production, because it makes sessions not work on localhost (development)
 const cookieSettings = (process.env.ENVIRONMENT == 'production') ? { httpOnly: true, secure: false, maxAge: 1000 * 60 * 60 * 48, sameSite: 'none' } : null
 
 app.use(
@@ -44,12 +42,6 @@ app.listen(LISTEN_PORT, (err) => {
     console.log(`-- ENVIRONMENT: ${process.env.ENVIRONMENT} --`)
     console.log(`API is running on PORT: ${LISTEN_PORT}`)
     console.log(`API is accessible at is: ${process.env.BASE_URL}`)
+    console.log(cookieSettings ? 'Cookies are enabled' : 'Cookies are disabled.')
 
 })
-
-// Serve static files from the React app, must be uncommented for production deployment
-/*app.use(express.static(path.join(__dirname, STATIC_PATH)));
-app.use(express.static("client"));
-app.use((req, res, next) => {
-  res.sendFile(path.join(__dirname, STATIC_PATH, "index.html"));
-});*/

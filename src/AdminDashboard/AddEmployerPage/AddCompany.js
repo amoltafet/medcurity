@@ -3,6 +3,7 @@ import  axios from 'axios';
 import { Form, Button, Row, Card} from 'react-bootstrap';
 import { useState} from "react";
 import './AddCompany.css';
+// import env from "react-dotenv";
 
 
 /**
@@ -17,10 +18,8 @@ const AddCompany = () => {
     const addCompany = () =>
     {
         if(company !== "") {
-             axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `INSERT INTO Companies (name) VALUES ('${company}')` } }).then((response) => {
-            console.log(response)
+             axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `INSERT INTO Companies (name) VALUES ('${company}')` } }).then((response) => {
             }).catch(error => console.error(`Error ${error}`));
-            console.log("We added")
         }
     }
 
@@ -30,21 +29,21 @@ const AddCompany = () => {
      * 
      */
     // const invite = () => {
-    //     console.log('INVITING', email)
-    //     axios.post("http://localhost:3002/users/register",
+    //     // console.log('INVITING', email)
+    //     axios.post("${process.env.REACT_APP_BASE_URL}/users/register",
     //     { 
     //     email: email,
     //     }).then((response) => 
     //     {
-    //     console.log("response.data =", response.data)
+    //     // console.log("response.data =", response.data)
     //     if (response.data === true)
     //     {
-    //         console.log("A new invitation!")
+    //         // console.log("A new invitation!")
     //         navigate('/admin-dash');
     //     }
     //     else if (response.data === false)
     //     {
-    //         console.log("Already has account!")
+    //         // console.log("Already has account!")
     //         setMessage('This email is already associated with an account! Please try a different email.')
     //     }
     //     });

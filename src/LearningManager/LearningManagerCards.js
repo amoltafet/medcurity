@@ -1,21 +1,23 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'   
-import { Card, Image, Button, Container, CardDeck, Col } from 'react-bootstrap';
-import { useEffect, useState, Link} from "react";
-import { useParams } from "react-router";
+import { Card, CardDeck, Col } from 'react-bootstrap';
+import { useEffect, useState} from "react";
 import axios from 'axios';
 import LearningManagerCard from './LearningManagerCard'
+// import env from "react-dotenv";
 
 /**
  * Returns Panels of the LearningManager Cards. These show basic
  * Learning Module information, and contain a button that allows
  * Employers to remove the given learning module
+ * @param {int} companyId
  * @returns 
  */
 const LearningManagersCards = (props) => {
     const [learningModules, setLearningModules] = useState([])
     const [isLoading, setLoading] = useState(true)
 
+    // Manage the loading state for later useEffects
     useEffect(() => {
         if (Number.isInteger(props.companyId)) {
             setLoading(false)
@@ -25,7 +27,7 @@ const LearningManagersCards = (props) => {
     // Get all of the learningModules in a company
     useEffect(() => {
         if (!isLoading) {
-            axios.get('http://localhost:3002/api/getQuery', 
+            axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, 
                 { params: { the_query: 'SELECT * ' +
                 'FROM CompanyLearningModules ' + 
                     'JOIN LearningModules ON LearningModules.ID = CompanyLearningModules.LearningModID ' + 
@@ -38,14 +40,14 @@ const LearningManagersCards = (props) => {
 
     /**
      * Create directory cards from modules
-     * @param {modules} to create cards for
-     * @param {max_length} to limit max card number created
+     * @param {array} modules to create cards for
+     * @param {int} max_length to limit max card number created
      */
     function createLearningManagerCards(modules, maxLength=-1) {
         const objs = [];
         let size = 0
         for (let index in modules) {
-            if (size == maxLength) { break; }
+            if (size === maxLength) { break; }
             module = modules[index]
             objs.push(<LearningManagerCard learningModuleName={module.Title} moduleId={module.ID} companyId={module.CompanyID} dueDate={module.DueDate} setReload={props.setReload}/>)
             size += 1;

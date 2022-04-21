@@ -8,8 +8,7 @@ import MenuBar from '../MenuBar/MenuBar';
 import Questions from './Questions'
 import axios from 'axios';
 import Results from './Results';
-
-
+// import env from "react-dotenv";
 
 /**
 * Handles main logic for quiz page. 
@@ -74,7 +73,7 @@ const QuizPage = () => {
    *  grabs user session to store points 
    */
   useEffect(() => {
-    axios.get("http://localhost:3002/users/login").then((response) => {
+    axios.get(`${process.env.REACT_APP_BASE_URL}/users/login`).then((response) => {
       setCurrentUser(response.data.user[0])
     }).catch(error => console.error(`Error ${error}`));
   }, []);
@@ -86,22 +85,22 @@ const QuizPage = () => {
    */
   useEffect(() => {
     if (!isLoading && currentUser.userid != null) {
-		axios.get('http://localhost:3002/api/getQuery',{
+		axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`,{
 			params: { the_query: 'SELECT * FROM CompletedModules WHERE UserID = ' + currentUser.userid }
 		}).then((response) => {
 			setUserCompletedModules(response.data);
 		});
-		axios.get('http://localhost:3002/api/getAllUserRequiredModules', 
+		axios.get(`${process.env.REACT_APP_BASE_URL}/api/getAllUserRequiredModules`, 
 			{ params: { userid: currentUser.userid }
 		}).then((response) => {
 			setUserAssignedModules(response.data)
 		}).catch(error => console.error(`Error ${error}`));
-		axios.get('http://localhost:3002/api/getQuery',{
+		axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`,{
 			params: { the_query: 'SELECT * FROM LearningModules WHERE ID = ' + slug }
 		}).then((response) => {
 			setModuleName(response.data); 
 		});	
-    axios.get('http://localhost:3002/api/getQuery',{
+    axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`,{
 			params: { the_query: 'SELECT * FROM AffiliatedUsers WHERE UserID = ' + currentUser.userid }
 		}).then((response) => {
 			setCompanyID(response.data[0]); 
@@ -113,30 +112,30 @@ const QuizPage = () => {
       // Quiz Answers 
 
       // content.forEach(element => {
-      // 	console.log(element.solution)
+      // 	// console.log(element.solution)
       // });
 
       //rests users stats
 
-      // axios.post("http://localhost:3002/testing/resetUser", {
+      // axios.post("${process.env.REACT_APP_BASE_URL}/testing/resetUser", {
       //   userid: currentUser.userid,
       // }).then((response) => {
-      //   console.log("response", response);
-      // }).catch(error => console.log(`Error ${error}`));
+      //   // console.log("response", response);
+      // }).catch(error => // console.log(`Error ${error}`));
 
       //assigns modules
 
-      // axios.post("http://localhost:3002/testing/assignModules", {
+      // axios.post("${process.env.REACT_APP_BASE_URL}/testing/assignModules", {
       //     companyid: 24, 
       //     modulenum: 85,
       //     daysaway: 4,
       //   }).then((response) => {
-      //     console.log("response", response);
-      //   }).catch(error => console.log(`Error ${error}`));
+      //     // console.log("response", response);
+      //   }).catch(error => // console.log(`Error ${error}`));
 
       //adds completed modules 
 
-      // axios.post("http://localhost:3002/testing/fillCompletedModules", {
+      // axios.post("${process.env.REACT_APP_BASE_URL}/testing/fillCompletedModules", {
       //   userid: currentUser.userid,
       //   modulenum: 2,
       //   daysaway: 2,
@@ -144,26 +143,26 @@ const QuizPage = () => {
       //   percentage: 1,
       //   companyid: 24,
       // }).then((response) => {
-      //   console.log("response", response);
-      // }).catch(error => console.log(`Error ${error}`));
+      //   // console.log("response", response);
+      // }).catch(error => // console.log(`Error ${error}`));
 
       //assigns company 
 
-      // axios.post("http://localhost:3002/testing/addCompany", {
+      // axios.post("${process.env.REACT_APP_BASE_URL}/testing/addCompany", {
       //   userid: currentUser.userid,
       //   companyid: 24,
       // }).then((response) => {
-      //   console.log("response", response);
-      // }).catch(error => console.log(`Error ${error}`));
+      //   // console.log("response", response);
+      // }).catch(error => // console.log(`Error ${error}`));
 
       //makes user an admin
 
-      // axios.post("http://localhost:3002/testing/makeAdmin", {
+      // axios.post("${process.env.REACT_APP_BASE_URL}/testing/makeAdmin", {
       //   userid: currentUser.userid,
       //   companyid: 24,
       // }).then((response) => {
-      //   console.log("response", response);
-      // }).catch(error => console.log(`Error ${error}`));
+      //   // console.log("response", response);
+      // }).catch(error => // console.log(`Error ${error}`));
     
 
     }
@@ -174,7 +173,7 @@ const QuizPage = () => {
    */
   useEffect(() => {
     setQuestionIndex(0);
-    axios.get('http://localhost:3002/api/getModuleQuestions', { params: { id: slug } }).then((response) => {
+    axios.get(`${process.env.REACT_APP_BASE_URL}/api/getModuleQuestions`, { params: { id: slug } }).then((response) => {
       setContent(Object.values(response.data))
       setLoading(false);
     }).catch(error => console.error(`Error ${error}`));
@@ -199,7 +198,7 @@ const QuizPage = () => {
       var totalPoints = points + earlyCompletion + notCompleteOnTime + spaceLearning;
       var percent = numCorrect / content.length;
       if ((percent * 100) >= 60 && !moduleNotAssigned) {
-        axios.post("http://localhost:3002/users/moduleCompleted", {
+        axios.post(`${process.env.REACT_APP_BASE_URL}/users/moduleCompleted`, {
           categoryId: slug,
           userid: currentUser.userid,
           points: totalPoints,
@@ -207,8 +206,8 @@ const QuizPage = () => {
           modulenum: slug, 
           companyid: companyid.CompanyID,
         }).then((response) => {
-          console.log("response", response.data);
-        }).catch(error => console.log(`Error ${error}`));
+          // console.log("response", response.data);
+        }).catch()// console.log(`Error ${error}`));
         setPassed(true)
       }
       setEarlyCompletion(false);
