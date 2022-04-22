@@ -64,7 +64,7 @@
     "heroku-postbuild": "react-dotenv && npm install && npm run build"
   },
   "react-dotenv": {
-    "whitelist": ["BASE_URL"]
+    "whitelist": ["BASE_URL","REACT_APP_BASE_URL"]
   },
   "eslintConfig": {
     "extends": [

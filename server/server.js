@@ -2,7 +2,7 @@ require('dotenv').config();
 const logger = require('./logger').log;
 const express = require('express');
 const cors = require('cors');
-const app = express();
+
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
@@ -11,11 +11,12 @@ const session = require("express-session");
 * Launches an Express server that hosts the website API.
 * This Express server is configured with the .env file in the root folder.
 */
+const app = express();
 
 const LISTEN_PORT = process.env.LISTEN_PORT || 3002
 
 // only use cookies when in production, because it makes sessions not work on localhost (development)
-const cookieSettings = (process.env.ENVIRONMENT == 'production') ? { httpOnly: true, secure: false, maxAge: 1000 * 60 * 60 * 48, sameSite: 'none' } : null
+const cookieSettings = (process.env.COOKIES == 'enabled') ? { httpOnly: true, secure: false, maxAge: 1000 * 60 * 60 * 48, sameSite: 'none' } : null
 
 app.use(
   express.json(),
@@ -37,11 +38,13 @@ app.use('/testing', testingRouter);
 
 app.listen(LISTEN_PORT, (err) => {
     
-    if (err) console.log('ERROR: ', err)
+    if (err) console.log('API ERROR --> ', err)
 
-    console.log(`-- ENVIRONMENT: ${process.env.ENVIRONMENT} --`)
-    console.log(`API is running on PORT: ${LISTEN_PORT}`)
-    console.log(`API is accessible at is: ${process.env.BASE_URL}`)
-    console.log(cookieSettings ? 'Cookies are enabled' : 'Cookies are disabled.')
+    //console.log(`-- ENVIRONMENT: ${process.env.NODE_ENV || "Not set, please define NODE_ENV"} --`)
+    console.log('API CONNECTION INFO:')
+    console.log(`\tAPI is running on PORT: ${LISTEN_PORT}`)
+    console.log(`\tAPI is accessible at is: http://localhost:${LISTEN_PORT}`)
+    console.log('API SETTINGS:')
+    console.log(cookieSettings ? '\tCookies are enabled' : '\tCookies are disabled.')
 
 })
