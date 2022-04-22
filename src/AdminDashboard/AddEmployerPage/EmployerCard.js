@@ -66,7 +66,7 @@ const EmployerCard = (props) => {
     return (
         <>
         <Card className="EmployerCard uvs-right uvs-left" style={{ flexDirection: 'row' }}>
-            <Col xs={3} md={2} lg={3}>
+            <Col xs={2} md={2} lg={3}>
                 <div className="EmployerCardValues_email">{props.email}</div>
             </Col>
             <Col  xs={3} md={2} lg={3}>

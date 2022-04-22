@@ -21,32 +21,46 @@
         height: 100%;
     }
 }
-
-
 .createButton {
     margin-top: 10%;
+    margin-left: -65%;
     width: 100%;
     background-color: #1e5b88;
     text-shadow: none;
     
+}
+
+
+@media screen and (min-width: 1000px) {
+    .createButton {
+        margin-top: 10%;
+        margin-left: 0;
+        width: 100%;
+        background-color: #1e5b88;
+        text-shadow: none;
+        
+    }
 }
 
 .email_form_admin {
     margin-top: 5%;
+    margin-left:-35%;
     width: 100%;
     background-color: #1e5b88;
     text-shadow: none;
     
 }
 
-.companyList {
-
+@media screen and (min-width: 1000px) {
+    .email_form_admin {
+        margin-top: 5%;
+        margin-left: 0;
+        width: 100%;
+        background-color: #1e5b88;
+        text-shadow: none;
+        
+    }
 }
-
-.list_text_companies {
-
-}
-
 
 .EmployerPopup {
     margin-top: 3%;

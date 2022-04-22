@@ -35,35 +35,30 @@ function LeaderboardProfile (props) {
     * @return {GetPage}
     */
 
-
-      /**
-    * grabs current user.  
-    */
-    useEffect(() => {
-        axios.get('http://localhost:3002/api/getQuery',{
-			params: { the_query: 'SELECT * FROM CompletedModules WHERE UserID = ' + currentUser.userid }
-		}).then((response) => {
-			console.log("completed modules for user: ", response.data);
-		});
-      }, []);
-
    /**
     * grabs users assigned modules info.  
     */
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: 
+            `SELECT * ` +
+        `FROM AffiliatedUsers JOIN CompanyLearningModules ` +
+        `ON AffiliatedUsers.CompanyID = CompanyLearningModules.CompanyID ` +
+        `JOIN LearningModules ON LearningModules.ID = CompanyLearningModules.LearningModID ` +
+        `LEFT JOIN UserPoints ON UserPoints.PointsID = CompanyLearningModules.LearningModID ` +
+        `LEFT JOIN CompletedModules ON CompletedModules.LearningModID = CompanyLearningModules.LearningModID ` +
+        `WHERE AffiliatedUsers.UserID = '${currentUser.userid}'`
         // `SELECT * ` +
         // `FROM AffiliatedUsers JOIN CompanyLearningModules ` +
         // `ON AffiliatedUsers.CompanyID = CompanyLearningModules.CompanyID ` +
         // `JOIN LearningModules ON LearningModules.ID = CompanyLearningModules.LearningModID ` +
         // `JOIN UserPoints ON UserPoints.PointsID = CompanyLearningModules.LearningModID ` +
-        // `RIGHT JOIN CompletedModules ON UserPoints.PointsID = CompletedModules.LearningModID ` +
+        // `LEFT JOIN CompletedModules ON UserPoints.PointsID = CompletedModules.LearningModID ` +
         // `WHERE AffiliatedUsers.UserID = '${currentUser.userid}'`
-        `SELECT * ` +
-        `FROM AffiliatedUsers  ` +
-        `JOIN CompletedModules ON AffiliatedUsers.UserID = CompletedModules.UserID ` +
-        `JOIN LearningModules ON LearningModules.ID = CompletedModules.LearningModID ` +
-        `WHERE AffiliatedUsers.UserID = '${currentUser.userid}'` 
+        // `SELECT * ` +
+        // `FROM AffiliatedUsers  ` +
+        // `JOIN CompletedModules ON AffiliatedUsers.UserID = CompletedModules.UserID ` +
+        // `JOIN LearningModules ON LearningModules.ID = CompletedModules.LearningModID ` +
+        // `WHERE AffiliatedUsers.UserID = '${currentUser.userid}'` 
         } }).then((response) => {
             setDirectories(Object.values(response.data));
         }).catch(error => console.error(`Error ${error}`));  

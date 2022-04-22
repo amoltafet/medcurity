@@ -1,6 +1,7 @@
 .Employer-container {
     background-color: #93c2ec;
     margin-top: 9%;
+    width: 100%;
     
 }
 
@@ -9,7 +10,10 @@
     .Employer-container {
         background-color: #93c2ec;
         margin-top: 2%;
-        margin-bottom: 5%;
+        margin-bottom: 0%;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
     }
 }
 
@@ -17,6 +21,11 @@
     color: white;
     text-align: left !important;
     text-shadow: 2px 2px 5px black;
+   
+}
+
+.EmployerCardValues_container  {
+    width: 100%;
 }
 
 .EmployerCardValues {
@@ -24,9 +33,20 @@
     margin-bottom: 1%;
     margin-left: 2%;
     margin-right: .5%;
+    font-size: 80%;
     color:black;
 }
 
+@media screen and (min-width: 1000px) {
+    .EmployerCardValues {
+        margin-top: 1%;
+        margin-bottom: 1%;
+        margin-left: 2%;
+        margin-right: .5%;
+        font-size: 110%;
+        color:black;
+    }
+}
 
 .EmployerCard {
     margin-top: .7%;
@@ -69,7 +89,6 @@
 .EmployerCardValues_username {
     color: black;
     margin-top: 2%;
-    margin-left: -10%;
     font-size: 90%;
     width: 100%;
     overflow:hidden !important;
@@ -93,7 +112,6 @@
 .EmployerCardValues_company {
     color: black;
     margin-top: 2%;
-    margin-left: -20%;
     font-size: 90%;
     width: 100%;
     overflow:hidden !important;
