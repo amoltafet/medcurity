@@ -45,7 +45,12 @@ const AdminDashboardPage = () => {
               </Col>
             </Row>
           </CardDeck>
-          <EmployerCards />
+    
+            <Row className="justify-content-center">
+            <Col xs={11} lg={12}>
+              <EmployerCards />
+              </Col>
+            </Row>
           
       </>
       );

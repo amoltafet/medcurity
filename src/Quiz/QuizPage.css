@@ -41,12 +41,14 @@
 }
 
 .rightArrow {
+    margin-top: -180%;
     width: 5vmax;
    
 }
 
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 500px) {
     .rightArrow {
+        margin-top: 0%;
         width: 3.5vmax; 
     }    
 }

@@ -536,13 +536,13 @@ const QuizPage = () => {
     return (
       <>
         <MenuBar></MenuBar>
-        <div id="quizPageContainer" className="quizBg img-fluid text-center">
+        <div id="quizPageContainer" className="quizBg img-fluid text-center justify-content-center">
           <div className="questionPosOutOfTotal text-center" id="questionPosOutOfTotal"> {index + 1} / {content.length} </div>
           {DisplayOneQuestion()}
           <Button
             id="rightQuestionBttn"
             type="submit"
-            className=" toggleQuestionRight"
+            className=" toggleQuestionRight text-center"
             onClick={() => nextQuestion()}>
             <Image className="rightArrow" src="/right.png"></Image>
           </Button>
