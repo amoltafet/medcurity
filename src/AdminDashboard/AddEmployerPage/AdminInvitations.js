@@ -106,9 +106,12 @@ const AdminInvitations = () => {
                     <Button className="createButton uvs-left" type="button" onClick={invite} href='/admin-dash'>Invite</Button>
                 </Col>
                 <Col xs={3} lg={5} className="justify-content-center">
+                    <Row>
                     <label className="list_text_companies" htmlFor="company-list" id='company-label'>
                         Company List:
                     </label>
+                    </Row>
+                    <Row>
                     <select id="company-list" size={5} multiple={false}
                         onChange={ (e) => 
                         {
@@ -116,6 +119,7 @@ const AdminInvitations = () => {
                         }}>
                         {createDropDownOptions()}
                     </select>
+                    </Row>
                 </Col>
             </Row>
         </Card>
