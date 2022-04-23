@@ -2,7 +2,8 @@ require('dotenv').config();
 const logger = require('./logger').log;
 const express = require('express');
 const cors = require('cors');
-
+const https = require('https');
+const fs = require('fs')
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
@@ -36,7 +37,7 @@ app.use('/api', queryRouter);
 app.use('/testing', testingRouter);
 //app.use('/admin', adminRouter)
 
-app.listen(LISTEN_PORT, (err) => {
+/*app.listen(LISTEN_PORT, (err) => {
     
     if (err) console.log('API ERROR --> ', err)
 
@@ -48,4 +49,15 @@ app.listen(LISTEN_PORT, (err) => {
     console.log('API SETTINGS:')
     console.log(cookieSettings ? '\tCookies are enabled' : '\tCookies are disabled.')
 
-})
+})*/
+
+// Listen both http & https ports
+const httpServer = https.createServer(app);
+const httpsServer = https.createServer({
+  key: fs.readFileSync('key.pem'),
+  cert: fs.readFileSync('cert.pem'),
+}, app);
+
+httpsServer.listen('passenger', () => {
+    console.log('HTTPS Server running on port ' + LISTEN_PORT);
+});

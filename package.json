@@ -56,7 +56,7 @@
     "react-scripts": "5.0.0"
   },
   "scripts": {
-    "start": "react-dotenv && react-scripts start",
+    "start": "export HTTPS=true&&SSL_CRT_FILE=cert.pem&&SSL_KEY_FILE=key.pem HTTPS=true react-dotenv && react-scripts start",
     "build": "react-dotenv && react-scripts build",
     "test": "react-dotenv && react-scripts test",
     "eject": "react-dotenv && react-scripts eject",
