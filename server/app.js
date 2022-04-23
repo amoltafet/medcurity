@@ -41,6 +41,7 @@ app.listen(LISTEN_PORT, (err) => {
     if (err) console.log('API ERROR --> ', err)
 
     //console.log(`-- ENVIRONMENT: ${process.env.NODE_ENV || "Not set, please define NODE_ENV"} --`)
+    console.log((typeof(PhusionPassenger) !== 'undefined') ? '-- Running with Phusion Passenger --' : '-- Running on node --')
     console.log('API CONNECTION INFO:')
     console.log(`\tAPI is running on PORT: ${LISTEN_PORT}`)
     console.log(`\tAPI is accessible at is: http://localhost:${LISTEN_PORT}`)
