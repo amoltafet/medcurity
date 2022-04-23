@@ -28,4 +28,3 @@ yarn-error.log*
 *.log
 combined.log
 error.log
-.env
