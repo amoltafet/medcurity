@@ -1,3 +1,3 @@
 window.env = {
-  "REACT_APP_BASE_URL": "https://localhost:3002"
+  "REACT_APP_BASE_URL": "http://localhost:3002"
 };
