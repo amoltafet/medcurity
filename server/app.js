@@ -53,8 +53,11 @@ if (typeof(PhusionPassenger) !== 'undefined')
   console.log('-- Launched with Phusion Passenger --')
   console.log('\t- Phusion Passenger detected! Adding certs...')
 
-  if (!checkCerts(fs.readdirSync('../'), [process.env.CERT_KEYNAME, process.env.CERT_CERTNAME])) 
-    return console.log(`\t- Could not find '${process.env.CERT_KEYNAME}' and '${process.env.CERT_CERTNAME}' in the project root!`)
+  if (!checkCerts(fs.readdirSync('../'), [process.env.CERT_KEYNAME, process.env.CERT_CERTNAME]))
+  {
+    //console.log(`\t- Could not find '${process.env.CERT_KEYNAME}' and '${process.env.CERT_CERTNAME}' in the project root!`)
+    throw new Error(`\t- Could not find '${process.env.CERT_KEYNAME}' and '${process.env.CERT_CERTNAME}' in the project root!`);
+  }
   
   const httpsServer = https.createServer({
     key: fs.readFileSync(`../${process.env.CERT_KEYNAME}}`),

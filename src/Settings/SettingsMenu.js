@@ -36,14 +36,18 @@ const SettingsMenu = () => {
         setLoaded(true)
     }, []);
 
+    //console.log(currentUser)
+    
+
+
     useEffect(() => {
         if (isLoaded) {
             axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, 
-                { params: { the_query: 'SELECT * FROM AffiliatedUsers WHERE UserID = ' + currentUser.userid} 
+                { params: { the_query: 'SELECT * FROM AffiliatedUsers JOIN Companies ON AffiliatedUsers.CompanyID = Companies.companyid WHERE UserID = ' + currentUser.userid} 
             }).then((response) => {
-                if (response.data[0].datejoined !== null) { 
-                    setCompany(response.data[0]);
-                    var date = new Date(response.data[0].datejoined);
+                if (response.data[0].DateJoined !== null) { 
+                    setCompany(response.data[0].name);
+                    var date = new Date(response.data[0].DateJoined);
                     setDueDate(date.toDateString()); 
                 
                 }
@@ -204,7 +208,7 @@ const SettingsMenu = () => {
                                     <Form>
                                     <Form.Group className="usernameInput" controlId="formPlaintextEmail">
                                         <Form.Text className="usernameText">Company</Form.Text>
-                                        <Form.Control disabled defaultValue={company.name}></Form.Control>
+                                        <Form.Control disabled defaultValue={company}></Form.Control>
                                     </Form.Group>
                                     <Form.Group className="emailInput" controlId="formPlaintextEmail">
                                             <Form.Text className="emailText">Date Joined</Form.Text>

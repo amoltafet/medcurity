@@ -18,13 +18,16 @@ const userRegister = (req,res) =>
     let isValidPass  = checkPassword(password)
     let isValidEmail = checkEmail(email)
 
+    console.log('VALIDATION RESULTS: ', isValidEmail, isValidPass)
+
     if (isValidPass.result && isValidEmail.result)
     {
         db.query(`SELECT EXISTS(SELECT email FROM Users WHERE email = '${email}') AS doesExist`, (err,result) => {
             if (result[0].doesExist == 0)
             {
+                console.log('FROM USER DOESNT EXIST: ', err)
                 bcrypt.hash(password, saltRounds, (err, hash) => {
-                    if (err) // console.log(err);
+                    if (err) console.log(err);
                     db.query("INSERT INTO Users (username, email, password) VALUES (?,?,?)", [username, email, hash], (err, result) => {
                         db.query(`SELECT * FROM Users WHERE email = '${email}'`, (err,result) => {
                             req.session.userSession = result;
@@ -35,11 +38,12 @@ const userRegister = (req,res) =>
             }
             else
             {
+                console.log('FROM USER IS INACTIVE: ', err)
                 db.query(`SELECT password, active FROM Users WHERE email = '${email}'`, (err,result) => {
                     if (result[0].active == 0 && result[0].password == null)
                     {
                         bcrypt.hash(password, saltRounds, (err, hash) => {
-                            if (err) // console.log(err);
+                            if (err) console.log(err);
                             db.query("UPDATE Users SET password = ?, active = ? WHERE email = ?", [hash, 1, email], (err, result) => {
                                 db.query(`SELECT * FROM Users WHERE email = '${email}'`, (err,result) => {
                                     req.session.userSession = result;
@@ -147,7 +151,7 @@ const userRegisterCompanyAdmin = (req,res) =>
     db.query(`SELECT EXISTS(SELECT * FROM Users WHERE email = '${email}') AS doesExist`, (err, result) => {
         if (result[0].doesExist == 0)
         {
-            if (err) // console.log(err);
+            if (err) console.log(err);
 
             db.query("INSERT INTO Users (username, email, active, companyid) VALUES (?,?,?,?)", [username, email, false, companyid], (err, result) => {
                 db.query(`SELECT * FROM Users WHERE email = '${email}'`, (err, user) => {
@@ -330,7 +334,7 @@ const deleteUser = (req,res) =>
         `WHERE Users.userid = '${userid}') AS doesExist`), (err, result) => {
         if (result[0].doesExist == 1)
         {
-            if (err) // console.log(err);
+            if (err) console.log(err);
 
             db.query(`DELETE FROM AffiliatedUsers WHERE AffiliatedUsers.UserID = '${userid}'`, (err, result) => {});
             db.query(`DELETE FROM Users WHERE Users.userid = '${userid}'`, (err, result) => {});
