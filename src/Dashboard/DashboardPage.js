@@ -28,8 +28,22 @@ const DashboardPage = () => {
 
   useEffect(() => { if (currentUser.userid)  axios.get(`${process.env.REACT_APP_BASE_URL}/api/getProfilePicture`, { params: { id: currentUser.userid } }).then((response) => { setProfilePic(response.data.profileImage) }); })
 
+  const printUserType = (type) =>
+  {
+    switch(type)
+    {
+      case "user":
+        return "user"
+      case "companyAdmin":
+        return "Company Admin"
+      case "websiteAdmin":
+        return "Website Admin"
+      default:
+        return "Unknown"
+    }
+  }
+  
   if (currentUser?.userid) {
-
     return (
       <>
         <Form className="dash_page">
@@ -39,7 +53,7 @@ const DashboardPage = () => {
               <Image className="dash_profilePicture uvs-left" variant="top" src={`data:image/png;base64,${profilePic}`} alt="" roundedCircle />
               <div>
                 <h1 className="dash_welcomeMessageP1">Welcome back, {currentUser?.username || "... "}!</h1>
-                <h1 className="dash_welcomeMessageP3">Logged in as: {currentUser?.email || "..."}</h1>
+                <h1 className="dash_welcomeMessageP3">Logged in as {printUserType(currentUser.type)}: {currentUser?.email || "..."}</h1>
                 <div className="dash_navDiv">
                   <div className="dash_navButtons">
                     <a href="#requiredModules" className="uvs-left btn dash_navButton">Required Learning Modules</a>

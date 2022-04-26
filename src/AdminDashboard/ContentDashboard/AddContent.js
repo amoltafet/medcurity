@@ -86,7 +86,7 @@ const  AddContent = () => {
             title: title, 
             subtitle: subtitle,
             description: description,
-            banner: banner[0].name
+            banner: banner[0]?.name || "banner-default.png"
           }).then((response) => {
             console.log("response from new query", response.data["result"][0]["ID"]);
             setIndex(response.data["result"][0]["ID"])
@@ -199,7 +199,7 @@ const  AddContent = () => {
                                 setDescription(e.target.value);
                             }}></textarea><br></br>
                 <label htmlFor="banner">Module Banner Image:</label><br></br>
-                <input type="file" name="myImage" accept="image/png, image/jpeg" onChange={ (e) => {setBanner(e.target.files); }}/>
+                <input type="file" name="myImage" accept="image/png, image/jpeg" onChange={ (e) => {setBanner(e?.target?.files || null); }}/>
             </form>
             {ModuleContent}
         <div className="d-grid gap-2 ">
