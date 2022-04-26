@@ -73,7 +73,7 @@ const LearningDirectoryRequiredPage = () => {
      */
     const ModulePanel = (props) => {
         var dueDate = new Date(props.dueDate); 
-        dueDate.setDate((dueDate.getDate() + 1));
+        dueDate.setDate((dueDate.getDate()));
         return (
            
             <>
