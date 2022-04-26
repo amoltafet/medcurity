@@ -111,9 +111,9 @@ const QuizPage = () => {
 
       // Quiz Answers 
 
-      // content.forEach(element => {
-      // 	// console.log(element.solution)
-      // });
+      content.forEach(element => {
+      	console.log(element.solution)
+      });
 
       //rests users stats
 
@@ -209,9 +209,10 @@ const QuizPage = () => {
           // console.log("response", response.data);
         }).catch()// console.log(`Error ${error}`));
         setPassed(true)
+        return;
       }
-      setEarlyCompletion(false);
-      setSpacedLearning(false);
+      setShowEarlyCompletionPopup(false);
+      setShowSpacedLearningPopup(false);
     }
   }, [points, numCorrect, isSubmitted, content.length, currentUser.userid, earlyCompletion, isLoading, moduleNotAssigned, notCompleteOnTime, slug, spaceLearning])
 
@@ -332,7 +333,7 @@ const QuizPage = () => {
     var moduleDueDate;
     try {
       moduleDueDate = new Date(currentModule.DueDate);
-      moduleDueDate.setDate(moduleDueDate.getDate() + 1);
+      moduleDueDate.setDate(moduleDueDate.getDate());
       if (today > moduleDueDate) {
         setNoCompleteOnTime(-200);
         setShowUserDidNotCompleteOnTime(true);
@@ -355,8 +356,8 @@ const QuizPage = () => {
     var today = new Date(); 
     var twoDaysEarly = new Date(currentModule.DueDate);
     var oneDayEarly = new Date(currentModule.DueDate);
-    twoDaysEarly.setDate(twoDaysEarly.getDate() - 1);
-    oneDayEarly.setDate(oneDayEarly.getDate());
+    twoDaysEarly.setDate(twoDaysEarly.getDate() - 2);
+    oneDayEarly.setDate(oneDayEarly.getDate() - 1);
 
         const msBetweenOneDay = Math.abs(today.getTime() - oneDayEarly.getTime());
         const hoursBetweenOneDay = msBetweenOneDay / (60 * 60 * 1000);
@@ -382,7 +383,7 @@ const QuizPage = () => {
     
       lastCompletedModule = (lastCompletedModule.DateCompleted);
       var lastCompletedModuleDate = new Date(lastCompletedModule);
-      lastCompletedModuleDate.setDate(lastCompletedModuleDate.getDate() + 1);
+      lastCompletedModuleDate.setDate(lastCompletedModuleDate.getDate());
       
       var spacedLearningDate = new Date(lastCompletedModuleDate);
       spacedLearningDate.setDate(spacedLearningDate.getDate() + 2);
