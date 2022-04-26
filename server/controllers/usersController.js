@@ -147,7 +147,7 @@ const userRegisterCompanyAdmin = (req,res) =>
     db.query(`SELECT EXISTS(SELECT * FROM Users WHERE email = '${email}') AS doesExist`, (err, result) => {
         if (result[0].doesExist == 0)
         {
-            if (err) // console.log(err);
+            if (err) console.log(err);
 
             db.query("INSERT INTO Users (username, email, active, companyid) VALUES (?,?,?,?)", [username, email, false, companyid], (err, result) => {
                 db.query(`SELECT * FROM Users WHERE email = '${email}'`, (err, user) => {

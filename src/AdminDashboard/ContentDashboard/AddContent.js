@@ -66,6 +66,18 @@ const  AddContent = () => {
         }
     }, [questionAdded])
 
+    useEffect(() => {
+        if(moduleIndex !== -1) {
+            console.log(moduleIndex)
+            for (var i = 0; i < question.length; i++) {
+                axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `INSERT INTO Questions (question, solution, a2, a3, a4, module) VALUES ('${question[i]}', '${solution[i]}', '${answer2[i]}', '${answer3[i]}', '${answer4[i]}', '${moduleIndex}')` } }).then((response) => {
+                console.log(response)
+                }).catch(error => console.error(`Error ${error}`));
+            }
+            navigate('/admin-content');
+        }
+    }, [moduleIndex])
+
     function submitData() {
         // axios.get('${process.env.REACT_APP_BASE_URL}/api/getQuery', { params: { the_query: `INSERT INTO LearningModules (Title, Subtitle, Description, Banner) VALUES ('${title}', '${subtitle}', '${description}', '${banner[0].name}')` } }).then((response) => {
         // // console.log(response)
@@ -76,7 +88,7 @@ const  AddContent = () => {
             description: description,
             banner: banner[0].name
           }).then((response) => {
-            // // console.log("response from new query", response.data["result"][0]["ID"]);
+            console.log("response from new query", response.data["result"][0]["ID"]);
             setIndex(response.data["result"][0]["ID"])
           }).catch();// console.log(`Error ${error}`));
 
@@ -85,11 +97,14 @@ const  AddContent = () => {
         data.append("bannerImage", banner[0]);
         axios.post(`${process.env.REACT_APP_BASE_URL}/api/postModuleBanner`, data, { headers: { 'Content-Type': 'multipart/form-data' } })
 
-        for (var i = 0; i < question.length; i++) {
-            axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `INSERT INTO Questions (question, solution, a2, a3, a4, module) VALUES ('${question[i]}', '${solution[i]}', '${answer2[i]}', '${answer3[i]}', '${answer4[i]}', '${moduleIndex}')` } }).then((response) => {
-            // // console.log(response)
-            }).catch(error => console.error(`Error ${error}`));
-        }
+        // if(moduleIndex !== -1) {
+        //     console.log(moduleIndex)
+        //     for (var i = 0; i < question.length; i++) {
+        //         axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `INSERT INTO Questions (question, solution, a2, a3, a4, module) VALUES ('${question[i]}', '${solution[i]}', '${answer2[i]}', '${answer3[i]}', '${answer4[i]}', '${moduleIndex}')` } }).then((response) => {
+        //         console.log(response)
+        //         }).catch(error => console.error(`Error ${error}`));
+        //     }
+        // }
 
         // console.log("Title:", title)
         // console.log("Subtitle:", subtitle)
@@ -102,7 +117,7 @@ const  AddContent = () => {
         // console.log("answer4 Array:", answer4)
 
         
-        navigate('/admin-content');
+        // navigate('/admin-content');
     }
 
     function addQuestion() {
