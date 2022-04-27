@@ -68,10 +68,10 @@ const  AddContent = () => {
 
     useEffect(() => {
         if(moduleIndex !== -1) {
-            console.log(moduleIndex)
+            //console.log(moduleIndex)
             for (var i = 0; i < question.length; i++) {
                 axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `INSERT INTO Questions (question, solution, a2, a3, a4, module) VALUES ('${question[i]}', '${solution[i]}', '${answer2[i]}', '${answer3[i]}', '${answer4[i]}', '${moduleIndex}')` } }).then((response) => {
-                console.log(response)
+                //console.log(response)
                 }).catch(error => console.error(`Error ${error}`));
             }
             navigate('/admin-content');
