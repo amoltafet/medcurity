@@ -111,9 +111,9 @@ const QuizPage = () => {
 
       // Quiz Answers 
 
-      content.forEach(element => {
-      	console.log(element.solution)
-      });
+      // content.forEach(element => {
+      // 	console.log(element.solution)
+      // });
 
       //rests users stats
 
