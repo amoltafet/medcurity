@@ -42,13 +42,14 @@ const EmployerInvitations = (props) => {
                     companyid: String(props.companyId),
                 }).then((response) => {
                     // // console.log("response.data =", response.data)
-                    if (response.data === true) {
-                        // // console.log("A new invitation!")
+                    if (response.data.result === true) {
+                        console.log("A new invitation!")
+                        setMessage('')
                         props.setReload(true)
                     }
-                    else if (response.data === false) {
-                        // // console.log("Already has account!")
-                        setMessage('This email is already associated with an account! Please try a different email.')
+                    else {
+                        console.log("Already has account!")
+                        setMessage(response.data.message)
                     }
                 });
         }
