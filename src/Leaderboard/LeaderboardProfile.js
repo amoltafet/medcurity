@@ -40,12 +40,12 @@ function LeaderboardProfile (props) {
     */
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: 
-            `SELECT * ` +
-        `FROM AffiliatedUsers JOIN CompanyLearningModules ` +
+            `SELECT AffiliatedUsers.UserID, CompanyLearningModules.CompanyID, CompletedModules.Points, CompletedModules.Percentage, LearningModules.Title ` +
+            `FROM AffiliatedUsers JOIN CompanyLearningModules ` +
         `ON AffiliatedUsers.CompanyID = CompanyLearningModules.CompanyID ` +
         `JOIN LearningModules ON LearningModules.ID = CompanyLearningModules.LearningModID ` +
-        `LEFT JOIN UserPoints ON UserPoints.PointsID = CompanyLearningModules.LearningModID ` +
-        `LEFT JOIN CompletedModules ON CompletedModules.LearningModID = CompanyLearningModules.LearningModID ` +
+        `LEFT JOIN CompletedModules ON (CompletedModules.LearningModID = CompanyLearningModules.LearningModID ` +
+        `and CompletedModules.UserID = AffiliatedUsers.UserID) ` +
         `WHERE AffiliatedUsers.UserID = '${currentUser.userid}'`
         // `SELECT * ` +
         // `FROM AffiliatedUsers JOIN CompanyLearningModules ` +
@@ -61,6 +61,9 @@ function LeaderboardProfile (props) {
         // `WHERE AffiliatedUsers.UserID = '${currentUser.userid}'` 
         } }).then((response) => {
             setDirectories(Object.values(response.data));
+            console.log(currentUser.userid)
+            console.log(response.data)
+
         }).catch(error => console.error(`Error ${error}`));  
     }, [currentUser])
 
