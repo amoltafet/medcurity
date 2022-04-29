@@ -148,14 +148,16 @@ const userRegisterCompanyAdmin = (req,res) =>
     const companyid = req.body.companyid
     const username = email.substring(0, email.indexOf("@"));
 
-    db.query(`SELECT EXISTS(SELECT * FROM Users WHERE email = '${email}') AS doesExist`, (err, result) => {
+    db.query(`SELECT EXISTS(SELECT * FROM Users WHERE email = '${email}') AS doesExist`, (err1, result) => {
+        console.log(err1)
         if (result[0].doesExist == 0)
         {
-            if (err) console.log(err);
+            //if (err) console.log(err);
 
-            db.query("INSERT INTO Users (username, email, active, companyid) VALUES (?,?,?,?)", [username, email, false, companyid], (err, result) => {
-                db.query(`SELECT * FROM Users WHERE email = '${email}'`, (err, user) => {
-                    db.query("INSERT INTO CompanyAdmins (UserID, CompanyID) VALUES (?,?)", [user[0].userid, companyid], (err, result) => {
+            db.query("INSERT INTO Users (username, email, active, companyid) VALUES (?,?,?,?)", [username, email, false, companyid], (err2, result) => {
+                db.query(`SELECT * FROM Users WHERE email = '${email}'`, (err3, user) => {
+                    db.query("INSERT INTO CompanyAdmins (UserID, CompanyID) VALUES (?,?)", [user[0].userid, companyid], (err4, result) => {
+                        console.log(err1, err2, err3, err4)
                         res.send(true)
                     });
                 });

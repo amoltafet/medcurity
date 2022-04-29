@@ -52,7 +52,7 @@ const  EditContent = () => {
 
 
     function submitData() {
-        axios.get('http://localhost:3002/api/getQuery', { params: { the_query: `UPDATE  LearningModules SET Title = '${title}', Subtitle = '${subtitle}', Description = '${description}' WHERE ID = '${slug}'` } }).then((response) => {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `UPDATE  LearningModules SET Title = '${title}', Subtitle = '${subtitle}', Description = '${description}' WHERE ID = '${slug}'` } }).then((response) => {
         // // console.log(response)
         }).catch(error => console.error(`Error ${error}`));
         // // console.log("We added")

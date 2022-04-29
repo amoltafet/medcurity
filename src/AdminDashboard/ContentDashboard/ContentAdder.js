@@ -53,7 +53,7 @@ const LearningModuleAdder = (props) => {
      */
     const addModule = () => {
         // // console.log('Adding', learningModule)
-        axios.post("http://localhost:3002/users/register",
+        axios.post(`${process.env.REACT_APP_BASE_URL}/users/register`,
         { 
         learningModule: learningModule,
         }).then((response) => 

@@ -22,7 +22,7 @@ const AdminContentPage = () => {
   axios.defaults.withCredentials = true;
 
   useEffect(() => {
-    axios.get("http://localhost:3002/users/login").then((response) => {
+    axios.get(`${process.env.REACT_APP_BASE_URL}/users/login`).then((response) => {
       // // console.log('aaahhh', response.data.user)
       setCurrentUser(response.data.user[0])
     }).catch(error => console.error(`Error ${error}`));
