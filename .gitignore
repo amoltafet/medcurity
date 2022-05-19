@@ -2,6 +2,7 @@
 
 # dependencies
 passenger*
+/public/env.js
 /node_modules
 /server/logging
 /server/node_modules
