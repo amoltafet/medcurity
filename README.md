@@ -8,7 +8,7 @@ In the project directory, navigate to the server folder and run:
 
 ### `node app.js`
 
-This runs the server in development mode.\
+This runs the server in development mode.
 
 In a separate shell window, navigate to the server folder and run
 ### `npm start`
