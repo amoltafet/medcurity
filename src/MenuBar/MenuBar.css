@@ -41,3 +41,13 @@
 .mr-5 {
     margin-right: 5vmax;
 }
+
+.search-btn-color {
+    background-color: #8f2929;
+    color: white;
+}
+
+.search-btn-color:hover {
+    background-color: white;
+    color: #8f2929;
+}
