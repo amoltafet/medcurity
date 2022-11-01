@@ -84,7 +84,10 @@ else
     console.log('\t- HTTP API Server running on PORT: ' + LISTEN_PORT);
     console.log(`\t- API is accessible at is: http://localhost:${LISTEN_PORT}`)
     console.log(cookieSettings ? '\t- Cookies are enabled' : '\t- Cookies are disabled.')
-  });
+  }).on('error', (err) => {
+    console.log(err);
+  }
+  );
 }
 
 /**
