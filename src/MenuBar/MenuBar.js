@@ -89,14 +89,36 @@ const Menubar = () => {
       
         if (!isCompanyLoading && Number.isInteger(companyId)) {
             objs.push(
-                <Nav.Item className="navPills uvs-left uvs-right">
-                    <Nav.Link className="menubarFont" href="/employer-dash">Employer Dashboard</Nav.Link>
-                </Nav.Item>
+              <>
+                <li class="nav-item text-center mx-2 mx-lg-1">
+                <a class="nav-link" href="/employer-dash">
+                  <div>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard2-data" viewBox="0 0 16 16">
+                  <path d="M9.5 0a.5.5 0 0 1 .5.5.5.5 0 0 0 .5.5.5.5 0 0 1 .5.5V2a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 2v-.5a.5.5 0 0 1 .5-.5.5.5 0 0 0 .5-.5.5.5 0 0 1 .5-.5h3Z"/>
+                  <path d="M3 2.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 0 0-1h-.5A1.5 1.5 0 0 0 2 2.5v12A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-12A1.5 1.5 0 0 0 12.5 1H12a.5.5 0 0 0 0 1h.5a.5.5 0 0 1 .5.5v12a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-12Z"/>
+                  <path d="M10 7a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0V7Zm-6 4a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0v-1Zm4-3a1 1 0 0 0-1 1v3a1 1 0 1 0 2 0V9a1 1 0 0 0-1-1Z"/>
+                  </svg>
+                  </div>
+                  Dashboard
+                </a>
+              </li>
+              </>
             )
             objs.push(
-                <Nav.Item className="navPills uvs-left uvs-right">
-                    <Nav.Link className="menubarFont" href="/learning-manager">Learning Module Manager</Nav.Link>
-                </Nav.Item>
+              <>
+                <li class="nav-item text-center mx-2 mx-lg-1">
+                <a class="nav-link" href="//learning-manager">
+                  <div>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard2-data" viewBox="0 0 16 16">
+                  <path d="M9.5 0a.5.5 0 0 1 .5.5.5.5 0 0 0 .5.5.5.5 0 0 1 .5.5V2a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 2v-.5a.5.5 0 0 1 .5-.5.5.5 0 0 0 .5-.5.5.5 0 0 1 .5-.5h3Z"/>
+                  <path d="M3 2.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 0 0-1h-.5A1.5 1.5 0 0 0 2 2.5v12A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-12A1.5 1.5 0 0 0 12.5 1H12a.5.5 0 0 0 0 1h.5a.5.5 0 0 1 .5.5v12a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-12Z"/>
+                  <path d="M10 7a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0V7Zm-6 4a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0v-1Zm4-3a1 1 0 0 0-1 1v3a1 1 0 1 0 2 0V9a1 1 0 0 0-1-1Z"/>
+                  </svg>
+                  </div>
+                  Learning Module Manager
+                </a>
+              </li>
+              </>
             )
         }
         return objs;
@@ -139,18 +161,7 @@ const Menubar = () => {
     */
 
     return (
-        <>
-        <Row>
-            <Col xs={15} md={10} lg={10}>
-                <Card className="pillz">
-                    <Nav className="justify-content-end" variant="pills" defaultActiveKey="/dashboard">
-                        {get_employer_buttons()}
-                       
-                    </Nav>
-                </Card>
-            </Col>
-        </Row>
-
+       <>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
              <a href="/dash">
@@ -163,7 +174,6 @@ const Menubar = () => {
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        {get_employer_buttons()}
       <ul class="navbar-nav me-auto d-flex flex-row mt-3 mt-lg-0 ">
         <li class="nav-item text-center mx-2 mx-lg-1">
           <a class="nav-link active" aria-current="page" href="#!">
@@ -225,8 +235,38 @@ const Menubar = () => {
         </li>
         
         </>
-        
         : null}
+
+        {!isCompanyLoading && Number.isInteger(companyId) ? 
+          <>
+                <li class="nav-item text-center mx-2 mx-lg-1">
+                <a class="nav-link" href="/employer-dash">
+                  <div>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard2-data" viewBox="0 0 16 16">
+                  <path d="M9.5 0a.5.5 0 0 1 .5.5.5.5 0 0 0 .5.5.5.5 0 0 1 .5.5V2a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 2v-.5a.5.5 0 0 1 .5-.5.5.5 0 0 0 .5-.5.5.5 0 0 1 .5-.5h3Z"/>
+                  <path d="M3 2.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 0 0-1h-.5A1.5 1.5 0 0 0 2 2.5v12A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-12A1.5 1.5 0 0 0 12.5 1H12a.5.5 0 0 0 0 1h.5a.5.5 0 0 1 .5.5v12a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-12Z"/>
+                  <path d="M10 7a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0V7Zm-6 4a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0v-1Zm4-3a1 1 0 0 0-1 1v3a1 1 0 1 0 2 0V9a1 1 0 0 0-1-1Z"/>
+                  </svg>
+                  </div>
+                  Dashboard
+                </a>
+              </li>
+            
+                <li class="nav-item text-center mx-2 mx-lg-1">
+                <a class="nav-link" href="/learning-manager">
+                  <div>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard2-data" viewBox="0 0 16 16">
+                  <path d="M9.5 0a.5.5 0 0 1 .5.5.5.5 0 0 0 .5.5.5.5 0 0 1 .5.5V2a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 2v-.5a.5.5 0 0 1 .5-.5.5.5 0 0 0 .5-.5.5.5 0 0 1 .5-.5h3Z"/>
+                  <path d="M3 2.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 0 0-1h-.5A1.5 1.5 0 0 0 2 2.5v12A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-12A1.5 1.5 0 0 0 12.5 1H12a.5.5 0 0 0 0 1h.5a.5.5 0 0 1 .5.5v12a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-12Z"/>
+                  <path d="M10 7a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0V7Zm-6 4a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0v-1Zm4-3a1 1 0 0 0-1 1v3a1 1 0 1 0 2 0V9a1 1 0 0 0-1-1Z"/>
+                  </svg>
+                  </div>
+                   Module Manager
+                </a>
+              </li>
+              </>
+              : null}
+      
        
       </ul>
 
