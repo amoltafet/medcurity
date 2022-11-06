@@ -13,8 +13,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const Badges = () => {
     axios.defaults.withCredentials = true;
     const [currentUser, setCurrentUser] = useState([]);
-    const [saveData, setSaveData] = useState(false);
-    const [show, setShow] = useState(false);
+    const [badges, setBadges] = useState([]);
     const [isLoaded, setLoaded] = useState(false);
 
     useEffect(() => {
@@ -24,29 +23,18 @@ const Badges = () => {
         setLoaded(true)
     }, []);
 
-    /*
+
+    /* 'SELECT * FROM AffiliatedUsers JOIN Companies ON AffiliatedUsers.CompanyID = Companies.companyid WHERE UserID = ' + currentUser.userid} */
     useEffect(() => {
         if (isLoaded) {
             axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, 
-                { params: { the_query: 'SELECT * FROM AffiliatedUsers JOIN Companies ON AffiliatedUsers.CompanyID = Companies.companyid WHERE UserID = ' + currentUser.userid} 
+                { params: { the_query: 'SELECT * FROM Badges' } 
             }).then((response) => {
-                if (response.data[0].DateJoined !== null) { 
-                    setCompany(response.data[0].name);
-                    var date = new Date(response.data[0].DateJoined);
-                    setDueDate(date.toDateString()); 
-                
-                }
+                setBadges(response.data)
             }).catch(error => console.error(`Error ${error}`));
         }
-    },[currentUser, isLoaded])  
-    */
+    },[currentUser, isLoaded])
 
-    const popover = (
-        <Popover id="popover-basic">
-            <Popover.Title as="h3">{"Message"}</Popover.Title>
-        </Popover>
-    );
-    
     return (
         /*
         <>
@@ -143,7 +131,12 @@ const Badges = () => {
         </>
         */
        <>
-            {currentUser.userid}
+            <div>{currentUser.userid}</div>
+            <div>
+                    {badges.map(badge => 
+                    <li key={badge.id}>{badge.name}</li>    
+                    )}
+            </div>
        </>
     );
 }
