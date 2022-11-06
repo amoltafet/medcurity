@@ -23,17 +23,44 @@ const Badges = () => {
         setLoaded(true)
     }, []);
 
-
-    /* 'SELECT * FROM AffiliatedUsers JOIN Companies ON AffiliatedUsers.CompanyID = Companies.companyid WHERE UserID = ' + currentUser.userid} */
     useEffect(() => {
-        if (isLoaded) {
-            axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, 
-                { params: { the_query: 'SELECT * FROM Badges' } 
-            }).then((response) => {
-                setBadges(response.data)
-            }).catch(error => console.error(`Error ${error}`));
-        }
-    },[currentUser, isLoaded])
+            // function used to pull in badges and their icons
+            async function getBadges() {
+                // let badge_query = `SELECT * FROM Badges LEFT JOIN (SELECT * FROM earnedBadges WHERE userID = ${currentUser.userid}) AS earnedBadges ON badges.id = earnedBadges.badgeID`
+                let badge_query = `SELECT * FROM Badges`
+                // let badgesListA = (await axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`,
+                //    { params: { the_query: badge_query }}).catch(error => console.error(`Error ${error}`))).data;
+                // console.log(badgesListA)
+                
+                let badgesList = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`,
+                    { params: { the_query: badge_query}}).catch(error => console.error(`Error ${error}`));
+                badgesList = badgesList.data;
+                
+                for (let i = 0; i < badgesList.length; i++) {
+                    let badge = badgesList[i];
+                    let badgeImage = (await axios.get(`${process.env.REACT_APP_BASE_URL}/api/getBadgeImage`, { params: { id: badge.id }})
+                        .catch(error => console.error(`Error ${error}`))).data.badgeImage;
+                    badgesList[i].image = badgeImage
+
+                    let userBadgeQuery = `SELECT * FROM earnedBadges WHERE userID = ${currentUser.userid} AND badgeID = ${badge.id}`;
+                    let userBadge = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`,
+                    { params: { the_query: userBadgeQuery}}).catch(error => console.error(`Error ${error}`));
+                    userBadge = userBadge.data;
+                    
+                    console.log(userBadge);
+                    if (userBadge.length === 0) {
+                        badgesList[i].earned = false;
+                    }
+                    else {
+                        badgesList[i].earned = true;
+                    }
+                }
+
+                setBadges(badgesList);
+            }
+        
+        getBadges();
+    },[currentUser, isLoaded]);
 
     return (
         /*
@@ -133,9 +160,21 @@ const Badges = () => {
        <>
             <div>{currentUser.userid}</div>
             <div>
-                    {badges.map(badge => 
-                    <li key={badge.id}>{badge.name}</li>    
-                    )}
+                    {badges.map(badge => {
+                        // setting class depending on if user has earned the badge or not
+                        let className = "";
+                        if (badge.earned) {
+                            className = "earned";
+                        } else {
+                            className = "unearned";
+                        }
+
+                        // each badge leads to this output
+                        return (<li key={badge.id}>
+                            {badge.name}, {badge.id}, {badge.icon}, {badge.earned} <br></br>
+                            <Image className={className} src={`data:image/png;base64,${badge.image}`} alt="Badge Icon"></Image>
+                        </li>    
+                    )})}
             </div>
        </>
     );

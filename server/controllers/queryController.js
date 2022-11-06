@@ -107,10 +107,11 @@ const queryModuleBanner = (req,res)=>{
         res.send(result)
     })
  }
- /**
+
+/**
  * Queries the data base for a user's profile picture (base64)
  */
- const queryProfilePicture = (req,res)=>{
+const queryProfilePicture = (req,res)=>{
     db.query(`SELECT userid, profilepicture FROM Users WHERE userid = ${req.query.id}`, (err,result) => {
         if (err) logger.log('error', { methodName: '/queryProfilePicture', body: err }, { service: 'query-service' })
         try {
@@ -123,6 +124,24 @@ const queryModuleBanner = (req,res)=>{
         }
     })
 }
+
+/**
+ * Queries the data base for a badge's picture (base64)
+ */
+ const queryBadgeImage = (req,res) => {
+    db.query(`SELECT id, icon FROM Badges WHERE id = ${req.query.id}`, (err,result) => {
+        if (err) logger.log('error', { methodName: '/queryBadgeImage', body: err }, { service: 'query-service' })
+        try {
+            let image = fs.readFileSync(path.join(__dirname, `../assets/images/badges/${result[0].icon}`));
+            res.send({ badgeImage: new Buffer.from(image).toString('base64') })
+        }
+        catch (error) {
+            let image = fs.readFileSync(path.join(__dirname, `../assets/images/badges/error-badge.png`));
+            res.send({ badgeImage: new Buffer.from(image).toString('base64') })
+        }
+    })
+}
+
 
 /**
  * Logs image handling for uploading banners.
@@ -164,6 +183,7 @@ module.exports =
     queryUploadProfile,
     queryModuleBanner,
     queryProfilePicture,
+    queryBadgeImage,
     queryModuleInfo,
     queryModuleQuestions,
     queryModuleDirectoryInfo,
