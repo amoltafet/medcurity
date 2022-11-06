@@ -249,6 +249,7 @@ const QuizPage = () => {
           action={adjustStateData}
           classes={quizClassNames[0]}
           checked={isChecked[index]}
+          type={currentQuestion.type}
         />]
       );
 

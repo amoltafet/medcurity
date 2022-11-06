@@ -10,53 +10,66 @@ import './Questions.css';
  */
 function Questions (props) {
 
-  const [quizToggleId, setQuizToggleId] = useState("group");
-       /**
+    const [quizToggleId, setQuizToggleId] = useState("group");
+
+    /**
      * 
      * @param {!Array{str}} answers 
      * @returns {!Array{obj{answers, values}}}
      */
-        function convert_to_list_of_obj(answers) {
-            const list_of_obj = []
-            for (let i = 0; i < answers.length; i++) {
-                const obj = {name: answers[i], value: i + 1};
-                list_of_obj.push(obj);
-            }
-            return list_of_obj;
+    function convert_to_list_of_obj(answers) {
+        const list_of_obj = []
+        for (let i = 0; i < answers.length; i++) {
+            const obj = {name: answers[i], value: i + 1};
+            list_of_obj.push(obj);
         }
-        const myanswers = convert_to_list_of_obj(props.answers);
-    
-        useEffect(() => {
-          setQuizToggleId(props.id)
+        return list_of_obj;
+    }
 
-      },[props.id])
-
+    const myanswers = convert_to_list_of_obj(props.answers);
     
+    useEffect(() => {
+        setQuizToggleId(props.id)
+    },[props.id])
+    
+    if (props.type == 'mc') { // for multiple-choice questions
+        return(
+            <>
+                <h3 id="qNumber" className={props.classes[0]}> Question {props.i + 1} </h3>
+                <div id={props.i} className="text-center"> 
+                <Container id="questionDesciption" className={props.classes[1]}>
+                    {props.question} 
+                </Container>
+                
+                <ToggleButtonGroup id={quizToggleId} className="answerQuizSelection uvs-left" vertical name={quizToggleId}>
+                    {myanswers.map((radio, idx) => (
+                    <ToggleButton 
+                        key={idx}
+                        id={`radio-${idx}`}
+                        type="radio"
+                        variant="light secondary"
+                        name="radio "
+                        value={radio.name}
+                        className="individualQuestions"
+                        checked = {props.checked[idx]}
+                        onChange={(e) => props.action(props.i, radio.name, idx)}>
+                        {` ${radio.name}`}
+                    </ToggleButton>
+                    ))}
+                </ToggleButtonGroup>
+                </div>
+            </>
+        );
+    } else if (props.type == 'fill') { // for fill-in-the-blank questions
+        return(
+            <>
+                <p>phil in the blank</p>
+            </>
+        );
+    }
     return(
         <>
-            <h3 id="qNumber" className={props.classes[0]}> Question {props.i + 1} </h3>
-            <div id={props.i} className="text-center"> 
-            <Container id="questionDesciption" className={props.classes[1]}>
-                {props.question} 
-            </Container>
-            
-            <ToggleButtonGroup id={quizToggleId} className="answerQuizSelection uvs-left" vertical name={quizToggleId}>
-                {myanswers.map((radio, idx) => (
-                <ToggleButton 
-                    key={idx}
-                    id={`radio-${idx}`}
-                    type="radio"
-                    variant="light secondary"
-                    name="radio "
-                    value={radio.name}
-                    className="individualQuestions"
-                    checked = {props.checked[idx]}
-                    onChange={(e) => props.action(props.i, radio.name, idx)}>
-                    {` ${radio.name}`}
-                </ToggleButton>
-                ))}
-            </ToggleButtonGroup>
-            </div>
+            <p>Something has gone wrong...</p>
         </>
     );
 
