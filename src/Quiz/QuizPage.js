@@ -25,7 +25,7 @@ const QuizPage = () => {
   const [isLoading, setLoading] = useState(true);
   const [content, setContent] = useState([]); // "content" is an array of each question's table data for the current module
   const [currentQuestion, setQuestion] = useState([]);
-  const [curentAnswers, setAnswers] = useState([["a", "b", "c", "d"]]);
+  const [currentAnswers, setAnswers] = useState([["a", "b", "c", "d"]]);
   const [index, setQuestionIndex] = useState(0);
   const [isSubmitted, setSubmitted] = useState(false);
   const [isChecked, setChecked] = useState([[false, false, false, false]]);
@@ -244,7 +244,7 @@ const QuizPage = () => {
           id={groupID}
           i={index}
           question={currentQuestion.question}
-          answers={curentAnswers[index]}
+          answers={currentAnswers[index]}
           action={adjustStateData}
           classes={quizClassNames[0]}
           checked={isChecked[index]}
@@ -316,8 +316,12 @@ const QuizPage = () => {
   */
   function adjustStateData(index, answer, inputIndex) {
     let newData = data[index];
-    newData["answer"] = answer;
-    if (answer === content[index].solution) {
+    if (content[index].type === "fill") {
+      newData["answer"] = answer.toLowerCase(); // fill-in-the-blank solutions in the questions table are lower-case
+    } else {
+      newData["answer"] = answer;
+    }
+    if (newData["answer"] === content[index].solution) {
       newData["correct"] = true
     } else {
       newData["correct"] = false
@@ -565,47 +569,55 @@ const QuizPage = () => {
     );
   } else {
     var newestIndex = 0;
-    var correctIndex = 0
+    var userRadioAnswerIndex = -1;
 
     const QuestionContent = content.map((question) => {
       var newID = "q-group" + newestIndex
-      for (var i = 0; i < 4; i++) {
-        if (data[newestIndex]["answer"] === curentAnswers[newestIndex][i]) {
-          correctIndex = i;
+
+      if (question.type === 'mc') {
+        for (var i = 0; i < currentAnswers[newestIndex].length; i++) {
+          if (data[newestIndex]["answer"] === currentAnswers[newestIndex][i]) {
+            userRadioAnswerIndex = i;
+          }
         }
       }
+
       newestIndex++;
+
       if (data[newestIndex - 1]["correct"] === true) {
         if (slug === 6) {
           points += 500
         }
-
         points += 100
         numCorrect += 1
+
         return ([
           <Container id="resultsPageHolder" className="resultAnswers uvs-left uvs-right">
             <Results
               id={newID}
               i={newestIndex - 1}
               question={question.question}
-              answers={curentAnswers[newestIndex - 1]}
-              userAnswer={correctIndex}
+              type={question.type}
+              answers={currentAnswers[newestIndex - 1]}
+              userRadioAnswerIndex={userRadioAnswerIndex}
+              userFillInAnswer={data[newestIndex - 1]["answer"]}
               isCorrect={true}
               action={adjustStateData}
               classes={quizClassNames[2]}
             />
           </Container>
         ]);
-      }
-      else {
+      } else {
         return ([
           <Container id="resultsPageHolder" className="resultAnswers uvs-left uvs-right">
             <Results
               id={newID}
               i={newestIndex - 1}
               question={question.question}
-              answers={curentAnswers[newestIndex - 1]}
-              userAnswer={correctIndex}
+              type={question.type}
+              answers={currentAnswers[newestIndex - 1]}
+              userRadioAnswerIndex={userRadioAnswerIndex}
+              userFillInAnswer={data[newestIndex - 1]["answer"]}
               isCorrect={false}
               action={adjustStateData}
               classes={quizClassNames[1]}
@@ -614,6 +626,7 @@ const QuizPage = () => {
         ]);
       }
     });
+
     return (
       <>
         <MenuBar></MenuBar>
