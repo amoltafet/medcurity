@@ -5,6 +5,8 @@ import axios from 'axios';
 import React from 'react';
 import './SettingsMenu.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+import Badges from '../Badges/Badges';
 // import env from "react-dotenv";
 
 /**
@@ -202,6 +204,8 @@ const SettingsMenu = () => {
                                             onClick={NavToDash}>
                                             Back to Dashboard
                                         </Button>
+
+                                {  <Badges /> }
                                    
                                 </Tab.Pane>
                                 <Tab.Pane eventKey="second">
