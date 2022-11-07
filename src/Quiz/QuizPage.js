@@ -260,7 +260,7 @@ const QuizPage = () => {
    */
   function nextQuestion() {
     var boolChecked = false;
-    for (var i = 0; i < 4; i++) {
+    for (var i = 0; i < isChecked[index].length; i++) {
       if (isChecked[index][i] === true) {
         boolChecked = true;
         break;
@@ -275,12 +275,11 @@ const QuizPage = () => {
 
         if (newIndex === content.length || newIndex >= content.length) {
           document.getElementById("rightQuestionBttn").disabled = true;
-
         }
         if (newIndex === (content.length - 1)) {
           document.getElementById("submitBtn").className = "quizSubmitBttn uvs-left";
-          document.getElementById("rightQuestionBttn").className = "rightQuestionBttnRemoved"
-
+          document.getElementById("submitBtn").disabled = true;
+          document.getElementById("rightQuestionBttn").className = "rightQuestionBttnRemoved";
         }
       }
     }
@@ -327,7 +326,13 @@ const QuizPage = () => {
     setData([...data]);
 
     var checkedArray = isChecked;
-    checkedArray[index][inputIndex] = true;
+    if (answer === "") { // making sure that the user has an inputted fill-in-the-blank answer before they can move on
+      checkedArray[index][inputIndex] = false;
+      document.getElementById("submitBtn").disabled = true;
+    } else {
+      checkedArray[index][inputIndex] = true;
+      document.getElementById("submitBtn").disabled = false;
+    }
     setChecked(checkedArray);
   }
 
@@ -540,8 +545,6 @@ const QuizPage = () => {
       }
     }
 
-
-
     return (
       <>
         <MenuBar></MenuBar>
@@ -560,12 +563,10 @@ const QuizPage = () => {
         </div>
       </>
     );
-  }
-  else {
+  } else {
     var newestIndex = 0;
-
-
     var correctIndex = 0
+
     const QuestionContent = content.map((question) => {
       var newID = "q-group" + newestIndex
       for (var i = 0; i < 4; i++) {
@@ -618,8 +619,8 @@ const QuizPage = () => {
         <MenuBar></MenuBar>
         <div id="resultsPageContainer">
          
-          <h1 className="quizResultsHeader">Quiz Results</h1> {
-          Passed()}
+          <h1 className="quizResultsHeader">Quiz Results</h1>
+          {Passed()}
           {UserGotEarlyCompletion()}
           {UserGotSpacedLearning()}
           {UserDidNotCompleteModuleOnTime()}
