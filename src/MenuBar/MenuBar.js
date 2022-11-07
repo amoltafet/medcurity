@@ -7,6 +7,40 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 // import env from "react-dotenv";
 
+class SearchResults extends React.Component {
+  state = {
+    search: "",
+    results: [],
+    startIndex : 0,
+    endIndex : 10,
+  };
+
+  fetchSearchResults = (query) => {
+    fetch(`http://localhost:3000/search?query=${query}`)
+      .then((response) => response.json())
+      .then((data) => {
+        this.setState({ results: data });
+      });
+  };
+
+  render() {
+    return (
+      <div>
+        <form class="d-flex input-group w-auto ms-lg-3 my-3 my-lg-0">
+        <input type="search" class="form-control" placeholder="Search Modules" aria-label="Search"  
+        onChange={(e) => this.fetchSearchResults(e.target.value)}
+        />
+        <button class="btn search-btn-color" type="button" data-mdb-ripple-color="dark">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+          </svg>
+        </button>
+      </form>
+      </div>
+    );
+  }
+}
+
 /**
  * Creates the MenuBar and selects what buttons to show depending on the page. 
  * @return {Menubar}
@@ -299,8 +333,8 @@ const Menubar = () => {
               noCaret={true}
             >
               <NavDropdown.Item href="/settings">Profile</NavDropdown.Item>
-              <NavDropdown.Item href="#/action-2">Settings</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+              <NavDropdown.Item href="/company">Company</NavDropdown.Item>
+              <NavDropdown.Item href="/settings">Settings</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="/" onClick={logout}>Log Out</NavDropdown.Item>
             </NavDropdown>
@@ -308,18 +342,11 @@ const Menubar = () => {
         </Navbar.Collapse>
         </li>
         <div class="vertical-line"/>
- 
+          <SearchResults />
         
       </ul>
 
-      <form class="d-flex input-group w-auto ms-lg-3 my-3 my-lg-0">
-        <input type="search" class="form-control" placeholder="Search Modules" aria-label="Search" />
-        <button class="btn search-btn-color" type="button" data-mdb-ripple-color="dark">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-        </svg>
-        </button>
-      </form>
+      
 
     </div>
     
@@ -330,6 +357,9 @@ const Menubar = () => {
     );
 
 }
+
+
+
 
 export default Menubar;
 
