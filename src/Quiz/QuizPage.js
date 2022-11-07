@@ -320,6 +320,8 @@ const QuizPage = () => {
     newData["answer"] = answer;
     if (answer === content[index].solution) {
       newData["correct"] = true
+    } else {
+      newData["correct"] = false
     }
     data[index] = newData;
     setData([...data]);
