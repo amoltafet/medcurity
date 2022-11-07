@@ -23,7 +23,7 @@ const QuizPage = () => {
   ];
   const [currentUser, setCurrentUser] = useState([]);
   const [isLoading, setLoading] = useState(true);
-  const [content, setContent] = useState([]);
+  const [content, setContent] = useState([]); // "content" is an array of each question's table data for the current module
   const [currentQuestion, setQuestion] = useState([]);
   const [curentAnswers, setAnswers] = useState([["a", "b", "c", "d"]]);
   const [index, setQuestionIndex] = useState(0);
@@ -44,7 +44,7 @@ const QuizPage = () => {
   const [companyid, setCompanyID] = useState([]);
   var points = 0;
   var numCorrect = 0;
-  // data array that holds question information using state
+  // "data" is an array of the user's performance on each question
   const [data, setData] = useState([
     { answer: "", correct: false },
     { answer: "", correct: false },
@@ -181,7 +181,7 @@ const QuizPage = () => {
   }, [slug])
 
   /**
-   *  once content is loaded shuffles & sets  question
+   *  once content is loaded, shuffles the answers for each question & sets the first question
    */
   useEffect(() => {
     if (!isLoading && !isSubmitted) {
@@ -232,7 +232,6 @@ const QuizPage = () => {
     return array;
   }
 
-
   /**
    * Displays the current question
    * @returns the Questions
@@ -255,6 +254,7 @@ const QuizPage = () => {
 
     }
   }
+
   /**
    * Increments the question
    */
@@ -287,30 +287,35 @@ const QuizPage = () => {
   }
 
   function initializeShuffledAnswers() {
-    var bigArray = []
+    var allAnswersArray = []
     var checkedArray = []
     for (var i = 0; i < content.length; i++) {
       var answerArray = [];
       answerArray.push(content[i].solution);
-      answerArray.push(content[i].a2);
-      answerArray.push(content[i].a3);
-      answerArray.push(content[i].a4);
-      answerArray = shuffleArray(answerArray);
-      bigArray.push(answerArray);
-      answerArray = [false, false, false, false];
-      checkedArray.push(answerArray);
+      if (content[i].type === 'mc') { // fill-in-the-blank only requires solution, multiple choice needs the other answer choices
+        answerArray.push(content[i].a2);
+        answerArray.push(content[i].a3);
+        answerArray.push(content[i].a4);
+        answerArray = shuffleArray(answerArray);
+      }
+      allAnswersArray.push(answerArray);
+      if (content[i].type === 'mc') { // same logic with keeping track of what's checked or filled-in
+        checkedArray.push([false, false, false, false]);
+      } else {
+        checkedArray.push([false]);
+      }
     }
-    setAnswers(bigArray);
+    setAnswers(allAnswersArray);
     setChecked(checkedArray);
   }
 
   /** 
    * 
-   * @param {int} index Index of question that is clicked on by user
-   * @param {str} answer String value of answer that was clicked on 
-   * Function is used as an onChange function for the question toggle buttons to change state data
+   * @param {int} index Index of current question
+   * @param {str} answer String value of answer that was clicked on or typed in
+   * Function is used as an onChange function for the question toggle buttons / text field to change state data
   */
-  function adjustStateData(index, answer, buttonIndex) {
+  function adjustStateData(index, answer, inputIndex) {
     let newData = data[index];
     newData["answer"] = answer;
     if (answer === content[index].solution) {
@@ -320,7 +325,7 @@ const QuizPage = () => {
     setData([...data]);
 
     var checkedArray = isChecked;
-    checkedArray[index][buttonIndex] = true;
+    checkedArray[index][inputIndex] = true;
     setChecked(checkedArray);
   }
 
