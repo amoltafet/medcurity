@@ -197,6 +197,16 @@ const QuizPage = () => {
     if (!isLoading && isSubmitted && points !== 0) {
       var totalPoints = points + earlyCompletion + notCompleteOnTime + spaceLearning;
       var percent = numCorrect / content.length;
+
+      if ((percent * 100) >= 90) {
+        axios.post(`${process.env.REACT_APP_BASE_URL}/users/badgeEarned`, {
+          userid: currentUser.userid,
+          modulenum: slug
+        }).then((response) => {
+          // console.log("response", response.data);
+        }).catch();
+      }
+
       if ((percent * 100) >= 60 && !moduleNotAssigned) {
         axios.post(`${process.env.REACT_APP_BASE_URL}/users/moduleCompleted`, {
           categoryId: slug,

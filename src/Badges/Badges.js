@@ -25,12 +25,7 @@ const Badges = () => {
     useEffect(() => {
             // function used to pull in badges and their icons
             async function getBadges() {
-                // let badge_query = `SELECT * FROM Badges LEFT JOIN (SELECT * FROM earnedBadges WHERE userID = ${currentUser.userid}) AS earnedBadges ON badges.id = earnedBadges.badgeID`
-                let badge_query = `SELECT * FROM Badges`
-                // let badgesListA = (await axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`,
-                //    { params: { the_query: badge_query }}).catch(error => console.error(`Error ${error}`))).data;
-                // console.log(badgesListA)
-                
+                let badge_query = `SELECT * FROM Badges`                
                 let badgesList = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`,
                     { params: { the_query: badge_query}}).catch(error => console.error(`Error ${error}`));
                 badgesList = badgesList.data;
@@ -58,7 +53,9 @@ const Badges = () => {
                 setBadges(badgesList);
             }
         
-        getBadges();
+        if (currentUser.userid) {
+            getBadges();
+        }
     },[currentUser, isLoaded]);
 
     return (
