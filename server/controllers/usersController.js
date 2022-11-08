@@ -330,29 +330,31 @@ const userModuleCompleted = (req, res) => {
     const userid = req.body.userid;   
     const moduleNum = req.body.modulenum;
 
+    logger.log('info', `${moduleNum}`, { service: 'user-service' })
+
     let badgeId = 0;
 
     // determine which badge to award
     switch (moduleNum) {
-        case 1:
+        case '1':
             badgeId = 1;
             break;
-        case 2:
+        case '2':
             badgeId = 2;
             break;
-        case 3:
+        case '3':
             badgeId = 3;
             break;
-        case 4:
+        case '4':
             badgeId = 4;
             break;
-        case 5:
+        case '5':
             badgeId = 5;
             break;
-        case 6:
+        case '6':
             badgeId = 6;
             break;
-        case 30:
+        case '30':
             badgeId = 7;
             break;
         default:

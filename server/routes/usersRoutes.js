@@ -23,5 +23,4 @@ router.post('/removeModuleFromCompany', userControllers.removeModuleFromCompany)
 router.post('/resetUserStats', userControllers.resetUserStats);
 router.post('/updateCompanyModuleDueDate', userControllers.updateCompanyModuleDueDate);
 
-
 module.exports = router
