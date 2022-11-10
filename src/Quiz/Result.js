@@ -96,6 +96,44 @@ function Result(props) {
                 </>
             );
         }
+    } else if (props.type === 'match') {
+        if (props.correct) {
+            return(
+                <>
+                    <Row>
+                        <Col xs={1} md={1} className="checkmarkImage">
+                            <Image src="/checkmark.png" className="checkmarkImage" alt="checkmark" />
+                        </Col>
+                        <Col className="">
+                            <div
+                                key={props.index} 
+                                id={`result-${props.index}`}
+                                className="correctResults">
+                                    <p>you got it right, good job :&#41;</p>
+                            </div>
+                        </Col>
+                    </Row>    
+                </>
+            );
+        } else {
+            return(
+                <>
+                    <Row>
+                        <Col xs={1} md={1} className=" x-markImage">
+                            <Image src="/x-mark.png" className="x-markImage" alt="xmark" />
+                        </Col>
+                        <Col xs={10} md={10} className="">
+                            <div 
+                                key={props.index} 
+                                id={`result-${props.index}`}
+                                className="wrongResults">
+                                    <p>just terrible</p>
+                            </div>
+                        </Col>
+                    </Row>
+                </>
+            );
+        }
     }
     return(
         <>

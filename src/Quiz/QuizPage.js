@@ -337,9 +337,9 @@ const QuizPage = () => {
       || answerList.indexOf(content[index].a2) !== matchingAnswerList.indexOf(maObject.m2)
       || answerList.indexOf(content[index].a3) !== matchingAnswerList.indexOf(maObject.m3)
       || answerList.indexOf(content[index].a4) !== matchingAnswerList.indexOf(maObject.m4)) {
-        return false;
+        return false; // incorrect
   }
-  return true;
+  return true; // correct
  }
 
   /** 
