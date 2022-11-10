@@ -24,6 +24,7 @@ const QuizPage = () => {
   const [currentUser, setCurrentUser] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [content, setContent] = useState([]); // "content" is an array of each question's table data for the current module
+  const [matchingAnswersContent, setMatchingAnswersContent] = useState([]); // used specifically for matching questions and the "MatchingAnswers" table
   const [currentQuestion, setQuestion] = useState([]);
   const [currentAnswers, setAnswers] = useState([["a", "b", "c", "d"]]);
   const [index, setQuestionIndex] = useState(0);
@@ -173,6 +174,9 @@ const QuizPage = () => {
    */
   useEffect(() => {
     setQuestionIndex(0);
+    axios.get(`${process.env.REACT_APP_BASE_URL}/api/getMatchingAnswers`, { params: { id: slug } }).then((response) => {
+      setMatchingAnswersContent(Object.values(response.data))
+    }).catch(error => console.error(`Error ${error}`));
     axios.get(`${process.env.REACT_APP_BASE_URL}/api/getModuleQuestions`, { params: { id: slug } }).then((response) => {
       setContent(Object.values(response.data))
       setLoading(false);

@@ -40,6 +40,17 @@ const queryModuleQuestions = (req,res)=>{
 }
 
 /**
+ * Queries learning module matching question answers info given a module ID
+ */
+const queryMatchingAnswers = (req,res) =>{
+    db.query(`SELECT * FROM MatchingAnswers WHERE module = ${req.query.id}`, (err,result) => {
+        if (err) logger.log('error', { methodName: '/queryMatchingAnswers', body: err }, { service: 'query-service' })
+        logger.log('info', `Queried MatchingAnswers with ModuleID: "${req.query.id}" Fields: ${result}`, { service: 'query-service' })
+        res.send(result)
+    })
+}
+
+/**
  * Queries learning module directory info given an ID 
  */
 const queryModuleDirectoryInfo = (req,res)=>{
@@ -166,6 +177,7 @@ module.exports =
     queryProfilePicture,
     queryModuleInfo,
     queryModuleQuestions,
+    queryMatchingAnswers,
     queryModuleDirectoryInfo,
     queryDirectoryModulesInfo,
     queryAllUserRequiredModules,
