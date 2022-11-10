@@ -27,6 +27,7 @@ const QuizPage = () => {
   const [matchingAnswersContent, setMatchingAnswersContent] = useState([]); // used specifically for matching questions and the "MatchingAnswers" table
   const [currentQuestion, setQuestion] = useState([]);
   const [currentAnswers, setAnswers] = useState([["a", "b", "c", "d"]]);
+  const [currentMatchingAnswers, setMatchingAnswers] = useState([["w", "x", "y", "z"]]);
   const [index, setQuestionIndex] = useState(0);
   const [isSubmitted, setSubmitted] = useState(false);
   const [isChecked, setChecked] = useState([[false, false, false, false]]);
@@ -249,6 +250,7 @@ const QuizPage = () => {
           i={index}
           question={currentQuestion.question}
           answers={currentAnswers[index]}
+          matchinganswers={currentMatchingAnswers[index]}
           action={adjustStateData}
           classes={quizClassNames[0]}
           checked={isChecked[index]}
@@ -291,24 +293,38 @@ const QuizPage = () => {
 
   function initializeShuffledAnswers() {
     var allAnswersArray = []
+    var allMatchingAnswersArray = []
     var checkedArray = []
     for (var i = 0; i < content.length; i++) {
       var answerArray = [];
+      var matchingAnswerArray = [];
       answerArray.push(content[i].solution);
-      if (content[i].type === 'mc') { // fill-in-the-blank only requires solution, multiple choice needs the other answer choices
+      if (content[i].type === 'mc' || content[i].type === 'match') { // fill-in-the-blank only requires solution, multiple choice and matching need the other answer choices
         answerArray.push(content[i].a2);
         answerArray.push(content[i].a3);
         answerArray.push(content[i].a4);
         answerArray = shuffleArray(answerArray);
       }
       allAnswersArray.push(answerArray);
+      if (content[i].type === 'match') {
+        var maObject = matchingAnswersContent.find((o) => o.matchingquestionid === content[i].questionid);
+        matchingAnswerArray.push(maObject.m1);
+        matchingAnswerArray.push(maObject.m2);
+        matchingAnswerArray.push(maObject.m3);
+        matchingAnswerArray.push(maObject.m4);
+        matchingAnswerArray = shuffleArray(matchingAnswerArray);
+      }
+      allMatchingAnswersArray.push(matchingAnswerArray);
       if (content[i].type === 'mc') { // same logic with keeping track of what's checked or filled-in
         checkedArray.push([false, false, false, false]);
-      } else {
+      } else if (content[i].type === 'fill') {
         checkedArray.push([false]);
+      } else if (content[i].type === 'match') { // though matching questions will auto "check", since the user could theoretically not want to make any changes
+        checkedArray.push([true]);
       }
     }
     setAnswers(allAnswersArray);
+    setMatchingAnswers(allMatchingAnswersArray);
     setChecked(checkedArray);
   }
 

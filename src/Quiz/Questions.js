@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {ToggleButtonGroup, ToggleButton, Container, Form} from 'react-bootstrap';
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import './Questions.css';
 
 /**
@@ -11,6 +12,36 @@ import './Questions.css';
 function Questions (props) {
 
     const [quizToggleId, setQuizToggleId] = useState("group");
+
+    // For keeping track of order of the two lists involved in matching questions
+    var answerList = props.answers;
+    var matchingAnswerList = props.matchinganswers;
+
+    // Function to update answerList on drop
+    const handleAnswerListDrop = (droppedItem) => {
+        // Ignore drop outside droppable container
+        if (!droppedItem.destination) return;
+        var updatedList = [...answerList];
+        // Remove dragged item
+        const [reorderedItem] = updatedList.splice(droppedItem.source.index, 1);
+        // Add dropped item
+        updatedList.splice(droppedItem.destination.index, 0, reorderedItem);
+        // Update
+        answerList = updatedList;
+    };
+
+    // Function to update matchingAnswerList on drop
+    const handleMatchingAnswerListDrop = (droppedItem) => {
+        // Ignore drop outside droppable container
+        if (!droppedItem.destination) return;
+        var updatedList = [...matchingAnswerList];
+        // Remove dragged item
+        const [reorderedItem] = updatedList.splice(droppedItem.source.index, 1);
+        // Add dropped item
+        updatedList.splice(droppedItem.destination.index, 0, reorderedItem);
+        // Update
+        matchingAnswerList = updatedList;
+    };
 
     /**
      * 
@@ -76,6 +107,77 @@ function Questions (props) {
                     placeholder="Type your answer here..."
                     onChange={(e) => props.action(props.i, e.target.value, 0)}
                 />
+                </div>
+            </>
+        );
+    } else if (props.type === 'match') { // for matching questions
+        return(
+            <>
+                <h3 id="qNumber" className={props.classes[0]}> Question {props.i + 1} </h3>
+                <div id={props.i} className="text-center"> 
+                <Container id="questionDesciption" className={props.classes[1]}>
+                    {props.question} 
+                </Container>
+
+                <div>
+                    <DragDropContext onDragEnd={handleAnswerListDrop}>
+                        <Droppable droppableId="list-container">
+                            {(provided) => (
+                                <div
+                                    className="list-container"
+                                    {...provided.droppableProps}
+                                    ref={provided.innerRef}
+                                >
+                                    {answerList.map((answer, index) => (
+                                        <Draggable key={answer} draggableId={answer} index={index}>
+                                            {(provided) => (
+                                                <div
+                                                    className="item-container"
+                                                    ref={provided.innerRef}
+                                                    {...provided.dragHandleProps}
+                                                    {...provided.draggableProps}
+                                                >
+                                                    {answer}
+                                                </div>
+                                            )}
+                                        </Draggable>
+                                    ))}
+                                    {provided.placeholder}
+                                </div>
+                            )}
+                        </Droppable>
+                    </DragDropContext>
+                </div>
+                <div>
+                    <DragDropContext onDragEnd={handleMatchingAnswerListDrop}>
+                        <Droppable droppableId="list-container">
+                            {(provided) => (
+                                <div
+                                    className="list-container"
+                                    {...provided.droppableProps}
+                                    ref={provided.innerRef}
+                                >
+                                    {matchingAnswerList.map((matchingAnswer, index) => (
+                                        <Draggable key={matchingAnswer} draggableId={matchingAnswer} index={index}>
+                                            {(provided) => (
+                                                <div
+                                                    className="item-container"
+                                                    ref={provided.innerRef}
+                                                    {...provided.dragHandleProps}
+                                                    {...provided.draggableProps}
+                                                >
+                                                    {matchingAnswer}
+                                                </div>
+                                            )}
+                                        </Draggable>
+                                    ))}
+                                    {provided.placeholder}
+                                </div>
+                            )}
+                        </Droppable>
+                    </DragDropContext>
+                </div>
+
                 </div>
             </>
         );
