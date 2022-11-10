@@ -328,6 +328,20 @@ const QuizPage = () => {
     setChecked(checkedArray);
   }
 
+  /**
+   * Used to score the user's answer to a matching question
+  */
+ function assessMatchingTypeAnswer(answerList, matchingAnswerList) {
+  var maObject = matchingAnswersContent.find((o) => o.matchingquestionid === content[index].questionid);
+  if (answerList.indexOf(content[index].solution) !== matchingAnswerList.indexOf(maObject.m1)
+      || answerList.indexOf(content[index].a2) !== matchingAnswerList.indexOf(maObject.m2)
+      || answerList.indexOf(content[index].a3) !== matchingAnswerList.indexOf(maObject.m3)
+      || answerList.indexOf(content[index].a4) !== matchingAnswerList.indexOf(maObject.m4)) {
+        return false;
+  }
+  return true;
+ }
+
   /** 
    * 
    * @param {int} index Index of current question
@@ -336,15 +350,19 @@ const QuizPage = () => {
   */
   function adjustStateData(index, answer, inputIndex) {
     let newData = data[index];
-    if (content[index].type === "fill") {
+    if (content[index].type === 'fill') {
       newData["answer"] = answer.toLowerCase(); // fill-in-the-blank solutions in the questions table are lower-case
     } else {
       newData["answer"] = answer;
     }
-    if (newData["answer"] === content[index].solution) {
-      newData["correct"] = true
+    if (content[index].type === 'match') {
+      newData["correct"] = assessMatchingTypeAnswer(answer[0], answer[1]);
     } else {
-      newData["correct"] = false
+      if (newData["answer"] === content[index].solution) {
+        newData["correct"] = true
+      } else {
+        newData["correct"] = false
+      }
     }
     data[index] = newData;
     setData([...data]);

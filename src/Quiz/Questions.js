@@ -14,8 +14,26 @@ function Questions (props) {
     const [quizToggleId, setQuizToggleId] = useState("group");
 
     // For keeping track of order of the two lists involved in matching questions
-    var answerList = props.answers;
-    var matchingAnswerList = props.matchinganswers;
+    const [answerList, setAnswerList] = useState([]);
+    const [matchingAnswerList, setMatchingAnswerList] = useState([]);
+
+    useEffect(() => {
+        if (props.type === 'match') {
+            setAnswerList(props.answers);
+        }
+    }, [props.answers])
+
+    useEffect(() => {
+        if (props.type === 'match') {
+            setMatchingAnswerList(props.matchinganswers);
+        }
+    }, [props.matchinganswers])
+
+    useEffect(() => {
+        if (props.type === 'match') {
+            props.action(props.i, [answerList, matchingAnswerList], 0);
+        }
+    }, [answerList, matchingAnswerList])
 
     // Function to update answerList on drop
     const handleAnswerListDrop = (droppedItem) => {
@@ -26,8 +44,8 @@ function Questions (props) {
         const [reorderedItem] = updatedList.splice(droppedItem.source.index, 1);
         // Add dropped item
         updatedList.splice(droppedItem.destination.index, 0, reorderedItem);
-        // Update
-        answerList = updatedList;
+        // Update state
+        setAnswerList(updatedList);
     };
 
     // Function to update matchingAnswerList on drop
@@ -39,8 +57,8 @@ function Questions (props) {
         const [reorderedItem] = updatedList.splice(droppedItem.source.index, 1);
         // Add dropped item
         updatedList.splice(droppedItem.destination.index, 0, reorderedItem);
-        // Update
-        matchingAnswerList = updatedList;
+        // Update state
+        setMatchingAnswerList(updatedList);
     };
 
     /**
