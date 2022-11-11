@@ -32,7 +32,7 @@ const QuizPage = () => {
   const [userCompletedModules, setUserCompletedModules] = useState([]);
   const [userAssignedModules, setUserAssignedModules] = useState([]);
   const [earlyCompletion, setEarlyCompletion] = useState(0);
-  const [spaceLearning, setSpacedLearning] = useState(0);  
+  const [spaceLearning, setSpacedLearning] = useState(0); 
   const [passed, setPassed] = useState(false);
   const [notCompleteOnTime, setNoCompleteOnTime] = useState(0);
   const [showSpacedLearningPopup, setShowSpacedLearningPopup] = useState(false);

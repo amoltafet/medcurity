@@ -113,6 +113,7 @@ const SettingsMenu = () => {
       setPassword('')
       setRepeatPassword('')
       setShow(true)
+      window.location.reload()
     }
   }, [saveData, newUserName, currentUser.userid])
 
@@ -158,274 +159,302 @@ const SettingsMenu = () => {
     <>
       <Tab.Container
         className='justify-content-center'
-        defaultActiveKey='first'
+        defaultActiveKey='profile'
         style={{ display: 'flex' }}
       >
-            <Container className='settingsContentPaneContainer'>
-              <Tab.Content>
-              <Nav
-              variant='pills selectionBox'
-              className='selectionBox justify-content-center'
-            >
-              <Nav.Item className='justify-content-center settingSpacing'>
-                <Nav.Link
-                  className=' justify-content-center selectedSetting'
-                  eventKey='first'
-                >
-                  Profile
-                </Nav.Link>
-              </Nav.Item>
-              <Nav.Item className='justify-content-center settingSpacing'>
-                <Nav.Link
-                  className=' unselectedSetting justify-content-center'
-                  eventKey='second'
-                >
-                  Company Info
-                </Nav.Link>
-              </Nav.Item>
-              <Nav.Item className='justify-content-center settingSpacing'>
-                <Nav.Link
-                  className=' unselectedSetting justify-content-center'
-                  eventKey='third'
-                >
-                  Settings
-                </Nav.Link>
-              </Nav.Item>
-            </Nav>
-                <Tab.Pane eventKey='first'>
-                  <div class='page-content page-container' id='page-content'>
-                    <div class='padding'>
-                      <div class='row container d-flex justify-content-center'>
-                        <div class='col-md-12'>
-                          <div class='card user-card-full'>
-                            <div class='row m-l-0 m-r-0'>
-                              <div class='col-sm-4 user-profile'>
-                                <div class='card-block text-center text-white'>
-                                  <Image
-                                    className='settingsProfilePicture'
-                                    variant='top'
-                                    src={`data:image/png;base64,${profilePic}`}
-                                    alt=''
-                                    roundedCircle
-                                  ></Image>
-                                  <h6 class='f-w-600'>Hembo Tingor</h6>
-                                  <p>Web Designer</p>
-                                  <i class=' mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16'></i>
-                                </div>
+        <Container className='settingsContentPaneContainer'>
+          <Form>
+            <div class='container emp-profile'>
+              <form method='post'>
+                <div class='row'>
+                  <div class='col-md-4'>
+                    <div class='profile-img'>
+                      <Form.Group className='justify-content-center'>
+                        <Image
+                          className='settingsProfilePicture uvs-left'
+                          variant='top'
+                          src={`data:image/png;base64,${profilePic}`}
+                          alt=''
+                          roundedCircle
+                        ></Image>
+                      </Form.Group>
+                    </div>
+                  </div>
+                  <div class='col-md-6'>
+                    <div class='profile-head'>
+                      <h5>{currentUser.username}</h5>
+                      <h6>Web Developer and Designer</h6>
+                      <p class='proile-rating'>
+                        Module Progress : <span>65%</span>
+                      </p>
+                      <ul class='nav nav-tabs' id='myTab' role='tablist'>
+                        <Nav className='justify-content-center'>
+                          <li class='nav-item'>
+                            <Nav.Item className='justify-content-center settingSpacing'>
+                              <Nav.Link
+                                eventKey='profile'
+                                class='nav-link active'
+                                id='home-tab'
+                                data-toggle='tab'
+                                role='tab'
+                                aria-controls='home'
+                                aria-selected='true'
+                              >
+                                Profile
+                              </Nav.Link>
+                            </Nav.Item>
+                          </li>
+                          <li class='nav-item'>
+                            <Nav.Item className='justify-content-center settingSpacing'>
+                              <Nav.Link
+                                class='nav-link'
+                                id='profile-tab'
+                                data-toggle='tab'
+                                role='tab'
+                                aria-controls='profile'
+                                aria-selected='false'
+                                eventKey='badges'
+                              >
+                                Badges
+                              </Nav.Link>
+                            </Nav.Item>
+                          </li>
+                        </Nav>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class='col-md-2'>
+                    <Nav className='justify-content-center'>
+                      <Nav.Item className='justify-content-center settingSpacing'>
+                        <Nav.Link
+                          eventKey='edit'
+                          type='submit'
+                          class='profile-edit-btn'
+                          name='btnAddMore'
+                          value='Edit Profile'
+                        >
+                          <img
+                            class='edit-icon'
+                            src='https://icons.veryicon.com/png/o/miscellaneous/linear-small-icon/edit-246.png'
+                            alt=''
+                          />
+                          Edit Profile
+                        </Nav.Link>
+                      </Nav.Item>
+                    </Nav>
+                  </div>
+                </div>
+                <div class='row'>
+                  <div class='col-md-4'>
+                    <div class='profile-work'>
+                      <p>Works at {company}</p>
+                      <a href='www.google.com'>Website Link</a>
+                      <br />
+                      <a href=''>Company Profile</a>
+                      <br />
+                      <p>SKILLS</p>
+                      <a href=''>Web Designer</a>
+                      <br />
+                      <a href=''>Web Developer</a>
+                      <br />
+                    </div>
+                  </div>
+                  <div class='col-md-8'>
+                    <div class='tab-content profile-tab' id='myTabContent'>
+                      <Tab.Content>
+                        <Tab.Pane eventKey='profile'>
+                          <div
+                            class='tab-pane fade show active'
+                            id='home'
+                            role='tabpanel'
+                            aria-labelledby='home-tab'
+                          >
+                            <div class='row'>
+                              <div class='col-md-6'>
+                                <label>Name</label>
                               </div>
-                              <div class='col-sm-8'>
-                                <div class='card-block'>
-                                  <h6 class='m-b-20 p-b-5 b-b-default f-w-600'>
-                                    Information
-                                  </h6>
-                                  <div class='row'>
-                                    <div class='col-sm-6'>
-                                      <p class='m-b-10 f-w-600'>Email</p>
-                                      <h6 class='text-muted f-w-400'>
-                                        {currentUser.email}
-                                      </h6>
-                                    </div>
-                                    <div class='col-sm-6'>
-                                      <p class='m-b-10 f-w-600'>Phone</p>
-                                      <h6 class='text-muted f-w-400'>
-                                        1-800-656-3467
-                                      </h6>
-                                    </div>
-                                  </div>
-                                  <h6 class='m-b-20 m-t-40 p-b-5 b-b-default f-w-600'>
-                                    Badges
-                                  </h6>
-                                  <div class='row'>
-                                    <div class='col-sm-6'>
-                                      <p class='m-b-10 f-w-600'>Recent</p>
-                                      <h6 class='text-muted f-w-400'>
-                                        badge name here
-                                      </h6>
-                                    </div>
-                                    <div class='col-sm-6'>
-                                      <p class='m-b-10 f-w-600'>Displayed Badge</p>
-                                      <h6 class='text-muted f-w-400'>
-                                        diplsayed badge
-                                      </h6>
-                                    </div>
-                                  </div>
-                                  <ul class='social-link list-unstyled m-t-40 m-b-10'>
-                                    <li>
-                                      <a
-                                        href='#!'
-                                        data-toggle='tooltip'
-                                        data-placement='bottom'
-                                        title=''
-                                        data-original-title='facebook'
-                                        data-abc='true'
-                                      >
-                                        <i
-                                          class='mdi mdi-facebook feather icon-facebook facebook'
-                                          aria-hidden='true'
-                                        ></i>
-                                      </a>
-                                    </li>
-                                    <li>
-                                      <a
-                                        href='#!'
-                                        data-toggle='tooltip'
-                                        data-placement='bottom'
-                                        title=''
-                                        data-original-title='twitter'
-                                        data-abc='true'
-                                      >
-                                        <i
-                                          class='mdi mdi-twitter feather icon-twitter twitter'
-                                          aria-hidden='true'
-                                        ></i>
-                                      </a>
-                                    </li>
-                                    <li>
-                                      <a
-                                        href='#!'
-                                        data-toggle='tooltip'
-                                        data-placement='bottom'
-                                        title=''
-                                        data-original-title='instagram'
-                                        data-abc='true'
-                                      >
-                                        <i
-                                          class='mdi mdi-instagram feather icon-instagram instagram'
-                                          aria-hidden='true'
-                                        ></i>
-                                      </a>
-                                    </li>
-                                    <li>
-                                    <Button className='settingsWideButton' onClick={NavToDash}>
-                                        Back to Dashboard
-                                    </Button>
-                                    </li>
-                                  </ul>
-                                </div>
+                              <div class='col-md-6'>
+                                <p>{currentUser.username}</p>
                               </div>
                             </div>
+                            <div class='row'>
+                              <div class='col-md-6'>
+                                <label>Email</label>
+                              </div>
+                              <div class='col-md-6'>
+                                <p>{currentUser.email}</p>
+                              </div>
+                            </div>
+                            <div class='row'>
+                              <div class='col-md-6'>
+                                <label>Phone</label>
+                              </div>
+                              <div class='col-md-6'>
+                                <p>123 456 7890</p>
+                              </div>
+                            </div>
+                            <div class='row'>
+                              <div class='col-md-6'>
+                                <label>Profession</label>
+                              </div>
+                              <div class='col-md-6'>
+                                <p>Web Developer and Designer</p>
+                              </div>
+                            </div>
+                          </div>
+                        </Tab.Pane>
+                        <Tab.Pane eventKey='badges'>
+                          <h1>Badges will go here</h1>
+                        </Tab.Pane>
+                        <Tab.Pane eventKey='edit'>
+                          <div
+                            class='tab-pane fade show active'
+                            id='home'
+                            role='tabpanel'
+                            aria-labelledby='home-tab'
+                          >
+                            <div class='col-md-6'>
+                              <Form.Group className='justify-content-center'>
+                                <Tab.Pane eventKey='edit'>
+                                  <Form.File
+                                    className='userProfilePhotoInput'
+                                    onChange={e =>
+                                      uploadUserPhoto(e.target.files[0])
+                                    }
+                                    accept='.png,.jpg,.jpeg'
+                                  />
+                                </Tab.Pane>
+                              </Form.Group>
+                            </div>
+                            <div class='row'>
+                              <div class='col-md-6'>
+                                <label>Name</label>
+                              </div>
+                              <div class='col-md-6'>
+                                <Form.Group
+                                  className='usernameInput'
+                                  controlId='formPlaintextEmail'
+                                >
+                                  <Form.Control
+                                    defaultValue={currentUser.username}
+                                    onChange={e => {
+                                      setUsername(e.target.value)
+                                    }}
+                                  ></Form.Control>
+                                </Form.Group>
+                              </div>
+                            </div>
+                            <div class='row'>
+                              <div class='col-md-6'>
+                                <label>Email</label>
+                              </div>
+                              <div class='col-md-6'>
+                                <Form.Group
+                                  className='emailInput'
+                                  controlId='formPlaintextEmail'
+                                >
+                                  <p>
+                                    <Form.Control
+                                      disabled
+                                      defaultValue={currentUser.email}
+                                    ></Form.Control>
+                                  </p>
+                                </Form.Group>
+                              </div>
+                            </div>
+                            <div class='row'>
+                              <div class='col-md-6'>
+                                <label>Phone</label>
+                              </div>
+                              <div class='col-md-6'>
+                                <p>123 456 7890</p>
+                              </div>
+                            </div>
+                            <div class='row'>
+                              <div class='col-md-6'>
+                                <label>Profession</label>
+                              </div>
+                              <div class='col-md-6'>
+                                <p>Web Developer and Designer</p>
+                              </div>
+                            </div>
+                          </div>
+                          <OverlayTrigger
+                            delay={{ show: 5000, hide: 4000 }}
+                            show={show}
+                            placement='bottom'
+                            overlay={popover}
+                          >
+                            <Button
+                              className='settingsWideButton'
+                              onClick={() => SaveUpdatedUserInfo()}
+                            >
+                              Save
+                            </Button>
+                          </OverlayTrigger>
+                        </Tab.Pane>
+                      </Tab.Content>
+                      <div
+                        class='tab-pane fade'
+                        id='profile'
+                        role='tabpanel'
+                        aria-labelledby='profile-tab'
+                      >
+                        <div class='row'>
+                          <div class='col-md-6'>
+                            <label>Experience</label>
+                          </div>
+                          <div class='col-md-6'>
+                            <p>Expert</p>
+                          </div>
+                        </div>
+                        <div class='row'>
+                          <div class='col-md-6'>
+                            <label>Hourly Rate</label>
+                          </div>
+                          <div class='col-md-6'>
+                            <p>10$/hr</p>
+                          </div>
+                        </div>
+                        <div class='row'>
+                          <div class='col-md-6'>
+                            <label>Total Projects</label>
+                          </div>
+                          <div class='col-md-6'>
+                            <p>230</p>
+                          </div>
+                        </div>
+                        <div class='row'>
+                          <div class='col-md-6'>
+                            <label>English Level</label>
+                          </div>
+                          <div class='col-md-6'>
+                            <p>Expert</p>
+                          </div>
+                        </div>
+                        <div class='row'>
+                          <div class='col-md-6'>
+                            <label>Availability</label>
+                          </div>
+                          <div class='col-md-6'>
+                            <p>6 months</p>
+                          </div>
+                        </div>
+                        <div class='row'>
+                          <div class='col-md-12'>
+                            <label>Your Bio</label>
+                            <br />
+                            <p>Your detail description</p>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </Tab.Pane>
-                <Tab.Pane eventKey='second'>
-                  <Form>
-                    <Form.Group
-                      className='usernameInput'
-                      controlId='formPlaintextEmail'
-                    >
-                      <Form.Text className='usernameText'>Company</Form.Text>
-                      <Form.Control
-                        disabled
-                        defaultValue={company}
-                      ></Form.Control>
-                    </Form.Group>
-                    <Form.Group
-                      className='emailInput'
-                      controlId='formPlaintextEmail'
-                    >
-                      <Form.Text className='emailText'>Date Joined</Form.Text>
-                      <Form.Control
-                        disabled
-                        defaultValue={dueDate}
-                      ></Form.Control>
-                    </Form.Group>
-                  </Form>
-                </Tab.Pane>
-                <Tab.Pane eventKey='third'>
-                  <Form>
-                    <Form.Group className='justify-content-center'>
-                      <Image
-                        className='updateProfilePicture'
-                        variant='top'
-                        src={`data:image/png;base64,${profilePic}`}
-                        alt=''
-                        roundedCircle
-                      ></Image>
-                      <Form.File
-                        className='userProfilePhotoInput'
-                        onChange={e => uploadUserPhoto(e.target.files[0])}
-                        accept='.png,.jpg,.jpeg'
-                      />
-                    </Form.Group>
-                    <Form.Group
-                      className='emailInput'
-                      controlId='formPlaintextEmail'
-                    >
-                      <Form.Text className='emailText'>Email</Form.Text>
-                      <Form.Control
-                        disabled
-                        defaultValue={currentUser.email}
-                      ></Form.Control>
-                    </Form.Group>
-                    <Form.Group
-                      className='usernameInput'
-                      controlId='formPlaintextEmail'
-                    >
-                      <Form.Text className='usernameText'>Username</Form.Text>
-                      <Form.Control
-                        defaultValue={currentUser.username}
-                        onChange={e => {
-                          setUsername(e.target.value)
-                        }}
-                      ></Form.Control>
-                    </Form.Group>
-                    <h3>Change Password</h3>
-                    <Form.Group
-                      className='passwordInput'
-                      controlId='formPlaintextEmail'
-                    >
-                      <Form.Text className='passwordText' id='newPasswordText'>
-                        New Password
-                      </Form.Text>
-                      <Form.Control
-                        type='password'
-                        value={newPassword}
-                        onChange={e => {
-                          setPassword(e.target.value)
-                        }}
-                      ></Form.Control>
-                    </Form.Group>
-                    <Form.Group
-                      className='passwordInput'
-                      controlId='formPlaintextEmail'
-                    >
-                      <Form.Text
-                        className='passwordText'
-                        id='repeatPasswordText'
-                      >
-                        Retype Password
-                      </Form.Text>
-                      <Form.Control
-                        type='password'
-                        value={repeatPassword}
-                        onChange={e => {
-                          setRepeatPassword(e.target.value)
-                        }}
-                      ></Form.Control>
-                    </Form.Group>
-                  </Form>
-                  <OverlayTrigger
-                    delay={{ show: 5000, hide: 4000 }}
-                    show={show}
-                    placement='bottom'
-                    overlay={popover}
-                  >
-                    <Button
-                      className='settingsWideButton'
-                      onClick={() => SaveUpdatedUserInfo()}
-                    >
-                      Save
-                    </Button>
-                  </OverlayTrigger>
-                  <Button className='settingsWideButton' onClick={NavToDash}>
-                    Back to Dashboard
-                  </Button>
-                </Tab.Pane>
-              </Tab.Content>
-            </Container>
+                </div>
+              </form>
+            </div>
+          </Form>
+        </Container>
       </Tab.Container>
     </>
   )
