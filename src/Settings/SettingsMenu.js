@@ -14,6 +14,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import React from 'react'
+import Badges from '../Badges/Badges'
 import './SettingsMenu.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 // import env from "react-dotenv";
@@ -205,7 +206,7 @@ const SettingsMenu = () => {
                             </Nav.Item>
                           </li>
                           <li class='nav-item'>
-                            <Nav.Item className='justify-content-center settingSpacing'>
+                          <Nav.Item className='justify-content-center settingSpacing'>
                               <Nav.Link
                                 class='nav-link'
                                 id='profile-tab'
@@ -304,7 +305,7 @@ const SettingsMenu = () => {
                           </div>
                         </Tab.Pane>
                         <Tab.Pane eventKey='badges'>
-                          <h1>Badges will go here</h1>
+                          <Badges></Badges>
                         </Tab.Pane>
                         <Tab.Pane eventKey='edit'>
                           <div
