@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {ToggleButtonGroup, ToggleButton, Container, Form} from 'react-bootstrap';
+import {ToggleButtonGroup, ToggleButton, Container, Form, Row, Col} from 'react-bootstrap';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import './Questions.css';
 
@@ -137,7 +137,9 @@ function Questions (props) {
                     {props.question} 
                 </Container>
 
-                <div>
+                <Container>
+                <Row className="justify-content-md-center">
+                <Col xs lg="2">
                     <DragDropContext onDragEnd={handleAnswerListDrop}>
                         <Droppable droppableId="list-container">
                             {(provided) => (
@@ -150,7 +152,7 @@ function Questions (props) {
                                         <Draggable key={answer} draggableId={answer} index={index}>
                                             {(provided) => (
                                                 <div
-                                                    className="item-container"
+                                                    className="matching-item-container uvs-left"
                                                     ref={provided.innerRef}
                                                     {...provided.dragHandleProps}
                                                     {...provided.draggableProps}
@@ -165,8 +167,8 @@ function Questions (props) {
                             )}
                         </Droppable>
                     </DragDropContext>
-                </div>
-                <div>
+                </Col>
+                <Col xs lg="2">
                     <DragDropContext onDragEnd={handleMatchingAnswerListDrop}>
                         <Droppable droppableId="list-container">
                             {(provided) => (
@@ -179,7 +181,7 @@ function Questions (props) {
                                         <Draggable key={matchingAnswer} draggableId={matchingAnswer} index={index}>
                                             {(provided) => (
                                                 <div
-                                                    className="item-container"
+                                                    className="matching-item-container uvs-right"
                                                     ref={provided.innerRef}
                                                     {...provided.dragHandleProps}
                                                     {...provided.draggableProps}
@@ -194,7 +196,9 @@ function Questions (props) {
                             )}
                         </Droppable>
                     </DragDropContext>
-                </div>
+                </Col>
+                </Row>
+                </Container>
 
                 </div>
             </>
