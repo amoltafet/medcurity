@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders LoginPage 1`] = `
+<div
+  className="cardBackgroundDash card"
+  style={
+    Object {
+      "flexDirection": "row",
+    }
+  }
+>
+  <div
+    className="col-lg col-2"
+  >
+    <div
+      className="dashLeaderNumberPosition"
+    >
+      .
+    </div>
+  </div>
+  <div
+    className="col-lg col-2"
+  >
+    <img
+      alt=""
+      className="profileImageDash rounded-circle"
+      src="data:image/png;base64,"
+    />
+  </div>
+  <div
+    className="col-lg col-4"
+  >
+    <div
+      className="userTextDash"
+    />
+  </div>
+  <div
+    className="col-lg col-3"
+  >
+    <div
+      body={true}
+      className="pointsDash"
+    >
+      points: 
+    </div>
+  </div>
+</div>
+`;

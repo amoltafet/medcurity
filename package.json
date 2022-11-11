@@ -20,6 +20,7 @@
     "bootstrap": "^5.2.2",
     "check-password-strength": "^2.0.4",
     "color-name": "^1.1.4",
+    "concurrently": "^7.5.0",
     "connect-redis": "^6.1.1",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
@@ -63,7 +64,9 @@
     "test": "react-dotenv && react-scripts test",
     "eject": "react-dotenv && react-scripts eject",
     "clean": "npm cache clean --force",
-    "heroku-postbuild": "react-dotenv && npm install && npm run build"
+    "heroku-postbuild": "react-dotenv && npm install && npm run build",
+    "server": "npm run dev --prefix server",
+    "dev": "concurrently \"npm start\" \"npm run server\""
   },
   "react-dotenv": {
     "whitelist": [

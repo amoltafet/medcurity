@@ -1,0 +1,34 @@
+.earned {
+    width: 175px;
+    transition: all .1s ease-in-out;
+}
+
+.earned:hover {
+    transform: scale(1.05);
+}
+
+.unearned {
+    width: 175px;
+    filter: grayscale(100%)
+}
+
+.badgeContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.indivBadge {
+    padding: 0;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.badgeTitle {
+    text-align: center;
+}
