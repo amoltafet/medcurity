@@ -12,6 +12,7 @@ passenger*
 /build
 /.env
 .env 
+/server/.env
 # testing
 /coverage
 
