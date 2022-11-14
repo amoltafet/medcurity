@@ -10,7 +10,8 @@ passenger*
 /.pnp
 .pnp.js
 /build
-
+/.env
+.env 
 # testing
 /coverage
 
