@@ -44,6 +44,20 @@
     font-family: Lato,sans-serif;
 }
 
+.matching-item-container {
+    background-color: white;
+    margin: 15px 0px;
+    padding: 10px 0px;
+}
+
+.matching-item-container:hover {
+    background-color: rgb(233, 233, 233);
+}
+
+.matching-item-container:active {
+    background-color: rgb(193, 193, 193);
+}
+
 /* RESULTS CSS */
 
 .questionNumbersWrong {

@@ -12,18 +12,16 @@
 }
 
 .login_pageHeader {
-    margin-top: 7%;
+    margin-top: 2%;
     text-align: center;
 }
 
 .login_pageHeaderText {
     color: white;
-    text-shadow: 2px 2px 5px black;
     font-size: 3vmax;
 }
 
 .login_columnDivder {
-    margin-top: 5%;
     animation: login_upwardsFadeIn 1s;
 }
 
@@ -40,7 +38,6 @@
 .login_h3 {
     color: white;
     width: 75%;
-    text-shadow: 2px 2px 2px black;
 }
 
 .login_p{
@@ -93,20 +90,4 @@
 
 .login_formButton:hover {
     animation: login_sizeBump .3s linear
-}
-
-@keyframes login_hoverFade { 
-    from { background-color: #ffffff00; } 
-    to { background-color: #ffffff1f; }
-}
-
-@keyframes login_upwardsFadeIn { 
-    from { margin-top:10%; opacity:0; } 
-    to { margin-top:5%; opacity:1; } 
-}
-
-@keyframes login_sizeBump { 
-    0% { font-size: 1.3vmax; } 
-    50% { font-size: 1.32vmax; } 
-    0% { font-size: 1.3vmax; } 
 }

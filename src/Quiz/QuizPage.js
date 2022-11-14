@@ -23,16 +23,18 @@ const QuizPage = () => {
   ];
   const [currentUser, setCurrentUser] = useState([]);
   const [isLoading, setLoading] = useState(true);
-  const [content, setContent] = useState([]);
+  const [content, setContent] = useState([]); // "content" is an array of each question's table data for the current module
+  const [matchingAnswersContent, setMatchingAnswersContent] = useState([]); // used specifically for matching questions and the "MatchingAnswers" table
   const [currentQuestion, setQuestion] = useState([]);
-  const [curentAnswers, setAnswers] = useState([["a", "b", "c", "d"]]);
+  const [currentAnswers, setAnswers] = useState([["a", "b", "c", "d"]]);
+  const [currentMatchingAnswers, setMatchingAnswers] = useState([["w", "x", "y", "z"]]);
   const [index, setQuestionIndex] = useState(0);
   const [isSubmitted, setSubmitted] = useState(false);
   const [isChecked, setChecked] = useState([[false, false, false, false]]);
   const [userCompletedModules, setUserCompletedModules] = useState([]);
   const [userAssignedModules, setUserAssignedModules] = useState([]);
   const [earlyCompletion, setEarlyCompletion] = useState(0);
-  const [spaceLearning, setSpacedLearning] = useState(0);  
+  const [spaceLearning, setSpacedLearning] = useState(0); 
   const [passed, setPassed] = useState(false);
   const [notCompleteOnTime, setNoCompleteOnTime] = useState(0);
   const [showSpacedLearningPopup, setShowSpacedLearningPopup] = useState(false);
@@ -44,7 +46,7 @@ const QuizPage = () => {
   const [companyid, setCompanyID] = useState([]);
   var points = 0;
   var numCorrect = 0;
-  // data array that holds question information using state
+  // "data" is an array of the user's performance on each question
   const [data, setData] = useState([
     { answer: "", correct: false },
     { answer: "", correct: false },
@@ -173,6 +175,9 @@ const QuizPage = () => {
    */
   useEffect(() => {
     setQuestionIndex(0);
+    axios.get(`${process.env.REACT_APP_BASE_URL}/api/getMatchingAnswers`, { params: { id: slug } }).then((response) => {
+      setMatchingAnswersContent(Object.values(response.data))
+    }).catch(error => console.error(`Error ${error}`));
     axios.get(`${process.env.REACT_APP_BASE_URL}/api/getModuleQuestions`, { params: { id: slug } }).then((response) => {
       setContent(Object.values(response.data))
       setLoading(false);
@@ -181,7 +186,7 @@ const QuizPage = () => {
   }, [slug])
 
   /**
-   *  once content is loaded shuffles & sets  question
+   *  once content is loaded, shuffles the answers for each question & sets the first question
    */
   useEffect(() => {
     if (!isLoading && !isSubmitted) {
@@ -197,6 +202,16 @@ const QuizPage = () => {
     if (!isLoading && isSubmitted && points !== 0) {
       var totalPoints = points + earlyCompletion + notCompleteOnTime + spaceLearning;
       var percent = numCorrect / content.length;
+
+      if ((percent * 100) >= 90) {
+        axios.post(`${process.env.REACT_APP_BASE_URL}/users/badgeEarned`, {
+          userid: currentUser.userid,
+          modulenum: slug
+        }).then((response) => {
+          // console.log("response", response.data);
+        }).catch();
+      }
+
       if ((percent * 100) >= 60 && !moduleNotAssigned) {
         axios.post(`${process.env.REACT_APP_BASE_URL}/users/moduleCompleted`, {
           categoryId: slug,
@@ -232,7 +247,6 @@ const QuizPage = () => {
     return array;
   }
 
-
   /**
    * Displays the current question
    * @returns the Questions
@@ -245,21 +259,24 @@ const QuizPage = () => {
           id={groupID}
           i={index}
           question={currentQuestion.question}
-          answers={curentAnswers[index]}
+          answers={currentAnswers[index]}
+          matchinganswers={currentMatchingAnswers[index]}
           action={adjustStateData}
           classes={quizClassNames[0]}
           checked={isChecked[index]}
+          type={currentQuestion.type}
         />]
       );
 
     }
   }
+
   /**
    * Increments the question
    */
   function nextQuestion() {
     var boolChecked = false;
-    for (var i = 0; i < 4; i++) {
+    for (var i = 0; i < isChecked[index].length; i++) {
       if (isChecked[index][i] === true) {
         boolChecked = true;
         break;
@@ -274,52 +291,100 @@ const QuizPage = () => {
 
         if (newIndex === content.length || newIndex >= content.length) {
           document.getElementById("rightQuestionBttn").disabled = true;
-
         }
         if (newIndex === (content.length - 1)) {
           document.getElementById("submitBtn").className = "quizSubmitBttn uvs-left";
-          document.getElementById("rightQuestionBttn").className = "rightQuestionBttnRemoved"
-
+          document.getElementById("submitBtn").disabled = true;
+          document.getElementById("rightQuestionBttn").className = "rightQuestionBttnRemoved";
         }
       }
     }
   }
 
   function initializeShuffledAnswers() {
-    var bigArray = []
+    var allAnswersArray = []
+    var allMatchingAnswersArray = []
     var checkedArray = []
     for (var i = 0; i < content.length; i++) {
       var answerArray = [];
+      var matchingAnswerArray = [];
       answerArray.push(content[i].solution);
-      answerArray.push(content[i].a2);
-      answerArray.push(content[i].a3);
-      answerArray.push(content[i].a4);
-      answerArray = shuffleArray(answerArray);
-      bigArray.push(answerArray);
-      answerArray = [false, false, false, false];
-      checkedArray.push(answerArray);
+      if (content[i].type === 'mc' || content[i].type === 'match') { // fill-in-the-blank only requires solution, multiple choice and matching need the other answer choices
+        answerArray.push(content[i].a2);
+        answerArray.push(content[i].a3);
+        answerArray.push(content[i].a4);
+        answerArray = shuffleArray(answerArray);
+      }
+      allAnswersArray.push(answerArray);
+      if (content[i].type === 'match') {
+        var maObject = matchingAnswersContent.find((o) => o.matchingquestionid === content[i].questionid);
+        matchingAnswerArray.push(maObject.m1);
+        matchingAnswerArray.push(maObject.m2);
+        matchingAnswerArray.push(maObject.m3);
+        matchingAnswerArray.push(maObject.m4);
+        matchingAnswerArray = shuffleArray(matchingAnswerArray);
+      }
+      allMatchingAnswersArray.push(matchingAnswerArray);
+      if (content[i].type === 'mc') { // same logic with keeping track of what's checked or filled-in
+        checkedArray.push([false, false, false, false]);
+      } else if (content[i].type === 'fill') {
+        checkedArray.push([false]);
+      } else if (content[i].type === 'match') { // though matching questions will auto "check", since the user could theoretically not want to make any changes
+        checkedArray.push([true]);
+      }
     }
-    setAnswers(bigArray);
+    setAnswers(allAnswersArray);
+    setMatchingAnswers(allMatchingAnswersArray);
     setChecked(checkedArray);
   }
 
+  /**
+   * Used to score the user's answer to a matching question
+  */
+ function assessMatchingTypeAnswer(answerList, matchingAnswerList) {
+  var maObject = matchingAnswersContent.find((o) => o.matchingquestionid === content[index].questionid);
+  if (answerList.indexOf(content[index].solution) !== matchingAnswerList.indexOf(maObject.m1)
+      || answerList.indexOf(content[index].a2) !== matchingAnswerList.indexOf(maObject.m2)
+      || answerList.indexOf(content[index].a3) !== matchingAnswerList.indexOf(maObject.m3)
+      || answerList.indexOf(content[index].a4) !== matchingAnswerList.indexOf(maObject.m4)) {
+        return false; // incorrect
+  }
+  return true; // correct
+ }
+
   /** 
    * 
-   * @param {int} index Index of question that is clicked on by user
-   * @param {str} answer String value of answer that was clicked on 
-   * Function is used as an onChange function for the question toggle buttons to change state data
+   * @param {int} index Index of current question
+   * @param {str} answer String value of answer that was clicked on or typed in
+   * Function is used as an onChange function for the question toggle buttons / text field to change state data
   */
-  function adjustStateData(index, answer, buttonIndex) {
+  function adjustStateData(index, answer, inputIndex) {
     let newData = data[index];
-    newData["answer"] = answer;
-    if (answer === content[index].solution) {
-      newData["correct"] = true
+    if (content[index].type === 'fill') {
+      newData["answer"] = answer.toLowerCase(); // fill-in-the-blank solutions in the questions table are lower-case
+    } else {
+      newData["answer"] = answer;
+    }
+    if (content[index].type === 'match') {
+      newData["correct"] = assessMatchingTypeAnswer(answer[0], answer[1]);
+    } else {
+      if (newData["answer"] === content[index].solution) {
+        newData["correct"] = true
+      } else {
+        newData["correct"] = false
+      }
     }
     data[index] = newData;
     setData([...data]);
 
     var checkedArray = isChecked;
-    checkedArray[index][buttonIndex] = true;
+    if (answer === "") { // making sure that the user has an inputted fill-in-the-blank answer before they can move on
+      checkedArray[index][inputIndex] = false;
+      document.getElementById("submitBtn").disabled = true;
+    } else {
+      checkedArray[index][inputIndex] = true;
+      document.getElementById("submitBtn").disabled = false;
+    }
     setChecked(checkedArray);
   }
 
@@ -532,8 +597,6 @@ const QuizPage = () => {
       }
     }
 
-
-
     return (
       <>
         <MenuBar></MenuBar>
@@ -552,51 +615,57 @@ const QuizPage = () => {
         </div>
       </>
     );
-  }
-  else {
+  } else {
     var newestIndex = 0;
+    var userRadioAnswerIndex = -1;
 
-
-    var correctIndex = 0
     const QuestionContent = content.map((question) => {
       var newID = "q-group" + newestIndex
-      for (var i = 0; i < 4; i++) {
-        if (data[newestIndex]["answer"] === curentAnswers[newestIndex][i]) {
-          correctIndex = i;
+
+      if (question.type === 'mc') {
+        for (var i = 0; i < currentAnswers[newestIndex].length; i++) {
+          if (data[newestIndex]["answer"] === currentAnswers[newestIndex][i]) {
+            userRadioAnswerIndex = i;
+          }
         }
       }
+
       newestIndex++;
+
       if (data[newestIndex - 1]["correct"] === true) {
         if (slug === 6) {
           points += 500
         }
-
         points += 100
         numCorrect += 1
+
         return ([
           <Container id="resultsPageHolder" className="resultAnswers uvs-left uvs-right">
             <Results
               id={newID}
               i={newestIndex - 1}
               question={question.question}
-              answers={curentAnswers[newestIndex - 1]}
-              userAnswer={correctIndex}
+              type={question.type}
+              answers={currentAnswers[newestIndex - 1]}
+              userRadioAnswerIndex={userRadioAnswerIndex}
+              userFillInAnswer={data[newestIndex - 1]["answer"]}
               isCorrect={true}
               action={adjustStateData}
               classes={quizClassNames[2]}
             />
           </Container>
         ]);
-      }
-      else {
+      } else {
         return ([
           <Container id="resultsPageHolder" className="resultAnswers uvs-left uvs-right">
             <Results
               id={newID}
               i={newestIndex - 1}
               question={question.question}
-              answers={curentAnswers[newestIndex - 1]}
-              userAnswer={correctIndex}
+              type={question.type}
+              answers={currentAnswers[newestIndex - 1]}
+              userRadioAnswerIndex={userRadioAnswerIndex}
+              userFillInAnswer={data[newestIndex - 1]["answer"]}
               isCorrect={false}
               action={adjustStateData}
               classes={quizClassNames[1]}
@@ -605,13 +674,14 @@ const QuizPage = () => {
         ]);
       }
     });
+
     return (
       <>
         <MenuBar></MenuBar>
         <div id="resultsPageContainer">
          
-          <h1 className="quizResultsHeader">Quiz Results</h1> {
-          Passed()}
+          <h1 className="quizResultsHeader">Quiz Results</h1>
+          {Passed()}
           {UserGotEarlyCompletion()}
           {UserGotSpacedLearning()}
           {UserDidNotCompleteModuleOnTime()}

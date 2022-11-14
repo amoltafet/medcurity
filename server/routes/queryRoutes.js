@@ -18,7 +18,9 @@ router.post('/postModuleBanner', bannerUploader.upload.single('bannerImage'), qu
 router.post('/postProfilePicture', profileUploader.upload.single('profileImage'), queryControllers.queryUploadProfile);
 router.get('/getModuleBanner', queryControllers.queryModuleBanner);
 router.get('/getProfilePicture', queryControllers.queryProfilePicture);
+router.get('/getBadgeImage', queryControllers.queryBadgeImage);
 router.get('/getModuleQuestions', queryControllers.queryModuleQuestions);
+router.get('/getMatchingAnswers', queryControllers.queryMatchingAnswers);
 router.get('/getModuleDirectoryInfo', queryControllers.queryModuleDirectoryInfo);
 router.get('/getDirectoryModulesInfo', queryControllers.queryDirectoryModulesInfo);
 router.get('/getAllUserRequiredModules', queryControllers.queryAllUserRequiredModules);
