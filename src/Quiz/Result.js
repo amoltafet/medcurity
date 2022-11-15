@@ -109,7 +109,7 @@ function Result(props) {
                                 key={props.index} 
                                 id={`result-${props.index}`}
                                 className="correctResults">
-                                    <p>you got it right, good job :&#41;</p>
+                                    <p>You matched all four correctly!</p>
                             </div>
                         </Col>
                     </Row>    
@@ -127,7 +127,7 @@ function Result(props) {
                                 key={props.index} 
                                 id={`result-${props.index}`}
                                 className="wrongResults">
-                                    <p>just terrible</p>
+                                    <p>You created {props.numberCorrectMatches} correct matches.</p>
                             </div>
                         </Col>
                     </Row>
