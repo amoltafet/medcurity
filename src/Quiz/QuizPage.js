@@ -352,6 +352,27 @@ const QuizPage = () => {
   return true; // correct
  }
 
+   /**
+   * Used to find the number of correctly matched answers to a matching question
+  */
+    function numberCorrectMatches(answerList, matchingAnswerList) {
+      var maObject = matchingAnswersContent.find((o) => o.matchingquestionid === content[index].questionid);
+      let numCorrectMatches = 0;
+      if (answerList.indexOf(content[index].solution) === matchingAnswerList.indexOf(maObject.m1)) {
+        numCorrectMatches += 1;
+      }
+      if (answerList.indexOf(content[index].a2) === matchingAnswerList.indexOf(maObject.m2)) {
+        numCorrectMatches += 1;
+      }
+      if (answerList.indexOf(content[index].a3) === matchingAnswerList.indexOf(maObject.m3)) {
+        numCorrectMatches += 1;
+      }
+      if (answerList.indexOf(content[index].a4) === matchingAnswerList.indexOf(maObject.m4)) {
+        numCorrectMatches += 1;
+      }
+      return numCorrectMatches; // correct
+  }
+
   /** 
    * 
    * @param {int} index Index of current question
@@ -367,6 +388,7 @@ const QuizPage = () => {
     }
     if (content[index].type === 'match') {
       newData["correct"] = assessMatchingTypeAnswer(answer[0], answer[1]);
+      newData["numberMatched"] = numberCorrectMatches(answer[0], answer[1]);
     } else {
       if (newData["answer"] === content[index].solution) {
         newData["correct"] = true
@@ -406,7 +428,7 @@ const QuizPage = () => {
       }
       return true;
     }
-    catch (e){
+    catch (e) {
       setModuleNotAssigned(true);
       return false;
     }
@@ -629,13 +651,11 @@ const QuizPage = () => {
           }
         }
       }
-
       newestIndex++;
 
+
+
       if (data[newestIndex - 1]["correct"] === true) {
-        if (slug === 6) {
-          points += 500
-        }
         points += 100
         numCorrect += 1
 
@@ -652,6 +672,27 @@ const QuizPage = () => {
               isCorrect={true}
               action={adjustStateData}
               classes={quizClassNames[2]}
+            />
+          </Container>
+        ]);
+      } else if (question.type === 'match') {
+        let numCorrectMatches = data[newestIndex - 1]["numberMatched"]
+        points += Math.floor(100 * (numCorrectMatches / 4))
+
+        return ([
+          <Container id="resultsPageHolder" className="resultAnswers uvs-left uvs-right">
+            <Results
+              id={newID}
+              i={newestIndex - 1}
+              question={question.question}
+              type={question.type}
+              answers={currentAnswers[newestIndex - 1]}
+              userRadioAnswerIndex={userRadioAnswerIndex}
+              userFillInAnswer={data[newestIndex - 1]["answer"]}
+              isCorrect={false}
+              numberCorrectMatches={numCorrectMatches}
+              action={adjustStateData}
+              classes={quizClassNames[1]}
             />
           </Container>
         ]);

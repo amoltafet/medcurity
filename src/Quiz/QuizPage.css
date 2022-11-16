@@ -89,16 +89,16 @@
 }
 
 .totalCorrectQuestions {
-    color: #1e5b88;
+    color: white;
     font-family: Lato,sans-serif;
 }
 
 .totalCorrectPoints {
-    color: #127ebf;
+    color: white;
 }
 
 .correctPercentage {
-    color: #93c2ec;
+    color: white;
 }
 
 .quizHomeBttn {

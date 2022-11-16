@@ -65,23 +65,44 @@ function Results(props) {
             </>
         );
     } else if (props.type === 'match') { // for matching questions
-        return(
-            <>
-            <Card className="resultsCard">
-                <h3 id="qNumber" className={props.classes[0]}> Question {props.i + 1} </h3>
-                <Container id={props.i} className="text-left resultsContainerQuestionBottom"> 
-                    <Container id="questionDesciption" className={props.classes[1]}>
-                        {props.question} 
+        if (props.isCorrect) {
+            return(
+                <>
+                <Card className="resultsCard">
+                    <h3 id="qNumber" className={props.classes[0]}> Question {props.i + 1} </h3>
+                    <Container id={props.i} className="text-left resultsContainerQuestionBottom"> 
+                        <Container id="questionDesciption" className={props.classes[1]}>
+                            {props.question} 
+                        </Container>
+
+                        <Row id={quizToggleId} className="resultsQuizSelection" name={quizToggleId}>
+                            <Result index={0} type={props.type} correct={props.isCorrect}></Result>
+                        </Row>
+
                     </Container>
+                </Card>
+                </>
+            );
+        }
+        else {
+            return(
+                <>
+                <Card className="resultsCard">
+                    <h3 id="qNumber" className={props.classes[0]}> Question {props.i + 1} </h3>
+                    <Container id={props.i} className="text-left resultsContainerQuestionBottom"> 
+                        <Container id="questionDesciption" className={props.classes[1]}>
+                            {props.question} 
+                        </Container>
 
-                    <Row id={quizToggleId} className="resultsQuizSelection" name={quizToggleId}>
-                        <Result index={0} type={props.type} correct={props.isCorrect}></Result>
-                    </Row>
+                        <Row id={quizToggleId} className="resultsQuizSelection" name={quizToggleId}>
+                            <Result index={0} type={props.type} correct={props.isCorrect} numberCorrectMatches={props.numberCorrectMatches}></Result>
+                        </Row>
 
-                </Container>
-            </Card>
-            </>
-        );
+                    </Container>
+                </Card>
+                </>
+            );
+        }
     }
     return(
         <>
