@@ -203,6 +203,15 @@ const QuizPage = () => {
       var totalPoints = points + earlyCompletion + notCompleteOnTime + spaceLearning;
       var percent = numCorrect / content.length;
 
+      axios.post(`${process.env.REACT_APP_BASE_URL}/users/moduleActivity`, {
+        userid: currentUser.userid,
+        module: slug,
+        points: totalPoints,
+        percentage: percent
+      }).then((response) => {
+        console.log(response.message);
+      }).catch();
+
       if ((percent * 100) >= 90) {
         axios.post(`${process.env.REACT_APP_BASE_URL}/users/badgeEarned`, {
           userid: currentUser.userid,
