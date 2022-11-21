@@ -37,8 +37,17 @@ const EmployeesCards = (props) => {
                 'WHERE AffiliatedUsers.CompanyID = ' + props.companyId + ' ' +
                 'ORDER BY Users.email'} 
                 }).then((response) => {
-                    setEmployees(Object.values(response.data))
-                    // console.log("Got employees")
+                    let employeeRows = Object.values(response.data);
+                    
+                    for (let index in employeeRows) {
+                        employeeRows[index].mostRecent = "Yesterday";
+                        // TODO: UPDATE BY GETTING MOST RECENT FROM DATABASE
+                    }
+                    
+                    setEmployees(employeeRows);
+                    
+                    console.log("Got employees");
+                    console.log(employeeRows);
             });
         }
     }, [isLoading, props.reload])
@@ -103,20 +112,20 @@ const EmployeesCards = (props) => {
      * @param {array} modules to create cards for
      * @param {int} max_length to limit max card number created
      */
-    function createEmployeeCards(modules, maxLength=-1) {
+    function createEmployeeCards(employees, maxLength=-1) {
         const objs = [];
         let size = 0
-        for (let index in modules) {
+        for (let index in employees) {
             if (size === maxLength) { break; } 
-            module = modules[index]
+            let employee = employees[index]
             let completedModulesNum = 0
-            let completedMods = findValueInArrayOfDict(userCompletedModules, module.UserId)
+            let completedMods = findValueInArrayOfDict(userCompletedModules, employee.UserId)
             if (completedMods) {
                 completedModulesNum = completedMods
             }
-            objs.push(<EmployeeCard email={module.email} name={module.username} 
-                progress={String(completedModulesNum) +'/' + String(totalCompanyRequiredModules)} userId={module.UserId} 
-                activeStatus={module.active} companyId={module.CompanyId} 
+            objs.push(<EmployeeCard email={employee.email} name={employee.username} 
+                progress={String(completedModulesNum) +'/' + String(totalCompanyRequiredModules)} userId={employee.UserId} 
+                activeStatus={employee.active} lastActivity={employee.mostRecent} companyId={employee.CompanyId} 
                 setReload={props.setReload} />)
             size += 1;
         }
@@ -140,7 +149,10 @@ const EmployeesCards = (props) => {
                     <div className="employee_remove_username text-center"><b>User Name</b></div>
                 </Col>
                 <Col xs={2} md={2} lg={2} className="employee_remove_card_header_col">
-                    <div className="employee_remove_active text-center"><b>User is Active</b></div>
+                    <div className="employee_remove_active text-center"><b>Activated</b></div>
+                </Col>
+                <Col xs={2} md={2} lg={2} className="employee_remove_card_header_col">
+                    <div className="employee_remove_progress text-center"><b>Last Activity</b></div>
                 </Col>
                 <Col xs={2} md={2} lg={2} className="employee_remove_card_header_col">
                     <div className="employee_remove_progress text-center"><b>User Progress</b></div>

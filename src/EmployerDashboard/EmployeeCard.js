@@ -57,6 +57,9 @@ const EmployeeCard = (props) => {
                 <div className="EmployeeCardValues text-center">{String(Boolean(props.activeStatus))}</div>
             </Col>
             <Col xs={2} md={2} lg={2}>
+                <div className="EmployeeCardValues text-center">{props.lastActivity}</div>
+            </Col>
+            <Col xs={2} md={2} lg={2}>
                 <div className="EmployeeCardValues text-center">{props.progress}</div>
             </Col>
             <Col xs={2} md={2} lg={2} className="text-center">
