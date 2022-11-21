@@ -3,9 +3,10 @@ import React, { useState, useEffect } from 'react';
 import { SubmitButton } from './SubmitButton';
 import { useParams } from "react-router";
 import './QuizPage.css';
-import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import MenuBar from '../MenuBar/MenuBar';
-import Questions from './Questions'
+import QuizProgressBar from './QuizProgressBar';
+import Questions from './Questions';
 import axios from 'axios';
 import Results from './Results';
 // import env from "react-dotenv";
@@ -623,7 +624,12 @@ const QuizPage = () => {
       <>
         <MenuBar></MenuBar>
         <div id="quizPageContainer" className="quizBg img-fluid text-center justify-content-center">
-          <div className="questionPosOutOfTotal text-center" id="questionPosOutOfTotal"> {index + 1} / {content.length} </div>
+          {/* <div className="questionPosOutOfTotal text-center" id="questionPosOutOfTotal"> {index + 1} / {content.length} </div> */}
+          <div>
+            <QuizProgressBar
+              percentage={(index) / (content.length) * 100}
+            />
+          </div>
           {DisplayOneQuestion()}
           <Button
             id="rightQuestionBttn"
