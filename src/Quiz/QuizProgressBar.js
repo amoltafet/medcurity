@@ -8,6 +8,7 @@ function QuizProgressBar (props) {
         <>
         <ProgressBar
             percent={props.percentage}
+            unfilledBackground="#C8C8C8"
             filledBackground="linear-gradient(to right, #73daff, #2743f5)"
         />
         </>
