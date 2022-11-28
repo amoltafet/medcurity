@@ -18,16 +18,17 @@ function QuizProgressBar (props) {
         <>
         <ProgressBar
             percent={props.percentage}
+            height={5}
             unfilledBackground="#C8C8C8"
             filledBackground="linear-gradient(to right, #73daff, #2743f5)"
             hasStepZero={false}
         >
             {fillerArray.map((num) => (
-                <Step transition="scale" index={num - 1}>
+                <Step transition="scale" transitionDuration={450} index={num - 1}>
                 {({ accomplished }) => (
                   <img
-                    style={{ filter: `grayscale(${accomplished ? 0 : 80}%)` }}
-                    width="30"
+                    style={{ filter: `grayscale(${accomplished ? 0 : 90}%)` }}
+                    width="25"
                     src="/progress_bar_step.svg"
                   />
                 )}
