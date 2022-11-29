@@ -624,10 +624,9 @@ const QuizPage = () => {
       <>
         <MenuBar></MenuBar>
         <div id="quizPageContainer" className="quizBg img-fluid text-center justify-content-center">
-          {/* <div className="questionPosOutOfTotal text-center" id="questionPosOutOfTotal"> {index + 1} / {content.length} </div> */}
           <div className="mt-4 mb-5 ms-3 me-4">
             <QuizProgressBar
-              percentage={(index) / (content.length) * 100}
+              percentage={((index + 1) / (content.length) * 100) + 0.5}
               numQuestions={content.length}
             />
           </div>
