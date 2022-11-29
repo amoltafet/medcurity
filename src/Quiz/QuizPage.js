@@ -600,18 +600,25 @@ const QuizPage = () => {
     return (
       <>
         <MenuBar></MenuBar>
-        <div id="quizPageContainer" className="quizBg img-fluid text-center justify-content-center">
-          <div className="questionPosOutOfTotal text-center" id="questionPosOutOfTotal"> {index + 1} / {content.length} </div>
-          {DisplayOneQuestion()}
-          <Button
-            id="rightQuestionBttn"
-            type="submit"
-            className=" toggleQuestionRight text-center"
-            onClick={() => nextQuestion()}>
-            <Image className="rightArrow" src="/right.png"></Image>
-          </Button>
-          <SubmitButton value="Submit" questionData={data} content={content.length} action={checkIfUserGetsExtraPoints}></SubmitButton>
-          {disabledSubmitBttn()}
+          <div id="quizPageContainer" className="quizBg img-fluid text-center justify-content-center">
+              <div className="row">
+              <div className='col-md-auto'>
+                <LeftQuizBar></LeftQuizBar>
+              </div>
+              <div className='col'>
+                <div className="questionPosOutOfTotal text-center" id="questionPosOutOfTotal"> {index + 1} / {content.length} </div>
+                {DisplayOneQuestion()}
+                <Button
+                  id="rightQuestionBttn"
+                  type="submit"
+                  className=" toggleQuestionRight text-center"
+                  onClick={() => nextQuestion()}>
+                  <Image className="rightArrow" src="/right.png"></Image>
+                </Button>
+                <SubmitButton value="Submit" questionData={data} content={content.length} action={checkIfUserGetsExtraPoints}></SubmitButton>
+                {disabledSubmitBttn()}
+            </div>
+          </div>
         </div>
       </>
     );
@@ -705,4 +712,24 @@ const QuizPage = () => {
     );
   }
 }
+
+const LeftQuizBar = () => {
+  return (
+    <div className="container mt-5">
+      <div className="card px-5 py-3">
+          <h3>Quiz Questions</h3>
+        <div className="card-body">
+          <div className="list-group">
+            <a href="#q-group0" className="list-group-item list-group-item-action">Question 1</a>
+            <a href="#q-group1" className="list-group-item list-group-item-action">Question 2</a>
+            <a href="#q-group2" className="list-group-item list-group-item-action">Question 3</a>
+            <a href="#q-group3" className="list-group-item list-group-item-action">Question 4</a>
+            <a href="#q-group4" className="list-group-item list-group-item-action">Question 5</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default QuizPage;
