@@ -41,7 +41,6 @@ const Badges = () => {
                     { params: { the_query: userBadgeQuery}}).catch(error => console.error(`Error ${error}`));
                     userBadge = userBadge.data;
                     
-                    console.log(userBadge);
                     if (userBadge.length === 0) {
                         badgesList[i].earned = false;
                     }
