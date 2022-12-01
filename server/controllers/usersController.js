@@ -326,7 +326,7 @@ const userModuleCompleted = (req, res) => {
 /**
  * Store learning module activity for a user
  */
- const moduleActivity = (req, res) => {
+const moduleActivity = (req, res) => {
     var today = new Date();
     today.setDate(today.getDate());
     const userid = req.body.userid;
@@ -346,6 +346,20 @@ const userModuleCompleted = (req, res) => {
             res.send({success: true, message: `Activity stored successfully...`});
         }
     });   
+}
+
+const getRecentActivity = (req, res) => {
+    const userid = req.query.userid;
+
+    db.query(`SELECT * FROM userActivity WHERE userid = ${userid}`, (err,result) => {
+        if (err) {
+            logger.log('error', { methodName: '/getLastActivity', body: err }, { service: 'user-service' });
+        }
+        else {
+            logger.log('info', "Retrieved latest activity from user " + userid + "...", { service: 'user-service' })
+            res.send(result)
+        }
+    });
 }
 
 /**
@@ -610,4 +624,5 @@ module.exports =
     updateCompanyModuleDueDate,
     userBadgeEarned,
     moduleActivity,
+    getRecentActivity
 };

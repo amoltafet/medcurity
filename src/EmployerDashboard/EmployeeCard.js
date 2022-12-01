@@ -2,7 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Card, Col, Row, Button, OverlayTrigger, Popover } from 'react-bootstrap';
 import './EmployeeCard.css';
-import { useState} from "react";
+import { useState, useEffect } from "react";
 import axios from 'axios';
 // import env from "react-dotenv";
 
@@ -17,7 +17,9 @@ import axios from 'axios';
  * @returns 
  */
 const EmployeeCard = (props) => {
+    axios.defaults.withCredentials = true;
     const [message, setMessage] = useState('');
+    const [lastActivity, setLastActivity] = useState('');
 
     /**
      * Removes a user from the selected company
@@ -29,20 +31,37 @@ const EmployeeCard = (props) => {
         axios.post(`${process.env.REACT_APP_BASE_URL}/users/deleteUser`, {
             userid: userId,
         }).then((response) => {
-            // // console.log("response.data =", response.data)
+            // console.log("response.data =", response.data)
             if (response.data === true)
             {
-                // // console.log("Deleted!")
+                // console.log("Deleted!")
                 props.setReload(true)
             }
             else if (response.data === false)
             {
-                // // console.log("Already deleted!")
+                // console.log("Already deleted!")
                 setMessage('This user has already been removed. Please Refresh the page.')
             }
         });
     }
 
+    useEffect(() => {
+        if (props.name) {
+            axios.get(`${process.env.REACT_APP_BASE_URL}/users/recentActivity`, {params: {userid: props.userId}}).then((response) => {
+                let userActivity = response.data;
+                if (userActivity.length > 0) {
+                    let userDate = new Date(userActivity[0].date);
+                    let month = userDate.getUTCMonth() + 1; //months from 1-12
+                    let day = userDate.getUTCDate();
+                    let year = userDate.getUTCFullYear();
+                    let dateString = month + "/" + day + "/" + year;
+                    setLastActivity(dateString);
+                    return;
+                }
+            });
+            setLastActivity("NA");
+        }
+    }, []);
  
     return (
         <>
@@ -57,7 +76,7 @@ const EmployeeCard = (props) => {
                 <div className="EmployeeCardValues text-center">{String(Boolean(props.activeStatus))}</div>
             </Col>
             <Col xs={2} md={2} lg={2}>
-                <div className="EmployeeCardValues text-center">{props.lastActivity}</div>
+                <div className="EmployeeCardValues text-center">{lastActivity}</div>
             </Col>
             <Col xs={2} md={2} lg={2}>
                 <div className="EmployeeCardValues text-center">{props.progress}</div>

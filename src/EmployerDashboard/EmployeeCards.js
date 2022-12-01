@@ -38,16 +38,8 @@ const EmployeesCards = (props) => {
                 'ORDER BY Users.email'} 
                 }).then((response) => {
                     let employeeRows = Object.values(response.data);
-                    
-                    for (let index in employeeRows) {
-                        employeeRows[index].mostRecent = "Yesterday";
-                        // TODO: UPDATE BY GETTING MOST RECENT FROM DATABASE
-                    }
-                    
                     setEmployees(employeeRows);
-                    
                     console.log("Got employees");
-                    console.log(employeeRows);
             });
         }
     }, [isLoading, props.reload])
@@ -125,7 +117,7 @@ const EmployeesCards = (props) => {
             }
             objs.push(<EmployeeCard email={employee.email} name={employee.username} 
                 progress={String(completedModulesNum) +'/' + String(totalCompanyRequiredModules)} userId={employee.UserId} 
-                activeStatus={employee.active} lastActivity={employee.mostRecent} companyId={employee.CompanyId} 
+                activeStatus={employee.active} companyId={employee.CompanyId} 
                 setReload={props.setReload} />)
             size += 1;
         }
