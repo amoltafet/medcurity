@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import React from 'react'
 import Badges from '../Badges/Badges'
+import HighScores from '../HighScores/HighScores'
 import './SettingsMenu.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 // import env from "react-dotenv";
@@ -220,6 +221,21 @@ const SettingsMenu = () => {
                               </Nav.Link>
                             </Nav.Item>
                           </li>
+                          <li class='nav-item'>
+                          <Nav.Item className='justify-content-center settingSpacing'>
+                              <Nav.Link
+                                class='nav-link'
+                                id='profile-tab'
+                                data-toggle='tab'
+                                role='tab'
+                                aria-controls='profile'
+                                aria-selected='false'
+                                eventKey='highscores'
+                              >
+                                High Scores
+                              </Nav.Link>
+                            </Nav.Item>
+                          </li>
                         </Nav>
                       </ul>
                     </div>
@@ -306,6 +322,9 @@ const SettingsMenu = () => {
                         </Tab.Pane>
                         <Tab.Pane eventKey='badges'>
                           <Badges></Badges>
+                        </Tab.Pane>
+                        <Tab.Pane eventKey='highscores'>
+                          <HighScores></HighScores>
                         </Tab.Pane>
                         <Tab.Pane eventKey='edit'>
                           <div

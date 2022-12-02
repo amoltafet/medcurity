@@ -605,6 +605,19 @@ const updateUserPassword = async (userid, newPassword) => {
     })
 }
 
+const getHighScores = (req, res) => {
+    const userid = req.query.userid;
+    db.query(`SELECT moduleID, title, MAX(points) AS highscore FROM useractivity JOIN learningmodules on useractivity.moduleID = learningmodules.id WHERE userID = ${userid} GROUP BY moduleID`, (err,result) => {
+        if (err) {
+            logger.log('error', { methodName: '/getHighScores', body: err }, { service: 'user-service' });
+            res.send({success: false});
+        }
+        else {
+            logger.log('info', "Retrieved latest activity from user " + userid + " for calculating high scores...", { service: 'user-service' });
+            res.send({success: true, result: result});
+        }
+    });
+}
 
 module.exports = 
 {
@@ -624,5 +637,6 @@ module.exports =
     updateCompanyModuleDueDate,
     userBadgeEarned,
     moduleActivity,
-    getRecentActivity
+    getRecentActivity,
+    getHighScores
 };
