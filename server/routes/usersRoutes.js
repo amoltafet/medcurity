@@ -20,7 +20,10 @@ router.post('/badgeEarned', userControllers.userBadgeEarned);
 router.post('/deleteUser', userControllers.deleteUser);
 router.post('/assignModulesToCompany', userControllers.assignModulesToCompany);
 router.post('/removeModuleFromCompany', userControllers.removeModuleFromCompany);
+router.post('/moduleActivity', userControllers.moduleActivity);
 router.post('/resetUserStats', userControllers.resetUserStats);
 router.post('/updateCompanyModuleDueDate', userControllers.updateCompanyModuleDueDate);
+router.get('/recentActivity', userControllers.getRecentActivity);
+router.get('/highScores', userControllers.getHighScores);
 
 module.exports = router

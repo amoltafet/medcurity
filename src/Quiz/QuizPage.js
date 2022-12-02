@@ -3,9 +3,10 @@ import React, { useState, useEffect } from 'react';
 import { SubmitButton } from './SubmitButton';
 import { useParams } from "react-router";
 import './QuizPage.css';
-import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import MenuBar from '../MenuBar/MenuBar';
-import Questions from './Questions'
+import QuizProgressBar from './QuizProgressBar';
+import Questions from './Questions';
 import axios from 'axios';
 import Results from './Results';
 // import env from "react-dotenv";
@@ -203,6 +204,15 @@ const QuizPage = () => {
       var totalPoints = points + earlyCompletion + notCompleteOnTime + spaceLearning;
       var percent = numCorrect / content.length;
 
+      axios.post(`${process.env.REACT_APP_BASE_URL}/users/moduleActivity`, {
+        userid: currentUser.userid,
+        module: slug,
+        points: totalPoints,
+        percentage: percent
+      }).then((response) => {
+        console.log(response.message);
+      }).catch();
+
       if ((percent * 100) >= 90) {
         axios.post(`${process.env.REACT_APP_BASE_URL}/users/badgeEarned`, {
           userid: currentUser.userid,
@@ -352,6 +362,27 @@ const QuizPage = () => {
   return true; // correct
  }
 
+   /**
+   * Used to find the number of correctly matched answers to a matching question
+  */
+    function numberCorrectMatches(answerList, matchingAnswerList) {
+      var maObject = matchingAnswersContent.find((o) => o.matchingquestionid === content[index].questionid);
+      let numCorrectMatches = 0;
+      if (answerList.indexOf(content[index].solution) === matchingAnswerList.indexOf(maObject.m1)) {
+        numCorrectMatches += 1;
+      }
+      if (answerList.indexOf(content[index].a2) === matchingAnswerList.indexOf(maObject.m2)) {
+        numCorrectMatches += 1;
+      }
+      if (answerList.indexOf(content[index].a3) === matchingAnswerList.indexOf(maObject.m3)) {
+        numCorrectMatches += 1;
+      }
+      if (answerList.indexOf(content[index].a4) === matchingAnswerList.indexOf(maObject.m4)) {
+        numCorrectMatches += 1;
+      }
+      return numCorrectMatches; // correct
+  }
+
   /** 
    * 
    * @param {int} index Index of current question
@@ -367,6 +398,7 @@ const QuizPage = () => {
     }
     if (content[index].type === 'match') {
       newData["correct"] = assessMatchingTypeAnswer(answer[0], answer[1]);
+      newData["numberMatched"] = numberCorrectMatches(answer[0], answer[1]);
     } else {
       if (newData["answer"] === content[index].solution) {
         newData["correct"] = true
@@ -406,7 +438,7 @@ const QuizPage = () => {
       }
       return true;
     }
-    catch (e){
+    catch (e) {
       setModuleNotAssigned(true);
       return false;
     }
@@ -601,6 +633,12 @@ const QuizPage = () => {
       <>
         <MenuBar></MenuBar>
           <div id="quizPageContainer" className="quizBg img-fluid text-center justify-content-center">
+           <div className="mt-4 mb-5 ms-3 me-4">
+            <QuizProgressBar
+              percentage={((index + 1) / (content.length) * 100) + 0.5}
+              numQuestions={content.length}
+            />
+          </div>
               <div className="row">
               <div className='col mt-5'>
                 <LeftQuizBar data={content} />
@@ -636,13 +674,11 @@ const QuizPage = () => {
           }
         }
       }
-
       newestIndex++;
 
+
+
       if (data[newestIndex - 1]["correct"] === true) {
-        if (slug === 6) {
-          points += 500
-        }
         points += 100
         numCorrect += 1
 
@@ -659,6 +695,27 @@ const QuizPage = () => {
               isCorrect={true}
               action={adjustStateData}
               classes={quizClassNames[2]}
+            />
+          </Container>
+        ]);
+      } else if (question.type === 'match') {
+        let numCorrectMatches = data[newestIndex - 1]["numberMatched"]
+        points += Math.floor(100 * (numCorrectMatches / 4))
+
+        return ([
+          <Container id="resultsPageHolder" className="resultAnswers uvs-left uvs-right">
+            <Results
+              id={newID}
+              i={newestIndex - 1}
+              question={question.question}
+              type={question.type}
+              answers={currentAnswers[newestIndex - 1]}
+              userRadioAnswerIndex={userRadioAnswerIndex}
+              userFillInAnswer={data[newestIndex - 1]["answer"]}
+              isCorrect={false}
+              numberCorrectMatches={numCorrectMatches}
+              action={adjustStateData}
+              classes={quizClassNames[1]}
             />
           </Container>
         ]);
