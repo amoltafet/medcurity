@@ -324,6 +324,45 @@ const userModuleCompleted = (req, res) => {
 }
 
 /**
+ * Store learning module activity for a user
+ */
+const moduleActivity = (req, res) => {
+    var today = new Date();
+    today.setDate(today.getDate());
+    const userid = req.body.userid;
+    const module = req.body.module;   
+    const points = req.body.points;
+    const percentage = req.body.percentage;
+
+    logger.log('info', `Storing learning module activity for user ${userid}...`);
+
+    db.query(`INSERT INTO userActivity (userID, moduleID, date, points, percentage)  VALUES (?,?,?,?,?)`, [userid, module, today, points, percentage], (err,result) => {
+        if(err) {
+            logger.log('error', { methodName: '/moduleActivity', errorBody: err }, { service: 'user-service' });
+            res.send({success: false, message: `Failed to store activity...`});
+        }
+        else {
+            logger.log('info', "Learning module activity for user " + userid + " successfully stored...");
+            res.send({success: true, message: `Activity stored successfully...`});
+        }
+    });   
+}
+
+const getRecentActivity = (req, res) => {
+    const userid = req.query.userid;
+
+    db.query(`SELECT * FROM userActivity WHERE userid = ${userid}`, (err,result) => {
+        if (err) {
+            logger.log('error', { methodName: '/getLastActivity', body: err }, { service: 'user-service' });
+        }
+        else {
+            logger.log('info', "Retrieved latest activity from user " + userid + "...", { service: 'user-service' })
+            res.send(result)
+        }
+    });
+}
+
+/**
  * Stores a badge as earned
  */
  const userBadgeEarned = (req, res) => {
@@ -582,7 +621,8 @@ module.exports =
     assignModulesToCompany,
     removeModuleFromCompany,
     resetUserStats,
-    userModuleCompleted,
     updateCompanyModuleDueDate,
-    userBadgeEarned
+    userBadgeEarned,
+    moduleActivity,
+    getRecentActivity
 };
