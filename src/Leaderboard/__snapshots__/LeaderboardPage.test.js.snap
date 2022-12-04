@@ -1,5 +1,56 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`renders LeaderboardPage 1`] = `
+Array [
+  <img
+    alt=""
+    className="MedcurityLogo"
+    src="/Medcurity_Logo.png"
+    variant="top"
+  />,
+  <form
+    className="invalid_bodyForm img-fluid"
+  >
+    <div
+      className="invalid_bodyCol rounded col"
+    >
+      <div
+        className="invalid_headerRow row"
+      >
+        <img
+          alt=""
+          className="invalid_lockImg"
+          src="/invalid_lock.png"
+          variant="top"
+        />
+        <h2
+          className="invalid_h1"
+        >
+          Oops! We're not sure how you got here, but...
+        </h2>
+        <div
+          className="invalid_messageDiv"
+        >
+          <h5
+            className="invalid_h5"
+          >
+            You need to be logged in to view the leaderboard.
+          </h5>
+        </div>
+        <button
+          className="invalid_redirectButton btn btn-secondary"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          Back to Login Page
+        </button>
+      </div>
+    </div>
+  </form>,
+]
+`;
+
 exports[`renders LoginPage 1`] = `
 Array [
   <div

@@ -16,14 +16,17 @@ const WelcomePanel = (props) => {
     const [profilePic, setProfilePic] = useState("")
     useEffect(() => { if (props.user.userid)  axios.get(`${process.env.REACT_APP_BASE_URL}/api/getProfilePicture`, { params: { id: props.user.userid }} ).then((response) => { setProfilePic(response.data.profileImage) }); })
 
-    
+    let user = "User";
+    if (props.user) {
+        user = props.user.username;
+    }
 
     return (
         <>
         <Card className="WelcomePanelCard uvs-left" style={{flexDirection: 'row'}}>
         <Image className="WelcomePanelImage uvs-left" variant="top" src={`data:image/png;base64,${profilePic}`} alt="" roundedCircle />
             <Card.Body className="cardSize">
-               <Card.Title className="titleFont" >Welcome Back, {props.user.username} to the {props.pageTitle}!</Card.Title>
+               <Card.Title className="titleFont" >Welcome Back, {user} to the {props.pageTitle}!</Card.Title>
             </Card.Body> 
         </Card>
         </>
