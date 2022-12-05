@@ -3,14 +3,12 @@
 exports[`renders LoginPage 1`] = `
 Array [
   <div
-    className=" LearningDirectoryPageContainer container"
+    className="all_reuired_modules_header "
   >
-    <h1>
-      Required Modules Directory
-    </h1>
+    All Required Modules
   </div>,
   <div
-    className="dashboard card-deck"
+    className="dashboard row"
     style={
       Object {
         "display": "flex",

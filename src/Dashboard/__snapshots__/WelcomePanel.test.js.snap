@@ -27,3 +27,33 @@ exports[`renders LoginPage 1`] = `
   </div>
 </div>
 `;
+
+exports[`renders WelcomePanel 1`] = `
+<div
+  className="WelcomePanelCard uvs-left card"
+  style={
+    Object {
+      "flexDirection": "row",
+    }
+  }
+>
+  <img
+    alt=""
+    className="WelcomePanelImage uvs-left rounded-circle"
+    src="data:image/png;base64,"
+    variant="top"
+  />
+  <div
+    className="cardSize card-body"
+  >
+    <div
+      className="titleFont card-title h5"
+    >
+      Welcome Back, 
+      User
+       to the 
+      !
+    </div>
+  </div>
+</div>
+`;
