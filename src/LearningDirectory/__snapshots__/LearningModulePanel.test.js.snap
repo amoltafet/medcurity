@@ -1,16 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders LoginPage 1`] = `
-<div
-  className="LearningModulePanelCard uvs-right uvs-left card"
+<a
+  className="LearningModulePanelCard uvs-right uvs-left"
+  href="/learning-module/undefined"
+  style={
+    Object {
+      "cursor": "pointer",
+    }
+  }
 >
   <div
     className="card-body"
   >
-    <a
-      className="font card-link"
+    <div
+      className="testPanelFont card-title h5"
       href="/learning-module/undefined"
     />
+    <p
+      className="dueDateRequiredModule card-text"
+    >
+      Due At: 
+      Invalid Date
+    </p>
   </div>
-</div>
+</a>
 `;
