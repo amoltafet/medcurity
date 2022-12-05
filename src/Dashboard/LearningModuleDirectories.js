@@ -12,6 +12,8 @@ import axios from 'axios';
  * @returns 
  */
 const LearningModuleDirectories = () => {
+   
+
     const [directories, setDirectories] = useState([])
 
     // Query for getting LearningDirectories Directory info
@@ -22,24 +24,36 @@ const LearningModuleDirectories = () => {
     }, [])
 
 
+  
+
+
+
 
     /**
      * Panel for directories
      * @param {} props 
      * @returns 
+     * title, description, image, link, subtitle
      */
     const DirectoryPanel = (props) => {
         return (
-            <>
-            <a href={"/learning-module/" + props.link} style={{ cursor: "pointer" }} className="LearningModuleDirectoriesCard uvs-right uvs-left">
-                <Card.Body>
-                   <Card.Text className="LearningModuleDirectoriesCardFont"  >{props.title}</Card.Text>
-                </Card.Body> 
-            </a>
-            </>
-        );
+            <div className="card card-custom bg-white border-white border-0">
+                <div className="card-custom-img card-custom-img-2"></div>
+                    <div className="card-custom-avatar">
+                        <img className="img-fluid" src={props.img} alt="Card image cap" />
+                    </div>
+                    <div className="card-body card-body-2">
+                        <h4 className="card-title">{props.title}</h4>
+                        <p className="card-text">Module {props.link}</p>
+                        <h6 className="card-text">{props.description}</h6>
+                    </div>
+                    <div className="card-footer card-footer-2" >
+                        <a href={"/learning-module/" + props.link} className="btn btn-outline-primary px-5">View</a>
+                    </div>
+             </div>
+        )
     }
-
+ 
     /**
      * Create directory cards from modules
      */
@@ -47,14 +61,19 @@ const LearningModuleDirectories = () => {
         const objs = []
         for (let index in modules) { 
             var module = modules[index]
-            objs.push(<DirectoryPanel title={module.Title} link={module.ID} />)
+            objs.push(
+            <div className="col-md-3">
+                <DirectoryPanel title={module.Title} link={module.ID} description={module.Subtitle} img={module.Img_url}/>
+            </div>
+            
+            )
         }
         return objs;
     }
 
     return (
         <>
-        <Row className="LearningModulesDirectoriesDashboard" >
+        <Row className="LearningModulesDirectoriesDashboard ms-2" >
             {createDirectoriesCards(directories)}
         </Row>
         <div className="d-grid gap-2">
