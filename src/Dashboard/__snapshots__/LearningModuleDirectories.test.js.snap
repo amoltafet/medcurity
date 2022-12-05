@@ -3,7 +3,7 @@
 exports[`renders LoginPage 1`] = `
 Array [
   <div
-    className="LearningModulesDirectoriesDashboard row"
+    className="LearningModulesDirectoriesDashboard ms-2 row"
   />,
   <div
     className="d-grid gap-2"

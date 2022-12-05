@@ -36,22 +36,3 @@ exports[`renders LearningModule 1`] = `
   </div>
 </div>
 `;
-
-exports[`renders LoginPage 1`] = `
-<div
-  className="learningModuleBg img-fluid "
->
-  <div
-    className="d-grid gap-2 "
-  >
-    <a
-      className="goToQuizBttn uvs-left uvs-right btn btn-primary"
-      href="/quiz/undefined"
-      onClick={[Function]}
-      onKeyDown={[Function]}
-    >
-      Go to Quiz
-    </a>
-  </div>
-</div>
-`;

@@ -1,33 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders LoginPage 1`] = `
-<div
-  className="WelcomePanelCard uvs-right uvs-left card"
-  style={
-    Object {
-      "flexDirection": "row",
-    }
-  }
->
-  <img
-    alt=""
-    className="WelcomePanelImage rounded-circle"
-    src="/user.png"
-    variant="top"
-  />
-  <div
-    className="cardSize card-body"
-  >
-    <div
-      className="titleFont card-title h5"
-    >
-      Welcome Back 
-      !
-    </div>
-  </div>
-</div>
-`;
-
 exports[`renders WelcomePanel 1`] = `
 <div
   className="WelcomePanelCard uvs-left card"
