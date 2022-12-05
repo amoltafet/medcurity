@@ -35,13 +35,24 @@
 .answerQuizSelection {
     font-family: Lato,sans-serif;
     margin-top: 0%;
-    width: 90%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    text-align: center;
 }
 
 .individualQuestions {
     text-align: start;
     font-size: 100%;
     font-family: Lato,sans-serif;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    border-radius: 0 !important;
+    text-align: center;
+}
+
+input {
+    appearance: none
 }
 
 .matching-item-container {
