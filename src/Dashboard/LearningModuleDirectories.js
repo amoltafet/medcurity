@@ -12,6 +12,8 @@ import axios from 'axios';
  * @returns 
  */
 const LearningModuleDirectories = () => {
+   
+
     const [directories, setDirectories] = useState([])
 
     // Query for getting LearningDirectories Directory info
@@ -20,6 +22,10 @@ const LearningModuleDirectories = () => {
               setDirectories(Object.values(response.data))
         }).catch(error => console.error(`Error ${error}`));
     }, [])
+
+
+  
+
 
 
 
@@ -34,7 +40,7 @@ const LearningModuleDirectories = () => {
             <div className="card card-custom bg-white border-white border-0">
                 <div className="card-custom-img card-custom-img-2"></div>
                     <div className="card-custom-avatar">
-                        <img className="img-fluid" src="http://res.cloudinary.com/d3/image/upload/c_pad,g_center,h_200,q_auto:eco,w_200/bootstrap-logo_u3c8dx.jpg" alt="Avatar" />
+                        <img className="img-fluid" src={props.img} alt="Card image cap" />
                     </div>
                     <div className="card-body card-body-2">
                         <h4 className="card-title">{props.title}</h4>
@@ -55,10 +61,9 @@ const LearningModuleDirectories = () => {
         const objs = []
         for (let index in modules) { 
             var module = modules[index]
-            console.log(module)
             objs.push(
             <div className="col-md-3">
-                <DirectoryPanel title={module.Title} link={module.ID} description={module.Subtitle} img={module.Banner}/>
+                <DirectoryPanel title={module.Title} link={module.ID} description={module.Subtitle} img={module.Img_url}/>
             </div>
             
             )
