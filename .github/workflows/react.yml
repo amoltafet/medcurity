@@ -12,7 +12,7 @@ on:
 jobs:
   test:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     strategy:
       matrix:
@@ -28,4 +28,4 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm ci
-    - run: npm run linux-test
+    - run: ($env:CI = "true") -and (npm test)
