@@ -5,7 +5,7 @@ name: React Front-End CI
 
 on:
   push:
-    branches: [ "CItest" ]
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
