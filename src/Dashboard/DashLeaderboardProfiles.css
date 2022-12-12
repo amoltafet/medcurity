@@ -30,14 +30,14 @@
 }
 
 .profileImageDash {    
-    height: 70%;
+    height: 45px;
     margin-top: 12%;
     margin-left: -8%;
 }
 
 @media screen and (min-width: 1000px) {
     .profileImageDash {    
-        height: 70%;
+        height: 45px;
         margin-top: 3%;
     }
 }

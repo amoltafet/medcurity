@@ -27,8 +27,7 @@ html {
   background-position: center;
   justify-content: center;
   width: auto;
-  height: 60vh;
-  padding-top: 1vh;
+  height: 45vh;
   animation: dash_fadeIn 1s;
   margin-bottom: 2%;
 }
@@ -142,12 +141,18 @@ html {
 }
 
 .dash_miniLeaderboard {
+  background-color: #D3D3D3;
+  border-radius: 15px;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-bottom: 30px;
   text-align: center;
   margin-left: auto;
   margin-right: auto;
   margin-top: -100px;
+  margin-bottom: 30px;
   width: 80%;
-  height: 300px;
+  height: 400px;
 }
 
 .dash_welcomeMessageP1 {
