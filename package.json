@@ -62,6 +62,7 @@
     "start": "react-dotenv && react-scripts start",
     "start-dev": "react-dotenv && react-scripts start",
     "build": "react-dotenv && react-scripts build",
+    "jtest": "jest",
     "test": "react-dotenv && react-scripts test",
     "eject": "react-dotenv && react-scripts eject",
     "clean": "npm cache clean --force",
