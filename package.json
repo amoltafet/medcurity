@@ -63,6 +63,7 @@
     "start-dev": "react-dotenv && react-scripts start",
     "build": "react-dotenv && react-scripts build",
     "jtest": "jest",
+    "linux-test": "CI=true react-dotenv && CI=true react-scripts build",
     "test": "react-dotenv && react-scripts test",
     "eject": "react-dotenv && react-scripts eject",
     "clean": "npm cache clean --force",
