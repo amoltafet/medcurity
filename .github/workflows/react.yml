@@ -6,13 +6,13 @@ name: React Front-End CI
 on:
   push:
     branches: [ "CItest" ]
-  pull_request:
-    branches: [ "main" ]
+  # pull_request:
+  #  branches: [ "main" ]
 
 jobs:
   test:
 
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
@@ -28,4 +28,4 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm ci
-    - run: ($env:CI = "true") -and (npm test)
+    - run: CI=true npm test
