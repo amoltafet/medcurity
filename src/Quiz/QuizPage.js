@@ -1,5 +1,5 @@
 import { Button, Image, Row, Col, Container, Alert } from 'react-bootstrap';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { SubmitButton } from './SubmitButton';
 import { useParams } from "react-router";
 import './QuizPage.css';
@@ -45,6 +45,8 @@ const QuizPage = () => {
   const [moduleNotAssigned, setModuleNotAssigned] = useState(false);
   const [moduleName, setModuleName] = useState("");
   const [companyid, setCompanyID] = useState([]);
+  const intervalRef = useRef();
+  var secondsRef = useRef();
   var points = 0;
   var numCorrect = 0;
   // "data" is an array of the user's performance on each question
@@ -110,8 +112,6 @@ const QuizPage = () => {
 		});	
 
       // KEEP FOR TESTING!!
-
-
       // Quiz Answers 
 
       // content.forEach(element => {
@@ -166,8 +166,6 @@ const QuizPage = () => {
       // }).then((response) => {
       //   // console.log("response", response);
       // }).catch(error => // console.log(`Error ${error}`));
-    
-
     }
   }, [isLoading, currentUser.userid, slug])
 
@@ -182,8 +180,10 @@ const QuizPage = () => {
     axios.get(`${process.env.REACT_APP_BASE_URL}/api/getModuleQuestions`, { params: { id: slug } }).then((response) => {
       setContent(Object.values(response.data))
       setLoading(false);
+      secondsRef.current = 0.0;
+      const id = setInterval(() => {secondsRef.current += 0.1; }, 100);
+      intervalRef.current = id;
     }).catch(error => console.error(`Error ${error}`));
-
   }, [slug])
 
   /**
@@ -210,7 +210,7 @@ const QuizPage = () => {
         points: totalPoints,
         percentage: percent
       }).then((response) => {
-        console.log(response.message);
+        // console.log(response.message);
       }).catch();
 
       if ((percent * 100) >= 90) {
@@ -661,6 +661,9 @@ const QuizPage = () => {
       </>
     );
   } else {
+    clearInterval(intervalRef.current);
+    var seconds = Math.round(secondsRef.current * 10) / 10;
+
     var newestIndex = 0;
     var userRadioAnswerIndex = -1;
 
@@ -752,6 +755,9 @@ const QuizPage = () => {
           <Row className="text-center quizPointInfo">
             <Col>
               <div className="totalCorrectQuestions"> {numCorrect} / {content.length} Questions Correct </div>
+            </Col>
+            <Col>
+              <div className="totalCorrectQuestions"> Time: {seconds} seconds </div>
             </Col>
             <Col>
               <div className="totalCorrectPoints"> Points: {points + earlyCompletion + notCompleteOnTime + spaceLearning} </div>
