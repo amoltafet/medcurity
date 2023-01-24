@@ -333,10 +333,11 @@ const moduleActivity = (req, res) => {
     const module = req.body.module;   
     const points = req.body.points;
     const percentage = req.body.percentage;
+    const time = req.body.time;
 
     logger.log('info', `Storing learning module activity for user ${userid}...`);
 
-    db.query(`INSERT INTO userActivity (userID, moduleID, date, points, percentage)  VALUES (?,?,?,?,?)`, [userid, module, today, points, percentage], (err,result) => {
+    db.query(`INSERT INTO userActivity (userID, moduleID, date, points, percentage, time)  VALUES (?,?,?,?,?,?)`, [userid, module, today, points, percentage, time], (err,result) => {
         if(err) {
             logger.log('error', { methodName: '/moduleActivity', errorBody: err }, { service: 'user-service' });
             res.send({success: false, message: `Failed to store activity...`});

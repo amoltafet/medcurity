@@ -200,15 +200,18 @@ const QuizPage = () => {
    *  sets module complete, removes from assigned & updates points 
    */
   useEffect(() => {
-    if (!isLoading && isSubmitted && points !== 0) {
-      var totalPoints = points + earlyCompletion + notCompleteOnTime + spaceLearning;
-      var percent = numCorrect / content.length;
+    if (!isLoading && isSubmitted) {
+      clearInterval(intervalRef.current);
+      let seconds = Math.round(secondsRef.current * 10) / 10;
+      let totalPoints = points + earlyCompletion + notCompleteOnTime + spaceLearning;
+      let percent = numCorrect / content.length;
 
       axios.post(`${process.env.REACT_APP_BASE_URL}/users/moduleActivity`, {
         userid: currentUser.userid,
         module: slug,
         points: totalPoints,
-        percentage: percent
+        percentage: percent,
+        time: seconds
       }).then((response) => {
         // console.log(response.message);
       }).catch();
