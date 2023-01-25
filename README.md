@@ -8,7 +8,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/SD-2022-CPSC-06/MedcurityWebApp">
-    <img src="https://medcurity.com/images/icons/medcurity-logo-reversed-new.png" alt="Logo" width="80" height="80">
+    <img src="https://medcurity.com/images/icons/medcurity-logo-reversed-new.png" alt="Logo">
   </a>
 
 <h3 align="center">Mecurity HIPAA Gamification App</h3>
