@@ -214,6 +214,14 @@ const QuizPage = () => {
         setTimeBonus(0);
         setTimeBonusEarned(false);
       }
+      else {
+        axios.post(`${process.env.REACT_APP_BASE_URL}/users/namedBadgeEarned`, {
+          userid: currentUser.userid,
+          badgeName: "Sprinter Badge",
+        }).then((response) => {
+          console.log("response", response.data);
+        }).catch((err) => console.log(err));
+      }
 
       axios.post(`${process.env.REACT_APP_BASE_URL}/users/moduleActivity`, {
         userid: currentUser.userid,

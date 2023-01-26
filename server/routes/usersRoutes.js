@@ -17,6 +17,7 @@ router.post('/changeUserName', userControllers.userChangeUsername);
 router.post('/changeUserPassword', userControllers.userChangePassword);
 router.post('/moduleCompleted', userControllers.userModuleCompleted);
 router.post('/moduleBadgeEarned', userControllers.userModuleBadgeEarned);
+router.post('/namedBadgeEarned', userControllers.namedBadgeEarned);
 router.post('/deleteUser', userControllers.deleteUser);
 router.post('/assignModulesToCompany', userControllers.assignModulesToCompany);
 router.post('/removeModuleFromCompany', userControllers.removeModuleFromCompany);
