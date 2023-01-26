@@ -73,7 +73,7 @@ const Badges = () => {
                         const classes = `indivBadge ${className}`;
                         
                         return (<div key={badge.id}  className={classes}>
-                            <Image className={className} src={`data:image/png;base64,${badge.image}`} alt="Badge Icon"></Image>
+                            <Image className={'badgeIcon' + className} src={`data:image/png;base64,${badge.image}`} alt="Badge Icon"></Image>
                             <div className='badgeTitle'>{badge.name}</div>
                         </div>    
                     )})}

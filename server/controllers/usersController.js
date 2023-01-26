@@ -366,45 +366,34 @@ const getRecentActivity = (req, res) => {
 /**
  * Stores a badge as earned
  */
- const userBadgeEarned = (req, res) => {
+ const userModuleBadgeEarned = (req, res) => {
     const userid = req.body.userid;   
     const moduleNum = req.body.modulenum;
+    const moduleID = parseInt(moduleNum);
 
-    let badgeId = 0;
-    // determine which badge to award
-    switch (moduleNum) {
-        case '1':
-            badgeId = 1;
-            break;
-        case '2':
-            badgeId = 2;
-            break;
-        case '3':
-            badgeId = 3;
-            break;
-        case '4':
-            badgeId = 4;
-            break;
-        case '5':
-            badgeId = 5;
-            break;
-        case '6':
-            badgeId = 6;
-            break;
-        case '30':
-            badgeId = 7;
-            break;
-        default:
-            badgeId = 6;
-            break;
-    }
-
-    db.query(`INSERT INTO EarnedBadges (userID, badgeID)  VALUES (?,?)`, [userid, badgeId], (err,result) => {
+    db.query(`SELECT (id) FROM Badges WHERE moduleID = ?`, [moduleID], (err,result) => {
         if(err) {
-            logger.log('error', { methodName: '/badgeEarned', errorBody: err }, { service: 'user-service' });
+            logger.log('error', { methodName: '/moduleBadgeEarned', errorBody: err }, { service: 'user-service' });
+            return res.send({success: false, message: `Earned badge not stored`});
         }
-        res.send({success: true, message: `Badge Earned`});
-    })   
+        else if (result.length > 0)
+        {
+            let badgeId = result[0]['id'];
+            db.query(`INSERT INTO EarnedBadges (userID, badgeID) VALUES (?,?)`, [userid, badgeId], (err,result) => {
+                if(err) {
+                    logger.log('error', { methodName: '/moduleBadgeEarned', errorBody: err }, { service: 'user-service' });
+                    res.send({success: false, message: `Earned badge not stored`, err: err});
+                }
+                else {
+                    res.send({success: true, message: `Badge Earned`});
+                }
+            });
+        }
+        else
+        {
+            res.send({success: false, message: `No badge with that moduleID stored.`});
+        }
+    });   
 }
 
 /**
@@ -636,7 +625,7 @@ module.exports =
     removeModuleFromCompany,
     resetUserStats,
     updateCompanyModuleDueDate,
-    userBadgeEarned,
+    userModuleBadgeEarned,
     moduleActivity,
     getRecentActivity,
     getHighScores

@@ -226,12 +226,12 @@ const QuizPage = () => {
       }).catch();
 
       if ((percent * 100) >= 90) {
-        axios.post(`${process.env.REACT_APP_BASE_URL}/users/badgeEarned`, {
+        axios.post(`${process.env.REACT_APP_BASE_URL}/users/moduleBadgeEarned`, {
           userid: currentUser.userid,
           modulenum: slug
         }).then((response) => {
-          // console.log("response", response.data);
-        }).catch();
+          console.log("response", response.data);
+        }).catch((err) => console.log(err));
       }
 
       if ((percent * 100) >= 60 && !moduleNotAssigned) {
