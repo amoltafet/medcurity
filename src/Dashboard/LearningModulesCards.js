@@ -70,12 +70,21 @@ const LearningModulesCards = (props) => {
         return (
            
             <>
-            <a href={"/learning-module/" + props.link} style={{ cursor: "pointer" }} className="LearningModuleCard uvs-right uvs-left">
-                <Card.Body>
-                   <Card.Title className="testPanelFont" href={"/learning-module/" + props.link} >{props.title}</Card.Title>
-                   <Card.Text className="dueDateRequiredModule">Due At: {dueDate.toDateString()}</Card.Text>
-                </Card.Body> 
-            </a>
+              
+            <div className="card card-custom bg-white border-white border-0">
+                <div className="card-custom-img card-custom-img-2"></div>
+                    <div className="card-custom-avatar">
+                        <img className="img-fluid" src={props.img} alt="Card image cap" />
+                    </div>
+                    <div className="card-body card-body-2">
+                        <h4 className="card-title">{props.title}</h4>
+                        <p className="card-text">Module {props.link}</p>
+                        <h6 className="card-text">Due At: {dueDate.toDateString()}</h6>
+                    </div>
+                    <div className="card-footer card-footer-2" >
+                        <a href={"/learning-module/" + props.link} className="btn btn-outline-primary px-5">View</a>
+                    </div>
+             </div>
             </>
         );
     }

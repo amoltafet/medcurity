@@ -24,10 +24,6 @@ const LearningModuleDirectories = () => {
     }, [])
 
 
-  
-
-
-
 
     /**
      * Panel for directories
