@@ -35,6 +35,7 @@ import EditQuestion from "./AdminDashboard/ContentDashboard/EditQuestion";
 import AddContent from "./AdminDashboard/ContentDashboard/AddContent";
 import ResetPasswordPage from "./ResetPassword/Reset";
 import axios from 'axios';
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 ReactDOM.render(
 

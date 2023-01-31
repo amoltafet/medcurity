@@ -13,4 +13,6 @@ router.post('/fillCompletedModules', testingControllers.addFakeCompletedModules)
 router.post('/addCompany', testingControllers.addAssociatedCompany);
 router.post('/makeAdmin', testingControllers.makeUserAdmin);
 
+
+
 module.exports = router

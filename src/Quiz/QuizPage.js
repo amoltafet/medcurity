@@ -49,27 +49,27 @@ const QuizPage = () => {
   var numCorrect = 0;
   // "data" is an array of the user's performance on each question
   const [data, setData] = useState([
-    { answer: "", correct: false },
-    { answer: "", correct: false },
-    { answer: "", correct: false },
-    { answer: "", correct: false },
-    { answer: "", correct: false },
-    { answer: "", correct: false },
-    { answer: "", correct: false },
-    { answer: "", correct: false },
-    { answer: "", correct: false },
-    { answer: "", correct: false },
-    { answer: "", correct: false },
-    { answer: "", correct: false },
-    { answer: "", correct: false },
-    { answer: "", correct: false },
-    { answer: "", correct: false },
-    { answer: "", correct: false },
-    { answer: "", correct: false },
-    { answer: "", correct: false },
-    { answer: "", correct: false },
-    { answer: "", correct: false },
-    { answer: "", correct: false },
+    { answer: "", correct: false, color: "gray", type : ""},
+    { answer: "", correct: false, color: "gray", type : ""},
+    { answer: "", correct: false, color: "gray", type : ""},
+    { answer: "", correct: false, color: "gray", type : ""},
+    { answer: "", correct: false, color: "gray", type : ""},
+    { answer: "", correct: false, color: "gray", type : ""},
+    { answer: "", correct: false, color: "gray", type : ""},
+    { answer: "", correct: false, color: "gray", type : ""},
+    { answer: "", correct: false, color: "gray", type : ""},
+    { answer: "", correct: false, color: "gray", type : ""},
+    { answer: "", correct: false, color: "gray", type : ""},
+    { answer: "", correct: false, color: "gray", type : ""},
+    { answer: "", correct: false, color: "gray", type : ""},
+    { answer: "", correct: false, color: "gray", type : ""},
+    { answer: "", correct: false, color: "gray", type : ""},
+    { answer: "", correct: false, color: "gray", type : ""},
+    { answer: "", correct: false, color: "gray", type : ""},
+    { answer: "", correct: false, color: "gray", type : ""},
+    { answer: "", correct: false, color: "gray", type : ""},
+    { answer: "", correct: false, color: "gray", type : ""},
+    { answer: "", correct: false, color: "gray", type : ""},
   ]);
 
   /**
@@ -110,10 +110,6 @@ const QuizPage = () => {
 		});	
 
       // KEEP FOR TESTING!!
-
-
-      // Quiz Answers 
-
       // content.forEach(element => {
       // 	console.log(element.solution)
       // });
@@ -293,6 +289,16 @@ const QuizPage = () => {
       }
     }
     if (boolChecked) {
+      let newData = data[index];
+      console.log("newData", newData);
+      if (newData["answer"] === content[index].solution && newData["type"] === "mc") {
+        newData["color"] = "green"
+      } else if (newData["answer"] !== content[index].solution && newData["type"] === "mc") {
+        newData["color"] = "red"
+      } else {
+        newData["color"] = "yellow"
+      }
+      setData([...data, newData])
       var newIndex = index + 1;
       if (newIndex !== content.length) {
         var nextq = content[newIndex];
@@ -402,8 +408,10 @@ const QuizPage = () => {
     } else {
       if (newData["answer"] === content[index].solution) {
         newData["correct"] = true
+        newData["type"] = content[index].type
       } else {
         newData["correct"] = false
+        newData["type"] = content[index].type
       }
     }
     data[index] = newData;
@@ -416,8 +424,10 @@ const QuizPage = () => {
     } else {
       checkedArray[index][inputIndex] = true;
       document.getElementById("submitBtn").disabled = false;
+      
     }
-    setChecked(checkedArray);
+    setChecked(checkedArray); 
+    console.log(data);
   }
 
   /**
@@ -618,6 +628,18 @@ const QuizPage = () => {
     }
   }
 
+  const getQuestionType = (type) => {
+    if (type === 'mc') {
+      return 'Multiple Choice'
+    } else if (type === 'fill') {
+      return 'Fill in the Blank'
+    } else if (type === 'match') {
+      return 'Matching'
+    } else {
+      return 'None'
+    }
+  }
+
   // catch for rerendering 
   if (isLoading) {
     return (<div></div>)
@@ -639,9 +661,32 @@ const QuizPage = () => {
               numQuestions={content.length}
             />
           </div>
-              <div className="row">
-              <div className='col mt-5'>
-                <LeftQuizBar data={content} />
+          
+                      <div className="row">
+                      <div className='col mt-5'>
+                      <div className="container mt-5">
+              <div className="card px-3 py-3">
+                  <h5>Quiz Questions</h5>
+                <div className="card-body">
+                  <div className="list-group list-group text-start">
+                    {content.map((question, index) => {
+                      return (
+                        <>
+                        <p className="list-group-item list-group-item-action">
+                          
+                        <i class="bi bi-check2-circle" style={{color: data[index].color}}></i>
+
+                        Question {index+1}. {getQuestionType(question.type)}
+                      
+                        </p>
+                        
+                      </>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            </div>
               </div>
               <div className='col-lg-9'>
                 <div className="questionPosOutOfTotal text-center" id="questionPosOutOfTotal"> {index + 1} / {content.length} </div>
@@ -743,7 +788,6 @@ const QuizPage = () => {
       <>
         <MenuBar></MenuBar>
         <div id="resultsPageContainer">
-         
           <h1 className="quizResultsHeader">Quiz Results</h1>
           {Passed()}
           {UserGotEarlyCompletion()}
@@ -770,7 +814,11 @@ const QuizPage = () => {
   }
 }
 
-const LeftQuizBar = (data) => {
+const LeftQuizBar = (data, answer) => {
+
+  useEffect(() => {
+    console.log(answer)
+  }, [])
 
   const getQuestionType = (type) => {
     if (type === 'mc') {
@@ -793,13 +841,11 @@ const LeftQuizBar = (data) => {
              {data.data.map((question, index) => {
               return (
                 <>
-                <p className="list-group-item list-group-item-action"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-circle-fill me-5" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M10.354 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
-                    <path d="m10.273 2.513-.921-.944.715-.698.622.637.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636a2.89 2.89 0 0 1 4.134 0l-.715.698a1.89 1.89 0 0 0-2.704 0l-.92.944-1.32-.016a1.89 1.89 0 0 0-1.911 1.912l.016 1.318-.944.921a1.89 1.89 0 0 0 0 2.704l.944.92-.016 1.32a1.89 1.89 0 0 0 1.912 1.911l1.318-.016.921.944a1.89 1.89 0 0 0 2.704 0l.92-.944 1.32.016a1.89 1.89 0 0 0 1.911-1.912l-.016-1.318.944-.921a1.89 1.89 0 0 0 0-2.704l-.944-.92.016-1.32a1.89 1.89 0 0 0-1.912-1.911l-1.318.016z"/>
-                  </svg>Question {index+1}. {getQuestionType(question.type)}
+                <p className="list-group-item list-group-item-action">
+                <i class="bi bi-check2-circle"></i>
+                  
+                  Question {index+1}. {getQuestionType(question.type)}
                
-                
-              
                 </p>
                 
               </>
