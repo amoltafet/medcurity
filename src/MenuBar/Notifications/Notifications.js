@@ -13,7 +13,7 @@ const notifications = () => {
                     <Container key={index} >
                         <Row className="row">
                             <Col xs lg="2">
-                                <i class="bi bi-megaphone-fill"></i>
+                            <i class={`bi bi-${item.icon} text-${item.color}`}></i>
                             </Col>
                             <Col >
                                 <h6 > {item.title}</h6>   
