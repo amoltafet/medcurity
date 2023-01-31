@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders LoginPage 1`] = `
+exports[`renders LearningModules 1`] = `
 <div>
   <div>
     <h1
       className="text-center mt-5"
     >
-      Custom Learning Module page?
+      Empty Page. Go back
     </h1>
   </div>
 </div>

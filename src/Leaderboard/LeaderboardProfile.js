@@ -107,6 +107,8 @@ function LeaderboardProfile (props) {
 
 
     if (props.name === currentUser.username) {
+        let imageClassname = props.className ? props.className[1] : "";
+
         return (
             <>
                 <Card className={`uvs-left uvs-right justify-content-center ${props.userColor}`} style={{ flexDirection: 'row' }}>
@@ -118,7 +120,7 @@ function LeaderboardProfile (props) {
                                         <div className="leaderboardRank">{props.index}.</div>
                                     </Col>
                                     <Col xs={2} md={2} lg={2}>
-                                        <Image className={props.className[1]} src={`data:image/png;base64,${profilePic}`} alt="" roundedCircle />
+                                        <Image className={imageClassname} src={`data:image/png;base64,${profilePic}`} alt="" roundedCircle />
                                     </Col>
                                     <Col xs={4} md={3} lg={3}>
                                         <Card.Text className="userNameTitle"><u>{props.name}</u></Card.Text>
@@ -143,6 +145,8 @@ function LeaderboardProfile (props) {
         );
     }
     else {
+        let imageClassname = props.className ? props.className[1] : "";
+
         return (
             <>
         <Card className={`uvs-left uvs-right justify-content-center ${props.companyColor}`} style={{ flexDirection: 'row' }}>
@@ -154,7 +158,7 @@ function LeaderboardProfile (props) {
                         <div className="leaderboardRank">{props.index}.</div>
                     </Col>
                     <Col xs={2} md={2} lg={2}>
-                        <Image className={props.className[1]} src={`data:image/png;base64,${profilePic}`} alt="" roundedCircle />
+                        <Image className={imageClassname} src={`data:image/png;base64,${profilePic}`} alt="" roundedCircle />
                     </Col>
                     <Col xs={4} md={3} lg={3}>
                         <Card.Text className="userNameTitle"><u>{props.name}</u></Card.Text>

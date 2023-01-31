@@ -333,10 +333,11 @@ const moduleActivity = (req, res) => {
     const module = req.body.module;   
     const points = req.body.points;
     const percentage = req.body.percentage;
+    const time = req.body.time;
 
     logger.log('info', `Storing learning module activity for user ${userid}...`);
 
-    db.query(`INSERT INTO userActivity (userID, moduleID, date, points, percentage)  VALUES (?,?,?,?,?)`, [userid, module, today, points, percentage], (err,result) => {
+    db.query(`INSERT INTO userActivity (userID, moduleID, date, points, percentage, time)  VALUES (?,?,?,?,?,?)`, [userid, module, today, points, percentage, time], (err,result) => {
         if(err) {
             logger.log('error', { methodName: '/moduleActivity', errorBody: err }, { service: 'user-service' });
             res.send({success: false, message: `Failed to store activity...`});
@@ -363,47 +364,78 @@ const getRecentActivity = (req, res) => {
 }
 
 /**
- * Stores a badge as earned
+ * Stores a module badge as earned
  */
- const userBadgeEarned = (req, res) => {
+ const userModuleBadgeEarned = (req, res) => {
     const userid = req.body.userid;   
     const moduleNum = req.body.modulenum;
+    const moduleID = parseInt(moduleNum);
 
-    let badgeId = 0;
-    // determine which badge to award
-    switch (moduleNum) {
-        case '1':
-            badgeId = 1;
-            break;
-        case '2':
-            badgeId = 2;
-            break;
-        case '3':
-            badgeId = 3;
-            break;
-        case '4':
-            badgeId = 4;
-            break;
-        case '5':
-            badgeId = 5;
-            break;
-        case '6':
-            badgeId = 6;
-            break;
-        case '30':
-            badgeId = 7;
-            break;
-        default:
-            badgeId = 6;
-            break;
-    }
-
-    db.query(`INSERT INTO EarnedBadges (userID, badgeID)  VALUES (?,?)`, [userid, badgeId], (err,result) => {
+    db.query(`SELECT (id) FROM Badges WHERE moduleID = ?`, [moduleID], (err,result) => {
         if(err) {
-            logger.log('error', { methodName: '/badgeEarned', errorBody: err }, { service: 'user-service' });
+            logger.log('error', { methodName: '/moduleBadgeEarned', errorBody: err }, { service: 'user-service' });
+            return res.send({success: false, message: `Earned badge not stored`});
         }
-        res.send({success: true, message: `Badge Earned`});
-    })   
+        else if (result.length > 0)
+        {
+            let badgeId = result[0]['id'];
+            db.query(`INSERT INTO EarnedBadges (userID, badgeID) VALUES (?,?)`, [userid, badgeId], (err,result) => {
+                if(err) {
+                    if (err.errno === 1062) {
+                        res.send({success: true, message: `Badge has already been earned by user.`});
+                    }
+                    else {
+                        logger.log('error', { methodName: '/moduleBadgeEarned', errorBody: err }, { service: 'user-service' });
+                        res.send({success: false, message: `Earned badge not stored`, err: err});
+                    }
+                }
+                else {
+                    res.send({success: true, message: `Badge Earned`});
+                }
+            });
+        }
+        else
+        {
+            res.send({success: false, message: `No badge with that moduleID stored.`});
+        }
+    });   
+}
+
+/**
+ * Stores a named badge as earned
+ */
+const namedBadgeEarned = (req, res) => {
+    const userid = req.body.userid;   
+    const badgeName = req.body.badgeName;
+
+    db.query(`SELECT (id) FROM Badges WHERE name = ?`, [badgeName], (err,result) => {
+        if(err) {
+            logger.log('error', { methodName: '/namedBadgeEarned', errorBody: err }, { service: 'user-service' });
+            return res.send({success: false, message: `Earned badge not stored`});
+        }
+        else if (result.length > 0)
+        {
+            let badgeId = result[0]['id'];
+            db.query(`INSERT INTO EarnedBadges (userID, badgeID) VALUES (?,?)`, [userid, badgeId], (err,result) => {
+                if(err) {
+                    if (err.errno === 1062) {
+                        res.send({success: true, message: `Badge has already been earned by user.`});
+                    }
+                    else {
+                        logger.log('error', { methodName: '/namedBadgeEarned', errorBody: err }, { service: 'user-service' });
+                        res.send({success: false, message: `Earned badge not stored`, err: err});
+                    }
+                }
+                else {
+                    res.send({success: true, message: `Badge Earned`});
+                }
+            });
+        }
+        else
+        {
+            res.send({success: false, message: `No badge with that name stored.`});
+        }
+    });   
 }
 
 /**
@@ -635,7 +667,8 @@ module.exports =
     removeModuleFromCompany,
     resetUserStats,
     updateCompanyModuleDueDate,
-    userBadgeEarned,
+    userModuleBadgeEarned,
+    namedBadgeEarned,
     moduleActivity,
     getRecentActivity,
     getHighScores

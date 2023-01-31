@@ -69,4 +69,4 @@ const  LearningModule = () => {
         </>
     );
 }
-export default  LearningModule;
+export default LearningModule;

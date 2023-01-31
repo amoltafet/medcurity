@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders RegisterPage 1`] = `
+<form
+  className="registerbg img-fluid"
+>
+  <img
+    alt=""
+    className="medcurity_logo justify-content-bottom"
+    src="/triangle_logo.png"
+    variant="top"
+  />
+  <form
+    className="register_columnDivder"
+  >
+    <div
+      class="row justify-content-md-center"
+    >
+      <div
+        class="col-xs-5 col-md-5"
+      >
+        <div
+          class="register_formColumn row justify-content-center"
+        >
+          <h3
+            class="register_h3"
+          >
+            Create an Account
+          </h3>
+          <p
+            class="register_p"
+          >
+            All you need is an email and password to create an account. If you recieved an invitation, please use the same email you receieved it.
+          </p>
+          <div
+            className="register_Form form-group"
+          >
+             
+            <input
+              className="form-control"
+              id="formEmail"
+              onChange={[Function]}
+              placeholder="Email"
+              type="email"
+            />
+             
+          </div>
+          <p />
+          <div
+            className="register_Form form-group"
+          >
+             
+            <input
+              className="form-control"
+              id="formPassword"
+              onChange={[Function]}
+              placeholder="Password"
+              type="password"
+            />
+             
+          </div>
+          <p
+            className="register_registerResponse"
+          >
+            
+          </p>
+          <button
+            className="register_button btn btn-secondary"
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+            Create Account
+          </button>
+          <button
+            className="register_button btn btn-secondary"
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+            Back to Login Page
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</form>
+`;

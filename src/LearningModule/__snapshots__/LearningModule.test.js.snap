@@ -1,20 +1,38 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders LoginPage 1`] = `
+exports[`renders LearningModule 1`] = `
 <div
   className="learningModuleBg img-fluid "
 >
   <div
-    className="d-grid gap-2 "
+    className="justify-content-center row row-cols-lg-10 row-cols-md-10 row-cols-10"
   >
-    <a
-      className="goToQuizBttn uvs-left uvs-right btn btn-primary"
-      href="/quiz/undefined"
-      onClick={[Function]}
-      onKeyDown={[Function]}
+    <div
+      className="col-lg-3 col-md-3 col-8"
     >
-      Go to Quiz
-    </a>
+      <a
+        className="goToQuizBttn uvs-left uvs-right btn btn-primary"
+        href="/dash"
+        onClick={[Function]}
+        onKeyDown={[Function]}
+      >
+        Back to Dashboard
+      </a>
+    </div>
+    <div
+      className="col-lg-3 col-md-3 col-8"
+    >
+      <a
+        className="goToQuizBttn uvs-left uvs-right btn btn-primary"
+        href="/quiz/undefined"
+        onClick={[Function]}
+        onKeyDown={[Function]}
+      >
+        Start 
+        
+         Quiz
+      </a>
+    </div>
   </div>
 </div>
 `;

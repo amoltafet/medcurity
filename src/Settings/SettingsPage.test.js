@@ -1,8 +1,12 @@
-import renderer from 'react-test-renderer';
+// import renderer from 'react-test-renderer';
+import ShallowRenderer from 'react-test-renderer/shallow';
 import SettingsPage from './SettingsPage';
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 
 test('renders SettingsPage', () => {
-  const tree = renderer.create(<SettingsPage />).toJSON();
-  expect(tree).toMatchSnapshot();
+  const renderer = new ShallowRenderer();
+  renderer.render(<BrowserRouter><SettingsPage /></BrowserRouter>);
+  const view = renderer.getRenderOutput();
+  expect(view).toMatchSnapshot();
 });

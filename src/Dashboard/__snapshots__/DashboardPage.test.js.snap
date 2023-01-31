@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders LeaderboardPage 1`] = `
+exports[`renders DashboardPage 1`] = `
 Array [
   <img
     alt=""
@@ -34,7 +34,7 @@ Array [
           <h5
             className="invalid_h5"
           >
-            You need to be logged in to view the leaderboard.
+            You need to be logged in to view your dashboard.
           </h5>
         </div>
         <button

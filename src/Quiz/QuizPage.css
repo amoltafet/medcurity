@@ -8,6 +8,10 @@
     position: fixed;
 }
 
+.body{
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
 .questionPosOutOfTotal {
     color: #93c2ec;
     font-family: Lato,sans-serif;
@@ -71,6 +75,7 @@
     margin-bottom: 2%;
     margin-top: 3%; 
     width: 80%;
+    background-color: aliceblue;
 }
 
 @media screen and (min-width: 1000px) {
@@ -89,16 +94,16 @@
 }
 
 .totalCorrectQuestions {
-    color: white;
+    color: black;
     font-family: Lato,sans-serif;
 }
 
 .totalCorrectPoints {
-    color: white;
+    color: black;
 }
 
 .correctPercentage {
-    color: white;
+    color: black;
 }
 
 .quizHomeBttn {
@@ -121,4 +126,8 @@
     border: none;
     background-color: #127ebf;
     color: #d8dae3;
+}
+
+#resultsPageContainer {
+    background-color: #eef1f2 !important;
 }

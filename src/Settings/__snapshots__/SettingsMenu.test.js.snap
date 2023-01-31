@@ -1,116 +1,585 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders LoginPage 1`] = `
+exports[`renders SettingsMenu 1`] = `
 <div
-  className="settingsRow row"
+  className="settingsContentPaneContainer container"
 >
-  <div
-    className="shadowTab uvs-left uvs-right col-sm-2"
+  <form
+    className=""
   >
     <div
-      className="flex-column marginTop  nav nav-pills"
-      onKeyDown={[Function]}
-      role="tablist"
+      class="container emp-profile"
     >
-      <div
-        className="selectedSetting nav-item"
-      >
-        <a
-          aria-controls="left-tabs-example-tabpane-first"
-          aria-selected={true}
-          className="nav-link active"
-          data-rb-event-key="first"
-          href="#"
-          id="left-tabs-example-tab-first"
-          onClick={[Function]}
-          onKeyDown={[Function]}
-          role="tab"
-        >
-          <img
-            alt=""
-            className="profileImage  rounded-circle"
-            src="/user.png"
-            variant="top"
-          />
-        </a>
-      </div>
-      <div
-        className="unselectedSetting nav-item"
-      >
-        <a
-          aria-controls="left-tabs-example-tabpane-second"
-          aria-selected={false}
-          className="nav-link"
-          data-rb-event-key="second"
-          href="#"
-          id="left-tabs-example-tab-second"
-          onClick={[Function]}
-          onKeyDown={[Function]}
-          role="tab"
-        >
-          Tab 2
-        </a>
-      </div>
-    </div>
-  </div>
-  <div
-    className="dropShadow uvs-left uvs-right col-sm-8"
-  >
-    <div
-      className="settingsMenuContainer container"
-    >
-      <div
-        className="tab-content"
+      <form
+        method="post"
       >
         <div
-          aria-hidden={false}
-          aria-labelledby="left-tabs-example-tab-first"
-          className="fade tab-pane active show"
-          id="left-tabs-example-tabpane-first"
-          role="tabpanel"
+          class="row"
         >
-          <form
-            className=""
+          <div
+            class="col-md-4"
           >
             <div
-              className="usernameInput form-group"
+              class="profile-img"
             >
-              <small
-                className="usernameText form-text"
+              <div
+                className="justify-content-center form-group"
               >
-                UserName
-              </small>
-              <input
-                className="form-control"
-                id="exampleForm.ControlTextarea1"
-                placeholder="username"
-              />
+                <img
+                  alt=""
+                  className="settingsProfilePicture uvs-left rounded-circle"
+                  src="data:image/png;base64,"
+                  variant="top"
+                />
+              </div>
             </div>
+          </div>
+          <div
+            class="col-md-6"
+          >
             <div
-              className="emailInput form-group"
+              class="profile-head"
             >
-              <small
-                className="emailText form-text"
+              <h5 />
+              <h6>
+                Web Developer and Designer
+              </h6>
+              <p
+                class="proile-rating"
               >
-                Email
-              </small>
-              <input
-                className="form-control"
-                id="exampleForm.ControlTextarea1"
-                placeholder="email"
-              />
+                Module Progress : 
+                <span>
+                  65%
+                </span>
+              </p>
+              <ul
+                class="nav nav-tabs"
+                id="myTab"
+                role="tablist"
+              >
+                <div
+                  className="justify-content-center nav"
+                  onKeyDown={[Function]}
+                  role="tablist"
+                >
+                  <li
+                    class="nav-item"
+                  >
+                    <div
+                      className="justify-content-center settingSpacing nav-item"
+                    >
+                      <a
+                        aria-controls="home"
+                        aria-selected={true}
+                        class="nav-link active"
+                        className="nav-link active"
+                        data-rb-event-key="profile"
+                        data-toggle="tab"
+                        href="#"
+                        id="home-tab"
+                        onClick={[Function]}
+                        onKeyDown={[Function]}
+                        role="tab"
+                      >
+                        Profile
+                      </a>
+                    </div>
+                  </li>
+                  <li
+                    class="nav-item"
+                  >
+                    <div
+                      className="justify-content-center settingSpacing nav-item"
+                    >
+                      <a
+                        aria-controls="profile"
+                        aria-selected={false}
+                        class="nav-link"
+                        className="nav-link"
+                        data-rb-event-key="badges"
+                        data-toggle="tab"
+                        href="#"
+                        id="profile-tab"
+                        onClick={[Function]}
+                        onKeyDown={[Function]}
+                        role="tab"
+                      >
+                        Badges
+                      </a>
+                    </div>
+                  </li>
+                  <li
+                    class="nav-item"
+                  >
+                    <div
+                      className="justify-content-center settingSpacing nav-item"
+                    >
+                      <a
+                        aria-controls="profile"
+                        aria-selected={false}
+                        class="nav-link"
+                        className="nav-link"
+                        data-rb-event-key="highscores"
+                        data-toggle="tab"
+                        href="#"
+                        id="profile-tab"
+                        onClick={[Function]}
+                        onKeyDown={[Function]}
+                        role="tab"
+                      >
+                        High Scores
+                      </a>
+                    </div>
+                  </li>
+                </div>
+              </ul>
             </div>
-          </form>
+          </div>
+          <div
+            class="col-md-2"
+          >
+            <div
+              className="justify-content-center nav"
+              onKeyDown={[Function]}
+              role="tablist"
+            >
+              <div
+                className="justify-content-center settingSpacing nav-item"
+              >
+                <a
+                  aria-selected={false}
+                  class="profile-edit-btn"
+                  className="nav-link"
+                  data-rb-event-key="edit"
+                  href="#"
+                  name="btnAddMore"
+                  onClick={[Function]}
+                  onKeyDown={[Function]}
+                  role="tab"
+                  type="submit"
+                  value="Edit Profile"
+                >
+                  <img
+                    alt=""
+                    class="edit-icon"
+                    src="https://icons.veryicon.com/png/o/miscellaneous/linear-small-icon/edit-246.png"
+                  />
+                  Edit Profile
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
         <div
-          aria-hidden={true}
-          aria-labelledby="left-tabs-example-tab-second"
-          className="fade tab-pane"
-          id="left-tabs-example-tabpane-second"
-          role="tabpanel"
-        />
-      </div>
+          class="row"
+        >
+          <div
+            class="col-md-4"
+          >
+            <div
+              class="profile-work"
+            >
+              <p>
+                Works at 
+              </p>
+              <a
+                href="www.google.com"
+              >
+                Website Link
+              </a>
+              <br />
+              <a
+                href=""
+              >
+                Company Profile
+              </a>
+              <br />
+              <p>
+                SKILLS
+              </p>
+              <a
+                href=""
+              >
+                Web Designer
+              </a>
+              <br />
+              <a
+                href=""
+              >
+                Web Developer
+              </a>
+              <br />
+            </div>
+          </div>
+          <div
+            class="col-md-8"
+          >
+            <div
+              class="tab-content profile-tab"
+              id="myTabContent"
+            >
+              <div
+                className="tab-content"
+              >
+                <div
+                  aria-hidden={false}
+                  aria-labelledby={null}
+                  className="fade tab-pane active show"
+                  id={null}
+                  role="tabpanel"
+                >
+                  <div
+                    aria-labelledby="home-tab"
+                    class="tab-pane fade show active"
+                    id="home"
+                    role="tabpanel"
+                  >
+                    <div
+                      class="row"
+                    >
+                      <div
+                        class="col-md-6"
+                      >
+                        <label>
+                          Name
+                        </label>
+                      </div>
+                      <div
+                        class="col-md-6"
+                      >
+                        <p />
+                      </div>
+                    </div>
+                    <div
+                      class="row"
+                    >
+                      <div
+                        class="col-md-6"
+                      >
+                        <label>
+                          Email
+                        </label>
+                      </div>
+                      <div
+                        class="col-md-6"
+                      >
+                        <p />
+                      </div>
+                    </div>
+                    <div
+                      class="row"
+                    >
+                      <div
+                        class="col-md-6"
+                      >
+                        <label>
+                          Phone
+                        </label>
+                      </div>
+                      <div
+                        class="col-md-6"
+                      >
+                        <p>
+                          123 456 7890
+                        </p>
+                      </div>
+                    </div>
+                    <div
+                      class="row"
+                    >
+                      <div
+                        class="col-md-6"
+                      >
+                        <label>
+                          Profession
+                        </label>
+                      </div>
+                      <div
+                        class="col-md-6"
+                      >
+                        <p>
+                          Web Developer and Designer
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  aria-hidden={true}
+                  aria-labelledby={null}
+                  className="fade tab-pane"
+                  id={null}
+                  role="tabpanel"
+                >
+                  <div
+                    className="badgeContainer"
+                  />
+                </div>
+                <div
+                  aria-hidden={true}
+                  aria-labelledby={null}
+                  className="fade tab-pane"
+                  id={null}
+                  role="tabpanel"
+                >
+                  There are currently no high scores to display...
+                </div>
+                <div
+                  aria-hidden={true}
+                  aria-labelledby={null}
+                  className="fade tab-pane"
+                  id={null}
+                  role="tabpanel"
+                >
+                  <div
+                    aria-labelledby="home-tab"
+                    class="tab-pane fade show active"
+                    id="home"
+                    role="tabpanel"
+                  >
+                    <div
+                      class="col-md-6"
+                    >
+                      <div
+                        className="justify-content-center form-group"
+                      >
+                        <div
+                          aria-hidden={true}
+                          className="tab-pane"
+                          role="tabpanel"
+                        >
+                          <div
+                            className="userProfilePhotoInput form-file"
+                          >
+                            <input
+                              accept=".png,.jpg,.jpeg"
+                              className="form-control-file"
+                              disabled={false}
+                              onChange={[Function]}
+                              type="file"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="row"
+                    >
+                      <div
+                        class="col-md-6"
+                      >
+                        <label>
+                          Name
+                        </label>
+                      </div>
+                      <div
+                        class="col-md-6"
+                      >
+                        <div
+                          className="usernameInput form-group"
+                        >
+                          <input
+                            className="form-control"
+                            id="formPlaintextEmail"
+                            onChange={[Function]}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="row"
+                    >
+                      <div
+                        class="col-md-6"
+                      >
+                        <label>
+                          Email
+                        </label>
+                      </div>
+                      <div
+                        class="col-md-6"
+                      >
+                        <div
+                          className="emailInput form-group"
+                        >
+                          <p>
+                            <input
+                              className="form-control"
+                              disabled={true}
+                              id="formPlaintextEmail"
+                            />
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="row"
+                    >
+                      <div
+                        class="col-md-6"
+                      >
+                        <label>
+                          Phone
+                        </label>
+                      </div>
+                      <div
+                        class="col-md-6"
+                      >
+                        <p>
+                          123 456 7890
+                        </p>
+                      </div>
+                    </div>
+                    <div
+                      class="row"
+                    >
+                      <div
+                        class="col-md-6"
+                      >
+                        <label>
+                          Profession
+                        </label>
+                      </div>
+                      <div
+                        class="col-md-6"
+                      >
+                        <p>
+                          Web Developer and Designer
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    className="settingsWideButton btn btn-primary"
+                    disabled={false}
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseOut={[Function]}
+                    onMouseOver={[Function]}
+                    type="button"
+                  >
+                    Save
+                  </button>
+                </div>
+              </div>
+              <div
+                aria-labelledby="profile-tab"
+                class="tab-pane fade"
+                id="profile"
+                role="tabpanel"
+              >
+                <div
+                  class="row"
+                >
+                  <div
+                    class="col-md-6"
+                  >
+                    <label>
+                      Experience
+                    </label>
+                  </div>
+                  <div
+                    class="col-md-6"
+                  >
+                    <p>
+                      Expert
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="row"
+                >
+                  <div
+                    class="col-md-6"
+                  >
+                    <label>
+                      Hourly Rate
+                    </label>
+                  </div>
+                  <div
+                    class="col-md-6"
+                  >
+                    <p>
+                      10$/hr
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="row"
+                >
+                  <div
+                    class="col-md-6"
+                  >
+                    <label>
+                      Total Projects
+                    </label>
+                  </div>
+                  <div
+                    class="col-md-6"
+                  >
+                    <p>
+                      230
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="row"
+                >
+                  <div
+                    class="col-md-6"
+                  >
+                    <label>
+                      English Level
+                    </label>
+                  </div>
+                  <div
+                    class="col-md-6"
+                  >
+                    <p>
+                      Expert
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="row"
+                >
+                  <div
+                    class="col-md-6"
+                  >
+                    <label>
+                      Availability
+                    </label>
+                  </div>
+                  <div
+                    class="col-md-6"
+                  >
+                    <p>
+                      6 months
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="row"
+                >
+                  <div
+                    class="col-md-12"
+                  >
+                    <label>
+                      Your Bio
+                    </label>
+                    <br />
+                    <p>
+                      Your detail description
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
     </div>
-  </div>
+  </form>
 </div>
 `;

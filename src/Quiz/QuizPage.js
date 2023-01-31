@@ -1,5 +1,5 @@
 import { Button, Image, Row, Col, Container, Alert } from 'react-bootstrap';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { SubmitButton } from './SubmitButton';
 import { useParams } from "react-router";
 import './QuizPage.css';
@@ -37,14 +37,19 @@ const QuizPage = () => {
   const [earlyCompletion, setEarlyCompletion] = useState(0);
   const [spaceLearning, setSpacedLearning] = useState(0); 
   const [passed, setPassed] = useState(false);
+  const [timeBonusEarned, setTimeBonusEarned] = useState(false);
+  const [timeBonus, setTimeBonus] = useState(0);
   const [notCompleteOnTime, setNoCompleteOnTime] = useState(0);
   const [showSpacedLearningPopup, setShowSpacedLearningPopup] = useState(false);
   const [showEarlyCompletionPopup, setShowEarlyCompletionPopup] = useState(false);
   const [showPassedPopup, setShowPassedPopup] = useState(true);
+  const [showTimeBonusPopup, setShowTimeBonusPopup] = useState(true);
   const [showUserDidNotCompleteOnTime, setShowUserDidNotCompleteOnTime] = useState(false);
   const [moduleNotAssigned, setModuleNotAssigned] = useState(false);
   const [moduleName, setModuleName] = useState("");
   const [companyid, setCompanyID] = useState([]);
+  const intervalRef = useRef();
+  var secondsRef = useRef();
   var points = 0;
   var numCorrect = 0;
   // "data" is an array of the user's performance on each question
@@ -162,8 +167,6 @@ const QuizPage = () => {
       // }).then((response) => {
       //   // console.log("response", response);
       // }).catch(error => // console.log(`Error ${error}`));
-    
-
     }
   }, [isLoading, currentUser.userid, slug])
 
@@ -178,8 +181,10 @@ const QuizPage = () => {
     axios.get(`${process.env.REACT_APP_BASE_URL}/api/getModuleQuestions`, { params: { id: slug } }).then((response) => {
       setContent(Object.values(response.data))
       setLoading(false);
+      secondsRef.current = 0.0;
+      const id = setInterval(() => {secondsRef.current += 0.1; }, 100);
+      intervalRef.current = id;
     }).catch(error => console.error(`Error ${error}`));
-
   }, [slug])
 
   /**
@@ -196,26 +201,43 @@ const QuizPage = () => {
    *  sets module complete, removes from assigned & updates points 
    */
   useEffect(() => {
-    if (!isLoading && isSubmitted && points !== 0) {
-      var totalPoints = points + earlyCompletion + notCompleteOnTime + spaceLearning;
-      var percent = numCorrect / content.length;
+    if (!isLoading && isSubmitted) {
+      clearInterval(intervalRef.current);
+      let seconds = Math.round(secondsRef.current * 10) / 10;
+      let totalPoints = points + earlyCompletion + notCompleteOnTime + spaceLearning + timeBonus;
+      let percent = numCorrect / content.length;
+
+      // this is the set cutoff for the percentage questions correct a user needs to earn the time bonus
+      if (percent <= 0.79) {
+        setTimeBonus(0);
+        setTimeBonusEarned(false);
+      }
+      else {
+        axios.post(`${process.env.REACT_APP_BASE_URL}/users/namedBadgeEarned`, {
+          userid: currentUser.userid,
+          badgeName: "Sprinter Badge",
+        }).then((response) => {
+          console.log("response", response.data);
+        }).catch((err) => console.log(err));
+      }
 
       axios.post(`${process.env.REACT_APP_BASE_URL}/users/moduleActivity`, {
         userid: currentUser.userid,
         module: slug,
         points: totalPoints,
-        percentage: percent
+        percentage: percent,
+        time: seconds
       }).then((response) => {
-        console.log(response.message);
+        // console.log(response.message);
       }).catch();
 
       if ((percent * 100) >= 90) {
-        axios.post(`${process.env.REACT_APP_BASE_URL}/users/badgeEarned`, {
+        axios.post(`${process.env.REACT_APP_BASE_URL}/users/moduleBadgeEarned`, {
           userid: currentUser.userid,
           modulenum: slug
         }).then((response) => {
-          // console.log("response", response.data);
-        }).catch();
+          console.log("response", response.data);
+        }).catch((err) => console.log(err));
       }
 
       if ((percent * 100) >= 60 && !moduleNotAssigned) {
@@ -228,8 +250,8 @@ const QuizPage = () => {
           companyid: companyid.CompanyID,
         }).then((response) => {
           // console.log("response", response.data);
-        }).catch()// console.log(`Error ${error}`));
-        setPassed(true)
+        }).catch() // console.log(`Error ${error}`));
+        setPassed(true);
         return;
       }
       setShowEarlyCompletionPopup(false);
@@ -480,6 +502,29 @@ const QuizPage = () => {
   }
 
   /**
+   *  checks if the user got the time bonus
+   * @param {Obj} currentModule
+   */
+  function checkIfUserGotTimeBonus (currentModule) {
+    let seconds = secondsRef.current;
+    let cutoff = 0.0;
+    content.forEach((question) => {
+      if (question.type === 'mc') {
+        cutoff += 5
+      } else if (question.type === 'match') {
+        cutoff += 10
+      } else {
+        cutoff += 5
+      }
+    });
+
+    if (seconds < cutoff) {
+      setTimeBonus(100);
+      setTimeBonusEarned(true);
+    }
+  }
+
+  /**
    *  checks if the user got spaced learning by spacing of 2 days 
    */
   function checkIfUserGotSpacedLearning () {
@@ -518,6 +563,7 @@ const QuizPage = () => {
     
     });
   
+    checkIfUserGotTimeBonus(currentModule);
     if (checkIfUserCompletedModuleOnTime(currentModule)) {
         checkIfUserGotEarlyCompletion(currentModule);
         checkIfUserGotSpacedLearning();
@@ -576,7 +622,7 @@ const QuizPage = () => {
         <Alert variant="danger" show={showUserDidNotCompleteOnTime}>
           <Alert.Heading>You Did Not Complete the Module on Time.</Alert.Heading>
           <p>
-            You did not complete this module by its due date. -${notCompleteOnTime} points.
+            You did not complete this module by its due date. {notCompleteOnTime} points.
           </p>
           <div className="d-flex justify-content-end">
           <Button onClick={() => setShowUserDidNotCompleteOnTime(false)} variant="outline-danger">
@@ -612,7 +658,7 @@ const QuizPage = () => {
           <Alert variant="dark" show={showPassedPopup}>
             <Alert.Heading>Try again</Alert.Heading>
             <p>
-              Sorry you did not pass the Module. You need higher than a 60 to pass.
+              Sorry you did not pass the Module. You need higher than a 60% to pass.
             </p>
             <div className="d-flex justify-content-end">
             <Button href={`/quiz/${slug}`} variant="outline-dark">
@@ -637,6 +683,27 @@ const QuizPage = () => {
       return 'Matching'
     } else {
       return 'None'
+    }
+  }
+
+  /**
+   *  shows popup to tell user if they passed the module or neeed to retake it. 
+   */
+  function TimeBonus() {
+    if (timeBonusEarned) {
+      return (
+        <Alert variant="success" show={showTimeBonusPopup}>
+          <Alert.Heading>Yay, You Earned a Time Bonus!</Alert.Heading>
+          <p>
+            Congratulations, you scored enough points in a timely manner to earn the time bonus on the {moduleName.Title} module! {timeBonus} points!
+          </p>
+          <div className="d-flex justify-content-end">
+          <Button onClick={() => setShowTimeBonusPopup(false)} variant="outline-success">
+            X
+          </Button>
+          </div>
+        </Alert>
+      );
     }
   }
 
@@ -706,6 +773,8 @@ const QuizPage = () => {
       </>
     );
   } else {
+    clearInterval(intervalRef.current);
+    var seconds = Math.round(secondsRef.current * 10) / 10;
     var newestIndex = 0;
     var userRadioAnswerIndex = -1;
 
@@ -793,12 +862,16 @@ const QuizPage = () => {
           {UserGotEarlyCompletion()}
           {UserGotSpacedLearning()}
           {UserDidNotCompleteModuleOnTime()}
+          {TimeBonus()}
           <Row className="text-center quizPointInfo">
             <Col>
               <div className="totalCorrectQuestions"> {numCorrect} / {content.length} Questions Correct </div>
             </Col>
             <Col>
-              <div className="totalCorrectPoints"> Points: {points + earlyCompletion + notCompleteOnTime + spaceLearning} </div>
+              <div className="totalCorrectQuestions"> Time: {seconds} seconds </div>
+            </Col>
+            <Col>
+              <div className="totalCorrectPoints"> Points: {points + earlyCompletion + notCompleteOnTime + spaceLearning + timeBonus} </div>
             </Col>
             <Col>
               <div className="correctPercentage"> {(numCorrect / content.length * 100).toFixed(2)}% </div>

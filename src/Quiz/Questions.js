@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {ToggleButtonGroup, ToggleButton, Container, Form, Row, Col} from 'react-bootstrap';
+import {ToggleButtonGroup, ToggleButton, Container, Form, Row, Col, Card} from 'react-bootstrap';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import './Questions.css';
 
@@ -88,8 +88,8 @@ function Questions (props) {
                 <Container id="questionDesciption" className={props.classes[1]}>
                     {props.question} 
                 </Container>
-                
-                <ToggleButtonGroup id={quizToggleId} className="answerQuizSelection uvs-left" vertical name={quizToggleId}>
+                <Col>
+                <ToggleButtonGroup id={quizToggleId} className="answerQuizSelection uvs-left" name={quizToggleId}>
                     {potentialAnswers.map((radio, idx) => (
                     <ToggleButton 
                         key={idx}
@@ -97,6 +97,13 @@ function Questions (props) {
                         type="radio"
                         variant="light secondary"
                         name="radio"
+                        sx={{
+                            "&.MuiToggleButtonGroup-grouped": {
+                              borderRadius: "4px !important",
+                              mx: 1,
+                              border: "1px solid lightgrey !important"
+                            }
+                          }}
                         value={radio.name}
                         className="individualQuestions"
                         checked = {props.checked[idx]}
@@ -105,6 +112,7 @@ function Questions (props) {
                     </ToggleButton>
                     ))}
                 </ToggleButtonGroup>
+                </Col>
                 </div>
             </>
         );

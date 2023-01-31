@@ -3,22 +3,7 @@
 exports[`renders LoginPage 1`] = `
 Array [
   <div
-    className=" LearningModulesDirectories container"
-  >
-    <h2
-      className="text-center LearningModulesDirectoriesFont"
-    >
-      Learning Module Directories
-    </h2>
-  </div>,
-  <div
-    className="dashboard card-deck"
-    style={
-      Object {
-        "display": "flex",
-        "flexDirection": "row",
-      }
-    }
+    className="LearningModulesDirectoriesDashboard ms-2 row"
   />,
   <div
     className="d-grid gap-2"
