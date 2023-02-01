@@ -651,6 +651,20 @@ const getHighScores = (req, res) => {
     });
 }
 
+const getNotifications = (req, res) => {
+    const userid = req.query.userid;
+    db.query(`SELECT message, type, seen, timesent FROM Notifications WHERE userID = ${userid}`, (err,result) => {
+        if (err) {
+            logger.log('error', { methodName: '/notifications', body: err }, { service: 'user-service' });
+            res.send({success: false});
+        }
+        else {
+            logger.log('info', "Retrieved notifications for user " + userid + "...", { service: 'user-service' });
+            res.send({success: true, result: result});
+        }
+    });
+}
+
 module.exports = 
 {
     userLogin,
@@ -671,5 +685,6 @@ module.exports =
     namedBadgeEarned,
     moduleActivity,
     getRecentActivity,
-    getHighScores
+    getHighScores,
+    getNotifications
 };
