@@ -653,7 +653,7 @@ const getHighScores = (req, res) => {
 
 const getNotifications = (req, res) => {
     const userid = req.query.userid;
-    db.query(`SELECT message, type, seen, timesent FROM Notifications WHERE userID = ${userid}`, (err,result) => {
+    db.query(`SELECT message, type, seen, timesent FROM Notifications WHERE userID = ${userid} ORDER BY timesent DESC`, (err,result) => {
         if (err) {
             logger.log('error', { methodName: '/notifications', body: err }, { service: 'user-service' });
             res.send({success: false});
