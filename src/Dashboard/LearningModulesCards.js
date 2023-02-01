@@ -100,7 +100,8 @@ const LearningModulesCards = (props) => {
         for (let index in modules) {
             if (size === maxLength) { break; }
             var newModule = modules[index]
-            objs.push(<ModulePanel title={newModule.Title} link={newModule.ID} dueDate={newModule.DueDate} />)
+            console.log(newModule)
+            objs.push(<ModulePanel title={newModule.Title} link={newModule.ID} dueDate={newModule.DueDate} img={newModule.Img_url} />)
             size += 1;
         }
         return objs;
