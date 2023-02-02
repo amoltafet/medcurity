@@ -27,5 +27,7 @@ router.post('/updateCompanyModuleDueDate', userControllers.updateCompanyModuleDu
 router.get('/recentActivity', userControllers.getRecentActivity);
 router.get('/highScores', userControllers.getHighScores);
 router.get('/notifications', userControllers.getNotifications);
+router.post('/readNotifications', userControllers.readNotifications);
+
 
 module.exports = router

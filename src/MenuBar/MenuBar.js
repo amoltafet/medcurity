@@ -1,7 +1,7 @@
 import React from 'react';
 import './MenuBar.css';
 import '../Layout.css'
-import { Nav, CardImg, Card, Row, Col, OverlayTrigger, Tooltip, Dropdown, Navbar, NavDropdown } from 'react-bootstrap'
+import { Nav, CardImg, Tooltip, Navbar, NavDropdown } from 'react-bootstrap'
 import { useEffect, useState } from "react";
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
@@ -54,12 +54,37 @@ const Menubar = () => {
     const [currentUser, setCurrentUser] = useState([]);
     const [isLoading, setLoading] = useState(true)
     const [isCompanyLoading, setCompanyLoading] = useState(true)
+    const [notifs, setNotifs] = useState([]);
+    const [unreadNotifs, setunreadNotifs] = useState(false);
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_BASE_URL}/users/login`).then((response) => {
           setCurrentUser(response.data.user[0])
         });
       }, []);
+
+    useEffect(() => {
+        // function used to pull in notifications for that user
+        async function getNotifications() {
+            let userNotifs = (await axios.get(`${process.env.REACT_APP_BASE_URL}/users/notifications`, { params: { userid: currentUser.userid }})
+                .catch(error => console.error(`Error ${error}`)));
+            userNotifs = userNotifs.data;
+            
+            if (userNotifs.success) {
+                userNotifs = userNotifs.result;
+                if (userNotifs.length !== 0) {
+                  if (!userNotifs[0].seen) {
+                    setunreadNotifs(true)
+                  }
+                }
+                setNotifs(userNotifs);
+            }
+        }
+    
+        if (currentUser.userid) {
+            getNotifications();
+        }
+    },[currentUser, isLoading]);
 
     useEffect(() => {
         if (currentUser.userid !== undefined) {
@@ -98,6 +123,16 @@ const Menubar = () => {
             setCompanyId(company[0].CompanyID)
         }
     }, [isCompanyLoading, company])
+
+    const markRead = () => {
+      setunreadNotifs(false);
+
+      axios.post(`${process.env.REACT_APP_BASE_URL}/users/readNotifications`, 
+        {userid: currentUser.userid}).then((response) => 
+      {
+        console.log("Notifications marked as read");
+      }).catch(error => console.error(`Error ${error}`));
+    }
 
     const logout = () => {
         axios.post(`${process.env.REACT_APP_BASE_URL}/users/logout`).then((response) => 
@@ -280,21 +315,24 @@ const Menubar = () => {
       <ul class="navbar-nav ms-auto d-flex flex-row mt-3 mt-lg-0">
       <div class="vertical-line"/>
         <li class="nav-item text-center mx-2 mx-lg-1">
-         
         <Navbar.Toggle aria-controls="navbar-dark-example" />
         <Navbar.Collapse id="navbar-dark-example">
           <Nav>
             <NavDropdown
               id="nav-dropdown-dark-example"
-              title={ <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
+              title={unreadNotifs ? <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#D22B2B" class="bi bi-bell-fill" viewBox="0 0 16 16">
+              <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"></path>
+              </svg>
+               : <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
               <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
-          </svg>}
+              </svg>}
               menuVariant="dark"
               size="lg"
               bsStyle="dark"
               noCaret={true}
+              onClick={markRead}
             >
-              <Notifications/>
+              <Notifications userNotifs={notifs} />
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>

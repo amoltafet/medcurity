@@ -2,39 +2,15 @@ import React from 'react'
 import { Row, Col, Container } from 'react-bootstrap'
 import { useEffect, useState } from "react";
 import axios from 'axios';
-import Data from './NotifData'
 import './Notifications.css'
 
-const Notifications = () => {
+const Notifications = (props) => {
     axios.defaults.withCredentials = true;
-    const [currentUser, setCurrentUser] = useState([]);
     const [notifs, setNotifs] = useState([]);
-    const [isLoaded, setLoaded] = useState(false);
-    
-    useEffect(() => {
-        axios.get(`${process.env.REACT_APP_BASE_URL}/users/login`).then((response) => {
-            setCurrentUser(response.data.user[0]);
-        }).catch(error => console.error(`HERE Error ${error}`));
-        setLoaded(true)
-    }, []);
 
     useEffect(() => {
-        // function used to pull in notifications for that user
-        async function getNotifications() {
-            let userNotifs = (await axios.get(`${process.env.REACT_APP_BASE_URL}/users/notifications`, { params: { userid: currentUser.userid }})
-                .catch(error => console.error(`Error ${error}`)));
-            userNotifs = userNotifs.data;
-            
-            if (userNotifs.success) {
-                userNotifs = userNotifs.result;
-                setNotifs(userNotifs);
-            }
-        }
-    
-        if (currentUser.userid) {
-            getNotifications();
-        }
-    },[currentUser, isLoaded]);
+        setNotifs(props.userNotifs)
+    },[]);
 
     const getIcon = (notif) => {
         let color = "primary";

@@ -665,6 +665,20 @@ const getNotifications = (req, res) => {
     });
 }
 
+const readNotifications = (req, res) => {
+    const userid = req.body.userid;
+    db.query(`UPDATE Notifications SET seen = true WHERE userID = ${userid}`, (err,result) => {
+        if (err) {
+            logger.log('error', { methodName: '/readNotifications', body: err }, { service: 'user-service' });
+            res.send({success: false});
+        }
+        else {
+            logger.log('info', "Marked notifications as read for user " + userid + "...", { service: 'user-service' });
+            res.send({success: true, result: result});
+        }
+    });
+}
+
 module.exports = 
 {
     userLogin,
@@ -686,5 +700,6 @@ module.exports =
     moduleActivity,
     getRecentActivity,
     getHighScores,
-    getNotifications
+    getNotifications,
+    readNotifications
 };
