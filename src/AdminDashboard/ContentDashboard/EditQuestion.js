@@ -140,10 +140,17 @@ const  EditQuestion = () => {
 
     function submitData() {
         for(var i = 0; i < content.length; i++) {
-            axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `UPDATE  Questions SET question = '${question[i]}', solution = '${solution[i]}', 
-            a2 = '${answer2[i]}', a3 = '${answer3[i]}', a4 = '${answer4[i]}' WHERE questionid = '${content[i].questionid}'` } }).then((response) => {
-            // // console.log(response)
+            axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `UPDATE Questions SET question = '${question[i]}', solution = '${solution[i]}', 
+            a2 = '${answer2[i]}', a3 = '${answer3[i]}', a4 = '${answer4[i]}' WHERE questionid = '${questionID[i]}'` } }).then((response) => {
+            // console.log(response)
             }).catch(error => console.error(`Error ${error}`));
+
+            if (questionType[i] === 'match') {
+                axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `UPDATE MatchingAnswers SET m1 = '${matchingAnswer1[i]}', 
+                m2 = '${matchingAnswer2[i]}', m3 = '${matchingAnswer3[i]}', m4 = '${matchingAnswer4[i]}' WHERE matchingquestionid = '${questionID[i]}'` } }).then((response) => {
+                // console.log(response)
+                }).catch(error => console.error(`Error ${error}`));
+            }
         }
 
         for(i = content.length; i < question.length; i++) {
