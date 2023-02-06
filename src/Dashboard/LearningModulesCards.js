@@ -101,7 +101,7 @@ const LearningModulesCards = (props) => {
             var newModule = modules[index]
             objs.push(
                 <Grid item xs={12} sm={6} md={4} lg={3}>
-            <ModulePanel title={newModule.Title} link={newModule.ID} dueDate={newModule.DueDate} />
+            <ModulePanel title={newModule.Title} link={newModule.ID} dueDate={newModule.DueDate} img={newModule.Img_url} />
                 </Grid>
             )
             size += 1;

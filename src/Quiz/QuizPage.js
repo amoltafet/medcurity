@@ -235,9 +235,11 @@ const QuizPage = () => {
       }).catch();
 
       if ((percent * 100) >= 90) {
+        console.log(moduleName)
         axios.post(`${process.env.REACT_APP_BASE_URL}/users/moduleBadgeEarned`, {
           userid: currentUser.userid,
-          modulenum: slug
+          modulenum: slug,
+          moduleName: moduleName[0].Title
         }).then((response) => {
           console.log("response", response.data);
         }).catch((err) => console.log(err));
