@@ -1,10 +1,11 @@
 const bcrypt = require("bcrypt");
 const serverConfig = require('../serverConfig.json')
 const saltRounds = serverConfig.bcrypt.SALT_ROUNDS;
-const db = require('../dbConfig')
-const emailValidator = require("email-validator")
-const { passwordStrength } = require('check-password-strength')
-const logger = require('../logger').log
+const db = require('../dbConfig');
+const emailValidator = require("email-validator");
+const { passwordStrength } = require('check-password-strength');
+const logger = require('../logger').log;
+const notifications = require('./notificationsController')
 
 /**
  * Queries the database to register a new user. Passwords are hashed + salted using bcrypt.
@@ -357,7 +358,7 @@ const getRecentActivity = (req, res) => {
             logger.log('error', { methodName: '/getLastActivity', body: err }, { service: 'user-service' });
         }
         else {
-            logger.log('info', "Retrieved latest activity from user " + userid + "...", { service: 'user-service' })
+            logger.log('info', "Retrieved latest activity from user " + userid + "...", { service: 'user-service' });
             res.send(result)
         }
     });
@@ -370,6 +371,7 @@ const getRecentActivity = (req, res) => {
     const userid = req.body.userid;   
     const moduleNum = req.body.modulenum;
     const moduleID = parseInt(moduleNum);
+    const moduleName = req.body.moduleName;
 
     db.query(`SELECT (id) FROM Badges WHERE moduleID = ?`, [moduleID], (err,result) => {
         if(err) {
@@ -390,6 +392,8 @@ const getRecentActivity = (req, res) => {
                     }
                 }
                 else {
+                    let notificationMessage = `You earned the ${moduleName} Badge!`;
+                    notifications.sendNotification(userid, notificationMessage, 'badge');
                     res.send({success: true, message: `Badge Earned`});
                 }
             });
@@ -427,6 +431,8 @@ const namedBadgeEarned = (req, res) => {
                     }
                 }
                 else {
+                    let notificationMessage = `You earned the ${badgeName}!`;
+                    notifications.sendNotification(userid, notificationMessage, 'badge');
                     res.send({success: true, message: `Badge Earned`});
                 }
             });
