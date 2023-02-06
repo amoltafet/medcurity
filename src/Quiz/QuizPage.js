@@ -1,4 +1,4 @@
-import { Button, Image, Row, Col, Container, Alert } from 'react-bootstrap';
+import { Image, Row, Col, Container, Alert } from 'react-bootstrap';
 import React, { useState, useEffect, useRef } from 'react';
 import { SubmitButton } from './SubmitButton';
 import { useParams } from "react-router";
@@ -10,7 +10,10 @@ import Questions from './Questions';
 import axios from 'axios';
 import Results from './Results';
 // import env from "react-dotenv";
-
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
+import { Tooltip } from '@mui/material';
 /**
 * Handles main logic for quiz page. 
 * @return {QuizPage}
@@ -318,7 +321,7 @@ const QuizPage = () => {
       } else if (newData["answer"] !== content[index].solution && newData["type"] === "mc") {
         newData["color"] = "red"
       } else {
-        newData["color"] = "yellow"
+        newData["color"] = "gray"
       }
       setData([...data, newData])
       var newIndex = index + 1;
@@ -729,25 +732,25 @@ const QuizPage = () => {
             />
           </div>
           
-                      <div className="row">
-                      <div className='col mt-5'>
+              <div className="row">
+                 <div className='col mt-5'>
                       <div className="container mt-5">
-              <div className="card px-3 py-3">
-                  <h5>Quiz Questions</h5>
-                <div className="card-body">
-                  <div className="list-group list-group text-start">
-                    {content.map((question, index) => {
-                      return (
-                        <>
-                        <p className="list-group-item list-group-item-action">
-                          
-                        <i class="bi bi-check2-circle" style={{color: data[index].color}}></i>
+                    <div className="card px-3 py-3">
+                        <h5>Quiz Questions</h5>
+                      <div className="card-body">
+                        <div className="list-group list-group text-start">
+                          {content.map((question, index) => {
+                            return (
+                              <>
+                              <p className="list-group-item list-group-item-action">
+                                
+                              <i class="bi bi-check2-circle" style={{color: data[index].color, marginRight: '5px'}}></i>
 
-                        Question {index+1}. {getQuestionType(question.type)}
-                      
-                        </p>
-                        
-                      </>
+                              Question {index+1}. {getQuestionType(question.type)}
+                            
+                              </p>
+                              
+                            </>
                       );
                     })}
                   </div>
@@ -758,14 +761,17 @@ const QuizPage = () => {
               <div className='col-lg-9'>
                 <div className="questionPosOutOfTotal text-center" id="questionPosOutOfTotal"> {index + 1} / {content.length} </div>
                 {DisplayOneQuestion()}
-                <Button
-                  id="rightQuestionBttn"
-                  type="submit"
-                  className=" toggleQuestionRight text-center"
-                  onClick={() => nextQuestion()}>
-                  <Image className="rightArrow" src="/right.png"></Image>
-                </Button>
+                <Tooltip title="Next Question" placement="bottom">
+                <IconButton id='rightQuestionBttn' onClick={() => nextQuestion()}>
+                  <ArrowCircleRightIcon fontSize="inherit" sx={{
+                    width: '50px',
+                    height: '50px',
+                    color: '#001F42',
+                  }}/>
+                </IconButton>
+                </Tooltip>
                 <SubmitButton value="Submit" questionData={data} content={content.length} action={checkIfUserGetsExtraPoints}></SubmitButton>
+                
                 {disabledSubmitBttn()}
             </div>
           </div>

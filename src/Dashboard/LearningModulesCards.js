@@ -1,9 +1,11 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './LearningModulesCards.css'
-import { Card,  Button, Container, Row } from 'react-bootstrap';
+import { Card, Col, Container, Row } from 'react-bootstrap';
 import { useEffect, useState } from "react";
 import axios from 'axios';
+import Grid from '@mui/material/Unstable_Grid2/Grid2';
+import Button from '@mui/material/Button';
 // import env from "react-dotenv";
 
 /**
@@ -68,24 +70,21 @@ const LearningModulesCards = (props) => {
         var dueDate = new Date(props.dueDate); 
         dueDate.setDate((dueDate.getDate()));
         return (
-           
-            <>
-              
-            <div className="card card-custom bg-white border-white border-0">
-                <div className="card-custom-img card-custom-img-2"></div>
-                    <div className="card-custom-avatar">
-                        <img className="img-fluid" src={props.img} alt="Card image cap" />
-                    </div>
-                    <div className="card-body card-body-2">
-                        <h4 className="card-title">{props.title}</h4>
-                        <p className="card-text">Module {props.link}</p>
-                        <h6 className="card-text">Due At: {dueDate.toDateString()}</h6>
-                    </div>
-                    <div className="card-footer card-footer-2" >
-                        <a href={"/learning-module/" + props.link} className="btn btn-outline-primary px-5">View</a>
-                    </div>
-             </div>
-            </>
+             <div className="card card-custom bg-white border-white border-0">
+             <div className="card-custom-img card-custom-img-2"></div>
+                 <div className="card-custom-avatar">
+                     <img className="img-fluid" src={props.img ? props.img : "https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_960_720.jpg"} alt="Card image cap" />
+                 </div>
+                 <div className="card-body card-body-2">
+                     <h4 className="card-title">{props.title}</h4>
+                     <p className="card-text">Module {props.link}</p>
+                     <h6 className="card-text">Due At: {dueDate.toDateString()}</h6>
+                 </div>
+                 <div className="card-footer card-footer-2" > 
+                     <Button variant="outlined" href={"/learning-module/" + props.link}>View</Button>
+                 </div>
+                
+          </div>
         );
     }
 
@@ -100,7 +99,11 @@ const LearningModulesCards = (props) => {
         for (let index in modules) {
             if (size === maxLength) { break; }
             var newModule = modules[index]
-            objs.push(<ModulePanel title={newModule.Title} link={newModule.ID} dueDate={newModule.DueDate} />)
+            objs.push(
+                <Grid item xs={12} sm={6} md={4} lg={3}>
+            <ModulePanel title={newModule.Title} link={newModule.ID} dueDate={newModule.DueDate} />
+                </Grid>
+            )
             size += 1;
         }
         return objs;
@@ -129,16 +132,28 @@ const LearningModulesCards = (props) => {
     }
 
     return (
-        <>
-            <Container className="LearningModulesCards">                
-                {createModuleCardHeader()}
-            </Container>
-            <Row className="dashboard" style={{display: 'flex', flexDirection: 'row'}}>
+        <div className="container">
+        <div style={{
+            display: 'flex', 
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            marginTop: '20px',
+        }}>
+                <h1 className="text-center">Required Learning Modules</h1>
+            
+                <Button
+                    id="select-more-modules"
+                    href='learning-directory'>
+                    {learningModules.length} remaining required modules
+                </Button>
+            <Grid container spacing={3} style={{marginTop: '20px'}}>
                 {createModuleCards(learningModules, 5)}
-            </Row>
-            <div className="d-grid gap-2">
-            </div>
-        </>
+            </Grid>
+            
+        </div>
+        </div>
+
+        
     );
 }
 

@@ -1,5 +1,5 @@
 .leaderboardbg {
-    background-image: url("leaderboard_medium.png");
+    background-color: white;
     height: 100%;
     width: 100%;
     background-position: center;
@@ -17,7 +17,6 @@
         position: fixed;
     }
 }
-
 
 .leaderboardContainer {
     margin-top: 20px;
