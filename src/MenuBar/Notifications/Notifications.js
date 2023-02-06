@@ -3,7 +3,6 @@ import { Row, Col, Container } from 'react-bootstrap'
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import './Notifications.css'
-
 const Notifications = (props) => {
     axios.defaults.withCredentials = true;
     const [notifs, setNotifs] = useState([]);
