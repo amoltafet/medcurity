@@ -36,6 +36,7 @@ import AddContent from "./AdminDashboard/ContentDashboard/AddContent";
 import ResetPasswordPage from "./ResetPassword/Reset";
 import CompanyProfile from "./Company/CompanyProfile";
 import axios from 'axios';
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 ReactDOM.render(
 

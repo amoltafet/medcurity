@@ -8,6 +8,14 @@
     font-size: 1vmax; 
 }
 
+.navbar-color {
+    background: linear-gradient(to right, #001F40, #001F3F);
+}
+
+.navbar-white {
+    color : white;
+}
+
 .content_img{
     position: relative;
     width: 200px;

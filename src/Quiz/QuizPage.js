@@ -1,5 +1,5 @@
-import { Button, Image, Row, Col, Container, Alert } from 'react-bootstrap';
-import React, { useState, useEffect } from 'react';
+import { Image, Row, Col, Container, Alert } from 'react-bootstrap';
+import React, { useState, useEffect, useRef } from 'react';
 import { SubmitButton } from './SubmitButton';
 import { useParams } from "react-router";
 import './QuizPage.css';
@@ -10,7 +10,10 @@ import Questions from './Questions';
 import axios from 'axios';
 import Results from './Results';
 // import env from "react-dotenv";
-
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
+import { Tooltip } from '@mui/material';
 /**
 * Handles main logic for quiz page. 
 * @return {QuizPage}
@@ -37,39 +40,44 @@ const QuizPage = () => {
   const [earlyCompletion, setEarlyCompletion] = useState(0);
   const [spaceLearning, setSpacedLearning] = useState(0); 
   const [passed, setPassed] = useState(false);
+  const [timeBonusEarned, setTimeBonusEarned] = useState(false);
+  const [timeBonus, setTimeBonus] = useState(0);
   const [notCompleteOnTime, setNoCompleteOnTime] = useState(0);
   const [showSpacedLearningPopup, setShowSpacedLearningPopup] = useState(false);
   const [showEarlyCompletionPopup, setShowEarlyCompletionPopup] = useState(false);
   const [showPassedPopup, setShowPassedPopup] = useState(true);
+  const [showTimeBonusPopup, setShowTimeBonusPopup] = useState(true);
   const [showUserDidNotCompleteOnTime, setShowUserDidNotCompleteOnTime] = useState(false);
   const [moduleNotAssigned, setModuleNotAssigned] = useState(false);
   const [moduleName, setModuleName] = useState("");
   const [companyid, setCompanyID] = useState([]);
+  const intervalRef = useRef();
+  var secondsRef = useRef();
   var points = 0;
   var numCorrect = 0;
   // "data" is an array of the user's performance on each question
   const [data, setData] = useState([
-    { answer: "", correct: false },
-    { answer: "", correct: false },
-    { answer: "", correct: false },
-    { answer: "", correct: false },
-    { answer: "", correct: false },
-    { answer: "", correct: false },
-    { answer: "", correct: false },
-    { answer: "", correct: false },
-    { answer: "", correct: false },
-    { answer: "", correct: false },
-    { answer: "", correct: false },
-    { answer: "", correct: false },
-    { answer: "", correct: false },
-    { answer: "", correct: false },
-    { answer: "", correct: false },
-    { answer: "", correct: false },
-    { answer: "", correct: false },
-    { answer: "", correct: false },
-    { answer: "", correct: false },
-    { answer: "", correct: false },
-    { answer: "", correct: false },
+    { answer: "", correct: false, color: "gray", type : ""},
+    { answer: "", correct: false, color: "gray", type : ""},
+    { answer: "", correct: false, color: "gray", type : ""},
+    { answer: "", correct: false, color: "gray", type : ""},
+    { answer: "", correct: false, color: "gray", type : ""},
+    { answer: "", correct: false, color: "gray", type : ""},
+    { answer: "", correct: false, color: "gray", type : ""},
+    { answer: "", correct: false, color: "gray", type : ""},
+    { answer: "", correct: false, color: "gray", type : ""},
+    { answer: "", correct: false, color: "gray", type : ""},
+    { answer: "", correct: false, color: "gray", type : ""},
+    { answer: "", correct: false, color: "gray", type : ""},
+    { answer: "", correct: false, color: "gray", type : ""},
+    { answer: "", correct: false, color: "gray", type : ""},
+    { answer: "", correct: false, color: "gray", type : ""},
+    { answer: "", correct: false, color: "gray", type : ""},
+    { answer: "", correct: false, color: "gray", type : ""},
+    { answer: "", correct: false, color: "gray", type : ""},
+    { answer: "", correct: false, color: "gray", type : ""},
+    { answer: "", correct: false, color: "gray", type : ""},
+    { answer: "", correct: false, color: "gray", type : ""},
   ]);
 
   /**
@@ -110,10 +118,6 @@ const QuizPage = () => {
 		});	
 
       // KEEP FOR TESTING!!
-
-
-      // Quiz Answers 
-
       // content.forEach(element => {
       // 	console.log(element.solution)
       // });
@@ -166,8 +170,6 @@ const QuizPage = () => {
       // }).then((response) => {
       //   // console.log("response", response);
       // }).catch(error => // console.log(`Error ${error}`));
-    
-
     }
   }, [isLoading, currentUser.userid, slug])
 
@@ -182,8 +184,10 @@ const QuizPage = () => {
     axios.get(`${process.env.REACT_APP_BASE_URL}/api/getModuleQuestions`, { params: { id: slug } }).then((response) => {
       setContent(Object.values(response.data))
       setLoading(false);
+      secondsRef.current = 0.0;
+      const id = setInterval(() => {secondsRef.current += 0.1; }, 100);
+      intervalRef.current = id;
     }).catch(error => console.error(`Error ${error}`));
-
   }, [slug])
 
   /**
@@ -200,26 +204,45 @@ const QuizPage = () => {
    *  sets module complete, removes from assigned & updates points 
    */
   useEffect(() => {
-    if (!isLoading && isSubmitted && points !== 0) {
-      var totalPoints = points + earlyCompletion + notCompleteOnTime + spaceLearning;
-      var percent = numCorrect / content.length;
+    if (!isLoading && isSubmitted) {
+      clearInterval(intervalRef.current);
+      let seconds = Math.round(secondsRef.current * 10) / 10;
+      let totalPoints = points + earlyCompletion + notCompleteOnTime + spaceLearning + timeBonus;
+      let percent = numCorrect / content.length;
+
+      // this is the set cutoff for the percentage questions correct a user needs to earn the time bonus
+      if (percent <= 0.79) {
+        setTimeBonus(0);
+        setTimeBonusEarned(false);
+      }
+      else {
+        axios.post(`${process.env.REACT_APP_BASE_URL}/users/namedBadgeEarned`, {
+          userid: currentUser.userid,
+          badgeName: "Sprinter Badge",
+        }).then((response) => {
+          console.log("response", response.data);
+        }).catch((err) => console.log(err));
+      }
 
       axios.post(`${process.env.REACT_APP_BASE_URL}/users/moduleActivity`, {
         userid: currentUser.userid,
         module: slug,
         points: totalPoints,
-        percentage: percent
+        percentage: percent,
+        time: seconds
       }).then((response) => {
-        console.log(response.message);
+        // console.log(response.message);
       }).catch();
 
       if ((percent * 100) >= 90) {
-        axios.post(`${process.env.REACT_APP_BASE_URL}/users/badgeEarned`, {
+        console.log(moduleName)
+        axios.post(`${process.env.REACT_APP_BASE_URL}/users/moduleBadgeEarned`, {
           userid: currentUser.userid,
-          modulenum: slug
+          modulenum: slug,
+          moduleName: moduleName[0].Title
         }).then((response) => {
-          // console.log("response", response.data);
-        }).catch();
+          console.log("response", response.data);
+        }).catch((err) => console.log(err));
       }
 
       if ((percent * 100) >= 60 && !moduleNotAssigned) {
@@ -232,8 +255,8 @@ const QuizPage = () => {
           companyid: companyid.CompanyID,
         }).then((response) => {
           // console.log("response", response.data);
-        }).catch()// console.log(`Error ${error}`));
-        setPassed(true)
+        }).catch() // console.log(`Error ${error}`));
+        setPassed(true);
         return;
       }
       setShowEarlyCompletionPopup(false);
@@ -293,6 +316,16 @@ const QuizPage = () => {
       }
     }
     if (boolChecked) {
+      let newData = data[index];
+      console.log("newData", newData);
+      if (newData["answer"] === content[index].solution && newData["type"] === "mc") {
+        newData["color"] = "green"
+      } else if (newData["answer"] !== content[index].solution && newData["type"] === "mc") {
+        newData["color"] = "red"
+      } else {
+        newData["color"] = "gray"
+      }
+      setData([...data, newData])
       var newIndex = index + 1;
       if (newIndex !== content.length) {
         var nextq = content[newIndex];
@@ -402,8 +435,10 @@ const QuizPage = () => {
     } else {
       if (newData["answer"] === content[index].solution) {
         newData["correct"] = true
+        newData["type"] = content[index].type
       } else {
         newData["correct"] = false
+        newData["type"] = content[index].type
       }
     }
     data[index] = newData;
@@ -416,8 +451,10 @@ const QuizPage = () => {
     } else {
       checkedArray[index][inputIndex] = true;
       document.getElementById("submitBtn").disabled = false;
+      
     }
-    setChecked(checkedArray);
+    setChecked(checkedArray); 
+    console.log(data);
   }
 
   /**
@@ -470,6 +507,29 @@ const QuizPage = () => {
   }
 
   /**
+   *  checks if the user got the time bonus
+   * @param {Obj} currentModule
+   */
+  function checkIfUserGotTimeBonus (currentModule) {
+    let seconds = secondsRef.current;
+    let cutoff = 0.0;
+    content.forEach((question) => {
+      if (question.type === 'mc') {
+        cutoff += 5
+      } else if (question.type === 'match') {
+        cutoff += 10
+      } else {
+        cutoff += 5
+      }
+    });
+
+    if (seconds < cutoff) {
+      setTimeBonus(100);
+      setTimeBonusEarned(true);
+    }
+  }
+
+  /**
    *  checks if the user got spaced learning by spacing of 2 days 
    */
   function checkIfUserGotSpacedLearning () {
@@ -508,6 +568,7 @@ const QuizPage = () => {
     
     });
   
+    checkIfUserGotTimeBonus(currentModule);
     if (checkIfUserCompletedModuleOnTime(currentModule)) {
         checkIfUserGotEarlyCompletion(currentModule);
         checkIfUserGotSpacedLearning();
@@ -566,7 +627,7 @@ const QuizPage = () => {
         <Alert variant="danger" show={showUserDidNotCompleteOnTime}>
           <Alert.Heading>You Did Not Complete the Module on Time.</Alert.Heading>
           <p>
-            You did not complete this module by its due date. -${notCompleteOnTime} points.
+            You did not complete this module by its due date. {notCompleteOnTime} points.
           </p>
           <div className="d-flex justify-content-end">
           <Button onClick={() => setShowUserDidNotCompleteOnTime(false)} variant="outline-danger">
@@ -602,7 +663,7 @@ const QuizPage = () => {
           <Alert variant="dark" show={showPassedPopup}>
             <Alert.Heading>Try again</Alert.Heading>
             <p>
-              Sorry you did not pass the Module. You need higher than a 60 to pass.
+              Sorry you did not pass the Module. You need higher than a 60% to pass.
             </p>
             <div className="d-flex justify-content-end">
             <Button href={`/quiz/${slug}`} variant="outline-dark">
@@ -615,6 +676,39 @@ const QuizPage = () => {
           </Alert>
         );
       }  
+    }
+  }
+
+  const getQuestionType = (type) => {
+    if (type === 'mc') {
+      return 'Multiple Choice'
+    } else if (type === 'fill') {
+      return 'Fill in the Blank'
+    } else if (type === 'match') {
+      return 'Matching'
+    } else {
+      return 'None'
+    }
+  }
+
+  /**
+   *  shows popup to tell user if they passed the module or neeed to retake it. 
+   */
+  function TimeBonus() {
+    if (timeBonusEarned) {
+      return (
+        <Alert variant="success" show={showTimeBonusPopup}>
+          <Alert.Heading>Yay, You Earned a Time Bonus!</Alert.Heading>
+          <p>
+            Congratulations, you scored enough points in a timely manner to earn the time bonus on the {moduleName.Title} module! {timeBonus} points!
+          </p>
+          <div className="d-flex justify-content-end">
+          <Button onClick={() => setShowTimeBonusPopup(false)} variant="outline-success">
+            X
+          </Button>
+          </div>
+        </Alert>
+      );
     }
   }
 
@@ -639,21 +733,47 @@ const QuizPage = () => {
               numQuestions={content.length}
             />
           </div>
+          
               <div className="row">
-              <div className='col mt-5'>
-                <LeftQuizBar data={content} />
+                 <div className='col mt-5'>
+                      <div className="container mt-5">
+                    <div className="card px-3 py-3">
+                        <h5>Quiz Questions</h5>
+                      <div className="card-body">
+                        <div className="list-group list-group text-start">
+                          {content.map((question, index) => {
+                            return (
+                              <>
+                              <p className="list-group-item list-group-item-action">
+                                
+                              <i class="bi bi-check2-circle" style={{color: data[index].color, marginRight: '5px'}}></i>
+
+                              Question {index+1}. {getQuestionType(question.type)}
+                            
+                              </p>
+                              
+                            </>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            </div>
               </div>
               <div className='col-lg-9'>
                 <div className="questionPosOutOfTotal text-center" id="questionPosOutOfTotal"> {index + 1} / {content.length} </div>
                 {DisplayOneQuestion()}
-                <Button
-                  id="rightQuestionBttn"
-                  type="submit"
-                  className=" toggleQuestionRight text-center"
-                  onClick={() => nextQuestion()}>
-                  <Image className="rightArrow" src="/right.png"></Image>
-                </Button>
+                <Tooltip title="Next Question" placement="bottom">
+                <IconButton id='rightQuestionBttn' onClick={() => nextQuestion()}>
+                  <ArrowCircleRightIcon fontSize="inherit" sx={{
+                    width: '50px',
+                    height: '50px',
+                    color: '#001F42',
+                  }}/>
+                </IconButton>
+                </Tooltip>
                 <SubmitButton value="Submit" questionData={data} content={content.length} action={checkIfUserGetsExtraPoints}></SubmitButton>
+                
                 {disabledSubmitBttn()}
             </div>
           </div>
@@ -661,6 +781,8 @@ const QuizPage = () => {
       </>
     );
   } else {
+    clearInterval(intervalRef.current);
+    var seconds = Math.round(secondsRef.current * 10) / 10;
     var newestIndex = 0;
     var userRadioAnswerIndex = -1;
 
@@ -743,18 +865,21 @@ const QuizPage = () => {
       <>
         <MenuBar></MenuBar>
         <div id="resultsPageContainer">
-         
           <h1 className="quizResultsHeader">Quiz Results</h1>
           {Passed()}
           {UserGotEarlyCompletion()}
           {UserGotSpacedLearning()}
           {UserDidNotCompleteModuleOnTime()}
+          {TimeBonus()}
           <Row className="text-center quizPointInfo">
             <Col>
               <div className="totalCorrectQuestions"> {numCorrect} / {content.length} Questions Correct </div>
             </Col>
             <Col>
-              <div className="totalCorrectPoints"> Points: {points + earlyCompletion + notCompleteOnTime + spaceLearning} </div>
+              <div className="totalCorrectQuestions"> Time: {seconds} seconds </div>
+            </Col>
+            <Col>
+              <div className="totalCorrectPoints"> Points: {points + earlyCompletion + notCompleteOnTime + spaceLearning + timeBonus} </div>
             </Col>
             <Col>
               <div className="correctPercentage"> {(numCorrect / content.length * 100).toFixed(2)}% </div>
@@ -770,7 +895,11 @@ const QuizPage = () => {
   }
 }
 
-const LeftQuizBar = (data) => {
+const LeftQuizBar = (data, answer) => {
+
+  useEffect(() => {
+    console.log(answer)
+  }, [])
 
   const getQuestionType = (type) => {
     if (type === 'mc') {
@@ -793,13 +922,11 @@ const LeftQuizBar = (data) => {
              {data.data.map((question, index) => {
               return (
                 <>
-                <p className="list-group-item list-group-item-action"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-circle-fill me-5" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M10.354 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
-                    <path d="m10.273 2.513-.921-.944.715-.698.622.637.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636a2.89 2.89 0 0 1 4.134 0l-.715.698a1.89 1.89 0 0 0-2.704 0l-.92.944-1.32-.016a1.89 1.89 0 0 0-1.911 1.912l.016 1.318-.944.921a1.89 1.89 0 0 0 0 2.704l.944.92-.016 1.32a1.89 1.89 0 0 0 1.912 1.911l1.318-.016.921.944a1.89 1.89 0 0 0 2.704 0l.92-.944 1.32.016a1.89 1.89 0 0 0 1.911-1.912l-.016-1.318.944-.921a1.89 1.89 0 0 0 0-2.704l-.944-.92.016-1.32a1.89 1.89 0 0 0-1.912-1.911l-1.318.016z"/>
-                  </svg>Question {index+1}. {getQuestionType(question.type)}
+                <p className="list-group-item list-group-item-action">
+                <i class="bi bi-check2-circle"></i>
+                  
+                  Question {index+1}. {getQuestionType(question.type)}
                
-                
-              
                 </p>
                 
               </>

@@ -1,10 +1,11 @@
 const bcrypt = require("bcrypt");
 const serverConfig = require('../serverConfig.json')
 const saltRounds = serverConfig.bcrypt.SALT_ROUNDS;
-const db = require('../dbConfig')
-const emailValidator = require("email-validator")
-const { passwordStrength } = require('check-password-strength')
-const logger = require('../logger').log
+const db = require('../dbConfig');
+const emailValidator = require("email-validator");
+const { passwordStrength } = require('check-password-strength');
+const logger = require('../logger').log;
+const notifications = require('./notificationsController')
 
 /**
  * Queries the database to register a new user. Passwords are hashed + salted using bcrypt.
@@ -333,10 +334,11 @@ const moduleActivity = (req, res) => {
     const module = req.body.module;   
     const points = req.body.points;
     const percentage = req.body.percentage;
+    const time = req.body.time;
 
     logger.log('info', `Storing learning module activity for user ${userid}...`);
 
-    db.query(`INSERT INTO userActivity (userID, moduleID, date, points, percentage)  VALUES (?,?,?,?,?)`, [userid, module, today, points, percentage], (err,result) => {
+    db.query(`INSERT INTO userActivity (userID, moduleID, date, points, percentage, time)  VALUES (?,?,?,?,?,?)`, [userid, module, today, points, percentage, time], (err,result) => {
         if(err) {
             logger.log('error', { methodName: '/moduleActivity', errorBody: err }, { service: 'user-service' });
             res.send({success: false, message: `Failed to store activity...`});
@@ -356,54 +358,90 @@ const getRecentActivity = (req, res) => {
             logger.log('error', { methodName: '/getLastActivity', body: err }, { service: 'user-service' });
         }
         else {
-            logger.log('info', "Retrieved latest activity from user " + userid + "...", { service: 'user-service' })
+            logger.log('info', "Retrieved latest activity from user " + userid + "...", { service: 'user-service' });
             res.send(result)
         }
     });
 }
 
 /**
- * Stores a badge as earned
+ * Stores a module badge as earned
  */
- const userBadgeEarned = (req, res) => {
+ const userModuleBadgeEarned = (req, res) => {
     const userid = req.body.userid;   
     const moduleNum = req.body.modulenum;
+    const moduleID = parseInt(moduleNum);
+    const moduleName = req.body.moduleName;
 
-    let badgeId = 0;
-    // determine which badge to award
-    switch (moduleNum) {
-        case '1':
-            badgeId = 1;
-            break;
-        case '2':
-            badgeId = 2;
-            break;
-        case '3':
-            badgeId = 3;
-            break;
-        case '4':
-            badgeId = 4;
-            break;
-        case '5':
-            badgeId = 5;
-            break;
-        case '6':
-            badgeId = 6;
-            break;
-        case '30':
-            badgeId = 7;
-            break;
-        default:
-            badgeId = 6;
-            break;
-    }
-
-    db.query(`INSERT INTO EarnedBadges (userID, badgeID)  VALUES (?,?)`, [userid, badgeId], (err,result) => {
+    db.query(`SELECT (id) FROM Badges WHERE moduleID = ?`, [moduleID], (err,result) => {
         if(err) {
-            logger.log('error', { methodName: '/badgeEarned', errorBody: err }, { service: 'user-service' });
+            logger.log('error', { methodName: '/moduleBadgeEarned', errorBody: err }, { service: 'user-service' });
+            return res.send({success: false, message: `Earned badge not stored`});
         }
-        res.send({success: true, message: `Badge Earned`});
-    })   
+        else if (result.length > 0)
+        {
+            let badgeId = result[0]['id'];
+            db.query(`INSERT INTO EarnedBadges (userID, badgeID) VALUES (?,?)`, [userid, badgeId], (err,result) => {
+                if(err) {
+                    if (err.errno === 1062) {
+                        res.send({success: true, message: `Badge has already been earned by user.`});
+                    }
+                    else {
+                        logger.log('error', { methodName: '/moduleBadgeEarned', errorBody: err }, { service: 'user-service' });
+                        res.send({success: false, message: `Earned badge not stored`, err: err});
+                    }
+                }
+                else {
+                    let notificationMessage = `You earned the ${moduleName} Badge!`;
+                    notifications.sendNotification(userid, notificationMessage, 'badge');
+                    res.send({success: true, message: `Badge Earned`});
+                }
+            });
+        }
+        else
+        {
+            res.send({success: false, message: `No badge with that moduleID stored.`});
+        }
+    });   
+}
+
+/**
+ * Stores a named badge as earned
+ */
+const namedBadgeEarned = (req, res) => {
+    const userid = req.body.userid;   
+    const badgeName = req.body.badgeName;
+
+    db.query(`SELECT (id) FROM Badges WHERE name = ?`, [badgeName], (err,result) => {
+        if(err) {
+            logger.log('error', { methodName: '/namedBadgeEarned', errorBody: err }, { service: 'user-service' });
+            return res.send({success: false, message: `Earned badge not stored`});
+        }
+        else if (result.length > 0)
+        {
+            let badgeId = result[0]['id'];
+            db.query(`INSERT INTO EarnedBadges (userID, badgeID) VALUES (?,?)`, [userid, badgeId], (err,result) => {
+                if(err) {
+                    if (err.errno === 1062) {
+                        res.send({success: true, message: `Badge has already been earned by user.`});
+                    }
+                    else {
+                        logger.log('error', { methodName: '/namedBadgeEarned', errorBody: err }, { service: 'user-service' });
+                        res.send({success: false, message: `Earned badge not stored`, err: err});
+                    }
+                }
+                else {
+                    let notificationMessage = `You earned the ${badgeName}!`;
+                    notifications.sendNotification(userid, notificationMessage, 'badge');
+                    res.send({success: true, message: `Badge Earned`});
+                }
+            });
+        }
+        else
+        {
+            res.send({success: false, message: `No badge with that name stored.`});
+        }
+    });   
 }
 
 /**
@@ -619,6 +657,34 @@ const getHighScores = (req, res) => {
     });
 }
 
+const getNotifications = (req, res) => {
+    const userid = req.query.userid;
+    db.query(`SELECT message, type, seen, timesent FROM Notifications WHERE userID = ${userid} ORDER BY timesent DESC`, (err,result) => {
+        if (err) {
+            logger.log('error', { methodName: '/notifications', body: err }, { service: 'user-service' });
+            res.send({success: false});
+        }
+        else {
+            logger.log('info', "Retrieved notifications for user " + userid + "...", { service: 'user-service' });
+            res.send({success: true, result: result});
+        }
+    });
+}
+
+const readNotifications = (req, res) => {
+    const userid = req.body.userid;
+    db.query(`UPDATE Notifications SET seen = true WHERE userID = ${userid}`, (err,result) => {
+        if (err) {
+            logger.log('error', { methodName: '/readNotifications', body: err }, { service: 'user-service' });
+            res.send({success: false});
+        }
+        else {
+            logger.log('info', "Marked notifications as read for user " + userid + "...", { service: 'user-service' });
+            res.send({success: true, result: result});
+        }
+    });
+}
+
 module.exports = 
 {
     userLogin,
@@ -635,8 +701,11 @@ module.exports =
     removeModuleFromCompany,
     resetUserStats,
     updateCompanyModuleDueDate,
-    userBadgeEarned,
+    userModuleBadgeEarned,
+    namedBadgeEarned,
     moduleActivity,
     getRecentActivity,
-    getHighScores
+    getHighScores,
+    getNotifications,
+    readNotifications
 };

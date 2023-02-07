@@ -16,7 +16,8 @@ router.post('/logout', userControllers.userLogout);
 router.post('/changeUserName', userControllers.userChangeUsername);
 router.post('/changeUserPassword', userControllers.userChangePassword);
 router.post('/moduleCompleted', userControllers.userModuleCompleted);
-router.post('/badgeEarned', userControllers.userBadgeEarned);
+router.post('/moduleBadgeEarned', userControllers.userModuleBadgeEarned);
+router.post('/namedBadgeEarned', userControllers.namedBadgeEarned);
 router.post('/deleteUser', userControllers.deleteUser);
 router.post('/assignModulesToCompany', userControllers.assignModulesToCompany);
 router.post('/removeModuleFromCompany', userControllers.removeModuleFromCompany);
@@ -25,5 +26,8 @@ router.post('/resetUserStats', userControllers.resetUserStats);
 router.post('/updateCompanyModuleDueDate', userControllers.updateCompanyModuleDueDate);
 router.get('/recentActivity', userControllers.getRecentActivity);
 router.get('/highScores', userControllers.getHighScores);
+router.get('/notifications', userControllers.getNotifications);
+router.post('/readNotifications', userControllers.readNotifications);
+
 
 module.exports = router

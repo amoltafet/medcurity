@@ -9,6 +9,10 @@ import { useEffect, useState } from 'react';
 import LearningModulesCards from './LearningModulesCards';
 import LearningModulesDirectories from './LearningModuleDirectories';
 import axios from 'axios';
+import { Divider } from '@mui/material';
+
+import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
+import { Button } from '@mui/material';
 // import env from "react-dotenv";
 
 /**
@@ -48,42 +52,49 @@ const DashboardPage = () => {
       <>
         <Form className="dash_page">
           <MenuBar></MenuBar>
-          <div className="col dash_topBackdrop justif">
-            <div className="dash_welcomeDiv">
+          <Grid container style={{alignItems: 'center', justifyContent: 'center', height: '45vh', background: 'linear-gradient(to bottom, #001F42, #061993)'}}>
+            <Grid item>
               <Image className="dash_profilePicture uvs-left" variant="top" src={`data:image/png;base64,${profilePic}`} alt="" roundedCircle />
-              <div>
-                <h1 className="dash_welcomeMessageP1">Welcome back, {currentUser?.username || "... "}!</h1>
-                <h1 className="dash_welcomeMessageP3">Logged in as {printUserType(currentUser.type)}: {currentUser?.email || "..."}</h1>
-                <div className="dash_navDiv">
-                  <div className="dash_navButtons">
-                    <a href="#requiredModules" className="uvs-left btn dash_navButton">Required Learning Modules</a>
-                    <br></br>
-                    <a href="#moduleDirectories" className="uvs-left btn dash_navButton">Additional Learning Modules</a>
-                    <br></br>
-                    <a href="#leaderboard" className="uvs-left btn dash_navButton">Leaderboard</a>
+            </Grid>
+            <Grid item>
+              <h1 className="dash_welcomeMessageP1">Welcome back, {currentUser?.username || "... "}!</h1>
+              <h1 className="dash_welcomeMessageP3">Logged in as {printUserType(currentUser.type)}: {currentUser?.email || "..."}</h1>
+              <div className="dash_navDiv">
+                    <div className="dash_navButtons">
+                    <Button variant="outlined" sx={{color: 'white', borderColor: 'white', margin: '5px', ":hover": {backgroundColor: 'white', color: 'black'}}} href="#requiredModules">Required Learning Modules</Button>
+                    <Button variant="outlined" sx={{color: 'white', borderColor: 'white', margin: '5px', ":hover": {backgroundColor: 'white', color: 'black'}}} href="#moduleDirectories">Additional Learning Modules</Button>
+                    <Button variant="outlined" sx={{color: 'white', borderColor: 'white', margin: '5px', ":hover": {backgroundColor: 'white', color: 'black'}}} href="#leaderboard">Leaderboard</Button>
+                    </div>
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
+            </Grid>
+        </Grid>
+       
+          <LearningModulesCards user={currentUser} id="requiredModules"/>
+          <Divider/>
+          <LearningModulesDirectories user={currentUser} id="moduleDirectories"/>
 
-          <div id="requiredModules" className="dash_requiredModules">
-            <h1 className='dash_h1Style'>Required Learning Modules</h1>
-            <LearningModulesCards user={currentUser} />
-          </div>
-          <div className="dash_separatorBegin"></div>
-          <div id="moduleDirectories" className='dash_moduleDirectories'>
-            <h1 className='dash_h1Style'> Additional Learning Modules</h1>
-            <LearningModulesDirectories user={currentUser} />
-          </div>
-          <div className="dash_separatorEnd"></div>
-          <div id="leaderboard" className="dash_miniLeaderboard justify-center">
-            <h1 className='dash_h1Style'>Leaderboard</h1>
-            <Leaderboard user={currentUser} ></Leaderboard>
-            <a className='uvs-left go_to_leader_board_bttn btn' href="/leaderboard">View Full Leaderboard</a>
-          </div>
+            <div id="leaderboard" className="container" style={{
+                marginTop: '30px',
+            }}>
+              <h1 className='dash_h1Style'>Leaderboard</h1>
+              <Leaderboard user={currentUser} ></Leaderboard>
+              <Button variant="outlined"  href="/leaderboard">View Full Leaderboard</Button>
+            </div>
           <br></br>
         </Form>
+        <Grid container sx={{
+          padding: '10px',
+          width: '100%',
+          height: '50px',
+          background: 'linear-gradient(to right, #001F40, #001F3F)',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+          
+          <p className="dash_footerText text-light">© 2023 Medcurity. All rights reserved.</p>
+        </Grid>
+
+      
       </>
     );
   }

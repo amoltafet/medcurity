@@ -107,8 +107,6 @@ const LeaderboardPage = () => {
         "companiesPanel",
     ];
 
-
-
     /**
     * Sorts the users by points 
     */
@@ -163,6 +161,7 @@ const LeaderboardPage = () => {
 
         company_index++;
         return (
+            <>
             <LeaderboardProfile
                 userid={userProfile.userid}
                 name={userProfile.username}
@@ -171,6 +170,7 @@ const LeaderboardPage = () => {
                 userColor={className[0]}
                 companyColor={className[4]}
                 score={userProfile.Points} />
+            </>
         );
     })
 
