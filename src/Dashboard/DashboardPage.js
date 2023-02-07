@@ -52,7 +52,7 @@ const DashboardPage = () => {
       <>
         <Form className="dash_page">
           <MenuBar></MenuBar>
-          <Grid container style={{alignItems: 'center', justifyContent: 'center', height: '45vh', background: 'linear-gradient(to bottom, #001F42, #061993)'}}>
+          <Grid container style={{alignItems: 'center', justifyContent: 'center', height: '45vh'}} className="dash-container">
             <Grid item>
               <Image className="dash_profilePicture uvs-left" variant="top" src={`data:image/png;base64,${profilePic}`} alt="" roundedCircle />
             </Grid>
@@ -68,9 +68,10 @@ const DashboardPage = () => {
                   </div>
             </Grid>
         </Grid>
-       
+        <div id="requiredModules" />
           <LearningModulesCards user={currentUser} id="requiredModules"/>
           <Divider/>
+          <div id="moduleDirectories" />
           <LearningModulesDirectories user={currentUser} id="moduleDirectories"/>
 
             <div id="leaderboard" className="container" style={{
