@@ -33,7 +33,8 @@ const  EditQuestion = () => {
     const [isLoading2, setIsLoading2] = useState(true)
     const [questionAdded, setAdded] = useState(false)
     const [addedType, setAddedType] = useState(null)
-    //const [addedID, setAddedID] = useState(null)
+    const [updatedContent, setUpdatedContent] = useState([])
+    const [isSubmitted, setIsSubmitted] = useState(false)
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -104,6 +105,16 @@ const  EditQuestion = () => {
     }, [isLoading, content])
 
     useEffect(() => {
+        if (isSubmitted) {
+            var updatedQuestionIDArray = []
+            for (let index in updatedContent) {
+                updatedQuestionIDArray.push(updatedContent[index].questionid);
+            }
+            insertNewMatchingAnswers(updatedQuestionIDArray)
+        }
+    }, [isSubmitted, updatedContent])
+
+    useEffect(() => {
         if (questionAdded && !isLoading2) {
             // console.log("Adding question", questionAdded)
             var questionIDArray = questionID
@@ -168,7 +179,8 @@ const  EditQuestion = () => {
     }, [questionAdded])
 
     function submitData() {
-        for(var i = 0; i < content.length; i++) { // updating existing questions
+        // UPDATING EXISTING QUESTIONS
+        for(var i = 0; i < content.length; i++) {
             axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `UPDATE Questions SET question = '${question[i]}', 
             solution = '${solution[i]}', a2 = '${answer2[i]}', a3 = '${answer3[i]}', a4 = '${answer4[i]}' 
             WHERE questionid = '${questionID[i]}'` } }).then((response) => {
@@ -184,16 +196,26 @@ const  EditQuestion = () => {
             }
         }
 
-        for(i = content.length; i < question.length; i++) { // adding new questions
+        // ADDING NEW QUESTIONS
+        for(i = content.length; i < question.length; i++) {
             axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `INSERT INTO Questions (question, solution, a2, a3, a4, type, module) 
             VALUES ('${question[i]}', '${solution[i]}', '${answer2[i]}', '${answer3[i]}', '${answer4[i]}', '${questionType[i]}', '${slug}')` } }).then((response) => {
-                // console.log(response.data.insertId)
-                // need to get this insertId into the conditional get request below (in place of where I put a temporary '-1' for matchingquestionid)
+                // console.log(response)
             }).catch(error => console.error(`Error ${error}`));
+        }
 
+        axios.get(`${process.env.REACT_APP_BASE_URL}/api/getModuleQuestions`, { params: { id: slug } }).then((response) => {
+            setUpdatedContent(Object.values(response.data));
+            setIsSubmitted(true)
+        }).catch(error => console.error(`Error ${error}`));
+
+    }
+
+    function insertNewMatchingAnswers(updatedQuestionIDs) {
+        for(var i = content.length; i < question.length; i++) {
             if (questionType[i] === 'match') {
                 axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `INSERT INTO MatchingAnswers (matchingquestionid, m1, m2, m3, m4, module) 
-                VALUES ('${-1}', '${matchingAnswer1[i]}', '${matchingAnswer2[i]}', '${matchingAnswer3[i]}', '${matchingAnswer4[i]}', '${slug}')` } }).then((response) => {
+                VALUES ('${updatedQuestionIDs[i]}', '${matchingAnswer1[i]}', '${matchingAnswer2[i]}', '${matchingAnswer3[i]}', '${matchingAnswer4[i]}', '${slug}')` } }).then((response) => {
                     // console.log(response)
                 }).catch(error => console.error(`Error ${error}`));
             }
