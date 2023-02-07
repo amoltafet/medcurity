@@ -34,6 +34,7 @@ import EditQuestionSlug from "./AdminDashboard/ContentDashboard/EditQuestionSlug
 import EditQuestion from "./AdminDashboard/ContentDashboard/EditQuestion";
 import AddContent from "./AdminDashboard/ContentDashboard/AddContent";
 import ResetPasswordPage from "./ResetPassword/Reset";
+import CompanyProfile from "./Company/CompanyProfile";
 import axios from 'axios';
 import "bootstrap-icons/font/bootstrap-icons.css";
 
@@ -73,6 +74,7 @@ ReactDOM.render(
         <Route path=":slug" element={<LearningDirectoryPage />} />
       </Route>
       <Route path="/leaderboard" element={<Leaderboard />} />
+      <Route path="/company/:id" element={<CompanyProfile />} />
     </Routes>
   </Router>,
   document.getElementById('root')
