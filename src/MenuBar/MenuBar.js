@@ -1,11 +1,12 @@
 import React from 'react';
 import './MenuBar.css';
 import '../Layout.css'
-import { Nav, CardImg, Card, Row, Col, OverlayTrigger, Tooltip, Dropdown, Navbar, NavDropdown } from 'react-bootstrap'
+import { Nav, CardImg, Tooltip, Navbar, NavDropdown } from 'react-bootstrap'
 import { useEffect, useState } from "react";
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import Notifications from './Notifications/Notifications'
+import Badge from '@material-ui/core/Badge';
 // import env from "react-dotenv";
 
 class SearchResults extends React.Component {
@@ -54,12 +55,37 @@ const Menubar = () => {
     const [currentUser, setCurrentUser] = useState([]);
     const [isLoading, setLoading] = useState(true)
     const [isCompanyLoading, setCompanyLoading] = useState(true)
+    const [notifs, setNotifs] = useState([]);
+    const [unreadNotifs, setunreadNotifs] = useState(false);
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_BASE_URL}/users/login`).then((response) => {
           setCurrentUser(response.data.user[0])
         });
       }, []);
+
+    useEffect(() => {
+        // function used to pull in notifications for that user
+        async function getNotifications() {
+            let userNotifs = (await axios.get(`${process.env.REACT_APP_BASE_URL}/users/notifications`, { params: { userid: currentUser.userid }})
+                .catch(error => console.error(`Error ${error}`)));
+            userNotifs = userNotifs.data;
+            
+            if (userNotifs.success) {
+                userNotifs = userNotifs.result;
+                if (userNotifs.length !== 0) {
+                  if (!userNotifs[0].seen) {
+                    setunreadNotifs(true)
+                  }
+                }
+                setNotifs(userNotifs);
+            }
+        }
+    
+        if (currentUser.userid) {
+            getNotifications();
+        }
+    },[currentUser, isLoading]);
 
     useEffect(() => {
         if (currentUser.userid !== undefined) {
@@ -98,6 +124,16 @@ const Menubar = () => {
             setCompanyId(company[0].CompanyID)
         }
     }, [isCompanyLoading, company])
+
+    const markRead = () => {
+      setunreadNotifs(false);
+
+      axios.post(`${process.env.REACT_APP_BASE_URL}/users/readNotifications`, 
+        {userid: currentUser.userid}).then((response) => 
+      {
+        console.log("Notifications marked as read");
+      }).catch(error => console.error(`Error ${error}`));
+    }
 
     const logout = () => {
         axios.post(`${process.env.REACT_APP_BASE_URL}/users/logout`).then((response) => 
@@ -197,7 +233,7 @@ const Menubar = () => {
 
     return (
        <>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-color">
   <div class="container-fluid">
              <a href="/dash">
                 <CardImg className="MedcurityLogo mr-5" variant="top" src="/Medcurity_Logo.png" alt="" />
@@ -209,46 +245,46 @@ const Menubar = () => {
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto d-flex flex-row mt-3 mt-lg-0 ">
+      <ul class="navbar-nav me-auto d-flex flex-row mt-3 mt-lg-0">
         <li class="nav-item text-center mx-2 mx-lg-1">
-          <a class="nav-link active" aria-current="page" href="#!">
+          <a class="nav-link active" aria-current="page" href="/dash#!">
             <div>
-                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door" viewBox="0 0 16 16">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-house-door" viewBox="0 0 16 16">
             <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z"/>
                 </svg>
             </div>
-            Home
+            <h6 className='text-light'>Home</h6>
           </a>
         </li>
         <li class="nav-item text-center mx-2 mx-lg-1">
-          <a class="nav-link" href="/dash#leaderboard">
+          <a class="nav-link" href="/leaderboard">
             <div>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard2-data" viewBox="0 0 16 16">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-clipboard2-data" viewBox="0 0 16 16">
             <path d="M9.5 0a.5.5 0 0 1 .5.5.5.5 0 0 0 .5.5.5.5 0 0 1 .5.5V2a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 2v-.5a.5.5 0 0 1 .5-.5.5.5 0 0 0 .5-.5.5.5 0 0 1 .5-.5h3Z"/>
             <path d="M3 2.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 0 0-1h-.5A1.5 1.5 0 0 0 2 2.5v12A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-12A1.5 1.5 0 0 0 12.5 1H12a.5.5 0 0 0 0 1h.5a.5.5 0 0 1 .5.5v12a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-12Z"/>
             <path d="M10 7a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0V7Zm-6 4a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0v-1Zm4-3a1 1 0 0 0-1 1v3a1 1 0 1 0 2 0V9a1 1 0 0 0-1-1Z"/>
             </svg>
             </div>
-            Leaderboard
+            <h6 className='text-light'>Leaderboard</h6>
           </a>
         </li>
         <li class="nav-item text-center mx-2 mx-lg-1">
           <a class="nav-link" aria-current="page" href="">
             <div>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-bookmark" viewBox="0 0 16 16">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-journal-bookmark" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M6 8V1h1v6.117L8.743 6.07a.5.5 0 0 1 .514 0L11 7.117V1h1v7a.5.5 0 0 1-.757.429L9 7.083 6.757 8.43A.5.5 0 0 1 6 8z"/>
                 <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/>
                 <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/>
                 </svg>
             </div>
-            Modules
+            <h6 className='text-light'>Modules</h6>
           </a>
         </li>
         
 
         {!isCompanyLoading && Number.isInteger(companyId) ? 
           <>
-                <li class="nav-item text-center mx-2 mx-lg-1">
+                <li class="nav-item text-center mx-2 mx-lg-1 navbar-white">
                 <a class="nav-link" href="/employer-dash">
                   <div>
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard2-data" viewBox="0 0 16 16">
@@ -257,7 +293,7 @@ const Menubar = () => {
                   <path d="M10 7a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0V7Zm-6 4a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0v-1Zm4-3a1 1 0 0 0-1 1v3a1 1 0 1 0 2 0V9a1 1 0 0 0-1-1Z"/>
                   </svg>
                   </div>
-                  Dashboard
+                  <h6 className='text-light'>Dashboard</h6>
                 </a>
               </li>
             
@@ -270,7 +306,7 @@ const Menubar = () => {
                   <path d="M10 7a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0V7Zm-6 4a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0v-1Zm4-3a1 1 0 0 0-1 1v3a1 1 0 1 0 2 0V9a1 1 0 0 0-1-1Z"/>
                   </svg>
                   </div>
-                   Module Manager
+                  <h6 className='text-light'>Module Manager</h6> 
                 </a>
               </li>
               </>
@@ -280,21 +316,28 @@ const Menubar = () => {
       <ul class="navbar-nav ms-auto d-flex flex-row mt-3 mt-lg-0">
       <div class="vertical-line"/>
         <li class="nav-item text-center mx-2 mx-lg-1">
-         
         <Navbar.Toggle aria-controls="navbar-dark-example" />
         <Navbar.Collapse id="navbar-dark-example">
           <Nav>
             <NavDropdown
               id="nav-dropdown-dark-example"
-              title={ <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
+              title={unreadNotifs ? 
+              <Badge color="secondary" variant="dot">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" class="bi bi-bell-fill" viewBox="0 0 16 16">
+                <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"></path>
+                </svg>
+              </Badge>
+               : <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" class="bi bi-bell" viewBox="0 0 16 16">
               <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
-          </svg>}
+              </svg>}
               menuVariant="dark"
               size="lg"
               bsStyle="dark"
               noCaret={true}
+              onClick={markRead}
             >
-              <Notifications/>
+              <Notifications userNotifs={notifs}/>
+             
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
@@ -308,7 +351,7 @@ const Menubar = () => {
           <Nav>
             <NavDropdown
               id="nav-dropdown-dark-example"
-              title={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-kanban" viewBox="0 0 16 16">
+              title={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" class="bi bi-kanban" viewBox="0 0 16 16">
               <path d="M13.5 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1h-11a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h11zm-11-1a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2h-11z"/>
               <path d="M6.5 3a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1V3zm-4 0a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1V3zm8 0a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1V3z"/>
             </svg>}
@@ -335,7 +378,7 @@ const Menubar = () => {
           <Nav>
             <NavDropdown
               id="nav-dropdown-dark-example"
-              title={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-square" viewBox="0 0 16 16">
+              title={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" class="bi bi-person-square" viewBox="0 0 16 16">
               <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
               <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12z"/>
               </svg>}

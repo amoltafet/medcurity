@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {ToggleButtonGroup, ToggleButton, Container, Form, Row, Col, Card} from 'react-bootstrap';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import './Questions.css';
-
+import { Paper, Checkbox } from '@mui/material';
 /**
  * 
  * @param {Array<str>} answers for the question
@@ -78,6 +78,8 @@ function Questions (props) {
     useEffect(() => {
         setQuizToggleId(props.id)
     },[props.id])
+
+
     
     if (props.type === 'mc') { // for multiple-choice questions
         const potentialAnswers = convert_to_list_of_obj(props.answers);
@@ -91,6 +93,8 @@ function Questions (props) {
                 <Col>
                 <ToggleButtonGroup id={quizToggleId} className="answerQuizSelection uvs-left" name={quizToggleId}>
                     {potentialAnswers.map((radio, idx) => (
+                    <>
+                    
                     <ToggleButton 
                         key={idx}
                         id={`radio-${idx}`}
@@ -101,15 +105,21 @@ function Questions (props) {
                             "&.MuiToggleButtonGroup-grouped": {
                               borderRadius: "4px !important",
                               mx: 1,
-                              border: "1px solid lightgrey !important"
-                            }
+                              border: "1px solid lightgrey !important",
+                                "&.Mui-selected": {
+                                    backgroundColor: "#3f51b5 !important",
+                                    color: "white !important",
+                                    border: "1px solid #3f51b5 !important",
+                                }
+                            },
                           }}
                         value={radio.name}
                         className="individualQuestions"
                         checked = {props.checked[idx]}
                         onChange={(e) => props.action(props.i, radio.name, idx)}>
+                             <Checkbox checked={props.checked[idx]}/>
                         {` ${radio.name}`}
-                    </ToggleButton>
+                    </ToggleButton></>
                     ))}
                 </ToggleButtonGroup>
                 </Col>
