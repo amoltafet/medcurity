@@ -32,6 +32,8 @@ const  EditQuestion = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [isLoading2, setIsLoading2] = useState(true)
     const [questionAdded, setAdded] = useState(false)
+    const [addedType, setAddedType] = useState(null)
+    //const [addedID, setAddedID] = useState(null)
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -103,72 +105,115 @@ const  EditQuestion = () => {
 
     useEffect(() => {
         if (questionAdded && !isLoading2) {
-            // console.log("Adding question", questionAdded) 
+            // console.log("Adding question", questionAdded)
+            var questionIDArray = questionID
             var questionArray = question
             var solutionArray = solution
             var answer2Array = answer2
             var answer3Array = answer3
             var answer4Array = answer4
+            var matchingAnswer1Array = matchingAnswer1
+            var matchingAnswer2Array = matchingAnswer2
+            var matchingAnswer3Array = matchingAnswer3
+            var matchingAnswer4Array = matchingAnswer4
+            var questionTypeArray = questionType
 
+            questionIDArray.push(null)
             questionArray.push("")
             solutionArray.push("")
-            answer2Array.push("")
-            answer3Array.push("")
-            answer4Array.push("")
+            if (addedType !== 'fill') {
+                answer2Array.push("")
+                answer3Array.push("")
+                answer4Array.push("")
+            } else {
+                answer2Array.push(null)
+                answer3Array.push(null)
+                answer4Array.push(null)
+            }
+            if (addedType !== 'match') {
+                matchingAnswer1Array.push(null)
+                matchingAnswer2Array.push(null)
+                matchingAnswer3Array.push(null)
+                matchingAnswer4Array.push(null)
+            } else {
+                matchingAnswer1Array.push("")
+                matchingAnswer2Array.push("")
+                matchingAnswer3Array.push("")
+                matchingAnswer4Array.push("")
+            }
+            questionTypeArray.push(addedType)
 
+            setQuestionID(questionIDArray)
             setQuestion(questionArray)
-            setSolution(solutionArray)    
-            setAnswer2(answer2Array)  
+            setSolution(solutionArray)
+            setAnswer2(answer2Array)
             setAnswer3(answer3Array)
-            setAnswer4(answer4Array) 
+            setAnswer4(answer4Array)
+            setMatchingAnswer1(matchingAnswer1Array)
+            setMatchingAnswer2(matchingAnswer2Array)
+            setMatchingAnswer3(matchingAnswer3Array)
+            setMatchingAnswer4(matchingAnswer4Array)
+            setQuestionType(questionTypeArray)
         }
     }, [questionAdded, question, solution, answer2, answer3, answer4, isLoading2])
 
     useEffect(() => {
         if(questionAdded) {
             setAdded(false)
-            // // console.log("changing boolean", questionAdded) 
+            // console.log("changing boolean", questionAdded) 
         }
         else {
-            // // console.log("Hello from added", questionAdded)
+            // console.log("Hello from added", questionAdded)
         }
     }, [questionAdded])
 
-
-
-    
-
     function submitData() {
-        for(var i = 0; i < content.length; i++) {
-            axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `UPDATE Questions SET question = '${question[i]}', solution = '${solution[i]}', 
-            a2 = '${answer2[i]}', a3 = '${answer3[i]}', a4 = '${answer4[i]}' WHERE questionid = '${questionID[i]}'` } }).then((response) => {
-            // console.log(response)
+        for(var i = 0; i < content.length; i++) { // updating existing questions
+            axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `UPDATE Questions SET question = '${question[i]}', 
+            solution = '${solution[i]}', a2 = '${answer2[i]}', a3 = '${answer3[i]}', a4 = '${answer4[i]}' 
+            WHERE questionid = '${questionID[i]}'` } }).then((response) => {
+                // console.log(response)
             }).catch(error => console.error(`Error ${error}`));
 
             if (questionType[i] === 'match') {
                 axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `UPDATE MatchingAnswers SET m1 = '${matchingAnswer1[i]}', 
-                m2 = '${matchingAnswer2[i]}', m3 = '${matchingAnswer3[i]}', m4 = '${matchingAnswer4[i]}' WHERE matchingquestionid = '${questionID[i]}'` } }).then((response) => {
-                // console.log(response)
+                m2 = '${matchingAnswer2[i]}', m3 = '${matchingAnswer3[i]}', m4 = '${matchingAnswer4[i]}' 
+                WHERE matchingquestionid = '${questionID[i]}'` } }).then((response) => {
+                    // console.log(response)
                 }).catch(error => console.error(`Error ${error}`));
             }
         }
 
-        for(i = content.length; i < question.length; i++) {
-            axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `INSERT INTO Questions (question, solution, a2, a3, a4, module) VALUES ('${question[i]}', '${solution[i]}', '${answer2[i]}', '${answer3[i]}', '${answer4[i]}', '${slug}')` } }).then((response) => {
-            // // console.log(response)
+        for(i = content.length; i < question.length; i++) { // adding new questions
+            axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `INSERT INTO Questions (question, solution, a2, a3, a4, type, module) 
+            VALUES ('${question[i]}', '${solution[i]}', '${answer2[i]}', '${answer3[i]}', '${answer4[i]}', '${questionType[i]}', '${slug}')` } }).then((response) => {
+                // console.log(response.data.insertId)
+                // need to get this insertId into the conditional get request below (in place of where I put a temporary '-1' for matchingquestionid)
             }).catch(error => console.error(`Error ${error}`));
-        }
 
-        // // console.log("Question Array:", question)
-        // // console.log("Solution Array:", solution)
-        // // console.log("Answer2 Array:", answer2)
-        // // console.log("Answer3 Array:", answer3)
-        // // console.log("answer4 Array:", answer4)
+            if (questionType[i] === 'match') {
+                axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `INSERT INTO MatchingAnswers (matchingquestionid, m1, m2, m3, m4, module) 
+                VALUES ('${-1}', '${matchingAnswer1[i]}', '${matchingAnswer2[i]}', '${matchingAnswer3[i]}', '${matchingAnswer4[i]}', '${slug}')` } }).then((response) => {
+                    // console.log(response)
+                }).catch(error => console.error(`Error ${error}`));
+            }
+        }
 
         navigate('/admin-content');
     }
 
-    function addQuestion() {
+    function addMCQuestion() {
+        setAddedType('mc')
+        setAdded(true)
+    }
+
+    function addFillQuestion() {
+        setAddedType('fill')
+        setAdded(true)
+    }
+
+    function addMatchQuestion() {
+        setAddedType('match')
         setAdded(true)
     }
 
@@ -326,8 +371,14 @@ const  EditQuestion = () => {
         <div className="EditQuestionBg img-fluid ">
         {ModuleContent}
         <div className="d-grid gap-2 ">
-            <Button variant="primary" className="goToQuizBttn uvs-left uvs-right" onClick={addQuestion} >
-                Add Question
+            <Button variant="primary" className="goToQuizBttn uvs-left uvs-right" onClick={addMCQuestion} >
+                Add Multiple Choice Question
+            </Button>
+            <Button variant="primary" className="goToQuizBttn uvs-left uvs-right" onClick={addFillQuestion} >
+                Add Fill-in-the-Blank Question
+            </Button>
+            <Button variant="primary" className="goToQuizBttn uvs-left uvs-right" onClick={addMatchQuestion} >
+                Add Matching Question
             </Button>
             <Button variant="primary" className="goToQuizBttn uvs-left uvs-right" onClick={submitData} >
                 Submit
