@@ -3,7 +3,7 @@
 exports[`renders LearningPage 1`] = `
 Array [
   <nav
-    class="navbar navbar-expand-lg navbar-dark bg-dark"
+    class="navbar navbar-expand-lg navbar-color"
   >
     <div
       class="container-fluid"
@@ -35,7 +35,7 @@ Array [
         id="navbarSupportedContent"
       >
         <ul
-          class="navbar-nav me-auto d-flex flex-row mt-3 mt-lg-0 "
+          class="navbar-nav me-auto d-flex flex-row mt-3 mt-lg-0"
         >
           <li
             class="nav-item text-center mx-2 mx-lg-1"
@@ -43,12 +43,12 @@ Array [
             <a
               aria-current="page"
               class="nav-link active"
-              href="#!"
+              href="/dash#!"
             >
               <div>
                 <svg
                   class="bi bi-house-door"
-                  fill="currentColor"
+                  fill="white"
                   height="16"
                   viewBox="0 0 16 16"
                   width="16"
@@ -59,7 +59,11 @@ Array [
                   />
                 </svg>
               </div>
-              Home
+              <h6
+                className="text-light"
+              >
+                Home
+              </h6>
             </a>
           </li>
           <li
@@ -67,12 +71,12 @@ Array [
           >
             <a
               class="nav-link"
-              href="/dash#leaderboard"
+              href="/leaderboard"
             >
               <div>
                 <svg
                   class="bi bi-clipboard2-data"
-                  fill="currentColor"
+                  fill="white"
                   height="16"
                   viewBox="0 0 16 16"
                   width="16"
@@ -89,7 +93,11 @@ Array [
                   />
                 </svg>
               </div>
-              Leaderboard
+              <h6
+                className="text-light"
+              >
+                Leaderboard
+              </h6>
             </a>
           </li>
           <li
@@ -103,7 +111,7 @@ Array [
               <div>
                 <svg
                   class="bi bi-journal-bookmark"
-                  fill="currentColor"
+                  fill="white"
                   height="16"
                   viewBox="0 0 16 16"
                   width="16"
@@ -121,7 +129,11 @@ Array [
                   />
                 </svg>
               </div>
-              Modules
+              <h6
+                className="text-light"
+              >
+                Modules
+              </h6>
             </a>
           </li>
         </ul>
@@ -134,25 +146,61 @@ Array [
           <li
             class="nav-item text-center mx-2 mx-lg-1"
           >
-            <a
-              class="nav-link"
-              href="/notifications"
+            <button
+              aria-controls="navbar-dark-example"
+              aria-label="Toggle navigation"
+              className="navbar-toggler collapsed"
+              onClick={[Function]}
+              type="button"
             >
-              <div>
-                <svg
-                  class="bi bi-bell"
-                  fill="currentColor"
-                  height="24"
-                  viewBox="0 0 16 16"
-                  width="24"
-                  xmlns="http://www.w3.org/2000/svg"
+              <span
+                className="navbar-toggler-icon"
+              />
+            </button>
+            <div
+              aria-expanded={null}
+              className="navbar-collapse collapse"
+              id="navbar-dark-example"
+            >
+              <div
+                className="nav"
+                onKeyDown={[Function]}
+              >
+                <div
+                  bsStyle="dark"
+                  className="nav-item dropdown"
+                  menuVariant="dark"
+                  noCaret={true}
+                  onClick={[Function]}
+                  size="lg"
                 >
-                  <path
-                    d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"
-                  />
-                </svg>
+                  <a
+                    aria-expanded={false}
+                    aria-haspopup={true}
+                    className="dropdown-toggle nav-link"
+                    data-rb-event-key={null}
+                    href="#"
+                    id="nav-dropdown-dark-example"
+                    onClick={[Function]}
+                    onKeyDown={[Function]}
+                    role="button"
+                  >
+                    <svg
+                      class="bi bi-bell"
+                      fill="white"
+                      height="24"
+                      viewBox="0 0 16 16"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"
+                      />
+                    </svg>
+                  </a>
+                </div>
               </div>
-            </a>
+            </div>
           </li>
           <div
             class="vertical-line"
@@ -204,7 +252,7 @@ Array [
                   >
                     <svg
                       class="bi bi-person-square"
-                      fill="currentColor"
+                      fill="white"
                       height="24"
                       viewBox="0 0 16 16"
                       width="24"
