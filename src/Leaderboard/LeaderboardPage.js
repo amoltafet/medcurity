@@ -53,6 +53,9 @@ const LeaderboardPage = () => {
         }).catch(error => console.error(`Error ${error}`));
     }, [])
 
+    //Grab the total points for the company based on the current user's company id
+
+
     /**
    * Grabs company users. 
    */

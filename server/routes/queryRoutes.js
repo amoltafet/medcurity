@@ -13,6 +13,7 @@ const profileUploader = new ProfileUploader()
 */
 
 router.get('/getQuery', queryControllers.getQuery);
+router.get('/getCompany', queryControllers.getQuery);
 router.get('/getModuleInfo', queryControllers.queryModuleInfo);
 router.post('/postModuleBanner', bannerUploader.upload.single('bannerImage'), queryControllers.queryUploadBanner);
 router.post('/postProfilePicture', profileUploader.upload.single('profileImage'), queryControllers.queryUploadProfile);

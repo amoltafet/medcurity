@@ -73,7 +73,7 @@ ReactDOM.render(
         <Route path=":slug" element={<LearningDirectoryPage />} />
       </Route>
       <Route path="/leaderboard" element={<Leaderboard />} />
-      <Route path="/company" element={<CompanyProfile />} />
+      <Route path="/company/:id" element={<CompanyProfile />} />
     </Routes>
   </Router>,
   document.getElementById('root')

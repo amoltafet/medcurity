@@ -32,6 +32,7 @@ const SettingsMenu = () => {
   const [show, setShow] = useState(false)
   const [isLoaded, setLoaded] = useState(false)
   const [company, setCompany] = useState([])
+  const [companyID, setCompanyID] = useState([])
   const [dueDate, setDueDate] = useState([])
   const [newPassword, setPassword] = useState('')
   const [repeatPassword, setRepeatPassword] = useState('')
@@ -75,6 +76,7 @@ const SettingsMenu = () => {
           console.log(response.data[0].name)
           if (response.data[0].DateJoined !== null) {
             setCompany(response.data[0].name)
+            setCompanyID(response.data[0].companyid)
             var date = new Date(response.data[0].DateJoined)
             setDueDate(date.toDateString())
           }
@@ -264,10 +266,10 @@ const SettingsMenu = () => {
                 <div class='row'>
                   <div class='col-md-4'>
                     <div class='profile-work'>
-                      <p>Works at Medcurity</p>
+                      <p>Works at {company}</p>
                       <a href='https://medcurity.com/'>Website Link</a>
                       <br />
-                      <a href='/company'>Company Profile</a>
+                      <a href={`company/${companyID}`}>Company Link</a>
                       <br />
                       <p>SKILLS</p>
                       <a href=''>Web Designer</a>

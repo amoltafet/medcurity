@@ -18,6 +18,7 @@ import Badges from '../Badges/Badges'
 import HighScores from '../HighScores/HighScores'
 import './CompanySet.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import { useSearchParams } from 'react-router-dom'
 // import env from "react-dotenv";
 
 /**
@@ -34,6 +35,17 @@ const CompanySet = () => {
   const [message, setMessage] = useState('Saved!')
   const navigate = useNavigate()
 
+  //company information
+  const [companyName, setCompanyName] = useState('')
+  const [companyInfo, setCompanyInfo] = useState('')
+  const [companyDate, setCompanyDate] = useState('')
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  const [highScore, setHighScore] = useState('')
+  const [totalScore, setTotalScore] = useState('')
+
+  //company user list
+  const [companyUsers, setCompanyUsers] = useState([])
 
   useEffect(() => {
     axios
@@ -45,26 +57,79 @@ const CompanySet = () => {
     setLoaded(true)
   }, [])
 
+  /**
+   * Handles queries to get the company information and the high scores
+   */
   useEffect(() => {
     if (isLoaded) {
       axios
         .get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, {
           params: {
             the_query:
-              'SELECT * FROM AffiliatedUsers JOIN Companies ON AffiliatedUsers.CompanyID = Companies.companyid WHERE UserID = ' +
-              currentUser.userid
+              'SELECT * FROM companies WHERE companyid = ' +
+              window.location.href.split('/').pop()
           }
         })
         .then(response => {
-          if (response.data[0].DateJoined !== null) {
-            setCompany(response.data[0].name)
-            var date = new Date(response.data[0].DateJoined)
-            setDueDate(date.toDateString())
-          }
+          setCompanyName(response.data[0].name)
+          setCompanyInfo(response.data[0].description)
+          setCompanyDate(response.data[0].datejoined)
         })
         .catch(error => console.error(`Error ${error}`))
+      //Gets the highest scoring user from the company
+      axios
+        .get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, {
+          params: {
+            the_query:
+              'SELECT Users.userid, Users.username, AffiliatedUsers.CompanyID, Users.profilepicture, SUM(Points) AS Points FROM CompletedModules ' +
+              'JOIN UserPoints ON UserPoints.PointsID = CompletedModules.LearningModID ' +
+              'RIGHT JOIN Users ON Users.userid = CompletedModules.UserID ' +
+              'LEFT JOIN AffiliatedUsers ON AffiliatedUsers.UserID = Users.userid ' +
+              'WHERE AffiliatedUsers.CompanyID = ' +
+              window.location.href.split('/').pop() +
+              ' ' +
+              'GROUP BY Users.userid ' +
+              'ORDER BY Points DESC ' +
+              'LIMIT 1'
+          }
+        })
+        .then(response => {
+          setHighScore(response.data[0].username)
+        })
+        .catch(error => console.error(`Error ${error}`))
+      //Get total company score based on company id
+      axios
+        .get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, {
+          params: {
+            the_query:
+            'SELECT SUM(Points) AS TotalPoints ' +
+            'FROM CompletedModules ' +
+            'JOIN UserPoints ON UserPoints.PointsID = CompletedModules.LearningModID ' +
+            'RIGHT JOIN Users ON Users.userid = CompletedModules.UserID ' +
+            'JOIN AffiliatedUsers ON AffiliatedUsers.UserID = Users.userid ' +
+            'WHERE AffiliatedUsers.CompanyID = ' + window.location.href.split('/').pop()
+          }
+        })
+        .then(response => {
+          setTotalScore(response.data[0].TotalPoints)
+        })
+        .catch(error => console.error(`Error ${error}`))
+        //Get all users in the company
+        axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, {
+          params: {
+              the_query:
+                  'SELECT Users.username FROM CompletedModules ' +
+                  'JOIN UserPoints ON UserPoints.PointsID = CompletedModules.LearningModID ' +
+                  'RIGHT JOIN Users ON Users.userid = CompletedModules.UserID ' +
+                  'JOIN AffiliatedUsers ON AffiliatedUsers.UserID = Users.userid WHERE AffiliatedUsers.CompanyID = ' + window.location.href.split('/').pop() + ' ' +
+                  'GROUP BY Users.userid '
+          }
+      }).then(response => {
+        console.log(response.data)
+        setCompanyUsers(response.data)
+      }).catch(error => console.error(`Error ${error}`))
     }
-  }, [currentUser, dueDate, isLoaded])
+  }, [isLoaded])
 
   setTimeout(() => {
     setShow(false)
@@ -95,7 +160,7 @@ const CompanySet = () => {
                   </div>
                   <div class='col-md-6'>
                     <div class='profile-head'>
-                      <h2>Medcurity</h2>
+                      <h2> {companyName} </h2>
                       <ul class='nav nav-tabs' id='myTab' role='tablist'>
                         <Nav className='justify-content-center'>
                           <li class='nav-item'>
@@ -177,13 +242,7 @@ const CompanySet = () => {
                             aria-labelledby='home-tab'
                           >
                             <div class='row'>
-                              <h4>
-                                {' '}
-                                Medcurity provides Customizable Policies and
-                                Procedures for your HIPAA Security program.
-                                Build right-sized policies with our guided
-                                templates or upload your own policies.{' '}
-                              </h4>
+                              <h4>{companyInfo}</h4>
                             </div>
                           </div>
                         </Tab.Pane>
@@ -192,11 +251,16 @@ const CompanySet = () => {
                         </Tab.Pane>
                         <Tab.Pane eventKey='highscores'>
                           {/* <HighScores></HighScores> */}
-                          <h3>Total Company Points: 1400</h3>
-                          <h3>Highest Scoring User: Jakob Kubicki</h3>
+                          <h3>Total Company Points: {totalScore}</h3>
+                          <h3>Highest Scoring User: {highScore}</h3>
                         </Tab.Pane>
                         <Tab.Pane eventKey='users'>
-                          User list goes here
+                          <h3>Employee List</h3>
+                          <ul>
+                            {companyUsers.map((user, index) => (
+                              <li key={index}>{user.username}</li>
+                            ))}
+                          </ul>
                         </Tab.Pane>
                       </Tab.Content>
                     </div>
