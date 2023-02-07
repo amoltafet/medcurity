@@ -183,15 +183,15 @@ exports[`renders SettingsMenu 1`] = `
                 Works at 
               </p>
               <a
-                href="www.google.com"
+                href="https://medcurity.com/"
               >
                 Website Link
               </a>
               <br />
               <a
-                href=""
+                href="company/"
               >
-                Company Profile
+                Company Link
               </a>
               <br />
               <p>
