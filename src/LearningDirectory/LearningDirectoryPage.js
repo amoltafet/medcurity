@@ -31,7 +31,7 @@ const LearningDirectoryPageContent = (props) => {
 
     return (
         <>
-
+         
         <Row className="dashboard" style={{display: 'flex', flexDirection: 'row'}}>
             {createDirectoryCards(props.modules)}
         </Row>

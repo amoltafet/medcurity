@@ -164,7 +164,7 @@ const SettingsMenu = () => {
       <Tab.Container
         className='justify-content-center'
         defaultActiveKey='profile'
-        style={{ display: 'flex' }}
+        style={{ display: 'flex'}}
       >
         <Container className='settingsContentPaneContainer'>
           <Form>

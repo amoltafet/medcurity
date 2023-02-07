@@ -33,12 +33,19 @@ const SettingsPage = () => {
     if (currentUser)
     {
         return (
-            <>
+            <div style={{
+                backgroundColor: "#FFFFFF",
+                height: "100vh",
+            }}>
             <MenuBar></MenuBar>
-            <Container fluid="md" className="settingsMenuContainer">
             <SettingsMenu></SettingsMenu>
-            </Container> 
-            </>
+            
+            <div className="footer">
+                <Container>
+                    <p className="text-muted">© Medcurity 2023, All Rights Reserved</p>
+                </Container>
+            </div>
+            </div>
         );
     }
     else

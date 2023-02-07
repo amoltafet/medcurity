@@ -25,12 +25,19 @@ function QuizProgressBar (props) {
         >
             {fillerArray.map((num) => (
                 <Step transition="scale" transitionDuration={450} index={num - 1}>
+                   
                 {({ accomplished }) => (
-                  <img
-                    style={{ filter: `grayscale(${accomplished ? 0 : 90}%)` }}
+                   <div style={{
+                        border: `1px solid ${accomplished ? "#2743f5" : "#FFFFF"}`,
+                        borderRadius: "50%",
+                        padding: "5px",
+                        backgroundColor: accomplished ? "#2743f5" : "#FFFFF",
+                    }}><img
+                    style={{ filter: `grayscale(${accomplished ? 0 : 90}%)`,
+                }}
                     width="25"
                     src="/progress_bar_step.svg"
-                  />
+                  /></div>
                 )}
                 </Step>
             ))}

@@ -7,6 +7,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import Notifications from './Notifications/Notifications'
 import Badge from '@material-ui/core/Badge';
+import { Button } from '@mui/material';
 // import env from "react-dotenv";
 
 class SearchResults extends React.Component {
@@ -269,7 +270,7 @@ const Menubar = () => {
           </a>
         </li>
         <li class="nav-item text-center mx-2 mx-lg-1">
-          <a class="nav-link" aria-current="page" href="">
+          <a class="nav-link" aria-current="page" href="/learning-directory">
             <div>
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-journal-bookmark" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M6 8V1h1v6.117L8.743 6.07a.5.5 0 0 1 .514 0L11 7.117V1h1v7a.5.5 0 0 1-.757.429L9 7.083 6.757 8.43A.5.5 0 0 1 6 8z"/>
@@ -314,11 +315,11 @@ const Menubar = () => {
       </ul>
 
       <ul class="navbar-nav ms-auto d-flex flex-row mt-3 mt-lg-0">
-      <div class="vertical-line"/>
         <li class="nav-item text-center mx-2 mx-lg-1">
         <Navbar.Toggle aria-controls="navbar-dark-example" />
         <Navbar.Collapse id="navbar-dark-example">
           <Nav>
+          
             <NavDropdown
               id="nav-dropdown-dark-example"
               title={unreadNotifs ? 
@@ -335,14 +336,15 @@ const Menubar = () => {
               bsStyle="dark"
               noCaret={true}
               onClick={markRead}
+              
             >
               <Notifications userNotifs={notifs}/>
              
             </NavDropdown>
+          
           </Nav>
         </Navbar.Collapse>
         </li>
-        <div class="vertical-line"/>
         {currentUser.type === "websiteAdmin"? 
         <>
          <li class="nav-item text-center mx-2 mx-lg-1">
@@ -359,6 +361,7 @@ const Menubar = () => {
               size="lg"
               bsStyle="dark"
               noCaret={true}
+             
             >
               <NavDropdown.Item href="/admin-content">Edit Modules</NavDropdown.Item>
               <NavDropdown.Item href="/admin-dash">Manage Employees</NavDropdown.Item>
@@ -370,7 +373,6 @@ const Menubar = () => {
         </li>
         </>
         : null}
-        <div class="vertical-line"/>
          <li class="nav-item text-center mx-2 mx-lg-1">
         
         <Navbar.Toggle aria-controls="navbar-dark-example" class="toggle"/>
@@ -396,7 +398,6 @@ const Menubar = () => {
           </Nav>
         </Navbar.Collapse>
         </li>
-        <div class="vertical-line"/>
           <SearchResults />
         
       </ul>
