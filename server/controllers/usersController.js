@@ -24,13 +24,15 @@ const userRegister = (req,res) =>
     if (isValidPass.result && isValidEmail.result)
     {
         db.query(`SELECT EXISTS(SELECT email FROM Users WHERE email = '${email}') AS doesExist`, (err,result) => {
-            if (result[0].doesExist == 0)
+            if (result[0].doesExist === 0)
             {
                 console.log('FROM USER DOESNT EXIST: ', err)
                 bcrypt.hash(password, saltRounds, (err, hash) => {
                     if (err) console.log(err);
                     db.query("INSERT INTO Users (username, email, password) VALUES (?,?,?)", [username, email, hash], (err, result) => {
                         db.query(`SELECT * FROM Users WHERE email = '${email}'`, (err,result) => {
+                            let id = result[0].userid;
+                            notifications.sendNotification(id, "Welcome to Medcurity!", "welcome");
                             req.session.userSession = result;
                             res.send({result: true, message: 'Account registered! Logging in...'})
                         })
@@ -47,8 +49,10 @@ const userRegister = (req,res) =>
                             if (err) console.log(err);
                             db.query("UPDATE Users SET password = ?, active = ? WHERE email = ?", [hash, 1, email], (err, result) => {
                                 db.query(`SELECT * FROM Users WHERE email = '${email}'`, (err,result) => {
+                                    let id = result[0].userid;
+                                    notifications.sendNotification(id, "Welcome to Medcurity!", "welcome");
                                     req.session.userSession = result;
-                                    res.send({result: true, message: 'Empty account filled! Logging in...'})
+                                    res.send({result: true, message: 'Empty account filled! Logging in...'});
                                 })
                             });
                         });
