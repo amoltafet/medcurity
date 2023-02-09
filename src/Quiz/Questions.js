@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import {ToggleButtonGroup, ToggleButton, Container, Form, Row, Col, Card} from 'react-bootstrap';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import './Questions.css';
-import { Paper, Checkbox } from '@mui/material';
+import { CheckBox } from '@material-ui/icons';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 /**
  * 
  * @param {Array<str>} answers for the question
@@ -16,6 +17,8 @@ function Questions (props) {
     // For keeping track of order of the two lists involved in matching questions
     const [answerList, setAnswerList] = useState([]);
     const [matchingAnswerList, setMatchingAnswerList] = useState([]);
+    const [selectedRadio, setSelectedRadio] = useState(null);
+
 
     useEffect(() => {
         if (props.type === 'match') {
@@ -78,8 +81,6 @@ function Questions (props) {
     useEffect(() => {
         setQuizToggleId(props.id)
     },[props.id])
-
-
     
     if (props.type === 'mc') { // for multiple-choice questions
         const potentialAnswers = convert_to_list_of_obj(props.answers);
@@ -90,36 +91,32 @@ function Questions (props) {
                 <Container id="questionDesciption" className={props.classes[1]}>
                     {props.question} 
                 </Container>
-                <Col>
+                <Col className="text-center">
                 <ToggleButtonGroup id={quizToggleId} className="answerQuizSelection uvs-left" name={quizToggleId}>
-                    {potentialAnswers.map((radio, idx) => (
-                    <>
-                    
+  
+               {potentialAnswers.map((radio, idx) => (
                     <ToggleButton 
                         key={idx}
                         id={`radio-${idx}`}
                         type="radio"
                         variant="light secondary"
                         name="radio"
-                        sx={{
-                            "&.MuiToggleButtonGroup-grouped": {
-                              borderRadius: "4px !important",
-                              mx: 1,
-                              border: "1px solid lightgrey !important",
-                                "&.Mui-selected": {
-                                    backgroundColor: "#3f51b5 !important",
-                                    color: "white !important",
-                                    border: "1px solid #3f51b5 !important",
-                                }
-                            },
+                        style={{
+                            backgroundColor: selectedRadio === radio.name ? "#2c3e50" : "white",
+                            color: selectedRadio === radio.name ? "white" : "black",
+                            border: "1px solid #2c3e50",                             
                           }}
                         value={radio.name}
                         className="individualQuestions"
-                        checked = {props.checked[idx]}
-                        onChange={(e) => props.action(props.i, radio.name, idx)}>
-                             <Checkbox checked={props.checked[idx]}/>
+                        checked = {selectedRadio === radio.name}
+                        onChange={(e) => {
+                            setSelectedRadio(radio.name);
+                            props.action(props.i, radio.name, idx);
+                          }}
+                        > 
+                        {radio.name === selectedRadio ? <CheckBox /> : <CheckBoxOutlineBlankIcon />}
                         {` ${radio.name}`}
-                    </ToggleButton></>
+                    </ToggleButton>
                     ))}
                 </ToggleButtonGroup>
                 </Col>
