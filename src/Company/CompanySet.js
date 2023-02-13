@@ -40,6 +40,7 @@ const CompanySet = () => {
   const [companyInfo, setCompanyInfo] = useState('')
   const [companyDate, setCompanyDate] = useState('')
   const [searchParams, setSearchParams] = useSearchParams()
+  
 
   const [highScore, setHighScore] = useState('')
   const [totalScore, setTotalScore] = useState('')
