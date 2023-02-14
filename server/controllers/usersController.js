@@ -357,7 +357,7 @@ const moduleActivity = (req, res) => {
 const getRecentActivity = (req, res) => {
     const userid = req.query.userid;
 
-    db.query(`SELECT * FROM userActivity WHERE userid = ${userid}`, (err,result) => {
+    db.query(`SELECT date FROM userActivity WHERE userid = ${userid} ORDER BY date DESC`, (err,result) => {
         if (err) {
             logger.log('error', { methodName: '/getLastActivity', body: err }, { service: 'user-service' });
         }
