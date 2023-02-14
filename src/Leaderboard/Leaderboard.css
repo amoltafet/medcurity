@@ -5,6 +5,8 @@
     background-position: center;
     background-repeat: no-repeat;
     position: fixed;
+    padding: 50px;
+    
 }
 
 @media screen and (max-height: 764px) {

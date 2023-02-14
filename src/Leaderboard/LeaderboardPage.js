@@ -6,7 +6,33 @@ import { Card, Col, Row, Tab, Nav } from 'react-bootstrap';
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import './Leaderboard.css';
+import Tabs from '@mui/material/Tabs';
+import MUITab from '@mui/material/Tab';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
 // import env from "react-dotenv";
+
+function TabPanel(props) {
+    const { children, value, index, ...other } = props;
+    return (
+      <div
+        role="tabpanel"
+        hidden={value !== index}
+        id={`simple-tabpanel-${index}`}
+        aria-labelledby={`simple-tab-${index}`}
+        {...other}
+      >
+        {value === index && (
+          <Box sx={{ p: 3 }}>
+            <Typography>{children}</Typography>
+          </Box>
+        )}
+      </div>
+    );
+  }
 
 /**
 * Creates the main container for the leaderboard. 
@@ -54,7 +80,6 @@ const LeaderboardPage = () => {
     }, [])
 
     //Grab the total points for the company based on the current user's company id
-
 
     /**
    * Grabs company users. 
@@ -132,6 +157,8 @@ const LeaderboardPage = () => {
         }
     }
 
+
+
     /**
     * Maps each user out to their leaderboard profile. 
     */
@@ -141,6 +168,10 @@ const LeaderboardPage = () => {
 
         index++;
         return (
+            <div style={{
+                marginLeft: '70px',
+                marginRight: '70px',
+            }}>
             <LeaderboardProfile
                 userid={userProfile.userid}
                 name={userProfile.username}
@@ -149,6 +180,7 @@ const LeaderboardPage = () => {
                 userColor={className[4]}
                 companyColor={className[0]}
                 score={userProfile.Points} />
+    </div>
         );
     })
 
@@ -158,10 +190,13 @@ const LeaderboardPage = () => {
     var company_index = 0;
     sortCompanyUsers();
     const CompanyUsersProfileArray = companyUsers.map((userProfile) => {
-
         company_index++;
         return (
-            <>
+      
+            <div style={{
+                marginLeft: '70px',
+                marginRight: '70px',
+            }}>
             <LeaderboardProfile
                 userid={userProfile.userid}
                 name={userProfile.username}
@@ -169,51 +204,52 @@ const LeaderboardPage = () => {
                 className={className}
                 userColor={className[0]}
                 companyColor={className[4]}
-                score={userProfile.Points} />
-            </>
+                score={userProfile.Points}
+                
+                />
+            </div>
         );
     })
+
+    const [value, setValue] = React.useState(0);
+
+        const handleChange = (event, newValue) => {
+            setValue(newValue);
+        };
 
     if (currentUser?.userid) {
         return (
             <>
                 <Menubar></Menubar>
+             
                 <div className="leaderboardbg">
-                    <Tab.Container id="left-tabs-example" defaultActiveKey="first">
-                        <Row className="justify-content-center">
-                            <Col xs={1} md={1} lg={1} className="shadowTab_leaderboard uvs-left">
-                                <Nav variant="pills" className="selection_leaderbaord_container text-left">
-                                    <Nav.Item className="orginization_selection_tab">
-                                        <Nav.Link className="leaderbaord_pill_font" eventKey="first">{company} Users</Nav.Link>
-                                    </Nav.Item>
-                                    <Nav.Item className="all_leaderboard_selection ">
-                                        <Nav.Link className="leaderbaord_pill_font" eventKey="second">All Users</Nav.Link>
-                                    </Nav.Item>
-                                </Nav>
-                            </Col>
-                        </Row>
-                        <Row className="justify-content-center">
-                            <Col xs={12} md={12} lg={7}>
-                                <Tab.Content>
-                                    <Tab.Pane eventKey="first">
-                                        <Col className="justify-content-center">
-                                            <Card className="leaderboardContainer  uvs-left uvs-right">
-                                                {CompanyUsersProfileArray}
-                                            </Card>
-                                        </Col>
-                                    </Tab.Pane>
-                                    <Tab.Pane eventKey="second">
-                                        <Col className="justify-content-center">
-                                            <Card className="leaderboardContainer uvs-left uvs-right">
-                                                {AllUsersProfileArray}
-                                            </Card>
-                                        </Col>
-                                    </Tab.Pane>
-                                </Tab.Content>
-                            </Col>
-                        </Row>
-                    </Tab.Container>
-                </div>
+                    <Box>
+                    <Typography variant="h4" component="div" sx={{ flexGrow: 1, textAlign: 'center', color: '#2c3e50', fontSize: '2.5rem', paddingTop: '1rem' }}>
+                     Leaderboards
+                    </Typography>
+                    <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered>
+                        <MUITab label='Company' />
+                        <MUITab label='All Users' />
+                        </Tabs>
+                    </Box>
+                    <TabPanel value={value} index={0}>
+                        <div style={{
+                            maxHeight: 500, 
+                            overflow: 'auto',
+                        }}>
+                    {CompanyUsersProfileArray}
+                    </div>
+                    </TabPanel>
+                    <TabPanel value={value} index={1}>
+                    <div style={{
+                            maxHeight: 500, 
+                            overflow: 'auto',
+                            scrollbarColor: 'red',
+                        }}>
+                    {AllUsersProfileArray}</div>
+                    </TabPanel>
+                </Box> </div>
             </>
         );
     }
@@ -229,5 +265,8 @@ const LeaderboardPage = () => {
         )
     }
 }
+
+
+
 
 export default LeaderboardPage

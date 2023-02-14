@@ -27,4 +27,5 @@ router.get('/getDirectoryModulesInfo', queryControllers.queryDirectoryModulesInf
 router.get('/getAllUserRequiredModules', queryControllers.queryAllUserRequiredModules);
 router.post('/addModule', queryControllers.addModule);
 
+
 module.exports = router

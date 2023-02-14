@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import axios from 'axios';
 import './DashLeaderboard.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import LeaderboardProfile from '../Leaderboard/LeaderboardProfile';
+import { Divider } from '@material-ui/core';
 // import env from "react-dotenv";
 
 /**
@@ -35,8 +37,6 @@ const Leaderboard = (props) => {
     
 
   
- 
-
     // for stylizing the panels
     var className = [
         "userPanel",
@@ -76,19 +76,21 @@ const Leaderboard = (props) => {
             // user is in the last position
             if (users[users.length-1].username === props.user.username) {
                 return ([
-                    <DashLeaderboardProfiles
+                    <LeaderboardProfile
                         userid={users[users.length - 3].userid}
                         name={users[users.length - 3].username}
                         index={users.length - 3}
                         className={className}
                         score={users[users.length - 3].Points} />,
-                    <DashLeaderboardProfiles
+                    <Divider />,
+                    <LeaderboardProfile 
                         userid={users[users.length - 2].userid}
                         name={users[users.length - 2].username}
                         index={users.length - 2}
-                        className={className} 
-                        score={users[users.length - 2].Points}/>,
-                    <DashLeaderboardProfiles
+                        className={className}
+                        score={users[users.length - 2].Points} />,
+                    <Divider />,
+                    <LeaderboardProfile
                         userid={props.user.userid}
                         name={props.user.username}
                         index={users.length - 1}
@@ -99,41 +101,48 @@ const Leaderboard = (props) => {
             // user is in the first position 
             else if (users[0].username === props.user.username) {
                 return ([
-                    <DashLeaderboardProfiles
+                    <LeaderboardProfile
                         userid={props.user.userid}
                         name={props.user.username}
                         index={1}
-                        className={className} 
-                        score={users[0].Points}/>,
-                    <DashLeaderboardProfiles
+                        className={className}
+                        score={users[0].Points} />,
+                    <Divider />,
+                    <LeaderboardProfile
                         userid={users[1].userid}
                         name={users[1].username}
                         index={2}
-                        className={className} 
-                        score={(users[1].Points)}/>,
-                    <DashLeaderboardProfiles
+                        className={className}
+                        score={users[1].Points} />,
+                    <Divider />,
+                    <LeaderboardProfile
                         userid={users[2].userid}
                         name={users[2].username}
                         index={3}
-                        className={className} 
-                        score={users[2].Points}/>,
+                        className={className}
+                        score={users[2].Points} />,
+                    <Divider />,
                 ]);
+                   
             }
             else if (users[users.length - 1].username !== props.user.username && otherUsers[1] !== undefined) {
                 return ([
-                    <DashLeaderboardProfiles
+                    <LeaderboardProfile
                         userid={otherUsers[0].userid}
                         name={otherUsers[0].username}
                         index={index}
                         className={className} 
                         score={otherUsers[0].Points}/>,
-                    <DashLeaderboardProfiles
+                    <Divider />,
+                        
+                    <LeaderboardProfile
                         userid={props.user.userid}
                         name={props.user.username}
                         index={index + 1}
                         className={className} 
                         score={users[index].Points}/>,
-                    <DashLeaderboardProfiles
+                    <Divider />,
+                    <LeaderboardProfile
                         userid={otherUsers[1].userid}
                         name={otherUsers[1].username}
                         index={index + 2}

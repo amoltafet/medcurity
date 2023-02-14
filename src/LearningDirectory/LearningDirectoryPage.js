@@ -6,6 +6,8 @@ import { useParams } from "react-router";
 import axios from 'axios';
 import LearningModulePanel from './LearningModulePanel';
 import './LearningDirectory.css'
+import { Button } from '@material-ui/core';
+import Grid from '@mui/material/Unstable_Grid2/Grid2';
 // import env from "react-dotenv";
 
 /**
@@ -24,20 +26,20 @@ const LearningDirectoryPageContent = (props) => {
         const objs = []
         for (let index in modules) {
             var newModule = modules[index]
-            objs.push(<LearningModulePanel title={newModule.Title} link={newModule.ID} dueDate={newModule.DueDate}/>)
+            objs.push(
+            <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
+                <LearningModulePanel title={newModule.Title} link={newModule.ID} dueDate={dueDate}/>
+            </Grid>
+            )
         }
         return objs;
     }
 
     return (
-        <>
-         
-        <Row className="dashboard" style={{display: 'flex', flexDirection: 'row'}}>
+        <Grid container spacing={2}>
             {createDirectoryCards(props.modules)}
-        </Row>
-        <div className="d-grid gap-2">
-        </div>
-        </>
+        </Grid>
+      
     );
 }
 
@@ -56,14 +58,14 @@ const  LearningDirectoryPage = () => {
 
     // Query for getting LearningModules Directory info
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: "SELECT * FROM LearningModulesDirectory WHERE ID = " + slug } }).then((response) => {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: "SELECT * FROM LearningModulesDirectory" } }).then((response) => {
               setDirectory(Object.values(response.data))
         }).catch(error => console.error(`Error ${error}`));
     }, [slug])
 
     // Query for getting info on learning modules associated with the directory
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query:"SELECT * FROM LearningModules WHERE DirID = " + slug} }).then((response) => {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query:"SELECT * FROM LearningModules "} }).then((response) => {
             setModules(Object.values(response.data))
         }).catch(error => console.error(`Error ${error}`));
     }, [slug])
@@ -73,6 +75,7 @@ const  LearningDirectoryPage = () => {
     })
 
     return(
+
         <LearningDirectoryPageContent directoryTitle={directoryTitle +  ' Learning Modules Directory'} modules={modules} />
     );
 
