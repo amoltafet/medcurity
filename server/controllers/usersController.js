@@ -474,32 +474,7 @@ const deleteUser = (req,res) =>
             res.send(false)
         }
     })
-
-    
 }
-
-/**
- * Assign a learning module to a company if it is not already assigned
-*/
-const assignModulesToCompany = (req,res) => 
-{
-    const learningmodid = req.body.learningModId
-    const companyid = req.body.companyid
-
-    db.query(`SELECT EXISTS(SELECT * FROM CompanyLearningModules as CLM ` +
-    `WHERE CLM.LearningModId = '${learningmodid}' and CLM.CompanyID = '${companyid}') AS doesExist`, (err,result) => {
-        if (result[0].doesExist == 0)
-        {
-            db.query("INSERT INTO CompanyLearningModules (LearningModID, CompanyID) VALUES (?,?)", [learningmodid, companyid], (err, result) => {
-            res.send(true)
-            });
-        }
-        else
-        {
-            res.send(false)
-        }
-    })
- }
 
 /**
  * Removes assigned learning module from a company
@@ -701,7 +676,6 @@ module.exports =
     userChangePassword,
     userModuleCompleted,
     deleteUser,
-    assignModulesToCompany,
     removeModuleFromCompany,
     resetUserStats,
     updateCompanyModuleDueDate,

@@ -19,7 +19,7 @@ import axios from 'axios';
 const LearningManagerDashboardPage = () => {
     axios.defaults.withCredentials = true;
     const [currentUser, setCurrentUser] = useState([]);
-    const [companyId, setCompanyId] = useState('');
+    const [companyID, setCompanyID] = useState('');
     const [isLoading, setLoading] = useState(true)
     const [reload, setReload] = useState(false);
 
@@ -29,8 +29,15 @@ const LearningManagerDashboardPage = () => {
     }, [reload]);
 
     useEffect(() => {
+        /* FIX FIX FIX */
+        // let user = {userid: 265, companyid: 0, username: 'employer1', type: 'companyAdmin', email: 'employer1@gmail.com',
+        // active: 1, datejoined: "2022-10-01T19:34:23.000Z", loggedInAt: "Tue Feb 14 2023 01:16:50 GMT-0800 (Pacific Standard Time)",
+        // personal: null, profilepicture: null}
+        // setCurrentUser(user)
+
         axios.get(`${process.env.REACT_APP_BASE_URL}/users/login`).then((response) => {
-            setCurrentUser(response.data.user[0])
+           console.log(response.data.user[0]);
+           setCurrentUser(response.data.user[0])
         });
     }, []);
 
@@ -51,7 +58,7 @@ const LearningManagerDashboardPage = () => {
                             'WHERE CompanyAdmins.UserID = ' + String(currentUser.userid)
                     }
                 }).then((response) => {
-                    setCompanyId(Object.values(response.data)[0].CompanyID)
+                    setCompanyID(Object.values(response.data)[0].CompanyID)
                 });
         }
     }, [isLoading, currentUser.userid])
@@ -65,12 +72,12 @@ const LearningManagerDashboardPage = () => {
                         <WelcomePanel user={currentUser} pageTitle={"Learning Module Manager"} />
                     </Col>
                     <Col xs={11} md={4} lg={4} className="margin_bottom_learning_manager">
-                        <LearningModuleAdder companyId={companyId} reload={reload} setReload={setReload} />
+                        <LearningModuleAdder companyID={companyID} reload={reload} setReload={setReload} />
                     </Col>
                 </Row>
                 <Row className="justify-content-center">
                     <Col xs={11} md={11} lg={11} className="margin_bottom_learning_manager">
-                        <LearningManagerCards companyId={companyId} reload={reload} setReload={setReload} />
+                        <LearningManagerCards companyId={companyID} reload={reload} setReload={setReload} />
                     </Col>
                 </Row>
             </>

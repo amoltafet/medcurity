@@ -11,6 +11,7 @@ const express = require('express');
 const modulesController = require('../controllers/modulesController');
 const router = express.Router();
 
-// router.post('/register', userControllers.userRegister);
+router.get('/unassignedModules', modulesController.getUnassignedModules);
+router.post('/assignModule', modulesController.assignModule);
 
 module.exports = router;
