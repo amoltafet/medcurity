@@ -120,7 +120,7 @@ CREATE TABLE `CompanyAdmins` (
   `CompanyID` int NOT NULL,
   PRIMARY KEY (`UserID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-LOCK TABLES `companyadmins` WRITE;
+LOCK TABLES `Companyadmins` WRITE;
 /*!40000 ALTER TABLE `CompanyAdmins` DISABLE KEYS */;
 INSERT INTO `CompanyAdmins` VALUES (265,1),(269,1);
 /*!40000 ALTER TABLE `CompanyAdmins` ENABLE KEYS */;
