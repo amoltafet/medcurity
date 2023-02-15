@@ -45,7 +45,10 @@ const LearningModuleAdder = (props) => {
         }
 	}, [isLoading, props.reload, props.companyID])
 
-    // function for adding a module
+    /**
+     * Adding a module based on current learningModule variable
+     * @param {array} items 
+     */
     const addModule = () => {
         axios.post(`${process.env.REACT_APP_BASE_URL}/modules/assignModule`,
         {moduleid: learningModule, companyid: props.companyID}).then((response) => {

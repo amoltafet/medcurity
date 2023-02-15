@@ -13,5 +13,7 @@ const router = express.Router();
 
 router.get('/unassignedModules', modulesController.getUnassignedModules);
 router.post('/assignModule', modulesController.assignModule);
+router.post('/updateDueDate', modulesController.updateDueDate);
+router.post('/removeModule', modulesController.removeModule);
 
 module.exports = router;

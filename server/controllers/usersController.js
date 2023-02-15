@@ -477,73 +477,6 @@ const deleteUser = (req,res) =>
 }
 
 /**
- * Removes assigned learning module from a company
- * Also removes all completed module records for that learning module
- * from all users in the company, by querying all users in the company then
- * going through and deleting all of their completed modules
- */
- const removeModuleFromCompany = (req, res) => {
-    const learningmodid = req.body.learningModId
-    const companyid = req.body.companyid
-
-    db.query((`SELECT EXISTS(SELECT * FROM CompanyLearningModules ` +
-        `WHERE CompanyLearningModules.LearningModID = '${learningmodid}' and CompanyLearningModules.CompanyID = '${companyid}') AS doesExist`), (err, result) => {
-        if (result[0].doesExist == 1)
-        {
-            if (err) logger.log('error', { methodName: '/removeModuleFromCompany', errorBody: err }, { service: 'user-service' });
-
-            db.query(`DELETE FROM CompanyLearningModules WHERE CompanyLearningModules.LearningModID = '${learningmodid}' and CompanyLearningModules.CompanyID = '${companyid}'`, (err, result) => {
-                logger.log('info', `Deleted CompanyLearningModule with companyID: "${companyid}" and learningModID: "${learningmodid}" Fields: ${result}`, { service: 'user-service' })
-                db.query(`SELECT AffiliatedUsers.UserID ` + 
-                    `FROM AffiliatedUsers ` +
-                    `WHERE AffiliatedUsers.CompanyID = '${companyid}'`, (err, company_users) => {
-                        logger.log('info', `Queried User ids affiliated with company: "${companyid}" Fields: ${result}`, { service: 'user-service' })
-                    for (index in company_users) {
-                        db.query(`DELETE FROM CompletedModules WHERE CompletedModules.LearningModID = ` +
-                            `'${learningmodid}' and CompletedModules.UserID = '${company_users[index].UserID}'`, 
-                            (err, result) => {
-                                if(!err && result.affectedRows > 0) deletionStatus = true;
-                                else deletionStatus = false;
-                                logger.log('info', `Attempted deletion of CompletedModules record learningModID: "${learningmodid}" and UserID: "${company_users[index].UserID}." Successfully deleted if true: "${deletionStatus}" Fields: ${result}`, { service: 'user-service' })    
-                            });
-
-                    }
-                    res.send(true)
-                });
-            });
-        }
-        else
-        {
-            res.send(false)
-        }
-    })
-}
-
-/**
- * Here we update a module to have a new date due
- * To start the process off we need to construct a sql accepted 
- * date string
- */
-const updateCompanyModuleDueDate = (req, res) => {
-    //today.setDate(today.getDate() - 1);
-    const learningmodid = req.body.learningModId
-    const companyid = req.body.companyid
-    const dateDue = new Date(req.body.dateDue)
-    dateDue.setDate(dateDue.getDate())
-    dateDue.setHours(23, 59)
-        
-
-    db.query(`UPDATE CompanyLearningModules SET DueDate = ? WHERE CompanyID = ? AND LearningModID = ?`, [dateDue, companyid, learningmodid], (err,result) => {
-        if (err) {
-            logger.log('error', { methodName: '/updateCompanyModuleDueDate', errorBody: err }, { service: 'user-service' });
-            res.send(false)
-        }
-        logger.log('info', `Updated CompanyLearningModule with companyID: "${companyid}" and learningModID: "${learningmodid}" to date: "${dateDue}" Fields: ${result}`, { service: 'user-service' })
-        res.send(true)
-    })   
-}
-
-/**
  * Reset user stats for the leaderboard and learning modules. 
  * Does this by finding all users affiliated with a company. 
  * Then deletes all of a user's progress in completedModules and Points
@@ -676,9 +609,7 @@ module.exports =
     userChangePassword,
     userModuleCompleted,
     deleteUser,
-    removeModuleFromCompany,
     resetUserStats,
-    updateCompanyModuleDueDate,
     userModuleBadgeEarned,
     namedBadgeEarned,
     moduleActivity,

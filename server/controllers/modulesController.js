@@ -24,7 +24,7 @@ const getUnassignedModules = (req, res) => {
     if (err) {
         logger.log('error', { methodName: '/unassignedModules', body: err }, { service: 'user-service' });
     } else {
-        logger.log('info', "Retrieved unassigned modules for company " + companyid + "...", { service: 'user-service' });
+        logger.log('info', "Retrieved unassigned modules for company " + companyid + ".", { service: 'user-service' });
         res.send(result);
     }});
 }
@@ -56,9 +56,83 @@ const assignModule = (req,res) => {
             res.send({success: true, added: false, message: "LearningModule is already assigned to the company."});
         }
     })
- }
+}
+
+/*
+Updates the due date for a previously assigned module.
+This is done in the LearningManagerDashboard by an employer.
+*/
+const updateDueDate = (req, res) => {
+    const moduleid = req.body.moduleid;
+    const companyid = req.body.companyid;
+    const dateDue = new Date(req.body.dueDate);
+    dateDue.setDate(dateDue.getDate());
+    dateDue.setHours(23, 59);
+
+    db.query('UPDATE CompanyLearningModules SET DueDate = ? WHERE CompanyID = ? AND LearningModID = ?', [dateDue, companyid, moduleid], (err,result) => {
+        if (err) {
+            res.send({success: false, error: err});
+            return logger.log('error', { methodName: '/updateDueDate', errorBody: err }, { service: 'user-service' });
+        }
+        logger.log('info', `Updated assigned module for company: "${companyid}" and module: "${moduleid}" to date: "${dateDue}" Fields: ${result}`, { service: 'user-service' });
+        res.send({success: true, message: "Module due date updated."});
+    })   
+}
+
+/*
+Removes a module from currently assigned modules for a company. 
+This is done in the LearningManagerDashboard by an employer.
+Also removes all completed module records for that learning module
+from all users in the company, by querying all users in the company then
+going through and deleting all of their completed modules.
+*/
+const removeModule = (req, res) => {
+    const moduleid = req.body.moduleid;
+    const companyid = req.body.companyid;
+
+    db.query(('SELECT EXISTS(SELECT * FROM CompanyLearningModules WHERE CompanyLearningModules.LearningModID = ? ' +
+              'and CompanyLearningModules.CompanyID = ?) AS doesExist'), [moduleid, companyid], (err, result) => {
+        if (err) {
+            res.send({success: false, error: err});
+            return logger.log('error', { methodName: '/removeModule', errorBody: err }, { service: 'user-service' });
+        }
+        if (result[0].doesExist) {
+            db.query('DELETE FROM CompanyLearningModules WHERE CompanyLearningModules.LearningModID = ? and CompanyLearningModules.CompanyID = ?', [moduleid, companyid], (err, result) => {
+                if (err) {
+                    res.send({success: false, error: err});
+                    return logger.log('error', { methodName: '/removeModule', errorBody: err }, { service: 'user-service' });
+                }
+                db.query('SELECT AffiliatedUsers.UserID FROM AffiliatedUsers WHERE AffiliatedUsers.CompanyID = ?', [companyid], (err, users) => {
+                    if (err) {
+                        res.send({success: false, error: err});
+                        return logger.log('error', { methodName: '/removeModule', errorBody: err }, { service: 'user-service' });
+                    }
+
+                    for (let index in users) {
+                        db.query('DELETE FROM CompletedModules WHERE CompletedModules.LearningModID = ? and CompletedModules.UserID = ?', 
+                            [moduleid, users[index].UserID], (err, result) => {
+                                if (err) {
+                                    res.send({success: false, error: err});
+                                    return logger.log('error', { methodName: '/removeModule', errorBody: err }, { service: 'user-service' });
+                                }
+                                logger.log('info', `Attempted deletion of CompletedModules record learningModID: "${moduleid}" and UserID: "${users[index].UserID}." Fields: ${result}`, { service: 'user-service' });    
+                            });
+
+                    }
+                    res.send({success: true, message: "Successfully removed module from assigned modules.", users: users});
+                });
+            });
+        }
+        else
+        {
+            res.send({success: false, message: "Module is not assigned in database."});
+        }
+    })
+}
 
 module.exports = {
     getUnassignedModules,
-    assignModule
+    assignModule,
+    updateDueDate,
+    removeModule
 }
