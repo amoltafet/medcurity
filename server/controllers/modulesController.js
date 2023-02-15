@@ -36,6 +36,10 @@ This occurs when an employer clicks submit in LearningManagerAdder.js.
 const assignModule = (req,res) => {
     const moduleid = req.body.moduleid;
     const companyid = req.body.companyid;
+    const dateDue = new Date();
+    dateDue.setDate(dateDue.getDate());
+    dateDue.setHours(23, 59);
+    dateDue.setSeconds(0);
 
     db.query('SELECT EXISTS(SELECT * FROM CompanyLearningModules as CLM WHERE CLM.LearningModId = ? ' +
              'and CLM.CompanyID = ?) AS doesExist', [moduleid, companyid], (err,result) => {
@@ -44,7 +48,7 @@ const assignModule = (req,res) => {
             return logger.log('error', { methodName: '/assignModule', body: err }, { service: 'user-service' });
         }
         if (result[0].doesExist === 0) {
-            db.query("INSERT INTO CompanyLearningModules (LearningModID, CompanyID) VALUES (?,?)", [moduleid, companyid], (err, result) => {
+            db.query("INSERT INTO CompanyLearningModules (LearningModID, CompanyID, DueDate) VALUES (?,?,?)", [moduleid, companyid, dateDue], (err, result) => {
             if (err) {
                 res.send({success: false, error: err});
                 return logger.log('error', { methodName: '/assignModule', body: err }, { service: 'user-service' });
@@ -55,7 +59,7 @@ const assignModule = (req,res) => {
         else {
             res.send({success: true, added: false, message: "LearningModule is already assigned to the company."});
         }
-    })
+    });
 }
 
 /*
