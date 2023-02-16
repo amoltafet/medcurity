@@ -79,7 +79,9 @@ const DashboardPage = () => {
             }}>
               <h1 className='dash_h1Style'>Leaderboard</h1>
               <Leaderboard user={currentUser} ></Leaderboard>
-              <Button variant="outlined"  href="/leaderboard">View Full Leaderboard</Button>
+              <Button variant="outlined"  href="/leaderboard" style={{
+                marginTop: '30px',
+              }}>View Full Leaderboard</Button>
             </div>
           <br></br>
         </Form>
