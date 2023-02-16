@@ -1,4 +1,5 @@
 import {Button} from 'react-bootstrap';
+import Form from 'react-bootstrap/Form';
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useEffect, useState } from "react";
@@ -34,6 +35,7 @@ const  EditQuestion = () => {
     const [questionAdded, setAdded] = useState(false)
     const [addedType, setAddedType] = useState(null)
     const [updatedContent, setUpdatedContent] = useState([])
+    const [toDelete, setToDelete] = useState([])
     const [isSubmitted, setIsSubmitted] = useState(false)
     const navigate = useNavigate();
 
@@ -102,7 +104,7 @@ const  EditQuestion = () => {
             setQuestionType(questionTypeArray)
             setIsLoading2(false)   
         }
-    }, [isLoading, content])
+    }, [isLoading, content, matchingContent])
 
     useEffect(() => {
         if (isSubmitted) {
@@ -196,12 +198,32 @@ const  EditQuestion = () => {
             }
         }
 
+        // DELETE EXISTING QUESTIONS
+        for(i = 0; i < content.length; i++) {
+            if (toDelete.includes(i)) {
+                if (questionType[i] === 'match') {
+                    axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `DELETE FROM MatchingAnswers 
+                    WHERE matchingquestionid = '${questionID[i]}'` } }).then((response) => {
+                        // console.log(response)
+                    }).catch(error => console.error(`Error ${error}`));
+                }
+
+                axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `DELETE FROM Questions 
+                WHERE questionid = '${questionID[i]}'` } }).then((response) => {
+                    // console.log(response)
+                }).catch(error => console.error(`Error ${error}`));
+            }
+        }
+
         // ADDING NEW QUESTIONS
         for(i = content.length; i < question.length; i++) {
-            axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `INSERT INTO Questions (question, solution, a2, a3, a4, type, module) 
-            VALUES ('${question[i]}', '${solution[i]}', '${answer2[i]}', '${answer3[i]}', '${answer4[i]}', '${questionType[i]}', '${slug}')` } }).then((response) => {
-                // console.log(response)
-            }).catch(error => console.error(`Error ${error}`));
+            if (toDelete.includes(i) === false) { // "DELETE" NEWLY ADDED QUESTIONS BY PREVENTING THEM FROM BEING ADDED IN THE FIRST PLACE
+                axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `INSERT INTO Questions (question, solution, a2, a3, a4, type, module) 
+                VALUES ('${question[i]}', '${solution[i]}', '${answer2[i]}', '${answer3[i]}', '${answer4[i]}', '${questionType[i]}', '${slug}')` } }).then((response) => {
+                    // console.log(response)
+                }).catch(error => console.error(`Error ${error}`));
+            }
+            
         }
 
         axios.get(`${process.env.REACT_APP_BASE_URL}/api/getModuleQuestions`, { params: { id: slug } }).then((response) => {
@@ -213,7 +235,7 @@ const  EditQuestion = () => {
 
     function insertNewMatchingAnswers(updatedQuestionIDs) {
         for(var i = content.length; i < question.length; i++) {
-            if (questionType[i] === 'match') {
+            if (questionType[i] === 'match' && toDelete.includes(i) === false) {
                 axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `INSERT INTO MatchingAnswers (matchingquestionid, m1, m2, m3, m4, module) 
                 VALUES ('${updatedQuestionIDs[i]}', '${matchingAnswer1[i]}', '${matchingAnswer2[i]}', '${matchingAnswer3[i]}', '${matchingAnswer4[i]}', '${slug}')` } }).then((response) => {
                     // console.log(response)
@@ -222,6 +244,16 @@ const  EditQuestion = () => {
         }
 
         navigate('/admin-content');
+    }
+
+    const handleCheckboxToggle = ({ target: { value } }) => {
+        var deleteArray = toDelete
+        if (deleteArray.includes(parseInt(value))) {
+            deleteArray.splice(deleteArray.indexOf(parseInt(value)), 1)
+        } else {
+            deleteArray.push(parseInt(value))
+        }
+        setToDelete(deleteArray)
     }
 
     function addMCQuestion() {
@@ -246,6 +278,7 @@ const  EditQuestion = () => {
                 <>
                 <form className='text-center contentForm'>
                     <h3>Question {idx + 1} &#40;Multiple Choice&#41;</h3>
+                    <Form.Check type="checkbox" id="delete-question" label="Delete Question" value={idx} onChange={handleCheckboxToggle}/>
                     <label htmlFor="question">Question:</label><br></br>
                     <textarea className="content-textarea" rows="3" cols="100" wrap="soft" type="text" id="question" name="question" defaultValue={question[idx]} onChange={ (e) => 
                                 {
@@ -289,6 +322,7 @@ const  EditQuestion = () => {
                 <>
                 <form className='text-center contentForm'>
                     <h3>Question {idx + 1} &#40;Fill in the Blank&#41;</h3>
+                    <Form.Check type="checkbox" id="delete-question" label="Delete Question" value={idx} onChange={handleCheckboxToggle}/>
                     <label htmlFor="question">Question:</label><br></br>
                     <textarea className="content-textarea" rows="3" cols="100" wrap="soft" type="text" id="question" name="question" defaultValue={question[idx]} onChange={ (e) => 
                                 {
@@ -311,6 +345,7 @@ const  EditQuestion = () => {
                 <>
                 <form className='text-center contentForm'>
                     <h3>Question {idx + 1} &#40;Matching&#41;</h3>
+                    <Form.Check type="checkbox" id="delete-question" label="Delete Question" value={idx} onChange={handleCheckboxToggle}/>
                     <label htmlFor="question">Question:</label><br></br>
                     <textarea className="content-textarea" rows="3" cols="100" wrap="soft" type="text" id="question" name="question" defaultValue={question[idx]} onChange={ (e) => 
                                 {
