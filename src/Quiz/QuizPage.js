@@ -845,7 +845,6 @@ const QuizPage = () => {
                   
                 }}>
             <Typography variant="h4" sx={{ margin: '15px'}}> Quiz Results </Typography>
-            <Button variant="outlined" href="/dash/" size='small' style={{ margin: '25px',}}>Home</Button>
             </div>
               {Passed()}
               {UserGotEarlyCompletion()}
@@ -876,6 +875,14 @@ const QuizPage = () => {
                                 {(numCorrect / content.length * 100).toFixed(2)}%
                   </Alert>
               </Grid>
+              <Grid item xs={6}>
+                <Button variant="outlined" href="/dash/" size='medium' fullWidth sx={{}}>Home</Button>
+              </Grid>
+              <Grid item xs={6}>
+                <Button variant="outlined" href="/leaderboard" size='medium' fullWidth color='secondary'>Leaderboard</Button>
+              </Grid>
+              
+
             </Grid>
 
 

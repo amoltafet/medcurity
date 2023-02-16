@@ -69,11 +69,12 @@
 }
 
 .resultAnswers {
-    margin-bottom: 2%;
-    margin-top: 3%; 
+   
     width: 80%;
-    background-color: aliceblue;
+    background-color: white;
+    margin: 3%;
 }
+
 
 @media screen and (min-width: 1000px) {
     .resultAnswers {
