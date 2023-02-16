@@ -1,4 +1,4 @@
-import { Image, Row, Col, Container, Alert } from 'react-bootstrap';
+import { Image, Row, Col, Container } from 'react-bootstrap';
 import React, { useState, useEffect, useRef } from 'react';
 import { SubmitButton } from './SubmitButton';
 import { useParams } from "react-router";
@@ -13,12 +13,22 @@ import Results from './Results';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
-import { Tooltip } from '@mui/material';
+import { Paper, Tooltip, Typography } from '@mui/material';
+import Grid from '@mui/material/Unstable_Grid2/Grid2';
+import ResultAlerts from './ResultAlerts';
+import Alert from '@mui/material/Alert';
+import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
+import TimelineOutlinedIcon from '@mui/icons-material/TimelineOutlined';
+import BugReportOutlinedIcon from '@mui/icons-material/BugReportOutlined';
+import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 /**
 * Handles main logic for quiz page. 
 * @return {QuizPage}
 */
 const QuizPage = () => {
+  // screen height and width
+  const [screenHeight, setScreenHeight] = useState(window.innerHeight);
+
   axios.defaults.withCredentials = true;
   const quizClassNames = [
     ["questionNumbers", "questionDesciption"],
@@ -580,19 +590,12 @@ const QuizPage = () => {
    *  shows popup if user got early completion.
    */
   function UserGotEarlyCompletion() {
+    const title = "Yay, You Got Bonus Points!";
+    const message = "You scored bonus points by spacing out your learning!";
+    const points = "+" + earlyCompletion + " points!";
     if (showEarlyCompletionPopup) {
       return (
-        <Alert variant="success" show={showEarlyCompletionPopup}>
-          <Alert.Heading>Yay, You Got Bonus Points!</Alert.Heading>
-          <p>
-            You scored bonus points by completing your module early! +{earlyCompletion} points!
-          </p>
-          <div className="d-flex justify-content-end">
-          <Button onClick={() => setShowEarlyCompletionPopup(false)} variant="outline-success">
-            X
-          </Button>
-          </div>
-        </Alert>
+        <ResultAlerts title={title} message={message} points={points} show={showEarlyCompletionPopup} setShow={setShowEarlyCompletionPopup} variant="info"/>
       );
     }
   }
@@ -601,19 +604,12 @@ const QuizPage = () => {
    *  shows popup if user got spaced learning. 
    */
   function UserGotSpacedLearning() {
+    const title = "Yay, You Got Bonus Points!";
+    const message = "You scored bonus points by spacing out your learning!";
+    const points = "+" + spaceLearning + " points!";
     if (showSpacedLearningPopup) {
       return (
-        <Alert variant="success" show={showSpacedLearningPopup}>
-          <Alert.Heading>Yay, You Got Bonus Points!</Alert.Heading>
-          <p>
-            You scored bonus points by spacing out your learning! +{spaceLearning} points!
-          </p>
-          <div className="d-flex justify-content-end">
-          <Button onClick={() => setShowSpacedLearningPopup(false)} variant="outline-success">
-            X
-          </Button>
-          </div>
-        </Alert>
+          <ResultAlerts title={title} message={message} points={points} show={showSpacedLearningPopup} setShow={setShowSpacedLearningPopup} variant="info"/>
       );
     }
   }
@@ -622,19 +618,12 @@ const QuizPage = () => {
    *  shows popup if user did not complete the module on time. 
    */
   function UserDidNotCompleteModuleOnTime() {
+    const title = "You Did Not Complete the Module on Time.";
+    const message = "You did not complete this module by its due date. ";
+    const points = notCompleteOnTime + " points.";
     if (showUserDidNotCompleteOnTime) {
       return (
-        <Alert variant="danger" show={showUserDidNotCompleteOnTime}>
-          <Alert.Heading>You Did Not Complete the Module on Time.</Alert.Heading>
-          <p>
-            You did not complete this module by its due date. {notCompleteOnTime} points.
-          </p>
-          <div className="d-flex justify-content-end">
-          <Button onClick={() => setShowUserDidNotCompleteOnTime(false)} variant="outline-danger">
-            X
-          </Button>
-          </div>
-        </Alert>
+          <ResultAlerts title={title} message={message} points={points} show={showUserDidNotCompleteOnTime} setShow={setShowUserDidNotCompleteOnTime} variant="error"/>
       );
     }
   }
@@ -643,37 +632,17 @@ const QuizPage = () => {
    *  shows popup to tell user if they passed the module or neeed to retake it. 
    */
   function Passed () {
+    const title = "You Passed the Module!";
+    const message = "Congratulations you passed the " + moduleName.Title + " module!";
+    const points = "";
     if (!moduleNotAssigned){
       if (passed) {
         return (
-          <Alert variant="success" show={showPassedPopup}>
-            <Alert.Heading>Yay, You Passed the Module!</Alert.Heading>
-            <p>
-              Congratulations you passed the {moduleName.Title} module!
-            </p>
-            <div className="d-flex justify-content-end">
-            <Button onClick={() => setShowPassedPopup(false)} variant="outline-success">
-              X
-            </Button>
-            </div>
-          </Alert>
+             <ResultAlerts title={title} message={message} points={points} show={showPassedPopup} setShow={setShowPassedPopup} variant="success"/>
         );
       } else {
         return (
-          <Alert variant="dark" show={showPassedPopup}>
-            <Alert.Heading>Try again</Alert.Heading>
-            <p>
-              Sorry you did not pass the Module. You need higher than a 60% to pass.
-            </p>
-            <div className="d-flex justify-content-end">
-            <Button href={`/quiz/${slug}`} variant="outline-dark">
-              Try Again
-            </Button>
-            <Button onClick={() => setShowPassedPopup(false)} variant="outline-dark">
-              X
-            </Button>
-            </div>
-          </Alert>
+          <ResultAlerts title={"Try again!"} message={"Sorry you did not pass the Module."} points={"You need higher than a 60% to pass."} show={showPassedPopup} setShow={setShowPassedPopup} variant="error"/>
         );
       }  
     }
@@ -695,19 +664,12 @@ const QuizPage = () => {
    *  shows popup to tell user if they passed the module or neeed to retake it. 
    */
   function TimeBonus() {
+    const title = "Yay, You Earned a Time Bonus!";
+    const message = "Congratulations, you scored enough points in a timely manner to earn the time bonus on the " + moduleName.Title + " module!; "
+    const points = "+" + timeBonus + " points!";
     if (timeBonusEarned) {
       return (
-        <Alert variant="success" show={showTimeBonusPopup}>
-          <Alert.Heading>Yay, You Earned a Time Bonus!</Alert.Heading>
-          <p>
-            Congratulations, you scored enough points in a timely manner to earn the time bonus on the {moduleName.Title} module! {timeBonus} points!
-          </p>
-          <div className="d-flex justify-content-end">
-          <Button onClick={() => setShowTimeBonusPopup(false)} variant="outline-success">
-            X
-          </Button>
-          </div>
-        </Alert>
+        <ResultAlerts title={title} message={message} points={points} show={showTimeBonusPopup} setShow={setShowTimeBonusPopup} variant="success"/>
       );
     }
   }
@@ -862,35 +824,85 @@ const QuizPage = () => {
     });
 
     return (
-      <>
+      <div style={{
+        backgroundColor: '#FFFFFF',
+        overflowX: 'hidden',
+        overflowY: 'hidden',
+      }}>
         <MenuBar></MenuBar>
-        <div id="resultsPageContainer">
-          <h1 className="quizResultsHeader">Quiz Results</h1>
-          {Passed()}
-          {UserGotEarlyCompletion()}
-          {UserGotSpacedLearning()}
-          {UserDidNotCompleteModuleOnTime()}
-          {TimeBonus()}
-          <Row className="text-center quizPointInfo">
-            <Col>
-              <div className="totalCorrectQuestions"> {numCorrect} / {content.length} Questions Correct </div>
-            </Col>
-            <Col>
-              <div className="totalCorrectQuestions"> Time: {seconds} seconds </div>
-            </Col>
-            <Col>
-              <div className="totalCorrectPoints"> Points: {points + earlyCompletion + notCompleteOnTime + spaceLearning + timeBonus} </div>
-            </Col>
-            <Col>
-              <div className="correctPercentage"> {(numCorrect / content.length * 100).toFixed(2)}% </div>
-            </Col>
-          </Row>
+        <Grid container spacing={3}>
+          <Grid item xs={4}>
+              <Grid container spacing={3} sx={{
+                height: '100%',
+                padding: '10px',
+                display: 'flex',
+                flexDirection: 'column',
+                margin: '20px',
+              }}>
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  
+                }}>
+            <Typography variant="h4" sx={{ margin: '15px'}}> Quiz Results </Typography>
+            <Button variant="outlined" href="/dash/" size='small' style={{ margin: '25px',}}>Home</Button>
+            </div>
+              {Passed()}
+              {UserGotEarlyCompletion()}
+              {UserGotSpacedLearning()}
+              {UserDidNotCompleteModuleOnTime()}
+              {TimeBonus()}
+              <Grid container spacing={3}>
+
+              <Grid item xs={6}>
+              <Alert variant="outlined" severity="info" iconMapping={{info: <HelpOutlineOutlinedIcon /> } }>
+                  {numCorrect} / {content.length} Questions Correct
+                  </Alert>
+                
+              </Grid>
+              <Grid item xs={6}>
+              
+                <Alert variant="outlined" severity="info" iconMapping={{info: <TimerOutlinedIcon /> } }>
+                Time: {seconds} seconds
+                  </Alert>
+              </Grid>
+              <Grid item xs={6}>
+              <Alert variant="outlined" severity="info" iconMapping={{info: <BugReportOutlinedIcon /> } }>
+                         Points: {points + earlyCompletion + notCompleteOnTime + spaceLearning + timeBonus}
+                  </Alert>
+              </Grid>
+              <Grid item xs={6}>
+              <Alert variant="outlined" severity="info" iconMapping={{info: <TimelineOutlinedIcon /> } }>
+                                {(numCorrect / content.length * 100).toFixed(2)}%
+                  </Alert>
+              </Grid>
+            </Grid>
+
+
+
+            </Grid>
+          
+
+
+
+          </Grid>
+          <Grid item xs={8}>
+           
+
+          
+          <div style={{maxHeight: screenHeight - 150, overflow: 'auto', width: '100%'}}>
+    
+     
           {QuestionContent}
 
-          <Row>
-            <Button className="quizHomeBttn uvs-left" variant="primary" href="/dash/">Home</Button></Row>
+         
         </div>
-      </>
+          </Grid>
+        </Grid>
+        
+    
+       
+      </div>
     );
   }
 }
