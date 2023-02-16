@@ -885,8 +885,6 @@ const QuizPage = () => {
 
             </Grid>
 
-
-
             </Grid>
           
 
