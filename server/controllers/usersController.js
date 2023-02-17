@@ -183,7 +183,8 @@ const userLogin = (req,res) =>
     const email = req.body.email
     const password = req.body.password
 
-    db.query(`SELECT EXISTS(SELECT * FROM Users WHERE email = '${email}') AS doesExist`, (err,userExists) => {
+    db.query(`SELECT EXISTS(SELECT * FROM Users WHERE email = '${email}') AS doesExist`, (err, userExists) => {
+        
         if (userExists[0]?.doesExist == 1)
         {
             db.query(`SELECT * FROM Users WHERE email = '${email}'`, (err,userData) => {
@@ -234,7 +235,9 @@ const userLogin = (req,res) =>
             // console.log("User already exists, returning false!")
             res.send({ success: false, message: "Sorry, we can't find an account with this email address. Please try again." })
         }
-    })
+    }
+     
+    )
 };
 
 /**

@@ -1,5 +1,5 @@
 require('dotenv').config();
-const mysql = require('mysql')
+const mysql = require('mysql2')
 
 /**
 * Provides the database info for user/query/admin controllers to query the mySQL database.
