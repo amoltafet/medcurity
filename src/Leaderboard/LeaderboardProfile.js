@@ -6,6 +6,17 @@ import { useEffect, useState } from "react";
 import { CircularProgressbar } from 'react-circular-progressbar';
 import axios from 'axios';
 import './LeaderboardProfile.css'
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import Divider from '@mui/material/Divider';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
+import Typography from '@mui/material/Typography';
+import PropTypes from 'prop-types';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Unstable_Grid2/Grid2';
 // import env from "react-dotenv";
 
 /**
@@ -46,7 +57,7 @@ function LeaderboardProfile (props) {
         `JOIN LearningModules ON LearningModules.ID = CompanyLearningModules.LearningModID ` +
         `LEFT JOIN CompletedModules ON (CompletedModules.LearningModID = CompanyLearningModules.LearningModID ` +
         `and CompletedModules.UserID = AffiliatedUsers.UserID) ` +
-        `WHERE AffiliatedUsers.UserID = '${currentUser.userid}'`
+        `WHERE AffiliatedUsers.UserID = '${props.userid}'`
         // `SELECT * ` +
         // `FROM AffiliatedUsers JOIN CompanyLearningModules ` +
         // `ON AffiliatedUsers.CompanyID = CompanyLearningModules.CompanyID ` +
@@ -60,10 +71,11 @@ function LeaderboardProfile (props) {
         // `JOIN LearningModules ON LearningModules.ID = CompletedModules.LearningModID ` +
         // `WHERE AffiliatedUsers.UserID = '${currentUser.userid}'` 
         } }).then((response) => {
-            setDirectories(Object.values(response.data));
-            console.log(currentUser.userid)
             console.log(response.data)
-
+            setDirectories(Object.values(response.data));
+            if (response.data.length === 0) {
+                setDirectories(null)
+            }
         }).catch(error => console.error(`Error ${error}`));  
     }, [currentUser])
 
@@ -78,105 +90,164 @@ function LeaderboardProfile (props) {
     const GetCurrentModule = () => {
         var categoryData = []
         if (directories !== null) {
-        for (var i = 0; i < directories.length; i++) {
-            categoryData.push( <>
-                        <Col>
-                            <Card.Text className={props.className[2]}><b>{directories[i].Title}</b></Card.Text>
-                            <CircularProgressbar
-                                className={props.className[3]}
-                                value={directories[i].Percentage * 100}
-                                text={`${Math.round(((directories[i].Percentage * 100) + Number.EPSILON) * 100) / 100}%`}
-                                styles={{
-                                    path: {
-                                        stroke: "#cc3333",
-                                    },
-                                    trail: {
-                                        stroke: "#d8dae3",
-                                    },
-                                    text: {
-                                        fill: "white",
-                                        textAnchor: "middle",
-                                    }}}/>   
-                            <Card.Text className="score_accordian_text">Score: {directories[i].Points}</Card.Text>
-                        </Col> 
-                    </>)
-        } 
-        return (categoryData)
+            for (var i = 0; i < directories.length; i++) {
+                categoryData.push( 
+                    <Grid item xs={12} sm={6} md={4}  alignItems="center" sx={{
+                        textAlign: 'center',
+                    }}>
+                    <Typography variant="overline" display="block" style={{
+                    }}>
+                        {directories[i].Title}
+                    </Typography>
+                    <Grid item xs={12}  alignItems="center">
+                    <CircularProgressWithLabel value={directories[i].Percentage * 100} />
+                    </Grid>
+                </Grid>
+                )
+            } 
+            return (categoryData)
         }
     }
+
+
 
 
     if (props.name === currentUser.username) {
         let imageClassname = props.className ? props.className[1] : "";
 
         return (
-            <>
-                <Card className={`uvs-left uvs-right justify-content-center ${props.userColor}`} style={{ flexDirection: 'row' }}>
-                    <Accordion className="displayLeaderboardInfo" defaultActiveKey="0">
-                        <Accordion.Toggle eventKey="1" className="accordianToggel">
-                            <Card className="cardHeaderAccordian" style={{ flexDirection: 'row' }}>
-                                <Row className="userRow text-center">
-                                    <Col xs={2} md={2} lg={2}>
-                                        <div className="leaderboardRank">{props.index}.</div>
-                                    </Col>
-                                    <Col xs={2} md={2} lg={2}>
-                                        <Image className={imageClassname} src={`data:image/png;base64,${profilePic}`} alt="" roundedCircle />
-                                    </Col>
-                                    <Col xs={4} md={3} lg={3}>
-                                        <Card.Text className="userNameTitle"><u>{props.name}</u></Card.Text>
-                                    </Col>
-                                    <Col xs={4} md={5} lg={4}>
-                                        <div className="userPointsLeaderboard"><b>Total Points:</b> {props.score}</div>
-                                    </Col>
-                                </Row>
-                            </Card>
+            <div>    
+            <div style={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                       
+                    }}>
+                <ListItem style={{
+                    border: '2px solid #000000',
+                }}>
+                        
+                <ListItemAvatar>
+                        <Avatar src={`data:image/png;base64,${profilePic}`}  alt=""/>
+                        </ListItemAvatar>
+                        <ListItemText
+                        primary={props.name}
+                        secondary={
+                            <React.Fragment>
+                            <Typography
+                                sx={{ display: 'inline' }}
+                                component="span"
+                                variant="body2"
+                                color="text.primary"
+                            >
+                                {props.score} points
+                            </Typography>
+                          
+                            </React.Fragment>
+                        }
+                        />
+                        
 
-                        </Accordion.Toggle>
-                        <Accordion.Collapse className="accordianCollapse" eventKey="1">
-                            <Row xs={3} md={3} lg={6} className="categorgiesLeaderboardRow">
-                                <Image className="leaderboardBreak" src="/line.png" alt=""></Image>
-                                {GetCurrentModule()}
-                            </Row>
+                        <Grid container spacing={5}>
+                            {GetCurrentModule()}
+                            {directories === null ? <Typography variant="overline" display="block" style={{
+                                textAlign: 'center',
+                                width: '100%',
+                            }}>
+                                No Modules Assigned
+                            </Typography> : null
+                            
+                            }
 
-                        </Accordion.Collapse>
-                    </Accordion>
-                </Card>
-            </>
+                        </Grid>      
+                    </ListItem>    </div>
+                    <Divider />
+            </div>
         );
     }
     else {
         let imageClassname = props.className ? props.className[1] : "";
 
         return (
-            <>
-        <Card className={`uvs-left uvs-right justify-content-center ${props.companyColor}`} style={{ flexDirection: 'row' }}>
-        <Accordion className="displayLeaderboardInfo" defaultActiveKey="0">
-        <Accordion.Toggle eventKey="1" className="accordianToggel">
-        <Card className="cardHeaderAccordian" style={{ flexDirection: 'row' }}>
-                <Row className="userRow text-center">
-                    <Col xs={2} md={2} lg={2}>
-                        <div className="leaderboardRank">{props.index}.</div>
-                    </Col>
-                    <Col xs={2} md={2} lg={2}>
-                        <Image className={imageClassname} src={`data:image/png;base64,${profilePic}`} alt="" roundedCircle />
-                    </Col>
-                    <Col xs={4} md={3} lg={3}>
-                        <Card.Text className="userNameTitle"><u>{props.name}</u></Card.Text>
-                    </Col>
-                    <Col xs={4} md={5} lg={4}>
-                        <div className="userPointsLeaderboard"><b>Total Points:</b>  {props.score} </div>
-                    </Col>
-                </Row>
-            </Card>
-           
-
-</Accordion.Toggle> 
-</Accordion>
-</Card>
-
-            </>
+            <div>
+        <div style={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                        
+                    }}>
+                <ListItem >
+            <ListItemAvatar>
+          <Avatar  src={`data:image/png;base64,${profilePic}`}  alt=""/>
+        </ListItemAvatar>
+        <ListItemText
+          primary={props.name}
+          secondary={
+            <React.Fragment>
+              <Typography
+                sx={{ display: 'inline' }}
+                component="span"
+                variant="body2"
+                color="text.primary"
+              >
+                {props.score} points
+              </Typography>
+             
+            </React.Fragment>
+          }
+        />
+          <Grid container spacing={5}>
+                            
+                            {GetCurrentModule()}  
+                            {directories === null ? <Typography variant="overline" display="block" style={{
+                                textAlign: 'center',
+                                width: '100%',
+                                marginRight: '50px',
+                            }}>
+                                No Modules Assigned
+                            </Typography> : null
+                            }
+                        </Grid>      
+                    </ListItem>   </div>
+                    <Divider />
+            </div>
         );
     }
 }
+
+function CircularProgressWithLabel(props) {
+    return (
+        
+      <Box sx={{ position: 'relative', display: 'inline-flex' }}>
+        {props.value === 0 ? <CircularProgress variant="determinate" value={100} style={{
+            color: "red"
+        }} /> : <CircularProgress variant="determinate" {...props} />}
+       
+        <Box
+          sx={{
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0,
+            position: 'absolute',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+            
+           
+          <Typography variant="caption" component="div" color="text.secondary">
+            {`${Math.round(props.value)}`}
+          </Typography>
+        </Box>
+      </Box>
+
+    );
+  }
+  
+  CircularProgressWithLabel.propTypes = {
+    value: PropTypes.number.isRequired,
+  };
+  
+ 
 
 export default LeaderboardProfile;

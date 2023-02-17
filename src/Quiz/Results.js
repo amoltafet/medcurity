@@ -28,15 +28,16 @@ function Results(props) {
     if (props.type === 'mc') { // for multiple-choice questions
         var potentialAnswers = convert_to_list_of_obj(props.answers);
         return(
-            <>
             <Card className="resultsCard">
-                <h3 id="qNumber" className={props.classes[0]}> Question {props.i + 1} </h3>
+                <h3 id="qNumber" className={props.classes[0]} style={{
+                    marginLeft: "15px",
+                }}> Question {props.i + 1} </h3>
                 <Container id={props.i} className="text-left resultsContainerQuestionBottom"> 
-                    <Container id="questionDesciption" className={props.classes[1]}>
+                    <Container id="questionDesciption" className={props.classes[1]} >
                         {props.question} 
                     </Container>
 
-                    <Row id={quizToggleId} className="resultsQuizSelection" name={quizToggleId}>
+                    <Row id={quizToggleId} className="" name={quizToggleId}>
                         {potentialAnswers.map((radio, idx) => (
                             <Result index={idx} type={props.type} rad={radio} correctIdx={props.userRadioAnswerIndex} correct={props.isCorrect}></Result>
                         ))}
@@ -44,13 +45,15 @@ function Results(props) {
 
                 </Container>
             </Card>
-            </>
+            
         );
     } else if (props.type === 'fill') { // for fill-in-the-blank questions
         return(
-            <>
+        
             <Card className="resultsCard">
-                <h3 id="qNumber" className={props.classes[0]}> Question {props.i + 1} </h3>
+                <h3 id="qNumber" className={props.classes[0]} style={{
+                    marginLeft: "15px",
+                }}> Question {props.i + 1} </h3>
                 <Container id={props.i} className="text-left resultsContainerQuestionBottom"> 
                     <Container id="questionDesciption" className={props.classes[1]}>
                         {props.question} 
@@ -62,14 +65,16 @@ function Results(props) {
 
                 </Container>
             </Card>
-            </>
+            
         );
     } else if (props.type === 'match') { // for matching questions
         if (props.isCorrect) {
             return(
                 <>
                 <Card className="resultsCard">
-                    <h3 id="qNumber" className={props.classes[0]}> Question {props.i + 1} </h3>
+                    <h3 id="qNumber" className={props.classes[0]} style={{
+                    marginLeft: "15px",
+                }}> Question {props.i + 1} </h3>
                     <Container id={props.i} className="text-left resultsContainerQuestionBottom"> 
                         <Container id="questionDesciption" className={props.classes[1]}>
                             {props.question} 
@@ -88,7 +93,9 @@ function Results(props) {
             return(
                 <>
                 <Card className="resultsCard">
-                    <h3 id="qNumber" className={props.classes[0]}> Question {props.i + 1} </h3>
+                    <h3 id="qNumber" className={props.classes[0]} style={{
+                    marginLeft: "15px",
+                }}> Question {props.i + 1} </h3>
                     <Container id={props.i} className="text-left resultsContainerQuestionBottom"> 
                         <Container id="questionDesciption" className={props.classes[1]}>
                             {props.question} 

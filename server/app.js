@@ -20,7 +20,7 @@ const session = require("express-session");
 */
 
 const app = express();
-const cookieSettings = (process.env.COOKIES == 'enabled') ? { httpOnly: true, secure: false, maxAge: 1000 * 60 * 60 * 48, sameSite: 'none' } : null
+const cookieSettings = (process.env.COOKIES === 'enabled') ? { httpOnly: true, secure: false, maxAge: 1000 * 60 * 60 * 48, sameSite: 'none' } : null
 
 app.use(
   express.json(),
@@ -33,12 +33,12 @@ app.use(
 var usersRouter = require('./routes/usersRoutes');
 var queryRouter = require('./routes/queryRoutes');
 var testingRouter = require('./routes/testingRoutes');
-//var adminRouter = require('./routes/adminRoutes');
+var modulesRouter = require('./routes/modulesRoutes');
 
 app.use('/users', usersRouter);
 app.use('/api', queryRouter);
 app.use('/testing', testingRouter);
-//app.use('/admin', adminRouter)
+app.use('/modules', modulesRouter)
 
 /**
  * If the server is launched with Passenger:
@@ -96,17 +96,6 @@ else
  function checkCerts(filesList, certNames) {
   return certNames.every(val => filesList.includes(val));
 }
-
-
-
-
-
-
-
-
-
-
-
 
 /*app.listen(LISTEN_PORT, (err) => {
     

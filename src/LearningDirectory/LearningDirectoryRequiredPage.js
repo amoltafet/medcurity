@@ -4,6 +4,8 @@ import React from 'react';
 import { Card,  Row } from 'react-bootstrap';
 // import env from "react-dotenv";
 import axios from 'axios';
+import { Button } from '@material-ui/core';
+import Grid from '@mui/material/Unstable_Grid2/Grid2';
 
 
 const LearningDirectoryRequiredPage = () => {
@@ -44,7 +46,7 @@ const LearningDirectoryRequiredPage = () => {
                     setLearningModules(Object.values(response.data))
             }).catch(error => console.error(`Error ${error}`));
             axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`,{
-			params: { the_query: `SELECT * FROM CompletedModules WHERE UserID = '${currentUser.userid}'`}
+			params: { the_query: `SELECT * FROM CompletedModules WHERE `}
             }).then((response) => {
                 setCompletedModules(Object.values(response.data));
             })
@@ -75,14 +77,22 @@ const LearningDirectoryRequiredPage = () => {
         var dueDate = new Date(props.dueDate); 
         dueDate.setDate((dueDate.getDate()));
         return (
-           
             <>
-            <a href={"/learning-module/" + props.link} style={{ cursor: "pointer" }} className="LearningModuleCard uvs-right uvs-left">
-                <Card.Body>
-                   <Card.Title className="testPanelFont" href={"/learning-module/" + props.link} >{props.title}</Card.Title>
-                   <Card.Text className="dueDateRequiredModule">Due At: {dueDate.toDateString()}</Card.Text>
-                </Card.Body> 
-            </a>
+              <div className="card card-custom bg-white border-white border-0">
+                <div className="card-custom-img card-custom-img-2"></div>
+                    <div className="card-custom-avatar">
+                        <img className="img-fluid" src={props.img} alt="Card image cap" />
+                    </div>
+                    <div className="card-body card-body-2">
+                        <h4 className="card-title">{props.title}</h4>
+                        <p className="card-text">Module {props.link}</p>
+                        <h6 className="card-text">{props.description}</h6>
+                    </div>
+                    <div className="card-footer card-footer-2" > 
+                        <Button variant="outlined" href={"/learning-module/" + props.link}>View</Button>
+                    </div>
+                   
+             </div>
             </>
         );
     }
@@ -97,20 +107,34 @@ const LearningDirectoryRequiredPage = () => {
         let size = 0
         for (let index in modules) {
             var newModule = modules[index]
-            objs.push(<ModulePanel title={newModule.Title} link={newModule.ID} dueDate={newModule.DueDate} />)
+            objs.push(
+                <Grid item xs={12} sm={6} md={4} lg={3}>
+            <ModulePanel title={newModule.Title} link={newModule.ID} dueDate={newModule.DueDate} />
+            </Grid>
+            )
             size += 1;
         }
         return objs;
     }
 
     return (
-        <><div className="all_reuired_modules_header ">All Required Modules</div>
-            <Row className="dashboard" style={{display: 'flex', flexDirection: 'row'}}>
+        <>
+            <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: '10vh',
+                fontSize: '30px',
+                backgroundColor: '#ffffff',
+            }}>All Required Modules </div>
+            <Grid container spacing={2} sx={{
+                marginLeft: '30px',
+                marginRight: '30px',
+            }}>
                 {createModuleCards(learningModules)}
-            </Row>
-            <div className="d-grid gap-2">
-            </div>
-        </>
+            </Grid>
+           </>
+      
     );
 }
 

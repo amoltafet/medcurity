@@ -8,9 +8,6 @@
     position: fixed;
 }
 
-.body{
-    background-color: rgba(0, 0, 0, 0.5);
-}
 
 .questionPosOutOfTotal {
     color: #93c2ec;
@@ -72,11 +69,12 @@
 }
 
 .resultAnswers {
-    margin-bottom: 2%;
-    margin-top: 3%; 
+   
     width: 80%;
-    background-color: aliceblue;
+    background-color: white;
+    margin: 3%;
 }
+
 
 @media screen and (min-width: 1000px) {
     .resultAnswers {
@@ -116,18 +114,13 @@
     margin-bottom: 5%;
 }
 
-.quizHomeBttn:focus {
-    border: none;
-    background-color: #127ebf;
-    color: #d8dae3;
-}
-
-.quizHomeBttn:hover {
-    border: none;
-    background-color: #127ebf;
-    color: #d8dae3;
-}
-
 #resultsPageContainer {
-    background-color: #eef1f2 !important;
+    background-color: #ffffff !important;
+    margin-top: 0%;
+    margin-left: 0;
+    height: 90vh;
+    width: 100%;
+
+    overflow-y: auto;
+
 }

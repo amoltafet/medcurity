@@ -1,5 +1,9 @@
 import { Row, Col, Image } from "react-bootstrap";
 import './Result.css';
+import Alert from '@mui/material/Alert';
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
+import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
+import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 
 function Result(props) {
 
@@ -7,52 +11,41 @@ function Result(props) {
         if (props.correctIdx === props.index && props.correct) { // user selected correct answer
             return(
                 <>
-                    <Row>
-                        <Col xs={1} md={1} className="checkmarkImage">
-                            <Image src="/checkmark.png" className="checkmarkImage" alt="checkmark" />
-                        </Col>
-                        <Col className="">
-                            <div
-                                key={props.index} 
-                                id={`result-${props.index}`}
-                                value={props.rad.name}
-                                className="correctResults">
-                                    {`${props.rad.name}`}
-                            </div>
-                        </Col>
-                    </Row>    
+                    
+                    <Alert key={props.index} id = {`result-${props.index}`}  severity="success"
+                        iconMapping={{
+                            success: <CheckCircleOutlineOutlinedIcon fontSize="inherit" />,
+                        }}
+                        >
+                        {`${props.rad.name}`}
+                        </Alert>
+
                 </>
             );
         } else if (props.correctIdx === props.index && !props.correct) { // user selected wrong answer
             return(
                 <>
-                    <Row>
-                        <Col xs={1} md={1} className="x-markImage">
-                            <Image src="/x-mark.png" className="x-markImage" alt="xmark" />
-                        </Col>
-                        <Col xs={10} md={10} className="">
-                            <div 
-                                key={props.index} 
-                                id={`result-${props.index}`}
-                                value={props.rad.name}
-                                className="wrongResults">
-                                    {`${props.rad.name}`}
-                            </div>
-                        </Col>
-                    </Row>
+                  
+                    <Alert key={props.index} id = {`result-${props.index}`}  severity="warning"
+                        iconMapping={{
+                            warning: <CancelOutlinedIcon fontSize="inherit" />,
+                        }} 
+                        >
+                        {`${props.rad.name}`}
+                        </Alert>
                 </>
             );
         } else { // user didn't select this answer
             return(
                 <>
-                    <Row
-                        className="justify-content-left"
-                        key={props.index} 
-                        id={`result-${props.index}`}
-                        value={props.rad.name}
+                    
+                    <Alert key={props.index}   id = {`result-${props.index}`}  severity="info"
+                        iconMapping={{
+                            info: <RadioButtonUncheckedIcon fontSize="inherit" />,
+                        }}
                         >
-                            {`${props.rad.name}`}
-                    </Row>
+                        {`${props.rad.name}`}
+                        </Alert>
                 </>
             );
         }
@@ -60,39 +53,28 @@ function Result(props) {
         if (props.correct) { // user typed in correct answer
             return(
                 <>
-                    <Row>
-                        <Col xs={1} md={1} className="checkmarkImage">
-                            <Image src="/checkmark.png" className="checkmarkImage" alt="checkmark" />
-                        </Col>
-                        <Col className="">
-                            <div
-                                key={props.index} 
-                                id={`result-${props.index}`}
-                                value={props.userFillInAnswer}
-                                className="correctResults">
-                                    {`${props.userFillInAnswer}`}
-                            </div>
-                        </Col>
-                    </Row>    
+                    
+                    <Alert key={props.index} id = {`result-${props.index}`}  severity="success"
+                        iconMapping={{
+                            success: <CheckCircleOutlineOutlinedIcon fontSize="inherit" />,
+                        }}
+                        >
+                        {`${props.userFillInAnswer}`}
+                        </Alert>
                 </>
             );
         } else { // user typed in wrong answer
+            
             return(
                 <>
-                    <Row>
-                        <Col xs={1} md={1} className=" x-markImage">
-                            <Image src="/x-mark.png" className="x-markImage" alt="xmark" />
-                        </Col>
-                        <Col xs={10} md={10} className="">
-                            <div 
-                                key={props.index} 
-                                id={`result-${props.index}`}
-                                value={props.userFillInAnswer}
-                                className="wrongResults">
-                                    {`${props.userFillInAnswer}`}
-                            </div>
-                        </Col>
-                    </Row>
+                    
+                    <Alert key={props.index} id = {`result-${props.index}`}  severity="warning"
+                        iconMapping={{
+                            warning: <CancelOutlinedIcon fontSize="inherit" />,
+                        }}
+                        >
+                        {`${props.userFillInAnswer}` }
+                        </Alert>
                 </>
             );
         }
@@ -100,37 +82,30 @@ function Result(props) {
         if (props.correct) {
             return(
                 <>
-                    <Row>
-                        <Col xs={1} md={1} className="checkmarkImage">
-                            <Image src="/checkmark.png" className="checkmarkImage" alt="checkmark" />
-                        </Col>
-                        <Col className="">
-                            <div
-                                key={props.index} 
-                                id={`result-${props.index}`}
-                                className="correctResults">
-                                    <p>You matched all four correctly!</p>
-                            </div>
-                        </Col>
-                    </Row>    
+                     
+                    <Alert key={props.index} id = {`result-${props.index}`}  severity="success"
+                        iconMapping={{
+                            success: <CheckCircleOutlineOutlinedIcon fontSize="inherit" />,
+                        }}
+                        >
+                        You matched all four correctly!
+                        </Alert>
+                        
                 </>
             );
         } else {
             return(
                 <>
-                    <Row>
-                        <Col xs={1} md={1} className=" x-markImage">
-                            <Image src="/x-mark.png" className="x-markImage" alt="xmark" />
-                        </Col>
-                        <Col xs={10} md={10} className="">
-                            <div 
-                                key={props.index} 
-                                id={`result-${props.index}`}
-                                className="wrongResults">
-                                    <p>You created {props.numberCorrectMatches} correct matches.</p>
-                            </div>
-                        </Col>
-                    </Row>
+                  
+                    <Alert key={props.index} id = {`result-${props.index}`}  severity="warning"
+                        iconMapping={{
+                            warning: <CancelOutlinedIcon fontSize="inherit" />,
+                        }}
+                        >
+                        You created {props.numberCorrectMatches} correct matches.
+                        </Alert>
+
+                    
                 </>
             );
         }

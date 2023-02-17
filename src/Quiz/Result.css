@@ -20,11 +20,10 @@
     font-family: Lato,sans-serif;
 }
 
-.resultsContainerQuestionBottom {
-    margin-bottom:2%;
-}
+
 
 .resultsCard {
     border: none;
     margin-bottom: 3%;
+    background-color: white;
 }
