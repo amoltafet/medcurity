@@ -15,7 +15,6 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import React from 'react'
 import Badges from '../Badges/Badges'
-import HighScores from '../HighScores/HighScores'
 import './CompanySet.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useSearchParams } from 'react-router-dom'
@@ -30,17 +29,16 @@ const CompanySet = () => {
   const [currentUser, setCurrentUser] = useState([])
   const [show, setShow] = useState(false)
   const [isLoaded, setLoaded] = useState(false)
-  const [company, setCompany] = useState([])
-  const [dueDate, setDueDate] = useState([])
-  const [message, setMessage] = useState('Saved!')
-  const navigate = useNavigate()
+  const [saveData, setSaveData] = useState(false)
+  const [newCompanyName, setNewCompanyName] = useState('')
+  const [newCompanyBio, setNewCompanyBio] = useState('')
+
+  const [ifAdmin, setIfAdmin] = useState(true)
 
   //company information
   const [companyName, setCompanyName] = useState('')
   const [companyInfo, setCompanyInfo] = useState('')
   const [companyDate, setCompanyDate] = useState('')
-  const [searchParams, setSearchParams] = useSearchParams()
-  
 
   const [highScore, setHighScore] = useState('')
   const [totalScore, setTotalScore] = useState('')
@@ -58,11 +56,50 @@ const CompanySet = () => {
     setLoaded(true)
   }, [])
 
+  useEffect(() => {
+    if (saveData === true) {
+      console.log(newCompanyName)
+      if (newCompanyName !== '') {
+        axios
+          .post(`${process.env.REACT_APP_BASE_URL}/users/changeCompanyName`, {
+            name: newCompanyName,
+            id: window.location.href.split('/').pop()
+          })
+          .then(response => {
+             console.log("response", response.data);
+          })
+          .catch()
+      }
+      if (newCompanyBio !== '') {
+        axios
+          .post(`${process.env.REACT_APP_BASE_URL}/users/changeCompanyBio`, {
+            bio: newCompanyBio,
+            id: window.location.href.split('/').pop()
+          })
+          .then(response => {
+             console.log("response", response.data);
+          })
+          .catch()
+      }
+
+      setSaveData(false)
+      window.location.reload()
+    }
+  }, [saveData, newCompanyName, newCompanyBio, currentUser.userid])
+
+
+
+
   /**
    * Handles queries to get the company information and the high scores
    */
   useEffect(() => {
     if (isLoaded) {
+      //If the user is an admin, show them the edit company information button
+      console.log(currentUser.companyid)
+      if (currentUser.companyid === window.location.href.split('/').pop() && (currentUser?.type === "websiteAdmin" || currentUser?.type === "companyAdmin")) {
+        setIfAdmin(true)
+      }
       axios
         .get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, {
           params: {
@@ -103,34 +140,44 @@ const CompanySet = () => {
         .get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, {
           params: {
             the_query:
-            'SELECT SUM(Points) AS TotalPoints ' +
-            'FROM CompletedModules ' +
-            'JOIN UserPoints ON UserPoints.PointsID = CompletedModules.LearningModID ' +
-            'RIGHT JOIN Users ON Users.userid = CompletedModules.UserID ' +
-            'JOIN AffiliatedUsers ON AffiliatedUsers.UserID = Users.userid ' +
-            'WHERE AffiliatedUsers.CompanyID = ' + window.location.href.split('/').pop()
+              'SELECT SUM(Points) AS TotalPoints ' +
+              'FROM CompletedModules ' +
+              'JOIN UserPoints ON UserPoints.PointsID = CompletedModules.LearningModID ' +
+              'RIGHT JOIN Users ON Users.userid = CompletedModules.UserID ' +
+              'JOIN AffiliatedUsers ON AffiliatedUsers.UserID = Users.userid ' +
+              'WHERE AffiliatedUsers.CompanyID = ' +
+              window.location.href.split('/').pop()
           }
         })
         .then(response => {
           setTotalScore(response.data[0].TotalPoints)
         })
         .catch(error => console.error(`Error ${error}`))
-        //Get all users in the company
-        axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, {
+      //Get all users in the company
+      axios
+        .get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, {
           params: {
-              the_query:
-                  'SELECT Users.username FROM CompletedModules ' +
-                  'JOIN UserPoints ON UserPoints.PointsID = CompletedModules.LearningModID ' +
-                  'RIGHT JOIN Users ON Users.userid = CompletedModules.UserID ' +
-                  'JOIN AffiliatedUsers ON AffiliatedUsers.UserID = Users.userid WHERE AffiliatedUsers.CompanyID = ' + window.location.href.split('/').pop() + ' ' +
-                  'GROUP BY Users.userid '
+            the_query:
+              'SELECT Users.username FROM CompletedModules ' +
+              'JOIN UserPoints ON UserPoints.PointsID = CompletedModules.LearningModID ' +
+              'RIGHT JOIN Users ON Users.userid = CompletedModules.UserID ' +
+              'JOIN AffiliatedUsers ON AffiliatedUsers.UserID = Users.userid WHERE AffiliatedUsers.CompanyID = ' +
+              window.location.href.split('/').pop() +
+              ' ' +
+              'GROUP BY Users.userid '
           }
-      }).then(response => {
-        console.log(response.data)
-        setCompanyUsers(response.data)
-      }).catch(error => console.error(`Error ${error}`))
+        })
+        .then(response => {
+          console.log(response.data)
+          setCompanyUsers(response.data)
+        })
+        .catch(error => console.error(`Error ${error}`))
     }
   }, [isLoaded])
+
+  function SaveUpdatedUserInfo () {
+    setSaveData(true)
+  }
 
   setTimeout(() => {
     setShow(false)
@@ -157,6 +204,19 @@ const CompanySet = () => {
                           alt=''
                         ></Image>
                       </Form.Group>
+                      <div class='col-md-6'>
+                        <Form.Group className='justify-content-center'>
+                          <Tab.Pane eventKey='edit'>
+                            <Form.File
+                              className='userProfilePhotoInput'
+                              // onChange={e =>
+                              //   uploadUserPhoto(e.target.files[0])
+                              // }
+                              accept='.png,.jpg,.jpeg'
+                            />
+                          </Tab.Pane>
+                        </Form.Group>
+                      </div>
                     </div>
                   </div>
                   <div class='col-md-6'>
@@ -228,7 +288,31 @@ const CompanySet = () => {
                       </ul>
                     </div>
                   </div>
-                  <div class='col-md-2'></div>
+                  {ifAdmin ? (
+                  <div class='col-md-2'>
+                    <Nav className='justify-content-center'>
+                      <Nav.Item className='justify-content-center settingSpacing'>
+
+                        <Nav.Link
+                          eventKey='edit'
+                          type='submit'
+                          class='profile-edit-btn'
+                          name='btnAddMore'
+                          value='Edit Profile'
+                        >
+                          <img
+                            class='edit-icon'
+                            src='https://icons.veryicon.com/png/o/miscellaneous/linear-small-icon/edit-246.png'
+                            alt=''
+                          />
+                          Edit Profile
+                        </Nav.Link>
+                      </Nav.Item>
+                    </Nav>
+                  </div>
+                  ) : (
+                    <div>You must be an admin to modify company settings</div>
+                  )}
                 </div>
                 <div class='row'>
                   <div class='col-md-4'></div>
@@ -262,6 +346,66 @@ const CompanySet = () => {
                               <li key={index}>{user.username}</li>
                             ))}
                           </ul>
+                        </Tab.Pane>
+                        <Tab.Pane eventKey='edit'>
+                          <div
+                            class='tab-pane fade show active'
+                            id='home'
+                            role='tabpanel'
+                            aria-labelledby='home-tab'
+                          >
+                            <div class='row'>
+                              <div class='col-md-6'>
+                                <label>Company Name</label>
+                              </div>
+                              <div class='col-md-6'>
+                                <Form.Group
+                                  className='usernameInput'
+                                  controlId='formPlaintextEmail'
+                                >
+                                  <Form.Control
+                                    defaultValue={companyName}
+                                    onChange={e => {
+                                      setNewCompanyName(e.target.value)
+                                    }}
+                                  ></Form.Control>
+                                </Form.Group>
+                              </div>
+                            </div>
+                            <div class='row'>
+                              <div class='col-md-6'>
+                                <label>Company Bio</label>
+                              </div>
+                              <div class='col-md-6'>
+                                <Form.Group
+                                  className='emailInput'
+                                  controlId='formPlaintextEmail'
+                                >
+                                  <p>
+                                    <Form.Control
+                                      defaultValue={companyInfo}
+                                      onChange={e => {
+                                        setNewCompanyBio(e.target.value)
+                                      }}
+                                    ></Form.Control>
+                                  </p>
+                                </Form.Group>
+                              </div>
+                            </div>
+                          </div>
+                          <OverlayTrigger
+                            delay={{ show: 5000, hide: 4000 }}
+                            show={show}
+                            placement='bottom'
+                            // overlay={popover}
+                          >
+                            <Button
+                              className='settingsWideButton'
+                               onClick={() => SaveUpdatedUserInfo()}
+                            >
+                              Save
+                            </Button>
+                          </OverlayTrigger>
                         </Tab.Pane>
                       </Tab.Content>
                     </div>

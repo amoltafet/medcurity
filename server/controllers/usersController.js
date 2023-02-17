@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const bcrypt = require("bcrypt");
 const serverConfig = require('../serverConfig.json')
 const saltRounds = serverConfig.bcrypt.SALT_ROUNDS;
@@ -293,6 +294,46 @@ const userChangeUsername = (req, res) => {
     })   
 }
 
+const userChangeCompanyName = (req, res) => {
+    const newCompanyName = req.body.name;
+    const companyId = req.body.id;
+
+    console.log(newCompanyName);
+    console.log(companyId);
+
+    logger.log('info', `company name "${newCompanyName}"`);
+    logger.log('info', `id "${companyId}"`);
+    db.query(`UPDATE companies SET name = "${newCompanyName}" WHERE companyID = "${companyId}"`, (err,result) => {
+        if (err) {
+            logger.log('error', { methodName: '/userChangeCompanyName', body: `Failed to change company-${companyId}'s name: ${err}.` }, { service: 'query-service' });
+        }
+        db.query(`SELECT * FROM Companies WHERE CompanyID = '${companyId}'`, (err,result) => {
+            logger.log('info', `Updated company name to "${newCompanyName}"`);
+            res.send({ result: result, success: true, message: "Updated company name!" });
+        })
+    })
+}
+
+const userChangeCompanyBio = (req, res) => {
+    const newCompanyBio = req.body.bio;
+    const companyId = req.body.id;
+
+    console.log(newCompanyBio);
+    console.log(companyId);
+
+    logger.log('info', `company bio "${newCompanyBio}"`);
+    logger.log('info', `id "${companyId}"`);
+    db.query(`UPDATE companies SET description = "${newCompanyBio}" WHERE companyID = "${companyId}"`, (err,result) => {
+        if (err) {
+            logger.log('error', { methodName: '/userChangeCompanyBio', body: `Failed to change company-${companyId}'s bio: ${err}.` }, { service: 'query-service' });
+        }
+        db.query(`SELECT * FROM Companies WHERE CompanyID = '${companyId}'`, (err,result) => {
+            logger.log('info', `Updated company bio to "${newCompanyBio}"`);
+            res.send({ result: result, success: true, message: "Updated company bio!" });
+        })
+    })
+}
+
 /**
  * Store a learning module as completed.
  */
@@ -568,6 +609,10 @@ const updateCompanyModuleDueDate = (req, res) => {
     })   
 }
 
+
+
+    
+
 /**
  * Reset user stats for the leaderboard and learning modules. 
  * Does this by finding all users affiliated with a company. 
@@ -699,6 +744,8 @@ module.exports =
     userLogout,
     userChangeUsername,
     userChangePassword,
+    userChangeCompanyName,
+    userChangeCompanyBio,
     userModuleCompleted,
     deleteUser,
     assignModulesToCompany,

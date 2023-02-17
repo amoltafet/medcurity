@@ -15,6 +15,8 @@ router.get('/login', userControllers.userLoginSession);
 router.post('/logout', userControllers.userLogout);
 router.post('/changeUserName', userControllers.userChangeUsername);
 router.post('/changeUserPassword', userControllers.userChangePassword);
+router.post('/changeCompanyName', userControllers.userChangeCompanyName);
+router.post('/changeCompanyBio', userControllers.userChangeCompanyBio);
 router.post('/moduleCompleted', userControllers.userModuleCompleted);
 router.post('/moduleBadgeEarned', userControllers.userModuleBadgeEarned);
 router.post('/namedBadgeEarned', userControllers.namedBadgeEarned);
