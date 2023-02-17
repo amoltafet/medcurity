@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const bcrypt = require("bcrypt");
 const serverConfig = require('../serverConfig.json')
 const saltRounds = serverConfig.bcrypt.SALT_ROUNDS;
@@ -296,6 +297,46 @@ const userChangeUsername = (req, res) => {
     })   
 }
 
+const userChangeCompanyName = (req, res) => {
+    const newCompanyName = req.body.name;
+    const companyId = req.body.id;
+
+    console.log(newCompanyName);
+    console.log(companyId);
+
+    logger.log('info', `company name "${newCompanyName}"`);
+    logger.log('info', `id "${companyId}"`);
+    db.query(`UPDATE companies SET name = "${newCompanyName}" WHERE companyID = "${companyId}"`, (err,result) => {
+        if (err) {
+            logger.log('error', { methodName: '/userChangeCompanyName', body: `Failed to change company-${companyId}'s name: ${err}.` }, { service: 'query-service' });
+        }
+        db.query(`SELECT * FROM Companies WHERE CompanyID = '${companyId}'`, (err,result) => {
+            logger.log('info', `Updated company name to "${newCompanyName}"`);
+            res.send({ result: result, success: true, message: "Updated company name!" });
+        })
+    })
+}
+
+const userChangeCompanyBio = (req, res) => {
+    const newCompanyBio = req.body.bio;
+    const companyId = req.body.id;
+
+    console.log(newCompanyBio);
+    console.log(companyId);
+
+    logger.log('info', `company bio "${newCompanyBio}"`);
+    logger.log('info', `id "${companyId}"`);
+    db.query(`UPDATE companies SET description = "${newCompanyBio}" WHERE companyID = "${companyId}"`, (err,result) => {
+        if (err) {
+            logger.log('error', { methodName: '/userChangeCompanyBio', body: `Failed to change company-${companyId}'s bio: ${err}.` }, { service: 'query-service' });
+        }
+        db.query(`SELECT * FROM Companies WHERE CompanyID = '${companyId}'`, (err,result) => {
+            logger.log('info', `Updated company bio to "${newCompanyBio}"`);
+            res.send({ result: result, success: true, message: "Updated company bio!" });
+        })
+    })
+}
+
 /**
  * Store a learning module as completed.
  */
@@ -360,7 +401,7 @@ const moduleActivity = (req, res) => {
 const getRecentActivity = (req, res) => {
     const userid = req.query.userid;
 
-    db.query(`SELECT * FROM userActivity WHERE userid = ${userid}`, (err,result) => {
+    db.query(`SELECT date FROM userActivity WHERE userid = ${userid} ORDER BY date DESC`, (err,result) => {
         if (err) {
             logger.log('error', { methodName: '/getLastActivity', body: err }, { service: 'user-service' });
         }
@@ -477,99 +518,11 @@ const deleteUser = (req,res) =>
             res.send(false)
         }
     })
+}
+
+
 
     
-}
-
-/**
- * Assign a learning module to a company if it is not already assigned
-*/
-const assignModulesToCompany = (req,res) => 
-{
-    const learningmodid = req.body.learningModId
-    const companyid = req.body.companyid
-
-    db.query(`SELECT EXISTS(SELECT * FROM CompanyLearningModules as CLM ` +
-    `WHERE CLM.LearningModId = '${learningmodid}' and CLM.CompanyID = '${companyid}') AS doesExist`, (err,result) => {
-        if (result[0].doesExist == 0)
-        {
-            db.query("INSERT INTO CompanyLearningModules (LearningModID, CompanyID) VALUES (?,?)", [learningmodid, companyid], (err, result) => {
-            res.send(true)
-            });
-        }
-        else
-        {
-            res.send(false)
-        }
-    })
- }
-
-/**
- * Removes assigned learning module from a company
- * Also removes all completed module records for that learning module
- * from all users in the company, by querying all users in the company then
- * going through and deleting all of their completed modules
- */
- const removeModuleFromCompany = (req, res) => {
-    const learningmodid = req.body.learningModId
-    const companyid = req.body.companyid
-
-    db.query((`SELECT EXISTS(SELECT * FROM CompanyLearningModules ` +
-        `WHERE CompanyLearningModules.LearningModID = '${learningmodid}' and CompanyLearningModules.CompanyID = '${companyid}') AS doesExist`), (err, result) => {
-        if (result[0].doesExist == 1)
-        {
-            if (err) logger.log('error', { methodName: '/removeModuleFromCompany', errorBody: err }, { service: 'user-service' });
-
-            db.query(`DELETE FROM CompanyLearningModules WHERE CompanyLearningModules.LearningModID = '${learningmodid}' and CompanyLearningModules.CompanyID = '${companyid}'`, (err, result) => {
-                logger.log('info', `Deleted CompanyLearningModule with companyID: "${companyid}" and learningModID: "${learningmodid}" Fields: ${result}`, { service: 'user-service' })
-                db.query(`SELECT AffiliatedUsers.UserID ` + 
-                    `FROM AffiliatedUsers ` +
-                    `WHERE AffiliatedUsers.CompanyID = '${companyid}'`, (err, company_users) => {
-                        logger.log('info', `Queried User ids affiliated with company: "${companyid}" Fields: ${result}`, { service: 'user-service' })
-                    for (index in company_users) {
-                        db.query(`DELETE FROM CompletedModules WHERE CompletedModules.LearningModID = ` +
-                            `'${learningmodid}' and CompletedModules.UserID = '${company_users[index].UserID}'`, 
-                            (err, result) => {
-                                if(!err && result.affectedRows > 0) deletionStatus = true;
-                                else deletionStatus = false;
-                                logger.log('info', `Attempted deletion of CompletedModules record learningModID: "${learningmodid}" and UserID: "${company_users[index].UserID}." Successfully deleted if true: "${deletionStatus}" Fields: ${result}`, { service: 'user-service' })    
-                            });
-
-                    }
-                    res.send(true)
-                });
-            });
-        }
-        else
-        {
-            res.send(false)
-        }
-    })
-}
-
-/**
- * Here we update a module to have a new date due
- * To start the process off we need to construct a sql accepted 
- * date string
- */
-const updateCompanyModuleDueDate = (req, res) => {
-    //today.setDate(today.getDate() - 1);
-    const learningmodid = req.body.learningModId
-    const companyid = req.body.companyid
-    const dateDue = new Date(req.body.dateDue)
-    dateDue.setDate(dateDue.getDate())
-    dateDue.setHours(23, 59)
-        
-
-    db.query(`UPDATE CompanyLearningModules SET DueDate = ? WHERE CompanyID = ? AND LearningModID = ?`, [dateDue, companyid, learningmodid], (err,result) => {
-        if (err) {
-            logger.log('error', { methodName: '/updateCompanyModuleDueDate', errorBody: err }, { service: 'user-service' });
-            res.send(false)
-        }
-        logger.log('info', `Updated CompanyLearningModule with companyID: "${companyid}" and learningModID: "${learningmodid}" to date: "${dateDue}" Fields: ${result}`, { service: 'user-service' })
-        res.send(true)
-    })   
-}
 
 /**
  * Reset user stats for the leaderboard and learning modules. 
@@ -702,12 +655,11 @@ module.exports =
     userLogout,
     userChangeUsername,
     userChangePassword,
+    userChangeCompanyName,
+    userChangeCompanyBio,
     userModuleCompleted,
     deleteUser,
-    assignModulesToCompany,
-    removeModuleFromCompany,
     resetUserStats,
-    updateCompanyModuleDueDate,
     userModuleBadgeEarned,
     namedBadgeEarned,
     moduleActivity,

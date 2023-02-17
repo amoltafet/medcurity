@@ -1,3 +1,11 @@
+/*
+File Name: LearningManagerDashboard.js
+Description: This file contains the page that allows an employer to
+    assign learning modules to their employees, change due dates, and remove them. 
+    Multiple widgets are contained in this page that allow for different functions. 
+Last Modified: February 14, 2023
+*/
+
 import React from 'react';
 import '../Dashboard/DashboardPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -9,7 +17,6 @@ import WelcomePanel from '../Dashboard/WelcomePanel';
 import LearningModuleAdder from './LearningManagerAdder';
 import { useEffect, useState} from "react";
 import axios from 'axios';
-// import env from "react-dotenv";
 
 /**
 * Creates and holds all of the componets for the LearningManager Dashboard. 
@@ -19,18 +26,18 @@ import axios from 'axios';
 const LearningManagerDashboardPage = () => {
     axios.defaults.withCredentials = true;
     const [currentUser, setCurrentUser] = useState([]);
-    const [companyId, setCompanyId] = useState('');
+    const [companyID, setCompanyID] = useState('');
     const [isLoading, setLoading] = useState(true)
     const [reload, setReload] = useState(false);
 
     // Resets reload after it has been triggered
     useEffect(() => {
-        setReload(false)
+        setReload(false);
     }, [reload]);
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_BASE_URL}/users/login`).then((response) => {
-            setCurrentUser(response.data.user[0])
+           setCurrentUser(response.data.user[0]);
         });
     }, []);
 
@@ -46,12 +53,11 @@ const LearningManagerDashboardPage = () => {
             axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`,
                 {
                     params: {
-                        the_query: 'SELECT CompanyAdmins.CompanyID ' +
-                            'FROM CompanyAdmins ' +
-                            'WHERE CompanyAdmins.UserID = ' + String(currentUser.userid)
+                        the_query: 'SELECT CompanyAdmins.CompanyID FROM CompanyAdmins ' +
+                        'WHERE CompanyAdmins.UserID = ' + String(currentUser.userid)
                     }
                 }).then((response) => {
-                    setCompanyId(Object.values(response.data)[0].CompanyID)
+                    setCompanyID(Object.values(response.data)[0].CompanyID)
                 });
         }
     }, [isLoading, currentUser.userid])
@@ -65,12 +71,12 @@ const LearningManagerDashboardPage = () => {
                         <WelcomePanel user={currentUser} pageTitle={"Learning Module Manager"} />
                     </Col>
                     <Col xs={11} md={4} lg={4} className="margin_bottom_learning_manager">
-                        <LearningModuleAdder companyId={companyId} reload={reload} setReload={setReload} />
+                        <LearningModuleAdder companyID={companyID} reload={reload} setReload={setReload} />
                     </Col>
                 </Row>
                 <Row className="justify-content-center">
                     <Col xs={11} md={11} lg={11} className="margin_bottom_learning_manager">
-                        <LearningManagerCards companyId={companyId} reload={reload} setReload={setReload} />
+                        <LearningManagerCards companyID={companyID} reload={reload} setReload={setReload} />
                     </Col>
                 </Row>
             </>
