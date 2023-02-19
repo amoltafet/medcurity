@@ -105,7 +105,7 @@ exports[`renders Menubar 1`] = `
           <a
             aria-current="page"
             class="nav-link"
-            href=""
+            href="/learning-directory"
           >
             <div>
               <svg
@@ -139,9 +139,6 @@ exports[`renders Menubar 1`] = `
       <ul
         class="navbar-nav ms-auto d-flex flex-row mt-3 mt-lg-0"
       >
-        <div
-          class="vertical-line"
-        />
         <li
           class="nav-item text-center mx-2 mx-lg-1"
         >
@@ -201,12 +198,6 @@ exports[`renders Menubar 1`] = `
             </div>
           </div>
         </li>
-        <div
-          class="vertical-line"
-        />
-        <div
-          class="vertical-line"
-        />
         <li
           class="nav-item text-center mx-2 mx-lg-1"
         >
@@ -270,38 +261,53 @@ exports[`renders Menubar 1`] = `
           </div>
         </li>
         <div
-          class="vertical-line"
-        />
-        <div>
-          <form
-            class="d-flex input-group w-auto ms-lg-3 my-3 my-lg-0"
-          >
-            <input
-              aria-label="Search"
-              class="form-control"
-              onChange={[Function]}
-              placeholder="Search Modules"
-              type="search"
-            />
+          style={
+            Object {
+              "marginTop": "5px",
+            }
+          }
+        >
+          <div>
             <button
-              class="btn search-btn-color"
-              data-mdb-ripple-color="dark"
+              className="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeSmall MuiButton-outlinedSizeSmall MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeSmall MuiButton-outlinedSizeSmall css-s2mrju-MuiButtonBase-root-MuiButton-root"
+              disabled={false}
+              onBlur={[Function]}
+              onClick={[Function]}
+              onContextMenu={[Function]}
+              onDragLeave={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+              tabIndex={0}
               type="button"
             >
-              <svg
-                class="bi bi-search"
-                fill="currentColor"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
+              Search
+              <span
+                className="MuiButton-endIcon MuiButton-iconSizeSmall css-155nyw6-MuiButton-endIcon"
               >
-                <path
-                  d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
-                />
-              </svg>
+                <svg
+                  aria-hidden={true}
+                  className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                  data-testid="SearchIcon"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+                  />
+                </svg>
+              </span>
+              <span
+                className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+              />
             </button>
-          </form>
+          </div>
         </div>
       </ul>
     </div>
