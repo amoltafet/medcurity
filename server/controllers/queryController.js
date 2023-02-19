@@ -1,8 +1,14 @@
-const db = require('../dbConfig')
-const logger = require('../logger').log
-const fs = require('fs')
-const path = require('path')
-const { doesNotMatch } = require('assert')
+/*
+File Name: queryController.js
+Description: This file contains the routes for direct queries to the database,
+as well as file handling routes.
+Last Modified: February 13, 2023
+*/
+
+const db = require('../dbConfig');
+const logger = require('../logger').log;
+const fs = require('fs');
+const path = require('path');
 
 /**
  * Queries the database with any given mySQL query. 
@@ -122,18 +128,41 @@ const queryModuleBanner = (req,res)=>{
 /**
  * Queries the data base for a user's profile picture (base64)
  */
-const queryProfilePicture = (req,res)=>{
-    db.query(`SELECT userid, profilepicture FROM Users WHERE userid = ${req.query.id}`, (err,result) => {
-        if (err) logger.log('error', { methodName: '/queryProfilePicture', body: err }, { service: 'query-service' })
+const queryProfilePicture = (req,res) => {
+    const userid = req.query.id;
+
+    try {
+        let image = fs.readFileSync(path.join(__dirname, `../assets/images/profiles/${userid}-profile.png`));
+        res.send({ profileImage: new Buffer.from(image).toString('base64') });
+    }
+    catch (error) {
         try {
-            let image = fs.readFileSync(path.join(__dirname, `../assets/images/profiles/${result[0].profilepicture}`));
-            res.send({ profileImage: new Buffer.from(image).toString('base64') })
+            let image = fs.readFileSync(path.join(__dirname, `../assets/images/profiles/${userid}-profile.jpg`));
+            res.send({ profileImage: new Buffer.from(image).toString('base64') });
         }
         catch (error) {
-            let image = fs.readFileSync(path.join(__dirname, `../assets/images/profiles/profile-default.png`));
-            res.send({ profileImage: new Buffer.from(image).toString('base64') })
+            try {
+                let image = fs.readFileSync(path.join(__dirname, `../assets/images/profiles/${userid}-profile.jpeg`));
+                res.send({ profileImage: new Buffer.from(image).toString('base64') })
+            }
+            catch (error) {
+                let image = fs.readFileSync(path.join(__dirname, `../assets/images/profiles/profile-default.png`));
+                res.send({ profileImage: new Buffer.from(image).toString('base64') })
+            }
         }
-    })
+    }
+
+    // db.query(`SELECT userid, profilepicture FROM Users WHERE userid = ${req.query.id}`, (err,result) => {
+    //     if (err) logger.log('error', { methodName: '/queryProfilePicture', body: err }, { service: 'query-service' })
+    //     try {
+    //         let image = fs.readFileSync(path.join(__dirname, `../assets/images/profiles/${result[0].profilepicture}`));
+    //         res.send({ profileImage: new Buffer.from(image).toString('base64') })
+    //     }
+    //     catch (error) {
+    //         let image = fs.readFileSync(path.join(__dirname, `../assets/images/profiles/profile-default.png`));
+    //         res.send({ profileImage: new Buffer.from(image).toString('base64') })
+    //     }
+    // })
 }
 
 /**

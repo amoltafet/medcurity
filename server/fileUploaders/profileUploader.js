@@ -1,6 +1,13 @@
-const multer  = require('multer')
-const serverConfig = require('../serverConfig.json')
-const path = require('path')
+/*
+File Name: profileUploader.js
+Description: This file contains the uploader for uploading profile pictures.
+Last Modified: February 19, 2023
+*/
+
+const multer  = require('multer');
+const serverConfig = require('../serverConfig.json');
+const path = require('path');
+const fs = require('fs');
 
 module.exports = class ProfileUploader {
 
@@ -10,9 +17,33 @@ module.exports = class ProfileUploader {
                 destination: function (req, file, cb) { cb(null, path.join(__dirname, serverConfig.server.PROFILE_UPLOAD_PATH)) }, 
                 filename: function (req, file, cb) 
                 {
-                    cb(null, `${file.originalname}`);
+                    const id = req.query.userid;
+
+                    fs.unlink(path.join(__dirname, serverConfig.server.PROFILE_UPLOAD_PATH, `${id}-profile.png`), 
+                        (err) => {
+                            if (err) {
+                                console.log("PNG does not exist.");
+                            }});
+                    fs.unlink(path.join(__dirname, serverConfig.server.PROFILE_UPLOAD_PATH, `${id}-profile.jpg`),
+                        (err) => {
+                            if (err) {
+                                console.log("PNG does not exist.");
+                            }});
+                    fs.unlink(path.join(__dirname, serverConfig.server.PROFILE_UPLOAD_PATH, `${id}-profile.jpeg`),
+                        (err) => {
+                            if (err) {
+                                console.log("PNG does not exist.");
+                            }});
+
+
+                    let fn = file.originalname;
+                    let file_ext = fn.split('.').pop();
+
+                    cb(null, `${id}-profile.${file_ext}`);
                 }
             });
-        this.upload = multer({ storage: this.storage })
+
+        
+        this.upload = multer({ storage: this.storage });
 	}
 }

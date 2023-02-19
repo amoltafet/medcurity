@@ -1,16 +1,18 @@
+/*
+File Name: queryRoutes.js
+Description: This file contains the routes for direct queries to the database,
+as well as file handling routes.
+Last Modified: February 13, 2023
+*/
+
 const express = require('express');
 const queryControllers = require('../controllers/queryController');
 const router = express.Router();
 
-const BannerUploader = require('../fileUploaders/bannerUploader')
-const ProfileUploader = require('../fileUploaders/profileUploader')
-const bannerUploader = new BannerUploader()
-const profileUploader = new ProfileUploader()
-
-/**
-* Handles HTTP requests relating to database queries by forwarding them to 
-* their respective query controllers.
-*/
+const BannerUploader = require('../fileUploaders/bannerUploader');
+const ProfileUploader = require('../fileUploaders/profileUploader');
+const bannerUploader = new BannerUploader();
+const profileUploader = new ProfileUploader();
 
 router.get('/getQuery', queryControllers.getQuery);
 router.get('/getCompany', queryControllers.getQuery);
@@ -26,6 +28,5 @@ router.get('/getModuleDirectoryInfo', queryControllers.queryModuleDirectoryInfo)
 router.get('/getDirectoryModulesInfo', queryControllers.queryDirectoryModulesInfo);
 router.get('/getAllUserRequiredModules', queryControllers.queryAllUserRequiredModules);
 router.post('/addModule', queryControllers.addModule);
-
 
 module.exports = router
