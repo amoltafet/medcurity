@@ -1,89 +1,58 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders LeaderboardProfile 1`] = `
-<div
-  className="uvs-left uvs-right justify-content-center undefined card"
-  style={
-    Object {
-      "flexDirection": "row",
-    }
-  }
->
+<div>
   <div
-    className="displayLeaderboardInfo accordion"
+    style={
+      Object {
+        "display": "flex",
+        "justifyContent": "space-between",
+      }
+    }
   >
-    <button
-      className="accordianToggel"
-      onClick={[Function]}
-      type="button"
+    <li
+      className="MuiListItem-root MuiListItem-gutters MuiListItem-padding css-1p823my-MuiListItem-root"
+      disabled={false}
+      style={
+        Object {
+          "border": "2px solid #000000",
+        }
+      }
     >
       <div
-        className="cardHeaderAccordian card"
-        style={
-          Object {
-            "flexDirection": "row",
-          }
-        }
+        className="MuiListItemAvatar-root css-1e9lk82-MuiListItemAvatar-root"
       >
         <div
-          className="userRow text-center row"
+          className="MuiAvatar-root MuiAvatar-circular css-1wlk0hk-MuiAvatar-root"
         >
-          <div
-            className="col-lg-2 col-md-2 col-2"
-          >
-            <div
-              className="leaderboardRank"
-            >
-              .
-            </div>
-          </div>
-          <div
-            className="col-lg-2 col-md-2 col-2"
-          >
-            <img
-              alt=""
-              className="rounded-circle"
-              src="data:image/png;base64,"
-            />
-          </div>
-          <div
-            className="col-lg-3 col-md-3 col-4"
-          >
-            <p
-              className="userNameTitle card-text"
-            >
-              <u />
-            </p>
-          </div>
-          <div
-            className="col-lg-4 col-md-5 col-4"
-          >
-            <div
-              className="userPointsLeaderboard"
-            >
-              <b>
-                Total Points:
-              </b>
-               
-            </div>
-          </div>
+          <img
+            alt=""
+            className="MuiAvatar-img css-1pqm26d-MuiAvatar-img"
+            src="data:image/png;base64,"
+          />
         </div>
       </div>
-    </button>
-    <div
-      aria-expanded={null}
-      className="accordianCollapse collapse"
-    >
       <div
-        className="categorgiesLeaderboardRow row row-cols-lg-6 row-cols-md-3 row-cols-3"
+        className="MuiListItemText-root css-tlelie-MuiListItemText-root"
       >
-        <img
-          alt=""
-          className="leaderboardBreak"
-          src="/line.png"
-        />
+        <p
+          className="MuiTypography-root MuiTypography-body2 MuiListItemText-secondary css-83ijpv-MuiTypography-root"
+        >
+          <span
+            className="MuiTypography-root MuiTypography-body2 css-1phucj-MuiTypography-root"
+          >
+             points
+          </span>
+        </p>
       </div>
-    </div>
+      <div
+        className="MuiGrid2-root MuiGrid2-container MuiGrid2-direction-xs-row MuiGrid2-spacing-xs-5 css-9jv012-MuiGrid2-root"
+      />
+    </li>
+        
   </div>
+  <hr
+    className="MuiDivider-root MuiDivider-fullWidth css-9mgopn-MuiDivider-root"
+  />
 </div>
 `;

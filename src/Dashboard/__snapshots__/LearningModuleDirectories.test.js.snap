@@ -1,12 +1,48 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders LoginPage 1`] = `
-Array [
+<div
+  className="container"
+>
   <div
-    className="LearningModulesDirectoriesDashboard ms-2 row"
-  />,
+    style={
+      Object {
+        "display": "flex",
+        "flexDirection": "column",
+        "justifyContent": "space-between",
+        "marginTop": "20px",
+      }
+    }
+  >
+    <h1
+      className="text-center"
+    >
+      Additional Learning Modules
+    </h1>
+    <a
+      className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium css-1e6y48t-MuiButtonBase-root-MuiButton-root"
+      href="learning-directory"
+      id="select-more-modules"
+      onBlur={[Function]}
+      onContextMenu={[Function]}
+      onDragLeave={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex={0}
+    >
+      0
+       modules
+    </a>
+  </div>
   <div
-    className="d-grid gap-2"
-  />,
-]
+    className="MuiGrid2-root MuiGrid2-container MuiGrid2-direction-xs-row MuiGrid2-spacing-xs-2 css-5mu5d6-MuiGrid2-root"
+  />
+</div>
 `;

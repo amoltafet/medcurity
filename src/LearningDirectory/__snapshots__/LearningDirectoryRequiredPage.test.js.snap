@@ -3,21 +3,21 @@
 exports[`renders LoginPage 1`] = `
 Array [
   <div
-    className="all_reuired_modules_header "
-  >
-    All Required Modules
-  </div>,
-  <div
-    className="dashboard row"
     style={
       Object {
+        "alignItems": "center",
+        "backgroundColor": "#ffffff",
         "display": "flex",
-        "flexDirection": "row",
+        "fontSize": "30px",
+        "height": "10vh",
+        "justifyContent": "center",
       }
     }
-  />,
+  >
+    All Required Modules 
+  </div>,
   <div
-    className="d-grid gap-2"
+    className="MuiGrid2-root MuiGrid2-container MuiGrid2-direction-xs-row MuiGrid2-spacing-xs-2 css-18ek9wc-MuiGrid2-root"
   />,
 ]
 `;
