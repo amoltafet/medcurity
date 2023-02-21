@@ -18,7 +18,6 @@ import Badges from '../Badges/Badges'
 import './CompanySet.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useSearchParams } from 'react-router-dom'
-// import env from "react-dotenv";
 
 /**
  * Creates and displays the Settings menu allows the user to toggle between diffrent settings.
@@ -32,8 +31,7 @@ const CompanySet = () => {
   const [saveData, setSaveData] = useState(false)
   const [newCompanyName, setNewCompanyName] = useState('')
   const [newCompanyBio, setNewCompanyBio] = useState('')
-
-  const [ifAdmin, setIfAdmin] = useState(true)
+  const [ifAdmin, setIfAdmin] = useState(false);
 
   //company information
   const [companyName, setCompanyName] = useState('')
@@ -50,15 +48,15 @@ const CompanySet = () => {
     axios
       .get(`${process.env.REACT_APP_BASE_URL}/users/login`)
       .then(response => {
-        setCurrentUser(response.data.user[0])
+        setCurrentUser(response.data.user[0]);
       })
       .catch(error => console.error(`Error ${error}`))
     setLoaded(true)
-  }, [])
+  }, []);
 
   useEffect(() => {
     if (saveData === true) {
-      console.log(newCompanyName)
+      console.log(newCompanyName);
       if (newCompanyName !== '') {
         axios
           .post(`${process.env.REACT_APP_BASE_URL}/users/changeCompanyName`, {
@@ -85,10 +83,7 @@ const CompanySet = () => {
       setSaveData(false)
       window.location.reload()
     }
-  }, [saveData, newCompanyName, newCompanyBio, currentUser.userid])
-
-
-
+  }, [saveData, newCompanyName, newCompanyBio, currentUser.userid]);
 
   /**
    * Handles queries to get the company information and the high scores
@@ -96,10 +91,10 @@ const CompanySet = () => {
   useEffect(() => {
     if (isLoaded) {
       //If the user is an admin, show them the edit company information button
-      console.log(currentUser.companyid)
-      if (currentUser.companyid === window.location.href.split('/').pop() && (currentUser?.type === "websiteAdmin" || currentUser?.type === "companyAdmin")) {
-        setIfAdmin(true)
+      if (String(currentUser.companyAdminID) === window.location.href.split('/').pop() && (currentUser?.type === "websiteAdmin" || currentUser?.type === "companyAdmin")) {
+        setIfAdmin(true);
       }
+
       axios
         .get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, {
           params: {
@@ -168,12 +163,11 @@ const CompanySet = () => {
           }
         })
         .then(response => {
-          console.log(response.data)
-          setCompanyUsers(response.data)
+          setCompanyUsers(response.data);
         })
         .catch(error => console.error(`Error ${error}`))
     }
-  }, [isLoaded])
+  }, [isLoaded, currentUser])
 
   function SaveUpdatedUserInfo () {
     setSaveData(true)

@@ -22,6 +22,7 @@ const Menubar = () => {
     const navigate = useNavigate();
     const [companyId, setCompanyId] = useState('')
     const [company, setCompany] = useState([])
+    const [companyLinkID, setCompanyLinkID] = useState('');
     const [currentUser, setCurrentUser] = useState([]);
     const [isLoading, setLoading] = useState(true)
     const [isCompanyLoading, setCompanyLoading] = useState(true)
@@ -94,6 +95,18 @@ const Menubar = () => {
             setCompanyId(company[0].CompanyID)
         }
     }, [isCompanyLoading, company])
+
+  // setting company information 
+  useEffect(() => {
+    if (currentUser.userid) {
+      if (currentUser.type === "user" || currentUser.type === "websiteAdmin") {
+        setCompanyLinkID(currentUser.companyid);
+      }
+      else if (currentUser.type === "companyAdmin") {
+        setCompanyLinkID(currentUser.companyAdminID);
+      }
+    }
+  }, [currentUser]);
 
     const markRead = () => {
       setunreadNotifs(false);
@@ -359,8 +372,7 @@ const Menubar = () => {
               noCaret={true}
             >
               <NavDropdown.Item href="/settings">Profile</NavDropdown.Item>
-              <NavDropdown.Item href="/company">Company</NavDropdown.Item>
-              <NavDropdown.Item href="/settings">Settings</NavDropdown.Item>
+              <NavDropdown.Item href={"/company/" + companyLinkID}>Company</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="/" onClick={logout}>Log Out</NavDropdown.Item>
             </NavDropdown>

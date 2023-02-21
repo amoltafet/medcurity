@@ -2,7 +2,7 @@ const db = require('../dbConfig');
 const logger = require('../logger').log;
 
 /**
- * Stores a module badge as earned
+ * Sends a notification to a user
  */
 const sendNotification = (userid, message, type) => {
     const time = new Date();
@@ -36,7 +36,35 @@ const sendNotification = (userid, message, type) => {
     });
 }
 
+/**
+ * Alerts all employees at a company of a new module assignment
+ */
+const assignmentAlert = (companyid, moduleid) => {
+
+    db.query('SELECT (title) FROM LearningModules WHERE id = ?', [moduleid], (err,result) => {
+        if(err) {
+            logger.log('error', { methodName: 'assignmentAlert', errorBody: err }, { service: 'user-service' });
+            return;
+        }
+
+        const moduleName = result[0].title;
+        db.query('SELECT AffiliatedUsers.UserID FROM AffiliatedUsers JOIN Users on Users.userid = AffiliatedUsers.UserID WHERE Users.Active = 1 AND AffiliatedUsers.CompanyID = ?;', 
+        [companyid], (err,result) => {
+            if(err) {
+                logger.log('error', { methodName: 'assignmentAlert', errorBody: err }, { service: 'user-service' });
+                return;
+            }
+
+            const message = "New Assignment: " + moduleName + "!"
+            result.forEach(employee => {
+                sendNotification(employee.UserID, message, "assignment");
+            });
+        });   
+    });
+}
+
 module.exports = 
 {
-    sendNotification
+    sendNotification,
+    assignmentAlert
 };

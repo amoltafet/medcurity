@@ -51,9 +51,23 @@ const SettingsMenu = () => {
     axios.get(`${process.env.REACT_APP_BASE_URL}/users/login`).then(response => {
         setCurrentUser(response.data.user[0]);
         setLoaded(true);
+
     }).catch(error => console.error(`Error ${error}`));
   }, []);
 
+  // setting company information 
+  useEffect(() => {
+    if (currentUser.userid) {
+      if (currentUser.type === "user" || currentUser.type === "websiteAdmin") {
+        setCompanyID(currentUser.companyid);
+      }
+      else if (currentUser.type === "companyAdmin") {
+        setCompanyID(currentUser.companyAdminID);
+      }
+    }
+  }, [currentUser]);
+
+  // changing user name
   useEffect(() => {
     if (saveData === true) {
       if (newUserName !== '') {

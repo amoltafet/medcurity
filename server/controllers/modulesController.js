@@ -9,6 +9,7 @@ Last Modified: February 14, 2023
 
 const db = require('../dbConfig');
 const logger = require('../logger').log;
+const notifications = require('./notificationsController');
 
 /*
 Given a company id, this route returns all of the modules not currently assigned by the company.
@@ -53,6 +54,7 @@ const assignModule = (req,res) => {
                 res.send({success: false, error: err});
                 return logger.log('error', { methodName: '/assignModule', body: err }, { service: 'user-service' });
             }
+            notifications.assignmentAlert(companyid, moduleid);
             res.send({success: true, added: true, message: "LearningModule was assigned to the company."});
             });
         }
