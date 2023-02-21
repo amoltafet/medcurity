@@ -9,6 +9,7 @@ const db = require('../dbConfig');
 const logger = require('../logger').log;
 const fs = require('fs');
 const path = require('path');
+const serverConfig = require('../serverConfig.json');
 
 /**
  * Queries the database with any given mySQL query. 
@@ -132,22 +133,50 @@ const queryProfilePicture = (req,res) => {
     const userid = req.query.id;
 
     try {
-        let image = fs.readFileSync(path.join(__dirname, `../assets/images/profiles/${userid}-profile.png`));
+        let image = fs.readFileSync(path.join(__dirname, serverConfig.server.PROFILE_UPLOAD_PATH, `${userid}-profile.png`));
         res.send({ profileImage: new Buffer.from(image).toString('base64') });
     }
     catch (error) {
         try {
-            let image = fs.readFileSync(path.join(__dirname, `../assets/images/profiles/${userid}-profile.jpg`));
+            let image = fs.readFileSync(path.join(__dirname, serverConfig.server.PROFILE_UPLOAD_PATH, `${userid}-profile.jpg`));
             res.send({ profileImage: new Buffer.from(image).toString('base64') });
         }
         catch (error) {
             try {
-                let image = fs.readFileSync(path.join(__dirname, `../assets/images/profiles/${userid}-profile.jpeg`));
+                let image = fs.readFileSync(path.join(__dirname, serverConfig.server.PROFILE_UPLOAD_PATH, `${userid}-profile.jpeg`));
                 res.send({ profileImage: new Buffer.from(image).toString('base64') })
             }
             catch (error) {
-                let image = fs.readFileSync(path.join(__dirname, `../assets/images/profiles/profile-default.png`));
+                let image = fs.readFileSync(path.join(__dirname, serverConfig.server.PROFILE_UPLOAD_PATH, `profile-default.png`));
                 res.send({ profileImage: new Buffer.from(image).toString('base64') })
+            }
+        }
+    }
+}
+
+/**
+ * Queries the data base for a user's profile picture (base64)
+ */
+const queryCompanyPicture = (req,res) => {
+    const companyid = req.query.companyid;
+
+    try {
+        let image = fs.readFileSync(path.join(__dirname, serverConfig.server.COMPANY_UPLOAD_PATH, `${companyid}-banner.png`));
+        res.send({ companyImage: new Buffer.from(image).toString('base64') });
+    }
+    catch (error) {
+        try {
+            let image = fs.readFileSync(path.join(__dirname, serverConfig.server.COMPANY_UPLOAD_PATH, `${companyid}-banner.jpg`));
+            res.send({ companyImage: new Buffer.from(image).toString('base64') });
+        }
+        catch (error) {
+            try {
+                let image = fs.readFileSync(path.join(__dirname, serverConfig.server.COMPANY_UPLOAD_PATH, `${companyid}-banner.jpeg`));
+                res.send({ companyImage: new Buffer.from(image).toString('base64') });
+            }
+            catch (error) {
+                let image = fs.readFileSync(path.join(__dirname, serverConfig.server.COMPANY_UPLOAD_PATH, `banner-default.jpg`));
+                res.send({ companyImage: new Buffer.from(image).toString('base64') });
             }
         }
     }
@@ -193,6 +222,7 @@ module.exports =
     queryUploadBanner,
     queryModuleBanner,
     queryProfilePicture,
+    queryCompanyPicture,
     queryBadgeImage,
     queryModuleInfo,
     queryModuleQuestions,

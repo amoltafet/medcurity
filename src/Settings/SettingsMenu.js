@@ -125,7 +125,7 @@ const SettingsMenu = () => {
         headers: { 'Content-Type': 'multipart/form-data' }
       }
     )
-    setProfilePic(userPhoto)
+    setProfilePic(userPhoto);
   }
 
   function SaveUpdatedUserInfo () {

@@ -20,20 +20,11 @@ module.exports = class ProfileUploader {
                     const id = req.query.userid;
 
                     fs.unlink(path.join(__dirname, serverConfig.server.PROFILE_UPLOAD_PATH, `${id}-profile.png`), 
-                        (err) => {
-                            if (err) {
-                                console.log("PNG does not exist.");
-                            }});
+                        () => {});
                     fs.unlink(path.join(__dirname, serverConfig.server.PROFILE_UPLOAD_PATH, `${id}-profile.jpg`),
-                        (err) => {
-                            if (err) {
-                                console.log("PNG does not exist.");
-                            }});
+                        () => {});
                     fs.unlink(path.join(__dirname, serverConfig.server.PROFILE_UPLOAD_PATH, `${id}-profile.jpeg`),
-                        (err) => {
-                            if (err) {
-                                console.log("PNG does not exist.");
-                            }});
+                        () => {});
 
 
                     let fn = file.originalname;

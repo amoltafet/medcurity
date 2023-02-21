@@ -32,6 +32,7 @@ const CompanySet = () => {
   const [newCompanyName, setNewCompanyName] = useState('')
   const [newCompanyBio, setNewCompanyBio] = useState('')
   const [ifAdmin, setIfAdmin] = useState(false);
+  const [companyPicture, setCompanyPicture] = useState('')
 
   //company information
   const [companyName, setCompanyName] = useState('')
@@ -167,7 +168,35 @@ const CompanySet = () => {
         })
         .catch(error => console.error(`Error ${error}`))
     }
-  }, [isLoaded, currentUser])
+  }, [isLoaded, currentUser]);
+
+  // function for uploading company banner
+  function uploadCompanyBanner(banner) {
+    var data = new FormData();
+    data.append('companyImage', banner);
+    axios.post(
+      `${process.env.REACT_APP_BASE_URL}/api/postCompanyPicture`,
+      data,
+      {
+        params: { companyid:  window.location.href.split('/').pop() },
+        headers: { 'Content-Type': 'multipart/form-data' }
+      }
+    )
+    console.log(banner);
+    setCompanyPicture(banner);
+  }
+
+  // pulling in company picture from server
+  useEffect(() => {
+      if (isLoaded)
+        axios
+          .get(`${process.env.REACT_APP_BASE_URL}/api/getCompanyPicture`, {
+            params: { companyid: window.location.href.split('/').pop() }
+          })
+          .then(response => {
+            setCompanyPicture(response.data.companyImage)
+          })
+  }, [isLoaded, companyPicture]);
 
   function SaveUpdatedUserInfo () {
     setSaveData(true)
@@ -192,9 +221,9 @@ const CompanySet = () => {
                   <div class='col-md-4'>
                     <div class='profile-img'>
                       <Form.Group className='justify-content-center'>
-                        <Image
+                        <Image className='companyBanner'
                           variant='top'
-                          src={`https://clearbridgetech.com/wp-content/uploads/2022/10/Med.png`}
+                          src={`data:image/png;base64,${companyPicture}`}
                           alt=''
                         ></Image>
                       </Form.Group>
@@ -203,9 +232,9 @@ const CompanySet = () => {
                           <Tab.Pane eventKey='edit'>
                             <Form.File
                               className='userProfilePhotoInput'
-                              // onChange={e =>
-                              //   uploadUserPhoto(e.target.files[0])
-                              // }
+                              onChange={e =>
+                                 uploadCompanyBanner(e.target.files[0])
+                              }
                               accept='.png,.jpg,.jpeg'
                             />
                           </Tab.Pane>
@@ -305,7 +334,7 @@ const CompanySet = () => {
                     </Nav>
                   </div>
                   ) : (
-                    <div>You must be an admin to modify company settings</div>
+                    <div>You must be an admin to modify company information.</div>
                   )}
                 </div>
                 <div class='row'>

@@ -327,3 +327,7 @@ p {
     font-weight: 600;
     color: #0062cc;
 }
+
+.companyBanner {
+    height: 125px;
+}
