@@ -31,6 +31,7 @@ const  EditQuestion = () => {
     const [matchingAnswer4, setMatchingAnswer4] = useState([])
     const [questionType, setQuestionType] = useState([])
     const [isLoading, setIsLoading] = useState(true)
+    const [matchingIsLoading, setMatchingIsLoading] = useState(true)
     const [isLoading2, setIsLoading2] = useState(true)
     const [questionAdded, setAdded] = useState(false)
     const [addedType, setAddedType] = useState(null)
@@ -46,6 +47,7 @@ const  EditQuestion = () => {
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_BASE_URL}/api/getMatchingAnswers`, { params: { id: slug } }).then((response) => {
             setMatchingContent(Object.values(response.data));
+            setMatchingIsLoading(false)
         }).catch(error => console.error(`Error ${error}`));
 
         axios.get(`${process.env.REACT_APP_BASE_URL}/api/getModuleQuestions`, { params: { id: slug } }).then((response) => {
@@ -57,7 +59,7 @@ const  EditQuestion = () => {
       }, [slug])
 
     useEffect(() => {
-        if (!isLoading) {
+        if (!isLoading && !matchingIsLoading) {
             var questionIDArray = []
             var questionArray = []
             var solutionArray = []
@@ -104,7 +106,7 @@ const  EditQuestion = () => {
             setQuestionType(questionTypeArray)
             setIsLoading2(false)   
         }
-    }, [isLoading, content, matchingContent])
+    }, [isLoading, matchingIsLoading, content, matchingContent])
 
     useEffect(() => {
         if (isSubmitted) {

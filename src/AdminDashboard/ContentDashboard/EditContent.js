@@ -1,4 +1,4 @@
-import { Button} from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useEffect, useState } from "react";
@@ -19,6 +19,9 @@ const  EditContent = () => {
     const [title, setTitle] = useState([])
     const [description, setDescription] = useState([])
     const [subtitle, setSubtitle] = useState([])
+    const [timeCutoff, setTimeCutoff] = useState([])
+    const [timeBonusCutoff, setTimeBonusCutoff] = useState([])
+    const [badgeCutoff, setBadgeCutoff] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const navigate = useNavigate();
 
@@ -28,32 +31,35 @@ const  EditContent = () => {
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_BASE_URL}/users/login`).then((response) => {
-          setCurrentUser(response.data.user[0])
+            setCurrentUser(response.data.user[0])
         }).catch(error => console.error(`Error ${error}`));
     }, []);
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_BASE_URL}/api/getModuleInfo`, { params: { id: slug } }).then((response) => {
-              setContent(Object.values(response.data))
-              setIsLoading(false)
-          }).catch(error => console.error(`Error ${error}`));
+            setContent(Object.values(response.data))
+            setIsLoading(false)
+        }).catch(error => console.error(`Error ${error}`));
     }, [slug])
-
-    
 
     useEffect(() => {
         if(!isLoading) {
-            let module =  content[0]
+            let module = content[0]
             setTitle(module.Title)
             setSubtitle(module.Subtitle)
             setDescription(module.Description)
+            setTimeCutoff(module.timecutoff)
+            setTimeBonusCutoff(module.timebonuscutoff)
+            setBadgeCutoff(module.badgecutoff)
         }
     }, [isLoading])
 
 
     function submitData() {
-        axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `UPDATE  LearningModules SET Title = '${title}', Subtitle = '${subtitle}', Description = '${description}' WHERE ID = '${slug}'` } }).then((response) => {
-        // // console.log(response)
+        axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `UPDATE LearningModules SET Title = '${title}', 
+        Subtitle = '${subtitle}', Description = '${description}', timecutoff = '${timeCutoff}', timebonuscutoff = '${timeBonusCutoff}', 
+        badgecutoff = '${badgeCutoff}' WHERE ID = '${slug}'` } }).then((response) => {
+            console.log(response)
         }).catch(error => console.error(`Error ${error}`));
         // // console.log("We added")
         // // console.log("Title:", title)
@@ -72,7 +78,7 @@ const  EditContent = () => {
             </h1>
             <form className='text-center contentForm'>
                 <label htmlFor="title">Title:</label><br></br>
-                <textarea  rows="1" cols="100" wrap="soft" type="text" id="title" name="title" defaultValue={module.Title} onChange={ (e) => 
+                <textarea rows="1" cols="100" wrap="soft" type="text" id="title" name="title" defaultValue={module.Title} onChange={ (e) => 
                             {
                                 setTitle(e.target.value);
                             }}></textarea><br></br>
@@ -82,10 +88,25 @@ const  EditContent = () => {
                                 setSubtitle(e.target.value);
                             }}></textarea><br></br>
                 <label htmlFor="description">Description:</label><br></br>
-                <textarea rows="15" cols="100" wrap="soft" type="text" id="description" name="descriptio" defaultValue={module.Description} onChange={ (e) => 
+                <textarea rows="15" cols="100" wrap="soft" type="text" id="description" name="description" defaultValue={module.Description} onChange={ (e) => 
                             {
                                 setDescription(e.target.value);
                             }}></textarea><br></br>
+                <label htmlFor="timecutoff">Time Cutoff in Seconds &#40;to get bonus points&#41;:</label><br></br>
+                <input type="number" min="0" step="0.1" id="timecutoff" name="timecutoff" defaultValue={module.timecutoff} onChange={ (e) => 
+                            {
+                                setTimeCutoff(parseFloat(e.target.value));
+                            }}/><br></br>
+                <label htmlFor="timebonuscutoff">Time Bonus Percentage Cutoff &#40;percentage correct needed to get time bonus&#41;:</label><br></br>
+                <input type="number" min="0" step="0.1" id="timebonuscutoff" name="timebonuscutoff" defaultValue={module.timebonuscutoff} onChange={ (e) => 
+                            {
+                                setTimeBonusCutoff(parseFloat(e.target.value));
+                            }}/><br></br>
+                <label htmlFor="badgecutoff">Percentage Cutoff for Badge &#40;percentage correct needed to earn module's badge&#41;:</label><br></br>
+                <input type="number" min="0" step="0.1" id="badgecutoff" name="badgecutoff" defaultValue={module.badgecutoff} onChange={ (e) => 
+                            {
+                                setBadgeCutoff(parseFloat(e.target.value));
+                            }}/><br></br>
             </form>
     
             </>
