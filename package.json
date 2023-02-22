@@ -79,7 +79,7 @@
     "heroku-postbuild": "react-dotenv && npm install && npm run build",
     "server": "npm run dev --prefix server",
     "dev": "concurrently \"npm start\" \"npm run server\"",
-    "deploy": "concurrently \"npm install\" \"cd server\" \"npm install\""
+    "deploy": "npm install && cd server && npm install"
 
   },
   "react-dotenv": {
