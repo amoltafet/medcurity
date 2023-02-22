@@ -355,7 +355,7 @@ const userModuleCompleted = (req, res) => {
     logger.log('info', `points "${points}"`);
     logger.log('info', `percentage "${percentage}"`);
     logger.log('info', `module num "${moduleNum}"`);
-    logger.log('info', `companyid "${percentage}"`);
+    logger.log('info', `companyid "${companyid}"`);
 
     db.query(`INSERT INTO CompletedModules (UserID, LearningModID, DateCompleted, Points, Percentage)  VALUES (?,?,?,?,?)`, [userid, categoryId, today, points, percentage], (err,result) => {
         if(err) {
@@ -365,10 +365,18 @@ const userModuleCompleted = (req, res) => {
             if(err) {
                 logger.log('error', { methodName: '/moduleCompleted', errorBody: err }, { service: 'user-service' });
             }
-            db.query(`SELECT * FROM CompletedModules JOIN UserPoints WHERE userid = '${userid}'`, (err,result) => {
-                logger.log('info', `User-${userid} completed Module ${categoryId}, on: ${today} and scored ${points} points.`);
-                res.send({success: true, data: result, message: `Completed Module`});
-            })
+            db.query(`INSERT INTO CompletedModulesHistory (userid, moduleid, companyid, dateCompleted)  VALUES (?,?,?,?)`, [userid, moduleNum, companyid, today], (err,result) => {
+                if(err) {
+                    logger.log('error', { methodName: '/moduleCompleted', errorBody: err }, { service: 'user-service' });
+                }
+                db.query(`SELECT * FROM CompletedModules JOIN UserPoints WHERE userid = '${userid}'`, (err,result) => {
+                    if(err) {
+                        logger.log('error', { methodName: '/moduleCompleted', errorBody: err }, { service: 'user-service' });
+                    }
+                    logger.log('info', `User-${userid} completed Module ${categoryId}, on: ${today} and scored ${points} points.`);
+                    res.send({success: true, data: result, message: `Completed Module`});
+                });
+            });
         })
     })   
 }
