@@ -1,45 +1,40 @@
-import {
-  Nav,
-  Row,
-  Form,
-  Tab,
-  Col,
-  Container,
-  Button,
-  Popover,
-  OverlayTrigger,
-  Image
-} from 'react-bootstrap'
-import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
-import React from 'react'
-import Badges from '../Badges/Badges'
-import HighScores from '../HighScores/HighScores'
-import './SettingsMenu.css'
-import 'bootstrap/dist/css/bootstrap.min.css'
-// import env from "react-dotenv";
+/*
+File Name: SettingsMenu.js
+Description: This file contains the profile page for a user. Users 
+  can view their personal info, badges, and their high scores. 
+Last Modified: February 14, 2023
+*/
+
+import {Nav, Form, Tab, Container, Button, Popover, OverlayTrigger, Image} from 'react-bootstrap';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import React from 'react';
+import Badges from '../Badges/Badges';
+import HighScores from '../HighScores/HighScores';
+import './SettingsMenu.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 /**
- * Creates and displays the Settings menu allows the user to toggle between diffrent settings.
- * @return {GetPage}
+ * Creates and displays the Profile Page for a user.
+ * @return {Page}
  */
 const SettingsMenu = () => {
-  axios.defaults.withCredentials = true
-  const [currentUser, setCurrentUser] = useState([])
-  const [newUserName, setUsername] = useState('')
-  const [saveData, setSaveData] = useState(false)
-  const [show, setShow] = useState(false)
-  const [isLoaded, setLoaded] = useState(false)
-  const [company, setCompany] = useState([])
-  const [companyID, setCompanyID] = useState([])
-  const [dueDate, setDueDate] = useState([])
-  const [newPassword, setPassword] = useState('')
-  const [repeatPassword, setRepeatPassword] = useState('')
-  const [profilePic, setProfilePic] = useState('')
-  const [message, setMessage] = useState('Saved!')
-  const navigate = useNavigate()
+  axios.defaults.withCredentials = true;
+  const [currentUser, setCurrentUser] = useState([]);
+  const [newUserName, setUsername] = useState('');
+  const [saveData, setSaveData] = useState(false);
+  const [show, setShow] = useState(false);
+  const [isLoaded, setLoaded] = useState(false);
+  const [company, setCompany] = useState([]);
+  const [companyID, setCompanyID] = useState([]);
+  const [newPassword, setPassword] = useState('');
+  const [repeatPassword, setRepeatPassword] = useState('');
+  const [profilePic, setProfilePic] = useState('');
+  const [message, setMessage] = useState('Saved!');
+  const navigate = useNavigate();
 
+  // pulling in profile picture from server
   useEffect(() => {
     if (currentUser.userid)
       axios
@@ -49,42 +44,30 @@ const SettingsMenu = () => {
         .then(response => {
           setProfilePic(response.data.profileImage)
         })
-  }, [currentUser, profilePic])
+  }, [currentUser, profilePic]);
 
+  // logging user in
   useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_BASE_URL}/users/login`)
-      .then(response => {
-        setCurrentUser(response.data.user[0])
-        console.log(response.data.user[0])
-        setLoaded(true)
-      })
-      .catch(error => console.error(`Error ${error}`))
-  }, [])
+    axios.get(`${process.env.REACT_APP_BASE_URL}/users/login`).then(response => {
+        setCurrentUser(response.data.user[0]);
+        setLoaded(true);
 
+    }).catch(error => console.error(`Error ${error}`));
+  }, []);
+
+  // setting company information 
   useEffect(() => {
-    if (isLoaded) {
-      axios
-        .get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, {
-          params: {
-            the_query:
-              'SELECT * FROM AffiliatedUsers JOIN Companies ON AffiliatedUsers.CompanyID = Companies.companyid WHERE UserID = ' +
-              currentUser.userid
-          }
-        })
-        .then(response => {
-          console.log(response.data[0].name)
-          if (response.data[0].DateJoined !== null) {
-            setCompany(response.data[0].name)
-            setCompanyID(response.data[0].companyid)
-            var date = new Date(response.data[0].DateJoined)
-            setDueDate(date.toDateString())
-          }
-        })
-        .catch(error => console.error(`Error ${error}`))
+    if (currentUser.userid) {
+      if (currentUser.type === "user" || currentUser.type === "websiteAdmin") {
+        setCompanyID(currentUser.companyid);
+      }
+      else if (currentUser.type === "companyAdmin") {
+        setCompanyID(currentUser.companyAdminID);
+      }
     }
-  }, [currentUser, dueDate, isLoaded])
+  }, [currentUser]);
 
+  // changing user name
   useEffect(() => {
     if (saveData === true) {
       if (newUserName !== '') {
@@ -119,19 +102,19 @@ const SettingsMenu = () => {
       setShow(true)
       window.location.reload()
     }
-  }, [saveData, newUserName, currentUser.userid])
+  }, [saveData, newUserName, currentUser.userid, newPassword, repeatPassword]);
 
   setTimeout(() => {
-    setShow(false)
-  }, 9000)
+    setShow(false);
+  }, 9000);
 
+  // function for uploading profile picture
   function uploadUserPhoto (userPhoto) {
-    /*// console.log("unconverted photo", userPhoto)
-        var convertedPhoto = URL.createObjectURL(userPhoto);
-        // console.log("convertedPhoto: ", convertedPhoto)
-        setConvertedProfilePicture(convertedPhoto);*/
+    // console.log("unconverted photo", userPhoto);
+    // var convertedPhoto = URL.createObjectURL(userPhoto);
+    // console.log("convertedPhoto: ", convertedPhoto)
+    // setConvertedProfilePicture(convertedPhoto);
 
-    //TODO ... THEN call API method to store the image from (banner)
     var data = new FormData()
     data.append('profileImage', userPhoto)
     axios.post(
@@ -142,7 +125,7 @@ const SettingsMenu = () => {
         headers: { 'Content-Type': 'multipart/form-data' }
       }
     )
-    setProfilePic(userPhoto)
+    setProfilePic(userPhoto);
   }
 
   function SaveUpdatedUserInfo () {
@@ -150,7 +133,7 @@ const SettingsMenu = () => {
   }
 
   const NavToDash = () => {
-    navigate('/dash')
+    navigate('/dash');
   }
 
   const popover = (

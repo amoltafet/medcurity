@@ -6,7 +6,7 @@ const db = require('../dbConfig');
 const emailValidator = require("email-validator");
 const { passwordStrength } = require('check-password-strength');
 const logger = require('../logger').log;
-const notifications = require('./notificationsController')
+const notifications = require('./notificationsController');
 
 /**
  * Queries the database to register a new user. Passwords are hashed + salted using bcrypt.
@@ -186,7 +186,7 @@ const userLogin = (req,res) =>
 
     db.query(`SELECT EXISTS(SELECT * FROM Users WHERE email = '${email}') AS doesExist`, (err, userExists) => {
         
-        if (userExists[0]?.doesExist == 1)
+        if (userExists[0]?.doesExist === 1)
         {
             db.query(`SELECT * FROM Users WHERE email = '${email}'`, (err,userData) => {
                 db.query(`SELECT Users.userid, AffiliatedUsers.CompanyID FROM Users INNER JOIN AffiliatedUsers ON Users.userid=AffiliatedUsers.UserID WHERE Users.userid = '${userData[0].userid}'`, (err,userCompanyID) => {
@@ -205,7 +205,8 @@ const userLogin = (req,res) =>
                                     
                                     if (userIsCompanyAdmin.length > 0)
                                     {
-                                        userData[0].type = 'companyAdmin'
+                                        userData[0].type = 'companyAdmin';
+                                        userData[0].companyAdminID = userIsCompanyAdmin[0].CompanyID;
                                     }
 
                                     if (userIsWebsiteAdmin.length > 0)
@@ -213,7 +214,7 @@ const userLogin = (req,res) =>
                                         userData[0].type = 'websiteAdmin'
                                     }
 
-                                    userData[0].companyid = userCompanyID[0]?.CompanyID || 0
+                                    userData[0].companyid = userCompanyID[0]?.CompanyID || 0;
                                     
                                     userData[0].loggedInAt = Date()
                                     req.session.userSession = userData;
@@ -354,7 +355,7 @@ const userModuleCompleted = (req, res) => {
     logger.log('info', `points "${points}"`);
     logger.log('info', `percentage "${percentage}"`);
     logger.log('info', `module num "${moduleNum}"`);
-    logger.log('info', `companyid "${percentage}"`);
+    logger.log('info', `companyid "${companyid}"`);
 
     db.query(`INSERT INTO CompletedModules (UserID, LearningModID, DateCompleted, Points, Percentage)  VALUES (?,?,?,?,?)`, [userid, categoryId, today, points, percentage], (err,result) => {
         if(err) {
@@ -364,10 +365,18 @@ const userModuleCompleted = (req, res) => {
             if(err) {
                 logger.log('error', { methodName: '/moduleCompleted', errorBody: err }, { service: 'user-service' });
             }
-            db.query(`SELECT * FROM CompletedModules JOIN UserPoints WHERE userid = '${userid}'`, (err,result) => {
-                logger.log('info', `User-${userid} completed Module ${categoryId}, on: ${today} and scored ${points} points.`);
-                res.send({success: true, data: result, message: `Completed Module`});
-            })
+            db.query(`INSERT INTO CompletedModulesHistory (userid, moduleid, companyid, dateCompleted)  VALUES (?,?,?,?)`, [userid, moduleNum, companyid, today], (err,result) => {
+                if(err) {
+                    logger.log('error', { methodName: '/moduleCompleted', errorBody: err }, { service: 'user-service' });
+                }
+                db.query(`SELECT * FROM CompletedModules JOIN UserPoints WHERE userid = '${userid}'`, (err,result) => {
+                    if(err) {
+                        logger.log('error', { methodName: '/moduleCompleted', errorBody: err }, { service: 'user-service' });
+                    }
+                    logger.log('info', `User-${userid} completed Module ${categoryId}, on: ${today} and scored ${points} points.`);
+                    res.send({success: true, data: result, message: `Completed Module`});
+                });
+            });
         })
     })   
 }

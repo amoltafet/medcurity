@@ -2,36 +2,62 @@
 
 exports[`renders LearningModule 1`] = `
 <div
-  className="learningModuleBg img-fluid "
+  className="MuiGrid2-root MuiGrid2-container MuiGrid2-direction-xs-row css-15lsh1k-MuiGrid2-root"
 >
   <div
-    className="justify-content-center row row-cols-lg-10 row-cols-md-10 row-cols-10"
+    className="learningModuleBg img-fluid "
   >
     <div
-      className="col-lg-3 col-md-3 col-8"
+      className="justify-content-center row row-cols-lg-10 row-cols-md-10 row-cols-10"
     >
-      <a
-        className="goToQuizBttn uvs-left uvs-right btn btn-primary"
-        href="/dash"
-        onClick={[Function]}
-        onKeyDown={[Function]}
+      <div
+        className="col-lg-3 col-md-3 col-8"
       >
-        Back to Dashboard
-      </a>
-    </div>
-    <div
-      className="col-lg-3 col-md-3 col-8"
-    >
-      <a
-        className="goToQuizBttn uvs-left uvs-right btn btn-primary"
-        href="/quiz/undefined"
-        onClick={[Function]}
-        onKeyDown={[Function]}
+        <a
+          className="MuiButtonBase-root MuiButton-root MuiButton-primary MuiButton-primaryPrimary MuiButton-sizeMedium MuiButton-primarySizeMedium MuiButton-root MuiButton-primary MuiButton-primaryPrimary MuiButton-sizeMedium MuiButton-primarySizeMedium css-jt6ki8-MuiButtonBase-root-MuiButton-root"
+          href="/dash"
+          onBlur={[Function]}
+          onContextMenu={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex={0}
+        >
+          Back to Dashboard
+        </a>
+      </div>
+      <div
+        className="col-lg-3 col-md-3 col-8"
       >
-        Start 
-        
-         Quiz
-      </a>
+        <a
+          className="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium css-xsqe0f-MuiButtonBase-root-MuiButton-root"
+          href="/quiz/undefined"
+          onBlur={[Function]}
+          onContextMenu={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex={0}
+        >
+          Start 
+          
+           Quiz
+        </a>
+      </div>
     </div>
   </div>
 </div>

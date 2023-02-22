@@ -2,7 +2,8 @@
     "server":
     {
         "BANNER_UPLOAD_PATH": "../assets/images/banners",
-        "PROFILE_UPLOAD_PATH": "../assets/images/profiles"
+        "PROFILE_UPLOAD_PATH": "../assets/images/profiles",
+        "COMPANY_UPLOAD_PATH": "../assets/images/companies"
     },
     "bcrypt":
     {

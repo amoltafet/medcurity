@@ -18,7 +18,6 @@ import Badges from '../Badges/Badges'
 import './CompanySet.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useSearchParams } from 'react-router-dom'
-// import env from "react-dotenv";
 
 /**
  * Creates and displays the Settings menu allows the user to toggle between diffrent settings.
@@ -32,8 +31,8 @@ const CompanySet = () => {
   const [saveData, setSaveData] = useState(false)
   const [newCompanyName, setNewCompanyName] = useState('')
   const [newCompanyBio, setNewCompanyBio] = useState('')
-
-  const [ifAdmin, setIfAdmin] = useState(true)
+  const [ifAdmin, setIfAdmin] = useState(false);
+  const [companyPicture, setCompanyPicture] = useState('')
 
   //company information
   const [companyName, setCompanyName] = useState('')
@@ -50,15 +49,15 @@ const CompanySet = () => {
     axios
       .get(`${process.env.REACT_APP_BASE_URL}/users/login`)
       .then(response => {
-        setCurrentUser(response.data.user[0])
+        setCurrentUser(response.data.user[0]);
       })
       .catch(error => console.error(`Error ${error}`))
     setLoaded(true)
-  }, [])
+  }, []);
 
   useEffect(() => {
     if (saveData === true) {
-      console.log(newCompanyName)
+      console.log(newCompanyName);
       if (newCompanyName !== '') {
         axios
           .post(`${process.env.REACT_APP_BASE_URL}/users/changeCompanyName`, {
@@ -85,10 +84,7 @@ const CompanySet = () => {
       setSaveData(false)
       window.location.reload()
     }
-  }, [saveData, newCompanyName, newCompanyBio, currentUser.userid])
-
-
-
+  }, [saveData, newCompanyName, newCompanyBio, currentUser.userid]);
 
   /**
    * Handles queries to get the company information and the high scores
@@ -96,10 +92,10 @@ const CompanySet = () => {
   useEffect(() => {
     if (isLoaded) {
       //If the user is an admin, show them the edit company information button
-      console.log(currentUser.companyid)
-      if (currentUser.companyid === window.location.href.split('/').pop() && (currentUser?.type === "websiteAdmin" || currentUser?.type === "companyAdmin")) {
-        setIfAdmin(true)
+      if (String(currentUser.companyAdminID) === window.location.href.split('/').pop() && (currentUser?.type === "websiteAdmin" || currentUser?.type === "companyAdmin")) {
+        setIfAdmin(true);
       }
+
       axios
         .get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, {
           params: {
@@ -168,12 +164,39 @@ const CompanySet = () => {
           }
         })
         .then(response => {
-          console.log(response.data)
-          setCompanyUsers(response.data)
+          setCompanyUsers(response.data);
         })
         .catch(error => console.error(`Error ${error}`))
     }
-  }, [isLoaded])
+  }, [isLoaded, currentUser]);
+
+  // function for uploading company banner
+  function uploadCompanyBanner(banner) {
+    var data = new FormData();
+    data.append('companyImage', banner);
+    axios.post(
+      `${process.env.REACT_APP_BASE_URL}/api/postCompanyPicture`,
+      data,
+      {
+        params: { companyid:  window.location.href.split('/').pop() },
+        headers: { 'Content-Type': 'multipart/form-data' }
+      }
+    )
+    console.log(banner);
+    setCompanyPicture(banner);
+  }
+
+  // pulling in company picture from server
+  useEffect(() => {
+      if (isLoaded)
+        axios
+          .get(`${process.env.REACT_APP_BASE_URL}/api/getCompanyPicture`, {
+            params: { companyid: window.location.href.split('/').pop() }
+          })
+          .then(response => {
+            setCompanyPicture(response.data.companyImage)
+          })
+  }, [isLoaded, companyPicture]);
 
   function SaveUpdatedUserInfo () {
     setSaveData(true)
@@ -198,9 +221,9 @@ const CompanySet = () => {
                   <div class='col-md-4'>
                     <div class='profile-img'>
                       <Form.Group className='justify-content-center'>
-                        <Image
+                        <Image className='companyBanner'
                           variant='top'
-                          src={`https://clearbridgetech.com/wp-content/uploads/2022/10/Med.png`}
+                          src={`data:image/png;base64,${companyPicture}`}
                           alt=''
                         ></Image>
                       </Form.Group>
@@ -209,9 +232,9 @@ const CompanySet = () => {
                           <Tab.Pane eventKey='edit'>
                             <Form.File
                               className='userProfilePhotoInput'
-                              // onChange={e =>
-                              //   uploadUserPhoto(e.target.files[0])
-                              // }
+                              onChange={e =>
+                                 uploadCompanyBanner(e.target.files[0])
+                              }
                               accept='.png,.jpg,.jpeg'
                             />
                           </Tab.Pane>
@@ -311,7 +334,7 @@ const CompanySet = () => {
                     </Nav>
                   </div>
                   ) : (
-                    <div>You must be an admin to modify company settings</div>
+                    <div>You must be an admin to modify company information.</div>
                   )}
                 </div>
                 <div class='row'>

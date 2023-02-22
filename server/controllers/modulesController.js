@@ -9,6 +9,7 @@ Last Modified: February 14, 2023
 
 const db = require('../dbConfig');
 const logger = require('../logger').log;
+const notifications = require('./notificationsController');
 
 /*
 Given a company id, this route returns all of the modules not currently assigned by the company.
@@ -41,6 +42,9 @@ const assignModule = (req,res) => {
     dateDue.setHours(23, 59);
     dateDue.setSeconds(0);
 
+    const today = new Date();
+    today.setDate(today.getDate());
+
     db.query('SELECT EXISTS(SELECT * FROM CompanyLearningModules as CLM WHERE CLM.LearningModId = ? ' +
              'and CLM.CompanyID = ?) AS doesExist', [moduleid, companyid], (err,result) => {
         if (err) {
@@ -53,8 +57,14 @@ const assignModule = (req,res) => {
                 res.send({success: false, error: err});
                 return logger.log('error', { methodName: '/assignModule', body: err }, { service: 'user-service' });
             }
-            res.send({success: true, added: true, message: "LearningModule was assigned to the company."});
-            });
+            notifications.assignmentAlert(companyid, moduleid);
+            db.query("INSERT INTO CompanyModulesHistory (moduleid, companyid, dateAssigned) VALUES (?,?,?)", [moduleid, companyid, today], (err, result) => {
+                if (err) {
+                    res.send({success: false, error: err});
+                    return logger.log('error', { methodName: '/assignModule', body: err }, { service: 'user-service' });
+                }
+                res.send({success: true, added: true, message: "LearningModule was assigned to the company."});
+            });});
         }
         else {
             res.send({success: true, added: false, message: "LearningModule is already assigned to the company."});
@@ -80,7 +90,7 @@ const updateDueDate = (req, res) => {
         }
         logger.log('info', `Updated assigned module for company: "${companyid}" and module: "${moduleid}" to date: "${dateDue}" Fields: ${result}`, { service: 'user-service' });
         res.send({success: true, message: "Module due date updated."});
-    })   
+    });   
 }
 
 /*
@@ -93,6 +103,9 @@ going through and deleting all of their completed modules.
 const removeModule = (req, res) => {
     const moduleid = req.body.moduleid;
     const companyid = req.body.companyid;
+
+    const today = new Date();
+    today.setDate(today.getDate());
 
     db.query(('SELECT EXISTS(SELECT * FROM CompanyLearningModules WHERE CompanyLearningModules.LearningModID = ? ' +
               'and CompanyLearningModules.CompanyID = ?) AS doesExist'), [moduleid, companyid], (err, result) => {
@@ -123,8 +136,15 @@ const removeModule = (req, res) => {
                             });
 
                     }
-                    res.send({success: true, message: "Successfully removed module from assigned modules.", users: users});
-                });
+
+                    db.query('UPDATE CompanyModulesHistory SET dateRemoved = ? WHERE companyid = ? AND moduleid = ? AND dateRemoved IS NULL', [today, companyid, moduleid], (err,result) => {
+                        if (err) {
+                            res.send({success: false, error: err});
+                            return logger.log('error', { methodName: '/removeModule', errorBody: err }, { service: 'user-service' });
+                        }
+                        logger.log('info', `Remove assigned module for company: "${companyid}" and module: "${moduleid}" Fields: ${result}`, { service: 'user-service' });
+                        res.send({success: true, message: "Successfully removed module from assigned modules."});
+                    });});
             });
         }
         else

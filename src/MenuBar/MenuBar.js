@@ -22,6 +22,7 @@ const Menubar = () => {
     const navigate = useNavigate();
     const [companyId, setCompanyId] = useState('')
     const [company, setCompany] = useState([])
+    const [companyLinkID, setCompanyLinkID] = useState('');
     const [currentUser, setCurrentUser] = useState([]);
     const [isLoading, setLoading] = useState(true)
     const [isCompanyLoading, setCompanyLoading] = useState(true)
@@ -94,6 +95,18 @@ const Menubar = () => {
             setCompanyId(company[0].CompanyID)
         }
     }, [isCompanyLoading, company])
+
+  // setting company information 
+  useEffect(() => {
+    if (currentUser.userid) {
+      if (currentUser.type === "user" || currentUser.type === "websiteAdmin") {
+        setCompanyLinkID(currentUser.companyid);
+      }
+      else if (currentUser.type === "companyAdmin") {
+        setCompanyLinkID(currentUser.companyAdminID);
+      }
+    }
+  }, [currentUser]);
 
     const markRead = () => {
       setunreadNotifs(false);
@@ -257,7 +270,7 @@ const Menubar = () => {
                 <li class="nav-item text-center mx-2 mx-lg-1 navbar-white">
                 <a class="nav-link" href="/employer-dash">
                   <div>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard2-data" viewBox="0 0 16 16">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-clipboard2-data" viewBox="0 0 16 16">
                   <path d="M9.5 0a.5.5 0 0 1 .5.5.5.5 0 0 0 .5.5.5.5 0 0 1 .5.5V2a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 2v-.5a.5.5 0 0 1 .5-.5.5.5 0 0 0 .5-.5.5.5 0 0 1 .5-.5h3Z"/>
                   <path d="M3 2.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 0 0-1h-.5A1.5 1.5 0 0 0 2 2.5v12A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-12A1.5 1.5 0 0 0 12.5 1H12a.5.5 0 0 0 0 1h.5a.5.5 0 0 1 .5.5v12a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-12Z"/>
                   <path d="M10 7a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0V7Zm-6 4a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0v-1Zm4-3a1 1 0 0 0-1 1v3a1 1 0 1 0 2 0V9a1 1 0 0 0-1-1Z"/>
@@ -270,7 +283,7 @@ const Menubar = () => {
                 <li class="nav-item text-center mx-2 mx-lg-1">
                 <a class="nav-link" href="/learning-manager">
                   <div>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard2-data" viewBox="0 0 16 16">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-clipboard2-data" viewBox="0 0 16 16">
                   <path d="M9.5 0a.5.5 0 0 1 .5.5.5.5 0 0 0 .5.5.5.5 0 0 1 .5.5V2a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 2v-.5a.5.5 0 0 1 .5-.5.5.5 0 0 0 .5-.5.5.5 0 0 1 .5-.5h3Z"/>
                   <path d="M3 2.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 0 0-1h-.5A1.5 1.5 0 0 0 2 2.5v12A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-12A1.5 1.5 0 0 0 12.5 1H12a.5.5 0 0 0 0 1h.5a.5.5 0 0 1 .5.5v12a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-12Z"/>
                   <path d="M10 7a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0V7Zm-6 4a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0v-1Zm4-3a1 1 0 0 0-1 1v3a1 1 0 1 0 2 0V9a1 1 0 0 0-1-1Z"/>
@@ -359,8 +372,7 @@ const Menubar = () => {
               noCaret={true}
             >
               <NavDropdown.Item href="/settings">Profile</NavDropdown.Item>
-              <NavDropdown.Item href="/company">Company</NavDropdown.Item>
-              <NavDropdown.Item href="/settings">Settings</NavDropdown.Item>
+              <NavDropdown.Item href={"/company/" + companyLinkID}>Company</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="/" onClick={logout}>Log Out</NavDropdown.Item>
             </NavDropdown>
