@@ -1,6 +1,10 @@
 {
-  "name": "react-bootstrap",
-  "version": "0.1.0",
+  "name": "medcurity",
+  "description": "Medcurity is a web application that allows users to manage their health records and medical appointments. It also allows users to find doctors and book appointments with them.",
+  "author": "Medcurity",
+  "license": "MIT",
+  "website": "https://medcurity.azurewebsites.net",
+  "version": "2.1.0",
   "private": true,
   "engines": {
     "node": "16.14.x"
@@ -34,7 +38,6 @@
     "email-validator": "^2.0.4",
     "express": "^4.17.2",
     "express-session": "^1.17.2",
-    "faker": "^6.6.6",
     "immer": "^9.0.12",
     "jest": "^27.5.1",
     "multer": "^1.4.4",
@@ -75,7 +78,9 @@
     "clean": "npm cache clean --force",
     "heroku-postbuild": "react-dotenv && npm install && npm run build",
     "server": "npm run dev --prefix server",
-    "dev": "concurrently \"npm start\" \"npm run server\""
+    "dev": "concurrently \"npm start\" \"npm run server\"",
+    "deploy": "concurrently \"npm install\" \"cd server\" \"npm install\""
+
   },
   "react-dotenv": {
     "whitelist": [

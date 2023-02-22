@@ -15,6 +15,11 @@ import { Bar, Pie } from 'react-chartjs-2';
 import { Paper, Typography } from '@mui/material';
 //https://react-chartjs-2.js.org/examples/horizontal-bar-chart
 
+// number of modules completed
+// number of modules in progress
+// number of modules not started
+
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
