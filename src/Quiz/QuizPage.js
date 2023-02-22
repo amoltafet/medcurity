@@ -221,7 +221,7 @@ const QuizPage = () => {
       let percent = numCorrect / content.length;
 
       // this is the set cutoff for the percentage questions correct a user needs to earn the time bonus
-      if (percent <= 0.79) {
+      if ((percent * 100) <= moduleName[0].timebonuscutoff) {
         setTimeBonus(0);
         setTimeBonusEarned(false);
       }
@@ -244,7 +244,7 @@ const QuizPage = () => {
         // console.log(response.message);
       }).catch();
 
-      if ((percent * 100) >= 90) {
+      if ((percent * 100) >= moduleName[0].badgecutoff) {
         console.log(moduleName)
         axios.post(`${process.env.REACT_APP_BASE_URL}/users/moduleBadgeEarned`, {
           userid: currentUser.userid,
@@ -522,18 +522,18 @@ const QuizPage = () => {
    */
   function checkIfUserGotTimeBonus (currentModule) {
     let seconds = secondsRef.current;
-    let cutoff = 0.0;
-    content.forEach((question) => {
-      if (question.type === 'mc') {
-        cutoff += 5
-      } else if (question.type === 'match') {
-        cutoff += 10
-      } else {
-        cutoff += 5
-      }
-    });
+    // let cutoff = 0.0;
+    // content.forEach((question) => {
+    //   if (question.type === 'mc') {
+    //     cutoff += 5
+    //   } else if (question.type === 'match') {
+    //     cutoff += 10
+    //   } else {
+    //     cutoff += 5
+    //   }
+    // });
 
-    if (seconds < cutoff) {
+    if (seconds < moduleName[0].timecutoff) {
       setTimeBonus(100);
       setTimeBonusEarned(true);
     }
