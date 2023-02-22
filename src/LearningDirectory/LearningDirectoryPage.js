@@ -6,7 +6,6 @@ import { useParams } from "react-router";
 import axios from 'axios';
 import LearningModulePanel from './LearningModulePanel';
 import './LearningDirectory.css'
-import { Button } from '@material-ui/core';
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
 // import env from "react-dotenv";
 

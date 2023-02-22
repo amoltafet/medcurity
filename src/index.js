@@ -37,6 +37,7 @@ import ResetPasswordPage from "./ResetPassword/Reset";
 import CompanyProfile from "./Company/CompanyProfile";
 import axios from 'axios';
 import "bootstrap-icons/font/bootstrap-icons.css";
+import Charts from "./Charts/Charts";
 
 ReactDOM.render(
 
@@ -75,6 +76,7 @@ ReactDOM.render(
       </Route>
       <Route path="/leaderboard" element={<Leaderboard />} />
       <Route path="/company/:id" element={<CompanyProfile />} />
+      <Route path="/charts" element={<Charts />} />
     </Routes>
   </Router>,
   document.getElementById('root')
