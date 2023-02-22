@@ -51,6 +51,8 @@ const LearningDirectoryRequiredPage = () => {
                 setCompletedModules(Object.values(response.data));
             })
         }
+
+        
     }, [currentUser, currentUser.userid, isLoading])
 
     /**
@@ -76,12 +78,13 @@ const LearningDirectoryRequiredPage = () => {
     const ModulePanel = (props) => {
         var dueDate = new Date(props.dueDate); 
         dueDate.setDate((dueDate.getDate()));
+        console.log(props);
         return (
             <>
               <div className="card card-custom bg-white border-white border-0">
                 <div className="card-custom-img card-custom-img-2"></div>
                     <div className="card-custom-avatar">
-                        <img className="img-fluid" src={props.img} alt="Card image cap" />
+                    <img className="img-fluid" src={props.img ? props.img : "https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_960_720.jpg"} alt="Card image cap" />
                     </div>
                     <div className="card-body card-body-2">
                         <h4 className="card-title">{props.title}</h4>

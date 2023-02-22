@@ -9,6 +9,7 @@ import Notifications from './Notifications/Notifications'
 import Badge from '@material-ui/core/Badge';
 import { Button } from '@mui/material';
 import Search from './Search/Search'
+import InsertChartOutlinedRoundedIcon from '@mui/icons-material/InsertChartOutlinedRounded';
 // import env from "react-dotenv";
 
 
@@ -297,6 +298,19 @@ const Menubar = () => {
       </ul>
 
       <ul class="navbar-nav ms-auto d-flex flex-row mt-3 mt-lg-0">
+       
+      <li class="nav-item text-center mx-2 mx-lg-1">
+                <a class="nav-link" href="/charts">
+                  <div>
+                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" class="bi bi-file-bar-graph" viewBox="0 0 16 16">
+                  <path d="M4.5 12a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-1zm3 0a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1zm3 0a.5.5 0 0 1-.5-.5v-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-.5.5h-1z"/>
+                  <path d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"/>
+                </svg>
+                  </div>
+                 
+                </a>
+              </li>
+       
         <li class="nav-item text-center mx-2 mx-lg-1">
         <Navbar.Toggle aria-controls="navbar-dark-example" />
         <Navbar.Collapse id="navbar-dark-example">
@@ -355,6 +369,9 @@ const Menubar = () => {
         </li>
         </>
         : null}
+        <li class="nav-item text-center mx-2 mx-lg-1">
+
+        </li>
          <li class="nav-item text-center mx-2 mx-lg-1">
         
         <Navbar.Toggle aria-controls="navbar-dark-example" class="toggle"/>
