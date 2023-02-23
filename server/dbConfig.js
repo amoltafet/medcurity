@@ -6,12 +6,11 @@ const mysql = require('mysql2')
 */
 // catch errors
 const db = mysql.createConnection({
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_DATABASE,
-    port: process.env.DB_PORT
+    host: process.env.DB_HOST || 'med.mysql.database.azure.com',
+    user: process.env.DB_USER || 'medcurity',
+    password: process.env.DB_PASS || 'Learn4good!',
+    database: process.env.DB_DATABASE || 'medcurity',
+    port: process.env.DB_PORT || 3306,
 })
 
 module.exports = db;

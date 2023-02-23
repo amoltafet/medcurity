@@ -1,7 +1,7 @@
 FROM node:16
 
 ENV CI=true
-ENV PORT=3000
+ENV PORT=3002
 
 WORKDIR /code
 COPY package.json /code/package.json
@@ -9,4 +9,4 @@ COPY package-lock.json /code/package-lock.json
 RUN npm i
 COPY . /code
 
-CMD [ "npm", "start" ]
+CMD [ "node", "app.js" ]

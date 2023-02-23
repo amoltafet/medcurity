@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: server
+    command: npm run dev
+    ports:
+      - 3002:3002
+    volumes:
+      - ./server/:/code/src:ro
+      - ./server/package.json:/code/package.json
+      - ./server/package-lock.json:/code/package-lock.json
+
+  frontend:
+    build:
+      context: ./
+    ports:
+      - 3000:3000
+    volumes:
+      - ./src:/code/src
+      - /code/node_modules
+    depends_on:
+      - backend

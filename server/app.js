@@ -22,6 +22,7 @@ const session = require("express-session");
 const app = express();
 const cookieSettings = (process.env.COOKIES === 'enabled') ? { httpOnly: true, secure: false, maxAge: 1000 * 60 * 60 * 48, sameSite: 'none' } : null
 
+
 app.use(
   express.json(),
   cookieParser(),
@@ -29,6 +30,7 @@ app.use(
   cors({ origin: true, methods: ["GET", "POST"], credentials: true }),
   session({ resave: false, saveUninitialized: true, secret: process.env.SECRET, cookie: cookieSettings })
 );
+
 
 var usersRouter = require('./routes/usersRoutes');
 var queryRouter = require('./routes/queryRoutes');

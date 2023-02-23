@@ -78,9 +78,7 @@
     "clean": "npm cache clean --force",
     "heroku-postbuild": "react-dotenv && npm install && npm run build",
     "server": "npm run dev --prefix server",
-    "dev": "concurrently \"npm start\" \"npm run server\"",
-    "deploy": "npm install && cd server && npm install"
-
+    "dev": "nodemon server/app.js localhost 3002"
   },
   "react-dotenv": {
     "whitelist": [
