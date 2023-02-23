@@ -30,7 +30,6 @@
     "chart.js": "^4.2.1",
     "check-password-strength": "^2.0.4",
     "color-name": "^1.1.4",
-    "concurrently": "^7.5.0",
     "connect-redis": "^6.1.1",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
@@ -67,6 +66,8 @@
     "winston-daily-rotate-file": "^4.6.1"
   },
   "devDependencies": {
+    "concurrently": "^7.6.0",
+    "nodemon": "^2.0.20",
     "react-scripts": "5.0.0"
   },
   "scripts": {
@@ -78,7 +79,8 @@
     "clean": "npm cache clean --force",
     "heroku-postbuild": "react-dotenv && npm install && npm run build",
     "server": "npm run dev --prefix server",
-    "dev": "nodemon server/app.js localhost 3002"
+    "dev": "concurrently \"npm start\" \"node server/app.js\"",
+    "build-prod": "cd server && npm install && npm run build && cd .. && npm install && npm run build"
   },
   "react-dotenv": {
     "whitelist": [

@@ -1,59 +1,32 @@
-name: Azure WebApp Deploy
+name: Build and deploy Node.js app to Azure Web App
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
   workflow_dispatch:
 
-env:
-  AZURE_WEBAPP_NAME: medcurity    # set this to your application's name
-  AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
-  NODE_VERSION: '14.x'                # set this to the node version to use
-
-permissions:
-  contents: read
-
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ env.NODE_VERSION }}
-        cache: 'npm'
-
-    - name: Install dependencies
-      run: |
-        npm run deploy
-
-    - name: Upload artifact for deployment job
-      uses: actions/upload-artifact@v3
-      with:
-        name: node-app
-        path: .
-
-  deploy:
-    permissions:
-      contents: none
-    runs-on: ubuntu-latest
-    needs: build
-    environment:
-      name: 'Development'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+  build-and-deploy:
+    runs-on: windows-latest
 
     steps:
-    - name: Download artifact from build job
-      uses: actions/download-artifact@v3
-      with:
-        name: node-app
+      - name: 'Checkout Github Action'
+        uses: actions/checkout@v2
 
-    - name: 'Deploy to Azure WebApp'
-      id: deploy-to-webapp
-      uses: azure/webapps-deploy@v2
-      with:
-        app-name: ${{ env.AZURE_WEBAPP_NAME }}
-        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-        package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+      - name: Set up Node.js version
+        uses: actions/setup-node@v1
+        with:
+          node-version: "16.x"
+
+      - name: npm install, build
+        run: npm run build-prod
+
+      - name: "Deploy to Azure Web App"
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: "needs-workshop"
+          slot-name: "dev"
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: .
