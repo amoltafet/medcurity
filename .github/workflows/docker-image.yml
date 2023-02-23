@@ -13,4 +13,4 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Pushing To Another Repo
-      run: git init && git remote set-url origin https://github.com/amoltafet/MedcurityApp.git && git add . && git commit -m "g" && git push origin main
+      run:   git config --global user.email "ahmad@gmail.com" && git config --global user.name "Ahmad" && git init && git remote set-url origin https://github.com/amoltafet/MedcurityApp.git && git add . && git commit -m "g" && git push origin main
