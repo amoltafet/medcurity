@@ -12,7 +12,7 @@ variables:
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   s-imageRepository: 'medcuritywebappbackend'
   s-dockerfilePath: '$(Build.SourcesDirectory)/server/Dockerfile'
-  tag: '$(Build.BuildId)'
+  tag: 'latest'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
