@@ -5,9 +5,7 @@ services:
     container_name: medcuritywebappbackend
     image: 'medcurity.azurecr.io/medcuritywebappbackend:latest'
     ports:
-      - 3002:80
-    link: medcuritywebappfrontend
-    network: webappnetwork
+      - 3002:3002
 
 
   frontend:
@@ -15,10 +13,5 @@ services:
     image: 'medcurity.azurecr.io/medcuritywebappfrontend:latest'
     ports:
       - 80:80
-    network: webappnetwork
     depends_on:
       - backend
-
-networks:
-  webappnetwork:
-     driver: bridge
