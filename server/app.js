@@ -80,9 +80,8 @@ else
 {
   console.log('-- Launched with node --')
   const LISTEN_PORT = process.env.LISTEN_PORT || 3002
-  const LISTEN_URL = process.env.LISTEN_URL || 'https://medcurity-app.azurewebsites.net:3002'
 
-  app.listen(LISTEN_URL, (err) => {
+  app.listen(LISTEN_PORT, '0.0.0.0', (err) => {
     console.log('API CONNECTION INFO:')
     console.log('\t- HTTP API Server running on PORT: ' + LISTEN_PORT);
     console.log(`\t- API is accessible at is: http://localhost:${LISTEN_PORT}`)
