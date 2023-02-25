@@ -27,10 +27,9 @@ const DashboardPage = () => {
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_BASE_URL}/users/login`).then((response) => {
       setCurrentUser(response.data.user[0])
-    }).catch((err) => {
-      console.log(err);
-    });
+    }).catch(error => console.error(`Error ${error}`));
   }, []);
+
 
   useEffect(() => { if (currentUser.userid)  axios.get(`${process.env.REACT_APP_BASE_URL}/api/getProfilePicture`, { params: { id: currentUser.userid } }).then((response) => { setProfilePic(response.data.profileImage) }); })
 
