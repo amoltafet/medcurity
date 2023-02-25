@@ -1,5 +1,11 @@
-version: '3.8'
+# This file is used to configure the docker-compose.yml file 
+# for local development and Azure deployment.
+# THIS FILE CANNOT BE RUN, BUT SECTIONS CAN BE USED
 
+# ------- Local Development Configuration V1 -------
+# if in any case the azure service is not available,
+# us the version 2
+version: '3.8'
 services:
   backend:
     container_name: medcuritywebappbackend
@@ -29,9 +35,9 @@ services:
     depends_on:
       - backend
 
-
-
-  version: '3.8'
+# ------- Local Development Configuration V2 -------
+# this case assumes no azure access is available at all
+version: '3.8'
 
 services:
   backend:
@@ -53,5 +59,26 @@ services:
     volumes:
       - ./src:/code/src
       - /code/node_modules
+    depends_on:
+      - backend
+
+
+# ------- Azure Deployment Configuration -------
+# this is config for azure deployment
+# under deployment center config file
+version: '3.8'
+
+services:
+  backend:
+    container_name: medcuritywebappbackend
+    image: 'medcurity.azurecr.io/medcuritywebappbackend:latest'
+    ports:
+      - 3002:3002
+
+  frontend:
+    container_name: medcuritywebappfrontend
+    image: 'medcurity.azurecr.io/medcuritywebappfrontend:latest'
+    ports:
+      - 8080:8080
     depends_on:
       - backend

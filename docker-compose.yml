@@ -3,28 +3,15 @@ version: '3.8'
 services:
   backend:
     container_name: medcuritywebappbackend
-    image: 'medcurity.azurecr.io/medcuritywebappbackend'
-    restart: always
-    build:
-      context: server
-    command: npm run dev
+    image: 'medcurity.azurecr.io/medcuritywebappbackend:latest'
     ports:
       - 3002:3002
-    volumes:
-      - ./server/:/code/src:ro
-      - ./server/package.json:/code/package.json
-      - ./server/package-lock.json:/code/package-lock.json
+
 
   frontend:
     container_name: medcuritywebappfrontend
-    image: 'medcurity.azurecr.io/medcuritywebappfrontend'
-    restart: always
-    build:
-      context: ./
+    image: 'medcurity.azurecr.io/medcuritywebappfrontend:latest'
     ports:
       - 8080:8080
-    volumes:
-      - ./src:/code/src
-      - /code/node_modules
     depends_on:
       - backend

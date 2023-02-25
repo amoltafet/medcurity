@@ -80,7 +80,7 @@
     "heroku-postbuild": "react-dotenv && npm install && npm run build",
     "server": "npm run dev --prefix server",
     "dev": "concurrently \"npm start\" \"node server/app.js\"",
-    "build-prod": "cd server && npm install && npm run build && cd .. && npm install && npm run build"
+    "build-prod": "cd server && npm install && react-dotenv && react-scripts build && cd .. && npm install && npm run build"
   },
   "react-dotenv": {
     "whitelist": [
