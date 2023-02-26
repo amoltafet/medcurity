@@ -33,7 +33,7 @@ const Menubar = () => {
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_BASE_URL}/users/login`).then((response) => {
           setCurrentUser(response.data.user[0])
-        });
+        }).catch((error) => console.log(error));
       }, []);
 
     useEffect(() => {
