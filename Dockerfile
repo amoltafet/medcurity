@@ -8,7 +8,7 @@ COPY package.json /code/package.json
 COPY package-lock.json /code/package-lock.json
 
 # replace .env file with the correct url for deyployment
-COPY /tools/.env.local ./.env
+COPY tools/.env ./.env
 
 RUN npm i
 COPY . /code
