@@ -27,10 +27,14 @@ var modulesRouter = require('./routes/modulesRoutes');
 app.use('/users', usersRouter);
 app.use('/api', queryRouter);
 app.use('/testing', testingRouter);
-app.use('/modules', modulesRouter)
+app.use('/modules', modulesRouter);
 
-  console.log('-- Launched with node --')
-  const LISTEN_PORT = process.env.LISTEN_PORT || 8080
+app.get('/', function (req, res) {
+  res.send('Hello World!  Use Azure!');
+});
+
+console.log('-- Launched with node --')
+const LISTEN_PORT = process.env.LISTEN_PORT || 3002
 
   app.listen(LISTEN_PORT, (err) => {
     console.log('API CONNECTION INFO:')
@@ -42,8 +46,6 @@ app.use('/modules', modulesRouter)
     console.log(err);
   }
   );
-
-
 
 /**
  * Checks if the certificates are present in a given directory

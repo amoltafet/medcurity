@@ -1,12 +1,12 @@
 FROM node:16
 
 ENV CI=true
-ENV PORT=8080
+ENV PORT=3002
+
+EXPOSE 3002
 
 WORKDIR /code
-COPY package.json /code/package.json
-COPY package-lock.json /code/package-lock.json
-RUN npm i
-COPY . /code
+COPY . .
+RUN npm install
 
-CMD [ "node", "app.js" ]
+CMD [ "npm", "run", "dev" ]
