@@ -30,7 +30,7 @@ app.use('/testing', testingRouter);
 app.use('/modules', modulesRouter)
 
   console.log('-- Launched with node --')
-  const LISTEN_PORT = process.env.LISTEN_PORT || 3002
+  const LISTEN_PORT = process.env.LISTEN_PORT || 8080
 
   app.listen(LISTEN_PORT, (err) => {
     console.log('API CONNECTION INFO:')
