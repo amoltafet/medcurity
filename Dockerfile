@@ -1,6 +1,5 @@
 FROM node:16
 
-ENV CI=true
 ENV PORT=8080
 
 WORKDIR /code
