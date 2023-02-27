@@ -27,6 +27,11 @@ jobs:
     - run: |
         docker build . -t medcurity.azurecr.io/medcuritywebappfrontend:latest
         docker push medcurity.azurecr.io/medcuritywebappfrontend:latest
+    - uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'medcuritywebappfrontend'
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_FRONT }}
+        images: 'medcurity.azurecr.io/medcuritywebappfrontend:latest'
   build-back:
     runs-on: ubuntu-latest
     steps:
@@ -41,4 +46,9 @@ jobs:
         cd server
         docker build . -t medcurity.azurecr.io/medcuritywebappbackend:latest
         docker push medcurity.azurecr.io/medcuritywebappbackend:latest
+    - uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'medcuritywebappbackend'
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_BACK }}
+        images: 'medcurity.azurecr.io/medcuritywebappbackend:latest'
 
