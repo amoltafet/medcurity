@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  backend:
+    container_name: medcuritywebappbackend
+    image: 'medcurity.azurecr.io/medcuritywebappbackend:latest'
+    ports:
+      - 3002:3002
+    depends_on:
+      - medcuritywebappfrontend
+
+
+  frontend:
+    container_name: medcuritywebappfrontend
+    image: 'medcurity.azurecr.io/medcuritywebappfrontend:latest'
+    ports:
+      - 8080:8080

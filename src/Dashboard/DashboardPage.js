@@ -30,6 +30,7 @@ const DashboardPage = () => {
     }).catch(error => console.error(`Error ${error}`));
   }, []);
 
+
   useEffect(() => { if (currentUser.userid)  axios.get(`${process.env.REACT_APP_BASE_URL}/api/getProfilePicture`, { params: { id: currentUser.userid } }).then((response) => { setProfilePic(response.data.profileImage) }); })
 
   const printUserType = (type) =>
