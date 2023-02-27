@@ -30,7 +30,7 @@ app.use('/testing', testingRouter);
 app.use('/modules', modulesRouter);
 
 app.get('/', function (req, res) {
-  res.send('Hello World!  Use Azure! This is the base url for deployment purposes only.');
+  res.send('Hello World!  Use Azure! This is the base url for deployment purposes only. (This is the default route)');
 });
 
 console.log('-- Launched with node --')
