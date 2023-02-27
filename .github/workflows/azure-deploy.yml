@@ -27,4 +27,18 @@ jobs:
     - run: |
         docker build . -t medcurity.azurecr.io/medcuritywebappfrontend:latest
         docker push medcurity.azurecr.io/medcuritywebappfrontend:latest
+  build-back:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: 'Build and push image'
+      uses: azure/docker-login@v1
+      with:
+        login-server: medcurity.azurecr.io
+        username: medcurity
+        password: 8kddBitAYkrsn3aes/n2ahX7tAM7n/+TTD1vvexbyG+ACRA34zJo
+    - run: |
+        cd server
+        docker build . -t medcurity.azurecr.io/medcuritywebappbackend:latest
+        docker push medcurity.azurecr.io/medcuritywebappbackend:latest
 
