@@ -29,7 +29,7 @@ jobs:
         docker push medcurity.azurecr.io/medcuritywebappfrontend:latest
     - uses: azure/webapps-deploy@v2
       with:
-        app-name: 'medcuritywebappfrontend'
+        app-name: 'medcurity-app'
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_FRONT }}
         images: 'medcurity.azurecr.io/medcuritywebappfrontend:latest'
   build-back:
@@ -48,7 +48,7 @@ jobs:
         docker push medcurity.azurecr.io/medcuritywebappbackend:latest
     - uses: azure/webapps-deploy@v2
       with:
-        app-name: 'medcuritywebappbackend'
+        app-name: 'medcurity-api'
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_BACK }}
         images: 'medcurity.azurecr.io/medcuritywebappbackend:latest'
 
