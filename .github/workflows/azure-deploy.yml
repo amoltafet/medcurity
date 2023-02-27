@@ -18,9 +18,13 @@ jobs:
       with:
         node-version: 16.x
         cache: 'npm'
-    - name: Build and push container image to registry
-      uses: docker/build-push-action@v2
+    - name: 'Build and push image'
+      uses: azure/docker-login@v1
       with:
-        push: true
-        tags: medcurity.azurecr.io/medcuritywebappfrontend:latest
-        file: ./Dockerfile
+        login-server: medcurity.azurecr.io
+        username: medcurity
+        password: 8kddBitAYkrsn3aes/n2ahX7tAM7n/+TTD1vvexbyG+ACRA34zJo
+    - run: |
+        docker build . -t medcurity.azurecr.io/medcuritywebappfrontend:latest
+        docker push medcurity.azurecr.io/medcuritywebappfrontend:latest
+
