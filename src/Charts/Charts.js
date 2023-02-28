@@ -37,22 +37,20 @@ const Charts = () => {
   const [currentUser, setCurrentUser] = useState([]);
   const [isLoaded, setLoaded] = useState(false);
   const [companyID, setCompanyID] = useState(null);
+  const [employeeActivity, setEmployeeActivity] = useState([]);
 
   useEffect(() => {
-    // axios.get(`${process.env.REACT_APP_BASE_URL}/users/login`).then((response) => {
-    // if (response.data.user)
-    // {
-    //     setCurrentUser(response.data.user[0]);
-    //     setLoaded(true);
-    // }
-    // else
-    // {
-    //     setCurrentUser(null)
-    // }
-    // }).catch(error => console.error(`Error ${error}`));
-    setCompanyID(1);
-    setCurrentUser(1);
-    setLoaded(true);
+    axios.get(`${process.env.REACT_APP_BASE_URL}/users/login`).then((response) => {
+    if (response.data.user)
+    {
+        setCurrentUser(response.data.user[0]);
+        setLoaded(true);
+    }
+    else
+    {
+        setCurrentUser(null)
+    }
+    }).catch(error => console.error(`Error ${error}`));
   }, []);
 
   useEffect(() => {
@@ -69,12 +67,25 @@ const Charts = () => {
     if (companyID) {
         axios.get(`${process.env.REACT_APP_BASE_URL}/stats/getEmployeeActivity`, { params: { companyid: companyID
         } }).then((response) => {
-          console.log(response.data);
+          if (response.data.success) {
+            setEmployeeActivity(response.data.result);
+          }
+          else {
+            console.log("Error:", response.data.error)
+          }
         }).catch((error) => console.log("Error:", error));
     }
 }, [companyID]);
 
   const MedcurityLineChart = () => {
+    let weeks = [];
+    let counts = [];
+
+    for (let i = employeeActivity.length - 1; i >= 0; i--) {
+      weeks.push(employeeActivity[i].range);
+      counts.push(employeeActivity[i].count);
+    }
+
     const options = {
         responsive: true,
         maintainAspectRatio: false,
@@ -91,14 +102,13 @@ const Charts = () => {
     
       };
       
-    const labels = ['2/5 - 2/11', '2/12 - 2/18', '2/19 - 2/25', '2/26 - 3/4', '3/5 - 3/11'];
-
+    const labels = weeks;
     const data = {
         labels,
         datasets: [
           {
             label: 'Employee Module Attempts',
-            data: [4, 5, 1, 6, 2],
+            data: counts,
             backgroundColor: 'rgb(32, 42, 68)',
           },
         ],

@@ -31,8 +31,6 @@ const getEmployeeActivity = (req, res) => {
         weeks.push({
             weekStart: weekStart,
             weekEnd: weekEnd,
-            first: first, 
-            last: last,
             count: 0
         });
         
@@ -40,25 +38,38 @@ const getEmployeeActivity = (req, res) => {
         last = last - 7;
     }
     const firstDate = new Date(weeks.slice(-1)[0].weekStart);
-    let cutoff = new Date(weeks[3].weekEnd);
+    let cutoff = new Date(weeks[0].weekStart);
+    let cutoffIndex = 0;
 
 
     db.query('SELECT (date) FROM UserActivity as US JOIN AffiliatedUsers as AU ON AU.UserID = US.userID WHERE date >= ? and companyID = ? ORDER BY date DESC;', [firstDate, companyid], (err,result) => {
     if (err) {
-        logger.log('error', { methodName: '/getEmployeeActivity', body: err }, { service: 'user-service' });
+        res.send({success: false, error: err});
+        return logger.log('error', { methodName: '/getEmployeeActivity', body: err }, { service: 'user-service' });
     } else {
         logger.log('info', "Retrieved employee activity for company " + companyid + ".", { service: 'user-service' });
-        
 
         result.forEach((row) => {
             let date = new Date(row.date);
 
-            if (date >= cutoff) {
-                row.time = true;
+            while (date < cutoff) {
+                cutoffIndex += 1;
+                cutoff = new Date(weeks[cutoffIndex].weekStart);
             }
+
+            weeks[cutoffIndex].count += 1;
+        });
+
+        weeks.forEach((week) => {
+            let stringRep = `${week.weekStart.getMonth()}/${week.weekStart.getDate()} - `;
+            stringRep += `${week.weekEnd.getMonth()}/${week.weekEnd.getDate()}`;
+            week.range = stringRep;
+
+            delete week.weekStart;
+            delete week.weekEnd;
         });
         
-        res.send({result: result, cutoff: cutoff, firstDate: firstDate, weeks: weeks});
+        res.send({success: true, result: weeks});
     }});
 }
 
