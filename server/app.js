@@ -34,11 +34,13 @@ var usersRouter = require('./routes/usersRoutes');
 var queryRouter = require('./routes/queryRoutes');
 var testingRouter = require('./routes/testingRoutes');
 var modulesRouter = require('./routes/modulesRoutes');
+var statsRouter = require('./routes/statsRoutes');
 
 app.use('/users', usersRouter);
 app.use('/api', queryRouter);
 app.use('/testing', testingRouter);
-app.use('/modules', modulesRouter)
+app.use('/modules', modulesRouter);
+app.use('/stats', statsRouter);
 
 /**
  * If the server is launched with Passenger:
