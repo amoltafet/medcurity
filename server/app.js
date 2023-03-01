@@ -9,7 +9,7 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 
 const app = express();
-const cookieSettings = (process.env.COOKIES === 'enabled') ? { httpOnly: true, secure: false, maxAge: 1000 * 60 * 60 * 48, sameSite: 'none' } : { httpOnly: true, secure: true, maxAge: 1000 * 60 * 60 * 48, sameSite: 'none' };
+const cookieSettings = (process.env.COOKIES === 'enabled') ? { httpOnly: true, secure: true, maxAge: 1000 * 60 * 60 * 48, sameSite: 'none' } : null;
 
 app.use(
   express.json(),
