@@ -183,6 +183,7 @@ const userLogin = (req,res) =>
 {
     const email = req.body.email
     const password = req.body.password
+    console.log(email, password);
 
     db.query(`SELECT EXISTS(SELECT * FROM Users WHERE email = '${email}') AS doesExist`, (err, userExists) => {
         
