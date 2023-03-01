@@ -86,7 +86,17 @@ const DashboardPage = () => {
             </div>
           <br></br>
         </Form>
- 
+        <Grid container sx={{
+          padding: '10px',
+          width: '100%',
+          height: '50px',
+          background: 'linear-gradient(to right, #001F40, #001F3F)',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+          
+          <p className="dash_footerText text-light">© 2023 Medcurity. All rights reserved.</p>
+        </Grid>
 
       
       </>

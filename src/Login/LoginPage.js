@@ -151,14 +151,6 @@ export default function LoginPage()
               Medcurity Learn is a HIPAA compliance training platform that provides a comprehensive and engaging learning experience for your organization.
               </Typography>
             </div>
-            <div className="footer" style={{
-              marginTop: '10%',
-              marginLeft: '3%',
-            }}>
-              <Typography variant="h6" component="div" gutterBottom color="#ffffff">
-              © 2023 Medcurity, Inc. All Rights Reserved.
-              </Typography>
-            </div>
 
         </Grid>
 

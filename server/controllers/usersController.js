@@ -179,7 +179,7 @@ const userRegisterCompanyAdmin = (req,res) =>
 /**
  * Handles user login and creates a session for the user. Session data contains their user data from the database.
  */
-const userLogin = (req,res) => 
+const userLogin = (req, res) => 
 {
     const email = req.body.email
     const password = req.body.password

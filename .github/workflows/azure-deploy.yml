@@ -52,3 +52,17 @@ jobs:
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_BACK }}
         images: 'medcurity.azurecr.io/medcuritywebappbackend:latest'
 
+  build-back-2:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - run: |
+        cd server
+        docker build . -t medcurity.azurecr.io/medcuritywebappbackend:latest
+        docker push medcurity.azurecr.io/medcuritywebappbackend:latest
+    - uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'medcurity-api'
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_BACK }}
+        images: 'medcurity.azurecr.io/medcuritywebappbackend:latest'
+
