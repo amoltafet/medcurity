@@ -23,7 +23,7 @@ const AdminDashboardPage = () => {
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_BASE_URL}/users/login`).then((response) => {
           setCurrentUser(response.data.user[0])
-        });
+        }).catch(error => console.error(`Error ${error}`));
       }, []);
 
 
@@ -45,13 +45,11 @@ const AdminDashboardPage = () => {
               </Col>
             </Row>
           </CardDeck>
-    
             <Row className="justify-content-center">
             <Col xs={11} lg={12}>
               <EmployerCards />
               </Col>
             </Row>
-          
       </>
       );
     }
