@@ -1,6 +1,5 @@
-import {Button, Image, Form, Card} from 'react-bootstrap'
+import {Button, Image, Form} from 'react-bootstrap'
 import React from 'react';
-import { useState } from "react";
 import axios from "axios"
 import './Reset.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -15,9 +14,7 @@ export default function ReseetPasswordPage()
 {
 
   axios.defaults.withCredentials = true;
-  const [message, setMessage] = useState("")
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+
   const navigate = useNavigate();
 
   const login = () => {

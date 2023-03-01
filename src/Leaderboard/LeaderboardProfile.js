@@ -1,12 +1,8 @@
 import React from 'react';
-import Accordion from 'react-bootstrap/Accordion'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { Row, Card, Image, Col } from 'react-bootstrap';
 import { useEffect, useState } from "react";
-import { CircularProgressbar } from 'react-circular-progressbar';
 import axios from 'axios';
 import './LeaderboardProfile.css'
-import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
@@ -17,7 +13,6 @@ import PropTypes from 'prop-types';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
-// import env from "react-dotenv";
 
 /**
 * Creates and displays each users leaderboard profile. 
