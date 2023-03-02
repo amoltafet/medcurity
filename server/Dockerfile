@@ -8,7 +8,7 @@ WORKDIR /code
 
 COPY . .
 
-COPY ./tools/.env /code/.env
+COPY ./.env.local /code/.env
 
 RUN npm install
 
