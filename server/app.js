@@ -9,14 +9,14 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 
 const app = express();
-const cookieSettings = (process.env.COOKIES === 'enabled') ? { httpOnly: true, secure: true, maxAge: 1000 * 60 * 60 * 48, sameSite: 'none' } : null;
+const cookieSettings = (process.env.COOKIES === 'enabled') ? { httpOnly: true, secure: true, maxAge: 1000 * 60 * 60 * 48, sameSite: 'strict' } : { httpOnly: true, secure: false, maxAge: 1000 * 60 * 60 * 48, sameSite: 'strict' };
 
 app.use(
   express.json(),
   cookieParser(),
   bodyParser.urlencoded({ extended: true }),
   cors({ origin: true, methods: ["GET", "POST"], credentials: true }),
-  session({ secret: 'krunal', resave: false, saveUninitialized: true, cookie: cookieSettings })
+  session({ secret: process.env.SECRET, resave: false, saveUninitialized: true, cookie: cookieSettings })
 );
 
 var usersRouter = require('./routes/usersRoutes');
@@ -32,7 +32,7 @@ app.use('/modules', modulesRouter);
 app.use('/stats', statsRouter);
 
 app.get('/', function (req, res) {
-  res.send('Hello World!  Use Azure! This is the base url for deployment purposes only. (This is the default route) Test 2');
+  res.send('Hello World!  Use Azure! This is the base url for deployment purposes only. (This is the default route) 3');
 });
 
 console.log('-- Launched with node --')
