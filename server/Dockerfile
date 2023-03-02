@@ -8,6 +8,8 @@ WORKDIR /code
 
 COPY . .
 
+COPY ./tools/.env /code/.env
+
 RUN npm install
 
 CMD [ "npm", "run", "dev" ]

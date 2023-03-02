@@ -16,7 +16,7 @@ app.use(
   cookieParser(),
   bodyParser.urlencoded({ extended: true }),
   cors({ origin: true, methods: ["GET", "POST"], credentials: true }),
-  session({ secret: 'krunal', resave: false, saveUninitialized: true, }),
+  session({ secret: 'krunal', resave: false, saveUninitialized: true, cookie: cookieSettings })
 );
 
 var usersRouter = require('./routes/usersRoutes');
