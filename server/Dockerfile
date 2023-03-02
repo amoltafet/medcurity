@@ -8,8 +8,7 @@ WORKDIR /code
 
 COPY . .
 
-# replace .env file with the correct url for deyployment
-COPY /tools/.env /code/.env
+COPY ./.env.local /code/.env
 
 RUN npm install
 
