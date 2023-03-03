@@ -169,15 +169,22 @@ const SideBar = () => {
             <List>
             {companyNav.map((item, index) => {
                     return (
-                            <ListItem key={index} disablePadding>
-                            <ListItemButton onClick={() => navigate(item.link)}>
-                            <ListItemIcon>
-                            <i className={item.icon}></i>
-                            </ListItemIcon>
-                            <ListItemText primary={item.name} />
-                            </ListItemButton>
-                        
-                        </ListItem>
+                        <ListItem key={index} disablePadding>
+                        <ListItemButton onClick={() => navigate(item.link)} id={item.name.toLowerCase()} className="" style={{
+                            // if active then change color
+                            color: item.link === currentNav ? '#3f51b5' : 'black',
+                        }}>
+                        <ListItemIcon>
+                        <i className={item.icon} style={{
+                            // if active then change color
+                            color: item.link === currentNav ? '#3f51b5' : 'black',
+
+                        }}></i>
+                        </ListItemIcon>
+                        <ListItemText primary={item.name} />
+                        </ListItemButton>
+                    
+                    </ListItem>
                 )
             })}
         </List> 
@@ -197,15 +204,22 @@ const SideBar = () => {
         <List>
             {adminNav.map((item, index) => {
                     return (
-                            <ListItem key={index} disablePadding>
-                            <ListItemButton onClick={() => navigate(item.link)}>
-                            <ListItemIcon>
-                            <i className={item.icon}></i>
-                            </ListItemIcon>
-                            <ListItemText primary={item.name} />
-                            </ListItemButton>
-                        
-                        </ListItem>
+                        <ListItem key={index} disablePadding>
+                        <ListItemButton onClick={() => navigate(item.link)} id={item.name.toLowerCase()} className="" style={{
+                            // if active then change color
+                            color: item.link === currentNav ? '#3f51b5' : 'black',
+                        }}>
+                        <ListItemIcon>
+                        <i className={item.icon} style={{
+                            // if active then change color
+                            color: item.link === currentNav ? '#3f51b5' : 'black',
+
+                        }}></i>
+                        </ListItemIcon>
+                        <ListItemText primary={item.name} />
+                        </ListItemButton>
+                    
+                    </ListItem>
                 )
             })}
         </List> 
