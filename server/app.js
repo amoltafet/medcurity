@@ -19,6 +19,8 @@ app.use(
   session({ secret: '9ed335ccb831728208b84c29dec7ddbc', resave: true, saveUninitialized: true, cookie: cookieSettings, proxy: true , rolling: true})
 );
 
+app.set('trust proxy', 1);
+
 var usersRouter = require('./routes/usersRoutes');
 var queryRouter = require('./routes/queryRoutes');
 var testingRouter = require('./routes/testingRoutes');
