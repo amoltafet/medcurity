@@ -13,6 +13,8 @@ import Box from '@mui/material/Box';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
+import SideBar from '../MenuBar/SideBar';
+import Grid from '@mui/material/Unstable_Grid2/Grid2';
 // import env from "react-dotenv";
 
 function TabPanel(props) {
@@ -219,10 +221,15 @@ const LeaderboardPage = () => {
 
     if (currentUser?.userid) {
         return (
-            <>
-                <Menubar></Menubar>
+            <Grid container>
+        <Grid item xs={2}>
+            <SideBar />
+        </Grid>
+        <Grid item xs={10}>
+        <Menubar/>
+       
              
-                <div className="leaderboardbg">
+                <div >
                     <Box>
                     <Typography variant="h4" component="div" sx={{ flexGrow: 1, textAlign: 'center', color: '#2c3e50', fontSize: '2.5rem', paddingTop: '1rem' }}>
                      Leaderboards
@@ -235,7 +242,7 @@ const LeaderboardPage = () => {
                     </Box>
                     <TabPanel value={value} index={0}>
                         <div style={{
-                            maxHeight: 500, 
+                            maxHeight: 600, 
                             overflow: 'auto',
                         }}>
                     {CompanyUsersProfileArray}
@@ -243,14 +250,16 @@ const LeaderboardPage = () => {
                     </TabPanel>
                     <TabPanel value={value} index={1}>
                     <div style={{
-                            maxHeight: 500, 
+                            maxHeight: 600, 
                             overflow: 'auto',
                             scrollbarColor: 'red',
                         }}>
                     {AllUsersProfileArray}</div>
                     </TabPanel>
                 </Box> </div>
-            </>
+            </Grid>
+        </Grid>
+
         );
     }
     else {

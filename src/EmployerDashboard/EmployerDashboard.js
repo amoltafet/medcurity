@@ -10,6 +10,8 @@ import EmployerResetUsersStats from './EmployerResetUsersStats';
 import InvalidPage from '../InvalidPage/InvalidPage';
 import { useEffect, useState } from "react";
 import axios from 'axios';
+import SideBar from '../MenuBar/SideBar';
+import Grid from '@mui/material/Unstable_Grid2/Grid2';
 // import env from "react-dotenv";
 
 /**
@@ -60,8 +62,12 @@ const EmployerDashboardPage = () => {
 
     if (currentUser?.type === 'companyAdmin' || currentUser?.type === 'websiteAdmin') {
         return (
-            <>
-                <MenuBar></MenuBar>
+            <Grid container>
+            <Grid item xs={2}>
+                <SideBar />
+            </Grid>
+            <Grid item xs={10}>
+            <MenuBar></MenuBar>
                 <Row className="justify-content-center">
                     <Col xs={11} md={7} lg={7} className="margin_bottom_employer">
                         <WelcomePanel user={currentUser} pageTitle={"Employer Dashboard"} />
@@ -80,7 +86,9 @@ const EmployerDashboardPage = () => {
                         <EmployeeCards user={currentUser} companyId={companyId} reload={reload} setReload={setReload} />
                     </Col>
                 </Row>
-            </>)
+            </Grid>
+            </Grid>
+            )
             ;
     }
     else {

@@ -6,6 +6,8 @@ import { Card,  Row } from 'react-bootstrap';
 import axios from 'axios';
 import { Button } from '@material-ui/core';
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
+import SideBar from '../MenuBar/SideBar';
+import MenuBar from '../MenuBar/MenuBar';
 
 
 const LearningDirectoryRequiredPage = () => {
@@ -122,6 +124,7 @@ const LearningDirectoryRequiredPage = () => {
 
     return (
         <>
+   
             <div style={{
                 display: 'flex',
                 justifyContent: 'center',
@@ -136,7 +139,8 @@ const LearningDirectoryRequiredPage = () => {
             }}>
                 {createModuleCards(learningModules)}
             </Grid>
-           </>
+        
+        </>
       
     );
 }
