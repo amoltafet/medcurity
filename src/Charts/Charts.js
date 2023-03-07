@@ -181,8 +181,6 @@ useEffect(() => {
       
       let cutoffStr = (cutoff.getMonth() + 1) + '/' + cutoff.getDate() + '/' + cutoff.getFullYear();
 
-      console.log("Cuttoff:", cutoff.getMonth())
-
       for (let i = 0; i < moduleCounts.data.length; i++) {
         labels.push(moduleCounts.data[i].title);
         counts.push(moduleCounts.data[i].count);
