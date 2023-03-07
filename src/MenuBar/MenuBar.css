@@ -10,9 +10,10 @@
 
 .navbar-color {
     background: #2c3e50;  /* fallback for old browsers */
-   
-    
+
 }
+
+
 
 .navbar-white {
     color : white;
@@ -73,34 +74,3 @@
 }
 
   
-
-.sidebar {
-    position: fixed;
-    width: 200px;
-    height: 400px;
-    background: #ffffff;
-}
-.sidebar-content {
-    margin-left: 200px;
-    height: 500px;
-    width: auto;
-    position: relative;
-    background: #f00;
-    overflow: auto;
-    z-index: 1;
-}
-.info {
-    width: 1440px;
-    height: 300px;
-    position: relative;
-    background: #f55;
-}
-
-@media (min-width:600px) {
-    .sidebar {
-      width: 250px;
-    }
-    .sidebar-content {
-      margin-left: 250px;
-    }
-  }

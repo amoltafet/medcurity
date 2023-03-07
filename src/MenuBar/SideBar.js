@@ -12,6 +12,7 @@ import ListItemText from '@mui/material/ListItemText';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import { Typography } from '@material-ui/core';
+import { Button, Paper } from '@mui/material';
 
 const SideBar = () => {
     axios.defaults.withCredentials = true;
@@ -111,8 +112,8 @@ const SideBar = () => {
     ]
 
     const companyNav = [
-        { name: 'Company Dashboard', link: '/employer-dash', icon: 'bi bi-buildings' },
-        { name: 'Module Manager', link: '/learning-manager', icon: 'bi bi-clipboard-check' },
+        { name: 'Company Dash', link: '/employer-dash', icon: 'bi bi-buildings' },
+        { name: 'Manager', link: '/learning-manager', icon: 'bi bi-clipboard-check' },
         { name: 'Statistics', link: '/charts', icon: 'bi bi-clipboard-data' },
     ]
 
@@ -123,36 +124,47 @@ const SideBar = () => {
     ]
 
     return (
-       <div style={{
+       <Paper elevation={3} style={{
         position: 'sticky',
         top: '0',
+        height: '100vh',
+        width: '16rem',
+        marginLeft: '1rem',
+        marginRight: '1rem',
+        paddingTop: '2rem',
        }}>
-       <a href="/dash">
-                <CardImg className="MedcurityLogo mr-5" variant="top" src="/Medcurity_Logo.png" alt="" />
-        </a>
-        <div style={{
-            marginTop: '3rem',
-        }}></div>
-        <Divider />
+      
+        
+        <a href="/dash"> <CardImg className="MedcurityLogo mr-5" variant="top" src="/Medcurity_Logo.png" alt="" /> </a>
+        <div style={{ marginTop: '1rem', padding: "1rem" }}>
+        
         <List>
             {userNav.map((item, index) => {
                     return (
-                            <ListItem key={index} disablePadding>
-                            <ListItemButton onClick={() => navigate(item.link)} id={item.name.toLowerCase()} className="" style={{
-                                // if active then change color
-                                color: item.link === currentNav ? '#3f51b5' : 'black',
+                        <div style={{
+                            alignItems: 'left',
+                            marginTop: '0.5rem',
+                        }}>
+                            <Button variant={item.link === currentNav ? 'contained' : 'outlined'}
+                            
+                            onClick={() => navigate(item.link)} id={item.name.toLowerCase()} fullWidth size='medium' style={{
+                            // if active then change color
+                            justifyContent: 'left',
                             }}>
                             <ListItemIcon>
                             <i className={item.icon} style={{
                                 // if active then change color
-                                color: item.link === currentNav ? '#3f51b5' : 'black',
-
+                                color: item.link === currentNav ? 'white' : 'black',
                             }}></i>
                             </ListItemIcon>
-                            <ListItemText primary={item.name} />
-                            </ListItemButton>
+                          {item.name} 
+                            </Button>
+
+
+
+                        </div>
                         
-                        </ListItem>
+
                 )
             })}
         </List> 
@@ -169,22 +181,28 @@ const SideBar = () => {
             <List>
             {companyNav.map((item, index) => {
                     return (
-                        <ListItem key={index} disablePadding>
-                        <ListItemButton onClick={() => navigate(item.link)} id={item.name.toLowerCase()} className="" style={{
-                            // if active then change color
-                            color: item.link === currentNav ? '#3f51b5' : 'black',
+                        <div style={{
+                            alignItems: 'left',
+                            marginTop: '0.5rem',
                         }}>
-                        <ListItemIcon>
-                        <i className={item.icon} style={{
+                            <Button variant={item.link === currentNav ? 'contained' : 'outlined'}
+                            
+                            onClick={() => navigate(item.link)} id={item.name.toLowerCase()} fullWidth size='medium' style={{
                             // if active then change color
-                            color: item.link === currentNav ? '#3f51b5' : 'black',
+                            justifyContent: 'left',
+                            }}>
+                            <ListItemIcon>
+                            <i className={item.icon} style={{
+                                // if active then change color
+                                color: item.link === currentNav ? 'white' : 'black',
+                            }}></i>
+                            </ListItemIcon>
+                          {item.name} 
+                            </Button>
 
-                        }}></i>
-                        </ListItemIcon>
-                        <ListItemText primary={item.name} />
-                        </ListItemButton>
-                    
-                    </ListItem>
+
+
+                        </div>
                 )
             })}
         </List> 
@@ -195,7 +213,7 @@ const SideBar = () => {
   <Divider />
         {currentUser.type === "websiteAdmin"? 
         <>
- <Typography variant="overline" display="block" gutterBottom style={{
+        <Typography variant="overline" display="block" gutterBottom style={{
             marginLeft: '1rem',
             marginTop: '1rem',
         }}>
@@ -204,40 +222,48 @@ const SideBar = () => {
         <List>
             {adminNav.map((item, index) => {
                     return (
-                        <ListItem key={index} disablePadding>
-                        <ListItemButton onClick={() => navigate(item.link)} id={item.name.toLowerCase()} className="" style={{
-                            // if active then change color
-                            color: item.link === currentNav ? '#3f51b5' : 'black',
+                        <div style={{
+                            alignItems: 'left',
+                            marginTop: '0.5rem',
                         }}>
-                        <ListItemIcon>
-                        <i className={item.icon} style={{
+                            <Button variant={item.link === currentNav ? 'contained' : 'outlined'}
+                            
+                            onClick={() => navigate(item.link)} id={item.name.toLowerCase()} fullWidth size='medium' style={{
                             // if active then change color
-                            color: item.link === currentNav ? '#3f51b5' : 'black',
+                            justifyContent: 'left',
+                            }}>
+                            <ListItemIcon>
+                            <i className={item.icon} style={{
+                                // if active then change color
+                                color: item.link === currentNav ? 'white' : 'black',
+                            }}></i>
+                            </ListItemIcon>
+                          {item.name} 
+                            </Button>
 
-                        }}></i>
-                        </ListItemIcon>
-                        <ListItemText primary={item.name} />
-                        </ListItemButton>
-                    
-                    </ListItem>
+
+
+                        </div>
                 )
             })}
         </List> 
        
         </>
         : null}
-
-    
-
-
-      
-       
-     
         </div>
+        <Button variant="contained" color="primary" onClick={logout} style={{
+            position: 'absolute',
+            bottom: '1rem',
+            left: '1rem',
+            width: '14rem',
+        }}>
+            Logout
+        </Button>
+        </Paper>
+
     );
 
 }
-
 
 
 
