@@ -1,0 +1,8 @@
+{
+    "service": "FastMail",
+    "auth":
+    {
+        "user": "medtestsender@fastmail.com",
+        "pass": "Learn4good!"
+    }
+}
