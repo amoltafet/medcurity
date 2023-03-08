@@ -106,7 +106,7 @@ const SideBar = () => {
     };
 
     const userNav = [
-        { name: 'Home', link: '/dash#!', icon: 'bi bi-house-door' },
+        { name: 'Home', link: '/dash', icon: 'bi bi-house-door' },
         { name: 'Leaderboard', link: '/leaderboard', icon: 'bi bi-align-start' },
         { name: 'Modules', link: '/learning-directory', icon: 'bi bi-book' },
     ]

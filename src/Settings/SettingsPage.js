@@ -7,6 +7,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import MenuBar from '../MenuBar/MenuBar';
 import SettingsMenu from './SettingsMenu';
 import InvalidPage from '../InvalidPage/InvalidPage'
+import Grid from '@mui/material/Unstable_Grid2/Grid2';
+import SideBar from '../MenuBar/SideBar';
 // import env from "react-dotenv";
 
 /**
@@ -33,11 +35,13 @@ const SettingsPage = () => {
     if (currentUser)
     {
         return (
-            <div style={{
-                backgroundColor: "#FFFFFF",
-                height: "100vh",
-            }}>
+            <Grid container>
+            <Grid item xs={2}>
+                <SideBar />
+            </Grid>
+            <Grid item xs={10}>
             <MenuBar></MenuBar>
+         
             <SettingsMenu></SettingsMenu>
             
             <div className="footer">
@@ -45,7 +49,8 @@ const SettingsPage = () => {
                     <p className="text-muted">© Medcurity 2023, All Rights Reserved</p>
                 </Container>
             </div>
-            </div>
+            </Grid>
+            </Grid>
         );
     }
     else

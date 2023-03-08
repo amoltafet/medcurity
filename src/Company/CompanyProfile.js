@@ -7,7 +7,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import MenuBar from '../MenuBar/MenuBar';
 import CompanySet from './CompanySet';
 import InvalidPage from '../InvalidPage/InvalidPage'
-
+import Grid from '@mui/material/Unstable_Grid2/Grid2';
+import SideBar from '../MenuBar/SideBar';
 /**
 * Creates and display the company profile page
 * @return {CompanyProfile}
@@ -32,12 +33,17 @@ const CompanyProfile = () => {
     if (currentUser)
     {
         return (
-            <>
+            <Grid container>
+            <Grid item xs={2}>
+                <SideBar />
+            </Grid>
+            <Grid item xs={10}>
             <MenuBar></MenuBar>
             <Container fluid="md" className="CompanySetContainer">
             <CompanySet></CompanySet>
             </Container> 
-            </>
+            </Grid>
+            </Grid>
         );
     }
     else
