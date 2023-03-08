@@ -20,10 +20,6 @@ import { Paper, Typography } from '@mui/material';
 import './Charts.css';
 //https://react-chartjs-2.js.org/examples/horizontal-bar-chart
 
-// number of modules completed
-// number of modules in progress
-// number of modules not started
-
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -39,6 +35,7 @@ const Charts = () => {
   const [isLoaded, setLoaded] = useState(false);
   const [companyID, setCompanyID] = useState(null);
   const [employeeActivity, setEmployeeActivity] = useState([]);
+  const [moduleCounts, setModuleCounts] = useState(null);
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_BASE_URL}/users/login`).then((response) => {
@@ -62,14 +59,32 @@ const Charts = () => {
     }
   }, [isLoaded, currentUser]);
 
-  // Query for LearningModules not included assigned by the company already
-  // Assigns LearningModule with the first module returned
+  // querys for employee activity
 	useEffect(() => {
     if (companyID) {
         axios.get(`${process.env.REACT_APP_BASE_URL}/stats/getEmployeeActivity`, { params: { companyid: companyID
         } }).then((response) => {
           if (response.data.success) {
             setEmployeeActivity(response.data.result);
+          }
+          else {
+            console.log("Error:", response.data.error);
+          }
+        }).catch((error) => console.log("Error:", error));
+    }
+}, [companyID]);
+
+// querys for module counts in company
+useEffect(() => {
+    if (companyID) {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/stats/getModuleCounts`, { params: { companyid: companyID
+        } }).then((response) => {
+          if (response.data.success) {
+            let result = {
+              data: response.data.result,
+              cutoff: response.data.cutoff,
+            }
+            setModuleCounts(result);
           }
           else {
             console.log("Error:", response.data.error)
@@ -159,25 +174,38 @@ const Charts = () => {
   }
 
   const MedcurityPieChart = () => {
+    if (moduleCounts) {
+      let labels = [];
+      let counts = [];
+      let cutoff = moduleCounts.cutoff;
+      cutoff = new Date(cutoff);
+      
+      let cutoffStr = (cutoff.getMonth() + 1) + '/' + cutoff.getDate() + '/' + cutoff.getFullYear();
+
+      for (let i = 0; i < moduleCounts.data.length; i++) {
+        labels.push(moduleCounts.data[i].title);
+        counts.push(moduleCounts.data[i].count);
+      }
+    
       const options = {
           responsive: true,
           plugins: {
               legend: {
-                position: 'right',
+                position: 'left',
               },
               title: {
                 display: true,
-                text: 'Completions by Module',
+                text: 'Module Attempts (Since ' + cutoffStr + ')',
               },
             },
       }
 
       const data = {
-          labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+          labels: labels,
           datasets: [
             {
-              label: '# of Completions',
-              data: [12, 19, 3, 5, 2, 3],
+              label: 'Number of Attempts',
+              data: counts,
               backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
@@ -204,8 +232,11 @@ const Charts = () => {
         width='50%'
           height='50%'
       />;
+    }
+    else {
+      return <></>;
+    }
   }
-
 
   const MedcurityModulePerformance = () => {
       return (
