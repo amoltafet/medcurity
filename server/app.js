@@ -13,7 +13,7 @@ const cookieSettings = (process.env.COOKIES === 'enabled') ? { httpOnly: true, s
 
 app.use(
   express.json(),
-  cookieParser(),
+  cookieParser(process.env.SECRET),
   bodyParser.urlencoded({ extended: true }),
   cors({ origin: true, methods: ["GET", "POST"], credentials: true }),
   session({ secret: '9ed335ccb831728208b84c29dec7ddbc', resave: true, saveUninitialized: true, cookie: cookieSettings, proxy: true , rolling: true})

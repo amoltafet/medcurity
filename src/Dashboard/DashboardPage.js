@@ -13,6 +13,7 @@ import { Divider } from '@mui/material';
 
 import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
 import { Button } from '@mui/material';
+import SideBar from '../MenuBar/SideBar';
 // import env from "react-dotenv";
 
 /**
@@ -50,9 +51,18 @@ const DashboardPage = () => {
   
   if (currentUser?.userid) {
     return (
-      <>
+      <Grid container>
+        <Grid item xs={2}>
+            <SideBar />
+        </Grid>
+        <Grid item xs={10}>
+        <MenuBar></MenuBar>
         <Form className="dash_page">
-          <MenuBar></MenuBar>
+          
+         
+
+          
+
           <Grid container style={{alignItems: 'center', justifyContent: 'center', height: '45vh'}} className="dash-container">
             <Grid item>
               <Image className="dash_profilePicture uvs-left" variant="top" src={`data:image/png;base64,${profilePic}`} alt="" roundedCircle />
@@ -84,7 +94,7 @@ const DashboardPage = () => {
                 marginTop: '30px',
               }}>View Full Leaderboard</Button>
             </div>
-          <br></br>
+          <br></br> 
         </Form>
         <Grid container sx={{
           padding: '10px',
@@ -98,8 +108,8 @@ const DashboardPage = () => {
           <p className="dash_footerText text-light">© 2023 Medcurity. All rights reserved.</p>
         </Grid>
 
-      
-      </>
+       </Grid>
+      </Grid>
     );
   }
   else {

@@ -4,6 +4,7 @@ import axios from 'axios';
 import MenuBar from '../MenuBar/MenuBar';
 import InvalidPage from '../InvalidPage/InvalidPage'
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
+import SideBar from '../MenuBar/SideBar';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -239,8 +240,12 @@ const Charts = () => {
   if (companyID)
   {
       return (
-        <>
-          <MenuBar />
+        <Grid container>
+        <Grid item xs={2}>
+            <SideBar />
+        </Grid>
+        <Grid item xs={10}>
+        <MenuBar></MenuBar>
           <Grid container spacing={3} sx={{
               padding: 5,
           }}>
@@ -261,7 +266,8 @@ const Charts = () => {
                   <MedcurityModulePerformance />
               </Grid>
           </Grid> 
-        </>);
+        </Grid>
+        </Grid>);
   } else {
         return (
           <>

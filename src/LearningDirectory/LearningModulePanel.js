@@ -3,6 +3,7 @@ import React from 'react';
 import './LearningModulePanel.css';
 import { Button } from '@material-ui/core';
 
+
 /**
  * Create a card object holding the learning module name and props
  * @param {props.id} The id of the module
