@@ -37,22 +37,29 @@ const EmployerInvitations = (props) => {
     const invite = () => {
         if (!isLoading) {
             // // console.log('INVITING', email)
-            axios.post(`${process.env.REACT_APP_BASE_URL}/users/registerEmpty`,
-                {
-                    email: email,
-                    companyid: String(props.companyId),
-                }).then((response) => {
-                    // // console.log("response.data =", response.data)
-                    if (response.data.result === true) {
-                        console.log("A new invitation!")
-                        setMessage('')
-                        props.setReload(true)
-                    }
-                    else {
-                        console.log("Already has account!")
-                        setMessage(response.data.message)
-                    }
-                });
+            // axios.post(`${process.env.REACT_APP_BASE_URL}/users/registerEmpty`,
+            //     {
+            //         email: email,
+            //         companyid: String(props.companyId),
+            //     }).then((response) => {
+            //         // // console.log("response.data =", response.data)
+            //         if (response.data.result === true) {
+            //             console.log("A new invitation!")
+            //             setMessage('')
+            //             props.setReload(true)
+            //         }
+            //         else {
+            //             console.log("Already has account!")
+            //             setMessage(response.data.message)
+            //         }
+            //     });
+
+            axios.post(`${process.env.REACT_APP_BASE_URL}/email/sendEmployeeInvitation`,
+            {
+                email: email
+            }).then((response) => {
+                //
+            });
         }
     };
 

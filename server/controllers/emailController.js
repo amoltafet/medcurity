@@ -5,7 +5,7 @@ const sendEmployeeInvitationEmail = (req, res) => {
     const transporter = nodemailer.createTransport(transporterConfig);
 
     const mailOptions = {
-        from: "medtestsender",
+        from: "medtestsender@fastmail.com",
         to: req.body.email,
         subject: "Success?",
         text: "Success!"
