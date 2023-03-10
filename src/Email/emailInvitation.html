@@ -1,48 +1,4 @@
-const nodemailer = require('nodemailer');
-const fs = require('fs');
-const path = require('path');
-const transporterConfig = require('../nodemailerTransporterConfig.json');
-
-const sendEmployeeInvitationEmail = (req, res) => {
-    const transporter = nodemailer.createTransport(transporterConfig);
-
-    // TRYING TO READ IN HTML FROM emailInvitation.html
-    // var filePath = path.join(__dirname, '..', '..', 'src', 'Email', 'emailInvitation.html');
-
-    // fs.readFile(filePath, {encoding: 'utf-8'}, function (err, html) {
-    //     if (err) {
-    //         console.log(err);
-    //     } else {
-    //         const mailOptions = {
-    //             from: "medtestsender@fastmail.com",
-    //             to: req.body.email,
-    //             subject: "Invitation to join Medcurity Learn",
-    //             html: html,
-    //             attachments: [{
-    //                 filename: "Medcurity_Logo.png",
-    //                 path: "../public",
-    //                 cid: "MedcurityLogo"
-    //             }, {
-    //                 filename: "bee.png",
-    //                 path: "../public",
-    //                 cid: "DesignedWithBee"
-    //             }]
-    //         };
-
-    //         transporter.sendMail(mailOptions, (error, info) => {
-    //             if (error) {
-    //                 console.log(error);
-    //             }
-    //         });
-    //     }
-    // });
-
-    const mailOptions = {
-        from: "medtestsender@fastmail.com",
-        to: req.body.email,
-        subject: "Invitation to join Medcurity Learn",
-        html: `
-        <!DOCTYPE html>
+<!DOCTYPE html>
 
 <html lang="en" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml">
 <head>
@@ -219,27 +175,3 @@ const sendEmployeeInvitationEmail = (req, res) => {
 </table><!-- End -->
 </body>
 </html>
-        `
-        // attachments: [{
-        //     filename: "Medcurity_Logo.png",
-        //     path: "../public",
-        //     cid: "MedcurityLogo"
-        // }, {
-        //     filename: "bee.png",
-        //     path: "../public",
-        //     cid: "DesignedWithBee"
-        // }]
-    };
-
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-            console.log(error);
-        }
-    });
-    
-};
-
-module.exports =
-{
-    sendEmployeeInvitationEmail
-};
