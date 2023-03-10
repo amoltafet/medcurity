@@ -29,23 +29,23 @@ const EmployerInvitations = (props) => {
 
     /**
      * This function creates a new basic user account.
-     * First it trys to register a user, if this fails then
+     * First it tries to register a user, if this fails then
      * it will print out the error message. If it succeeds 
      * it will trigger a reload of page data
      * 
      */
     const invite = () => {
         if (!isLoading) {
-            // // console.log('INVITING', email)
+            // console.log('INVITING', email)
             // axios.post(`${process.env.REACT_APP_BASE_URL}/users/registerEmpty`,
             //     {
             //         email: email,
             //         companyid: String(props.companyId),
             //     }).then((response) => {
-            //         // // console.log("response.data =", response.data)
+            //         // console.log("response.data =", response.data)
             //         if (response.data.result === true) {
             //             console.log("A new invitation!")
-            //             setMessage('')
+            //             setMessage("")
             //             props.setReload(true)
             //         }
             //         else {
@@ -58,7 +58,7 @@ const EmployerInvitations = (props) => {
             {
                 email: email
             }).then((response) => {
-                //
+                // console.log(response);
             });
         }
     };
