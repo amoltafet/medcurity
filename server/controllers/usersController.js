@@ -338,6 +338,22 @@ const userChangeCompanyBio = (req, res) => {
     })
 }
 
+const toggleCompanyPrivacy = (req, res) => {
+    const privacy = req.body.privacy;
+    const companyId = req.body.id;
+
+    db.query('UPDATE companies SET private = ? WHERE companyID = ?', [privacy, companyId], (err,result) => {
+        if (err) {
+            logger.log('error', { methodName: '/toggleCompanyPrivacy', body: `Failed to change company-${companyId}'s privacy: ${err}.` }, { service: 'query-service' });
+            res.send({success: false, error: err });
+        }
+        else {
+            logger.log('info', `Updated company privacy`);
+            res.send({ result: result, success: true, message: "Updated company privacy!" });
+        }
+    });
+}
+
 /**
  * Store a learning module as completed.
  */
@@ -666,6 +682,7 @@ module.exports =
     userChangePassword,
     userChangeCompanyName,
     userChangeCompanyBio,
+    toggleCompanyPrivacy,
     userModuleCompleted,
     deleteUser,
     resetUserStats,
