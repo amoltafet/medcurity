@@ -115,7 +115,7 @@ const CompanySet = () => {
         .get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, {
           params: {
             the_query:
-              'SELECT Users.userid, Users.username, AffiliatedUsers.CompanyID, Users.profilepicture, SUM(Points) AS Points FROM CompletedModules ' +
+              'SELECT Users.userid, Users.username, AffiliatedUsers.CompanyID, SUM(Points) AS Points FROM CompletedModules ' +
               'JOIN UserPoints ON UserPoints.PointsID = CompletedModules.LearningModID ' +
               'RIGHT JOIN Users ON Users.userid = CompletedModules.UserID ' +
               'LEFT JOIN AffiliatedUsers ON AffiliatedUsers.UserID = Users.userid ' +

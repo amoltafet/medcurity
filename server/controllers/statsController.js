@@ -97,11 +97,31 @@ const getModuleCounts = (req, res) => {
         return logger.log('error', { methodName: '/getModuleCounts', body: err }, { service: 'user-service' });
     } else {
         logger.log('info', "Retrieved module counts for company " + companyid + ".", { service: 'user-service' });
-        res.send({success: true, result: result, cutoff: cutoff});
+        res.send({success: true, result: result});
+    }});
+}
+
+/*
+Retrieves data from users that belong to public companies
+*/
+const getPublicLeaderboard = (req, res) => {
+    db.query('SELECT Users.userid, Users.username, AU.CompanyID, SUM(Points) AS Points FROM CompletedModules ' +
+    'JOIN UserPoints AS PTS ON PTS.PointsID = CompletedModules.LearningModID ' +
+    'RIGHT JOIN Users ON Users.userid = CompletedModules.UserID ' + 
+    'LEFT JOIN AffiliatedUsers AS AU ON AU.UserID = Users.userid ' +
+    'JOIN Companies AS CMP ON AU.CompanyID = CMP.companyid WHERE CMP.private = 0 ' +
+    'GROUP BY Users.userid', (err,result) => {
+    if (err) {
+        res.send({success: false, error: err});
+        return logger.log('error', { methodName: '/getLeaderboard', body: err }, { service: 'user-service' });
+    } else {
+        logger.log('info', "Retrieved user information for public leaderboard.", { service: 'user-service' });
+        res.send({success: true, result: result});
     }});
 }
 
 module.exports = {
     getEmployeeActivity,
-    getModuleCounts
+    getModuleCounts,
+    getPublicLeaderboard
 }
