@@ -7,7 +7,13 @@ import {
   Typography,
   List,
   ListItem,
-  ListItemText
+  ListItemText,
+  CardContent,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Alert
 } from '@mui/material'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
@@ -31,7 +37,7 @@ const AdminInvitations = () => {
   const [message, setMessage] = useState('')
   const [email, setEmail] = useState('')
   const [companies, setCompanies] = useState([])
-  const [userCompany, setUserCompany] = useState(1)
+  const [company, setCompany] = useState(1)
 
   useEffect(() => {
     axios
@@ -87,7 +93,7 @@ const AdminInvitations = () => {
       axios
         .post(`${process.env.REACT_APP_BASE_URL}/users/registerCompanyAdmin`, {
           email: email,
-          companyid: userCompany
+          companyid: company
         })
         .then(response => {})
     }
@@ -132,7 +138,7 @@ const AdminInvitations = () => {
           Employer. They will be able to register using that email.
         </Typography>
         <Grid container spacing={2}>
-          <Grid item xs={12} lg={7}>
+          <Grid item xs={15} lg={16}>
             <TextField
               fullWidth
               type='email'
@@ -142,6 +148,22 @@ const AdminInvitations = () => {
               variant='outlined'
               margin='normal'
             />
+            <FormControl fullWidth sx={{ marginBottom: 3 }}>
+          <InputLabel id='company-select-label'>Company</InputLabel>
+          <Select
+            labelId='company-select-label'
+            id='company-select'
+            value={company}
+            label='Company'
+            onChange={e => setCompany(e.target.value)}
+          >
+            {companies.map(item => (
+              <MenuItem key={item.companyid} value={item.companyid}>
+                {item.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
             <Typography variant='body2' color='error'>
               {message}
             </Typography>
@@ -154,14 +176,6 @@ const AdminInvitations = () => {
             >
               Invite
             </Button>
-          </Grid>
-          <Grid item xs={12} lg={5}>
-            <Typography variant='subtitle1' gutterBottom>
-              Company List:
-            </Typography>
-            <List sx={{ backgroundColor: '#f5f5f5', borderRadius: '16px' }}>
-              {createListItems()}
-            </List>
           </Grid>
         </Grid>
       </Card>
