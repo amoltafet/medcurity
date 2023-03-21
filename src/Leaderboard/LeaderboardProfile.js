@@ -66,7 +66,6 @@ function LeaderboardProfile (props) {
         // `JOIN LearningModules ON LearningModules.ID = CompletedModules.LearningModID ` +
         // `WHERE AffiliatedUsers.UserID = '${currentUser.userid}'` 
         } }).then((response) => {
-            console.log(response.data)
             setDirectories(Object.values(response.data));
             if (response.data.length === 0) {
                 setDirectories(null)
@@ -83,9 +82,17 @@ function LeaderboardProfile (props) {
     }, [])
 
     const GetCurrentModule = () => {
+      // variable fixes the max number of modules to display  
+      let maxModulesDisplay = 3;
+
         var categoryData = []
         if (directories !== null) {
-            for (var i = 0; i < directories.length; i++) {
+            let displayLength = directories.length;
+            if (displayLength > maxModulesDisplay) {
+              displayLength = maxModulesDisplay;
+            }
+
+            for (var i = 0; i < displayLength; i++) {
                 categoryData.push( 
                     <Grid item xs={12} sm={6} md={4}  alignItems="center" sx={{
                         textAlign: 'center',
@@ -103,9 +110,6 @@ function LeaderboardProfile (props) {
             return (categoryData)
         }
     }
-
-
-
 
     if (props.name === currentUser.username) {
         let imageClassname = props.className ? props.className[1] : "";
@@ -147,6 +151,7 @@ function LeaderboardProfile (props) {
                             {directories === null ? <Typography variant="overline" display="block" style={{
                                 textAlign: 'center',
                                 width: '100%',
+                                marginRight: '50px'
                             }}>
                                 No Modules Assigned
                             </Typography> : null

@@ -10,5 +10,6 @@ const router = express.Router();
 
 router.get('/getEmployeeActivity', statsController.getEmployeeActivity);
 router.get('/getModuleCounts', statsController.getModuleCounts);
+router.get('/getLeaderboard', statsController.getPublicLeaderboard);
 
 module.exports = router;

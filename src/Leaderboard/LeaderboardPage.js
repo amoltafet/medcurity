@@ -61,49 +61,68 @@ const LeaderboardPage = () => {
     * Grabs all of the user data for leaderboard. 
     */
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, {
-            params: {
-                the_query:
-                    'SELECT Users.userid, Users.username, AffiliatedUsers.CompanyID, Users.profilepicture, SUM(Points) AS Points FROM CompletedModules ' +
-                    'JOIN UserPoints ON UserPoints.PointsID = CompletedModules.LearningModID ' +
-                    'RIGHT JOIN Users ON Users.userid = CompletedModules.UserID ' +
-                    'LEFT JOIN AffiliatedUsers ON AffiliatedUsers.UserID = Users.userid ' +
-                    'GROUP BY Users.userid'
-            }
+        axios.get(`${process.env.REACT_APP_BASE_URL}/stats/getLeaderboard`, {
         }).then((response) => {
-            // // console.log("all users", response.data)
-            response.data.forEach(element => {
-                if (element.Points === null) {
-                    element.Points = 0;
+            console.log(response.data);
+            if (response.data.success) {
+                let data = response.data.result;
+                data.forEach(element => {
+                    if (element.Points === null) {
+                        element.Points = 0;
+                    }
+                });
+                setAllUsers(Object.values(data));
                 }
-            });
-            setAllUsers(Object.values(response.data));
+            else {
+                console.error(`Error ${response.data.error}`);
+            }
         }).catch(error => console.error(`Error ${error}`));
     }, [])
 
     //Grab the total points for the company based on the current user's company id
 
-    /**
-   * Grabs company users. 
+   /**
+   * Grabs company users, grabs the employees if user is a company admin. 
    */
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, {
-            params: {
-                the_query:
-                    'SELECT Users.userid, Users.username, Users.companyid, Users.profilepicture, SUM(Points) AS Points FROM CompletedModules ' +
-                    'JOIN UserPoints ON UserPoints.PointsID = CompletedModules.LearningModID ' +
-                    'RIGHT JOIN Users ON Users.userid = CompletedModules.UserID ' +
-                    'JOIN AffiliatedUsers ON AffiliatedUsers.UserID = Users.userid WHERE AffiliatedUsers.CompanyID = ' + currentUser.companyid + ' ' +
-                    'GROUP BY Users.userid '
-            }
-        }).then((response) => {
-            response.data.forEach(element => {
-                if (element.Points === null) {
-                    element.Points = 0;
+        if (currentUser.type === "companyAdmin") {
+            axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, {
+                params: {
+                    the_query:
+                        'SELECT Users.userid, Users.username, Users.companyid, SUM(Points) AS Points FROM CompletedModules ' +
+                        'JOIN UserPoints ON UserPoints.PointsID = CompletedModules.LearningModID ' +
+                        'RIGHT JOIN Users ON Users.userid = CompletedModules.UserID ' +
+                        'JOIN AffiliatedUsers ON AffiliatedUsers.UserID = Users.userid WHERE AffiliatedUsers.CompanyID = ' + currentUser.companyAdminID + ' ' +
+                        'GROUP BY Users.userid '
                 }
-            });
-            setCompanyUsers(Object.values(response.data));
-        }).catch(error => console.error(`Error ${error}`));
+            }).then((response) => {
+                response.data.forEach(element => {
+                    if (element.Points === null) {
+                        element.Points = 0;
+                    }
+                });
+                setCompanyUsers(Object.values(response.data));
+            }).catch(error => console.error(`Error ${error}`));
+        }
+        else {
+            axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, {
+                params: {
+                    the_query:
+                        'SELECT Users.userid, Users.username, Users.companyid, SUM(Points) AS Points FROM CompletedModules ' +
+                        'JOIN UserPoints ON UserPoints.PointsID = CompletedModules.LearningModID ' +
+                        'RIGHT JOIN Users ON Users.userid = CompletedModules.UserID ' +
+                        'JOIN AffiliatedUsers ON AffiliatedUsers.UserID = Users.userid WHERE AffiliatedUsers.CompanyID = ' + currentUser.companyid + ' ' +
+                        'GROUP BY Users.userid '
+                }
+            }).then((response) => {
+                response.data.forEach(element => {
+                    if (element.Points === null) {
+                        element.Points = 0;
+                    }
+                });
+                setCompanyUsers(Object.values(response.data));
+            }).catch(error => console.error(`Error ${error}`));
+        }
     }, [currentUser])
 
     /**
