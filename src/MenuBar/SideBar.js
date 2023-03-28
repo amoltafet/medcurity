@@ -127,10 +127,10 @@ const SideBar = () => {
        <Paper elevation={3} style={{
         position: 'sticky',
         top: '0',
+        left: '0',
         height: '100vh',
-        width: '16rem',
-        marginLeft: '1rem',
-        marginRight: '1rem',
+        width: 'auto',
+
         paddingTop: '2rem',
        }}>
       

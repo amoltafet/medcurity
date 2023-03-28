@@ -51,12 +51,12 @@ const DashboardPage = () => {
   
   if (currentUser?.userid) {
     return (
-      <Grid container>
+      <Grid container >
         <Grid item xs={2}>
             <SideBar />
         </Grid>
         <Grid item xs={10}>
-        <MenuBar></MenuBar>
+        <MenuBar/>
         <Form className="dash_page">
           
          
