@@ -73,7 +73,55 @@ const getEmployeeActivity = (req, res) => {
     }});
 }
 
+/*
+Given a company id, this route returns the recent activity of the employees
+in a form used to build a pie chart on the stats page. It gets the count of modules 
+attempted for each learning module.
+*/
+const getModuleCounts = (req, res) => {
+    const companyid = req.query.companyid;
+    let today = new Date();
+    today.setHours(0, 0, 0);
+
+    let first = today.getDate() - today.getDay();
+    let last = first + 6;
+
+    // num weeks sets how far back to look
+    const numWeeks = 10;
+    let cutoff = new Date(today.setDate(last));
+    cutoff = new Date(cutoff.setDate(-7*numWeeks));
+
+    db.query('SELECT title, COUNT(moduleID) AS count FROM UserActivity as UA JOIN AffiliatedUsers as AU ON AU.UserID = UA.userID JOIN LearningModules as LM ON UA.moduleID = LM.ID WHERE date >= ? and companyID = ? GROUP BY moduleID;', [cutoff, companyid], (err,result) => {
+    if (err) {
+        res.send({success: false, error: err});
+        return logger.log('error', { methodName: '/getModuleCounts', body: err }, { service: 'user-service' });
+    } else {
+        logger.log('info', "Retrieved module counts for company " + companyid + ".", { service: 'user-service' });
+        res.send({success: true, result: result});
+    }});
+}
+
+/*
+Retrieves data from users that belong to public companies
+*/
+const getPublicLeaderboard = (req, res) => {
+    db.query('SELECT Users.userid, Users.username, AU.CompanyID, SUM(Points) AS Points FROM CompletedModules ' +
+    'JOIN UserPoints AS PTS ON PTS.PointsID = CompletedModules.LearningModID ' +
+    'RIGHT JOIN Users ON Users.userid = CompletedModules.UserID ' + 
+    'LEFT JOIN AffiliatedUsers AS AU ON AU.UserID = Users.userid ' +
+    'JOIN Companies AS CMP ON AU.CompanyID = CMP.companyid WHERE CMP.private = 0 ' +
+    'GROUP BY Users.userid', (err,result) => {
+    if (err) {
+        res.send({success: false, error: err});
+        return logger.log('error', { methodName: '/getLeaderboard', body: err }, { service: 'user-service' });
+    } else {
+        logger.log('info', "Retrieved user information for public leaderboard.", { service: 'user-service' });
+        res.send({success: true, result: result});
+    }});
+}
 
 module.exports = {
-    getEmployeeActivity
+    getEmployeeActivity,
+    getModuleCounts,
+    getPublicLeaderboard
 }

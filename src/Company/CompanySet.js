@@ -18,6 +18,7 @@ import Badges from '../Badges/Badges'
 import './CompanySet.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useSearchParams } from 'react-router-dom'
+import Switch from 'react-switch';
 
 /**
  * Creates and displays the Settings menu allows the user to toggle between diffrent settings.
@@ -31,13 +32,14 @@ const CompanySet = () => {
   const [saveData, setSaveData] = useState(false)
   const [newCompanyName, setNewCompanyName] = useState('')
   const [newCompanyBio, setNewCompanyBio] = useState('')
+  const [newCompanyPrivacy, setNewCompanyPrivacy] = useState('')
   const [ifAdmin, setIfAdmin] = useState(false);
   const [companyPicture, setCompanyPicture] = useState('')
 
   //company information
   const [companyName, setCompanyName] = useState('')
   const [companyInfo, setCompanyInfo] = useState('')
-  const [companyDate, setCompanyDate] = useState('')
+  const [companyPrivacy, setCompanyPrivacy] = useState('')
 
   const [highScore, setHighScore] = useState('')
   const [totalScore, setTotalScore] = useState('')
@@ -80,11 +82,22 @@ const CompanySet = () => {
           })
           .catch()
       }
+      if (newCompanyPrivacy !== companyPrivacy) {
+
+        axios
+          .post(`${process.env.REACT_APP_BASE_URL}/users/toggleCompanyPrivacy`, {
+            privacy: newCompanyPrivacy,
+            id: window.location.href.split('/').pop()
+          })
+          .then(response => {
+          })
+          .catch();
+      }
 
       setSaveData(false)
       window.location.reload()
     }
-  }, [saveData, newCompanyName, newCompanyBio, currentUser.userid]);
+  }, [saveData, newCompanyName, newCompanyBio, newCompanyPrivacy, currentUser.userid]);
 
   /**
    * Handles queries to get the company information and the high scores
@@ -105,9 +118,10 @@ const CompanySet = () => {
           }
         })
         .then(response => {
-          setCompanyName(response.data[0].name)
-          setCompanyInfo(response.data[0].description)
-          setCompanyDate(response.data[0].datejoined)
+          setCompanyName(response.data[0].name);
+          setCompanyInfo(response.data[0].description);
+          setCompanyPrivacy(response.data[0].private === 0 ? false : true);
+          setNewCompanyPrivacy(response.data[0].private === 0 ? false : true);
         })
         .catch(error => console.error(`Error ${error}`))
       //Gets the highest scoring user from the company
@@ -115,7 +129,7 @@ const CompanySet = () => {
         .get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, {
           params: {
             the_query:
-              'SELECT Users.userid, Users.username, AffiliatedUsers.CompanyID, Users.profilepicture, SUM(Points) AS Points FROM CompletedModules ' +
+              'SELECT Users.userid, Users.username, AffiliatedUsers.CompanyID, SUM(Points) AS Points FROM CompletedModules ' +
               'JOIN UserPoints ON UserPoints.PointsID = CompletedModules.LearningModID ' +
               'RIGHT JOIN Users ON Users.userid = CompletedModules.UserID ' +
               'LEFT JOIN AffiliatedUsers ON AffiliatedUsers.UserID = Users.userid ' +
@@ -205,6 +219,10 @@ const CompanySet = () => {
   setTimeout(() => {
     setShow(false)
   }, 9000)
+
+  function togglePrivacy() {
+    setNewCompanyPrivacy(!newCompanyPrivacy);
+  }
 
   return (
     <>
@@ -352,6 +370,9 @@ const CompanySet = () => {
                             <div class='row'>
                               <h4>{companyInfo}</h4>
                             </div>
+                            <div class='row'>
+                              <h4>Private: {companyPrivacy ? "True": "False"}</h4>
+                            </div>
                           </div>
                         </Tab.Pane>
                         <Tab.Pane eventKey='badges'>
@@ -413,6 +434,14 @@ const CompanySet = () => {
                                     ></Form.Control>
                                   </p>
                                 </Form.Group>
+                              </div>
+                            </div>
+                            <div class='row'>
+                              <div class='col-md-6'>
+                                <label>Privacy</label>
+                              </div>
+                              <div class='col-md-6'>
+                              <Switch onChange={togglePrivacy} checked={newCompanyPrivacy ? true : false} />
                               </div>
                             </div>
                           </div>

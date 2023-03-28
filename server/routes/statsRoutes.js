@@ -5,9 +5,11 @@ Last Modified: February 28, 2023
 */
 
 const express = require('express');
-const modulesController = require('../controllers/statsController');
+const statsController = require('../controllers/statsController');
 const router = express.Router();
 
-router.get('/getEmployeeActivity', modulesController.getEmployeeActivity);
+router.get('/getEmployeeActivity', statsController.getEmployeeActivity);
+router.get('/getModuleCounts', statsController.getModuleCounts);
+router.get('/getLeaderboard', statsController.getPublicLeaderboard);
 
 module.exports = router;
