@@ -2,3 +2,48 @@
     height: 200px;
     padding: 10px;
 }
+
+.piechart {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.Collapsible {
+    background-color: rgba(174, 191, 230, 0.2);
+    border-radius: 20px;
+}
+  
+
+.Collapsible__contentInner {
+    padding: 10px;
+    border-radius: 20px;
+    border-top: 0;
+}
+
+p {
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.Collapsible__trigger {
+    display: block;
+    font-weight: 400;
+    text-decoration: none;
+    position: relative;
+    border: 1px solid white;
+    border-radius: 20px;
+    padding: 10px;
+    color: rgb(39, 140, 173);
+}
+
+.CustomTriggerCSS--open {
+    background-color: darkslateblue;
+}
+
+.Collapsible__custom-sibling {
+    padding: 5px;
+    font-size: 12px;
+    background-color: #CBB700;
+    color: black;
+}

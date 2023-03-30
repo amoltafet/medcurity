@@ -4,6 +4,7 @@ import axios from 'axios';
 import MenuBar from '../MenuBar/MenuBar';
 import InvalidPage from '../InvalidPage/InvalidPage'
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
+import Collapsible from 'react-collapsible';
 import SideBar from '../MenuBar/SideBar';
 import {
   Chart as ChartJS,
@@ -36,6 +37,7 @@ const Charts = () => {
   const [companyID, setCompanyID] = useState(null);
   const [employeeActivity, setEmployeeActivity] = useState([]);
   const [moduleCounts, setModuleCounts] = useState(null);
+  const [moduleStats, setModuleStats] = useState(null);
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_BASE_URL}/users/login`).then((response) => {
@@ -93,6 +95,26 @@ useEffect(() => {
     }
 }, [companyID]);
 
+// querys for module stats in company
+useEffect(() => {
+  if (companyID) {
+      axios.get(`${process.env.REACT_APP_BASE_URL}/stats/getModuleStats`, { params: { companyid: companyID
+      } }).then((response) => {
+        if (response.data.success) {
+          let result = {
+            data: response.data.result,
+            cutoff: response.data.cutoff,
+          }
+          console.log(result);
+          setModuleStats(result);
+        }
+        else {
+          console.log("Error:", response.data.error)
+        }
+      }).catch((error) => console.log("Error:", error));
+  }
+}, [companyID]);
+
   const MedcurityLineChart = () => {
     let weeks = [];
     let counts = [];
@@ -133,7 +155,72 @@ useEffect(() => {
     return <Line options={options} data={data} width='100%'/>;
   }
 
-  const MedcurityHorizontalBarChart = () => {
+  const MedcurityPercentageBarChart = () => {
+    if (moduleStats) {
+      let labels = [];
+      let percentages = [];
+
+      for (let i = 0; i < moduleStats.data.length; i++) {
+        labels.push(moduleStats.data[i].title);
+        percentages.push(moduleStats.data[i].pct * 100);
+      }
+
+      const options = {
+          indexAxis: 'y',
+          elements: {
+            bar: {
+              borderWidth: 2,
+            },
+          },
+          scales: {
+            x: {
+                beginAtZero: true,
+                max: 100,
+                ticks: {
+                  count: 11,
+                  stepSize: 10
+                }
+            }
+          },
+          responsive: true,
+          plugins: {
+            legend: {
+              display: false
+            },
+            title: {
+              display: true,
+              text: 'Average Percentage',
+            },
+          },
+      };
+        
+      const data = {
+          labels,
+          datasets: [
+            {
+              label: 'Average Percentage',
+              data: percentages,
+              backgroundColor: 'rgba(255, 99, 132, 0.5)',
+            }
+          ],
+        };
+        return <Bar options={options} data={data} />;
+      }
+      else {
+        return <></>;
+      }
+  }
+
+  const MedcurityTimeBarChart = () => {
+    if (moduleStats) {
+      let labels = [];
+      let times = [];
+
+      for (let i = 0; i < moduleStats.data.length; i++) {
+        labels.push(moduleStats.data[i].title);
+        times.push(moduleStats.data[i].time);
+      }
+
       const options = {
           indexAxis: 'y',
           elements: {
@@ -144,33 +231,30 @@ useEffect(() => {
           responsive: true,
           plugins: {
             legend: {
-              position: 'right',
+              display: false
             },
             title: {
               display: true,
-              text: 'Max Time to Complete',
+              text: 'Average Time To Complete',
             },
           },
-        };
-        
-        const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+      };
         
       const data = {
           labels,
           datasets: [
             {
-              label: 'Dataset 1',
-              data: [65, 59, 80, 81, 56, 55, 40],
-              backgroundColor: 'rgba(255, 99, 132, 0.5)',
-            },
-            {
-              label: 'Dataset 2',
-              data: [28, 48, 40, 19, 86, 27, 90],
-              backgroundColor: 'rgba(53, 162, 235, 0.5)',
-            },
+              label: 'Average Time (Seconds)',
+              data: times,
+              backgroundColor: 'rgba(54, 162, 235, 0.5)',
+            }
           ],
         };
-      return <Bar options={options} data={data} />;
+        return <Bar options={options} data={data} />;
+      }
+      else {
+        return <></>;
+      }
   }
 
   const MedcurityPieChart = () => {
@@ -207,12 +291,12 @@ useEffect(() => {
               label: 'Number of Attempts',
               data: counts,
               backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
+                'rgb(255, 99, 132)',
+                'rgb(54, 162, 235)',
+                'rgb(255, 206, 86)',
+                'rgb(75, 192, 192)',
+                'rgb(153, 102, 255)',
+                'rgb(255, 159, 64)',
               ],
               borderColor: [
                 'rgba(255, 99, 132, 1)',
@@ -237,36 +321,6 @@ useEffect(() => {
       return <></>;
     }
   }
-
-  const MedcurityModulePerformance = () => {
-      return (
-          <>
-              <Typography variant='h6'>Module Performance</Typography>
-              <Grid container spacing={3}>
-                  <Grid item xs={6}>
-                      <Paper elevation={2}>
-                          <Typography variant='h6'>Avg Time to Complete</Typography>
-                      </Paper>
-                  </Grid>
-                  <Grid item xs={6}>
-                      <Paper elevation={2}>
-                          <Typography variant='h6'>Avg Time to Complete</Typography>
-                      </Paper>
-                  </Grid>
-                  <Grid item xs={6}>
-                      <Paper elevation={2}>
-                          <Typography variant='h6'>Avg Time to Complete</Typography>
-                      </Paper>
-                  </Grid>
-                  <Grid item xs={6}>
-                      <Paper elevation={2}>
-                          <Typography variant='h6'>Avg Time to Complete</Typography>
-                      </Paper>
-                  </Grid>
-              </Grid>    
-          </>
-      );
-  }
   
   if (companyID)
   {
@@ -287,14 +341,31 @@ useEffect(() => {
                   </Paper>
               </Grid>
               <Grid item xs={6}>
-              <MedcurityPieChart />
-      
+                <MedcurityPercentageBarChart />
               </Grid>
               <Grid item xs={6}>
-                <MedcurityHorizontalBarChart />
+                <MedcurityTimeBarChart />
               </Grid>
-              <Grid item xs={6}>
-                  <MedcurityModulePerformance />
+              <Grid item xs={2}>
+              </Grid>
+              <Grid item xs={8}>
+              <Paper className="piechart" elevation={2} >
+                <MedcurityPieChart />
+              </Paper>
+              </Grid>
+              <Grid item xs={2}>
+              </Grid>
+              <Grid item xs={12}>
+                <Collapsible trigger="Historical Assignments">
+                    <p>
+                      This is the collapsible content. It can be any element or React
+                      component you like.
+                    </p>
+                    <p>
+                      It can even be another Collapsible component. Check out the next
+                      section!
+                    </p>
+                </Collapsible>
               </Grid>
           </Grid> 
         </Grid>
