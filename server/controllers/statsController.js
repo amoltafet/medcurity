@@ -137,12 +137,13 @@ const getModuleStats = (req, res) => {
 const getModuleHistory = (req, res) => {
     const companyid = req.query.companyid;
 
-    db.query('SELECT title, AVG(percentage) AS pct, AVG(time) AS time FROM UserActivity as UA JOIN AffiliatedUsers as AU ON AU.UserID = UA.userID JOIN LearningModules as LM ON UA.moduleID = LM.ID WHERE companyID = ? GROUP BY moduleID', [companyid], (err,result) => {
+    db.query('SELECT COMP.moduleid, LM.title, dateAssigned, dateRemoved, COUNT(userid) AS employees FROM CompanyModulesHistory AS COMP JOIN CompletedModulesHistory AS CMPLT ON COMP.companyid = CMPLT.companyid AND COMP.moduleid = CMPLT.moduleid JOIN LearningModules AS LM ON LM.ID = COMP.moduleid WHERE COMP.companyid = ? AND ((dateCompleted >= dateAssigned AND dateCompleted <= dateRemoved) OR (dateCompleted >= dateAssigned AND dateRemoved IS NULL)) GROUP BY COMP.moduleid, LM.title, dateAssigned, dateRemoved ORDER BY dateAssigned DESC', 
+        [companyid], (err,result) => {
     if (err) {
         res.send({success: false, error: err});
-        return logger.log('error', { methodName: '/getModuleStats', body: err }, { service: 'user-service' });
+        return logger.log('error', { methodName: '/getModuleHistory', body: err }, { service: 'user-service' });
     } else {
-        logger.log('info', "Retrieved module stats for company " + companyid + ".", { service: 'user-service' });
+        logger.log('info', "Retrieved module history for company " + companyid + ".", { service: 'user-service' });
         res.send({success: true, result: result});
     }});
 }

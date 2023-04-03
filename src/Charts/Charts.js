@@ -103,10 +103,7 @@ useEffect(() => {
       axios.get(`${process.env.REACT_APP_BASE_URL}/stats/getModuleStats`, { params: { companyid: companyID
       } }).then((response) => {
         if (response.data.success) {
-          let result = {
-            data: response.data.result,
-          }
-          console.log(result);
+          let result = response.data.result;
           setModuleStats(result);
         }
         else {
@@ -122,12 +119,8 @@ useEffect(() => {
       axios.get(`${process.env.REACT_APP_BASE_URL}/stats/getModuleHistory`, { params: { companyid: companyID
       } }).then((response) => {
         if (response.data.success) {
-          let result = {
-            data: response.data.result,
-            cutoff: response.data.cutoff,
-          }
-          console.log(result);
-          setModuleStats(result);
+          let result = response.data.result;
+          setModuleHistory(result);
         }
         else {
           console.log("Error:", response.data.error)
@@ -181,9 +174,9 @@ useEffect(() => {
       let labels = [];
       let percentages = [];
 
-      for (let i = 0; i < moduleStats.data.length; i++) {
-        labels.push(moduleStats.data[i].title);
-        percentages.push(moduleStats.data[i].pct * 100);
+      for (let i = 0; i < moduleStats.length; i++) {
+        labels.push(moduleStats[i].title);
+        percentages.push(moduleStats[i].pct * 100);
       }
 
       const options = {
@@ -233,27 +226,38 @@ useEffect(() => {
   }
 
   const MedcurityHistory = () => {
-      let labels = [];
-      let percentages = [];
-      let tableData = []
+      let tableData = [];
 
       const tableColumns = [
-        { title: 'Module', field: 'id', align:'left'},
-        { title: 'Date Assigned', field: 'name'},
-        { title: 'Date Removed', field: 'age'},
+        { title: 'Module', field: 'module', align:'left'},
+        { title: 'Date Assigned', field: 'assigned'},
+        { title: 'Date Removed', field: 'removed'},
         { title: 'Employees Completed', field: 'employees', align:'right'}
       ];
 
       if (moduleHistory) {
         for (let i = 0; i < moduleHistory.length; i++) {
-          labels.push(moduleStats.data[i].title);
-          percentages.push(moduleStats.data[i].pct * 100);
+          let endDate = moduleHistory[i].dateRemoved;
+          if (endDate) {
+            endDate = new Date(endDate);
+            let month = endDate.getUTCMonth() + 1; //months from 1-12
+            let day = endDate.getUTCDate();
+            let year = endDate.getUTCFullYear();
+            endDate = month + "/" + day + "/" + year;
+          }
+          else {
+            endDate = "Active"
+          }
+          let startDate = moduleHistory[i].dateAssigned;
+          startDate = new Date(startDate );
+          let month = startDate.getUTCMonth() + 1; //months from 1-12
+          let day = startDate.getUTCDate();
+          let year = startDate.getUTCFullYear();
+          startDate = month + "/" + day + "/" + year;
+
+          tableData.push({module: moduleHistory[i].title, assigned: startDate, removed: endDate, employees: moduleHistory[i].employees});
         }
       }
-
-      tableData = [{id: 1, name: "Greg", age: 21, employees: 3},
-      {id: 1, name: "Greg", age: 21, employees: 3},
-      {id: 1, name: "Greg", age: 21, employees: 3}]
 
       return <NiceTable  
         columns={tableColumns} 
@@ -267,9 +271,9 @@ useEffect(() => {
       let labels = [];
       let times = [];
 
-      for (let i = 0; i < moduleStats.data.length; i++) {
-        labels.push(moduleStats.data[i].title);
-        times.push(moduleStats.data[i].time);
+      for (let i = 0; i < moduleStats.length; i++) {
+        labels.push(moduleStats[i].title);
+        times.push(moduleStats[i].time);
       }
 
       const options = {

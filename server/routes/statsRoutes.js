@@ -11,6 +11,7 @@ const router = express.Router();
 router.get('/getEmployeeActivity', statsController.getEmployeeActivity);
 router.get('/getModuleCounts', statsController.getModuleCounts);
 router.get('/getModuleStats', statsController.getModuleStats);
+router.get('/getModuleHistory', statsController.getModuleHistory);
 router.get('/getLeaderboard', statsController.getPublicLeaderboard);
 
 module.exports = router;
