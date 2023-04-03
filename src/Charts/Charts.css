@@ -47,3 +47,8 @@ p {
     background-color: #CBB700;
     color: black;
 }
+
+.historyTable {
+    padding: 0px;
+    background-color: lightblue;
+}

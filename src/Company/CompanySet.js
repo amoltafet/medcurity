@@ -130,7 +130,6 @@ const CompanySet = () => {
           params: {
             the_query:
               'SELECT Users.userid, Users.username, AffiliatedUsers.CompanyID, SUM(Points) AS Points FROM CompletedModules ' +
-              'JOIN UserPoints ON UserPoints.PointsID = CompletedModules.LearningModID ' +
               'RIGHT JOIN Users ON Users.userid = CompletedModules.UserID ' +
               'LEFT JOIN AffiliatedUsers ON AffiliatedUsers.UserID = Users.userid ' +
               'WHERE AffiliatedUsers.CompanyID = ' +
@@ -152,7 +151,6 @@ const CompanySet = () => {
             the_query:
               'SELECT SUM(Points) AS TotalPoints ' +
               'FROM CompletedModules ' +
-              'JOIN UserPoints ON UserPoints.PointsID = CompletedModules.LearningModID ' +
               'RIGHT JOIN Users ON Users.userid = CompletedModules.UserID ' +
               'JOIN AffiliatedUsers ON AffiliatedUsers.UserID = Users.userid ' +
               'WHERE AffiliatedUsers.CompanyID = ' +
@@ -169,7 +167,6 @@ const CompanySet = () => {
           params: {
             the_query:
               'SELECT Users.username FROM CompletedModules ' +
-              'JOIN UserPoints ON UserPoints.PointsID = CompletedModules.LearningModID ' +
               'RIGHT JOIN Users ON Users.userid = CompletedModules.UserID ' +
               'JOIN AffiliatedUsers ON AffiliatedUsers.UserID = Users.userid WHERE AffiliatedUsers.CompanyID = ' +
               window.location.href.split('/').pop() +

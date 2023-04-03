@@ -90,7 +90,6 @@ const LeaderboardPage = () => {
                 params: {
                     the_query:
                         'SELECT Users.userid, Users.username, Users.companyid, SUM(Points) AS Points FROM CompletedModules ' +
-                        'JOIN UserPoints ON UserPoints.PointsID = CompletedModules.LearningModID ' +
                         'RIGHT JOIN Users ON Users.userid = CompletedModules.UserID ' +
                         'JOIN AffiliatedUsers ON AffiliatedUsers.UserID = Users.userid WHERE AffiliatedUsers.CompanyID = ' + currentUser.companyAdminID + ' ' +
                         'GROUP BY Users.userid '
@@ -109,7 +108,6 @@ const LeaderboardPage = () => {
                 params: {
                     the_query:
                         'SELECT Users.userid, Users.username, Users.companyid, SUM(Points) AS Points FROM CompletedModules ' +
-                        'JOIN UserPoints ON UserPoints.PointsID = CompletedModules.LearningModID ' +
                         'RIGHT JOIN Users ON Users.userid = CompletedModules.UserID ' +
                         'JOIN AffiliatedUsers ON AffiliatedUsers.UserID = Users.userid WHERE AffiliatedUsers.CompanyID = ' + currentUser.companyid + ' ' +
                         'GROUP BY Users.userid '

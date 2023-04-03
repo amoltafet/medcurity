@@ -6,6 +6,7 @@ import InvalidPage from '../InvalidPage/InvalidPage'
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
 import Collapsible from 'react-collapsible';
 import SideBar from '../MenuBar/SideBar';
+import {NiceTable, ColumnModel} from 'react-nice-table';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -38,6 +39,7 @@ const Charts = () => {
   const [employeeActivity, setEmployeeActivity] = useState([]);
   const [moduleCounts, setModuleCounts] = useState(null);
   const [moduleStats, setModuleStats] = useState(null);
+  const [moduleHistory, setModuleHistory] = useState(null);
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_BASE_URL}/users/login`).then((response) => {
@@ -99,6 +101,25 @@ useEffect(() => {
 useEffect(() => {
   if (companyID) {
       axios.get(`${process.env.REACT_APP_BASE_URL}/stats/getModuleStats`, { params: { companyid: companyID
+      } }).then((response) => {
+        if (response.data.success) {
+          let result = {
+            data: response.data.result,
+          }
+          console.log(result);
+          setModuleStats(result);
+        }
+        else {
+          console.log("Error:", response.data.error)
+        }
+      }).catch((error) => console.log("Error:", error));
+  }
+}, [companyID]);
+
+// querys for module history for company
+useEffect(() => {
+  if (companyID) {
+      axios.get(`${process.env.REACT_APP_BASE_URL}/stats/getModuleHistory`, { params: { companyid: companyID
       } }).then((response) => {
         if (response.data.success) {
           let result = {
@@ -209,6 +230,36 @@ useEffect(() => {
       else {
         return <></>;
       }
+  }
+
+  const MedcurityHistory = () => {
+      let labels = [];
+      let percentages = [];
+      let tableData = []
+
+      const tableColumns = [
+        { title: 'Module', field: 'id', align:'left'},
+        { title: 'Date Assigned', field: 'name'},
+        { title: 'Date Removed', field: 'age'},
+        { title: 'Employees Completed', field: 'employees', align:'right'}
+      ];
+
+      if (moduleHistory) {
+        for (let i = 0; i < moduleHistory.length; i++) {
+          labels.push(moduleStats.data[i].title);
+          percentages.push(moduleStats.data[i].pct * 100);
+        }
+      }
+
+      tableData = [{id: 1, name: "Greg", age: 21, employees: 3},
+      {id: 1, name: "Greg", age: 21, employees: 3},
+      {id: 1, name: "Greg", age: 21, employees: 3}]
+
+      return <NiceTable  
+        columns={tableColumns} 
+        data={tableData} 
+        height="300px"
+      />;
   }
 
   const MedcurityTimeBarChart = () => {
@@ -357,14 +408,9 @@ useEffect(() => {
               </Grid>
               <Grid item xs={12}>
                 <Collapsible trigger="Historical Assignments">
-                    <p>
-                      This is the collapsible content. It can be any element or React
-                      component you like.
-                    </p>
-                    <p>
-                      It can even be another Collapsible component. Check out the next
-                      section!
-                    </p>
+                    <div className="historyTable">
+                      <MedcurityHistory />
+                    </div>
                 </Collapsible>
               </Grid>
           </Grid> 

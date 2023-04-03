@@ -125,7 +125,25 @@ const getModuleStats = (req, res) => {
         return logger.log('error', { methodName: '/getModuleStats', body: err }, { service: 'user-service' });
     } else {
         logger.log('info', "Retrieved module stats for company " + companyid + ".", { service: 'user-service' });
-        res.send({success: true, result: result, cutoff: cutoff});
+        res.send({success: true, result: result});
+    }});
+}
+
+/*
+    Given a company id, this route returns the historical module assignments 
+    in a form used to build a table on the stats page. It gets the dates assigned and 
+    removed and the number of employees that completed the module
+*/
+const getModuleHistory = (req, res) => {
+    const companyid = req.query.companyid;
+
+    db.query('SELECT title, AVG(percentage) AS pct, AVG(time) AS time FROM UserActivity as UA JOIN AffiliatedUsers as AU ON AU.UserID = UA.userID JOIN LearningModules as LM ON UA.moduleID = LM.ID WHERE companyID = ? GROUP BY moduleID', [companyid], (err,result) => {
+    if (err) {
+        res.send({success: false, error: err});
+        return logger.log('error', { methodName: '/getModuleStats', body: err }, { service: 'user-service' });
+    } else {
+        logger.log('info', "Retrieved module stats for company " + companyid + ".", { service: 'user-service' });
+        res.send({success: true, result: result});
     }});
 }
 
@@ -134,7 +152,6 @@ Retrieves data from users that belong to public companies
 */
 const getPublicLeaderboard = (req, res) => {
     db.query('SELECT Users.userid, Users.username, AU.CompanyID, SUM(Points) AS Points FROM CompletedModules ' +
-    'JOIN UserPoints AS PTS ON PTS.PointsID = CompletedModules.LearningModID ' +
     'RIGHT JOIN Users ON Users.userid = CompletedModules.UserID ' + 
     'LEFT JOIN AffiliatedUsers AS AU ON AU.UserID = Users.userid ' +
     'JOIN Companies AS CMP ON AU.CompanyID = CMP.companyid WHERE CMP.private = 0 ' +
@@ -152,5 +169,6 @@ module.exports = {
     getEmployeeActivity,
     getModuleCounts,
     getModuleStats,
+    getModuleHistory,
     getPublicLeaderboard
 }

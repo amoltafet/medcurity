@@ -264,7 +264,7 @@ const QuizPage = () => {
           modulenum: slug, 
           companyid: companyid.CompanyID,
         }).then((response) => {
-          // console.log("response", response.data);
+            console.log("response", response.data);
         }).catch() // console.log(`Error ${error}`));
         setPassed(true);
         return;

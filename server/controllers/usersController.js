@@ -367,35 +367,107 @@ const userModuleCompleted = (req, res) => {
     const moduleNum = req.body.modulenum;
     const companyid = req.body.companyid;
 
-
     logger.log('info', `points "${points}"`);
     logger.log('info', `percentage "${percentage}"`);
     logger.log('info', `module num "${moduleNum}"`);
     logger.log('info', `companyid "${companyid}"`);
 
-    db.query(`INSERT INTO CompletedModules (UserID, LearningModID, DateCompleted, Points, Percentage)  VALUES (?,?,?,?,?)`, [userid, categoryId, today, points, percentage], (err,result) => {
+    db.query('SELECT * FROM CompletedModules CMPLT JOIN CompanyModulesHistory HIST ON LearningModID = moduleid WHERE UserID = ? AND moduleid = ? AND dateRemoved IS NULL AND DateCompleted >= dateAssigned', 
+        [userid, moduleNum], (err,result) => {
         if(err) {
-            logger.log('error', { methodName: '/moduleCompleted', errorBody: err }, { service: 'user-service' });
+            res.send({success: false, error: err});
+            return logger.log('error', { methodName: '/moduleCompleted', errorBody: err }, { service: 'user-service' });
         }
-        db.query("INSERT INTO UserPoints (PointsID, UserID, CompanyID) VALUES (?,?,?)", [moduleNum, userid, companyid], (err,result) => {
-            if(err) {
-                logger.log('error', { methodName: '/moduleCompleted', errorBody: err }, { service: 'user-service' });
+        // redoing module assignment
+        else if (result.length > 0) {
+            let storedPercent = result[0].Percentage;
+            let storedPoints = result[0].Points;
+
+            if (percentage > storedPercent) {
+                storedPercent = percentage;
             }
-            db.query(`INSERT INTO CompletedModulesHistory (userid, moduleid, companyid, dateCompleted)  VALUES (?,?,?,?)`, [userid, moduleNum, companyid, today], (err,result) => {
-                if(err) {
-                    logger.log('error', { methodName: '/moduleCompleted', errorBody: err }, { service: 'user-service' });
+
+            if (points > storedPoints) {
+                storedPoints = points;
+            }
+
+            db.query('UPDATE CompletedModules SET Points = ?, Percentage = ? WHERE UserID = ? AND LearningModID = ?', [storedPoints, storedPercent, userid, moduleNum], (err,result) => {
+                if (err) {
+                    res.send({success: false, error: err});
+                    return logger.log('error', { methodName: '/moduleCompleted', errorBody: err }, { service: 'user-service' });
                 }
-                db.query(`SELECT * FROM CompletedModules JOIN UserPoints WHERE userid = '${userid}'`, (err,result) => {
-                    if(err) {
-                        logger.log('error', { methodName: '/moduleCompleted', errorBody: err }, { service: 'user-service' });
-                    }
-                    logger.log('info', `User-${userid} completed Module ${categoryId}, on: ${today} and scored ${points} points.`);
-                    res.send({success: true, data: result, message: `Completed Module`});
-                });
+
+                res.send({success: true, message: "Additional attempt completed. Information updated...", found: result});
+                return logger.log('info', 'Module has already been completed, this is storing the second attempt.');
             });
-        })
-    })   
+        }
+        // first module completion for assignment
+        else {
+            db.query(`INSERT INTO CompletedModules (UserID, LearningModID, DateCompleted, Points, Percentage)  VALUES (?,?,?,?,?)`, [userid, categoryId, today, points, percentage], (err,result) => {
+                if (err) {
+                    res.send({success: false, error: err});
+                    return logger.log('error', { methodName: '/moduleCompleted', errorBody: err }, { service: 'user-service' });
+                }
+                db.query(`INSERT INTO CompletedModulesHistory (userid, moduleid, companyid, dateCompleted)  VALUES (?,?,?,?)`, [userid, moduleNum, companyid, today], (err,result) => {
+                    if (err) {
+                        res.send({success: false, error: err});
+                        return logger.log('error', { methodName: '/moduleCompleted', errorBody: err }, { service: 'user-service' });
+                    }
+                    db.query(`SELECT * FROM CompletedModules WHERE CompletedModules.userid = '${userid}'`, (err,result) => {
+                        if (err) {
+                            res.send({success: false, error: err});
+                            return logger.log('error', { methodName: '/moduleCompleted', errorBody: err }, { service: 'user-service' });
+                        }
+                        logger.log('info', `User-${userid} completed Module ${categoryId}, on: ${today} and scored ${points} points.`);
+                        res.send({success: true, data: result, message: `Completed Module`});
+                    });
+                });
+            }); 
+        }
+    });  
 }
+
+// /**
+//  * Store a learning module as completed.
+//  */
+// const userModuleCompleted = (req, res) => {
+//     var today = new Date();
+//     today.setDate(today.getDate());
+//     const categoryId = req.body.categoryId;
+//     const userid = req.body.userid;   
+//     const points = req.body.points;
+//     const percentage = req.body.percentage;
+//     const moduleNum = req.body.modulenum;
+//     const companyid = req.body.companyid;
+
+//     logger.log('info', `points "${points}"`);
+//     logger.log('info', `percentage "${percentage}"`);
+//     logger.log('info', `module num "${moduleNum}"`);
+//     logger.log('info', `companyid "${companyid}"`);
+
+//     db.query(`INSERT INTO CompletedModules (UserID, LearningModID, DateCompleted, Points, Percentage)  VALUES (?,?,?,?,?)`, [userid, categoryId, today, points, percentage], (err,result) => {
+//         if(err) {
+//             logger.log('error', { methodName: '/moduleCompleted', errorBody: err }, { service: 'user-service' });
+//         }
+//         db.query("INSERT INTO UserPoints (PointsID, UserID, CompanyID) VALUES (?,?,?)", [moduleNum, userid, companyid], (err,result) => {
+//             if(err) {
+//                 logger.log('error', { methodName: '/moduleCompleted', errorBody: err }, { service: 'user-service' });
+//             }
+//             db.query(`INSERT INTO CompletedModulesHistory (userid, moduleid, companyid, dateCompleted)  VALUES (?,?,?,?)`, [userid, moduleNum, companyid, today], (err,result) => {
+//                 if(err) {
+//                     logger.log('error', { methodName: '/moduleCompleted', errorBody: err }, { service: 'user-service' });
+//                 }
+//                 db.query(`SELECT * FROM CompletedModules JOIN UserPoints WHERE userid = '${userid}'`, (err,result) => {
+//                     if(err) {
+//                         logger.log('error', { methodName: '/moduleCompleted', errorBody: err }, { service: 'user-service' });
+//                     }
+//                     logger.log('info', `User-${userid} completed Module ${categoryId}, on: ${today} and scored ${points} points.`);
+//                     res.send({success: true, data: result, message: `Completed Module`});
+//                 });
+//             });
+//         })
+//     })   
+// }
 
 /**
  * Store learning module activity for a user
