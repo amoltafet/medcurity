@@ -14,5 +14,5 @@ jobs:
         run: |
           git config --global user.name 'Test User'
           git config --global user.email 'test@medcurity.com'
-          git remote add https://github.com/amoltafet/medcurity.git
+          git remote add origin https://github.com/amoltafet/medcurity.git
           git push origin main
