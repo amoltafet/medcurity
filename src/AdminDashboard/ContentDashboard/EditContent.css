@@ -1,15 +1,7 @@
-#title {
-    resize: none;
-}
-
-#subtitle {
-    resize:none
-}
-
-#description {
-    resize:none
-}
-
-.content-textarea {
-    resize:none
-}
+.contentForm {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    padding: 10px;
+  }
+  

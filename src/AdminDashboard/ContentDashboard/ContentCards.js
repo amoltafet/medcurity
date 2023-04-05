@@ -1,72 +1,70 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css'   
-import { Card, Row, Button, Container, CardDeck, Col } from 'react-bootstrap';
-import { useEffect, useState} from "react";
+import { Container, Card, CardContent, Button, Grid, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
+import { useEffect, useState } from "react";
 import axios from 'axios';
-import ContentCard from './ContentCard'
-// import env from "react-dotenv";
 
-/**
- * Returns Panels of the Content Cards. These show basic
- * Learning Module information, and contain a button that allows
- * Employers to remove the given learning module
- * @returns 
- */
 const ContentsCards = (props) => {
-    const [learningModules, setLearningModules] = useState([])
+    const [learningModules, setLearningModules] = useState([]);
+    const [selectedModule, setSelectedModule] = useState('');
 
-
-    // Get all of the learningModules
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `SELECT * FROM LearningModules` } }).then((response) => {
-            setLearningModules(response.data)
-            // // console.log("Modules:", response.data)
-            }).catch(error => console.error(`Error ${error}`));
-        },[])
+            setLearningModules(response.data);
+        }).catch(error => console.error(`Error ${error}`));
+    }, []);
 
-
-    /**
-     * Create directory cards from modules
-     * @param {modules} to create cards for
-     * @param {max_length} to limit max card number created
-     */
-    function createContentCards(modules, maxLength=-1) {
-        // // console.log(modules)
-        const objs = [];
-        let size = 0
-        for (let index in modules) {
-            if (size === maxLength) { break; }
-            module = modules[index]
-            objs.push(<ContentCard learningModuleName={module.Title} moduleId={module.ID} />)
-            size += 1;
-        }
-        return objs;
-    }
+    const handleChange = (event) => {
+        setSelectedModule(event.target.value);
+    };
 
     return (
         <>
-        <Container >
-            <Card className="Content-container uvs-right">
-                <Row xs={18} md={12} lg={12}>
-                    <Col xs={7} lg={10}>
-                <Card.Title className="ContentCardHeader" id="content-title">Current Learning Modules</Card.Title>  
-                 </Col>
-                 <Col xs={5} lg={2} className="justify-content-right" >
-                    <Button className='uvs-left add-btn' href="/add-content">Add Module</Button>  
-                 
-                 </Col>
-                 </Row>   
-                <CardDeck className="dashboard" style={{display: 'flex', flexDirection: 'column'}}>
-                    {createContentCards(learningModules)}
-                </CardDeck>  
-              
-            </Card>
-
-          
-
-        </Container>
+            <Container>
+                <Card className="Content-container" width={50}>
+                    <Grid container xs={12} lg={12}>
+                        <Grid item xs={7} lg={10}>
+                            <CardContent className="ContentCardHeader" id="content-title">
+                                Current Learning Modules
+                            </CardContent>
+                        </Grid>
+                        <Grid item xs={5} lg={2} className="justify-content-right">
+                            <Button fullWidth variant="contained" color="secondary" href="/add-content">Add Module</Button>
+                        </Grid>
+                    </Grid>
+                    <Grid container style={{ display: 'flex', flexDirection: 'column' }}>
+                        <FormControl fullWidth variant="outlined">
+                            <InputLabel id="learning-module-select-label">Select Module</InputLabel>
+                            <Select
+                                labelId="learning-module-select-label"
+                                id="learning-module-select"
+                                value={selectedModule}
+                                onChange={handleChange}
+                                label="Select Module"
+                            >
+                                {learningModules.map((module, index) => (
+                                    <MenuItem key={index} value={module.ID}>{module.Title}</MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                        {selectedModule !== '' && (
+                            <Grid container spacing={2} style={{ marginTop: '1rem' }}>
+                                <Grid item xs={12} lg={6}>
+                                    <Button fullWidth variant="contained" color="primary" href={`/edit-content/${selectedModule}`}>
+                                        Edit Content
+                                    </Button>
+                                </Grid>
+                                <Grid item xs={12} lg={6}>
+                                    <Button fullWidth variant="contained" color="secondary" href={`/edit-questions/${selectedModule}`}>
+                                        Add Questions
+                                    </Button>
+                                </Grid>
+                            </Grid>
+                        )}
+                    </Grid>
+                </Card>
+            </Container>
         </>
     );
 }
 
-export default ContentsCards
+export default ContentsCards;

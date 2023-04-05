@@ -1,129 +1,181 @@
-import { Button } from 'react-bootstrap';
-import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css'
-import { useEffect, useState } from "react";
-import { useParams } from "react-router";
-import "./EditContent.css"
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-// import env from "react-dotenv";
+import React from 'react'
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router'
+import { makeStyles } from '@material-ui/core/styles'
+import { Button, TextField } from '@material-ui/core'
+import MenuBar from '../../MenuBar/MenuBar';
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
-/**
-* Creates and displays the learning page for each test category. 
-* @return { EditContent }
-*/
-const  EditContent = () => {
-    let { slug } = useParams();
-    const [currentUser, setCurrentUser] = useState([]);
-    const [content, setContent] = useState([])
-    const [title, setTitle] = useState([])
-    const [description, setDescription] = useState([])
-    const [subtitle, setSubtitle] = useState([])
-    const [timeCutoff, setTimeCutoff] = useState([])
-    const [timeBonusCutoff, setTimeBonusCutoff] = useState([])
-    const [badgeCutoff, setBadgeCutoff] = useState([])
-    const [isLoading, setIsLoading] = useState(true)
-    const navigate = useNavigate();
+const useStyles = makeStyles(theme => ({
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    margin: theme.spacing(8)
+  },
+  input: {
+    margin: theme.spacing(1),
+    width: '100%'
+  },
+  submit: {
+    margin: theme.spacing(2, 0, 2),
+    width: '100%'
+  }
+}))
 
-    useEffect(() => {
-      // Fetch post using the postSlug
-    }, [slug]);
+const EditContent = () => {
+  const classes = useStyles()
+  let { slug } = useParams()
+  const [currentUser, setCurrentUser] = useState([])
+  const [content, setContent] = useState([])
+  const [title, setTitle] = useState([])
+  const [description, setDescription] = useState([])
+  const [subtitle, setSubtitle] = useState([])
+  const [timeCutoff, setTimeCutoff] = useState([])
+  const [timeBonusCutoff, setTimeBonusCutoff] = useState([])
+  const [badgeCutoff, setBadgeCutoff] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+  const navigate = useNavigate()
 
-    useEffect(() => {
-        axios.get(`${process.env.REACT_APP_BASE_URL}/users/login`).then((response) => {
-            setCurrentUser(response.data.user[0])
-        }).catch(error => console.error(`Error ${error}`));
-    }, []);
+  useEffect(() => {
+    // Fetch post using the postSlug
+  }, [slug])
 
-    useEffect(() => {
-        axios.get(`${process.env.REACT_APP_BASE_URL}/api/getModuleInfo`, { params: { id: slug } }).then((response) => {
-            setContent(Object.values(response.data))
-            setIsLoading(false)
-        }).catch(error => console.error(`Error ${error}`));
-    }, [slug])
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BASE_URL}/users/login`)
+      .then(response => {
+        setCurrentUser(response.data.user[0])
+      })
+      .catch(error => console.error(`Error ${error}`))
+  }, [])
 
-    useEffect(() => {
-        if(!isLoading) {
-            let module = content[0]
-            setTitle(module.Title)
-            setSubtitle(module.Subtitle)
-            setDescription(module.Description)
-            setTimeCutoff(module.timecutoff)
-            setTimeBonusCutoff(module.timebonuscutoff)
-            setBadgeCutoff(module.badgecutoff)
-        }
-    }, [isLoading])
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BASE_URL}/api/getModuleInfo`, {
+        params: { id: slug }
+      })
+      .then(response => {
+        setContent(Object.values(response.data))
+        setIsLoading(false)
+      })
+      .catch(error => console.error(`Error ${error}`))
+  }, [slug])
 
-
-    function submitData() {
-        axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, { params: { the_query: `UPDATE LearningModules SET Title = '${title}', 
-        Subtitle = '${subtitle}', Description = '${description}', timecutoff = '${timeCutoff}', timebonuscutoff = '${timeBonusCutoff}', 
-        badgecutoff = '${badgeCutoff}' WHERE ID = '${slug}'` } }).then((response) => {
-            console.log(response)
-        }).catch(error => console.error(`Error ${error}`));
-        // // console.log("We added")
-        // // console.log("Title:", title)
-        // // console.log("Subtitle:", subtitle)
-        // // console.log("Description:", description)
-
-        navigate('/admin-content');
+  useEffect(() => {
+    if (!isLoading) {
+      let module = content[0]
+      setTitle(module.Title)
+      setSubtitle(module.Subtitle)
+      setDescription(module.Description)
+      setTimeCutoff(module.timecutoff)
+      setTimeBonusCutoff(module.timebonuscutoff)
+      setBadgeCutoff(module.badgecutoff)
     }
+  }, [isLoading])
 
+  function submitData () {
+    axios
+      .get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, {
+        params: {
+          the_query: `UPDATE LearningModules SET Title = '${title}', 
+      Subtitle = '${subtitle}', Description = '${description}', timecutoff = '${timeCutoff}', timebonuscutoff = '${timeBonusCutoff}', 
+      badgecutoff = '${badgeCutoff}' WHERE ID = '${slug}'`
+        }
+      })
+      .then(response => {
+        console.log(response)
+      })
+      .catch(error => console.error(`Error ${error}`))
+    navigate('/admin-content')
+  }
 
-    const ModuleContent = content.map((module) => {
-        return ([
-          <>
-            <h1 className="text-center moduleName">
-              Learning Modules: {module.Title} Module
-            </h1>
-            <form className='text-center contentForm'>
-                <label htmlFor="title">Title:</label><br></br>
-                <textarea rows="1" cols="100" wrap="soft" type="text" id="title" name="title" defaultValue={module.Title} onChange={ (e) => 
-                            {
-                                setTitle(e.target.value);
-                            }}></textarea><br></br>
-                <label htmlFor="subtitle">Subtitle:</label><br></br>
-                <textarea rows="5" cols="100" wrap="soft" type="text" id="subtitle" name="subtitle" defaultValue={module.Subtitle} onChange={ (e) => 
-                            {
-                                setSubtitle(e.target.value);
-                            }}></textarea><br></br>
-                <label htmlFor="description">Description:</label><br></br>
-                <textarea rows="15" cols="100" wrap="soft" type="text" id="description" name="description" defaultValue={module.Description} onChange={ (e) => 
-                            {
-                                setDescription(e.target.value);
-                            }}></textarea><br></br>
-                <label htmlFor="timecutoff">Time Cutoff in Seconds &#40;to get bonus points&#41;:</label><br></br>
-                <input type="number" min="0" step="0.1" id="timecutoff" name="timecutoff" defaultValue={module.timecutoff} onChange={ (e) => 
-                            {
-                                setTimeCutoff(parseFloat(e.target.value));
-                            }}/><br></br>
-                <label htmlFor="timebonuscutoff">Time Bonus Percentage Cutoff &#40;percentage correct needed to get time bonus&#41;:</label><br></br>
-                <input type="number" min="0" step="0.1" id="timebonuscutoff" name="timebonuscutoff" defaultValue={module.timebonuscutoff} onChange={ (e) => 
-                            {
-                                setTimeBonusCutoff(parseFloat(e.target.value));
-                            }}/><br></br>
-                <label htmlFor="badgecutoff">Percentage Cutoff for Badge &#40;percentage correct needed to earn module's badge&#41;:</label><br></br>
-                <input type="number" min="0" step="0.1" id="badgecutoff" name="badgecutoff" defaultValue={module.badgecutoff} onChange={ (e) => 
-                            {
-                                setBadgeCutoff(parseFloat(e.target.value));
-                            }}/><br></br>
-            </form>
-    
-            </>
-        ]);
-    })
-
+  const ModuleContent = content.map(module => {
     return (
         <>
-         <div className="EditContentBg img-fluid ">
-        {ModuleContent}
-        <div className="d-grid gap-2 ">
-            <Button variant="primary" className="goToQuizBttn uvs-left uvs-right" onClick={submitData} >
-                Submit
+        <MenuBar></MenuBar>
+          <h1 className='text-center moduleName'>
+            Learning Modules: {module.Title} Module
+          </h1>
+          <form className={classes.form}>
+            <TextField
+              label='Title'
+              variant='outlined'
+              className={classes.input}
+              defaultValue={module.Title}
+              onChange={e => {
+                setTitle(e.target.value)
+              }}
+              style={{ width: "100%" }}
+            />
+            <TextField
+              label='Subtitle'
+              variant='outlined'
+              className={classes.input}
+              defaultValue={module.Subtitle}
+              onChange={e => {
+                setSubtitle(e.target.value)
+              }}
+              style={{ width: "100%" }}
+            />
+            <TextField
+              label='Description'
+              variant='outlined'
+              className={classes.input}
+              defaultValue={module.Description}
+              onChange={e => {
+                setDescription(e.target.value)
+              }}
+              multiline
+              rows={4}
+              style={{ width: "100%" }}
+            />
+            <TextField
+              label='Time Cutoff'
+              variant='outlined'
+              className={classes.input}
+              defaultValue={module.timecutoff}
+              onChange={e => {
+                setTimeCutoff(e.target.value)
+              }}
+              style={{ width: "100%" }}
+            />
+            <TextField
+              label='Time Bonus Cutoff'
+              variant='outlined'
+              className={classes.input}
+              defaultValue={module.timebonuscutoff}
+              onChange={e => {
+                setTimeBonusCutoff(e.target.value)
+              }}
+              style={{ width: "100%" }}
+            />
+            <TextField
+              label='Badge Cutoff'
+              variant='outlined'
+              className={classes.input}
+              defaultValue={module.badgecutoff}
+              onChange={e => {
+                setBadgeCutoff(e.target.value)
+              }}
+              style={{ width: "100%" }}
+            />
+            <Button
+              variant='contained'
+              color='primary'
+              className={classes.submit}
+              onClick={submitData}
+            >
+              Update Content
             </Button>
-          </div>
-        </div>
+          </form>
         </>
-    );
+      )
+      
+  })
+
+  return <div>{ModuleContent}</div>
 }
-export default  EditContent;
+
+export default EditContent
