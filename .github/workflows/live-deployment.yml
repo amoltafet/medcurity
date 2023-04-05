@@ -10,13 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Check if remote repository exists
-        run: |
-          if ! git ls-remote --exit-code origin >/dev/null 2>&1; then
-            git remote add origin https://github.com/amoltafet/medcurity.git
-          fi
-      - name: Push changes to remote repository
+      - name: Push changes to another repository
         run: |
           git config --global user.name 'Test User'
           git config --global user.email 'test@medcurity.com'
+          git remote set-url origin https://github.com/amoltafet/medcurity.git
           git push origin main
