@@ -97,6 +97,53 @@ const getModuleCounts = (req, res) => {
         return logger.log('error', { methodName: '/getModuleCounts', body: err }, { service: 'user-service' });
     } else {
         logger.log('info', "Retrieved module counts for company " + companyid + ".", { service: 'user-service' });
+        res.send({success: true, result: result, cutoff: cutoff});
+    }});
+}
+
+/*
+Given a company id, this route returns the recent activity of the employees
+in a form used to build a pie chart on the stats page. It gets the count of modules 
+attempted for each learning module.
+*/
+const getModuleStats = (req, res) => {
+    const companyid = req.query.companyid;
+    let today = new Date();
+    today.setHours(0, 0, 0);
+
+    let first = today.getDate() - today.getDay();
+    let last = first + 6;
+
+    // num weeks sets how far back to look
+    const numWeeks = 10;
+    let cutoff = new Date(today.setDate(last));
+    cutoff = new Date(cutoff.setDate(-7*numWeeks));
+
+    db.query('SELECT title, AVG(percentage) AS pct, AVG(time) AS time FROM UserActivity as UA JOIN AffiliatedUsers as AU ON AU.UserID = UA.userID JOIN LearningModules as LM ON UA.moduleID = LM.ID WHERE date >= ? and companyID = ? GROUP BY moduleID', [cutoff, companyid], (err,result) => {
+    if (err) {
+        res.send({success: false, error: err});
+        return logger.log('error', { methodName: '/getModuleStats', body: err }, { service: 'user-service' });
+    } else {
+        logger.log('info', "Retrieved module stats for company " + companyid + ".", { service: 'user-service' });
+        res.send({success: true, result: result});
+    }});
+}
+
+/*
+    Given a company id, this route returns the historical module assignments 
+    in a form used to build a table on the stats page. It gets the dates assigned and 
+    removed and the number of employees that completed the module
+*/
+const getModuleHistory = (req, res) => {
+    const companyid = req.query.companyid;
+
+    db.query('SELECT COMP.moduleid, LM.title, dateAssigned, dateRemoved, COUNT(userid) AS employees FROM CompanyModulesHistory AS COMP JOIN CompletedModulesHistory AS CMPLT ON COMP.companyid = CMPLT.companyid AND COMP.moduleid = CMPLT.moduleid JOIN LearningModules AS LM ON LM.ID = COMP.moduleid WHERE COMP.companyid = ? AND ((dateCompleted >= dateAssigned AND dateCompleted <= dateRemoved) OR (dateCompleted >= dateAssigned AND dateRemoved IS NULL)) GROUP BY COMP.moduleid, LM.title, dateAssigned, dateRemoved ORDER BY dateAssigned DESC', 
+        [companyid], (err,result) => {
+    if (err) {
+        res.send({success: false, error: err});
+        return logger.log('error', { methodName: '/getModuleHistory', body: err }, { service: 'user-service' });
+    } else {
+        logger.log('info', "Retrieved module history for company " + companyid + ".", { service: 'user-service' });
         res.send({success: true, result: result});
     }});
 }
@@ -106,7 +153,6 @@ Retrieves data from users that belong to public companies
 */
 const getPublicLeaderboard = (req, res) => {
     db.query('SELECT Users.userid, Users.username, AU.CompanyID, SUM(Points) AS Points FROM CompletedModules ' +
-    'JOIN UserPoints AS PTS ON PTS.PointsID = CompletedModules.LearningModID ' +
     'RIGHT JOIN Users ON Users.userid = CompletedModules.UserID ' + 
     'LEFT JOIN AffiliatedUsers AS AU ON AU.UserID = Users.userid ' +
     'JOIN Companies AS CMP ON AU.CompanyID = CMP.companyid WHERE CMP.private = 0 ' +
@@ -123,5 +169,7 @@ const getPublicLeaderboard = (req, res) => {
 module.exports = {
     getEmployeeActivity,
     getModuleCounts,
+    getModuleStats,
+    getModuleHistory,
     getPublicLeaderboard
 }
