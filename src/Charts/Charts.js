@@ -20,6 +20,11 @@ import {
 import { Bar, Pie, Line } from 'react-chartjs-2';
 import { Paper, Typography } from '@mui/material';
 import './Charts.css';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from '@mui/material';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 //https://react-chartjs-2.js.org/examples/horizontal-bar-chart
 
 ChartJS.register(
@@ -226,44 +231,65 @@ useEffect(() => {
   }
 
   const MedcurityHistory = () => {
-      let tableData = [];
+    let tableData = [];
 
-      const tableColumns = [
-        { title: 'Module', field: 'module', align:'left'},
-        { title: 'Date Assigned', field: 'assigned'},
-        { title: 'Date Removed', field: 'removed'},
-        { title: 'Employees Completed', field: 'employees', align:'right'}
-      ];
-
-      if (moduleHistory) {
-        for (let i = 0; i < moduleHistory.length; i++) {
-          let endDate = moduleHistory[i].dateRemoved;
-          if (endDate) {
-            endDate = new Date(endDate);
-            let month = endDate.getUTCMonth() + 1; //months from 1-12
-            let day = endDate.getUTCDate();
-            let year = endDate.getUTCFullYear();
-            endDate = month + "/" + day + "/" + year;
-          }
-          else {
-            endDate = "Active"
-          }
-          let startDate = moduleHistory[i].dateAssigned;
-          startDate = new Date(startDate );
-          let month = startDate.getUTCMonth() + 1; //months from 1-12
-          let day = startDate.getUTCDate();
-          let year = startDate.getUTCFullYear();
-          startDate = month + "/" + day + "/" + year;
-
-          tableData.push({module: moduleHistory[i].title, assigned: startDate, removed: endDate, employees: moduleHistory[i].employees});
+    const tableColumns = [
+      { headerName: 'Module', field: 'module', align: 'left' },
+      { headerName: 'Date Assigned', field: 'assigned' },
+      { headerName: 'Date Removed', field: 'removed' },
+      { headerName: 'Employees Completed', field: 'employees', align: 'right' }
+    ];
+    
+    if (moduleHistory) {
+      for (let i = 0; i < moduleHistory.length; i++) {
+        let endDate = moduleHistory[i].dateRemoved;
+        if (endDate) {
+          endDate = new Date(endDate);
+          let month = endDate.getUTCMonth() + 1; //months from 1-12
+          let day = endDate.getUTCDate();
+          let year = endDate.getUTCFullYear();
+          endDate = month + "/" + day + "/" + year;
+        } else {
+          endDate = "Active";
         }
+        let startDate = moduleHistory[i].dateAssigned;
+        startDate = new Date(startDate);
+        let month = startDate.getUTCMonth() + 1; //months from 1-12
+        let day = startDate.getUTCDate();
+        let year = startDate.getUTCFullYear();
+        startDate = month + "/" + day + "/" + year;
+    
+        tableData.push({ module: moduleHistory[i].title, assigned: startDate, removed: endDate, employees: moduleHistory[i].employees });
       }
-
-      return <NiceTable  
-        columns={tableColumns} 
-        data={tableData} 
-        height="300px"
-      />;
+    }
+    
+    return (
+      <TableContainer component={Paper} style={{ height: '300px' }}>
+        <Table aria-label="nice table">
+          <TableHead>
+            <TableRow>
+              {tableColumns.map((column) => (
+                <TableCell key={column.field} align={column.align} style={{ fontWeight: 'bold', borderBottom: '2px solid #ddd' }}>
+                  {column.headerName}
+                </TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {tableData.map((row, index) => (
+              <TableRow key={row.module} style={{ backgroundColor: index % 2 === 0 ? '#f9f9f9' : '#fff' }}>
+                <TableCell component="th" scope="row" style={{ fontWeight: 'bold' }}>
+                  {row.module}
+                </TableCell>
+                <TableCell align="left">{row.assigned}</TableCell>
+                <TableCell align="left">{row.removed}</TableCell>
+                <TableCell align="right">{row.employees}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    );
   }
 
   const MedcurityTimeBarChart = () => {
@@ -411,14 +437,19 @@ useEffect(() => {
               <Grid item xs={2}>
               </Grid>
               <Grid item xs={12}>
-                <Collapsible trigger="Historical Assignments">
-                    <div className="historyTable">
-                      <MedcurityHistory />
-                    </div>
-                </Collapsible>
+  <Accordion>
+    <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
+      Historical Assignments
+    </AccordionSummary>
+    <AccordionDetails>
+      <div className="historyTable">
+        <MedcurityHistory />
+      </div>
+    </AccordionDetails>
+  </Accordion>
+</Grid>
               </Grid>
           </Grid> 
-        </Grid>
         </Grid>);
   } else {
         return (
