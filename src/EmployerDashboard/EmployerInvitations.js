@@ -1,8 +1,9 @@
 import React from 'react';
-import { Form, Card, Button, Row } from 'react-bootstrap';
+import { Form, Card, Row } from 'react-bootstrap';
 import { useEffect, useState } from "react";
 // import { useNavigate } from 'react-router-dom';
 import './EmployerInvitations.css'
+import { Button, Typography } from '@material-ui/core';
 import axios from 'axios';
 // import env from "react-dotenv";
 
@@ -56,14 +57,18 @@ const EmployerInvitations = (props) => {
     };
 
     return (
-        <Card className="Employee_Invite_Request_Card uvs-right">
-                <Row xs={7} md={12} lg={12}> 
-                    <Card.Title className="register_employee_header"><b>Employee Invitations</b></Card.Title>
-                </Row>
-                <Row xs={7} md={7} lg={7}>
+        <div className=" uvs-right" style={{
+            backgroundColor: '#F5F5F5',
+            marginTop: '4rem',
+            marginRight: '5rem',
+        }}>
+                  <Typography variant="h3" gutterBottom style={{
+                    paddingTop: '1rem',
+                    paddingLeft: '2rem',
+                  }}>
+                    Invite Employees
+                    </Typography>
                     <Card.Subtitle className="empolyee_invite_subtitle">Type in an email to create an empty account for a prospective employee. They will be able to register using that email.</Card.Subtitle>
-                </Row>
-                <Row xs={2} md={7} lg={7}  className="justify-content-center">
                     <Form className="email_employee_invite">
                         <Form.Group controlId="formEmail">
                             <Form.Control
@@ -72,15 +77,22 @@ const EmployerInvitations = (props) => {
                                 className="uvs-left"
                                 onChange={(e) => {
                                     setEmail(e.target.value);
-                                }} />
+                                }} 
+                                style={{
+                                    width: '32rem',
+                                    marginLeft: '2rem',
+                                }}
+                                />
                         </Form.Group>
                         <Form.Text className="register_employee_message">{message}</Form.Text>
                     </Form>
-                </Row>
-                <Row xs={2} md={7} lg={7} className="justify-content-center">
-                    <Button className="invite_employees_bttn uvs-left" onClick={invite}>Invite</Button>
-                </Row>
-        </Card>
+               
+                    <Button variant='contained' color='primary' onClick={invite} style={{
+                        marginTop: '1rem',
+                        marginBottom: '1rem',
+                        marginLeft: '2rem',
+                    }}>Invite</Button>
+        </div>
     );
 }
 

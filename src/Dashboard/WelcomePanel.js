@@ -5,6 +5,7 @@ import './../Layout.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import axios from "axios"
 import { useEffect, useState } from "react";
+import { Typography } from '@material-ui/core';
 // import env from "react-dotenv";
 
 /**
@@ -23,12 +24,15 @@ const WelcomePanel = (props) => {
 
     return (
         <>
-        <Card className="WelcomePanelCard uvs-left" style={{flexDirection: 'row'}}>
+        <div className=" uvs-left" style={{flexDirection: 'row', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '3rem', marginLeft: '2rem'}}>
         <Image className="WelcomePanelImage uvs-left" variant="top" src={`data:image/png;base64,${profilePic}`} alt="" roundedCircle />
-            <Card.Body className="cardSize">
-               <Card.Title className="titleFont" >Welcome Back, {user} to the {props.pageTitle}!</Card.Title>
-            </Card.Body> 
-        </Card>
+               <Typography variant="h3" gutterBottom style={{
+                
+               }}>
+                    Welcome Back, {user} to the {props.pageTitle}!
+                </Typography>
+              
+        </div>
         </>
     );
 }

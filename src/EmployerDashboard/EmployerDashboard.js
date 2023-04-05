@@ -11,7 +11,7 @@ import InvalidPage from '../InvalidPage/InvalidPage';
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import SideBar from '../MenuBar/SideBar';
-import Grid from '@mui/material/Unstable_Grid2/Grid2';
+import Grid from '@mui/material/Grid';
 // import env from "react-dotenv";
 
 /**
@@ -62,30 +62,33 @@ const EmployerDashboardPage = () => {
 
     if (currentUser?.type === 'companyAdmin' || currentUser?.type === 'websiteAdmin') {
         return (
-            <Grid container>
-            <Grid item xs={2}>
-                <SideBar />
-            </Grid>
-            <Grid item xs={10}>
-            <MenuBar></MenuBar>
-                <Row className="justify-content-center">
-                    <Col xs={11} md={7} lg={7} className="margin_bottom_employer">
+            <Grid container >
+                <Grid item xs={2}>
+                    <SideBar />
+                 </Grid>
+             <Grid item xs={10}>
+        <MenuBar/>
+            <Grid container spacing={3} >
+                    <Grid item xs={6}>
                         <WelcomePanel user={currentUser} pageTitle={"Employer Dashboard"} />
-                    </Col>
-                    <Col xs={11} md={4} lg={4} className="margin_bottom_employer">
+                    </Grid>
+                    <Grid item xs={6} >
                         <EmployerInvitations companyId={companyId} reload={reload} setReload={setReload} />
-                    </Col>
-                </Row>
-                <Row className="justify-content-center">
-                    <Col xs={11} md={11} lg={11} className="margin_bottom_employer">
+                    </Grid>
+                    <Grid item xs={12}>
                         <EmployerResetUsersStats companyId={companyId} setReload={setReload}></EmployerResetUsersStats>
-                    </Col>
-                </Row>
-                <Row className="justify-content-center">
-                    <Col xs={11} md={11} lg={11} className="margin_bottom_employer">
-                        <EmployeeCards user={currentUser} companyId={companyId} reload={reload} setReload={setReload} />
-                    </Col>
-                </Row>
+                    </Grid>
+                    <Grid item xs={12} sx={{
+                        marginLeft: '35px',
+                        marginRight: '35px',
+                    }}>
+                    <EmployeeCards user={currentUser} companyId={companyId} reload={reload} setReload={setReload} />
+                    </Grid>
+            </Grid>
+
+                 
+                   
+                
             </Grid>
             </Grid>
             )

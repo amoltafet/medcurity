@@ -37,10 +37,9 @@ import ResetPasswordPage from "./ResetPassword/Reset";
 import CompanyProfile from "./Company/CompanyProfile";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import Charts from "./Charts/Charts";
-
 ReactDOM.render(
-
   <Router>
+       
     <Routes>
       <Route path="*" element={<InvalidPage />}/>
       <Route path="/" element={<LoginPage />}/>  

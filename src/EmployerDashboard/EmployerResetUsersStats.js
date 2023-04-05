@@ -1,9 +1,12 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { Card, Row, Button, OverlayTrigger, Popover } from 'react-bootstrap';
+import { Card, Row, OverlayTrigger, Popover } from 'react-bootstrap';
 import './EmployeeCard.css';
 import axios from 'axios';
 // import env from "react-dotenv";
+import Button from '@mui/material/Button';
+import { Typography } from '@material-ui/core';
+import Grid2 from '@mui/material/Unstable_Grid2'; // Grid version 2
 
 /**
  * A card containing a button for resetting user stats
@@ -36,9 +39,15 @@ const EmployeeResetUsersStats = (props) => {
  
     return (
         <>
-        <Row>
-        <Card className="EmployeeCard_dash uvs-right uvs-left justify-content-center" style={{ flexDirection: 'row' }}>
-            <Card.Title className="titleFont_remove_users"><b>Reset All Users: </b></Card.Title>
+        <Grid2 container sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+        }}>
+            <Typography variant="h6" gutterBottom>
+                    Reset All Users 
+            </Typography>
             <OverlayTrigger trigger="click" rootClose placement="bottom" 
             overlay={
                 <Popover id="popover-basic">
@@ -63,8 +72,8 @@ const EmployeeResetUsersStats = (props) => {
                 variant="danger"> 
                 Reset</Button>
             </OverlayTrigger>
-        </Card>
-        </Row>
+            </Grid2>
+      
         </>
     );
 }
