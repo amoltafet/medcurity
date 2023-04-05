@@ -12,6 +12,14 @@ import { Card, CardDeck, Col } from 'react-bootstrap';
 import { useEffect, useState} from "react";
 import axios from 'axios';
 import LearningManagerCard from './LearningManagerCard'
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import { Typography } from '@material-ui/core';
 
 /**
  * Returns Panels of the LearningManager Cards. These show basic
@@ -80,45 +88,44 @@ const LearningManagersCards = (props) => {
 
     return (
         <>
-        <Card className="Current_Modules_Learning_Manager uvs-right">
-            <Card.Title className="employee_learning_modules_manager_title">Upcoming Learning Modules</Card.Title>      
-            <CardDeck style={{display: 'flex', flexDirection: 'column'}}> 
-            <Card className="Learning_Manager_Card_Header uvs-right uvs-left" style={{display: 'flex', flexDirection: 'row' }}>
-                <Col xs={4} md={4} lg={4}>
-                    <div className="Learning_Manager_Card_Values_learning_manager text-center"><b>Learning Module Name</b></div>
-                </Col>
-                <Col xs={4} md={4} lg={4}>
-                    <div className="date_picker_learning_manager_col text-center"><b>Date Due (PST)</b></div>
-                </Col>
-                <Col xs={4} md={4} lg={4}>
-                    <div className="Remove_Button_learning_manager_col text-center"><b>Remove Module</b></div>
-                </Col>
-            </Card>
-            </CardDeck>      
-            <CardDeck className="dashboard" style={{display: 'flex', flexDirection: 'column'}}>
+        <Typography variant="h4" className="uvs-left">Upcoming Learning Modules</Typography>
+        <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <TableHead>
+                    <TableRow>
+                        <TableCell>Learning Module Name</TableCell>
+                        <TableCell align="center">Date Due (PST)</TableCell>
+                        <TableCell align="right">Remove Module</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
                 {createLearningManagerCards(currLearningModules)}
-            </CardDeck>
-        </Card>
-        <Card className="Current_Modules_Learning_Manager uvs-right">
-            <Card.Title className="employee_learning_modules_manager_title">Due Learning Modules</Card.Title>      
-            <CardDeck style={{display: 'flex', flexDirection: 'column'}}> 
-            <Card className="Learning_Manager_Card_Header uvs-right uvs-left" style={{display: 'flex', flexDirection: 'row' }}>
-                <Col xs={4} md={4} lg={4}>
-                    <div className="Learning_Manager_Card_Values_learning_manager text-center"><b>Learning Module Name</b></div>
-                </Col>
-                <Col xs={4} md={4} lg={4}>
-                    <div className="date_picker_learning_manager_col text-center"><b>Date Due (PST)</b></div>
-                </Col>
-
-                <Col xs={4} md={4} lg={4}>
-                    <div className="Remove_Button_learning_manager_col text-center"><b>Remove Module</b></div>
-                </Col>
-            </Card>
-            </CardDeck>
-            <CardDeck className="dashboard" style={{display: 'flex', flexDirection: 'column'}}>
+                </TableBody>
+            </Table>
+        </TableContainer>
+        <Typography variant="h4" className="uvs-left" style={{
+            marginTop: '20px'
+        }}>Due Learning Modules</Typography>
+        <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <TableHead>
+                    <TableRow>
+                        <TableCell>Learning Module Name</TableCell>
+                        <TableCell align="center">Date Due (PST)</TableCell>
+                        <TableCell align="right">Remove Module</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {dueLearningModules.length === 0 && <TableRow>
+                        <TableCell colSpan={3} align="center">No Learning Modules Due</TableCell>
+                    </TableRow>
+                        }
                 {createLearningManagerCards(dueLearningModules)}
-            </CardDeck>
-        </Card>
+                </TableBody>
+            </Table>
+        </TableContainer>
+        
+        
         </>
     );
 }

@@ -1,9 +1,11 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { Card, Col, Row, Button, OverlayTrigger, Popover } from 'react-bootstrap';
+import { OverlayTrigger, Popover } from 'react-bootstrap';
 import './EmployeeCard.css';
 import { useState, useEffect } from "react";
 import axios from 'axios';
+import {TableRow, TableCell} from '@mui/material';
+import Button from '@mui/material/Button';
 // import env from "react-dotenv";
 
 /**
@@ -62,26 +64,26 @@ const EmployeeCard = (props) => {
             setLastActivity("NA");
         }
     }, []);
- 
+
+    const activated = props.activeStatus ? "Active" : "Inactive";
+const email = props.email;
+const name = props.name;
+const progress = props.progress;
+const userId = props.userId;
+const companyId = props.companyId;
+ // { emprops.emailail, name, activated, activity, progress, remove };
     return (
-        <>
-        <Card className="EmployeeCard_dash uvs-right uvs-left justify-content-center" style={{ flexDirection: 'row' }}>
-            <Col xs={2} md={2} lg={2}>
-                <div className="EmployeeCardValues">{props.email}</div>
-            </Col>
-            <Col xs={3} md={2} lg={2}>
-                <div className="EmployeeCardValues text-center">{props.name}</div>
-            </Col>
-            <Col xs={2} md={2} lg={2}>
-                <div className="EmployeeCardValues text-center">{String(Boolean(props.activeStatus))}</div>
-            </Col>
-            <Col xs={2} md={2} lg={2}>
-                <div className="EmployeeCardValues text-center">{lastActivity}</div>
-            </Col>
-            <Col xs={2} md={2} lg={2}>
-                <div className="EmployeeCardValues text-center">{props.progress}</div>
-            </Col>
-            <Col xs={2} md={2} lg={2} className="text-center">
+    
+         <TableRow
+            key={name}
+            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+          >
+            <TableCell component="th" scope="row">{props.email}</TableCell>
+            <TableCell align="right">{props.name}</TableCell>
+            <TableCell align="right">{activated}</TableCell>
+            <TableCell align="right">{lastActivity}</TableCell>
+            <TableCell align="right">{progress}</TableCell>
+            <TableCell align="right">
                 <OverlayTrigger trigger="click" rootClose placement="bottom" 
                 overlay={
                     <Popover id="popover-basic">
@@ -90,8 +92,10 @@ const EmployeeCard = (props) => {
                                 <div>Please confirm that you want to delete the user '{props.name}': </div> 
                                 <div>{message}</div>
                    
-                                <Button className="EmployeeInRowButton_confirm uvs-right justify-content-center" 
-                                    variant="success" 
+                                <Button 
+                                    variant="contained" 
+                                    sx={{ mt: 2, mb: 1 }}
+                                    fullWidth
                                     onClick={() => removeUser(props.userId, props.companyId)}> 
                                     Confirm 
                                 </Button>
@@ -99,16 +103,21 @@ const EmployeeCard = (props) => {
                     </Popover>
                 }>
         
-                    <Button className="uvs-right" 
-                    size="sm" 
-                    variant="danger"> 
+        <Button variant="outlined">
                     Remove</Button>
                 </OverlayTrigger>
-            </Col>
-        </Card>
+            </TableCell>
+          </TableRow>
 
-        </>
+        
     );
 }
+
+
+// 
+
+   
+
+
 
 export default EmployeeCard;

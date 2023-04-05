@@ -71,7 +71,7 @@ export default function TemporaryDrawer() {
           <Toolbar>
             <Search>
               <SearchIconWrapper>
-                <SearchIcon />
+                <SearchIcon color='white'/>
               </SearchIconWrapper>
               <StyledInputBase
                 placeholder="Search…"
@@ -116,7 +116,7 @@ export default function TemporaryDrawer() {
         <React.Fragment key={"right"}>
           <Button onClick={toggleDrawer("right", true)} sx={{
             color: "white",
-            borderColor: "white"
+            borderColor: "white",
           }} variant="outlined" size='small' endIcon={<SearchIcon />}>Search</Button>
           <Drawer
             anchor={"right"}

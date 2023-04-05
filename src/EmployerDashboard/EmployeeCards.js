@@ -5,6 +5,14 @@ import { useEffect, useState} from "react";
 import './EmployeeCard.css';
 import axios from 'axios';
 import EmployeeCard from './EmployeeCard'
+import { Typography } from '@material-ui/core';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 // import env from "react-dotenv";
 
 /**
@@ -115,10 +123,22 @@ const EmployeesCards = (props) => {
             if (completedMods) {
                 completedModulesNum = completedMods
             }
-            objs.push(<EmployeeCard email={employee.email} name={employee.username} 
-                progress={String(completedModulesNum) +'/' + String(totalCompanyRequiredModules)} userId={employee.UserId} 
-                activeStatus={employee.active} companyId={employee.CompanyId} 
-                setReload={props.setReload} />)
+            const progress = String(completedModulesNum) +'/' + String(totalCompanyRequiredModules)
+            const activated = employee.active ? 'Active' : 'Inactive'
+            objs.push(
+                    <EmployeeCard
+                        key={index}
+                        name={employee.username}
+                        email={employee.email}
+                        progress={progress}
+                        activated={activated}
+                        lastActivity={employee.lastActivity}
+                        userId={employee.UserId}
+                        companyId={employee.CompanyId}
+                        reload={props.reload}
+                        setReload={props.setReload}
+                    />
+            )
             size += 1;
         }
         return objs;
@@ -128,40 +148,40 @@ const EmployeesCards = (props) => {
         return assignedModulesCount.totalAssignedModules
     })
 
+    const rows = [];
+
     return (
         <>
-        <Card className="EmployerJoinRequests uvs-right">
-            <Card.Title className="employee_remove_card_header"><b>Employees</b></Card.Title>    
-            <CardDeck style={{flexDirection: 'column'}}>  
-            <Card className="EmployeeCardHeader justify-content-center uvs-right uvs-left" style={{flexDirection: 'row' }}>
-                <Col xs={2} md={2} lg={2} className="employee_remove_card_header_col">
-                    <div className="employee_remove_email text-center"><b>User Email</b></div>
-                </Col>
-                <Col xs={2} md={2} lg={2} className="employee_remove_card_header_col">
-                    <div className="employee_remove_username text-center"><b>User Name</b></div>
-                </Col>
-                <Col xs={2} md={2} lg={2} className="employee_remove_card_header_col">
-                    <div className="employee_remove_active text-center"><b>Activated</b></div>
-                </Col>
-                <Col xs={2} md={2} lg={2} className="employee_remove_card_header_col">
-                    <div className="employee_remove_progress text-center"><b>Last Activity</b></div>
-                </Col>
-                <Col xs={2} md={2} lg={2} className="employee_remove_card_header_col">
-                    <div className="employee_remove_progress text-center"><b>User Progress</b></div>
-                </Col>
-                <Col xs={2} md={2} lg={2} className="employee_remove_card_header_col">
-                    <div className="employee_remove_bttn text-center"><b>Remove User</b></div>
-                </Col>
-            </Card>
-            </CardDeck>
         
-            <CardDeck className="dashboard" style={{display: 'flex', flexDirection: 'column'}}>
-                {createEmployeeCards(employees)}
-            </CardDeck>
+         <Typography variant="h5" className="uvs-left">Employees</Typography>
 
-        </Card>
+
+        <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>User Name</TableCell>
+              <TableCell align="right">User Email</TableCell>
+              <TableCell align="right">Activated</TableCell>
+              <TableCell align="right">Last Activity</TableCell>
+              <TableCell align="right">User Progress</TableCell>
+            <TableCell align="right">Remove User</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {createEmployeeCards(employees)}
+          </TableBody>
+        </Table>
+      </TableContainer>
+
+
         </>
     );
 }
+
+
+  
+
+
 
 export default EmployeesCards

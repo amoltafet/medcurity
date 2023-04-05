@@ -13,6 +13,7 @@ import './LearningManager.css';
 import { useState, useEffect} from "react";
 import axios from 'axios';
 import DatePicker from 'react-date-picker';
+import { TableCell, TableRow } from '@material-ui/core';
 
 /**
  * Panel for LearningModuleCard
@@ -60,43 +61,15 @@ const LearningManagerCard = (props) => {
     }
 
     return (
-        <>
-        <Card className="learning_manager_card uvs-right uvs-left text-center" style={{ flexDirection: 'row' }}>
-            <Col xs={4} md={4} lg={4}>
-                <div className="Learning_Manager_Card_Values_mini">{props.learningModuleName}</div>
-            </Col>
-            <Col  xs={4} md={4} lg={4}>
-                <div><DatePicker className=" uvs-left learning_module_date_picker" onChange={(value) => updateModuleDate(value)} value={dateDue}></DatePicker></div>
-            </Col>
-            <Col xs={4} md={4} lg={4}>
-                <OverlayTrigger trigger="click" rootClose placement="bottom" 
-                overlay={
-                    <Popover id="popover-basic">
-                        <Popover.Content classname="justify-content-center">
-                            <Row>
-                                <div className="LearningManagerCardValues">Please confirm that you want to remove the 
-                                    module '{props.learningModuleName}' from your assigned list of modules. Note that 
-                                    all users will have to redo this learning module if you delete and re-add it.</div>
-                            </Row>
-                            <Row>
-                                <Button className="LearningManagerInRowButton_confirm uvs-right" 
-                                    variant="success" 
-                                    onClick={() => removeModule(props.moduleID, props.companyID)}> 
-                                    Confirm 
-                                </Button>
-                            </Row>
-                        </Popover.Content>
-                    </Popover>
-                }>
-                    <Button className="LearningManagerInRowButton uvs-right" 
-                    size="sm" 
-                    variant="danger"> 
-                    <b>Remove Module</b></Button>
-                </OverlayTrigger>
-            </Col>
-        </Card>
-
-        </>
+        <TableRow
+        key={props.learningModuleName}
+        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+      >
+        <TableCell align='left'>{props.learningModuleName} </TableCell>
+        <TableCell align='center'>  <div><DatePicker className=" uvs-left learning_module_date_picker" onChange={(value) => updateModuleDate(value)} value={dateDue}></DatePicker></div></TableCell>
+        <TableCell align='right'> <Button className="uvs-right learning_module_remove_button" onClick={() => removeModule(props.moduleID, props.companyID)}>Remove</Button></TableCell>
+      
+        </TableRow>
     );
 }
 

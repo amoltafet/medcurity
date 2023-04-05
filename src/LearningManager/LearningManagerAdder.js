@@ -7,10 +7,17 @@ Last Modified: February 14, 2023
 */
 
 import React from 'react';
-import {Card, Button, Row} from 'react-bootstrap';
+import {Card, Row} from 'react-bootstrap';
 import { useEffect, useState} from "react";
 import './LearningManagerAdder.css'
 import axios from 'axios';
+import { Grid, Typography } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 /**
  * This class allows employers to assign LearningModules to their employees.
@@ -69,37 +76,54 @@ const LearningModuleAdder = (props) => {
         const dropdownList = [];
         for (let index in items) {
             let item = items[index];
-            dropdownList.push(<option classname="learningModule font" value={item.ID}>{item.Title}</option>); 
+            dropdownList.push(<MenuItem value={item.ID}>{item.Title}</MenuItem>); 
         }
         return dropdownList;
     }
 
+    const handleChange = (e) => {
+        setLearningModule(e.target.value);
+        addModule();
+      };
+
     return (
-        <Card className="Learning_Manager_Invite_Request_Card uvs-right">
-             <Row xs={7} md={12} lg={12}> 
-                <Card.Title className="register_header_add_learning_module"><b>Add a Learning Module: </b></Card.Title>
-            </Row>
-            <Row xs={7} md={12} lg={12}> 
-                <Card.Subtitle className="invite_subtitle_learning_manager">Choose a learning module to assign to all of your employees.</Card.Subtitle>
-            </Row>
-            <Row xs={2} md={7} lg={12}  className="justify-content-center text-center">
-                <form className="learningModule_add_module_form_container" onSubmit={addModule}>
-                    <label className="learningModule_add_module_form">
+        <Card  style={{
+            width: '100%',
+            height: '100%',
+            padding: '1rem',
+            marginTop: '3rem',
+        }}>
+            <Typography variant="h4">
+                Add a Learning Module
+            </Typography>
+           
+            <Typography variant="subtitle1" >
+            Choose a learning module to assign to all of your employees.
+            </Typography>
+            <div style={{
+                color: 'red',
+                marginTop: '1rem',
+            }}>{message}</div>
+        
+            <Box sx={{ minWidth: 120, marginTop: 2, width: 300 }}>
+                    <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">Modules</InputLabel>
+                        <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={learningModule}
+                        label="Learning Modules"
+                        onChange={handleChange}
+                        >
+                         {createDropDownOptions(modules)}
+                        </Select>
+                    </FormControl>
                     
-                        <select className="learningModule_add_module_form" value={learningModule} 
-                            onChange={ (e) => 
-                            {
-                                setLearningModule(e.target.value);
-                            }}>
-                            {createDropDownOptions(modules)}
-                        </select>
-                    </label>
-                </form>
-                <div className="invite_subtitle_learning_manager">{message}</div>
-            </Row>
-            <Row xs={2} md={7} lg={7} className="justify-content-center">
-                <Button className="create_button_learning_manager uvs-left" onClick={addModule}>Submit</Button>
-            </Row>   
+                    </Box>
+                   
+            
+
+                  
         </Card>
     );
 }
