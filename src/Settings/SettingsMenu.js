@@ -170,7 +170,6 @@ const SettingsMenu = () => {
                   <div class='col-md-6'>
                     <div class='profile-head'>
                       <h5>{currentUser.username}</h5>
-                      <h6>Web Developer and Designer</h6>
                       <p class='proile-rating'>
                         Module Progress : <span>65%</span>
                       </p>
@@ -253,12 +252,6 @@ const SettingsMenu = () => {
                       <a href='https://medcurity.com/'>Website Link</a>
                       <br />
                       <a href={`company/${companyID}`}>Company Link</a>
-                      <br />
-                      <p>SKILLS</p>
-                      <a href=''>Web Designer</a>
-                      <br />
-                      <a href=''>Web Developer</a>
-                      <br />
                     </div>
                   </div>
                   <div class='col-md-8'>
@@ -285,14 +278,6 @@ const SettingsMenu = () => {
                               </div>
                               <div class='col-md-6'>
                                 <p>{currentUser.email}</p>
-                              </div>
-                            </div>
-                            <div class='row'>
-                              <div class='col-md-6'>
-                                <label>Profession</label>
-                              </div>
-                              <div class='col-md-6'>
-                                <p>Web Developer and Designer</p>
                               </div>
                             </div>
                           </div>
@@ -358,22 +343,31 @@ const SettingsMenu = () => {
                                   </p>
                                 </Form.Group>
                               </div>
-                            </div>
-                            <div class='row'>
-                              <div class='col-md-6'>
-                                <label>Phone</label>
-                              </div>
-                              <div class='col-md-6'>
-                                <p>123 456 7890</p>
-                              </div>
-                            </div>
-                            <div class='row'>
-                              <div class='col-md-6'>
-                                <label>Profession</label>
-                              </div>
-                              <div class='col-md-6'>
-                                <p>Web Developer and Designer</p>
-                              </div>
+                              <div class='row'>
+                                <div class='col-md-6'>
+                                <h3>Change Password</h3>
+                                <Form.Group className="passwordInput" controlId="formPlaintextEmail">
+                                    <Form.Text className="passwordText" id="newPasswordText">New Password</Form.Text>
+                                    <Form.Control
+                                        type="password"
+                                        value = {newPassword}
+                                        onChange={(e) => {
+                                            setPassword(e.target.value);
+                                        }}
+                                    ></Form.Control>
+                                </Form.Group>
+                                <Form.Group className="passwordInput" controlId="formPlaintextEmail">
+                                    <Form.Text className="passwordText" id="repeatPasswordText">Retype Password</Form.Text>
+                                    <Form.Control
+                                        type="password"
+                                        value = {repeatPassword}
+                                        onChange={(e) => {
+                                            setRepeatPassword(e.target.value);
+                                        }}
+                                    ></Form.Control>
+                                </Form.Group>
+                                </div>
+                                </div>
                             </div>
                           </div>
                           <OverlayTrigger
@@ -397,53 +391,6 @@ const SettingsMenu = () => {
                         role='tabpanel'
                         aria-labelledby='profile-tab'
                       >
-                        <div class='row'>
-                          <div class='col-md-6'>
-                            <label>Experience</label>
-                          </div>
-                          <div class='col-md-6'>
-                            <p>Expert</p>
-                          </div>
-                        </div>
-                        <div class='row'>
-                          <div class='col-md-6'>
-                            <label>Hourly Rate</label>
-                          </div>
-                          <div class='col-md-6'>
-                            <p>10$/hr</p>
-                          </div>
-                        </div>
-                        <div class='row'>
-                          <div class='col-md-6'>
-                            <label>Total Projects</label>
-                          </div>
-                          <div class='col-md-6'>
-                            <p>230</p>
-                          </div>
-                        </div>
-                        <div class='row'>
-                          <div class='col-md-6'>
-                            <label>English Level</label>
-                          </div>
-                          <div class='col-md-6'>
-                            <p>Expert</p>
-                          </div>
-                        </div>
-                        <div class='row'>
-                          <div class='col-md-6'>
-                            <label>Availability</label>
-                          </div>
-                          <div class='col-md-6'>
-                            <p>6 months</p>
-                          </div>
-                        </div>
-                        <div class='row'>
-                          <div class='col-md-12'>
-                            <label>Your Bio</label>
-                            <br />
-                            <p>Your detail description</p>
-                          </div>
-                        </div>
                       </div>
                     </div>
                   </div>
