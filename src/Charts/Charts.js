@@ -4,9 +4,7 @@ import axios from 'axios';
 import MenuBar from '../MenuBar/MenuBar';
 import InvalidPage from '../InvalidPage/InvalidPage'
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
-import Collapsible from 'react-collapsible';
 import SideBar from '../MenuBar/SideBar';
-import {NiceTable, ColumnModel} from 'react-nice-table';
 import {
   Chart as ChartJS,
   CategoryScale,
