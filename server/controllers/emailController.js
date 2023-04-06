@@ -68,21 +68,41 @@ const sendEmployerInvitationEmail = (req, res) => {
  */
 const addPasswordResetToken = (req, res) =>
 {
-    const userid = req.body.userid
-	const email = req.body.email
+    const userid = req.body.userid;
+	const email = req.body.email;
     const resetToken = require('crypto').randomBytes(32).toString('hex');
-	const oldDateObj = new Date()
-	const expiration = new Date(oldDateObj.getTime() + 15*60000) // expires 15 minutes from now
+	const oldDateObj = new Date();
+	const expiration = new Date(oldDateObj.getTime() + 15*60000); // expires 15 minutes from now
 
 	bcrypt.hash(resetToken, saltRounds, (err, hash) => {
 		db.query("INSERT INTO passwordresettokens (userid, token, expirationdate) VALUES (?,?,?)", [userid, hash, expiration], (err, result) => {
 			if (!err) {
-				
+				sendPasswordResetEmail(email, resetToken);
 			}
-		})
-	})
-    
-}
+		});
+	});
+};
+
+function sendPasswordResetEmail(email, resetToken) {
+	const transporter = nodemailer.createTransport(transporterConfig);
+
+    const mailOptions = {
+        from: "medtestsender@fastmail.com",
+        to: email,
+        subject: "Link to change your Medcurity Learn password",
+        html: `
+		<p>If you requested to reset your password, please click the link below. It expires in 15 minutes.</p>
+		<a href="localhost:3000/resetPassword?token=${resetToken}">Reset Your Password</a>
+		`
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.log(error);
+        }
+    });
+
+};
 
 module.exports =
 {

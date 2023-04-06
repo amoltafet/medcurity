@@ -36,6 +36,7 @@ export default function ReseetPasswordPage()
         var userid = response.data[0].userid;
         var useremail = response.data[0].email;
         // Next, construct a password reset token and add it to the database alongside userid and an expiration time/date
+        // Then, send a password reset link to the inputted email
         axios.post(`${process.env.REACT_APP_BASE_URL}/email/addPasswordResetToken`,
         {
             userid: userid,
