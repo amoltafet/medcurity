@@ -20,6 +20,10 @@ export default function ReseetPasswordPage()
   const login = () => {
     navigate('/');
   };
+
+  const sendResetLink = () => {
+    setTimeout(() => navigate('/resetLinkSent'), 500);
+  };
   
   return (
       <>
@@ -30,10 +34,10 @@ export default function ReseetPasswordPage()
               <div className="col-xs-5 col-md-5">
                 <div className="reset_password_formColumn row justify-content-center">
                   <h3 className="reset_password_h3">Reset Password</h3>
-                  <p className="reset_password_p">First verify you're you, by entering your email for a confirmation code.</p>
+                  <p className="reset_password_p">Enter your email below to receive a password reset link.</p>
                   <Form.Group className="reset_password_Form" controlId="formEmail"> <Form.Control type="email" placeholder="Email"/> </Form.Group>
                   <p></p>
-                  <Button  className="send_code_button" variant="secondary" type="button">Send Email Verification Code</Button>
+                  <Button className="send_code_button" onClick={sendResetLink} variant="secondary" type="button">Send Password Reset Link</Button>
                   <Button className="reset_password_button" onClick={login} variant="secondary" type="button">Back to Login Page</Button>
                 </div>
               </div>

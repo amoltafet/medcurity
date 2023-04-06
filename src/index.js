@@ -34,6 +34,7 @@ import EditQuestionSlug from "./AdminDashboard/ContentDashboard/EditQuestionSlug
 import EditQuestion from "./AdminDashboard/ContentDashboard/EditQuestion";
 import AddContent from "./AdminDashboard/ContentDashboard/AddContent";
 import ResetPasswordPage from "./ResetPassword/Reset";
+import ResetLinkSentPage from "./ResetPassword/ResetSent";
 import CompanyProfile from "./Company/CompanyProfile";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import Charts from "./Charts/Charts";
@@ -44,6 +45,7 @@ ReactDOM.render(
       <Route path="*" element={<InvalidPage />}/>
       <Route path="/" element={<LoginPage />}/>  
       <Route path="/resetPassword" element={<ResetPasswordPage/>}/>
+      <Route path="/resetLinkSent" element={<ResetLinkSentPage/>}/>
       <Route path="/register" element={<RegisterPage />}/>
       {<Route path="/dash" element={<DashboardPage />} />}
       <Route path="/employer-dash" element={<EmployerDashboard />} />
