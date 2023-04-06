@@ -32,7 +32,35 @@ const sendEmployeeInvitationEmail = (req, res) => {
     
 };
 
+const sendEmployerInvitationEmail = (req, res) => {
+    const transporter = nodemailer.createTransport(transporterConfig);
+
+    const mailOptions = {
+        from: "medtestsender@fastmail.com",
+        to: req.body.email,
+        subject: "Invitation to join Medcurity Learn",
+        html: invitationEmailTemplate,
+        attachments: [{
+            filename: "Medcurity_Logo.png",
+            path: __dirname + "/../../public/Medcurity_Logo.png",
+            cid: "MedcurityLogo"
+        }, {
+            filename: "bee.png",
+            path: __dirname + "/../../public/bee.png",
+            cid: "DesignedWithBee"
+        }]
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.log(error);
+        }
+    });
+    
+};
+
 module.exports =
 {
-    sendEmployeeInvitationEmail
+    sendEmployeeInvitationEmail,
+	sendEmployerInvitationEmail
 };
