@@ -4,6 +4,7 @@ import axios from "axios"
 import './Reset.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 /**
 * Creates and displays the main registration page. 
@@ -15,6 +16,8 @@ export default function ReseetPasswordPage()
 
   axios.defaults.withCredentials = true;
 
+  const [inputtedEmail, setInputtedEmail] = useState("");
+
   const navigate = useNavigate();
 
   const login = () => {
@@ -22,6 +25,25 @@ export default function ReseetPasswordPage()
   };
 
   const sendResetLink = () => {
+    // First, find out if the inputted email exists in the database
+    axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, {
+      params: {
+          the_query:
+              `SELECT userid, email FROM users WHERE email = '${inputtedEmail}'`
+      }
+    }).then((response) => {
+      if (response.data.length !== 0) {
+        var userid = response.data[0].userid;
+        var useremail = response.data[0].email;
+        // Next, construct a password reset token and add it to the database alongside userid and an expiration time/date
+        axios.post(`${process.env.REACT_APP_BASE_URL}/email/addPasswordResetToken`,
+        {
+            userid: userid,
+            email: useremail
+        }).then((response) => {
+        });
+      }
+    });
     setTimeout(() => navigate('/resetLinkSent'), 500);
   };
   
@@ -35,7 +57,7 @@ export default function ReseetPasswordPage()
                 <div className="reset_password_formColumn row justify-content-center">
                   <h3 className="reset_password_h3">Reset Password</h3>
                   <p className="reset_password_p">Enter your email below to receive a password reset link.</p>
-                  <Form.Group className="reset_password_Form" controlId="formEmail"> <Form.Control type="email" placeholder="Email"/> </Form.Group>
+                  <Form.Group className="reset_password_Form" controlId="formEmail"> <Form.Control type="email" placeholder="Email" onChange={(e) => {setInputtedEmail(e.target.value);}}/> </Form.Group>
                   <p></p>
                   <Button className="send_code_button" onClick={sendResetLink} variant="secondary" type="button">Send Password Reset Link</Button>
                   <Button className="reset_password_button" onClick={login} variant="secondary" type="button">Back to Login Page</Button>
