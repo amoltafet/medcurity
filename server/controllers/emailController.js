@@ -74,12 +74,48 @@ const addPasswordResetToken = (req, res) =>
 	const oldDateObj = new Date();
 	const expiration = new Date(oldDateObj.getTime() + 15*60000); // expires 15 minutes from now
 
-	bcrypt.hash(resetToken, saltRounds, (err, hash) => {
-		db.query("INSERT INTO passwordresettokens (userid, token, expirationdate) VALUES (?,?,?)", [userid, hash, expiration], (err, result) => {
-			if (!err) {
-				sendPasswordResetEmail(email, resetToken);
-			}
-		});
+	// FIX ENCRYPTION
+	// bcrypt.hash(resetToken, saltRounds, (err, hash) => {
+	// 	db.query("INSERT INTO passwordresettokens (userid, token, expirationdate) VALUES (?,?,?)", [userid, hash, expiration], (err, result) => {
+	// 		if (!err) {
+	// 			sendPasswordResetEmail(email, resetToken);
+	// 		}
+	// 	});
+	// });
+
+	db.query("INSERT INTO passwordresettokens (userid, token, expirationdate) VALUES (?,?,?)", [userid, resetToken, expiration], (err, result) => {
+		if (!err) {
+			sendPasswordResetEmail(email, resetToken);
+		}
+	});
+
+};
+
+/**
+ * Gathers information according to the URL parameter password reset token 
+ */
+const getDetailsFromPasswordResetToken = (req, res) =>
+{
+	const resetToken = req.body.token;
+
+	// FIX ENCRYPTION
+	// db.query("SELECT userid, email, token, expirationdate FROM passwordresettokens JOIN users USING (userid)", (err, result) => {
+	// 	for (row in result) {
+	// 		bcrypt.compare(resetToken, row.token, (error, response) => {
+	// 			if (response) {
+	// 				const useridDetail = row.userid;
+	// 				const emailDetail = row.email;
+	// 				const expirationdateDetail = row.expirationdate;
+	// 				res.send({success: true, useridDetail: useridDetail, emailDetail: emailDetail, expirationdateDetail: expirationdateDetail});
+	// 			}
+	// 		});
+	// 	}
+	// 	res.send({success: false});
+	// });
+
+	db.query("SELECT userid, email, expirationdate FROM passwordresettokens JOIN users USING (userid) WHERE token = ?", [resetToken], (err, result) => {
+		console.log(result);
+		res.send(result);
 	});
 };
 
@@ -108,5 +144,6 @@ module.exports =
 {
     sendEmployeeInvitationEmail,
 	sendEmployerInvitationEmail,
-	addPasswordResetToken
+	addPasswordResetToken,
+	getDetailsFromPasswordResetToken
 };

@@ -18,10 +18,15 @@ export default function ReseetPasswordPage()
 
   const [inputtedEmail, setInputtedEmail] = useState("");
 
+  const queryParameters = new URLSearchParams(window.location.search);
   const navigate = useNavigate();
 
   const login = () => {
     navigate('/');
+  };
+
+  const redo = () => {
+    navigate('/resetPassword');
   };
 
   const sendResetLink = () => {
@@ -48,26 +53,65 @@ export default function ReseetPasswordPage()
     setTimeout(() => navigate('/resetLinkSent'), 500);
   };
   
-  return (
-      <>
-      <Form className="reset_passwordbg img-fluid">
-      <Image className="medcurity_logo justify-content-bottom" variant="top" src="/triangle_logo.png" alt="" />
-      <Form className="reset_password_columnDivder"> 
-            <div className="row justify-content-md-center">
-              <div className="col-xs-5 col-md-5">
-                <div className="reset_password_formColumn row justify-content-center">
-                  <h3 className="reset_password_h3">Reset Password</h3>
-                  <p className="reset_password_p">Enter your email below to receive a password reset link.</p>
-                  <Form.Group className="reset_password_Form" controlId="formEmail"> <Form.Control type="email" placeholder="Email" onChange={(e) => {setInputtedEmail(e.target.value);}}/> </Form.Group>
-                  <p></p>
-                  <Button className="send_code_button" onClick={sendResetLink} variant="secondary" type="button">Send Password Reset Link</Button>
-                  <Button className="reset_password_button" onClick={login} variant="secondary" type="button">Back to Login Page</Button>
+  if (queryParameters.has("token")) {
+
+    const token = queryParameters.get("token");
+
+    axios.post(`${process.env.REACT_APP_BASE_URL}/email/getDetailsFromPasswordResetToken`,
+    {
+      token: token
+    }).then((response) => {
+      console.log(response);
+      if (response.data.length !== 0) { // token exists in the database
+        return (
+          <>
+          <p>Token: {token}</p>
+          </>
+        )
+      } else { // token doesn't exist in the database
+        return (
+          <>
+          <Form className="reset_passwordbg img-fluid">
+          <Image className="medcurity_logo justify-content-bottom" variant="top" src="/triangle_logo.png" alt="" />
+          <Form className="reset_password_columnDivder"> 
+                <div className="row justify-content-md-center">
+                  <div className="col-xs-5 col-md-5">
+                    <div className="reset_password_formColumn row justify-content-center">
+                      <h3 className="reset_password_h3">There's been an error...</h3>
+                      <p className="reset_password_p">That link didn't seem to work. Try again below:</p>
+                      <Button className="send_code_button" onClick={redo} variant="secondary" type="button">Send Another Reset Link</Button>
+                    </div>
+                  </div>
+                </div>
+            </Form>
+          </Form>
+          </>
+        );
+      }
+    });
+    
+  } else {
+    return (
+        <>
+        <Form className="reset_passwordbg img-fluid">
+        <Image className="medcurity_logo justify-content-bottom" variant="top" src="/triangle_logo.png" alt="" />
+        <Form className="reset_password_columnDivder"> 
+              <div className="row justify-content-md-center">
+                <div className="col-xs-5 col-md-5">
+                  <div className="reset_password_formColumn row justify-content-center">
+                    <h3 className="reset_password_h3">Reset Password</h3>
+                    <p className="reset_password_p">Enter your email below to receive a password reset link.</p>
+                    <Form.Group className="reset_password_Form" controlId="formEmail"> <Form.Control type="email" placeholder="Email" onChange={(e) => {setInputtedEmail(e.target.value);}}/> </Form.Group>
+                    <p></p>
+                    <Button className="send_code_button" onClick={sendResetLink} variant="secondary" type="button">Send Password Reset Link</Button>
+                    <Button className="reset_password_button" onClick={login} variant="secondary" type="button">Back to Login Page</Button>
+                  </div>
                 </div>
               </div>
-            </div>
+          </Form>
         </Form>
-      </Form>
-      </>
-  );
-}
+        </>
+    );
+  }
 
+}
