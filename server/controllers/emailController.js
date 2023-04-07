@@ -137,7 +137,6 @@ function sendPasswordResetEmail(email, resetToken) {
             console.log(error);
         }
     });
-
 };
 
 module.exports =
