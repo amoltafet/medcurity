@@ -4,7 +4,7 @@ import axios from "axios"
 import './Reset.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 /**
 * Creates and displays the main registration page. 
@@ -16,10 +16,37 @@ export default function ReseetPasswordPage()
 
   axios.defaults.withCredentials = true;
 
+  const [isLoading, setIsLoading] = useState(true);
+  const [tokenExists, setTokenExists] = useState(null);
+  const [useridDetail, setUseridDetail] = useState(null);
+  const [emailDetail, setEmailDetail] = useState(null);
+  const [expirationdateDetail, setExpirationdateDetail] = useState(null);
+  const [tokenIsExpired, setTokenIsExpired] = useState(null);
   const [inputtedEmail, setInputtedEmail] = useState("");
 
   const queryParameters = new URLSearchParams(window.location.search);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (queryParameters.has("token")) {
+      var token = queryParameters.get("token");
+
+      axios.post(`${process.env.REACT_APP_BASE_URL}/email/getDetailsFromPasswordResetToken`,
+      {
+        token: token
+      }).then((response) => {
+        if (response.data.length !== 0) { // token exists in the database
+          setTokenExists(true);
+          setUseridDetail(response.data[0].userid);
+          setEmailDetail(response.data[0].email);
+          setExpirationdateDetail(response.data[0].expirationdate);
+        } else { // token doesn't exist in the database
+          setTokenExists(false);
+        }
+        setIsLoading(false);
+      });
+    }
+  }, []);
 
   const login = () => {
     navigate('/');
@@ -55,20 +82,18 @@ export default function ReseetPasswordPage()
   
   if (queryParameters.has("token")) {
 
-    const token = queryParameters.get("token");
-
-    axios.post(`${process.env.REACT_APP_BASE_URL}/email/getDetailsFromPasswordResetToken`,
-    {
-      token: token
-    }).then((response) => {
-      console.log(response);
-      if (response.data.length !== 0) { // token exists in the database
+    if (isLoading) {
+      return (
+        <></>
+      );
+    } else {
+      if (tokenExists) {
         return (
           <>
-          <p>Token: {token}</p>
+          <p>Email: {emailDetail}</p>
           </>
-        )
-      } else { // token doesn't exist in the database
+        );
+      } else {
         return (
           <>
           <Form className="reset_passwordbg img-fluid">
@@ -88,7 +113,7 @@ export default function ReseetPasswordPage()
           </>
         );
       }
-    });
+    }
     
   } else {
     return (
