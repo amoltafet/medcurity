@@ -20,7 +20,6 @@ export default function ReseetPasswordPage()
   const [tokenExists, setTokenExists] = useState(null);
   const [useridDetail, setUseridDetail] = useState(null);
   const [emailDetail, setEmailDetail] = useState(null);
-  const [expirationdateDetail, setExpirationdateDetail] = useState(null);
   const [tokenIsExpired, setTokenIsExpired] = useState(null);
   const [inputtedEmail, setInputtedEmail] = useState("");
 
@@ -39,7 +38,13 @@ export default function ReseetPasswordPage()
           setTokenExists(true);
           setUseridDetail(response.data[0].userid);
           setEmailDetail(response.data[0].email);
-          setExpirationdateDetail(response.data[0].expirationdate);
+          var currDateObj = new Date();
+          var expDateObj = new Date(response.data[0].expirationdate);
+          if (currDateObj.getTime() >= expDateObj.getTime()) { // token has expired
+            setTokenIsExpired(true);
+          } else { // token has not expired yet
+            setTokenIsExpired(false);
+          }
         } else { // token doesn't exist in the database
           setTokenExists(false);
         }
@@ -88,11 +93,32 @@ export default function ReseetPasswordPage()
       );
     } else {
       if (tokenExists) {
-        return (
-          <>
-          <p>Email: {emailDetail}</p>
-          </>
-        );
+        if (tokenIsExpired) {
+          return (
+            <>
+            <Form className="reset_passwordbg img-fluid">
+            <Image className="medcurity_logo justify-content-bottom" variant="top" src="/triangle_logo.png" alt="" />
+            <Form className="reset_password_columnDivder"> 
+                  <div className="row justify-content-md-center">
+                    <div className="col-xs-5 col-md-5">
+                      <div className="reset_password_formColumn row justify-content-center">
+                        <h3 className="reset_password_h3">There's been an error...</h3>
+                        <p className="reset_password_p">That link has expired. Try again below:</p>
+                        <Button className="send_code_button" onClick={redo} variant="secondary" type="button">Send Another Reset Link</Button>
+                      </div>
+                    </div>
+                  </div>
+              </Form>
+            </Form>
+            </>
+          );
+        } else {
+          return (
+            <>
+            <p>Email: {emailDetail}</p>
+            </>
+          );
+        }
       } else {
         return (
           <>

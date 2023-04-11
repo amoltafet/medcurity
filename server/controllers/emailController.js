@@ -114,7 +114,6 @@ const getDetailsFromPasswordResetToken = (req, res) =>
 	// });
 
 	db.query("SELECT userid, email, expirationdate FROM passwordresettokens JOIN users USING (userid) WHERE token = ?", [resetToken], (err, result) => {
-		console.log(result);
 		res.send(result);
 	});
 };
