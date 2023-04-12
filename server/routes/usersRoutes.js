@@ -15,6 +15,7 @@ router.get('/login', userControllers.userLoginSession);
 router.post('/logout', userControllers.userLogout);
 router.post('/changeUserName', userControllers.userChangeUsername);
 router.post('/changeUserPassword', userControllers.userChangePassword);
+router.post('/resetUserPassword', userControllers.userResetPassword);
 router.post('/changeCompanyName', userControllers.userChangeCompanyName);
 router.post('/changeCompanyBio', userControllers.userChangeCompanyBio);
 router.post('/toggleCompanyPrivacy', userControllers.toggleCompanyPrivacy);

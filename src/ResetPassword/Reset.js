@@ -22,6 +22,7 @@ export default function ReseetPasswordPage()
   const [emailDetail, setEmailDetail] = useState(null);
   const [tokenIsExpired, setTokenIsExpired] = useState(null);
   const [inputtedEmail, setInputtedEmail] = useState("");
+  const [newPassword, setNewPassword] = useState("");
 
   const queryParameters = new URLSearchParams(window.location.search);
   const navigate = useNavigate();
@@ -84,6 +85,16 @@ export default function ReseetPasswordPage()
     });
     setTimeout(() => navigate('/resetLinkSent'), 500);
   };
+
+  const confirmReset = () => {
+    axios.post(`${process.env.REACT_APP_BASE_URL}/users/resetUserPassword`,
+    {
+      userid: useridDetail,
+      newPassword: newPassword
+    }).then((response) => {
+    });
+    setTimeout(() => navigate('/resetConfirmed'), 500);
+  };
   
   if (queryParameters.has("token")) {
 
@@ -115,7 +126,22 @@ export default function ReseetPasswordPage()
         } else {
           return (
             <>
-            <p>Email: {emailDetail}</p>
+            <Form className="reset_passwordbg img-fluid">
+            <Image className="medcurity_logo justify-content-bottom" variant="top" src="/triangle_logo.png" alt="" />
+            <Form className="reset_password_columnDivder"> 
+                  <div className="row justify-content-md-center">
+                    <div className="col-xs-5 col-md-5">
+                      <div className="reset_password_formColumn row justify-content-center">
+                        <h3 className="reset_password_h3">Reset Password</h3>
+                        <p className="reset_password_p">Enter the new password for {emailDetail} below.</p>
+                        <Form.Group className="reset_password_Form" controlId="formEmail"> <Form.Control type="password" placeholder="New Password" onChange={(e) => {setNewPassword(e.target.value);}}/> </Form.Group>
+                        <p></p>
+                        <Button className="send_code_button" onClick={confirmReset} variant="secondary" type="button">Confirm Password Reset</Button>
+                      </div>
+                    </div>
+                  </div>
+              </Form>
+            </Form>
             </>
           );
         }
