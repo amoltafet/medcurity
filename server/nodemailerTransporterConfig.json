@@ -2,7 +2,7 @@
     "service": "FastMail",
     "auth":
     {
-        "user": "medtestsender@fastmail.com",
-        "pass": "syrupjdxgxm92c3r"
+        "user": "automated@medcurity.com",
+        "pass": "7asg2acyftrby9hc"
     }
 }
