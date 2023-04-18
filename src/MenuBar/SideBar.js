@@ -119,8 +119,7 @@ const SideBar = () => {
 
     const adminNav = [
         { name: 'Edit Modules', link: '/admin-content', icon: 'bi bi-pencil-square' },
-        { name: 'Manage Employers', link: '/admin-dash', icon: 'bi bi-clipboard-check' },
-        { name: 'Send Message', link: '/', icon: 'bi bi-chat-right-dots' },
+        { name: 'Manage Employers', link: '/admin-dash', icon: 'bi bi-clipboard-check' }
     ]
 
     return (

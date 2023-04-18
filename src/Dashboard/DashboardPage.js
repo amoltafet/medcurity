@@ -74,7 +74,7 @@ const DashboardPage = () => {
                     <div className="dash_navButtons">
                     <Button variant="outlined" sx={{color: 'white', borderColor: 'white', margin: '5px', ":hover": {backgroundColor: 'white', color: 'black'}}} href="#requiredModules">Required Learning Modules</Button>
                     <Button variant="outlined" sx={{color: 'white', borderColor: 'white', margin: '5px', ":hover": {backgroundColor: 'white', color: 'black'}}} href="#moduleDirectories">Additional Learning Modules</Button>
-                    <Button variant="outlined" sx={{color: 'white', borderColor: 'white', margin: '5px', ":hover": {backgroundColor: 'white', color: 'black'}}} href="#leaderboard">Leaderboard</Button>
+                    <Button variant="outlined" sx={{color: 'white', borderColor: 'white', margin: '5px', ":hover": {backgroundColor: 'white', color: 'black'}}} href="#board">Leaderboard</Button>
                     </div>
                   </div>
             </Grid>
@@ -85,7 +85,7 @@ const DashboardPage = () => {
           <div id="moduleDirectories" />
           <LearningModulesDirectories user={currentUser} id="moduleDirectories"/>
 
-            <div id="leaderboard" className="container" style={{
+            <div className="container" style={{
                 marginTop: '30px',
             }}>
               <h1 className='dash_h1Style'>Leaderboard</h1>
@@ -96,6 +96,7 @@ const DashboardPage = () => {
             </div>
           <br></br> 
         </Form>
+        <div id="board" />
         <Grid container sx={{
           padding: '10px',
           width: '100%',
