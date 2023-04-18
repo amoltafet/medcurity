@@ -27,7 +27,7 @@ const SettingsMenu = () => {
   const [show, setShow] = useState(false);
   const [isLoaded, setLoaded] = useState(false);
   const [company, setCompany] = useState([]);
-  const [companyID, setCompanyID] = useState([]);
+  const [companyID, setCompanyID] = useState(null);
   const [newPassword, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
   const [profilePic, setProfilePic] = useState('');
@@ -66,6 +66,19 @@ const SettingsMenu = () => {
       }
     }
   }, [currentUser]);
+
+    // setting company information 
+    useEffect(() => {
+      if (companyID) {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/api/getQuery`, {
+          params: {the_query: `SELECT name FROM companies WHERE companyid = ${companyID}`}
+        })
+        .then(response => {
+          setCompany(response.data[0].name);
+        })
+        .catch(error => console.error(`Error ${error}`));
+      }
+    }, [companyID]);
 
   // changing user name
   useEffect(() => {
@@ -170,9 +183,6 @@ const SettingsMenu = () => {
                   <div class='col-md-6'>
                     <div class='profile-head'>
                       <h5>{currentUser.username}</h5>
-                      <p class='proile-rating'>
-                        Module Progress : <span>65%</span>
-                      </p>
                       <ul class='nav nav-tabs' id='myTab' role='tablist'>
                         <Nav className='justify-content-center'>
                           <li class='nav-item'>
@@ -247,11 +257,7 @@ const SettingsMenu = () => {
                 </div>
                 <div class='row'>
                   <div class='col-md-4'>
-                    <div class='profile-work'>
-                      <p>Works at {company}</p>
-                      <a href='https://medcurity.com/'>Website Link</a>
-                      <br />
-                      <a href={`company/${companyID}`}>Company Link</a>
+                    <div>
                     </div>
                   </div>
                   <div class='col-md-8'>
@@ -278,6 +284,14 @@ const SettingsMenu = () => {
                               </div>
                               <div class='col-md-6'>
                                 <p>{currentUser.email}</p>
+                              </div>
+                            </div>
+                            <div class='row'>
+                              <div class='col-md-6'>
+                                <label>Works At</label>
+                              </div>
+                              <div class='col-md-6'>
+                                <p><a href={`company/${companyID}`}>{company}</a></p>
                               </div>
                             </div>
                           </div>
