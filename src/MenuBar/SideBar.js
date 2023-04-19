@@ -248,21 +248,7 @@ const SideBar = () => {
        
         </>
         : null}
-            <MenuItem onClick={() => { 
-                logout();
-                navigate('/login');
-            }} style={{
-                marginTop: '100%',
-                marginBottom: '1rem',
-                border: '1px solid #E5E5E5',
-
-                
-            }}>
-                <ListItemIcon>
-                    <i className="bi bi-box-arrow-right"></i>
-                </ListItemIcon>
-                Logout
-            </MenuItem>
+            
        
         </Menu>
         </Sidebar>
