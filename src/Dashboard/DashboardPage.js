@@ -93,8 +93,7 @@ const DashboardPage = () => {
             </div>
           <br></br>
 
-        </Form>
-        <div id="board" />
+        </Grid>
         <Grid container sx={{
           padding: '10px',
           width: '100%',
@@ -109,7 +108,7 @@ const DashboardPage = () => {
         </Grid>
 
        </Grid>
-      </Grid>
+      
     );
   }
   else {
