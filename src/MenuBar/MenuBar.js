@@ -1,17 +1,16 @@
 import React from 'react';
 import './MenuBar.css';
 import '../Layout.css'
-import { Nav, CardImg, Tooltip, Navbar, NavDropdown } from 'react-bootstrap'
+import { Nav, Tooltip, Navbar, NavDropdown } from 'react-bootstrap'
 import { useEffect, useState } from "react";
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import Notifications from './Notifications/Notifications'
 import Badge from '@material-ui/core/Badge';
-import { Button } from '@mui/material';
 import Search from './Search/Search'
 import InsertChartOutlinedRoundedIcon from '@mui/icons-material/InsertChartOutlinedRounded';
+import { Button } from '@mui/material';
 // import env from "react-dotenv";
-
 
 
 /**
@@ -29,6 +28,12 @@ const Menubar = () => {
     const [isCompanyLoading, setCompanyLoading] = useState(true)
     const [notifs, setNotifs] = useState([]);
     const [unreadNotifs, setunreadNotifs] = useState(false);
+    const [showBackButton, setShowBackButton] = useState(false);
+
+   
+    const goBack = () => {
+        window.history.back();
+    }
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_BASE_URL}/users/login`).then((response) => {
@@ -204,11 +209,22 @@ const Menubar = () => {
     * Lets the user know the logo is the button to go back to the dash 
     * @param props 
     */
-    const renderTooltip = (props) => (
-        <Tooltip id="button-tooltip" {...props}>
-          Back to Main Dash
-        </Tooltip>
-    );
+    const renderTooltip = () => {
+      //gratb url and split it to get the page name
+      const url = window.location.href;
+      const page = url.split("/")[3];
+      //if the page is charts or dashboard, show the tooltip
+      if (page === "charts" || page === "quiz") {
+      return (
+          <Button variant="contained" onClick={() => goBack()}>
+          Go Back
+        </Button>
+      
+    ) } else {
+      return (
+        <></>)
+      }
+    }
 
     /**
     * Sets the buttons in each MenuBar based on which page the user is on. 
@@ -219,7 +235,10 @@ const Menubar = () => {
        <>
 <nav class="navbar navbar-expand-lg navbar-color">
   <div class="container-fluid">
-            
+      
+      
+        {renderTooltip()}
+
     
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">

@@ -405,16 +405,16 @@ useEffect(() => {
   {
       return (
         <Grid container>
-        <Grid item xs={2}>
-            <SideBar />
-        </Grid>
-        <Grid item xs={10}>
+        <div>
+          
+        </div>
+        <div>
         <MenuBar></MenuBar>
           <Grid container spacing={3} sx={{
               padding: 5,
           }}>
       
-              <Grid item xs={12}>
+              <Grid item xs={12} >
                   <Paper className="linechart" elevation={2} >
                       <MedcurityLineChart />
                   </Paper>
@@ -447,7 +447,7 @@ useEffect(() => {
   </Accordion>
 </Grid>
               </Grid>
-          </Grid> 
+          </div> 
         </Grid>);
   } else {
         return (

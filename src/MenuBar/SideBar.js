@@ -13,6 +13,10 @@ import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import { Typography } from '@material-ui/core';
 import { Button, Paper } from '@mui/material';
+import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
+import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
+import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const SideBar = () => {
     axios.defaults.withCredentials = true;
@@ -24,7 +28,10 @@ const SideBar = () => {
     const [isLoading, setLoading] = useState(true)
     const [isCompanyLoading, setCompanyLoading] = useState(true)
     const [currentNav, setCurrentNav] = useState('home');
+    const [isSideBarOpen, setSideBarOpen] = useState(false);
 
+    
+    
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_BASE_URL}/users/login`).then((response) => {
           setCurrentUser(response.data.user[0])
@@ -40,8 +47,6 @@ const SideBar = () => {
     }, [currentUser])
 
 
-
-
     useEffect(() => {
         // grab href from url
         const url = window.location.href;
@@ -52,6 +57,7 @@ const SideBar = () => {
     }, [])
 
         
+  
 
 
     // Query for getting user's required learning modules
@@ -91,19 +97,7 @@ const SideBar = () => {
     }
   }, [currentUser]);
 
-    const logout = () => {
-        axios.post(`${process.env.REACT_APP_BASE_URL}/users/logout`).then((response) => 
-        {
-          if (response.data.success === true)
-          {
-            navigate('/');
-          }
-          else if (response.data.success === false)
-          {
-
-          }
-        }).catch(error => console.error(`Error ${error}`));
-    };
+  
 
     const userNav = [
         { name: 'Home', link: '/dash', icon: 'bi bi-house-door' },
@@ -119,90 +113,93 @@ const SideBar = () => {
 
     const adminNav = [
         { name: 'Edit Modules', link: '/admin-content', icon: 'bi bi-pencil-square' },
-        { name: 'Manage Employers', link: '/admin-dash', icon: 'bi bi-clipboard-check' },
-        { name: 'Send Message', link: '/', icon: 'bi bi-chat-right-dots' },
+        { name: 'Manage Employers', link: '/admin-dash', icon: 'bi bi-clipboard-check' }
     ]
 
-    return (
-       <Paper elevation={3} style={{
-        position: 'sticky',
-        top: '0',
-        left: '0',
-        height: '100vh',
-        width: 'auto',
+    const toggleSidebar = () => {
+        setSideBarOpen(!isSideBarOpen);
+    };
 
-        paddingTop: '2rem',
-       }}>
-      
+
+
+    return (
+        <>
+         <Sidebar defaultCollapsed={isSideBarOpen} >
+            <Menu>
+                <MenuItem onClick={toggleSidebar} sx={{
+                    // no hover
+                    '&:hover': {
+                        backgroundColor: 'transparent',
+                    },
+
+                }}>
+                    
+                            {isSideBarOpen ? <KeyboardDoubleArrowRightIcon /> : <KeyboardDoubleArrowLeftIcon />}
+                </MenuItem>
+            <MenuItem style={{
+                marginBottom: '4%',
+            }}>
+        <a href="/dash"> 
         
-        <a href="/dash"> <CardImg className="MedcurityLogo mr-5" variant="top" src="/Medcurity_Logo.png" alt="" /> </a>
-        <div style={{ marginTop: '1rem', padding: "1rem" }}>
+        <CardImg className="" variant="top" src="/Medcurity_Logo.png" alt="" /> 
         
-        <List>
+        </a>
+        </MenuItem>
             {userNav.map((item, index) => {
                     return (
-                        <div style={{
-                            alignItems: 'left',
-                            marginTop: '0.5rem',
-                        }}>
-                            <Button variant={item.link === currentNav ? 'contained' : 'outlined'}
-                            
-                            onClick={() => navigate(item.link)} id={item.name.toLowerCase()} fullWidth size='medium' style={{
+                        <MenuItem key={index}  onClick={() => navigate(item.link)} id={item.name.toLowerCase()} style={{
                             // if active then change color
-                            justifyContent: 'left',
-                            }}>
+                            border: item.link === currentNav ? '1px solid #4535F5' : '1px solid #E5E5E5',
+                          
+                        }}>
+                           
                             <ListItemIcon>
                             <i className={item.icon} style={{
                                 // if active then change color
-                                color: item.link === currentNav ? 'white' : 'black',
+                                color: item.link === currentNav ? '#4535F5' : 'black',
                             }}></i>
                             </ListItemIcon>
                           {item.name} 
-                            </Button>
+                       
 
 
 
-                        </div>
+                            </MenuItem>
                         
 
                 )
             })}
-        </List> 
-        <Divider />
        
         {!isCompanyLoading && Number.isInteger(companyId) ? 
           <>
-           <Typography variant="overline" display="block" gutterBottom style={{
+          {isSideBarOpen ? 
+          null : <Typography variant="overline" display="block" gutterBottom style={{
             marginLeft: '1rem',
             marginTop: '1rem',
         }}>
             Company Tools
-        </Typography>
+        </Typography>}
             <List>
             {companyNav.map((item, index) => {
                     return (
-                        <div style={{
-                            alignItems: 'left',
-                            marginTop: '0.5rem',
-                        }}>
-                            <Button variant={item.link === currentNav ? 'contained' : 'outlined'}
-                            
-                            onClick={() => navigate(item.link)} id={item.name.toLowerCase()} fullWidth size='medium' style={{
+                        <MenuItem key={index}  onClick={() => navigate(item.link)} id={item.name.toLowerCase()} style={{
                             // if active then change color
-                            justifyContent: 'left',
-                            }}>
+                            border: item.link === currentNav ? '1px solid #4535F5' : '1px solid #E5E5E5',
+                            
+                        }}>
+                           
                             <ListItemIcon>
                             <i className={item.icon} style={{
                                 // if active then change color
-                                color: item.link === currentNav ? 'white' : 'black',
+                                color: item.link === currentNav ? '#4535F5' : 'black',
                             }}></i>
                             </ListItemIcon>
                           {item.name} 
-                            </Button>
+                       
 
 
 
-                        </div>
+                            </MenuItem>
                 )
             })}
         </List> 
@@ -213,54 +210,45 @@ const SideBar = () => {
   <Divider />
         {currentUser.type === "websiteAdmin"? 
         <>
+        {isSideBarOpen ? null :
         <Typography variant="overline" display="block" gutterBottom style={{
             marginLeft: '1rem',
             marginTop: '1rem',
         }}>
             Admin Tools
         </Typography>
+        }
         <List>
             {adminNav.map((item, index) => {
                     return (
-                        <div style={{
-                            alignItems: 'left',
-                            marginTop: '0.5rem',
-                        }}>
-                            <Button variant={item.link === currentNav ? 'contained' : 'outlined'}
-                            
-                            onClick={() => navigate(item.link)} id={item.name.toLowerCase()} fullWidth size='medium' style={{
+                        <MenuItem key={index}  onClick={() => navigate(item.link)} id={item.name.toLowerCase()} style={{
                             // if active then change color
-                            justifyContent: 'left',
-                            }}>
+                            border: item.link === currentNav ? '1px solid #4535F5' : '1px solid #E5E5E5',
+                            
+                        }}>
+                           
                             <ListItemIcon>
                             <i className={item.icon} style={{
                                 // if active then change color
-                                color: item.link === currentNav ? 'white' : 'black',
+                                color: item.link === currentNav ? '#4535F5' : 'black',
                             }}></i>
                             </ListItemIcon>
                           {item.name} 
-                            </Button>
+                       
 
 
-
-                        </div>
+                            </MenuItem>
                 )
             })}
         </List> 
        
         </>
         : null}
-        </div>
-        <Button variant="contained" color="primary" onClick={logout} style={{
-            position: 'absolute',
-            bottom: '1rem',
-            left: '1rem',
-            width: '14rem',
-        }}>
-            Logout
-        </Button>
-        </Paper>
-
+            
+       
+        </Menu>
+        </Sidebar>
+        </>
     );
 
 }

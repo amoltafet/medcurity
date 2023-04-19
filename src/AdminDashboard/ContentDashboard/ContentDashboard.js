@@ -6,6 +6,8 @@ import ContentCards from './ContentCards';
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import InvalidPage from '../../InvalidPage/InvalidPage';
+import SideBar from '../../MenuBar/SideBar';
+import Grid from '@mui/material/Unstable_Grid2/Grid2';
 
 const AdminContentPage = () => {
   const [currentUser, setCurrentUser] = useState([]);
@@ -31,7 +33,11 @@ const AdminContentPage = () => {
   if (currentUser?.type === "websiteAdmin") {
     return (
       <>   
-        <MenuBar></MenuBar>
+         <Grid container >
+                <div>
+            <SideBar />
+        </div>
+        <Grid sx={{ flexGrow: 1 }} item>
         <div className="col dash_topBackdrop justif">
           <div className="dash_welcomeDiv">
             <Image className="dash_profilePicture" variant="top" src={`data:image/png;base64,${profilePic}`} alt="" roundedCircle />
@@ -48,6 +54,8 @@ const AdminContentPage = () => {
             <ContentCards companyId={companyId} />
           </div>
         </Container>
+        </Grid>
+        </Grid>
       </>
     );
       

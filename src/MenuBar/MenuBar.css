@@ -36,9 +36,6 @@
 }
 
 
-.MedcurityLogo {
-    width: 15vmax;
-}
 
 .logo {
     border: white;
@@ -72,5 +69,10 @@
     height: 2vmax;
     align-self: center;
 }
-
+.sidebar-content {
+    margin-left: 1%;
+}
   
+
+
+

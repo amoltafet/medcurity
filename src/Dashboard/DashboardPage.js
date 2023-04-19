@@ -52,15 +52,12 @@ const DashboardPage = () => {
   if (currentUser?.userid) {
     return (
       <Grid container >
-        <Grid item xs={2}>
+        <div>
             <SideBar />
-        </Grid>
-        <Grid item xs={10}>
+        </div>
+        <Grid sx={{ flexGrow: 1 }} item>
         <MenuBar/>
-        <Form className="dash_page">
-          
-         
-
+        
           
 
           <Grid container style={{alignItems: 'center', justifyContent: 'center', height: '45vh'}} className="dash-container">
@@ -74,7 +71,7 @@ const DashboardPage = () => {
                     <div className="dash_navButtons">
                     <Button variant="outlined" sx={{color: 'white', borderColor: 'white', margin: '5px', ":hover": {backgroundColor: 'white', color: 'black'}}} href="#requiredModules">Required Learning Modules</Button>
                     <Button variant="outlined" sx={{color: 'white', borderColor: 'white', margin: '5px', ":hover": {backgroundColor: 'white', color: 'black'}}} href="#moduleDirectories">Additional Learning Modules</Button>
-                    <Button variant="outlined" sx={{color: 'white', borderColor: 'white', margin: '5px', ":hover": {backgroundColor: 'white', color: 'black'}}} href="#leaderboard">Leaderboard</Button>
+                    <Button variant="outlined" sx={{color: 'white', borderColor: 'white', margin: '5px', ":hover": {backgroundColor: 'white', color: 'black'}}} href="#board">Leaderboard</Button>
                     </div>
                   </div>
             </Grid>
@@ -85,7 +82,7 @@ const DashboardPage = () => {
           <div id="moduleDirectories" />
           <LearningModulesDirectories user={currentUser} id="moduleDirectories"/>
 
-            <div id="leaderboard" className="container" style={{
+            <div className="container" style={{
                 marginTop: '30px',
             }}>
               <h1 className='dash_h1Style'>Leaderboard</h1>
@@ -94,22 +91,24 @@ const DashboardPage = () => {
                 marginTop: '30px',
               }}>View Full Leaderboard</Button>
             </div>
-          <br></br> 
-        </Form>
+          <br></br>
+
+        </Grid>
         <Grid container sx={{
           padding: '10px',
           width: '100%',
           height: '50px',
-          background: 'linear-gradient(to right, #001F40, #001F3F)',
           justifyContent: 'center',
           alignItems: 'center',
+          flexGlow: 1,
+
         }}>
           
-          <p className="dash_footerText text-light">© 2023 Medcurity. All rights reserved.</p>
+          <p className="dash_footerText ">© 2023 Medcurity. All rights reserved.</p>
         </Grid>
 
        </Grid>
-      </Grid>
+      
     );
   }
   else {

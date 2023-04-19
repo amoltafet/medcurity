@@ -67,8 +67,8 @@ const EmployerInvitations = (props) => {
     return (
         <div className=" uvs-right" style={{
             backgroundColor: '#F5F5F5',
-            marginTop: '4rem',
-            marginRight: '5rem',
+            marginTop: '5%',
+            
         }}>
                   <Typography variant="h3" gutterBottom style={{
                     paddingTop: '1rem',
