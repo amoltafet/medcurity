@@ -14,7 +14,6 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import React from 'react'
-import Badges from '../Badges/Badges'
 import './CompanySet.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useSearchParams } from 'react-router-dom'
@@ -286,21 +285,6 @@ const CompanySet = () => {
                                 role='tab'
                                 aria-controls='profile'
                                 aria-selected='false'
-                                eventKey='badges'
-                              >
-                                Badges
-                              </Nav.Link>
-                            </Nav.Item>
-                          </li>
-                          <li class='nav-item'>
-                            <Nav.Item className='justify-content-center settingSpacing'>
-                              <Nav.Link
-                                class='nav-link'
-                                id='profile-tab'
-                                data-toggle='tab'
-                                role='tab'
-                                aria-controls='profile'
-                                aria-selected='false'
                                 eventKey='highscores'
                               >
                                 High Scores
@@ -372,11 +356,7 @@ const CompanySet = () => {
                             </div>
                           </div>
                         </Tab.Pane>
-                        <Tab.Pane eventKey='badges'>
-                          <Badges></Badges>
-                        </Tab.Pane>
                         <Tab.Pane eventKey='highscores'>
-                          {/* <HighScores></HighScores> */}
                           <h3>Total Company Points: {totalScore}</h3>
                           <h3>Highest Scoring User: {highScore}</h3>
                         </Tab.Pane>
