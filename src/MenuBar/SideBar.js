@@ -29,7 +29,7 @@ const SideBar = () => {
     const [isCompanyLoading, setCompanyLoading] = useState(true)
     const [currentNav, setCurrentNav] = useState('home');
     const [isSideBarOpen, setSideBarOpen] = useState(false);
-   
+
     
     
     useEffect(() => {
@@ -57,11 +57,7 @@ const SideBar = () => {
     }, [])
 
         
-    const logout = () => {
-        axios.get(`${process.env.REACT_APP_BASE_URL}/users/logout`).then((response) => {
-            navigate('/')
-        }).catch((error) => console.log(error));
-    }
+  
 
 
     // Query for getting user's required learning modules

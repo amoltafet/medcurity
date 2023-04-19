@@ -950,7 +950,9 @@ const LeftQuizBar = (data, answer) => {
               );
             })}
           </div>
+
         </div>
+        
       </div>
     </div>
   );
