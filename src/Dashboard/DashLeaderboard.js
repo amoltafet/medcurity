@@ -131,7 +131,7 @@ const Leaderboard = (props) => {
                     }
                 }
                 // user is in the last position
-                if (users[users.length-1].username === props.user.username) {
+                if (users[users.length-1].username === props.user.username && users.length >= 3) {
                     return ([
                         <LeaderboardProfile
                             userid={users[users.length - 3].userid}
@@ -156,7 +156,7 @@ const Leaderboard = (props) => {
                     ]);
                 }
                 // user is in the first position 
-                else if (users[0].username === props.user.username) {
+                else if (users[0].username === props.user.username && users.length >= 3) {
                     return ([
                         <LeaderboardProfile
                             userid={props.user.userid}
@@ -182,7 +182,7 @@ const Leaderboard = (props) => {
                     ]);
                        
                 }
-                else if (users[users.length - 1].username !== props.user.username && otherUsers[1] !== undefined) {
+                else if (users[users.length - 1].username !== props.user.username && otherUsers[1] !== undefined && users.length >= 3) {
                     return ([
                         <LeaderboardProfile
                             userid={otherUsers[0].userid}
