@@ -26,12 +26,14 @@ var queryRouter = require('./routes/queryRoutes');
 var testingRouter = require('./routes/testingRoutes');
 var modulesRouter = require('./routes/modulesRoutes');
 var statsRouter = require('./routes/statsRoutes');
+var emailRouter = require('./routes/emailRoutes');
 
 app.use('/users', usersRouter);
 app.use('/api', queryRouter);
 app.use('/testing', testingRouter);
 app.use('/modules', modulesRouter);
 app.use('/stats', statsRouter);
+app.use('/email', emailRouter);
 
 app.get('/', function (req, res) {
   res.send('Hello World!  Use Azure! This is the base url for deployment purposes only. (This is the default route) 6');

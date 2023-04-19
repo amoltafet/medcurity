@@ -95,7 +95,15 @@ const AdminInvitations = () => {
           email: email,
           companyid: company
         })
-        .then(response => {})
+        .then(response => {
+          axios.post(`${process.env.REACT_APP_BASE_URL}/email/sendEmployerInvitation`,
+              {
+                  email: email
+              }).then((response) => {
+                  // console.log(response);
+          });
+          setTimeout(() => window.location.reload(), 750);
+        })
     }
   }
 
@@ -171,7 +179,6 @@ const AdminInvitations = () => {
               variant='contained'
               color='primary'
               onClick={invite}
-              href='/admin-dash'
               sx={{ mt: 2 }}
             >
               Invite

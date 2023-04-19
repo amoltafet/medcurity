@@ -1,0 +1,8 @@
+{
+    "service": "FastMail",
+    "auth":
+    {
+        "user": "medcurity_automated@fastmail.com",
+        "pass": "cw5ucpvgr5gueyk9"
+    }
+}

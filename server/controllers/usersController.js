@@ -107,6 +107,14 @@ const userChangePassword = async (req,res) =>
     }
 }
 
+const userResetPassword = async (req,res) =>
+{
+    const userid = req.body.userid
+    const newPassword = req.body.newPassword
+
+    updateUserPassword(userid, newPassword)
+}
+
 /**
  * Queries the database to register an inactive user.
  */
@@ -752,6 +760,7 @@ module.exports =
     userLogout,
     userChangeUsername,
     userChangePassword,
+    userResetPassword,
     userChangeCompanyName,
     userChangeCompanyBio,
     toggleCompanyPrivacy,

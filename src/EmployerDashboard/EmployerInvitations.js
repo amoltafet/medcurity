@@ -29,30 +29,38 @@ const EmployerInvitations = (props) => {
 
     /**
      * This function creates a new basic user account.
-     * First it trys to register a user, if this fails then
-     * it will print out the error message. If it succeeds 
-     * it will trigger a reload of page data
-     * 
+     * First it tries to register a user, if this fails then
+     * it will print out the error message. If it succeeds
+     * it will send an invitation email and trigger a reload
+     * of page data
      */
     const invite = () => {
         if (!isLoading) {
-            // // console.log('INVITING', email)
+            // console.log('INVITING', email)
             axios.post(`${process.env.REACT_APP_BASE_URL}/users/registerEmpty`,
                 {
                     email: email,
                     companyid: String(props.companyId),
                 }).then((response) => {
-                    // // console.log("response.data =", response.data)
+                    // console.log("response.data = ", response.data)
                     if (response.data.result === true) {
-                        console.log("A new invitation!")
-                        setMessage('')
+                        // console.log("A new invitation!")
+                        setMessage("")
+                        axios.post(`${process.env.REACT_APP_BASE_URL}/email/sendEmployeeInvitation`,
+                            {
+                                email: email
+                            }).then((response) => {
+                                // console.log(response);
+                        });
                         props.setReload(true)
                     }
                     else {
-                        console.log("Already has account!")
+                        // console.log("Already has account!")
                         setMessage(response.data.message)
                     }
-                });
+            });
+
+            
         }
     };
 
