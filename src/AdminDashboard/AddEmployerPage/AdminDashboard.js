@@ -10,6 +10,8 @@ import AddCompany from './AddCompany';
 import axios from 'axios';
 import DeleteCompany from './DeleteCompany';
 import InvalidPage from '../../InvalidPage/InvalidPage';
+import SideBar from '../../MenuBar/SideBar';
+import Grid from '@mui/material/Grid';
 // import env from "react-dotenv";
 
 /**
@@ -31,25 +33,24 @@ const AdminDashboardPage = () => {
 
       return (
       <>
-          <MenuBar></MenuBar>
-          <CardDeck className="justify-content-center" style={{display: 'flex', flexDirection: 'row'}}>
-            <Row lg={12}>
-              <Col xs={12} lg={4}>
+        <Grid container >
+                <div>
+            <SideBar />
+             </div>
+          <Grid sx={{ flexGrow: 1 }} item>
+              <Grid item >
                 <AddCompany />
-              </Col>
-              <Col xs={12} lg={4}>
+              </Grid>
+              <Grid item >
                 <AdminInvitations />
-              </Col>
-              <Col xs={12} lg={4}> 
+              </Grid>
+              <Grid item >
                 <DeleteCompany />
-              </Col>
-            </Row>
-          </CardDeck>
-            <Row className="justify-content-center">
-            <Col xs={11} lg={12}>
+              </Grid>
+            
               <EmployerCards />
-              </Col>
-            </Row>
+            </Grid>
+        </Grid>
       </>
       );
     }
@@ -66,11 +67,6 @@ const AdminDashboardPage = () => {
       )
     }
 }
-/*
-<CardDeck className="EmployerDashTopPanel" style={{display: 'flex', flexDirection: 'row'}}>
-          <HelloAdmin></HelloAdmin>
-        </CardDeck>
-        <EmployerCards></EmployerCards>
-*/
+
 
 export default AdminDashboardPage;

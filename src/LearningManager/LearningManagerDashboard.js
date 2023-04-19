@@ -67,10 +67,10 @@ const LearningManagerDashboardPage = () => {
     if (currentUser?.type === 'companyAdmin' || currentUser?.type === 'websiteAdmin') {
         return (
             <Grid container>
-        <Grid item xs={2}>
+        <Grid item >
             <SideBar />
         </Grid>
-        <Grid item xs={10}>
+        <Grid item xs={12} sm >
         <MenuBar></MenuBar>
   
                 <Row className="justify-content-center">

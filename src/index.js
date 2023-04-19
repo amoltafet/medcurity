@@ -37,9 +37,12 @@ import ResetPasswordPage from "./ResetPassword/Reset";
 import CompanyProfile from "./Company/CompanyProfile";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import Charts from "./Charts/Charts";
+import { ProSidebarProvider } from 'react-pro-sidebar';
+
+
 ReactDOM.render(
+  <ProSidebarProvider>
   <Router>
-       
     <Routes>
       <Route path="*" element={<InvalidPage />}/>
       <Route path="/" element={<LoginPage />}/>  
@@ -76,7 +79,7 @@ ReactDOM.render(
       <Route path="/company/:id" element={<CompanyProfile />} />
       <Route path="/charts" element={<Charts />} />
     </Routes>
-  </Router>,
+  </Router></ProSidebarProvider>,
   document.getElementById('root')
 );
 

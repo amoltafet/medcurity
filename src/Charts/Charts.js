@@ -405,10 +405,10 @@ useEffect(() => {
   {
       return (
         <Grid container>
-        <Grid item xs={2}>
+        <Grid item >
             <SideBar />
         </Grid>
-        <Grid item xs={10}>
+        <Grid item xs={12} sm >
         <MenuBar></MenuBar>
           <Grid container spacing={3} sx={{
               padding: 5,

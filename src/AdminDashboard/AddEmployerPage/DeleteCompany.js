@@ -101,8 +101,7 @@ const DeleteCompany = () => {
         sx={{
           p: 2,
           backgroundColor: '#FFFFFF',
-          maxWidth: 600,
-          margin: 'auto',
+          margin: '10px',
           marginTop: 5
         }}
       >

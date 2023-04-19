@@ -51,35 +51,11 @@ const AddCompany = () => {
     }
   }
 
-  /**
-   * This function creates a new basic user account.
-   * First it trys to register a user, then it
-   *
-   */
-  // const invite = () => {
-  //     // console.log('INVITING', email)
-  //     axios.post("${process.env.REACT_APP_BASE_URL}/users/register",
-  //     {
-  //     email: email,
-  //     }).then((response) =>
-  //     {
-  //     // console.log("response.data =", response.data)
-  //     if (response.data === true)
-  //     {
-  //         // console.log("A new invitation!")
-  //         navigate('/admin-dash');
-  //     }
-  //     else if (response.data === false)
-  //     {
-  //         // console.log("Already has account!")
-  //         setMessage('This email is already associated with an account! Please try a different email.')
-  //     }
-  //     });
-  // };
+  
 
   return (
     <ThemeProvider theme={theme}>
-      <Card sx={{ maxWidth: 400, margin: 'auto', marginTop: 5 }}>
+      <Card sx={{ margin: '10px', marginTop: 5 }}>
         <CardContent>
           <Typography variant='h5' component='div' sx={{ paddingBottom: 2 }}>
             Add a New Company
