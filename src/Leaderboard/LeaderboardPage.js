@@ -239,10 +239,10 @@ const LeaderboardPage = () => {
     if (currentUser?.userid) {
         return (
             <Grid container>
-        <Grid item xs={2}>
+        <Grid item >
             <SideBar />
         </Grid>
-        <Grid item xs={10}>
+        <Grid item sx={{ flexGrow: 1 }}>
         <Menubar/>
        
              

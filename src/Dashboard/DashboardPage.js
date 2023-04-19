@@ -52,15 +52,12 @@ const DashboardPage = () => {
   if (currentUser?.userid) {
     return (
       <Grid container >
-        <Grid item xs={2}>
+        <div>
             <SideBar />
-        </Grid>
-        <Grid item xs={10}>
+        </div>
+        <Grid sx={{ flexGrow: 1 }} item>
         <MenuBar/>
-        <Form className="dash_page">
-          
-         
-
+        
           
 
           <Grid container style={{alignItems: 'center', justifyContent: 'center', height: '45vh'}} className="dash-container">
@@ -94,19 +91,21 @@ const DashboardPage = () => {
                 marginTop: '30px',
               }}>View Full Leaderboard</Button>
             </div>
-          <br></br> 
+          <br></br>
+
         </Form>
         <div id="board" />
         <Grid container sx={{
           padding: '10px',
           width: '100%',
           height: '50px',
-          background: 'linear-gradient(to right, #001F40, #001F3F)',
           justifyContent: 'center',
           alignItems: 'center',
+          flexGlow: 1,
+
         }}>
           
-          <p className="dash_footerText text-light">© 2023 Medcurity. All rights reserved.</p>
+          <p className="dash_footerText ">© 2023 Medcurity. All rights reserved.</p>
         </Grid>
 
        </Grid>

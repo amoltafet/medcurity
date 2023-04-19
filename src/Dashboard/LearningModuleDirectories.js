@@ -42,7 +42,6 @@ const LearningModuleDirectories = () => {
                     <div className="card-body card-body-2">
                         <h4 className="card-title">{props.title}</h4>
                         <p className="card-text">Module {props.link}</p>
-                        <h6 className="card-text">{props.description}</h6>
                     </div>
                     <div className="card-footer card-footer-2" > 
                         <Button variant="outlined" href={"/learning-module/" + props.link}>View</Button>
@@ -52,22 +51,7 @@ const LearningModuleDirectories = () => {
         )
     }
  
-    /**
-     * Create directory cards from modules
-     */
-    function createDirectoriesCards(modules) {
-        const objs = []
-        for (let index in modules) { 
-            var module = modules[index]
-            objs.push(
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-                <DirectoryPanel title={module.Title} link={module.ID} description={module.Subtitle} img={module.Img_url}/>
-            </Grid>
-            
-            )
-        }
-        return objs;
-    }
+   
 
     return (
         <div className="container">
@@ -82,12 +66,18 @@ const LearningModuleDirectories = () => {
                 <Button
                     id="select-more-modules"
                     href='learning-directory'>
-                    {directories.length} modules
+                    View {directories.length} modules 
                 </Button>
         </div>
-            <Grid container spacing={2}>
-                {createDirectoriesCards(directories)}
-            </Grid>
+        <Grid container spacing={2}>
+                {directories.map((directory, index) => (
+                    <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
+                        <DirectoryPanel title={directory.Title} link={directory.ID} description={directory.Subtitle} img={directory.Img_url}/>
+                    </Grid>
+
+
+                ))}
+        </Grid>
         </div>
     );
 }

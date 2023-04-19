@@ -62,35 +62,37 @@ const EmployerDashboardPage = () => {
 
     if (currentUser?.type === 'companyAdmin' || currentUser?.type === 'websiteAdmin') {
         return (
-            <Grid container >
-                <Grid item xs={2}>
-                    <SideBar />
-                 </Grid>
-             <Grid item xs={10}>
-        <MenuBar/>
-            <Grid container spacing={3} >
-                    <Grid item xs={6}>
-                        <WelcomePanel user={currentUser} pageTitle={"Employer Dashboard"} />
-                    </Grid>
-                    <Grid item xs={6} >
-                        <EmployerInvitations companyId={companyId} reload={reload} setReload={setReload} />
-                    </Grid>
+            <Grid container>
+            <Grid item >
+                <SideBar />
+            </Grid>
+            <Grid item xs={12} sm >
+            <MenuBar></MenuBar>
+
+            <Row className="justify-content-center">
+                    <Col xs={11} md={7} lg={7} className="margin_bottom_learning_manager">
+                    <WelcomePanel user={currentUser} pageTitle={"Employer Dashboard"} />
+                    </Col>
+                    <Col xs={11} md={4} lg={4} className="margin_bottom_learning_manager">
+                    <EmployerInvitations companyId={companyId} reload={reload} setReload={setReload} />
+                    </Col>
+                </Row>
+
                     <Grid item xs={12}>
                         <EmployerResetUsersStats companyId={companyId} setReload={setReload}></EmployerResetUsersStats>
                     </Grid>
                     <Grid item xs={12} sx={{
                         marginLeft: '35px',
                         marginRight: '35px',
+                        marginBottom: '35px',
                     }}>
                     <EmployeeCards user={currentUser} companyId={companyId} reload={reload} setReload={setReload} />
                     </Grid>
             </Grid>
+        
+            </Grid>
 
-                 
-                   
-                
-            </Grid>
-            </Grid>
+                    
             )
             ;
     }
