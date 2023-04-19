@@ -7,7 +7,7 @@ const serverConfig = require('../serverConfig.json')
 const saltRounds = serverConfig.bcrypt.SALT_ROUNDS;
 const db = require('../dbConfig');
 
-const invitationEmailTemplate = fs.readFileSync('../src/Email/emailInvitation.html', 'utf-8');
+const invitationEmailTemplate = fs.readFileSync(path.join(__dirname, '..', '..', 'src/Email/emailInvitation.html'), 'utf-8');
 
 const sendEmployeeInvitationEmail = (req, res) => {
     const transporter = nodemailer.createTransport(transporterConfig);
