@@ -229,9 +229,9 @@ export default function ResetPasswordPage() {
             <form className={classes.form}>
               <img className={classes.formLogo} src="/Medcurity_Logo.png" alt="" />
               <h3 className={classes.formTitle}>Reset Password</h3>
-              <p className={classes.formText}>Enter your email below to receive a password reset link.</p>
-              <TextField className={classes.formField} label="Email" type="email" variant="outlined" />
-              <Button className={classes.formButton} onClick={sendResetLink} variant="contained">Send Email Verification Code</Button>
+              <p className={classes.formText}>Enter your email below to receive a password reset link:</p>
+              <TextField className={classes.formField} label="Email" type="email" variant="outlined" onChange={(e) => {setInputtedEmail(e.target.value);}}/>
+              <Button className={classes.formButton} onClick={sendResetLink} variant="contained">Send Password Reset Link</Button>
               <Button className={classes.formButton} onClick={login} variant="text">Back to Login Page</Button>
               </form>
             </div>
