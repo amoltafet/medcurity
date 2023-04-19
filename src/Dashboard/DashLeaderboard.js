@@ -55,6 +55,7 @@ const Leaderboard = (props) => {
                             element.Points = 0;
                         }
                     });
+                    console.log(Object.values(response.data));
                     setUsers(Object.values(response.data));
                 }).catch(error => console.error(`Error ${error}`));
         }  
