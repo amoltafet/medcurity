@@ -13,7 +13,7 @@ const sendEmployeeInvitationEmail = (req, res) => {
     const transporter = nodemailer.createTransport(transporterConfig);
 
     const mailOptions = {
-        from: "automated@medcurity.com",
+        from: "medcurity_automated@fastmail.com",
         to: req.body.email,
         subject: "Invitation to join Medcurity Learn",
         html: invitationEmailTemplate,
@@ -40,7 +40,7 @@ const sendEmployerInvitationEmail = (req, res) => {
     const transporter = nodemailer.createTransport(transporterConfig);
 
     const mailOptions = {
-        from: "automated@medcurity.com",
+        from: "medcurity_automated@fastmail.com",
         to: req.body.email,
         subject: "Invitation to join Medcurity Learn",
         html: invitationEmailTemplate,
@@ -122,12 +122,12 @@ function sendPasswordResetEmail(email, resetToken) {
 	const transporter = nodemailer.createTransport(transporterConfig);
 
     const mailOptions = {
-        from: "automated@medcurity.com",
+        from: "medcurity_automated@fastmail.com",
         to: email,
         subject: "Link to change your Medcurity Learn password",
         html: `
 		<p>If you requested to reset your password, please click the link below. It expires in 15 minutes.</p>
-		<a href="localhost:3000/resetPassword?token=${resetToken}">Reset Your Password</a>
+		<a href="localhost:3000/resetPassword?token=${resetToken}">localhost:3000/resetPassword?token=${resetToken}</a>
 		`
     };
 
