@@ -29,6 +29,7 @@ const LearningModuleAdder = (props) => {
     axios.defaults.withCredentials = true;
     const [message, setMessage] = useState("");
     const [modules, setModules] = useState("");
+    const [moduleChanged, setModuleChanged] = useState(false);
     const [learningModule, setLearningModule] = useState(0);
     const [isLoading, setLoading] = useState(true)
     
@@ -50,7 +51,15 @@ const LearningModuleAdder = (props) => {
                     setLearningModule(Object.values(response.data)[0].ID)
             });
         }
-	}, [isLoading, props.reload, props.companyID])
+	}, [isLoading, props.reload, props.companyID]);
+
+    // adds modules when user selects it
+	useEffect(() => {
+        if (moduleChanged) {
+            setModuleChanged(false);
+            addModule();
+        }
+	}, [learningModule]);
 
     /**
      * Adding a module based on current learningModule variable
@@ -82,9 +91,10 @@ const LearningModuleAdder = (props) => {
     }
 
     const handleChange = (e) => {
+        setModuleChanged(true);
         setLearningModule(e.target.value);
-        addModule();
       };
+
 
     return (
         <Card  style={{
